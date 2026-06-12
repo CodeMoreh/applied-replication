@@ -1,0 +1,56 @@
+/* Applied Replication workshop – minimal custom styles */
+
+/* Heading colour: NCL blue */
+h1, h2, h3, h4, h5, h6 {
+  color: #0e3b6a;
+}
+
+/* Link colour */
+a {
+  color: #a10000;
+}
+
+a:hover {
+  color: #7a0000;
+}
+
+/* Visited links stay in the same family */
+a:visited {
+  color: #a10000;
+}
+
+/* Exercise task callout box */
+.task-box {
+  border-left: 4px solid #0e3b6a;
+  background-color: #f0f4f8;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.task-box .task-label {
+  font-weight: 700;
+  color: #0e3b6a;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+
+/* Schedule table: compact */
+table.schedule {
+  font-size: 0.9rem;
+}
+
+/* Navbar brand colour override */
+.navbar {
+  background-color: #0e3b6a !important;
+}
+
+.navbar-brand, .navbar-nav .nav-link {
+  color: #ffffff !important;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #e0c080 !important;
+}

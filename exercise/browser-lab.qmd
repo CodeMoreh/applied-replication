@@ -1,0 +1,403 @@
+---
+title: "Browser lab – the whole exercise, no installation"
+subtitle: "Track A: everything runs in this tab"
+engine: knitr
+format:
+  live-html:
+    toc: true
+    webr:
+      packages:
+        - dplyr
+        - readr
+        - ggplot2
+        - broom
+        - fixest
+        - plm
+        - dagitty
+        - ggdag
+resources:
+  - ../data/rep_data.csv
+  - ../data/teney_panel.csv
+live:
+  show-hints: true
+  show-solutions: true
+---
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+::: {.callout-important icon=false}
+## Before you touch anything – the R engine is downloading
+
+The R engine downloads into your browser the first time you open this page (10–30 seconds on conference wifi) – read Task A while it warms up. You will see the first code cell switch from a loading spinner to a "Run Code" button when it is ready.
+
+Keep this tab open. Your work lives in this page until you refresh – there is nothing to install, nothing to save to disk, and no account needed to run the analysis. (You will only need a GitHub account at the very end, for Task E, if you want to publish.)
+:::
+
+```{webr}
+#| edit: false
+#| autorun: true
+#| output: false
+# Shared setup – this runs automatically once the engine is ready.
+# It loads the two published artifacts into your browser session so every
+# editable cell below can use `rep` (the OSF file) and `ten` (the corrected panel).
+# The files arrive at data/... in the browser via the page's `resources:`.
+rep <- read.csv("data/rep_data.csv")
+ten <- read.csv("data/teney_panel.csv")
+```
+
+You are **analyst no. 6**. Five analysts reanalysed a claim from Teney (2016) for the Multi100 project; you are repeating the exercise with a transparent pipeline. The full task description, the claim, and the five-analyst table live on the [Exercise overview](index.qmd) – this page is the runnable version of Tasks A to D for people working entirely in the browser.
+
+---
+
+## Task A – Concepts (warm-up while the engine loads)
+
+No code here – just three definitions to settle in your mind before you analyse anything. The wording you want is on the [Resources glossary](../resources.qmd); try to fill each blank yourself first, then check.
+
+Three activities are easy to confuse, and the whole workshop turns on telling them apart:
+
+- **Reproducibility** – same question, same data, same analysis, you get … *(the same result – or you do not, which is itself a finding)*.
+- **Robustness** – same question, same data, a different but justifiable analysis, the result … *(holds up, or moves – this is what Task D2 tests)*.
+- **Replicability** – same question, brand-new independent data, the result … *(appears again, or does not)*.
+
+::: {.callout-note collapse="true"}
+## Which one is this exercise?
+
+Task D1 (recovering the published number) is a **reproducibility** check. Task D2 (your own justified specification) is a **robustness** check – you and your classmates together sample the 'multiverse' of defensible analyses. Replicability would need a fresh survey, which is out of scope today. The umbrella term Nosek et al. use for all three is **repeatability**.
+:::
+
+---
+
+## Task B – Get the data and look at it
+
+The published artifact `rep_data.csv` is already loaded for you as `rep`. It comes from the analyst's fork on OSF (osf.io/6zqct – "Multi100 | Teney_EurSocioRev_2016 | Analyst_C6HJR"); the official Multi100 archival record is at osf.io/8rtwe. Track B participants fetch it over the network with the `osfr` package; in the browser it is pre-loaded so you can get straight to the analysis.
+
+Run the cell below to inspect the panel. Edit it freely – this is your environment.
+
+```{webr}
+#| autorun: false
+# How many countries, how many years, how big is the panel?
+dplyr::glimpse(rep)
+
+cat("\nCountries:", dplyr::n_distinct(rep$cntry),
+    " Years:", dplyr::n_distinct(rep$year),
+    " Rows:", nrow(rep), "\n")
+```
+
+You should see **270 rows**, **27 countries**, **10 years** (2004–2013), and 11 columns. The outcome we care about first is `mcosmopolitan` – the mean 'cosmopolitan' framing of the EU in each country-year (a 0–1 scale; see the [codebook](../data/teney_panel_codebook.md)). The exposure is `unemp`, the annual unemployment rate.
+
+Now look at the outcome over time, one small panel per country:
+
+```{webr}
+#| autorun: false
+#| fig-width: 9
+#| fig-height: 6
+library(ggplot2)
+
+ggplot(rep, aes(x = year, y = mcosmopolitan)) +
+  geom_line(colour = "grey55") +
+  geom_point(size = 0.7) +
+  facet_wrap(~ cntry, ncol = 6) +
+  scale_x_continuous(breaks = c(2004, 2008, 2013)) +
+  labs(
+    title = "Cosmopolitan EU framing by country, 2004–2013",
+    x = NULL, y = "Mean cosmopolitan framing"
+  ) +
+  theme_minimal(base_size = 9)
+```
+
+Most countries drift gently; a few move sharply around the 2009 crisis. That variation – within a country, over time – is exactly what the fixed-effects model in Task D1 uses.
+
+---
+
+## Task C – Estimand and DAG
+
+Before fitting anything, say what you are trying to estimate, in words. A template you can adapt:
+
+> The **unit-specific quantity** is the change in a country-year's mean cosmopolitan EU framing associated with a one-point change in that country's unemployment rate. The **target population** is EU member states over 2004–2013. The **aggregation** is the average of those unit-specific effects, holding fixed each country's time-invariant traits and each year's EU-wide shocks.
+
+That last clause is a causal claim, and a DAG makes it checkable. The cell below builds a directed acyclic graph with the **five edges we are willing to commit to** – the same starter DAG as in the template repository's `R/dag_starter.R`. Five candidate edges are commented out – uncomment the ones you believe in, re-run, and watch how `adjustmentSets()` changes.
+
+```{webr}
+#| autorun: false
+#| fig-width: 7
+#| fig-height: 5
+library(dagitty)
+library(ggdag)
+
+# The five edges we are willing to commit to:
+committed_edges <- "
+  unemployment -> framing
+  country -> unemployment
+  country -> framing
+  year -> unemployment
+  year -> framing
+"
+
+# Candidate edges – uncomment the ones you can defend, then re-run.
+# (dagitty has no comment syntax of its own, so we add them here in R.)
+candidate_edges <- c(
+  # "growth -> unemployment",      # growth as a confounder of the exposure
+  # "growth -> framing",           # ... and of the outcome
+  # "unemployment -> bailout",     # bailout as a mediator ...
+  # "bailout -> framing",          # ... on the path to framing
+  # "politicisation -> framing"    # party cueing shapes framing directly
+)
+
+dag <- dagitty(paste0(
+  "dag {", committed_edges, paste(candidate_edges, collapse = "\n"), "}"
+))
+
+exposures(dag) <- "unemployment"
+outcomes(dag)  <- "framing"
+
+# tidy left-to-right layout (extra nodes are harmless if their edges are off)
+coordinates(dag) <- list(
+  x = c(unemployment = 0, framing = 3, growth = 1.5,
+        country = 1.5, year = 2.4, bailout = 0.6, politicisation = 2.8),
+  y = c(unemployment = 0, framing = 0, growth = 1.6,
+        country = 2.2, year = -1.6, bailout = -2.2, politicisation = 1.8)
+)
+
+# The plot. If ggdag misbehaves in your browser, the tryCatch prints a
+# message instead of failing – the same DAG is on the slides.
+plotted <- tryCatch({
+  print(ggdag(dag, text = TRUE, node_size = 16) + theme_dag())
+  TRUE
+}, error = function(e) {
+  cat("The DAG plot did not render in this browser session.\n")
+  cat("See the DAG figure on the slides; the adjustment set still prints below.\n")
+  cat("(technical detail:", conditionMessage(e), ")\n")
+  FALSE
+})
+
+cat("\nMinimal sufficient adjustment set(s) to identify unemployment -> framing:\n")
+print(adjustmentSets(dag, exposure = "unemployment", outcome = "framing"))
+```
+
+With the five committed edges, the adjustment set is `{ country, year }` – exactly what a two-way fixed-effects model absorbs. That is no accident: the DAG and the Task D1 model encode the same identification claim. Uncomment the `growth` edges and the set becomes `{ country, year, growth }` – now your model needs `+ growth` to match your beliefs. Write two sentences for your own notes: what do two-way fixed effects adjust for, and what can they **not** fix? (Hint: anything time-varying within a country that you have not measured.)
+
+---
+
+## Task D1 – Reproduce the constrained result
+
+This is the **reproducibility** check. Fit the two-way fixed-effects model the Multi100 Task-2 constraints point to:
+
+```
+mcosmopolitan ~ unemp_c   with fixed effects for country and year
+```
+
+where `unemp_c` is the unemployment rate centred on its grand mean. The target is **t = −3.853** (df = 233, N = 270) on the published `rep_data.csv`.
+
+The cell below is an exercise. Replace the blanks (`______`) with the missing code, then press "Run Code". Stuck? Open the hint; want to check? Open the solution.
+
+```{webr}
+#| setup: true
+#| exercise: reproduce
+# make the data available inside the exercise (independent of the cells above)
+rep <- read.csv("data/rep_data.csv")
+```
+
+```{webr}
+#| exercise: reproduce
+# 1. centre the unemployment rate on its grand mean
+rep$unemp_c <- rep$unemp - ______
+
+# 2. fit two-way fixed effects with fixest::feols
+#    the part after the | adds the fixed effects
+m1 <- feols(mcosmopolitan ~ unemp_c | ______, data = rep)
+
+broom::tidy(m1)
+```
+
+::: {.hint exercise="reproduce"}
+::: {.callout-note collapse="false"}
+## Hint 1 – centring
+
+To centre a variable on its grand mean, subtract the mean of the whole column:
+
+```r
+rep$unemp_c <- rep$unemp - mean(rep$unemp)
+```
+
+With fixed effects present this does not change the t-statistic, but it is the transformation the constrained specification asks for, so do it explicitly.
+:::
+:::
+
+::: {.hint exercise="reproduce"}
+::: {.callout-note collapse="false"}
+## Hint 2 – the fixed-effects syntax
+
+In `fixest::feols`, the bar `|` separates the regression from the fixed effects. To add country and year fixed effects, list them after the bar separated by `+`:
+
+```r
+feols(mcosmopolitan ~ unemp_c | cntry + year, data = rep)
+```
+:::
+:::
+
+::: {.solution exercise="reproduce"}
+::: {.callout-tip collapse="false"}
+## Fully worked solution
+
+```r
+rep$unemp_c <- rep$unemp - mean(rep$unemp)
+m1 <- feols(mcosmopolitan ~ unemp_c | cntry + year, data = rep)
+broom::tidy(m1)
+```
+
+You should get `estimate ≈ −0.00341`, `std.error ≈ 0.00088`, `statistic ≈ −3.85`. `feols` reports IID standard errors by default when two fixed-effect dimensions are present, which is why it matches the `plm` value to three decimals.
+:::
+:::
+
+### The result you got is not the result on file
+
+Here is the twist that makes this a workshop and not a button-press. The value recorded for this analyst (C6HJR) in the Multi100 dataset is **t = −3.804**, not the −3.853 you just produced. Same model, same published data, two different numbers. Run the next cell to see them side by side:
+
+```{webr}
+#| autorun: false
+rep$unemp_c <- rep$unemp - mean(rep$unemp)
+m_rep <- feols(mcosmopolitan ~ unemp_c | cntry + year, data = rep)
+
+ten$unemp_c <- ten$unemp - mean(ten$unemp)
+m_ten <- feols(mcosmo ~ unemp_c | cntry + year, data = ten)
+
+cat(sprintf("published rep_data.csv : t = %.3f\n", broom::tidy(m_rep)$statistic))
+cat(sprintf("corrected panel        : t = %.3f  <- the recorded value\n",
+            broom::tidy(m_ten)$statistic))
+```
+
+::: {.callout-note collapse="false"}
+## What happened – and why it is good news
+
+The original data-prep script read the EB 70.1 file (ZA4819) twice – once for 2008 (correct) and again in place of EB 72.4 (ZA4994) for the year 2009 (incorrect). **The analyst spotted and corrected this during the project.** The recorded result (t = −3.804) came from the corrected pipeline. The annotated script is in the analyst's fork (`osf.io/6zqct`, folder `moreh_rep_vAPR2025/`), where it carries the note "APRIL 2025 – Mistake in dataset here; the dataset associated with 'eb724' should be 'ZA4994_v3-0-0.dta'". The official Multi100 component (`osf.io/8rtwe`) preserved only the earlier, uncorrected folder; the full trail is now public in the fork.
+
+This workshop's corrected panel (`teney_panel.csv`) rebuilds the same corrected wave set independently from the raw GESIS files – and the model on it recovers **t = −3.804 exactly**, confirming which dataset produced the recorded value. Frame this the right way: the published `rep_data.csv` is what made the discrepancy findable in the first place. Versioned, documented corrections are normal science; open materials are what keep the whole trail checkable. (Every non-2009 aggregate matches the published file to within 5.6e-17, which is how we know the rest of the pipeline is identical.)
+:::
+
+---
+
+## Task D2 – Your fork in the path
+
+This is the **robustness** check, and it is the part your classmates cannot copy from you. You pick **one** deviation from the published specification, justify it in two sentences, and report what it does to the estimate. Together the room samples the multiverse of defensible analyses.
+
+The cell below has six choices at the top – the same axes as the full [specification menu](spec-menu.qmd). Change one (or more), read the comments for the allowed options, and run it. A small helper fits whichever specification you describe.
+
+```{webr}
+#| autorun: false
+# ---- YOUR CHOICES (edit these) -------------------------------------------
+my_outcome       <- "mcosmo"     # mcosmo | mutil | mcomm | mlib | mpos | mneg
+my_exposure_form <- "centred"    # raw | centred | log | logz
+my_control       <- "none"       # none | growth
+my_estimator     <- "feols_tw"   # feols_tw | plm_tw | plm_re | ols_cluster
+my_sample        <- "all"        # all | precrisis | crisis | nobailout | no_gr_es
+my_weights       <- "none"       # none | n_cy
+# --------------------------------------------------------------------------
+
+# ---- helper: fit the specification you described above -------------------
+d <- ten   # the corrected panel from the shared setup
+d <- switch(my_sample,
+  all       = d,
+  precrisis = subset(d, year <= 2008),
+  crisis    = subset(d, year >= 2009),
+  nobailout = subset(d, bailout == 0),
+  no_gr_es  = subset(d, !(cntry %in% c("GR", "ES"))))
+
+d$expo <- switch(my_exposure_form,
+  raw     = d$unemp,
+  centred = d$unemp - mean(d$unemp),
+  log     = log(d$unemp),
+  logz    = as.numeric(scale(log(d$unemp))))
+
+d$y  <- d[[my_outcome]]
+wts  <- if (my_weights == "n_cy") d$n_cy else NULL
+rhs  <- if (my_control == "growth") "expo + growth" else "expo"
+
+my_model <- switch(my_estimator,
+  feols_tw    = feols(as.formula(paste("y ~", rhs, "| cntry + year")),
+                      data = d, weights = wts),
+  plm_tw      = plm(as.formula(paste("y ~", rhs)), data = d,
+                    index = c("cntry", "year"), effect = "twoways", model = "within"),
+  plm_re      = plm(as.formula(paste("y ~", rhs)), data = d,
+                    index = c("cntry", "year"), model = "random"),
+  ols_cluster = feols(as.formula(paste("y ~", rhs)), data = d,
+                      weights = wts, cluster = ~ cntry))
+
+summary(my_model)
+```
+
+### Preregister, then report
+
+The point of preregistration is that you commit to a choice **before** you see what it does. Track B participants do this with a `prereg:` git commit; your equivalent is the Discussion thread.
+
+::: {.callout-warning icon=false}
+## Do this in order
+
+1. **Preregister first.** Before you run the cell above with your chosen specification, post your intended choice to the [Results board Discussion thread](https://github.com/CodeMoreh/applied-replication/discussions) – one line, e.g. `prereg: mpos ~ log(unemp) + growth | feols_tw | crisis`. The timestamp is your preregistration.
+2. **Then run** your specification.
+3. **Then report** the result line the helper below prints, pasted into the same thread.
+:::
+
+Paste the function below into the editable cell (or run it here after running your model) to print the standardised result line. It is self-contained and works for `fixest`, `plm`, and `lm` models:
+
+```{webr}
+#| autorun: false
+report_result <- function(model, spec = "unspecified", term = NULL) {
+  # pull the coefficient table in a model-agnostic way
+  if (inherits(model, "fixest")) {
+    ct <- summary(model)$coeftable
+  } else if (inherits(model, "plm")) {
+    ct <- summary(model)$coefficients
+  } else if (inherits(model, "lm")) {
+    ct <- coef(summary(model))
+  } else {
+    stop("Unsupported model type: ", paste(class(model), collapse = "/"))
+  }
+  rn <- rownames(ct)
+  # the exposure is the first coefficient that is not an intercept
+  if (is.null(term)) term <- rn[!grepl("Intercept", rn)][1]
+
+  b <- ct[term, 1]; se <- ct[term, 2]; tval <- ct[term, 3]
+
+  if (inherits(model, "fixest")) {
+    dfree <- as.integer(fixest::degrees_freedom(model, type = "t"))
+    nobs_ <- as.integer(model$nobs)
+  } else if (inherits(model, "plm")) {
+    dfree <- as.integer(model$df.residual)
+    nobs_ <- as.integer(nrow(model$model))
+  } else {
+    dfree <- as.integer(summary(model)$df[2])
+    nobs_ <- as.integer(length(model$residuals))
+  }
+
+  r <- tval / sqrt(tval^2 + dfree)   # partial correlation, as Multi100 used
+  cat(sprintf(
+    "RESULT | spec: %s | b = %.5f | se = %.5f | t = %.3f | df = %d | n = %d | r = %.3f\n",
+    spec, b, se, tval, dfree, nobs_, r))
+  invisible(list(term = term, b = b, se = se, t = tval, df = dfree, n = nobs_, r = r))
+}
+
+# example on the model you fitted above:
+report_result(my_model, spec = "mcosmo ~ unemp_c | feols_tw | all")
+```
+
+Copy the `RESULT | …` line it prints and paste it into the Discussion thread, under your prereg post. That is your contribution to the class multiverse.
+
+---
+
+## Task E – Still want the GitHub experience?
+
+You did the whole analysis without installing anything – but Track A participants can still finish with a published repository. Three routes, easiest first:
+
+1. **Save your code.** Copy the cells you edited into a plain text file on your laptop (call it `analysis.R` or `report.qmd`). Everything you need is in this tab.
+2. **Make a repo by upload.** On [github.com](https://github.com), create a new public repository, then use **Add file → Upload files** to drag your saved file in. No git, no command line – your first repo in about three minutes.
+3. **Edit in the browser.** On any GitHub repository, press the `.` key to open **github.dev** (a full VS Code editor in the browser), or change `github.com` to `github.dev` in the URL. You can edit, commit, and push entirely online.
+
+The [Cheatsheet](cheatsheet.qmd) has the click-by-click version, including how to switch on GitHub Pages so your report gets a live URL.
+
+---
+
+::: {.callout-tip icon=false}
+## After the workshop – the full pipeline
+
+Everything you did here also exists as a proper reproducible project: a template repository you clone, edit in Positron, and publish. If you want the version with version control, `osfr` data-fetching, and automated rendering, start from the [Full pipeline track](index.qmd) – the [`replication-lab` template](https://github.com/CodeMoreh/applied-replication) is yours to reuse.
+:::

@@ -1,0 +1,82 @@
+---
+title: "Applied Replication for Data Skills"
+subtitle: "A hands-on workshop · {{< var event >}}"
+---
+
+You were taught that science self-corrects. Three papers published in *Nature* in April 2026 asked whether that is actually true – and found a more complicated picture. In this workshop, you step inside one of those studies, take the seat of "analyst no. 6", and test the robustness of a published finding using the same data and workflow the project used.
+
+Every technical skill you practise – retrieving data from OSF, version-controlling your analysis, publishing a reproducible report – is exercised because the replication task requires it, not as an end in itself.
+
+---
+
+## Event details
+
+| | |
+|---|---|
+| **Event** | {{< var event >}} |
+| **Date** | {{< var date >}} |
+| **Time** | {{< var time >}} |
+| **Room** | {{< var room >}} |
+| **Programme** | [{{< var programme-url >}}]({{< var programme-url >}}) |
+
+---
+
+## What you will do
+
+The workshop centres on Teney (2016), a study of EU attitudes across 27 countries. You will:
+
+1. **Reproduce** the constrained result that five independent analysts published as part of the Multi100 project – confirming the same coefficient from the same data.
+2. **Deviate (with reasons)** – choose one justifiable alternative from a specification menu, preregister your choice with a git commit, run the model, and report a standardised result.
+3. **See the multiverse** – your result, alongside your classmates' and the five published analysts', on one chart.
+
+The exercise is a miniature version of Multi100 itself: same claim, five-plus analysts, explicit choices, comparable results.
+
+---
+
+## Two tracks – pick the one that fits your setup
+
+::: {.callout-note}
+### Track A – Browser only (no installation required)
+
+Open the [Browser lab](exercise/browser-lab.qmd) page. The R engine runs entirely in your browser via webR – no R, Positron, or Git needed on your machine. The page will take 10–30 seconds to load the first time; read the task while it warms up.
+
+This track covers the full analytical exercise. The only thing you cannot do in-browser is the git workflow; for that step, you will use the GitHub web interface.
+:::
+
+::: {.callout-tip}
+### Track B – Full pipeline (Positron + Git)
+
+You have R, Positron, Quarto, and Git installed. You will clone the [template repository]({{< var template-repo >}}), work locally, commit as you go, and publish your report to GitHub Pages automatically via a pre-built workflow.
+
+Track B is the richer experience: you leave the session with a live public page, a committed git history, and a portfolio piece.
+
+Not set up yet? Go to [Setup](setup.qmd) now – it takes about 30 minutes.
+:::
+
+Work in **pairs**: one laptop per pair, one person drives. If one laptop in the pair has a broken toolchain, the other picks up Track B; the broken one follows along on Track A.
+
+---
+
+## Session schedule
+
+| Time | Segment |
+|---|---|
+| 10:15 | Welcome and pairs formed |
+| 10:20 | Talk I – the three Rs: reproducibility, robustness, replicability (via the three *Nature* 2026 papers) |
+| 10:38 | Talk II – the Teney case: original claim, SCORE reproduction attempt, five-analyst reveal |
+| 10:48 | Setup sprint: get a track working, or verify yours is ready |
+| 11:03 | Concepts: estimands and DAGs – mini-lecture then guided exercise |
+| 11:21 | Reproduce the constrained result (t ≈ −3.80) |
+| 11:33 | **Break** |
+| 11:43 | Your analytical path: choose a specification, preregister, run, report |
+| 12:05 | Share and publish |
+| 12:15 | Multiverse debrief: the class specification curve |
+| 12:27 | Wrap and resources |
+
+---
+
+::: {.callout-important}
+## Before you arrive → [Setup](setup.qmd)
+
+If you want Track B (full pipeline), please read the Setup page before the day and allow 30 minutes for installs. The single essential step for everyone – creating a free GitHub account and verifying your email – is much easier done at home than on conference wifi.
+:::

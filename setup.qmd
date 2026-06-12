@@ -1,0 +1,96 @@
+---
+title: "Setup"
+subtitle: "What to do before {{< var date >}}"
+---
+
+This page tells you exactly what to prepare before the workshop. Read through all three levels and do everything that applies to you.
+
+---
+
+## Level 1 – Essential (5 minutes, do this at home)
+
+**Create a free GitHub account and verify your email address.**
+
+1. Go to [github.com](https://github.com) and sign up with any email address you use regularly.
+2. GitHub will send you a verification email. Click the link in it **before the day** – this is important. Unverified accounts cannot push code or enable GitHub Pages, and verifying on conference wifi can be slow due to CAPTCHA checks.
+3. That is all. You do not need to do anything else at this stage.
+
+If you already have a GitHub account, make sure your email address is verified (Settings → Emails).
+
+---
+
+## Level 2 – Recommended for Track B (~30 minutes, do this at home)
+
+Track B is the full-pipeline experience: local R, version control, and automatic publishing. If you want this, install the following before the day.
+
+### Software to install
+
+| Software | Minimum version | Download |
+|---|---|---|
+| **R** | 4.4 | [cran.r-project.org](https://cran.r-project.org/) |
+| **Positron** | latest | [positron.posit.co](https://positron.posit.co) |
+| **Quarto CLI** | 1.5+ | [quarto.org/docs/get-started/](https://quarto.org/docs/get-started/) |
+| **Git** | 2.40+ | [git-scm.com/downloads](https://git-scm.com/downloads) |
+
+Install them in the order listed; Positron will detect R and Quarto automatically if they are already present.
+
+### Platform notes
+
+**Windows:** Use the standard `.exe` installers for all four. When the Git installer asks about PATH, choose "Git from the command line and also from 3rd-party software".
+
+**macOS:** R and Quarto have `.pkg` installers. For Positron, use the `.dmg`. Install Git via [git-scm.com](https://git-scm.com/download/mac) or Homebrew (`brew install git`).
+
+**Linux:** Use your distribution's package manager for R and Git. Download Positron and Quarto from their respective sites.
+
+### Configure git with your name and email
+
+Open a terminal (or the Positron terminal) and run these two commands, substituting your own details:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your@email.com"
+```
+
+Use the same email address as your GitHub account.
+
+### Sign into GitHub from Positron
+
+In Positron, open the Accounts menu (bottom-left of the window) and sign in with your GitHub account via browser OAuth. This handles authentication for cloning and pushing – no personal access tokens needed.
+
+### Test your setup
+
+Run the check script from the template repository. In R (or the Positron console):
+
+```r
+source("https://raw.githubusercontent.com/CodeMoreh/replication-lab/main/R/check_setup.R")
+```
+
+The script prints OK or FAIL for each requirement (R version, Quarto on PATH, Git on PATH, git user.name/email, required packages, network access to osf.io). Fix any FAILs before the day.
+
+The template repository is at [{{< var template-repo >}}]({{< var template-repo >}}).
+
+### R packages
+
+The check script will install missing packages automatically if you allow it. The packages used in the workshop are: `dplyr`, `readr`, `tidyr`, `ggplot2`, `broom`, `fixest`, `plm`, `sandwich`, `lmtest`, `dagitty`, `ggdag`, `modelsummary`, `haven`, `osfr`. All are on CRAN.
+
+---
+
+## Level 3 – Nothing installed? No problem
+
+If you arrive without R, Positron, or Git installed, you can complete the full analytical exercise on Track A – the browser-only path.
+
+Track A uses [webR](https://docs.r-wasm.org/webr/latest/), which runs R entirely inside your browser. No installation, no account beyond GitHub, no admin rights needed on your machine. The [Browser lab](exercise/browser-lab.qmd) page has everything you need.
+
+The only step that differs is the publishing step: instead of pushing from Positron, you will upload your saved script to a new GitHub repository via the web interface. The workshop will walk you through this ("first repo in 3 minutes").
+
+---
+
+## Optional pre-reading
+
+These are not required, but if you want to arrive with context:
+
+| Reading | Why | Effort |
+|---|---|---|
+| [Nosek et al. (2025) – A Brief Glossary of Terms about Repeatability](https://doi.org/10.31222/osf.io/mqfp4_v1) | Pins down the vocabulary the workshop uses; 4 pages, genuinely brief | **Essential if unfamiliar with the terminology** |
+| [Aczel et al. (2026)](https://doi.org/10.1038/s41586-025-09844-9) – the Multi100 *Nature* paper | The study your workshop exercise is drawn from | Recommended |
+| [Auspurg & Brüderl (2021)](https://doi.org/10.1177/23780231211024421) – Reanalysing 'Many Analysts, One Data Set' | Short, open-access; explains why the estimand matters and why fixing it narrows the multiverse | Recommended |

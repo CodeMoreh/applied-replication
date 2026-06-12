@@ -1,0 +1,63 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - data/
+    - assets/
+  render:
+    - "*.qmd"
+    - "data/*.md"
+    - "exercise/*.qmd"
+    - "slides/*.qmd"
+    - "!_planning/**"
+    - "!_planning_data/**"
+    - "!_template/**"
+    - "facilitator/guide.qmd"   # rendered but not linked in the navbar
+
+website:
+  title: "Applied Replication for Data Skills"
+  site-url: "https://codemoreh.github.io/applied-replication/"
+  repo-url: "https://github.com/CodeMoreh/applied-replication"
+  repo-actions: [issue]
+  favicon: assets/logo.png
+
+  navbar:
+    logo: assets/logo.png
+    logo-alt: "CM logo"
+    left:
+      - href: index.qmd
+        text: Home
+      - href: setup.qmd
+        text: Setup
+      - href: slides/index.qmd
+        text: Slides
+      - text: Exercise
+        menu:
+          - href: exercise/index.qmd
+            text: Overview
+          - href: exercise/browser-lab.qmd
+            text: "Browser lab (no install)"
+          - href: exercise/spec-menu.qmd
+            text: Specification menu
+          - href: exercise/cheatsheet.qmd
+            text: Cheatsheet
+      - href: results.qmd
+        text: Multiverse
+      - href: resources.qmd
+        text: Resources
+
+  page-footer:
+    left: |
+      Content licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) ·
+      [GitHub repo](https://github.com/CodeMoreh/applied-replication)
+    right: |
+      Built with [Quarto](https://quarto.org/)
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+execute:
+  freeze: auto

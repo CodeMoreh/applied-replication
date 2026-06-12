@@ -1,0 +1,148 @@
+---
+title: "The Multiverse"
+subtitle: "Every line is a justifiable analysis"
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+This page shows the specification curve for the workshop exercise. When data files are present, the charts below render automatically. Before the session – or when the data files are absent – the page renders with placeholder messages.
+
+The logic of the visualisation follows the specification-curve idea (Simonsohn, Simmons and Nelson): one point per justifiable analysis, ordered by size. Because the menu mixes outcome scales and exposure transforms, raw coefficients are not comparable across specifications – the chart therefore plots the **partial correlation** (r = t/sqrt(t^2 + df)), the same metric Multi100 used to compare analysts. A horizontal line at zero marks the boundary between negative and positive associations. Your contribution sits somewhere on this chart.
+
+---
+
+## Specification curve
+
+```{r}
+#| label: spec-curve
+#| fig-width: 9
+#| fig-height: 5
+#| fig-alt: "Specification curve: partial correlations for 1,680 specifications, ordered by size, coloured by outcome variable, with the constrained baseline marked. Horizontal line at zero."
+
+library(ggplot2)
+
+spec_file <- "data/spec_grid.csv"
+
+if (file.exists(spec_file)) {
+  spec <- read.csv(spec_file)
+
+  required_cols <- c("estimate", "statistic", "df", "r", "outcome", "baseline")
+  if (all(required_cols %in% names(spec))) {
+
+    # order by partial r - the cross-specification comparable metric
+    spec <- spec[order(spec$r), ]
+    spec$rank <- seq_len(nrow(spec))
+    spec$sig <- abs(spec$statistic) > qt(0.975, spec$df)
+    base_pt <- spec[spec$baseline, ]
+
+    p <- ggplot(spec, aes(x = rank, y = r)) +
+      geom_hline(yintercept = 0, linetype = "dashed", colour = "grey50") +
+      geom_point(aes(colour = outcome, alpha = sig), size = 1.2) +
+      geom_point(data = base_pt, shape = 23, size = 3.5,
+                 fill = "#a10000", colour = "black") +
+      annotate("text", x = base_pt$rank, y = base_pt$r - 0.08,
+               label = "constrained baseline\n(t = -3.80)", size = 3,
+               colour = "#a10000", hjust = 0.2) +
+      scale_colour_brewer(palette = "Dark2", name = "Outcome") +
+      scale_alpha_manual(values = c("FALSE" = 0.25, "TRUE" = 0.9),
+                         name = "p < .05", labels = c("no", "yes")) +
+      labs(
+        x = "Specification (ordered by partial r)",
+        y = "Partial correlation (unemployment coefficient)",
+        title = "1,680 justifiable analyses of one claim",
+        caption = "Under the claim, positive framings (mcosmo, mutil, mpos) should sit below zero and negative framings (mcomm, mlib, mneg) above it. Faded points: not significant at 5%."
+      ) +
+      theme_minimal(base_size = 12) +
+      theme(
+        plot.title = element_text(colour = "#0e3b6a"),
+        legend.position = "bottom"
+      )
+
+    print(p)
+
+  } else {
+    cat("**Note:** `data/spec_grid.csv` is present but missing expected columns (",
+        paste(setdiff(required_cols, names(spec)), collapse = ", "),
+        "). Chart will render once the file is complete.\n")
+  }
+
+} else {
+  cat("**Note:** `data/spec_grid.csv` not yet available. The specification curve will appear here once the pre-computed multiverse file is in place.\n")
+}
+```
+
+```{r}
+#| label: spec-summary
+#| output: asis
+
+if (file.exists(spec_file)) {
+  s <- read.csv(spec_file)
+  s$sig <- abs(s$statistic) > qt(0.975, s$df)
+  cat(sprintf(
+    paste0(
+      "Across all %d specifications: **%.0f%%** point in the claim-consistent direction, ",
+      "**%.0f%%** are significant at the 5%% level, and **%.0f%%** are both. ",
+      "The partial correlation ranges from %.2f to %.2f. ",
+      "Same data, same claim – the answer depends on the path.\n"
+    ),
+    nrow(s), 100 * mean(s$supports_claim), 100 * mean(s$sig),
+    100 * mean(s$sig & s$supports_claim), min(s$r), max(s$r)
+  ))
+}
+```
+
+---
+
+## Five Multi100 analysts (partial r)
+
+```{r}
+#| label: analysts-plot
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-alt: "Dot plot of partial r values for the five Multi100 analysts. Horizontal line at zero."
+
+analysts_file <- "data/analysts5.csv"
+
+if (file.exists(analysts_file)) {
+  analysts <- read.csv(analysts_file)
+
+  if ("r" %in% names(analysts) && "analyst_id" %in% names(analysts)) {
+
+    # Highlight the workshop analyst
+    analysts$highlight <- analysts$analyst_id == "C6HJR"
+
+    p2 <- ggplot(analysts, aes(x = r, y = reorder(analyst_id, r))) +
+      geom_vline(xintercept = 0, linetype = "dashed", colour = "grey50") +
+      geom_point(
+        aes(colour = highlight, size = highlight)
+      ) +
+      scale_colour_manual(values = c("FALSE" = "#555555", "TRUE" = "#a10000"),
+                          guide = "none") +
+      scale_size_manual(values = c("FALSE" = 2.5, "TRUE" = 3.5), guide = "none") +
+      labs(
+        x = "Partial r",
+        y = NULL,
+        title = "Five Multi100 analysts – Task 2 partial r",
+        caption = "Red point = analyst C6HJR (this workshop's anchor)."
+      ) +
+      theme_minimal(base_size = 12) +
+      theme(plot.title = element_text(colour = "#0e3b6a"))
+
+    print(p2)
+
+  } else {
+    cat("**Note:** `data/analysts5.csv` is present but missing `r` or `analyst_id` column. Chart will render once the file is complete.\n")
+  }
+
+} else {
+  cat("**Note:** `data/analysts5.csv` not yet available. The analyst plot will appear here once the file is in place.\n")
+}
+```
+
+---
+
+## Class results – 16 June 2026
+
+<!-- paste class results table here after the session -->

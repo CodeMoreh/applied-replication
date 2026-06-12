@@ -1,0 +1,75 @@
+﻿---
+title: "Cheatsheet"
+subtitle: "Print this page before the session"
+format:
+  html:
+    toc: false
+---
+
+::: {.callout-note}
+**Print this page** (Ctrl+P / Cmd+P) or keep it open on a second device. It has everything you need for the day.
+:::
+
+---
+
+## In-room URLs
+
+| | URL |
+|---|---|
+| **Workshop site** | <https://codemoreh.github.io/applied-replication/> |
+| **Template repo** | <https://github.com/CodeMoreh/replication-lab> |
+| **Discussion thread** | <https://github.com/CodeMoreh/applied-replication/discussions> |
+| **OSF fork – data & corrected analysis** | <https://osf.io/6zqct/> |
+| **Full SCORE dossier on the paper** | <https://osf.io/h7432/> |
+| **Multi100 project** | <https://osf.io/q5h2c/> |
+
+---
+
+## Track B – Git flow in Positron (6 steps)
+
+1. **Clone:** File → New Folder from Git → paste the template repo URL → choose a folder → Open.
+2. **Edit:** make your changes in the editor.
+3. **Save:** Ctrl+S / Cmd+S (the Source Control panel shows changed files in blue).
+4. **Stage:** in the Source Control panel, click **+** next to each file you want to include (or click **+** at the top to stage all).
+5. **Commit:** type a message in the box, then click the ✓ (tick) button. Use descriptive messages, e.g. `prereg: mcosmo ~ unemp | twoway FE | all years`.
+6. **Push / Sync:** click the **Sync Changes** button (circular arrows) to push to GitHub. The Actions workflow triggers automatically and deploys your site.
+
+---
+
+## Quarto commands
+
+```bash
+quarto preview       # live preview in your browser (auto-reloads on save)
+quarto render        # render all files to _site/
+quarto render index.qmd   # render one file only
+```
+
+Run these in the Positron terminal (View → Terminal).
+
+---
+
+## Git config (if not already done)
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your@email.com"
+```
+
+---
+
+## github.dev fallback
+
+If your local toolchain fails, press the **period key (`.`)** on any GitHub repo page. This opens a browser-based VS Code editor. You can edit files and commit from there – the Actions workflow still runs and deploys your site. You just cannot run R code locally.
+
+---
+
+## "If X fails, do Y"
+
+| Problem | Fix |
+|---|---|
+| `quarto preview` gives "command not found" | Open the Positron terminal and run `quarto --version` – if it fails, reinstall Quarto and restart Positron |
+| Git push asks for a password | Sign into GitHub via the Accounts menu in Positron (bottom-left); restart Positron if it still asks |
+| OSF download times out | The script falls back automatically; if all fallbacks fail, download `rep_data.csv` directly from `https://codemoreh.github.io/applied-replication/data/rep_data.csv` |
+| Pages not deploying | Check Settings → Pages: Source must be "GitHub Actions". Also check Actions tab for error messages. |
+| `feols()` not found | Run `install.packages("fixest")` in the R console |
+| Whole local setup broken | Switch to Track A: open the [Browser lab](browser-lab.qmd) and continue there; pair with a Track B partner for the git steps |

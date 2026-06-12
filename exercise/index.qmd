@@ -1,0 +1,134 @@
+---
+title: "Exercise Overview"
+subtitle: "You are analyst no. 6"
+---
+
+This page describes the full exercise. Your work happens either in the [Browser lab](browser-lab.qmd) (Track A) or in your cloned template repository (Track B); come back here whenever you want the big picture.
+
+---
+
+## The claim you are working on
+
+Five independent analysts reanalysed a claim from Teney (2016) as part of the Multi100 project. The claim, as presented to all analysts, was:
+
+> "…poor economic performances … decrease positive dimensions of EU framing" (Teney 2016, p. 619)
+
+The anchor result – the specific number the Task 2 constraints pointed to – is:
+
+> **Unemployment → cosmopolitan EU framing: b = −0.0034, t = −4.03, p < .001** (Table 3, Model 1)
+
+This comes from a three-level random-intercept model using pooled Eurobarometer data (16 waves, 2004–2013, 27 EU countries). Your first job is to get as close to this result as possible using a transparent, reproducible pipeline. Your second job is to deviate from it – deliberately, with a written justification – and see where that takes you.
+
+---
+
+## The five published analysts
+
+Before you begin, here is what the five Multi100 analysts found when they reanalysed the same claim:
+
+| Analyst | Tool | Statistic | N | Partial r |
+|---|---|---|---|---|
+| 018OL | RMarkdown | t = −1.21 | 420 | −0.060 |
+| **C6HJR (you)** | **R + Quarto** | **t = −3.80** | **270** | **−0.242** |
+| KEVF1 | R script | t = −5.90 | 209,826 | −0.452 |
+| KQXUE | Stata | t = −7.17 | 270 | −0.419 |
+| PRL47 | Stata | z = −3.59 | 394,575 | −0.006 |
+
+All five reported a negative effect (same direction as the original). The partial r ranges from −0.006 to −0.452: a factor of 75. Five competent analysts, one claim, widely different estimates. The multiverse debrief at 12:15 will explain most of that gap. For now, notice it exists.
+
+---
+
+## Tasks A–F
+
+### Task A – Concepts (during/after setup, ~5 minutes)
+
+**Goal:** write three one-sentence definitions and identify which type of research activity this exercise is.
+
+**Track A:** fill in the definition callouts in the Browser lab.
+**Track B:** edit the `index.qmd` in your cloned template repo; these are the first callout blocks at the top.
+
+**Evidence artifact:** three completed definitions in your rendered report.
+
+---
+
+### Task B – Get the data like a researcher (~5 minutes)
+
+**Goal:** retrieve `rep_data.csv` from the analyst's fork on OSF (`osf.io/6zqct`) using the `osfr` package; explore the panel. (The official Multi100 archival record is at `osf.io/8rtwe`; the fork adds the corrected April 2025 analysis and is what the fetch script targets.)
+
+**Track A:** the data are pre-loaded in the browser environment; run the exploration chunks.
+**Track B:** run `R/get_data.R`, which tries `osfr` against the fork first, then falls back through two direct OSF download URLs, then to the copy hosted on this site.
+
+**Evidence artifact:** a rendered data-overview section in your report (glimpse output + one small-multiples plot).
+
+---
+
+### Task C – Estimand and DAG (~12 minutes)
+
+**Goal:** state the estimand precisely, complete the half-built DAG, and write two sentences on what two-way fixed effects adjust for and what they cannot fix.
+
+**Track A:** the DAG starter is in the browser environment as a `dagitty` object.
+**Track B:** edit `R/dag_starter.R`, add the edges you believe in, call `ggdag()` and `adjustmentSets()` in your report.
+
+**Evidence artifact:** a rendered `ggdag` figure, `adjustmentSets()` output, and the two-sentence explanation.
+
+---
+
+### Task D1 – Reproduce the constrained result (~10 minutes)
+
+**Goal:** fit the two-way fixed-effects model `mcosmopolitan ~ unemp_c | cntry + year` and confirm t ≈ −3.80 (df = 233, N = 270, partial r ≈ −0.242).
+
+**Track A:** run the model chunk in the Browser lab.
+**Track B:** the code is in the report skeleton; run it and check the output matches.
+
+The `fixest::feols()` call is the primary estimator (fast in webR). A `plm()` equivalent is provided in a collapsed cell – the difference in standard errors between them is a talking point about vcov choices, not a bug.
+
+**Evidence artifact:** a `modelsummary()` table in your report showing the constrained model.
+
+---
+
+### Task D2 – Your fork in the path (~22 minutes)
+
+**Goal:** choose ONE deviation from the [specification menu](spec-menu.qmd), preregister your choice, run the model, and report the result in the standard format.
+
+**Preregistration (Track B):** commit your choice *before* running the model. The commit message must follow the format:
+
+```
+prereg: <DV> ~ <IV> | <estimator> | <sample>
+```
+
+For example: `prereg: mposframe ~ unemp | twoway FE | all years`
+
+**Preregistration (Track A):** post your intention to the [Discussion thread](https://github.com/CodeMoreh/applied-replication/discussions) *before* running the model, then run it.
+
+**After running:** paste your result into the Discussion thread using the standard result line (the `report_result()` helper in your template, or the format on the [Specification menu](spec-menu.qmd) page, produces this for you automatically).
+
+**Evidence artifact:** a timestamped commit (Track B) or Discussion post (Track A) showing the prereg precedes the result; the result line in the Discussion thread.
+
+---
+
+### Task E – Publish (~10 minutes)
+
+**Goal:** render your report, commit and push (Track B), and post your live URL to the Discussion thread.
+
+**Track B:** `quarto render` (or let Positron do it), then stage → commit → push via the Positron Source Control panel. The GitHub Actions workflow publishes to Pages automatically; the URL is `https://yourusername.github.io/replication-lab/`.
+
+**Track A:** save your script/notebook, create a new public GitHub repository via github.com, upload your file using the web interface, and enable Pages (Settings → Pages → Source: GitHub Actions). The [Cheatsheet](cheatsheet.qmd) has the three-minute walkthrough.
+
+**Evidence artifact:** a live `github.io` URL posted to the Discussion thread.
+
+---
+
+### Task F – Stretch (if time allows)
+
+Pick a second specification from the menu, or compare your fixed-effects result with random effects using `plm()`'s Hausman test, or weight country-years by `n_cy`. Report a second result line to the thread.
+
+---
+
+## What makes a result 'valid'?
+
+Your result is valid for the multiverse chart if it:
+
+- reports the unemployment coefficient (or its transformation) from a model on `teney_panel.csv`,
+- includes a standard result line in the Discussion thread (the format is on the [Specification menu](spec-menu.qmd) page), and
+- has a written justification for the choice you made (2 sentences is enough).
+
+The justification is the key part. The lesson from Auspurg & Brüderl (2021) is that a multiverse without stated reasons is just noise – with stated reasons, it becomes evidence.

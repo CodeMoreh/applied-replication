@@ -1,0 +1,14 @@
+/_site/
+/.quarto/
+/_planning/
+/_planning_data/
+/_template/
+.Rproj.user/
+*.Rproj
+/slides/*_files/
+.DS_Store
+*_cache/
+# Note: /_freeze/ is intentionally NOT ignored – it must be committed so CI can deploy without running R
+
+**/*.quarto_ipynb
+CLAUDE.md

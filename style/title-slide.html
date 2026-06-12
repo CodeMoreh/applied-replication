@@ -1,0 +1,34 @@
+<!--
+  title-slide.html - minimal revealjs title-slide template partial for the
+  'Applied Replication for Data Skills' workshop deck. Rebuilt to match the
+  right-aligned title block in style/cgm-slides.scss.
+
+  Adapted from the stock Quarto partial; the standard classes
+  (title / subtitle / author / date) and the idprefix / title-slide-attributes
+  machinery are preserved so Quarto wires it up correctly. Two additions:
+  the section carries the title-slide CLASS (the scss targets .title-slide,
+  not the id), and an optional .event line below the date, fed by the `event`
+  metadata key (set in slides/_metadata.yml).
+-->
+<section id="$idprefix$title-slide" class="title-slide"$for(title-slide-attributes/pairs)$ $it.key$="$it.value$"$endfor$>
+  <!-- Workshop brand mark. The deck renders to slides/index.html, so ../assets/
+       resolves to the site-root assets/ folder. If the path ever breaks,
+       swap to the absolute site path /assets/logo.png. -->
+  <img src="../assets/logo.png" class="title-logo" alt="Applied Replication for Data Skills" />
+  <h1 class="title">$title$</h1>
+$if(subtitle)$
+  <p class="subtitle">$subtitle$</p>
+$endif$
+$for(author)$
+  <p class="author">$author$</p>
+$endfor$
+$for(institute)$
+  <p class="institute">$institute$</p>
+$endfor$
+$if(event)$
+  <p class="event">$event$</p>
+$endif$
+$if(date)$
+  <p class="date">$date$</p>
+$endif$
+</section>

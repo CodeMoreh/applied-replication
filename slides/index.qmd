@@ -1,0 +1,1131 @@
+﻿---
+title: "When we repeat the science, what survives?"
+subtitle: "Applied replication for data skills"
+format: revealjs
+---
+
+```{r}
+#| label: setup
+#| include: false
+# All figures on these slides are generated here from the workshop data files
+# (../data/*.csv) or from small inline tribbles of published summary values –
+# no images of the Nature papers' figures are used (copyright + everything must
+# stay editable). Palette mirrors style/cgm-slides.scss.
+suppressPackageStartupMessages({
+  library(readr)
+  library(dplyr)
+  library(tidyr)
+  library(ggplot2)
+  library(dagitty)
+  library(ggdag)
+})
+
+ncl_blue <- "#0e3b6a"
+orange   <- "#E69F00"
+green    <- "#009E73"
+d_red    <- "#a10000"
+grey_mid <- "#848c94"
+
+# A light slide-friendly ggplot theme: big type, no chart-junk.
+theme_slide <- function(base_size = 17) {
+  theme_minimal(base_size = base_size) +
+    theme(
+      panel.grid.minor = element_blank(),
+      panel.grid.major.y = element_line(colour = "grey90"),
+      plot.title = element_text(face = "bold", colour = ncl_blue),
+      axis.title = element_text(colour = ncl_blue),
+      legend.position = "none"
+    )
+}
+
+# Read the two data files the multiverse slides depend on. Relative paths
+# resolve from slides/ at render time (verified with quarto render).
+spec_grid <- readr::read_csv("../data/spec_grid.csv", show_col_types = FALSE)
+analysts5 <- readr::read_csv("../data/analysts5.csv", show_col_types = FALSE)
+```
+
+## {#today .darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.todaymeta}
+Workshop 1 · Open Research Conference · 10:15–12:45 · Room 1.06
+:::
+
+:::: {.todaybox}
+::: {.nonincremental}
+1. What survives when science repeats itself? – three *Nature* papers
+2. Whose question is it anyway? – estimands and DAGs
+3. You are analyst no. 6 – your own reanalysis, published before lunch
+:::
+::::
+
+::: {.todaytake}
+You leave with: your own public repo · a live web page · a row in the class multiverse
+:::
+
+::: {.todaymeta}
+Work in pairs – one prepared laptop per pair
+:::
+
+::: notes
+Welcome – good to have you here. This morning has three movements. First I'll show you what happened when *Nature* asked, three times over, whether social science holds up when you repeat it. Then we sharpen the question itself – estimands and causal graphs. And then you become analyst number six on a real published claim, and you'll publish your own reanalysis before lunch. You leave with your own public repository, a live web page, and a dot on the class's chart. One practical thing before we start: find a partner – ideally one prepared laptop per pair.
+:::
+
+# PART 1 – The three Rs {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Talk I · 18 minutes
+:::
+
+::: notes
+Part one, then. Three words that sound alike and are not – and the three *Nature* papers that put numbers on each of them. [18 minutes for this part – about 80 seconds a slide.]
+:::
+
+## In April 2026, *Nature* asked a hard question
+
+:::: {.none}
+Three papers, one issue, one question:
+
+::: {.fragment}
+**"When we repeat the science of the social world, what survives?"**
+:::
+
+::: {.fragment}
+I was inside one of them.
+:::
+::::
+
+::: notes
+In April this year, *Nature* published three papers back to back – same issue, same programme – all asking versions of one question: when we repeat the science of the social world, what survives? Reading them together is sobering. And I should say up front: I was inside one of them, as one of several hundred analysts. So this is not a story about other people's research. Today you will be sitting exactly where I sat.
+:::
+
+## "Replication" used to mean everything
+
+:::: {.none}
+One word was carrying too much weight.
+
+::: {.fragment}
+Rerun the same code? Re-analyse the same data a different way? Collect fresh data?
+:::
+
+::: {.fragment}
+All called 'replication' – and they answer *different* questions.
+:::
+::::
+
+::: notes
+Part of the problem is the word itself. For years 'replication' covered everything: rerunning someone's code, re-analysing their data a different way, collecting new data altogether. Those are three different operations, answering three different questions – but because we called them all 'replication', the crisis debates had people talking past each other for a decade. So before any numbers, we need vocabulary.
+:::
+
+## The 2×2 you must internalise
+
+```{r}
+#| label: matrix
+#| fig-width: 10
+#| fig-height: 4.8
+# The data x analysis matrix, drawn as a tile grid (inline data, not a
+# screenshot) so it stays fully editable. Same question throughout; the term
+# sits large in each cell with its one-line meaning beneath it.
+cells <- tibble::tribble(
+  ~analysis,    ~data,       ~term,             ~def,                                  ~fill,     ~txt,
+  "SAME\nanalysis",      "SAME data", "Reproducibility", "rerun the recipe,\nget the same number?", "#0e3b6a", "white",
+  "DIFFERENT\n(justifiable)", "SAME data", "Robustness",  "another defensible path,\nsame answer?",  "#E69F00", "white",
+  "SAME\nanalysis",      "NEW data",  "Replicability",   "fresh data,\nsame finding?",               "#009E73", "white",
+  "DIFFERENT\n(justifiable)", "NEW data", "(generalisation)", "set aside\nfor today",                 "#d8dde3", "#6C7B7F"
+)
+cells <- cells |>
+  dplyr::mutate(
+    data = factor(data, levels = c("SAME data", "NEW data")),
+    analysis = factor(analysis,
+      levels = c("DIFFERENT\n(justifiable)", "SAME\nanalysis"))
+  )
+ggplot(cells, aes(data, analysis)) +
+  geom_tile(aes(fill = fill), colour = "white", linewidth = 4,
+            width = 0.97, height = 0.94) +
+  geom_text(aes(label = term, colour = txt),
+            fontface = "bold", size = 8.5, nudge_y = 0.14) +
+  geom_text(aes(label = def, colour = txt),
+            size = 4.6, nudge_y = -0.18, lineheight = 0.95) +
+  scale_fill_identity() +
+  scale_colour_identity() +
+  scale_x_discrete(position = "top") +
+  labs(x = NULL, y = NULL) +
+  theme_slide(20) +
+  theme(panel.grid = element_blank(),
+        axis.text = element_text(face = "bold", colour = ncl_blue),
+        axis.text.x.top = element_text(size = 17),
+        axis.text.y = element_text(size = 15, lineheight = 0.9),
+        plot.margin = ggplot2::margin(2, 8, 2, 2))
+```
+
+::: notes
+Here is the whole framework on one slide, and if you take a single thing home today, make it this grid. The question stays the same throughout; what varies is the data and the analysis. Same data, same analysis – reproducibility: if I rerun your recipe, do I get your number? Same data but a different, justifiable analysis – robustness: does your finding survive my defensible choices? New data, same question – replicability. The fourth cell, new data and new analysis, is really generalisation, and we set it aside today. Sit with this for a moment – everything that follows this morning hangs off it.
+:::
+
+## The three definitions, verbatim
+
+::: {.claimcard}
+**Reproducibility** – same question, same data, same analysis.
+
+**Robustness** – same question, same data, justifiable *alternative* analyses.
+
+**Replicability** – same question, *independent* data.
+
+**Repeatability** – the umbrella term for all three.
+:::
+
+::: {.small}
+- Today's exercise is a **robustness** test: same data, a different justifiable analysis.
+:::
+
+::: {.src}
+Glossary: @NosekEtAl2025BriefGlossaryTerms.
+:::
+
+::: notes
+These are the definitions we will use, essentially as Nosek and colleagues fix them in their short glossary. Reproducibility: same question, same data, same analysis. Robustness: same data, justifiable alternative analyses. Replicability: independent data. Repeatability is their umbrella word for all three. One caution the glossary itself makes: none of these is the same thing as truth – a perfectly reproducible result can still be wrong about the world. And to be clear about today: our exercise is a robustness test. You will take the same data and make your own justifiable choices.
+:::
+
+## Quick check {.questionslide}
+
+:::: {.none}
+"I rerun your do-file on your data and reproduce your table."
+
+::: {.fragment}
+Reproducibility, robustness, or replicability?
+:::
+
+::: {.fragment}
+**Reproducibility** – same data, same analysis.
+:::
+::::
+
+::: notes
+Quick check before the numbers. "I rerun your do-file on your data and reproduce your table" – which of the three is that? Hands up for reproducibility… for robustness… for replicability. [advance] Reproducibility – same data, same analysis. And one more, just verbally: I re-analyse your data with a defensible different model? That is robustness – and that is your job today.
+:::
+
+## SCORE: where these numbers come from
+
+::: {.small}
+- DARPA-funded programme to gauge the credibility of social-science claims
+- **62 journals**, papers from **2009–2018**, stratified sample
+- Each paper's central claim traced from abstract to the supporting statistic
+- Thousands of researchers; three repetition studies built on the same frame
+:::
+
+::: notes
+Where do these numbers come from? All three papers sit on one programme, SCORE – funded by DARPA, oddly enough, who wanted to know whether you could predict which findings hold up. The backbone is a stratified sample from sixty-two journals, papers published between 2009 and 2018, with each paper's central claim traced from the abstract down to the exact statistic that supports it. The three studies then took that same frame and each asked one of our three questions. So when the numbers land in a moment, they are about the same body of literature, asked three different things.
+:::
+
+## Reproducibility – Miske et al.
+
+::: {.small}
+- **600 papers** sampled (62 journals, 2009–2018)
+- Ask the authors for data and code, then try to rerun the reported result
+- How often can we even get to the starting line?
+:::
+
+::: {.src}
+[@MiskeEtAl2026InvestigatingReproducibilitySocial].
+:::
+
+::: notes
+First, reproducibility – the gentlest test of the three. The design in one breath: take six hundred papers, ask the authors for their data and code, and try to recompute the central reported result. Same data, same analysis: do you get the same number? Before we even ask how often that works, the first finding is about how rarely you can even start.
+:::
+
+## Most papers never reach the starting line
+
+```{r}
+#| label: miske-waterfall
+#| fig-width: 8.5
+#| fig-height: 3.6
+# Waterfall from 600 sampled -> 143 assessable, inline data from the content
+# bank (Miske et al. 2026). Illustrative staged counts, clearly labelled.
+mw <- tibble::tribble(
+  ~stage,                 ~n,
+  "Sampled",              600,
+  "Data available\n(24.0%)", 144,
+  "Assessable",           143
+)
+mw <- mw |> dplyr::mutate(stage = factor(stage, levels = stage))
+ggplot(mw, aes(stage, n, fill = stage)) +
+  geom_col(width = 0.65) +
+  geom_text(aes(label = n), vjust = -0.4, fontface = "bold",
+            colour = ncl_blue, size = 6) +
+  scale_fill_manual(values = c(ncl_blue, orange, green)) +
+  ylim(0, 660) +
+  labs(x = NULL, y = "papers") +
+  theme_slide(16)
+```
+
+::: {.small}
+- Of the **143 assessable**: **53.6%** reproduced precisely, **73.5%** approximately
+- Counting the unassessable, only about **18%** reproduce
+:::
+
+::: notes
+Read it left to right. Six hundred papers sampled. Data were available for twenty-four percent of them – for nearly three quarters there was neither data nor code. That leaves 143 papers you can actually assess. Of those, just over half reproduce precisely, and about three quarters at least approximately. Which sounds respectable – until you notice what happens if you count the papers nobody could check as failures: the overall rate falls to roughly eighteen percent. The barrier is not arithmetic. It is access.
+:::
+
+## Why some fields do better
+
+::: {.small}
+- Journals requiring data sharing: **87.5–100%** availability vs **16.0%** without
+- Political science **54.1%** data availability vs education **2.9%**
+- With data *and* code: **90.9%** approx-reproducible vs **38.1%** from rebuilt source
+:::
+
+::: {.claimcard}
+"The most substantial barrier … was the unavailability of author data."
+
+"Reproducibility success does not mean that the finding is correct."
+:::
+
+::: {.src}
+[@MiskeEtAl2026InvestigatingReproducibilitySocial].
+:::
+
+::: notes
+And access follows policy. Where journals mandate data sharing, availability sits between about ninety and one hundred percent; without a mandate, sixteen. Political science and economics built the habit early and are far ahead of the rest. The first quote is the paper's own conclusion – the biggest barrier was simply that the data were not there. The second quote deserves a beat of silence: "reproducibility success does not mean that the finding is correct." Reproducing a number tells you the computation was faithful. It does not tell you the claim about the world is true.
+:::
+
+## Robustness – Aczel et al. (Multi100)
+
+::: {.small}
+- **100 studies**, each re-analysed by **≥5 independent analysts**
+- Same data; each analyst free to choose any *justifiable* analysis
+- A peer panel judges whether each pipeline is appropriate
+- This is the paper I was an analyst in
+:::
+
+::: {.src}
+[@AczelEtAl2026InvestigatingAnalyticalRobustness].
+:::
+
+::: notes
+The middle paper – the one I was in. One hundred studies, and for each one at least five analysts working independently: no teams, original authors barred, everyone handed the same data and the same claim. You were free to analyse it any way you could justify, and a peer panel later judged whether your pipeline was appropriate. Two things worth knowing about the design. The hundred studies had already passed a reproducibility check – so robustness was being measured on the reproducible subset, the best-case material. And we were not blinded: every analyst saw the full original article, published estimates and all, so if anything we were anchored towards the original answer.
+:::
+
+## Same data, five analysts, different answers
+
+::: {.small}
+- **34%** of reanalysis effect sizes within ±0.05 *d* of the original (57% within ±0.20)
+- **74%** reached the same conclusion; 24% null/inconclusive; **2%** opposite
+- Effect sizes shrank: original mean *d* **0.73** → reanalysis **0.49**
+- Analyst-to-analyst variability typically **exceeds** sampling error
+:::
+
+::: {.src}
+[@AczelEtAl2026InvestigatingAnalyticalRobustness].
+:::
+
+::: notes
+So what do free, justifiable choices do to the same data? They move the answer – a lot. Only about a third of the reanalyses landed within five hundredths of a Cohen's d of the original, and in just five studies out of ninety-five did all the analysts land that close. Conclusions held up better than magnitudes: three quarters of reanalyses agreed with the original conclusion. But the effect sizes shrank, from a mean d of point seven three down to point four nine. And the finding I keep coming back to: the spread across analysts is typically larger than the statistical uncertainty inside any single analysis. The analyst, in other words, is a bigger source of noise than the sample. One more detail to hold for later: observational studies – which is what we work on today – came out less robust than experiments.
+:::
+
+## Replicability – Tyner et al.
+
+::: {.small}
+- **274 claims** from 164 papers, tested on **new data**
+- Median statistical power **99.6%**; preregistered; original authors consulted
+- The strictest test: does the effect reappear in a fresh sample?
+:::
+
+::: {.src}
+[@TynerEtAl2026InvestigatingReplicabilitySocial].
+:::
+
+::: notes
+The third paper is the strictest test: not the same data analysed differently, but genuinely new data. Two hundred and seventy-four claims, each replicated to a preregistered, peer-reviewed protocol, often with the original authors consulted, and with a median statistical power of ninety-nine point six percent. That last number matters: these studies were built so that a real effect would be very hard to miss. So whatever fails here is not failing for lack of trying.
+:::
+
+## Even success shrinks
+
+```{r}
+#| label: tyner-shrink
+#| fig-width: 7.5
+#| fig-height: 3.2
+# Median r: original -> replication (Tyner et al. 2026), inline dumbbell.
+sh <- tibble::tibble(
+  stage = factor(c("Original", "Replication"),
+                 levels = c("Original", "Replication")),
+  r = c(0.25, 0.10)
+)
+ggplot(sh, aes(r, y = 1)) +
+  geom_line(aes(group = 1), colour = grey_mid, linewidth = 2) +
+  geom_point(aes(colour = stage), size = 8) +
+  geom_text(aes(label = sprintf("%.2f", r)), vjust = -1.6,
+            fontface = "bold", colour = ncl_blue, size = 6) +
+  geom_text(aes(label = stage), vjust = 3.2, colour = ncl_blue, size = 5) +
+  scale_colour_manual(values = c(ncl_blue, orange)) +
+  scale_x_continuous(limits = c(0, 0.3)) +
+  labs(x = "median effect size (r)", y = NULL) +
+  theme_slide(16) +
+  theme(axis.text.y = element_blank(),
+        panel.grid.major.y = element_blank())
+```
+
+::: {.small}
+- **55.1%** of claims replicated by significance; effect sizes roughly **halve**
+- Thirteen success criteria give anywhere from **29%** to **75%**
+:::
+
+::: {.src}
+[@TynerEtAl2026InvestigatingReplicabilitySocial].
+:::
+
+::: notes
+And this is what comes back. The median effect size halves: point two five in the originals, point one zero in the replications. By the significance criterion, fifty-five percent of claims replicate. But notice that "did it replicate?" is not even one question – the team scored the same studies against thirteen reasonable success criteria and got answers ranging from twenty-nine to seventy-five percent. Two sentences from the paper are worth carrying around. "Strictly speaking, there is no such thing as exact replication." And: "The problem to solve is not unreplicability per se, it is overconfidence."
+:::
+
+## The punchline
+
+:::: {.none}
+Reproducible ≠ robust ≠ replicable.
+
+::: {.fragment}
+Across SCORE the three are **essentially uncorrelated** – knowing one barely predicts the others.
+:::
+
+::: {.fragment}
+So there is no single number for 'trust'. You have to ask *which* repetition you mean.
+:::
+::::
+
+::: notes
+Now the bit that genuinely surprised me. You would hope these three properties travel together – that a reproducible finding is more likely to be robust, and a robust one more likely to replicate. Across SCORE, they do not. Measured on the same body of papers, the three indicators are essentially uncorrelated – knowing one tells you almost nothing about the others. So there is no single trust score for a finding. "Is it reliable?" is an incomplete question until you say which kind of repetition you mean. Hold that thought, because we are about to watch all three play out on one single paper.
+:::
+
+# PART 2 – Our case {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Talk II · 10 minutes
+:::
+
+::: notes
+Part two – one paper. The one I worked on, and the one you are about to.
+:::
+
+## Teney (2016) in 60 seconds
+
+::: {.small}
+- 16 Eurobarometer waves, **2004–2013**; about **390,000** respondents in **27 countries**
+- "What does the EU mean to you personally?" → four 0–1 framing scales
+- cosmopolitan · utilitarian · communitarian · libertarian
+- Three-level multilevel models (respondents in country-years in countries)
+:::
+
+::: {.src}
+[@Teney2016DoesEUEconomic].
+:::
+
+::: notes
+The paper is Céline Teney's, from 2016, in the *European Sociological Review*. Sixteen Eurobarometer waves, 2004 to 2013 – the crisis years – about three hundred and ninety thousand respondents across twenty-seven member states. The outcome comes from a nice survey item: "what does the EU mean to you personally?" Thirteen response options, which she organises into four framing scales; the cosmopolitan one – peace, democracy, freedom to move, cultural diversity – is the one we will target. The predictors are national unemployment and GDP growth, in three-level multilevel models. We will work on a country-year aggregate of the same data – two hundred and seventy rows – which behaves the same for our purposes and runs in milliseconds.
+:::
+
+## The claim card, as analysts received it
+
+::: {.claimcard}
+"… poor economic performances … decrease positive dimensions of EU framing"
+
+<span class="src">Teney (2016: 619)</span>
+:::
+
+::: {.small}
+- Anchor result – unemployment → cosmopolitan framing, Table 3 Model 1:
+- **b = −0.00340 · t = −4.03 · p < .001**
+:::
+
+::: notes
+This is, word for word, the claim every Multi100 analyst was handed: "poor economic performances decrease positive dimensions of EU framing". And this is the anchor number behind it, from Table 3, Model 1 – the unemployment coefficient on cosmopolitan framing: minus point zero zero three four, t of minus four. Keep one wrinkle in mind for later. In the paper's own Model 2, with more controls in, that same coefficient drops by more than half and loses significance. The robustness question is already alive inside the original paper.
+:::
+
+## SCORE tried to reproduce it – twice {.smaller}
+
+::: {.small}
+- No public archive with the paper – **but the author supplied two Stata do-files on request**; the data stayed GESIS-restricted
+- **Push-button reproduction** (with that author code) – **failed**:
+:::
+
+::: {.claimcard}
+"… file names that did not correspond with the names of the files available for download… 16 datasets are listed… the code references 18 files."
+:::
+
+::: {.small}
+- **Source-data reproduction** (rebuild from raw) – **"not reproduced"**: could not extract nor re-calculate the original effect size
+:::
+
+::: notes
+So what happened when SCORE tried to reproduce this paper? Two attempts, two different failures. And let me be fair to the author here: there was no public archive with the paper, but she did supply her two Stata do-files when asked – what she could not share was the data, because GESIS terms do not allow it. Even with her code in hand, the push-button reproduction failed, and the report's wording is instructive – the file names in the code did not correspond to the files you could actually download; sixteen datasets listed, eighteen referenced. The second attempt rebuilt the data from source, and could not recover the published effect size at all. So this claim entered the robustness study already carrying two failed reproductions, of two different kinds.
+:::
+
+## The five-analyst reveal
+
+```{r}
+#| label: forest5
+#| fig-width: 9
+#| fig-height: 4
+# Five Multi100 analysts of the SAME Teney claim, from ../data/analysts5.csv.
+# Standardised partial r on one axis; the facilitator (C6HJR) highlighted.
+fa <- analysts5 |>
+  dplyr::mutate(
+    me  = analyst_id == "C6HJR",
+    # tidy the tool string ("R (R Markdown)" etc.) for a clean label
+    lab = paste0(analyst_id, "  ", tool),
+    lab = factor(lab)
+  ) |>
+  dplyr::arrange(r) |>
+  dplyr::mutate(lab = factor(lab, levels = lab))
+
+ggplot(fa, aes(r, lab, colour = me)) +
+  geom_vline(xintercept = 0, colour = grey_mid, linewidth = 0.4) +
+  geom_point(size = 6) +
+  geom_text(aes(label = sprintf("r = %.2f", r)),
+            hjust = -0.25, size = 4.5, colour = ncl_blue) +
+  scale_colour_manual(values = c(`FALSE` = ncl_blue, `TRUE` = orange)) +
+  scale_x_continuous(limits = c(-0.55, 0.10)) +
+  labs(x = "partial correlation r (same claim, five analysts)", y = NULL) +
+  theme_slide(15)
+```
+
+::: {.small}
+- All five negative – same direction · partial r from **−0.45 to −0.01** · one not significant
+:::
+
+::: {.src}
+Multi100 Task-2 reanalyses of the Teney claim. C6HJR (orange) = your facilitator.
+:::
+
+::: notes
+And then five of us re-analysed it, independently. Here is what came back. All five found a negative effect – on direction, unanimity. On size, look at the spread: from essentially zero – that one is not significant – up to a partial correlation of minus point four five. Two orders of magnitude apart, on the same data, for the same claim. The orange dot is me: R and Quarto, minus point two four. We did not even use the same software – two of the five worked in Stata, three in R, which quietly makes today's case for reproducible pipelines. Five competent people, one fixed question: analysis is a garden of forking paths.
+:::
+
+## One paper, all three Rs
+
+```{r}
+#| label: score-scoreboard
+#| fig-width: 10.5
+#| fig-height: 4.6
+# The full SCORE dossier on Teney (2016) as a clean three-row scoreboard
+# (sources: osf.io/h7432 components; see resources page). Inline values, one
+# row per R, colour-coded by verdict. Stays fully editable.
+sb <- tibble::tribble(
+  ~ord, ~R,              ~verdict,         ~detail,                                              ~fill,
+  3,    "Reproducible?", "FAILED ×2", "push-button + source-data, two different failures",  d_red,
+  2,    "Robust?",       "MIXED",          "5 analysts, all negative; |r| 0.01–0.45 (×100)", orange,
+  1,    "Replicable?",   "SIGN FLIPPED",   "new Eurobarometer, N = 352,114; b = +0.002, p = .046", d_red
+)
+
+ggplot(sb, aes(x = 1, y = ord)) +
+  # role band
+  geom_tile(aes(fill = fill), width = 0.9, height = 0.92,
+            alpha = 0.14) +
+  # left rule in the verdict colour
+  geom_segment(aes(x = 0.553, xend = 0.553, y = ord - 0.46, yend = ord + 0.46,
+                   colour = fill), linewidth = 6) +
+  scale_fill_identity() +
+  scale_colour_identity() +
+  # the R name
+  geom_text(aes(label = R), x = 0.60, hjust = 0, vjust = 0.5,
+            fontface = "bold", colour = ncl_blue, size = 8) +
+  # the verdict
+  geom_text(aes(label = verdict, colour = fill), x = 0.60, y = sb$ord - 0.26,
+            hjust = 0, vjust = 0.5, fontface = "bold", size = 6.2) +
+  # the supporting detail
+  geom_text(aes(label = detail), x = 1.02, hjust = 0, vjust = 0.5,
+            colour = grey_mid, size = 4.6) +
+  scale_x_continuous(limits = c(0.5, 1.9)) +
+  scale_y_continuous(limits = c(0.4, 3.6)) +
+  labs(x = NULL, y = NULL) +
+  theme_void()
+```
+
+::: {.small}
+- Reproduction failed (twice, differently) · robustness: same sign, sizes spanning two orders of magnitude · replication: **the sign flipped**
+:::
+
+::: {.src}
+Full SCORE dossier on Teney (2016): osf.io/h7432. One paper, three Rs, three verdicts.
+:::
+
+::: notes
+Put the whole dossier together – every artifact here is public, the link is on the slide. Reproduction: failed, twice, in two different ways. Robustness: mixed – five analysts, one sign, sizes spanning two orders of magnitude. And replication: a preregistered study took the same question to new Eurobarometer data, three hundred and fifty-two thousand observations – and the coefficient flipped sign. Positive, just significant, the wrong way round. So: one paper, three Rs, three different verdicts. That is the uncorrelated-indicators result from part one, embodied in a single case. Asking "is this paper reliable?" gets you nowhere; asking "reliable in which sense?" gets you all of this. And now it is your turn – you are the sixth analyst.
+:::
+
+## You are analyst no. 6 – two tracks
+
+::: {.small}
+- **Track A – browser lab** (zero install, webR in the page):
+:::
+
+::: {.urlbox}
+codemoreh.github.io/applied-replication/exercise/browser-lab.html
+:::
+
+::: {.small}
+- **Track B – template repo** (full Positron + git pipeline):
+:::
+
+::: {.urlbox}
+github.com/CodeMoreh/replication-lab → "Use this template" → clone in Positron
+:::
+
+::: {.small}
+- Work in **pairs** – at least one prepared laptop per pair
+:::
+
+::: notes
+Here is how the next hour works. Two ways in, same destination. Track A is the browser lab: open that first address and R boots inside the page itself – nothing to install, works on any laptop, including the one you borrowed this morning. Track B is the full pipeline: take the template repository, click "Use this template", and clone your copy in Positron. In your pairs, make sure at least one of you has a working track – and if you are on Track B, keep the browser lab open in a tab as your spare. One more thing to note: everything you produce today ends up as a single line pasted into the pinned Discussion thread. That thread is our results board – we will read it together at the end.
+:::
+
+
+# PART 3 – Estimands & DAGs {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Concepts · 8-minute mini-lecture, then guided work
+:::
+
+::: notes
+Right – everyone has something running. Eight minutes of ideas, and then you put them to work. The argument of this part, in one sentence: a lot of what we just called 'analysis variability' is really *question* variability – and if you fix the question precisely, the multiverse narrows.
+:::
+
+## The red-card study: 29 teams, one dataset
+
+```{r}
+#| label: redcard-strip
+#| fig-width: 9
+#| fig-height: 3.4
+# Silberzahn et al. (2018): 29 teams, odds ratios 0.89-2.93, median 1.31.
+# Illustrative dot strip rendered from the published summary stats (median +
+# range) – CLEARLY a display sketch, not the raw 29 estimates.
+set.seed(42)
+rc <- tibble::tibble(
+  team = 1:29,
+  or = c(0.89, 2.93,
+         qnorm(seq(0.05, 0.95, length.out = 27),
+               mean = 1.31, sd = 0.45))
+)
+ggplot(rc, aes(or, y = 1)) +
+  geom_vline(xintercept = 1, colour = grey_mid, linewidth = 0.4) +
+  geom_jitter(height = 0.25, width = 0, size = 4, alpha = 0.7,
+              colour = ncl_blue) +
+  annotate("point", x = 1.31, y = 1, colour = d_red, size = 6) +
+  annotate("text", x = 1.31, y = 1.45, label = "median 1.31",
+           colour = d_red, fontface = "bold", size = 5) +
+  scale_x_continuous(limits = c(0.7, 3.1)) +
+  labs(x = "odds ratio: are dark-skinned players more often red-carded?",
+       y = NULL) +
+  theme_slide(15) +
+  theme(axis.text.y = element_blank(),
+        panel.grid.major.y = element_blank())
+```
+
+::: {.src}
+[@SilberzahnEtAl2018ManyAnalystsOne]. Display sketch from published median (1.31) + range (0.89–2.93).
+:::
+
+::: notes
+This is the study that started the whole many-analysts conversation. Twenty-nine teams, identical data, one question on paper: are dark-skinned footballers more likely to be red-carded than light-skinned ones? The odds ratios came back ranging from point eight nine – that is, below one – to nearly three. Median one point three one. About two thirds of the teams found a significant effect; a third did not. Same data, same question, twenty-nine answers. One caveat about the figure: the dots are a sketch drawn from the published median and range, not the teams' actual estimates – it is the spread that carries the message.
+:::
+
+## They were not answering the same question
+
+::: {.small}
+- Auspurg & Brüderl re-read the 29 analyses and found **four** different estimands:
+- descriptive association · discrimination *net of mediators* · variance-maximising · exploratory
+- The dispersion was largely a **question**-multiverse, not an analysis-multiverse
+:::
+
+::: {.src}
+[@AuspurgBruderl2021HasCredibilitySocial].
+:::
+
+::: notes
+Why so scattered? Auspurg and Brüderl went back through all twenty-nine pipelines, and their diagnosis is the hinge of this morning: the teams were not answering one question. They found four. Some estimated the plain descriptive association. Some went after discrimination proper – the effect net of everything that legitimately explains red cards. Some built models tuned to explain variance. And some were frankly exploring. Of course the answers differed – they were answers to different questions. That reframes the crisis quite a bit: much of what looks like analytical instability is unstated disagreement about *what is being estimated*.
+:::
+
+## What is your estimand?
+
+```{r}
+#| label: lundberg-pipeline
+#| fig-width: 9
+#| fig-height: 3
+# Lundberg et al. (2021) three steps as boxes-and-arrows (ggplot, editable).
+steps <- tibble::tibble(
+  x = c(1, 2, 3),
+  lab = c("Theoretical\nestimand",
+          "Empirical\nestimand",
+          "Estimation\nstrategy"),
+  sub = c("unit quantity +\ntarget population",
+          "identification\nassumptions (DAG)",
+          "where the R\ncode enters")
+)
+ggplot(steps, aes(x, 1)) +
+  geom_tile(width = 0.8, height = 0.7, fill = ncl_blue) +
+  geom_text(aes(label = lab), colour = "white", fontface = "bold",
+            size = 5.2, vjust = -0.3) +
+  geom_text(aes(label = sub), colour = "white", size = 3.6, vjust = 2.0) +
+  annotate("segment", x = 1.42, xend = 1.58, y = 1, yend = 1,
+           arrow = arrow(length = unit(0.18, "cm")), linewidth = 1) +
+  annotate("segment", x = 2.42, xend = 2.58, y = 1, yend = 1,
+           arrow = arrow(length = unit(0.18, "cm")), linewidth = 1) +
+  scale_x_continuous(limits = c(0.5, 3.5)) +
+  labs(x = NULL, y = NULL) +
+  theme_void()
+```
+
+::: {.small}
+- The theoretical estimand is stated **outside** any model – before R opens
+:::
+
+::: {.src}
+[@LundbergEtAl2021WhatYourEstimand].
+:::
+
+::: notes
+Which brings us to the most useful question in quantitative research: what is your estimand? Lundberg and colleagues split the answer into three steps. First, the theoretical estimand: a unit-specific quantity and a target population, stated in plain words, before any model exists. Second, the empirical estimand: what in the observable data corresponds to that quantity – and making that link forces your identification assumptions into the open, which is exactly where the causal graph lives. Only third comes estimation, where R finally opens. When they audited a full year of papers in a top sociology journal, the unit quantity was clearly stated in five out of thirty-two. Their demand is the one to remember: every quantitative study must be able to answer the question – what is your estimand?
+:::
+
+## DAG crash course: three roles
+
+```{r}
+#| label: mini-dags
+#| fig-width: 9.5
+#| fig-height: 3.6
+# Three tiny DAGs: confounder / mediator / collider, built with ggdag.
+mini <- function(spec, coords) {
+  d <- dagitty::dagitty(spec)
+  dagitty::coordinates(d) <- coords
+  d
+}
+conf <- mini("dag { Z -> X  Z -> Y  X -> Y }",
+  list(x = c(X = 0, Y = 2, Z = 1), y = c(X = 0, Y = 0, Z = 1)))
+med  <- mini("dag { X -> M  M -> Y  X -> Y }",
+  list(x = c(X = 0, Y = 2, M = 1), y = c(X = 0, Y = 0, M = 1)))
+coll <- mini("dag { X -> C  Y -> C  X -> Y }",
+  list(x = c(X = 0, Y = 2, C = 1), y = c(X = 0, Y = 0, C = -1)))
+
+gg <- function(d, ttl) {
+  ggdag::ggdag(d, text = TRUE, node_size = 16, text_size = 4) +
+    ggdag::theme_dag() +
+    ggplot2::labs(title = ttl) +
+    ggplot2::theme(plot.title = element_text(face = "bold",
+                   colour = ncl_blue, hjust = 0.5, size = 16))
+}
+patchwork_ok <- requireNamespace("patchwork", quietly = TRUE)
+if (patchwork_ok) {
+  patchwork::wrap_plots(
+    gg(conf, "Confounder Z – ADJUST"),
+    gg(med,  "Mediator M – don't (total effect)"),
+    gg(coll, "Collider C – never adjust"),
+    nrow = 1)
+} else {
+  # Fallback: draw the confounder panel only if patchwork is unavailable.
+  gg(conf, "Confounder Z – ADJUST")
+}
+```
+
+::: {.src}
+X = exposure, Y = outcome.
+:::
+
+::: notes
+All the graph theory you need today, in three small pictures. A confounder is a common cause of your exposure and your outcome – leave it out and you are biased, so adjust for it. A mediator sits on the causal path between them – if it is the total effect you want, do not adjust for it, or you remove part of the very thing you are measuring. And a collider is caused by both sides – adjusting for one opens a spurious path that was not there before. So the rulebook is short: adjust confounders, leave mediators alone for total effects, and never condition on a collider. That is the entire toolkit you need for the next task.
+:::
+
+## A&B's resolution: fix the estimand first
+
+```{r}
+#| label: redcard-contrast
+#| fig-width: 9
+#| fig-height: 3.6
+# Dispersion contrast: the 29-team crowd (SD 0.45) vs Auspurg & Brüderl's
+# 486-model multiverse with the estimand fixed (median 1.28, SD 0.06).
+# Both are display sketches from the published median + SD, clearly labelled.
+set.seed(7)
+contrast <- dplyr::bind_rows(
+  tibble::tibble(grp = "29 teams\n(SD 0.45)",
+                 or = rnorm(29, 1.31, 0.45)),
+  tibble::tibble(grp = "486 models,\nestimand fixed (SD 0.06)",
+                 or = rnorm(200, 1.28, 0.06))
+)
+ggplot(contrast, aes(or, grp, colour = grp)) +
+  geom_vline(xintercept = 1, colour = grey_mid, linewidth = 0.4) +
+  geom_jitter(height = 0.22, width = 0, size = 2.5, alpha = 0.55) +
+  scale_colour_manual(values = c(d_red, ncl_blue)) +
+  scale_x_continuous(limits = c(0.5, 3.1)) +
+  labs(x = "odds ratio", y = NULL) +
+  theme_slide(15)
+```
+
+::: {.small}
+- Fix the question → derive the model space → run **all 486** justifiable models → **SD 0.45 → 0.06**
+:::
+
+::: {.src}
+[@AuspurgBruderl2021HasCredibilitySocial]. Display sketches from published medians + SDs (illustrative spread).
+:::
+
+::: notes
+And here is the optimistic half of the red-card story. Auspurg and Brüderl fixed one estimand – discrimination, properly defined – used a causal graph to derive every model specification consistent with it, four hundred and eighty-six of them, and ran the lot. Look what happens to the spread: standard deviation point four five in the crowd, point zero six with the question fixed. Same caveat as before – these strips are sketches from the published summary figures. The recipe we take from them is the workshop's recipe: a precise question, assumptions drawn out explicitly, then a whole multiverse rather than one path, then sensitivity analysis. Their conclusion, roughly: it is research without a clear question that has the credibility problem.
+:::
+
+## Now Teney: state the estimand
+
+::: {.claimcard}
+"The expected change in [unit quantity] among [target population] for a 1-percentage-point difference in unemployment, holding [assumptions] fixed."
+:::
+
+::: {.small}
+- Unit quantity – a *person's* cosmopolitan framing, or a *country-year* mean?
+- Target population – which countries, which years?
+- You write this sentence in your report **before** you fit anything
+:::
+
+::: notes
+Now apply it to our paper. This is the first thing you write in Task C – the sentence on the slide, with the brackets filled in. The genuinely open choice is the unit. Is your estimand about a *person's* framing, the way Teney's multilevel models are? Or about a *country-year average*, the way our panel is? Neither is wrong – they are different questions, with different confounding stories, and the coefficient means something different in each. Write the sentence before you fit anything. It will discipline every choice you make afterwards.
+:::
+
+## The Teney DAG, half built
+
+```{r}
+#| label: teney-dag
+#| fig-width: 10.5
+#| fig-height: 5.8
+# ggdag rendering of the Task-C starter DAG. This reproduces the EXACT graph in
+# _template/R/dag_starter.R: the causal path of interest and the two confounder
+# pairs (country, year) are drawn SOLID; the three arguable nodes (growth,
+# bailout, politicisation) are present but UNCONNECTED – the edges participants
+# decide whether to add in Task C. That is what makes it 'half built'. Nodes are
+# coloured by ROLE (exposure orange, outcome navy, candidates light grey),
+# labels sit inside the nodes in white/dark, edges are thick and gently curved.
+dag <- dagitty::dagitty('dag {
+  unemployment   [exposure]
+  framing        [outcome]
+  country
+  year
+  growth
+  bailout
+  politicisation
+
+  unemployment -> framing
+  country -> unemployment
+  country -> framing
+  year -> unemployment
+  year -> framing
+}')
+
+# 'growth' nudged down off the year -> unemployment crossing arrow; the other
+# floating candidates kept clear of the committed edges.
+dagitty::coordinates(dag) <- list(
+  x = c(unemployment = 0, framing = 3, country = 1, year = 2,
+        growth = 0.9, bailout = 1.5, politicisation = 3),
+  y = c(unemployment = 0, framing = 0, country = 1.4, year = 1.4,
+        growth = -1.0, bailout = -1.2, politicisation = -0.95))
+
+# Role lookup → drives node fill and label colour; short display labels keep
+# the longer names from overflowing the nodes (the underlying graph keeps the
+# full names, matching dag_starter.R).
+roles <- tibble::tibble(
+  name = c("unemployment", "framing", "country", "year",
+           "growth", "bailout", "politicisation"),
+  role = c("exposure", "outcome", "adjusted", "adjusted",
+           "candidate", "candidate", "candidate"),
+  disp = c("unemp.", "framing", "country", "year",
+           "growth", "bailout", "politic."))
+role_fill <- c(exposure = orange, outcome = ncl_blue,
+               adjusted = "#c7ccd2", candidate = "#dde2e7")
+# White labels read on the dark exposure/outcome fills; navy on the light greys.
+role_lab  <- c(exposure = "#FFFFFF", outcome = "#FFFFFF",
+               adjusted = ncl_blue, candidate = "#5d666e")
+
+dag_tidy <- dag |>
+  ggdag::tidy_dagitty() |>
+  dplyr::left_join(roles, by = "name") |>
+  dplyr::mutate(role = factor(role,
+    levels = c("exposure", "outcome", "adjusted", "candidate")))
+
+ggplot2::ggplot(dag_tidy,
+    ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+  ggdag::geom_dag_edges_arc(curvature = 0.18, edge_colour = grey_mid,
+                            edge_width = 1.1,
+                            arrow_directed = grid::arrow(
+                              length = grid::unit(9, "pt"), type = "closed")) +
+  ggdag::geom_dag_point(ggplot2::aes(fill = role), shape = 21,
+                        size = 32, stroke = 0, colour = "white") +
+  ggdag::geom_dag_text(ggplot2::aes(label = disp, colour = role),
+                       size = 5.2, fontface = "bold") +
+  ggplot2::scale_fill_manual(values = role_fill, guide = "none") +
+  ggplot2::scale_colour_manual(values = role_lab, guide = "none") +
+  ggdag::theme_dag() +
+  ggplot2::expand_limits(x = c(-0.7, 3.7), y = c(-1.9, 2.1)) +
+  ggplot2::theme(plot.margin = ggplot2::margin(14, 14, 14, 14))
+```
+
+::: {.small}
+- Drawn: the path + two confounder pairs (**country, year → two-way FE**)
+- Floating, unwired: growth (confounder?) · bailout (mediator?) · politicisation (mediator?)
+- You add the edges you believe, then run `adjustmentSets()`
+:::
+
+::: {.dagcode}
+live version: dagitty.net/dags.html → Model code → paste this → drag nodes, add edges, watch the adjustment sets update
+:::
+
+```default
+dag {
+unemployment [exposure]
+framing [outcome]
+country -> unemployment ; country -> framing
+year -> unemployment ; year -> framing
+unemployment -> framing
+}
+```
+
+::: notes
+And here is the graph you will finish yourselves. The solid part is what we are committing to: unemployment to framing is the path of interest, and country and year are the two confounder pairs – stable national traits on one side, EU-wide shocks in a given year on the other. Ask dagitty for the adjustment set on this graph and it answers: country and year. Which is precisely what a two-way fixed-effects model absorbs – the graph and the baseline model are the same claim, written in two languages. The three pale nodes are yours to wire up, and they are genuine decisions. Is GDP growth a time-varying confounder that fixed effects cannot reach – a slump that raises unemployment and sours sentiment in the same year? Is the bailout a mediator, in which case you leave it alone if you want the total effect? Multi100 told us to disregard politicisation – was that defensible? If you want to play with this live, paste the model code from the slide into dagitty.net and drag things around; the adjustment sets update as you edit. Whatever you decide here becomes your model in the next task – that is the point.
+:::
+
+<!-- ALTERNATIVE LIVE SLIDE – facilitator may enable this if conference wifi
+     behaves. It embeds the full DAGitty editor as an interactive background;
+     drag nodes and add edges directly on the projected slide. To activate,
+     copy the two blocks below OUT of this comment into the deck (a heading and
+     a notes block), restoring the colon-fence markers shown in brackets. Kept
+     commented so the default deck stays fast and offline-safe.
+
+       ## The DAG, live {background-iframe="https://www.dagitty.net/dags.html" background-interactive="true"}
+
+       [open a notes fenced div here]
+       Live DAGitty. Model code menu, paste the Teney block from the previous
+       slide, drag nodes, add the candidate edges, watch adjustmentSets update
+       on screen. Only enable this if the room wifi is reliable; otherwise stay
+       on the static figure. dagitty.net/dags.html opens its built-in example
+       model, so use the Model code menu to paste the Teney block.
+       [close the notes fenced div here]
+-->
+
+# PART 4 – The multiverse {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Debrief · 12 minutes
+:::
+
+::: notes
+Welcome back. We will get to what the room found in a moment – but first, a story. It happened to all of you about an hour ago, and you may not have noticed.
+:::
+
+## You just lived a reproducibility story
+
+:::: {.none}
+You fetched `rep_data.csv` from the fork and fitted the constrained model.
+
+::: {.fragment}
+You got **t = −3.853**.
+:::
+
+::: {.fragment}
+The result recorded for analyst C6HJR in Multi100 is **t = −3.804**.
+:::
+
+::: {.fragment}
+Same model. Same data, supposedly. Two different numbers. Why?
+:::
+::::
+
+::: notes
+Earlier this morning, every one of you pulled my submitted dataset from the fork and fitted exactly the constrained model – the same one I submitted to Multi100. You got t equals minus three point eight five three. [advance] The number on record for me, in the Multi100 dataset, is minus three point eight zero four. [advance] Same model. Supposedly the same data. Two different numbers. [pause] Why? Take a guess – this is reproducibility, same data and same analysis, coming up short by a hair. And the answer is more interesting than embarrassing.
+:::
+
+## The discovery – and the correction {.smaller}
+
+::: {.small}
+- The prep script read **EB 70.1** (ZA4819) **twice**, never **EB 72.4** (ZA4994) – the 2009 rows are relabelled **2008** data
+- **The analyst spotted this during the project and fixed it** – the recorded −3.804 came from the corrected pipeline:
+:::
+
+::: {.claimcard}
+"APRIL 2025 – Mistake in dataset here; the dataset associated with 'eb724' should be 'ZA4994_v3-0-0.dta'" <span class="src">– analyst's own annotation</span>
+:::
+
+::: {.small}
+- The official component kept only the earlier folder; the correction is published in the fork: **osf.io/6zqct → `moreh_rep_vAPR2025/`**
+:::
+
+::: notes
+Here is why. My original data-preparation script read the autumn 2008 Eurobarometer file twice, and never read the 2009 file – so what is labelled 2009 in that dataset is actually 2008 again. I caught it during the project; the annotation on the slide is from the script itself, dated April 2025 – "mistake in dataset here". The corrected pipeline is what produced the recorded minus three point eight zero four. What slipped was the archive: the official Multi100 folder kept only the earlier, uncorrected version. The correction now lives, documented where it happened, in the fork you all pulled from this morning. Corrections like this are normal science – the question is only whether the trail stays visible.
+:::
+
+## This is reproducibility *working*
+
+:::: {.none}
+The workshop panel, rebuilt from the raw GESIS files, recovers **t = −3.804** exactly.
+
+::: {.fragment}
+Every step was checkable because the materials were **open** – the as-submitted data, the corrected script, the rebuild.
+:::
+
+::: {.fragment}
+Reproducibility working, not failing. Keep the whole trail public.
+:::
+::::
+
+::: notes
+And the ending is the good part. The workshop dataset you used for the menu – rebuilt independently, from the raw files – recovers minus three point eight zero four exactly. So we know precisely which dataset produced the recorded value, and we know the rest of the pipeline matches to machine precision. Notice what made all of that possible: every step was checkable only because the materials were open. You fetched the submitted data and got one number; you could read the annotation, see the correction, rebuild, and get the other. None of this is a gotcha – not about Teney, not about me. It is what open materials are *for*. The discipline is keeping the whole trail public. So – with that in mind – where did your own results land?
+:::
+
+## The class multiverse
+
+```{r}
+#| label: spec-curve
+#| fig-width: 9.5
+#| fig-height: 4.6
+# The pre-computed specification curve over the full menu (1,680 specs),
+# read from ../data/spec_grid.csv (loaded in setup). Each point is one
+# specification; the constrained baseline (b = -0.00347, t = -3.804) is red.
+sc <- spec_grid |>
+  dplyr::arrange(r) |>
+  dplyr::mutate(rank = dplyr::row_number())
+base <- dplyr::filter(sc, baseline)
+
+ggplot(sc, aes(rank, r)) +
+  geom_hline(yintercept = 0, colour = grey_mid, linewidth = 0.4) +
+  geom_point(aes(colour = sig), size = 0.7, alpha = 0.55) +
+  geom_point(data = base, colour = d_red, size = 4) +
+  annotate("text", x = base$rank, y = base$r - 0.07,
+           label = "constrained baseline\nt = −3.804",
+           colour = d_red, fontface = "bold", size = 4, hjust = 0.15) +
+  scale_colour_manual(values = c(`TRUE` = ncl_blue, `FALSE` = "#c7ccd2"),
+                      labels = c(`TRUE` = "p < .05", `FALSE` = "n.s.")) +
+  labs(x = "specification (ranked by partial r)", y = "partial r") +
+  theme_slide(15) +
+  theme(legend.position = "right", legend.title = element_blank())
+```
+
+::: {.small}
+- **1,680** specifications · **68.7%** claim-consistent direction · **63.9%** significant · partial r from **−0.59 to +0.70**
+:::
+
+::: {.src}
+Pre-computed over the specification menu (data/spec_grid.csv). Class results paste into the Discussion thread.
+:::
+
+::: notes
+This is the space your results live in. I took the whole specification menu – every outcome, every exposure form, with and without growth, every estimator, every sample window, weighted and not – and ran all of it. One thousand six hundred and eighty models, each one a dot, ranked by partial correlation. Blue means significant, grey means not. About two thirds point the way the claim says; about two thirds are significant; the red dot is the baseline we all reproduced. Notice you can buy almost any answer you like in here – if you are willing to pick the path after seeing the results. Right – where did the room land? Call them out: did anyone flip the sign? Lose significance? Which choice moved your estimate most?
+:::
+
+## Where your pasted result lands
+
+```{r}
+#| label: spec-overlay
+#| fig-width: 9.5
+#| fig-height: 4.0
+# Same curve, overlaying the five Multi100 analysts as horizontal reference
+# lines at their partial r (from ../data/analysts5.csv); C6HJR in orange.
+sc2 <- spec_grid |>
+  dplyr::arrange(r) |>
+  dplyr::mutate(rank = dplyr::row_number())
+an <- analysts5 |>
+  dplyr::mutate(me = analyst_id == "C6HJR")
+
+ggplot(sc2, aes(rank, r)) +
+  geom_point(colour = "#c7ccd2", size = 0.6, alpha = 0.5) +
+  geom_hline(data = an, aes(yintercept = r, colour = me),
+             linewidth = 0.7, linetype = "22") +
+  geom_text(data = an, aes(x = 30, y = r, label = analyst_id, colour = me),
+            size = 3.4, vjust = -0.4, hjust = 0, show.legend = FALSE) +
+  scale_colour_manual(values = c(`FALSE` = ncl_blue, `TRUE` = orange)) +
+  labs(x = "specification (ranked)", y = "partial r",
+       title = "Five analysts (dashed) against the full menu") +
+  theme_slide(14)
+```
+
+::: {.resultline}
+RESULT | spec: ... | b = ... | se = ... | t = ... | df = ... | n = ... | r = ...
+:::
+
+::: {.src}
+`report_result()` prints this line; paste it into the pinned Discussion thread.
+:::
+
+::: notes
+Same curve, with the five Multi100 analysts laid across it as dashed lines – me in orange. What I like about this picture: the five published reanalyses are themselves just draws from this same space. Nobody was wrong; we were standing in different places in the garden. The box underneath is the line you have pasted into the thread – report_result formats it for you, including the partial correlation, computed exactly the way Multi100 computed it. That little conversion is what lets a Stata pooled model and an R fixed-effects model sit on the same axis – yours included.
+:::
+
+## What we learned
+
+::: {.claimcard}
+"the common single-path analyses in social and behavioural research should not be simply assumed to be robust" – [@AczelEtAl2026InvestigatingAnalyticalRobustness]
+:::
+
+::: {.claimcard}
+A blueprint: precise question → causal reasoning (DAG) → multiverse → sensitivity analysis – [@AuspurgBruderl2021HasCredibilitySocial]
+:::
+
+::: {.small}
+- Same-conclusion robustness and same-*number* robustness are different bars
+- Justifiability is the criterion – choose with reasons, show the spread
+:::
+
+::: notes
+Two sentences to take away. From the Multi100 paper: single-path analyses should not simply be assumed robust. And they add something worth hearing about preregistration – it protects you against choosing opportunistically, but it gives your preselected path no special status among the alternatives. That is why we ran a curve today, not a model. From Auspurg and Brüderl, the constructive recipe we followed: precise question, explicit assumptions, multiverse, sensitivity. And keep the two robustness standards apart in your own writing: same *conclusion* – seventy-four percent in Multi100 – and same *number* – thirty-four. When you claim robustness, say which one you mean.
+:::
+
+## A single analytical path is a choice
+
+:::: {.none}
+There is no privileged single analytical path – only justifiable ones, explored openly.
+
+::: {.fragment}
+You made one justifiable choice today – transparently, with a reason, inside a multiverse.
+:::
+
+::: {.fragment}
+That is the skill. That is the whole workshop.
+:::
+::::
+
+::: notes
+If the morning had one sentence, it is this one. There is no privileged single analytical path – only justifiable ones, explored openly. And notice that you have already done the right thing once: you made one defensible choice, you wrote down your reason before running it, and you placed your answer inside the space of alternatives rather than pretending it was the only one. That is the transferable habit. Everything else today was tooling in its service.
+:::
+
+## Take home & resources {.smaller}
+
+::: {.small}
+- **Yours now**: a public reproducible repo (Track B) or a saved browser script (Track A); a result on the class curve
+- **Read**: the three *Nature* 2026 papers [@MiskeEtAl2026InvestigatingReproducibilitySocial; @AczelEtAl2026InvestigatingAnalyticalRobustness; @TynerEtAl2026InvestigatingReplicabilitySocial] · the glossary [@NosekEtAl2025BriefGlossaryTerms] · @AuspurgBruderl2021HasCredibilitySocial · @LundbergEtAl2021WhatYourEstimand · @Teney2016DoesEUEconomic
+- **Explore**: the Multi100 data · OSF preregistration templates · `fixest` & `dagitty` docs
+- **At Newcastle**: the RSE team · Library open-research pages · `data.ncl.ac.uk` · ReproducibiliTea
+:::
+
+::: {.urlbox}
+codemoreh.github.io/applied-replication
+:::
+
+::: notes
+What you take with you: a public repository, or your browser script if you worked in Track A; a published page; and a dot on that curve. The website on screen has everything else – the readings, the data, the template, and the full SCORE dossier on the paper if you want to dig further. I will not read the list out, but the Newcastle pointers are worth a look while you are here: the RSE team run excellent training, the library's open-research people are genuinely helpful, data.ncl is where your own datasets can live – and if this morning's conversation is one you want to keep having, ReproducibiliTea meets monthly.
+:::
+
+## References {.scrollable .smaller visibility="uncounted"}
+
+::: {#refs}
+:::
+
+::: notes
+Not a slide to present – the full reference list lives here so the deck stands alone as a cited document when shared. Every citation in the slides links to this page.
+:::
+
+## Thank you – and your feedback
+
+<!-- VEVOX: replace with session link / QR for the feedback poll -->
+
+::: {.pollbox}
+Feedback poll<br>
+<span style="font-size:0.7em">(Vevox session QR / short URL)</span>
+:::
+
+::: {.none}
+Fork anything. Everything is open.
+:::
+
+::: notes
+That is the workshop. The feedback form is on screen – two minutes of your time, and it genuinely shapes how I run this next time. While you fill it in: everything you have touched today is open and forkable – the slides, the data, the template, even the scripts with my own mistake annotated in them. If you do one thing this week, state an estimand for a piece of your own work, out loud, in one sentence. Thank you very much – and enjoy the rest of the conference.
+:::

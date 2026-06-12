@@ -1,0 +1,78 @@
+﻿# Shared metadata for the workshop revealjs deck.
+# Adapted from _planning/example-slide-template/_metadata.yml: course-specific
+# keys (pdf-link-main, recap, course-logo, self-contained, output-location)
+# dropped; theme + title-slide partial repointed at ../style/ (relative to
+# slides/); embed-resources false (site build); echo off for clean slides.
+
+author: "Chris Moreh"
+event: "Open Research Conference · Newcastle University · 16 June 2026"
+
+# Citations resolve against the project bibliography; rendered citations link
+# to the scrollable References slide at the end of the deck.
+bibliography: ../references.bib
+link-citations: true
+
+format:
+  revealjs:
+    fig-align: center
+    logo: ../assets/logo.png
+    template-partials:
+      - ../style/title-slide.html
+    theme: ../style/cgm-slides.scss
+    # The hex backdrop is painted once on reveal's .backgrounds base layer
+    # (always viewport-sized), instead of per-slide background-image attributes
+    # that proved unreliable for full coverage. Dark slides (.darkslide and the
+    # title) have transparent canvases so the layer shows through; all other
+    # slides keep an explicit white canvas (see cgm-slides.scss).
+    include-in-header:
+      text: |
+        <style>
+          .reveal .backgrounds {
+            background: #16202C url("../style/hex-bkg.svg") center / cover no-repeat !important;
+          }
+        </style>
+    title-slide-attributes:
+      # Transparent canvas so the hex layer on .backgrounds shows through
+      # (reveal applies this inline, overriding the white canvas default).
+      data-background-color: "rgba(0,0,0,0)"
+      data-transition: "slide-out"
+      data-background-transition: "slide-out"
+      data-transition-speed: "default"
+    history: false
+    controls: true
+    menu: false
+    incremental: true
+    controls-back-arrows: faded
+    slide-number: false          # verticator handles position instead
+    preview-links: true
+    embed-resources: false
+    navigation-mode: linear
+    controls-layout: bottom-right
+    controls-tutorial: true
+    toc: false
+    transition: fade
+    background-transition: fade
+    transition-speed: slow
+    html-q-tags: true
+    reference-location: document
+    smaller: false
+    scrollable: false
+    verticator:
+      themetag: 'h1'
+      color: ''
+      inversecolor: ''
+      skipuncounted: false
+      clickable: true
+      position: 'auto'
+      offset: '3vmin'
+      autogenerate: true
+      tooltip: false
+      scale: 1
+
+revealjs-plugins:
+  - verticator
+
+execute:
+  echo: false
+  warning: false
+  freeze: auto

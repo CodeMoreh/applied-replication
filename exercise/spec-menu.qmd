@@ -1,0 +1,91 @@
+---
+title: "Specification Menu"
+subtitle: "Task D2 – choosing your analytical path"
+---
+
+The specification menu defines the space of justifiable analyses for Task D2. Every option is defensible – but you must write the defence. That is the exercise.
+
+The menu mirrors the structure of Gelman's 'garden of forking paths': at each decision point, there is more than one reasonable choice, and choosing without reasons is what turns a multiverse into noise.
+
+---
+
+## The menu
+
+| Axis | Options (choose one per axis) |
+|---|---|
+| **Outcome** | `mcosmo` (cosmopolitan framing – the Multi100 anchor) · `mutil` (utilitarian) · `mcomm` (communitarian) · `mlib` (libertarian) · `mpos` (all positive framings – closer to the claim's "positive dimensions" wording) · `mneg` (all negative framings) |
+| **Exposure form** | raw `unemp` · mean-centred `unemp_c` · `log(unemp)` · log-transformed and z-standardised |
+| **Second regressor** | none · `+ growth` (GDP growth rate – is it a confounder or a co-exposure?) |
+| **Estimator** | two-way FE via `fixest::feols(...  | cntry + year)` or `plm(..., effect = "twoways", model = "within")` · country FE only · random effects (`plm(..., model = "random")`) · pooled OLS with cluster-robust SE |
+| **Sample** | all years (2004–2013) · pre-crisis only (2004–2008) · crisis years only (2009–2013) · exclude bailout recipients · exclude Greece and Spain (extreme unemployment outliers) |
+| **Weights** | none · `n_cy` (country-year respondent counts) |
+
+With six axes and the options above, well over a thousand combinations exist – the pre-computed grid behind the closing chart holds 1,680 of them. You are choosing one. Your classmates are choosing others. Together you are sampling the multiverse.
+
+---
+
+## Worked example
+
+**Choice:** outcome = `mpos`, exposure = raw `unemp`, second regressor = none, estimator = two-way FE via `feols`, sample = all years, weights = none.
+
+**Justification (2 sentences):**
+The 'positive dimensions' wording in the claim maps more directly onto the composite `mpos` scale than onto `mcosmo` alone, so using `mpos` is the more literal operationalisation of the stated hypothesis. Grand-mean centring the unemployment rate changes the intercept but not the slope when fixed effects are present, so using raw `unemp` produces an identical coefficient; the choice is made explicit here to avoid an undocumented transformation.
+
+This is the kind of justification that makes a specification defensible: it connects the analytical choice to the claim's wording or to a causal argument, rather than to convenience or preference.
+
+---
+
+## Preregistering your choice (Track B)
+
+Commit your justification **before running the model**. The commit message format is:
+
+```
+prereg: <DV> ~ <IV> | <estimator> | <sample>
+```
+
+Examples:
+
+```
+prereg: mpos ~ unemp | twoway FE | all years
+prereg: mcosmo ~ log(unemp) + growth | country FE | 2004-2008
+prereg: mutil ~ unemp_c | pooled OLS cluster-robust | excl GR+ES
+```
+
+The timestamp on the commit is your preregistration. Write the justification in your report file (the Task D2 callout block) and commit that together with any setup code – before you add the model-fitting code.
+
+**Track A:** post your intention to the [Discussion thread](https://github.com/CodeMoreh/applied-replication/discussions) with the same information, then run the model.
+
+---
+
+## Reporting your result
+
+After running your model, paste the following result line into the Discussion thread:
+
+```
+RESULT | spec: <DV> ~ <IV> | <estimator> | <sample> | b = ... | se = ... | t = ... | df = ... | n = ... | r = ...
+```
+
+where `r = t / sqrt(t^2 + df)` (the partial correlation, matching the conversion Multi100 used).
+
+**The `report_result()` helper** in the template repository (`R/report_result.R`) produces this line automatically:
+
+```r
+source("R/report_result.R")
+report_result(my_model, spec = "mcosmo ~ unemp_c | twoway FE | all years")
+```
+
+This prints the formatted result line, ready to copy into the Discussion thread.
+
+---
+
+## Notes on specific choices
+
+**Outcome variables.** The four Teney dimensions (`mcosmo`, `mutil`, `mcomm`, `mlib`) are 0–1 relative-frequency scales. `mpos` and `mneg` are composites (means of the positive and negative sub-dimensions respectively). All are in `teney_panel.csv`; check the codebook (`data/teney_panel_codebook.md` in the template repo) for exact definitions.
+
+**Exposure form.** Log-transforming unemployment makes sense if you believe the effect is proportional rather than additive; centring or standardising makes coefficients more comparable across specifications but does not change the t-statistic. Document your choice.
+
+**GDP growth as a second regressor.** From the DAG perspective: is `growth` a confounder (a common cause of unemployment and EU framing), a co-exposure (another pathway you want to estimate separately), or a mediator (part of the path from unemployment to framing)? Your answer determines whether including it is theoretically defensible for your estimand.
+
+**Estimator choice.** Two-way FE controls for time-constant country traits and year-specific EU-wide shocks. Country FE only removes country traits but leaves year shocks in the error. Random effects assumes the country-level heterogeneity is uncorrelated with the covariates – testable via a Hausman test. Pooled OLS with cluster-robust SE ignores the panel structure entirely; it requires the strongest assumption. The choice is consequential.
+
+**Sample restrictions.** Dropping Greece and Spain removes the two countries with unemployment rates far above the rest during the crisis period. If the effect is driven mainly by these outliers, the coefficient will shrink substantially. That is a legitimate sensitivity check.
