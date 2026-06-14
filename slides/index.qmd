@@ -18,6 +18,7 @@ suppressPackageStartupMessages({
   library(ggplot2)
   library(dagitty)
   library(ggdag)
+  library(patchwork)
 })
 
 ncl_blue <- "#0e3b6a"
@@ -36,6 +37,54 @@ theme_slide <- function(base_size = 17) {
       axis.title = element_text(colour = ncl_blue),
       legend.position = "none"
     )
+}
+
+# The four-cell repeatability matrix (Nosek et al. 2025). Defined once here so
+# the full-colour slide and the 'robustness only' emphasis slide draw from a
+# single source of truth – no copy-pasted plot code to drift apart. The data x
+# analysis matrix is rendered as a tile grid (inline data, not a screenshot) so
+# it stays fully editable; the term sits large in each cell with its one-line
+# meaning beneath it.
+repeatability_cells <- tibble::tribble(
+  ~analysis,    ~data,       ~term,             ~def,                                  ~fill,
+  "SAME METHODS",      "SAME DATA", "Reproducibility", "Testing the reliability of a prior finding\nwith the same data and same analysis\nstrategy by comparing the outcome of an\ninferential test as reported in a paper\nwith a re-calculation of that inferential\ntest from the original data.", "#0e3b6a",
+  "DIFFERENT METHODS", "SAME DATA", "Robustness",  "Testing the reliability of a prior finding\nwith the same data and different analysis\nstrategy by conducting alternative\ntests on the original data.",  "#E69F00",
+  "SAME METHODS",      "DIFFERENT DATA",  "Replicability",   "Testing the reliability of a prior finding\nwith new data expected to be theoretically\nequivalent by comparing the outcome of an\ninferential test as reported in a paper\nwith the equivalent inferential test as\ncalculated in the new dataset.",               "#009E73",
+  "DIFFERENT METHODS", "DIFFERENT DATA", "Generalisibility", "Testing the reliability of a prior finding\nin a new dataset in a way that differs\nfrom the original study but is expected\nto produce similar results.",                 "#834848"
+)
+
+# Draw the matrix. `highlight = NULL` keeps all four cells in full colour; pass
+# a term (e.g. "Robustness") to dim every OTHER cell to a light-grey box. Text
+# stays white throughout, so dimmed cells read as light-grey background + white
+# text while the highlighted cell keeps its own colour.
+repeatability_matrix <- function(highlight = NULL) {
+  grey_box <- "#b6bcc3"   # light grey for de-emphasised cells
+  cells <- repeatability_cells |>
+    dplyr::mutate(
+      data = factor(data, levels = c("SAME DATA", "DIFFERENT DATA")),
+      analysis = factor(analysis,
+        levels = c("DIFFERENT METHODS", "SAME METHODS")),
+      fill = if (is.null(highlight)) fill
+             else dplyr::if_else(term == highlight, fill, grey_box)
+    )
+  ggplot(cells, aes(data, analysis)) +
+    geom_tile(aes(fill = fill), colour = "white", linewidth = 4,
+              width = 1, height = 1) +
+    geom_text(aes(label = term), colour = "white",
+              fontface = "bold", size = 9, nudge_y = 0.25) +
+    geom_text(aes(label = def), colour = "white",
+              size = 5, nudge_y = -0.1, lineheight = 0.95) +
+    scale_fill_identity() +
+    scale_x_discrete(position = "top") +
+    labs(x = NULL, y = NULL) +
+    theme_void(20) +
+    # Row labels flipped to read vertically (bottom-to-top), matching the
+    # rotated row-heads on the HTML image-grid version of this matrix.
+    theme(panel.grid = element_blank(),
+          axis.text = element_text(face = "bold", colour = ncl_blue),
+          axis.text.x.top = element_text(size = 17),
+          axis.text.y = element_text(size = 15, angle = 90, hjust = 0.5),
+          plot.margin = ggplot2::margin(2, 8, 2, 2))
 }
 
 # Read the two data files the multiverse slides depend on. Relative paths
@@ -85,11 +134,11 @@ Part one, then. Three words that sound alike and are not – and the three *Natu
 :::: {.none}
 Three papers, one issue, one question:
 
-::: {.fragment}
+::: {.fragment .fadeInUp}
 **"When we repeat the science of the social world, what survives?"**
 :::
 
-::: {.fragment}
+::: {.fragment .fadeInUp .slow}
 I was inside one of them.
 :::
 ::::
@@ -98,91 +147,104 @@ I was inside one of them.
 In April this year, *Nature* published three papers back to back – same issue, same programme – all asking versions of one question: when we repeat the science of the social world, what survives? Reading them together is sobering. And I should say up front: I was inside one of them, as one of several hundred analysts. So this is not a story about other people's research. Today you will be sitting exactly where I sat.
 :::
 
-## "Replication" used to mean everything
+## "Replication" crises
 
 :::: {.none}
-One word was carrying too much weight.
-
 ::: {.fragment}
-Rerun the same code? Re-analyse the same data a different way? Collect fresh data?
+Another "replication" crisis – terminological confusion?
 :::
-
 ::: {.fragment}
-All called 'replication' – and they answer *different* questions.
+The term "reproducibility" has been used as a synonym for a number of different characteristics  – reproducibility, robustness, replicability, repeatability, credibility, and trustworthiness.
 :::
+[[Successfully rerun the same code on the same data?]{colour="#b22222"}]{.fragment}
+[[Re-analyse the same data a different way?]{colour="#1C69A8"}]{.fragment}
+[[Collect fresh data and analyse it in the same way?]{colour="#4D179A"}]{.fragment}
+[[Using the same data and same analysis but asking a different question?]{colour="#3C6301"}]{.fragment}
+[[Asking the same question but answering it with fresh data and a different analysis?]{colour="#3BB8DB"}]{.fragment}
 ::::
 
 ::: notes
 Part of the problem is the word itself. For years 'replication' covered everything: rerunning someone's code, re-analysing their data a different way, collecting new data altogether. Those are three different operations, answering three different questions – but because we called them all 'replication', the crisis debates had people talking past each other for a decade. So before any numbers, we need vocabulary.
 :::
 
-## The 2×2 you must internalise
+## The data $\times$ analysis matrix
 
 ```{r}
 #| label: matrix
-#| fig-width: 10
-#| fig-height: 4.8
-# The data x analysis matrix, drawn as a tile grid (inline data, not a
-# screenshot) so it stays fully editable. Same question throughout; the term
-# sits large in each cell with its one-line meaning beneath it.
-cells <- tibble::tribble(
-  ~analysis,    ~data,       ~term,             ~def,                                  ~fill,     ~txt,
-  "SAME\nanalysis",      "SAME data", "Reproducibility", "rerun the recipe,\nget the same number?", "#0e3b6a", "white",
-  "DIFFERENT\n(justifiable)", "SAME data", "Robustness",  "another defensible path,\nsame answer?",  "#E69F00", "white",
-  "SAME\nanalysis",      "NEW data",  "Replicability",   "fresh data,\nsame finding?",               "#009E73", "white",
-  "DIFFERENT\n(justifiable)", "NEW data", "(generalisation)", "set aside\nfor today",                 "#d8dde3", "#6C7B7F"
-)
-cells <- cells |>
-  dplyr::mutate(
-    data = factor(data, levels = c("SAME data", "NEW data")),
-    analysis = factor(analysis,
-      levels = c("DIFFERENT\n(justifiable)", "SAME\nanalysis"))
-  )
-ggplot(cells, aes(data, analysis)) +
-  geom_tile(aes(fill = fill), colour = "white", linewidth = 4,
-            width = 0.97, height = 0.94) +
-  geom_text(aes(label = term, colour = txt),
-            fontface = "bold", size = 8.5, nudge_y = 0.14) +
-  geom_text(aes(label = def, colour = txt),
-            size = 4.6, nudge_y = -0.18, lineheight = 0.95) +
-  scale_fill_identity() +
-  scale_colour_identity() +
-  scale_x_discrete(position = "top") +
-  labs(x = NULL, y = NULL) +
-  theme_slide(20) +
-  theme(panel.grid = element_blank(),
-        axis.text = element_text(face = "bold", colour = ncl_blue),
-        axis.text.x.top = element_text(size = 17),
-        axis.text.y = element_text(size = 15, lineheight = 0.9),
-        plot.margin = ggplot2::margin(2, 8, 2, 2))
+#| fig-width: 12
+#| fig-height: 7
+repeatability_matrix()
 ```
+
+::: {.src}
+@AlipourfardEtAl2021SystematizingConfidenceOpen; @NosekEtAl2025BriefGlossaryTerms
+:::
 
 ::: notes
 Here is the whole framework on one slide, and if you take a single thing home today, make it this grid. The question stays the same throughout; what varies is the data and the analysis. Same data, same analysis – reproducibility: if I rerun your recipe, do I get your number? Same data but a different, justifiable analysis – robustness: does your finding survive my defensible choices? New data, same question – replicability. The fourth cell, new data and new analysis, is really generalisation, and we set it aside today. Sit with this for a moment – everything that follows this morning hangs off it.
 :::
 
-## The three definitions, verbatim
+## Today's "replication"
 
-::: {.claimcard}
-**Reproducibility** – same question, same data, same analysis.
-
-**Robustness** – same question, same data, justifiable *alternative* analyses.
-
-**Replicability** – same question, *independent* data.
-
-**Repeatability** – the umbrella term for all three.
-:::
-
-::: {.small}
-- Today's exercise is a **robustness** test: same data, a different justifiable analysis.
-:::
+```{r}
+#| label: matrix-robustness
+#| fig-width: 12
+#| fig-height: 7
+repeatability_matrix(highlight = "Robustness")
+```
 
 ::: {.src}
-Glossary: @NosekEtAl2025BriefGlossaryTerms.
+@AlipourfardEtAl2021SystematizingConfidenceOpen; @NosekEtAl2025BriefGlossaryTerms
 :::
 
 ::: notes
-These are the definitions we will use, essentially as Nosek and colleagues fix them in their short glossary. Reproducibility: same question, same data, same analysis. Robustness: same data, justifiable alternative analyses. Replicability: independent data. Repeatability is their umbrella word for all three. One caution the glossary itself makes: none of these is the same thing as truth – a perfectly reproducible result can still be wrong about the world. And to be clear about today: our exercise is a robustness test. You will take the same data and make your own justifiable choices.
+Same grid, one cell lit. Of the four, the one you are stepping into today is robustness: same data, a different but defensible analysis. Hold the other three in grey for now – we will meet each of them on this very paper before the morning is out – but this is the seat you are taking.
+:::
+
+## Related concepts
+
+::: {.scaled style="--fs: 0.9; --lh: 1.15"}
+**Repeatability** is used when referring to reproducibility, robustness, and replicability as a constellation of concepts intended to assess whether answers to scientific questions are unchanged when different steps of the research process are repeated.
+
+**Credibility** and **trustworthiness** refer to the confidence one can have in research findings. Because scientific knowledge claims are tentative, they are *not* synonymous with truth.
+
+For example, credibility is advanced by addressing potential competing interests in the conducting and reporting of research, by taking existing knowledge into account, by using methods that have been validated, by controlling for biases in the research context, by pursuing precise and reliable evidence, and by calibrating the strength of the claims to the uncertainty of the evidence.
+:::
+
+::: {.src}
+@NosekEtAl2025BriefGlossaryTerms
+:::
+
+## The same matrix, by discipline
+
+::: {.matrix-grid}
+<div class="corner"></div>
+<div class="col-head">SAME data</div>
+<div class="col-head">DIFFERENT data</div>
+
+<div class="row-head">SAME methods</div>
+<figure class="cell" style="--accent: #0e3b6a">
+<img src="pics/score-reproduction.webp" alt="Reproduction outcomes by discipline (Miske et al. 2026)">
+</figure>
+<figure class="cell" style="--accent: #009E73">
+<img src="pics/score-replication.webp" alt="Replication outcomes by discipline (Tyner et al. 2026)">
+</figure>
+
+<div class="row-head">DIFFERENT methods</div>
+<figure class="cell" style="--accent: #E69F00">
+<img src="pics/score-reanalysis.webp" alt="Reanalysis outcomes by discipline (Aczel et al. 2026)">
+</figure>
+<figure class="cell empty">
+<img src="pics/nature-collection-abstract.png" alt="Nature collection abstract text (Sanchez-Tojar et al. 2026)">
+</figure>
+:::
+
+::: {.src}
+@Sanchez-TojarEtAl2026HugeMetaresearchProject
+:::
+
+::: notes
+Same four-cell map you have just learned – but now each box carries the actual disciplinary breakdown from its study. Three of the four corners have a SCORE paper behind them: reproduction top-left, replication top-right, reanalysis bottom-left. The fourth, generalisation, we set aside today. Notice the pattern jumps out by discipline rather than by concept: economics and political science sit at the top of reproduction, sociology lags; replication hovers around half almost everywhere; and reanalysis holds the original conclusion three times in four. Same data on the wall, three very different questions.
 :::
 
 ## Quick check {.questionslide}
@@ -382,11 +444,11 @@ And this is what comes back. The median effect size halves: point two five in th
 :::: {.none}
 Reproducible ≠ robust ≠ replicable.
 
-::: {.fragment}
-Across SCORE the three are **essentially uncorrelated** – knowing one barely predicts the others.
+::: {.fragment .fadeInUp}
+Across SCORE the three are [**essentially uncorrelated**]{.highlight bg-colour="#ffe3b3"} – knowing one barely predicts the others.
 :::
 
-::: {.fragment}
+::: {.fragment .fadeInUp}
 So there is no single number for 'trust'. You have to ask *which* repetition you mean.
 :::
 ::::
@@ -432,25 +494,23 @@ The paper is Céline Teney's, from 2016, in the *European Sociological Review*. 
 
 ::: {.small}
 - Anchor result – unemployment → cosmopolitan framing, Table 3 Model 1:
-- **b = −0.00340 · t = −4.03 · p < .001**
+- **b = −0.00340 · [t = −4.03]{.highlight bg-colour="#ffe3b3"} · p < .001**
 :::
 
 ::: notes
 This is, word for word, the claim every Multi100 analyst was handed: "poor economic performances decrease positive dimensions of EU framing". And this is the anchor number behind it, from Table 3, Model 1 – the unemployment coefficient on cosmopolitan framing: minus point zero zero three four, t of minus four. Keep one wrinkle in mind for later. In the paper's own Model 2, with more controls in, that same coefficient drops by more than half and loses significance. The robustness question is already alive inside the original paper.
 :::
 
-## SCORE tried to reproduce it – twice {.smaller}
+## SCORE tried to reproduce it – twice
 
 ::: {.small}
 - No public archive with the paper – **but the author supplied two Stata do-files on request**; the data stayed GESIS-restricted
 - **Push-button reproduction** (with that author code) – **failed**:
+
+::: {.claimcard .fragment}
+"… file names that did not correspond with the names of the files available for download… 16 datasets are listed… the code references 18 files"
 :::
 
-::: {.claimcard}
-"… file names that did not correspond with the names of the files available for download… 16 datasets are listed… the code references 18 files."
-:::
-
-::: {.small}
 - **Source-data reproduction** (rebuild from raw) – **"not reproduced"**: could not extract nor re-calculate the original effect size
 :::
 
@@ -465,7 +525,7 @@ So what happened when SCORE tried to reproduce this paper? Two attempts, two dif
 #| fig-width: 9
 #| fig-height: 4
 # Five Multi100 analysts of the SAME Teney claim, from ../data/analysts5.csv.
-# Standardised partial r on one axis; the facilitator (C6HJR) highlighted.
+# Standardised partial r on one axis; C6HJR highlighted.
 fa <- analysts5 |>
   dplyr::mutate(
     me  = analyst_id == "C6HJR",
@@ -492,7 +552,7 @@ ggplot(fa, aes(r, lab, colour = me)) +
 :::
 
 ::: {.src}
-Multi100 Task-2 reanalyses of the Teney claim. C6HJR (orange) = your facilitator.
+Multi100 Task-2 reanalyses of the Teney claim.
 :::
 
 ::: notes
@@ -629,14 +689,16 @@ This is the study that started the whole many-analysts conversation. Twenty-nine
 
 ## They were not answering the same question
 
-::: {.small}
-- Auspurg & Brüderl re-read the 29 analyses and found **four** different estimands:
+::: {.none}
+<br>
+Auspurg & Brüderl re-read the 29 analyses and found **four** different estimands:
+
 - descriptive association · discrimination *net of mediators* · variance-maximising · exploratory
 - The dispersion was largely a **question**-multiverse, not an analysis-multiverse
 :::
 
 ::: {.src}
-[@AuspurgBruderl2021HasCredibilitySocial].
+[@AuspurgBruderl2021HasCredibilitySocial]
 :::
 
 ::: notes
@@ -673,7 +735,7 @@ ggplot(steps, aes(x, 1)) +
   theme_void()
 ```
 
-::: {.small}
+::: {.none}
 - The theoretical estimand is stated **outside** any model – before R opens
 :::
 
@@ -685,7 +747,7 @@ ggplot(steps, aes(x, 1)) +
 Which brings us to the most useful question in quantitative research: what is your estimand? Lundberg and colleagues split the answer into three steps. First, the theoretical estimand: a unit-specific quantity and a target population, stated in plain words, before any model exists. Second, the empirical estimand: what in the observable data corresponds to that quantity – and making that link forces your identification assumptions into the open, which is exactly where the causal graph lives. Only third comes estimation, where R finally opens. When they audited a full year of papers in a top sociology journal, the unit quantity was clearly stated in five out of thirty-two. Their demand is the one to remember: every quantitative study must be able to answer the question – what is your estimand?
 :::
 
-## DAG crash course: three roles
+## DAG crash course: three roles {.smaller}
 
 ```{r}
 #| label: mini-dags
@@ -704,32 +766,291 @@ med  <- mini("dag { X -> M  M -> Y  X -> Y }",
 coll <- mini("dag { X -> C  Y -> C  X -> Y }",
   list(x = c(X = 0, Y = 2, C = 1), y = c(X = 0, Y = 0, C = -1)))
 
-gg <- function(d, ttl) {
-  ggdag::ggdag(d, text = TRUE, node_size = 16, text_size = 4) +
+# Edges are coloured by role: the X -> Y causal effect (the estimand) is GREEN
+# in every panel; the secondary structure carries an accent – RED where it
+# biases the naive estimate (the confounder fork, the collider edges) and AMBER
+# for the mediator's indirect path, which is part of the total effect rather
+# than bias. The accent is passed per panel; green is constant so the eye learns
+# 'green = the effect I want, coloured = the path I must reason about'.
+gg <- function(d, ttl, cap, accent = d_red) {
+  td <- ggdag::tidy_dagitty(d)
+  td$data <- dplyr::mutate(td$data,
+    edge_kind = dplyr::if_else(name == "X" & to == "Y", "causal", "other"))
+  ggplot2::ggplot(td,
+      ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+    ggdag::geom_dag_edges(ggplot2::aes(edge_colour = edge_kind),
+      arrow_directed = grid::arrow(length = grid::unit(7, "pt"),
+                                   type = "closed")) +
+    ggdag::geom_dag_point(size = 16, colour = "black") +
+    ggdag::geom_dag_text(colour = "white", size = 4) +
+    ggraph::scale_edge_colour_manual(
+      values = c(causal = green, other = accent), guide = "none") +
     ggdag::theme_dag() +
-    ggplot2::labs(title = ttl) +
-    ggplot2::theme(plot.title = element_text(face = "bold",
-                   colour = ncl_blue, hjust = 0.5, size = 16))
+    # Expand the panel so the nodes sit well inside it – otherwise the title
+    # and caption crowd (and slightly cover) the top/bottom nodes.
+    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = 0.18)) +
+    ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0.32)) +
+    ggplot2::labs(title = ttl, caption = cap) +
+    ggplot2::theme(
+      plot.title = element_text(face = "bold", colour = ncl_blue,
+                                hjust = 0.5, size = 16,
+                                margin = margin(b = 10)),
+      plot.caption = element_text(hjust = 0.5, size = 11,
+                                  colour = grey_mid, lineheight = 1.05,
+                                  margin = margin(t = 10)))
 }
-patchwork_ok <- requireNamespace("patchwork", quietly = TRUE)
-if (patchwork_ok) {
   patchwork::wrap_plots(
-    gg(conf, "Confounder Z – ADJUST"),
-    gg(med,  "Mediator M – don't (total effect)"),
-    gg(coll, "Collider C – never adjust"),
+    gg(conf, "Confounder Z",
+       "Common cause of X and Y.\nADJUST – or the estimate is biased.", d_red),
+    gg(med,  "Mediator M",
+       "Sits on the path X → Y.\nDON'T adjust for the total effect.", orange),
+    gg(coll, "Collider C",
+       "Caused by both X and Y.\nNEVER adjust – it opens a spurious path.", d_red),
     nrow = 1)
-} else {
-  # Fallback: draw the confounder panel only if patchwork is unavailable.
-  gg(conf, "Confounder Z – ADJUST")
-}
 ```
 
 ::: {.src}
-X = exposure, Y = outcome.
+X = exposure, Y = outcome. **Green** = the causal effect you want; **coloured** = the path you must reason about.
 :::
 
 ::: notes
-All the graph theory you need today, in three small pictures. A confounder is a common cause of your exposure and your outcome – leave it out and you are biased, so adjust for it. A mediator sits on the causal path between them – if it is the total effect you want, do not adjust for it, or you remove part of the very thing you are measuring. And a collider is caused by both sides – adjusting for one opens a spurious path that was not there before. So the rulebook is short: adjust confounders, leave mediators alone for total effects, and never condition on a collider. That is the entire toolkit you need for the next task.
+All the graph theory you need today, in three small pictures. In every panel the green arrow is the same thing – the effect you are actually after, X on Y. What changes is the coloured structure around it. A confounder is a common cause of your exposure and your outcome – that red fork is a back-door path, and if you leave it open you are biased, so you adjust to close it. A mediator sits on the causal path between them – the amber path is real, it is part of the total effect, so if the total effect is what you want you do not adjust for it, or you remove part of the very thing you are measuring. And a collider is caused by both sides – those edges are harmless until you condition on the collider, which opens a spurious path that was not there before. So the rulebook is short: adjust confounders, leave mediators alone for total effects, and never condition on a collider. That is the entire toolkit – the next four slides just give it a bit more depth before you use it.
+:::
+
+## One number, many stories {.smaller}
+
+:::: {.columns}
+::: {.column width="54%"}
+
+```{r}
+#| label: many-stories
+#| fig-width: 5.2
+#| fig-height: 4.3
+# A single strong association. The same slope is consistent with several
+# different causal structures – the number alone cannot tell you which one
+# generated it (the 'causal quartet' point). Scatter is simulated for display.
+set.seed(11)
+n <- 130; x <- rnorm(n); y <- 0.6 * x + rnorm(n, 0, 0.85)
+df <- tibble::tibble(x, y)
+ggplot(df, aes(x, y)) +
+  geom_point(colour = ncl_blue, alpha = 0.5, size = 2.3) +
+  geom_smooth(method = "lm", se = FALSE, colour = d_red, linewidth = 1.2) +
+  annotate("text", x = min(x), y = max(y), hjust = 0, vjust = 1,
+           label = paste0("r = ", format(round(cor(x, y), 2), nsmall = 2)),
+           colour = d_red, fontface = "bold", size = 6.5) +
+  labs(x = "X", y = "Y") + theme_slide(16)
+```
+
+:::
+::: {.column width="46%"}
+::: {.small}
+The same slope fits four different stories:
+
+::: {.fragment}
+- X really causes Y – the slope *is* the effect
+:::
+::: {.fragment}
+- a common cause inflates it – **confounding**
+:::
+::: {.fragment}
+- we are seeing a selected sample – **collider / selection**
+:::
+::: {.fragment}
+- Y causes X (**reverse causation**), or it is **chance**
+:::
+::: {.fragment}
+The data look identical in all four. Only an assumption about *how the data arose* tells them apart – that is what a DAG writes down.
+:::
+:::
+:::
+::::
+
+::: {.src}
+[@DAgostinoMcGowanEtAl2024CausalInferenceNot; @KeeleEtAl2020CausalInterpretationEstimated]. Scatter simulated for illustration.
+:::
+
+::: notes
+Here is a strong correlation – r of about nought point six. Before you reach for a model, sit with an uncomfortable fact: this single number is consistent with at least four different stories. Maybe X really does cause Y, and the slope is the effect. Maybe a common cause is inflating it. Maybe we are quietly looking at a selected sample, and the association is an artefact of who got in. Maybe Y causes X, or it is simply chance. The data cannot choose between these – the scatter looks identical in every case. Only a claim about how the data were generated can. That claim is what a DAG writes down, and it is why we draw one before we fit anything.
+:::
+
+## Reading a DAG: open and closed paths {.smaller}
+
+```{r}
+#| label: backdoor-paths
+#| fig-width: 9.5
+#| fig-height: 3.7
+# Same confounder graph, twice. LEFT: the back-door path X <- Z -> Y is open
+# (red), so the naive X -> Y estimate is biased. RIGHT: adjusting for Z (boxed)
+# blocks the back-door (greyed), leaving the green causal path clean. Reuses
+# `conf` and `mini()` from the mini-dags chunk.
+path_panel <- function(adjust_z = FALSE) {
+  td <- ggdag::tidy_dagitty(conf)
+  td$data <- dplyr::mutate(td$data,
+    edge_kind = dplyr::if_else(name == "X" & to == "Y", "causal",
+                       if (adjust_z) "blocked" else "backdoor"))
+  p <- ggplot2::ggplot(td,
+      ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+    ggdag::geom_dag_edges(ggplot2::aes(edge_colour = edge_kind),
+      arrow_directed = grid::arrow(length = grid::unit(7, "pt"),
+                                   type = "closed")) +
+    ggdag::geom_dag_point(size = 18, colour = "black") +
+    ggdag::geom_dag_text(colour = "white", size = 4.4) +
+    ggraph::scale_edge_colour_manual(
+      values = c(causal = green, backdoor = d_red, blocked = grey_mid),
+      guide = "none") +
+    ggdag::theme_dag() +
+    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = 0.22)) +
+    ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0.40)) +
+    ggplot2::labs(title = if (adjust_z) "Adjust for Z → back-door closed"
+                          else "Back-door path X ← Z → Y is open") +
+    ggplot2::theme(plot.title = element_text(face = "bold", colour = ncl_blue,
+                                hjust = 0.5, size = 15, margin = margin(b = 8)))
+  if (adjust_z) {
+    zc <- subset(td$data, name == "Z")[1, ]
+    p <- p + ggplot2::annotate("point", x = zc$x, y = zc$y, shape = 0,
+                               size = 14, stroke = 1.6, colour = ncl_blue)
+  }
+  p
+}
+patchwork::wrap_plots(path_panel(FALSE), path_panel(TRUE), nrow = 1)
+```
+
+::: {.small}
+Association flows along **every open path** – not only the causal arrow. A fork or chain is open until you adjust the variable on it; a collider is the reverse – shut until you adjust it.
+
+- **Back-door criterion**: close every path that enters X from behind, keep the causal X → Y path open
+- That adjustment set – and only that set – earns a causal reading
+:::
+
+::: {.src}
+[@HernanRobins2020CausalInferenceWhat; @Huntington-Klein2021EffectIntroductionResearch].
+:::
+
+::: notes
+A DAG is read through its paths. Association does not only travel down the causal arrow – it flows along every open path between X and Y. So the job is to work out which paths are open and shut the ones you do not want. Two rules do all the work. A path through a fork or a chain is open, and you close it by adjusting the variable in the middle – that is the red back-door fork on the left. A path through a collider is the opposite: shut by default, and you open it by adjusting. The back-door criterion just packages this: close every path that sneaks into X from behind, leave the causal X-to-Y path alone. The set that does that – and only that set – is what you are allowed to read as causal.
+:::
+
+## Which effect do you even want? {.smaller}
+
+:::: {.columns}
+::: {.column width="55%"}
+
+```{r}
+#| label: total-direct
+#| fig-width: 5.6
+#| fig-height: 4.1
+# Mediator graph with the two routes coloured: the DIRECT effect X -> Y (green)
+# and the INDIRECT route X -> M -> Y (amber). Together they make the total
+# effect; adjusting for M leaves only the direct one. Reuses `med`.
+td <- ggdag::tidy_dagitty(med)
+td$data <- dplyr::mutate(td$data,
+  edge_kind = dplyr::if_else(name == "X" & to == "Y", "direct", "indirect"))
+ggplot2::ggplot(td,
+    ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+  ggdag::geom_dag_edges(ggplot2::aes(edge_colour = edge_kind),
+    arrow_directed = grid::arrow(length = grid::unit(8, "pt"), type = "closed")) +
+  ggdag::geom_dag_point(size = 22, colour = "black") +
+  ggdag::geom_dag_text(colour = "white", size = 5) +
+  ggraph::scale_edge_colour_manual(values = c(direct = green, indirect = orange),
+    guide = "none") +
+  ggdag::theme_dag() +
+  ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = 0.18)) +
+  ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0.30)) +
+  ggplot2::annotate("text", x = 0.5, y = 0.62, label = "indirect", colour = orange,
+           fontface = "bold", size = 4.5, angle = 33) +
+  ggplot2::annotate("text", x = 1, y = -0.14, label = "direct", colour = green,
+           fontface = "bold", size = 4.5)
+```
+
+:::
+::: {.column width="45%"}
+::: {.small}
+- **Total** = direct (green) + indirect (amber)
+- Adjust for the mediator M → you estimate the **direct** effect only – a *different* estimand
+- 'Control for everything' silently answers a question you never asked
+- **Table 2 fallacy**: the other coefficients in your model are *not* all causal effects
+:::
+:::
+::::
+
+::: {.src}
+[@KeeleEtAl2020CausalInterpretationEstimated; @DAgostinoMcGowanEtAl2024CausalInferenceNot].
+:::
+
+::: notes
+Now the question the estimand discussion was circling. Suppose M sits between your exposure and outcome. The total effect is the green arrow plus the amber route through M. The direct effect is just the green arrow. These are different numbers and different questions – and which one you get depends entirely on whether you put M in the model. Drop a mediator in as just another 'control' and you have silently switched to the direct effect without telling anyone, including yourself. This is why 'control for everything' is bad advice. And it has a famous corollary – the Table 2 fallacy: when you print a regression table, usually only one coefficient has a clean causal reading. The control variables' coefficients are not little causal effects of their own.
+:::
+
+## Spurious by design: selection & feedback {.smaller}
+
+```{r}
+#| label: selection-panel
+#| fig-width: 10
+#| fig-height: 3.7
+# LEFT: a collider S caused by A and B. Conditioning on (or sampling on) S –
+# the red box – induces a spurious A–B association (dashed red). RIGHT: a
+# two-wave cross-lagged panel. The claim U1 -> F2 is green; the reverse path
+# F1 -> U2 is red; the autoregressive paths are grey. Two-way FE handles
+# neither feedback nor time-varying confounding.
+sel <- mini("dag { A -> S  B -> S }",
+  list(x = c(A = 0, S = 1, B = 2), y = c(A = 0, S = 1, B = 0)))
+tds <- ggdag::tidy_dagitty(sel)
+tds$data <- dplyr::mutate(tds$data, edge_kind = "structural")
+p_sel <- ggplot2::ggplot(tds,
+    ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+  ggdag::geom_dag_edges(ggplot2::aes(edge_colour = edge_kind),
+    arrow_directed = grid::arrow(length = grid::unit(7, "pt"), type = "closed")) +
+  ggdag::geom_dag_point(size = 18, colour = "black") +
+  ggdag::geom_dag_text(colour = "white", size = 4.4) +
+  ggraph::scale_edge_colour_manual(values = c(structural = grey_mid), guide = "none") +
+  ggplot2::annotate("point", x = 1, y = 1, shape = 0, size = 14, stroke = 1.6,
+                    colour = d_red) +
+  ggplot2::annotate("curve", x = 0.12, y = -0.18, xend = 1.88, yend = -0.18,
+    curvature = -0.25, colour = d_red, linetype = "dashed", linewidth = 0.9,
+    arrow = grid::arrow(length = grid::unit(6, "pt"), ends = "both")) +
+  ggdag::theme_dag() +
+  ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = 0.22)) +
+  ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0.45)) +
+  ggplot2::labs(title = "Condition on collider S → spurious A–B link") +
+  ggplot2::theme(plot.title = element_text(face = "bold", colour = ncl_blue,
+                              hjust = 0.5, size = 14, margin = margin(b = 8)))
+
+clp <- mini("dag { U1 -> U2  F1 -> F2  U1 -> F2  F1 -> U2 }",
+  list(x = c(U1 = 0, F1 = 0, U2 = 2, F2 = 2),
+       y = c(U1 = 1, F1 = 0, U2 = 1, F2 = 0)))
+tdc <- ggdag::tidy_dagitty(clp)
+tdc$data <- dplyr::mutate(tdc$data, edge_kind = dplyr::case_when(
+  name == "U1" & to == "F2" ~ "claim",
+  name == "F1" & to == "U2" ~ "reverse",
+  TRUE ~ "auto"))
+p_clp <- ggplot2::ggplot(tdc,
+    ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+  ggdag::geom_dag_edges(ggplot2::aes(edge_colour = edge_kind),
+    arrow_directed = grid::arrow(length = grid::unit(7, "pt"), type = "closed")) +
+  ggdag::geom_dag_point(size = 20, colour = "black") +
+  ggdag::geom_dag_text(colour = "white", size = 3.6) +
+  ggraph::scale_edge_colour_manual(
+    values = c(claim = green, reverse = d_red, auto = grey_mid), guide = "none") +
+  ggdag::theme_dag() +
+  ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = 0.18)) +
+  ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0.30)) +
+  ggplot2::labs(title = "Panel feedback: U now → F later, but also F → U") +
+  ggplot2::theme(plot.title = element_text(face = "bold", colour = ncl_blue,
+                              hjust = 0.5, size = 14, margin = margin(b = 8)))
+patchwork::wrap_plots(p_sel, p_clp, nrow = 1)
+```
+
+::: {.small}
+- **Selection / collider bias** – conditioning, or merely *sampling*, on a common effect manufactures an association that was never there (much of the early COVID risk-factor literature)
+- **Reverse causation & feedback** – in a panel, today's outcome can move tomorrow's exposure; two-way fixed effects absorb stable country traits and common-year shocks, **not** time-varying feedback (U = unemployment, F = framing)
+:::
+
+::: {.src}
+[@GriffithEtAl2020ColliderBiasUndermines; @ColeEtAl2010IllustratingBiasDue; @LeszczenskyWolbring2022HowDealReverse].
+:::
+
+::: notes
+Two last ways a relationship can be spurious, both of which live in our case. The first is selection, or collider bias. If you condition on – or merely sample on – something that both your variables cause, you manufacture a correlation out of nothing. A lot of the early COVID risk-factor findings were exactly this: conclusions drawn from people who had been tested, which is a selected group. The second is reverse causation and feedback. Our data are a panel, and in a panel today's outcome can feed tomorrow's exposure. Two-way fixed effects – which is the model we are about to draw – soak up stable differences between countries and shocks common to a year. They do not, on their own, fix a time-varying confounder or a feedback loop. Keep that in mind when we build the graph for our own paper.
 :::
 
 ## A&B's resolution: fix the estimand first
@@ -769,7 +1090,7 @@ ggplot(contrast, aes(or, grp, colour = grp)) +
 And here is the optimistic half of the red-card story. Auspurg and Brüderl fixed one estimand – discrimination, properly defined – used a causal graph to derive every model specification consistent with it, four hundred and eighty-six of them, and ran the lot. Look what happens to the spread: standard deviation point four five in the crowd, point zero six with the question fixed. Same caveat as before – these strips are sketches from the published summary figures. The recipe we take from them is the workshop's recipe: a precise question, assumptions drawn out explicitly, then a whole multiverse rather than one path, then sensitivity analysis. Their conclusion, roughly: it is research without a clear question that has the credibility problem.
 :::
 
-## Now Teney: state the estimand
+## *Revenons à nos moutons*
 
 ::: {.claimcard}
 "The expected change in [unit quantity] among [target population] for a 1-percentage-point difference in unemployment, holding [assumptions] fixed."
@@ -786,6 +1107,9 @@ Now apply it to our paper. This is the first thing you write in Task C – the s
 :::
 
 ## The Teney DAG, half built
+
+:::: {.columns}
+::: {.column width="60%"}
 
 ```{r}
 #| label: teney-dag
@@ -861,12 +1185,6 @@ ggplot2::ggplot(dag_tidy,
   ggplot2::theme(plot.margin = ggplot2::margin(14, 14, 14, 14))
 ```
 
-::: {.small}
-- Drawn: the path + two confounder pairs (**country, year → two-way FE**)
-- Floating, unwired: growth (confounder?) · bailout (mediator?) · politicisation (mediator?)
-- You add the edges you believe, then run `adjustmentSets()`
-:::
-
 ::: {.dagcode}
 live version: dagitty.net/dags.html → Model code → paste this → drag nodes, add edges, watch the adjustment sets update
 :::
@@ -880,28 +1198,107 @@ year -> unemployment ; year -> framing
 unemployment -> framing
 }
 ```
+:::
+
+::: {.column width="40%"}
+::: {.small}
+- Drawn: the path + two confounder pairs (**country, year → two-way FE**)
+- Floating, unwired: growth (confounder?) · bailout (mediator?) · politicisation (mediator?)
+- You add the edges you believe, then run `adjustmentSets()`
+:::
+:::
+::::
 
 ::: notes
 And here is the graph you will finish yourselves. The solid part is what we are committing to: unemployment to framing is the path of interest, and country and year are the two confounder pairs – stable national traits on one side, EU-wide shocks in a given year on the other. Ask dagitty for the adjustment set on this graph and it answers: country and year. Which is precisely what a two-way fixed-effects model absorbs – the graph and the baseline model are the same claim, written in two languages. The three pale nodes are yours to wire up, and they are genuine decisions. Is GDP growth a time-varying confounder that fixed effects cannot reach – a slump that raises unemployment and sours sentiment in the same year? Is the bailout a mediator, in which case you leave it alone if you want the total effect? Multi100 told us to disregard politicisation – was that defensible? If you want to play with this live, paste the model code from the slide into dagitty.net and drag things around; the adjustment sets update as you edit. Whatever you decide here becomes your model in the next task – that is the point.
 :::
 
-<!-- ALTERNATIVE LIVE SLIDE – facilitator may enable this if conference wifi
-     behaves. It embeds the full DAGitty editor as an interactive background;
-     drag nodes and add edges directly on the projected slide. To activate,
-     copy the two blocks below OUT of this comment into the deck (a heading and
-     a notes block), restoring the colon-fence markers shown in brackets. Kept
-     commented so the default deck stays fast and offline-safe.
+## Add a control, watch the result move {.smaller}
 
-       ## The DAG, live {background-iframe="https://www.dagitty.net/dags.html" background-interactive="true"}
+```{r}
+#| label: ctrl-grid
+#| include: false
+# Precompute the unemployment t-statistic from the constrained two-way FE model
+# (mcosmo ~ unemp + country + year) on the CORRECTED panel, for every on/off
+# combination of the two time-varying candidate controls that actually exist in
+# the panel: growth and bailout. Politicisation is not in the aggregate data, so
+# it cannot be toggled – that absence is itself part of the Multi100 lesson. The
+# base cell (neither control) reproduces the recorded t = -3.804. The grid is
+# handed to OJS via ojs_define() so the toggles below recompute nothing live.
+ten <- readr::read_csv("../data/teney_panel.csv", show_col_types = FALSE)
+ten$country <- factor(ten$country); ten$year <- factor(ten$year)
+ctrl_t <- function(growth, bailout) {
+  extra <- c(if (growth) "growth", if (bailout) "bailout")
+  rhs <- paste(c("unemp", extra, "country", "year"), collapse = " + ")
+  m <- lm(stats::as.formula(paste("mcosmo ~", rhs)), data = ten)
+  unname(summary(m)$coefficients["unemp", "t value"])
+}
+tgrid <- tidyr::expand_grid(growth = c(FALSE, TRUE), bailout = c(FALSE, TRUE)) |>
+  dplyr::mutate(code = as.integer(growth) + 2L * as.integer(bailout),
+                t = mapply(ctrl_t, growth, bailout))
+ojs_define(tgrid = tgrid)
+```
 
-       [open a notes fenced div here]
-       Live DAGitty. Model code menu, paste the Teney block from the previous
-       slide, drag nodes, add the candidate edges, watch adjustmentSets update
-       on screen. Only enable this if the room wifi is reliable; otherwise stay
-       on the static figure. dagitty.net/dags.html opens its built-in example
-       model, so use the Model code menu to paste the Teney block.
-       [close the notes fenced div here]
--->
+:::: {.columns}
+::: {.column width="40%"}
+
+```{ojs}
+//| echo: false
+viewof addGrowth = Inputs.toggle({label: "+ GDP growth", value: false})
+```
+
+```{ojs}
+//| echo: false
+viewof addBailout = Inputs.toggle({label: "+ bailout", value: false})
+```
+
+::: {.small}
+Constrained model `mcosmo ~ unemp` + country + year fixed effects. *Politicisation* is not in the aggregate panel, so the third candidate cannot be tested here.
+:::
+
+:::
+::: {.column width="60%"}
+
+```{ojs}
+//| echo: false
+grid = transpose(tgrid)
+code = (addGrowth ? 1 : 0) + (addBailout ? 2 : 0)
+current = grid.find(d => d.code === code)
+sig = Math.abs(current.t) >= 1.96
+```
+
+```{ojs}
+//| echo: false
+html`<div style="font-size:2.7em;font-weight:700;line-height:1.05;color:${sig ? '#0e3b6a' : '#a10000'}">t = ${current.t.toFixed(3)}</div>
+<div style="font-size:1.05em;color:#848c94;margin:.15em 0 .7em">${sig ? 'still significant  (|t| ≥ 1.96)' : 'no longer significant  (|t| < 1.96)'}</div>`
+```
+
+```{ojs}
+//| echo: false
+html`<table style="border-collapse:collapse;font-size:.82em">
+<thead><tr style="color:#0e3b6a;font-weight:700;border-bottom:2px solid #0e3b6a">
+<th style="padding:3px 14px;text-align:left">growth</th>
+<th style="padding:3px 14px;text-align:left">bailout</th>
+<th style="padding:3px 14px;text-align:right">t</th></tr></thead>
+<tbody>${grid.map(d => html`<tr style="background:${d.code === code ? '#eaf0f6' : 'transparent'};font-weight:${d.code === code ? 700 : 400}">
+<td style="padding:3px 14px">${d.growth ? '✓' : '·'}</td>
+<td style="padding:3px 14px">${d.bailout ? '✓' : '·'}</td>
+<td style="padding:3px 14px;text-align:right;color:${Math.abs(d.t) >= 1.96 ? '#0e3b6a' : '#a10000'}">${d.t.toFixed(3)}</td></tr>`)}</tbody></table>`
+```
+
+:::
+::::
+
+::: {.src}
+Recomputed from `data/teney_panel.csv`; base cell = the recorded Multi100 value for analyst C6HJR.
+:::
+
+::: notes
+Before we open dagitty, one quick demonstration of why those three pale nodes matter. This is our exact constrained model – cosmopolitan framing on unemployment, with country and year fixed effects – and the only thing changing is which candidate control I switch on. With neither, you get minus three point eight, comfortably significant; that is the recorded number. Add GDP growth and it barely moves. But add the bailout indicator and the t-statistic falls to about minus one point nine – it crosses the line, and the result is no longer significant at five percent. One defensible control, and the finding flips. Notice politicisation is not even on the menu – it is not in the aggregate panel, so that Multi100 instruction could not be tested anyway. This is the multiverse in miniature, and in twenty minutes every one of you will be adding your own dot to it.
+:::
+
+## {.iframe-slide background-iframe="https://www.dagitty.net/dags.html" background-interactive="true"}
+
 
 # PART 4 – The multiverse {.darkslide background-color="rgba(0,0,0,0)"}
 
@@ -1053,11 +1450,11 @@ Same curve, with the five Multi100 analysts laid across it as dashed lines – m
 ## What we learned
 
 ::: {.claimcard}
-"the common single-path analyses in social and behavioural research should not be simply assumed to be robust" – [@AczelEtAl2026InvestigatingAnalyticalRobustness]
+"the common single-path analyses in social and behavioural research should not be simply assumed to be robust to alternative analyses" [@AczelEtAl2026InvestigatingAnalyticalRobustness]
 :::
 
 ::: {.claimcard}
-A blueprint: precise question → causal reasoning (DAG) → multiverse → sensitivity analysis – [@AuspurgBruderl2021HasCredibilitySocial]
+A blueprint: precise question → causal reasoning (DAG) → multiverse → sensitivity analysis [@AuspurgBruderl2021HasCredibilitySocial]
 :::
 
 ::: {.small}
@@ -1071,23 +1468,18 @@ Two sentences to take away. From the Multi100 paper: single-path analyses should
 
 ## A single analytical path is a choice
 
-:::: {.none}
-There is no privileged single analytical path – only justifiable ones, explored openly.
-
-::: {.fragment}
-You made one justifiable choice today – transparently, with a reason, inside a multiverse.
+::: {.none .fs-140}
+- There is no privileged single analytical path – only justifiable ones, explored openly.
+- You made one justifiable choice today – transparently, with a reason, inside a multiverse.
+- This is a skill. 
+- And that was the workshop.
 :::
-
-::: {.fragment}
-That is the skill. That is the whole workshop.
-:::
-::::
 
 ::: notes
 If the morning had one sentence, it is this one. There is no privileged single analytical path – only justifiable ones, explored openly. And notice that you have already done the right thing once: you made one defensible choice, you wrote down your reason before running it, and you placed your answer inside the space of alternatives rather than pretending it was the only one. That is the transferable habit. Everything else today was tooling in its service.
 :::
 
-## Take home & resources {.smaller}
+## Take home & resources
 
 ::: {.small}
 - **Yours now**: a public reproducible repo (Track B) or a saved browser script (Track A); a result on the class curve
@@ -1099,7 +1491,9 @@ If the morning had one sentence, it is this one. There is no privileged single a
 ::: {.urlbox}
 codemoreh.github.io/applied-replication
 :::
-
+::: {.none}
+Fork anything. Everything is open.
+:::
 ::: notes
 What you take with you: a public repository, or your browser script if you worked in Track A; a published page; and a dot on that curve. The website on screen has everything else – the readings, the data, the template, and the full SCORE dossier on the paper if you want to dig further. I will not read the list out, but the Newcastle pointers are worth a look while you are here: the RSE team run excellent training, the library's open-research people are genuinely helpful, data.ncl is where your own datasets can live – and if this morning's conversation is one you want to keep having, ReproducibiliTea meets monthly.
 :::
@@ -1109,9 +1503,6 @@ What you take with you: a public repository, or your browser script if you worke
 ::: {#refs}
 :::
 
-::: notes
-Not a slide to present – the full reference list lives here so the deck stands alone as a cited document when shared. Every citation in the slides links to this page.
-:::
 
 ## Thank you – and your feedback
 
@@ -1122,9 +1513,6 @@ Feedback poll<br>
 <span style="font-size:0.7em">(Vevox session QR / short URL)</span>
 :::
 
-::: {.none}
-Fork anything. Everything is open.
-:::
 
 ::: notes
 That is the workshop. The feedback form is on screen – two minutes of your time, and it genuinely shapes how I run this next time. While you fill it in: everything you have touched today is open and forkable – the slides, the data, the template, even the scripts with my own mistake annotated in them. If you do one thing this week, state an estimand for a piece of your own work, out loud, in one sentence. Thank you very much – and enjoy the rest of the conference.

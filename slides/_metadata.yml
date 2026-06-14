@@ -35,8 +35,8 @@ format:
       # Transparent canvas so the hex layer on .backgrounds shows through
       # (reveal applies this inline, overriding the white canvas default).
       data-background-color: "rgba(0,0,0,0)"
-      data-transition: "slide-out"
-      data-background-transition: "slide-out"
+      data-transition: "fade" #"slide-out"
+      data-background-transition: "none" # "slide-out"
       data-transition-speed: "default"
     history: false
     controls: true
@@ -51,7 +51,7 @@ format:
     controls-tutorial: true
     toc: false
     transition: fade
-    background-transition: fade
+    background-transition: none
     transition-speed: slow
     html-q-tags: true
     reference-location: document
@@ -72,6 +72,10 @@ format:
 revealjs-plugins:
   - verticator
 
+filters:
+  - highlight-text
+  - more-fragments
+  
 execute:
   echo: false
   warning: false

@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Resources"
 subtitle: "Readings, links, and tools"
 bibliography: references.bib
@@ -9,13 +9,13 @@ bibliography: references.bib
 The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms. The 'in this workshop' column says where each concept appears in the session.
 
 | Term | Definition | In this workshop |
-|---|---|---|
+|------------------------|------------------------|------------------------|
 | **Reproducibility** | Same question · same data · same analysis → same result | Tested by the SCORE programme [@AlipourfardEtAl2021SystematizingConfidenceOpen]; Teney's result was not reproducible [@MiskeEtAl2026InvestigatingReproducibilitySocial] |
 | **Robustness** | Same question · same data · justifiable alternative analysis → stable result | Multi100's design [@AczelEtAl2026InvestigatingAnalyticalRobustness]; the five-analyst table; Task D2 |
 | **Replicability** | Same question · independent new data → same result | Tyner et al. [@TynerEtAl2026InvestigatingReplicabilitySocial]; discussed in Talk I |
 | **Repeatability** | Umbrella term covering all three above | Used in the Nosek et al. glossary as the overarching category |
 
----
+------------------------------------------------------------------------
 
 ## Core readings
 
@@ -49,12 +49,12 @@ The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms.
 
 - @AlipourfardEtAl2021SystematizingConfidenceOpen – Alipourfard et al. (2021). Systematizing Confidence in Open Research and Evidence (SCORE). *SocArXiv*. <https://doi.org/10.31235/osf.io/46mnb>
 
----
+------------------------------------------------------------------------
 
 ## Data and project links
 
 | Resource | URL |
-|---|---|
+|------------------------------------|------------------------------------|
 | Multi100 – OSF project | <https://osf.io/q5h2c/> |
 | Multi100 – GitHub repo (effect sizes) | <https://github.com/marton-balazs-kovacs/multi100> |
 | OSF fork – data & corrected analysis (workshop fetch target) | <https://osf.io/6zqct/> |
@@ -62,14 +62,14 @@ The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms.
 | Full SCORE dossier on Teney (2016) | <https://osf.io/h7432/> |
 | Multi100 navigation sheet (claims list) | Available from the Multi100 OSF project above |
 
----
+------------------------------------------------------------------------
 
 ## The Teney (2016) SCORE dossier – one paper, all three Rs
 
-The Teney (2016) paper was subjected to all three SCORE activities: reproduction, robustness reanalysis, and replication. The parent node for the full dossier is **<https://osf.io/h7432/>**. The table below summarises each component.
+The Teney (2016) paper was subjected to all three SCORE activities: reproduction, robustness reanalysis, and replication. The parent node for the full dossier is [**https://osf.io/h7432/**](https://osf.io/h7432/){.uri}. The table below summarises each component.
 
 | Component | What | Outcome |
-|---|---|---|
+|------------------------|------------------------|------------------------|
 | `whp4b` | Original materials collected by COS | View-only |
 | `cf8en` | **Author-provided code** – two Stata do-files (`eb_all.do`, `eb_ml_ESR.do`) supplied on request; data cannot be shared under GESIS terms (statement file `gxk9r`) | Code available; data restricted |
 | `8fwrt` | Power analysis for the replication | – |
@@ -82,32 +82,32 @@ The Teney (2016) paper was subjected to all three SCORE activities: reproduction
 
 Three Rs, three different verdicts on one paper: reproduction failed (twice, differently); robustness held in sign but spanned two orders of magnitude in effect size; replication returned a sign flip. This is the glossary's point that the three indicators are near-uncorrelated – made concrete by a single case built entirely from public artefacts.
 
----
+------------------------------------------------------------------------
 
 ## Newcastle University resources
 
 | Resource | URL |
-|---|---|
+|------------------------------------|------------------------------------|
 | RSE training (Research Software Engineering) | <https://rse.ncldata.dev/events> |
 | NCL Library – open research pages | <https://www.ncl.ac.uk/library/academic-support/research/open-research/> |
 | Research Data Newcastle | <https://data.ncl.ac.uk> |
 | UKRN Primers (open research primers) | <https://www.ukrn.org/primers/> |
 | ReproducibiliTea Newcastle | Search 'ReproducibiliTea Newcastle' – a journal club for open and reproducible science |
 
----
+------------------------------------------------------------------------
 
 ## Tool documentation
 
-| Tool | URL |
-|---|---|
-| Positron (IDE) | <https://positron.posit.co> |
-| Quarto | <https://quarto.org> |
+| Tool                         | URL                                     |
+|------------------------------|-----------------------------------------|
+| Positron (IDE)               | <https://positron.posit.co>             |
+| Quarto                       | <https://quarto.org>                    |
 | quarto-live (webR extension) | <https://r-wasm.github.io/quarto-live/> |
-| osfr package | <https://docs.ropensci.org/osfr/> |
-| fixest package | <https://lrberge.github.io/fixest/> |
-| ggdag package | <https://r-causal.github.io/ggdag/> |
+| osfr package                 | <https://docs.ropensci.org/osfr/>       |
+| fixest package               | <https://lrberge.github.io/fixest/>     |
+| ggdag package                | <https://r-causal.github.io/ggdag/>     |
 
----
+------------------------------------------------------------------------
 
 ## References
 

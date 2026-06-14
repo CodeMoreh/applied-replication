@@ -53,6 +53,10 @@ website:
     right: |
       Built with [Quarto](https://quarto.org/)
 
+filters:
+  - highlight-text
+  - more-fragments
+
 format:
   html:
     theme: cosmo

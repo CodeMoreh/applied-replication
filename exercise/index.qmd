@@ -28,7 +28,7 @@ Before you begin, here is what the five Multi100 analysts found when they reanal
 | Analyst | Tool | Statistic | N | Partial r |
 |---|---|---|---|---|
 | 018OL | RMarkdown | t = −1.21 | 420 | −0.060 |
-| **C6HJR (you)** | **R + Quarto** | **t = −3.80** | **270** | **−0.242** |
+| **C6HJR** | **R + Quarto** | **t = −3.80** | **270** | **−0.242** |
 | KEVF1 | R script | t = −5.90 | 209,826 | −0.452 |
 | KQXUE | Stata | t = −7.17 | 270 | −0.419 |
 | PRL47 | Stata | z = −3.59 | 394,575 | −0.006 |

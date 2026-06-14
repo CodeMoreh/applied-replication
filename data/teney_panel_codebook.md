@@ -11,7 +11,7 @@ The four framing scales follow Teney (2016: 623): for each respondent, the numbe
 Dimension item assignment (questionnaire item → dimension):
 
 | Dimension | Items |
-|---|---|
+|------------------------------------|------------------------------------|
 | Cosmopolitan (positive, non-materialist) | Peace; Democracy; Freedom to travel, study and work anywhere in the EU; Cultural diversity; Stronger say in the world |
 | Utilitarian (positive, materialist) | Economic prosperity; Social protection |
 | Communitarian (negative, non-materialist) | Unemployment; Loss of cultural identity; More crime; Not enough control at external borders |
@@ -22,7 +22,7 @@ Dimension item assignment (questionnaire item → dimension):
 ## Variables
 
 | Variable | Description |
-|---|---|
+|------------------------------------|------------------------------------|
 | `country` | Country name |
 | `cntry` | ISO 3166 two-letter code (DE combines East/West samples; GB combines Great Britain and Northern Ireland) |
 | `year` | Survey year (2004–2013); years with two waves pool both |

@@ -125,7 +125,7 @@ if (file.exists(analysts_file)) {
         x = "Partial r",
         y = NULL,
         title = "Five Multi100 analysts – Task 2 partial r",
-        caption = "Red point = analyst C6HJR (this workshop's anchor)."
+        caption = "Red point = analyst C6HJR"
       ) +
       theme_minimal(base_size = 12) +
       theme(plot.title = element_text(colour = "#0e3b6a"))
@@ -145,4 +145,4 @@ if (file.exists(analysts_file)) {
 
 ## Class results – 16 June 2026
 
-<!-- paste class results table here after the session -->
+<!-- to paste class results table here after the session -->

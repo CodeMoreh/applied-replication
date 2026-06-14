@@ -63,15 +63,15 @@ Work in **pairs**: one laptop per pair, one person drives. If one laptop in the 
 |---|---|
 | 10:15 | Welcome and pairs formed |
 | 10:20 | Talk I – the three Rs: reproducibility, robustness, replicability (via the three *Nature* 2026 papers) |
-| 10:38 | Talk II – the Teney case: original claim, SCORE reproduction attempt, five-analyst reveal |
-| 10:48 | Setup sprint: get a track working, or verify yours is ready |
-| 11:03 | Concepts: estimands and DAGs – mini-lecture then guided exercise |
-| 11:21 | Reproduce the constrained result (t ≈ −3.80) |
-| 11:33 | **Break** |
-| 11:43 | Your analytical path: choose a specification, preregister, run, report |
+| 10:40 | Talk II – the Teney case: original claim, SCORE reproduction attempt, five-analyst findings |
+| 10:50 | Setup sprint: get a track working, or verify yours is ready |
+| 11:05 | Concepts: estimands and DAGs – mini-lecture then guided exercise |
+| 11:20 | Reproduce the constrained result (t ≈ −3.80) |
+| 11:35 | **Break** |
+| 11:45 | Your analytical path: choose a specification, preregister, run, report |
 | 12:05 | Share and publish |
 | 12:15 | Multiverse debrief: the class specification curve |
-| 12:27 | Wrap and resources |
+| 12:30 | Wrap and resources |
 
 ---
 

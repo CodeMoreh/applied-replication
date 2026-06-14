@@ -118,6 +118,24 @@ body.reveal-viewport {
   background-color: #fff;
 }
 
+/* Full-bleed background-iframe slides (the live dagitty editor). Reveal leaves
+   the background <iframe> as display:inline, so it did not fill its box and
+   ~60% of the slide showed through as a blank white band (the white leaf
+   canvas painted by the rule above). Mark such a slide with `.iframe-slide`
+   to force the iframe to block-fill the viewport; the white canvas stays,
+   so any gap dagitty leaves transparent (its panel edges) reads white rather
+   than the dark hex layer, matching dagitty's own light UI. */
+.reveal .slide-background.iframe-slide .slide-background-content iframe {
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  border: 0 !important;
+}
+
 /* Dark hex slides: their canvases are TRANSPARENT so the hex image painted
    on the .backgrounds base layer (see slides/_metadata.yml include-in-header)
    shows through at full viewport size. Reveal copies slide classes onto the
@@ -197,7 +215,7 @@ body.reveal-viewport {
   left: 12px !important;
   right: auto !important;
   bottom: 8px !important;
-  max-height: 1.7rem !important;
+  max-height: 3.5rem !important;
   opacity: 0.85;
   border-radius: 4px;
 }
@@ -609,7 +627,7 @@ li.fragment.visible.current-fragment::marker {
 
 .small {
   p {
-    font-size: 100%;
+    font-size: 90%;
     font-weight: bold;
     text-align: left;
   }
@@ -618,7 +636,7 @@ li.fragment.visible.current-fragment::marker {
     counter-reset: my-counter;
     list-style: none;
     padding-left: 30px;
-    font-size: 100%;
+    font-size: 90%;
     font-weight: bold;
     text-align: left;
   }
@@ -626,7 +644,7 @@ li.fragment.visible.current-fragment::marker {
   ol li {
     counter-increment: my-counter;
     position: relative;
-    font-size: 115%;
+    font-size: 90%;
     display: block;
     margin-block-start: 0.83em !important;
     margin-block-end: 0.83em;
@@ -637,14 +655,14 @@ li.fragment.visible.current-fragment::marker {
   ol li::before {
     content: counter(my-counter);
     color: #fff;
-    font-size: 60%;
+    font-size: 45%;
     font-weight: bold;
     position: absolute;
     left: -40px;
     line-height: 30px;
     width: 30px;
     height: 30px;
-    top: 5%;
+    top: 7%;
     background: $ncl-blue;
     border-radius: 50%;
     text-align: center;
@@ -654,7 +672,7 @@ li.fragment.visible.current-fragment::marker {
     counter-reset: my-counter !important;
     list-style: none !important;
     padding-left: 30px !important;
-    font-size: 115% !important;
+    font-size: 90% !important;
     text-align: left !important;
     font-weight: bold !important;
   }
@@ -665,7 +683,7 @@ li.fragment.visible.current-fragment::marker {
     display: flex !important;
     align-items: center !important;
     position: relative !important;
-    font-size: 100% !important;
+    font-size: 90% !important;
     display: block !important;
     margin-block-start: 0.83em !important;
     margin-block-end: 0.83em !important;
@@ -764,6 +782,43 @@ li.fragment.visible.current-fragment::marker {
 .medium { font-size: 115% }
 .tiny { font-size: 50% }
 
+/* ---- Sliding-scale running text ---------------------------------------
+   Shrinks (or grows) body text AND tightens line spacing in one move – for
+   prose-heavy slides that overflow. Unlike .small/.smaller, this does NOT
+   restyle list markers or force bold; it just rescales whatever text is
+   inside the div.
+
+   Two ways to use it, pick whichever fits:
+
+   1. Sliding (fine control) – set --fs (font scale, 1 = unchanged) and,
+      optionally, --lh (line-height) inline. This is the true sliding scale:
+        ::: {.scaled style="--fs: 0.8; --lh: 1.1"}
+      Bare, it applies a mild default shrink with slightly tighter lines:
+        ::: {.scaled}
+
+   2. Quick notch – the self-contained steps below need no inline style:
+        ::: {.fs-80}
+      Steps run 95 → 60 (percent of normal). Each also tightens line spacing.
+*/
+.scaled {
+  font-size: calc(var(--fs, 0.9) * 1em);
+  line-height: var(--lh, 1.15);
+
+  p, li, ul, ol { line-height: var(--lh, 1.15); }
+  // tighten the gaps between paragraphs in proportion to the line spacing
+  p { margin-block: calc(var(--lh, 1.15) * 0.45em); }
+}
+
+@each $s in 150, 140, 130, 125, 120, 115, 110, 105, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50 {
+  .fs-#{$s} {
+    font-size: $s * 1%;
+    line-height: 1.15;
+
+    p, li, ul, ol { line-height: 1.15; }
+    p { margin-block: 0.5em; }
+  }
+}
+
 /* ============================================================
    Workshop-specific helpers (not in the original deck)
    ============================================================ */
@@ -780,6 +835,90 @@ li.fragment.visible.current-fragment::marker {
 }
 
 .claimcard p { margin: 0.2em 0; }
+
+/* ----------------------------------------------------------------------
+   Image version of the repeatability matrix. Same 2x2 layout and axis
+   labels as the R repeatability_matrix(), but each cell holds a downloaded
+   figure (slides/pics/*.webp) instead of a text box. The grid is:
+
+                       SAME data            DIFFERENT data
+       SAME analysis   Reproducibility      Replicability
+       DIFFERENT a.    Robustness           Generalisability
+
+   Each cell carries its term colour as a top border + caption (set per cell
+   with --accent inline). The empty fourth cell (no SCORE study) is muted.
+   Image filenames are written out explicitly on the slide so further figures
+   can be dropped into pics/ and named directly. */
+.matrix-grid {
+  display: grid;
+  grid-template-columns: 1.6em 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr;
+  gap: 0.45em;
+  align-items: stretch;
+  width: 85%;
+  margin-inline: auto;         // centre the whole grid horizontally on the slide
+  // height: 40%;
+  font-size: 0.5em;            // scales the whole block (labels + captions) to fit
+}
+
+.matrix-grid .col-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: $ncl-blue;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.matrix-grid .row-head {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 700;
+  color: $ncl-blue;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+}
+
+.matrix-grid figure.cell {
+  margin: 0;
+  background: #fff;
+  border-top: 6px solid var(--accent, #{$ncl-blue});
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.matrix-grid figure.cell figcaption {
+  font-weight: 700;
+  color: var(--accent, #{$ncl-blue});
+  padding: 0.3em 0.6em 0.15em;
+  text-align: left;
+}
+
+.matrix-grid figure.cell img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* The fourth cell has no study/figure today: muted placeholder. */
+.matrix-grid figure.cell.empty {
+  border-top-color: $grey;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: $grey;
+  font-style: italic;
+  padding: 1.2em 0.8em;
+}
 
 /* A boxed result line, monospace – for the RESULT | spec: ... format */
 .resultline {
@@ -802,7 +941,8 @@ li.fragment.visible.current-fragment::marker {
   background: $pale-blue;
   padding: 0.35em 0.6em;
   border-radius: 6px;
-  display: inline-block;
+  // display: inline-block;
+  text-align: center;
   margin: 0.25em 0;
   word-break: break-all;
 }
@@ -836,12 +976,12 @@ li.fragment.visible.current-fragment::marker {
    <span class="src"> used inside quote cards is unaffected. */
 .reveal .slides section div.src {
   position: fixed;
-  bottom: -24px;          /* sits in the slide's bottom margin, clear of content */
+  bottom: -40px;          /* sits in the slide's bottom margin, clear of content */
   left: 0;
   width: 100%;
   margin: 0;
   text-align: center;
-  font-size: 0.55em;
+  font-size: 0.4em;
   color: $dark-grey;
 }
 
