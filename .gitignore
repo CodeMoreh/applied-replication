@@ -11,4 +11,6 @@
 # Note: /_freeze/ is intentionally NOT ignored – it must be committed so CI can deploy without running R
 
 **/*.quarto_ipynb
-CLAUDE.md
+/*.md
+!/README.md
+/.luarc.json
