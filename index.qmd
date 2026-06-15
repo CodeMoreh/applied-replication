@@ -26,7 +26,7 @@ Every technical skill you practise – retrieving data from OSF, version-control
 The workshop centres on Teney (2016), a study of EU attitudes across 27 countries. You will:
 
 1. **Reproduce** the constrained result that five independent analysts published as part of the Multi100 project – confirming the same coefficient from the same data.
-2. **Deviate (with reasons)** – choose one justifiable alternative from a specification menu, preregister your choice with a git commit, run the model, and report a standardised result.
+2. **Deviate (with reasons)** – choose one justifiable alternative from a specification menu, commit to your choice before you run it, run the model, and submit a standardised result.
 3. **See the multiverse** – your result, alongside your classmates' and the five published analysts', on one chart.
 
 The exercise is a miniature version of Multi100 itself: same claim, five-plus analysts, explicit choices, comparable results.

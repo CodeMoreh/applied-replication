@@ -91,6 +91,35 @@ repeatability_matrix <- function(highlight = NULL) {
 # resolve from slides/ at render time (verified with quarto render).
 spec_grid <- readr::read_csv("../data/spec_grid.csv", show_col_types = FALSE)
 analysts5 <- readr::read_csv("../data/analysts5.csv", show_col_types = FALSE)
+
+# Shared multiverse base layer. Built ONCE so the two consecutive multiverse
+# slides ("The class multiverse" and "Where your result lands") are the
+# SAME chart with an overlay, not two charts. The second slide calls spec_base()
+# and adds the analyst lines on top: identical dims, axes, theme, zero line,
+# baseline marker and legend slot, so the reveal animates lines appearing on one
+# unchanging panel. coord_cartesian() pins the y-range so the overlay cannot
+# rescale the axis between slides.
+sc_ranked <- spec_grid |>
+  dplyr::arrange(r) |>
+  dplyr::mutate(rank = dplyr::row_number())
+sc_baseline <- dplyr::filter(sc_ranked, baseline)
+
+spec_base <- function() {
+  ggplot(sc_ranked, aes(rank, r)) +
+    geom_hline(yintercept = 0, colour = grey_mid, linewidth = 0.4) +
+    geom_point(aes(colour = sig), size = 0.7, alpha = 0.55) +
+    geom_point(data = sc_baseline, colour = d_red, size = 4) +
+    annotate("text", x = sc_baseline$rank, y = sc_baseline$r - 0.07,
+             label = "constrained baseline\nt = −3.804",
+             colour = d_red, fontface = "bold", size = 4, hjust = 0.15) +
+    scale_colour_manual(values = c(`TRUE` = ncl_blue, `FALSE` = "#c7ccd2"),
+                        labels = c(`TRUE` = "p < .05", `FALSE` = "n.s."),
+                        name = NULL) +
+    labs(x = "specification (ranked by partial r)", y = "partial r") +
+    coord_cartesian(ylim = c(-0.72, 0.78)) +
+    theme_slide(15) +
+    theme(legend.position = "right", legend.title = element_blank())
+}
 ```
 
 ## {#today .darkslide background-color="rgba(0,0,0,0)"}
@@ -215,7 +244,7 @@ For example, credibility is advanced by addressing potential competing interests
 @NosekEtAl2025BriefGlossaryTerms
 :::
 
-## The same matrix, by discipline
+## The SCORE-papers in the matrix
 
 ::: {.matrix-grid}
 <div class="corner"></div>
@@ -249,21 +278,15 @@ Same four-cell map you have just learned – but now each box carries the actual
 
 ## Quick check {.questionslide}
 
-:::: {.none}
-"I rerun your do-file on your data and reproduce your table."
+::: {.none}
+You submit your paper and replication package. It goes out to reviewers.
 
-::: {.fragment}
-Reproducibility, robustness, or replicability?
+- "Reviewer 1" wants to ensure that your results are [reproducible]{.fragment .bounceIn}, so she sources your R script to run the entire analysis. You're in luck – she hasn't yet updated her `dplyr`, so the code runs.
+- "Reviewer 2" is very eager. He's unconvinced by your modelling choices, so he fits your data to another function to check if your findings are truly [robust]{.fragment .bounceIn}. You're in luck again – he recovers your point estimate to a reasonable precision, although the confidence intervals have widened.
+- "Reviewer 3" takes a special interest because he's just working on a similar paper on data they published recently. Do your results [replicate]{.fragment .bounceIn} when your methods are applied to that state-of-the-art dataset?
+- "Reviewer 2" just doesn't want to let go. He tried a few alternative analyses of your data, including a fancy new regression method that he just released as an R package. His method gives results that are generally aligned to yours, but for the method to work, it would require a larger dataset; would your results really [generalise]{.fragment .bounceIn} to this new dataset published by "Reviewer 3" that he just read about, if applying his new fancy method to it? 
 :::
 
-::: {.fragment}
-**Reproducibility** – same data, same analysis.
-:::
-::::
-
-::: notes
-Quick check before the numbers. "I rerun your do-file on your data and reproduce your table" – which of the three is that? Hands up for reproducibility… for robustness… for replicability. [advance] Reproducibility – same data, same analysis. And one more, just verbally: I re-analyse your data with a defensible different model? That is robustness – and that is your job today.
-:::
 
 ## SCORE: where these numbers come from
 
@@ -634,7 +657,7 @@ github.com/CodeMoreh/replication-lab → "Use this template" → clone in Positr
 :::
 
 ::: notes
-Here is how the next hour works. Two ways in, same destination. Track A is the browser lab: open that first address and R boots inside the page itself – nothing to install, works on any laptop, including the one you borrowed this morning. Track B is the full pipeline: take the template repository, click "Use this template", and clone your copy in Positron. In your pairs, make sure at least one of you has a working track – and if you are on Track B, keep the browser lab open in a tab as your spare. One more thing to note: everything you produce today ends up as a single line pasted into the pinned Discussion thread. That thread is our results board – we will read it together at the end.
+Here is how the next hour works. Two ways in, same destination. Track A is the browser lab: open that first address and R boots inside the page itself – nothing to install, works on any laptop, including the one you borrowed this morning. Track B is the full pipeline: take the template repository, click "Use this template", and clone your copy in Positron. In your pairs, make sure at least one of you has a working track – and if you are on Track B, keep the browser lab open in a tab as your spare. One more thing to note: everything you produce today ends up as a single click on a link that drops your result onto a live chart on the Multiverse page. That chart is our results board – we will watch it fill up and read it together at the end.
 :::
 
 
@@ -1374,27 +1397,11 @@ And the ending is the good part. The workshop dataset you used for the menu – 
 ```{r}
 #| label: spec-curve
 #| fig-width: 9.5
-#| fig-height: 4.6
-# The pre-computed specification curve over the full menu (1,680 specs),
-# read from ../data/spec_grid.csv (loaded in setup). Each point is one
-# specification; the constrained baseline (b = -0.00347, t = -3.804) is red.
-sc <- spec_grid |>
-  dplyr::arrange(r) |>
-  dplyr::mutate(rank = dplyr::row_number())
-base <- dplyr::filter(sc, baseline)
-
-ggplot(sc, aes(rank, r)) +
-  geom_hline(yintercept = 0, colour = grey_mid, linewidth = 0.4) +
-  geom_point(aes(colour = sig), size = 0.7, alpha = 0.55) +
-  geom_point(data = base, colour = d_red, size = 4) +
-  annotate("text", x = base$rank, y = base$r - 0.07,
-           label = "constrained baseline\nt = −3.804",
-           colour = d_red, fontface = "bold", size = 4, hjust = 0.15) +
-  scale_colour_manual(values = c(`TRUE` = ncl_blue, `FALSE` = "#c7ccd2"),
-                      labels = c(`TRUE` = "p < .05", `FALSE` = "n.s.")) +
-  labs(x = "specification (ranked by partial r)", y = "partial r") +
-  theme_slide(15) +
-  theme(legend.position = "right", legend.title = element_blank())
+#| fig-height: 4.3
+# The pre-computed specification curve over the full menu (1,680 specs). Each
+# point is one specification; the constrained baseline (t = -3.804) is red.
+# Built via spec_base() (setup chunk) so the NEXT slide reuses this exact panel.
+spec_base()
 ```
 
 ::: {.small}
@@ -1402,49 +1409,53 @@ ggplot(sc, aes(rank, r)) +
 :::
 
 ::: {.src}
-Pre-computed over the specification menu (data/spec_grid.csv). Class results paste into the Discussion thread.
+Pre-computed over the specification menu (data/spec_grid.csv). Class results stream onto the Multiverse page, live.
 :::
 
 ::: notes
 This is the space your results live in. I took the whole specification menu – every outcome, every exposure form, with and without growth, every estimator, every sample window, weighted and not – and ran all of it. One thousand six hundred and eighty models, each one a dot, ranked by partial correlation. Blue means significant, grey means not. About two thirds point the way the claim says; about two thirds are significant; the red dot is the baseline we all reproduced. Notice you can buy almost any answer you like in here – if you are willing to pick the path after seeing the results. Right – where did the room land? Call them out: did anyone flip the sign? Lose significance? Which choice moved your estimate most?
 :::
 
-## Where your pasted result lands
+## Where your result lands
 
 ```{r}
 #| label: spec-overlay
 #| fig-width: 9.5
-#| fig-height: 4.0
-# Same curve, overlaying the five Multi100 analysts as horizontal reference
-# lines at their partial r (from ../data/analysts5.csv); C6HJR in orange.
-sc2 <- spec_grid |>
-  dplyr::arrange(r) |>
-  dplyr::mutate(rank = dplyr::row_number())
-an <- analysts5 |>
-  dplyr::mutate(me = analyst_id == "C6HJR")
+#| fig-height: 4.3
+# EXACT same base layer as the previous slide (spec_base()), with the five
+# Multi100 analysts overlaid as dashed horizontal lines at their partial r;
+# C6HJR in orange, the other four in neutral grey. The base cloud keeps its
+# blue/grey significance colouring (constant across both slides), so the analyst
+# lines are drawn as fixed-colour layers rather than via the colour aesthetic,
+# which would clash with the cloud's scale. Result: moving here looks like the
+# lines fading onto the same unchanging chart. labs(title = NULL) keeps the panel
+# from shifting down; the slide's own heading names the chart.
+an       <- dplyr::mutate(analysts5, me = analyst_id == "C6HJR")
+an_other <- dplyr::filter(an, !me)
+an_me    <- dplyr::filter(an, me)
 
-ggplot(sc2, aes(rank, r)) +
-  geom_point(colour = "#c7ccd2", size = 0.6, alpha = 0.5) +
-  geom_hline(data = an, aes(yintercept = r, colour = me),
-             linewidth = 0.7, linetype = "22") +
-  geom_text(data = an, aes(x = 30, y = r, label = analyst_id, colour = me),
-            size = 3.4, vjust = -0.4, hjust = 0, show.legend = FALSE) +
-  scale_colour_manual(values = c(`FALSE` = ncl_blue, `TRUE` = orange)) +
-  labs(x = "specification (ranked)", y = "partial r",
-       title = "Five analysts (dashed) against the full menu") +
-  theme_slide(14)
+spec_base() +
+  geom_hline(data = an_other, aes(yintercept = r),
+             colour = grey_mid, linewidth = 0.7, linetype = "22") +
+  geom_hline(data = an_me, aes(yintercept = r),
+             colour = orange, linewidth = 1.0, linetype = "22") +
+  geom_text(data = an_other, aes(x = 30, y = r, label = analyst_id),
+            colour = grey_mid, size = 3.4, vjust = -0.4, hjust = 0) +
+  geom_text(data = an_me, aes(x = 30, y = r, label = analyst_id),
+            colour = orange, fontface = "bold", size = 3.6, vjust = -0.4, hjust = 0) +
+  labs(title = NULL)
 ```
 
 ::: {.resultline}
-RESULT | spec: ... | b = ... | se = ... | t = ... | df = ... | n = ... | r = ...
+Your orange dot lands here → live on the **Multiverse** page as the room submits
 :::
 
 ::: {.src}
-`report_result()` prints this line; paste it into the pinned Discussion thread.
+`report_result()` gives you a one-click submission link; results stream onto the [Multiverse]({{< var live-results-url >}}) page.
 :::
 
 ::: notes
-Same curve, with the five Multi100 analysts laid across it as dashed lines – me in orange. What I like about this picture: the five published reanalyses are themselves just draws from this same space. Nobody was wrong; we were standing in different places in the garden. The box underneath is the line you have pasted into the thread – report_result formats it for you, including the partial correlation, computed exactly the way Multi100 computed it. That little conversion is what lets a Stata pooled model and an R fixed-effects model sit on the same axis – yours included.
+Same curve, with the five Multi100 analysts laid across it as dashed lines – me in orange. What I like about this picture: the five published reanalyses are themselves just draws from this same space. Nobody was wrong; we were standing in different places in the garden. Right now this chart shows only the starting position – the five analysts on the empty menu. As you submit, your own results appear as orange dots, live, on the Multiverse page. report_result gives you a one-click link that already has your numbers in it, including the partial correlation computed exactly the way Multi100 computed it. That little conversion is what lets a Stata pooled model and an R fixed-effects model sit on the same axis – yours included.
 :::
 
 ## What we learned

@@ -22,6 +22,7 @@ execute:
 - [ ] Render the full site: `quarto render` from the workspace root; check no errors; push; confirm Pages build completes on GitHub Actions.
 - [ ] Test the full participant loop from a throwaway GitHub account: "Use this template" → own public repo → enable Pages → clone in Positron → `quarto preview` renders skeleton → push → Action deploys → live URL appears.
 - [ ] Open the two pinned Discussion threads in browser tabs and verify they are visible to a logged-out visitor: "Results board & gallery" and "Help / I'm stuck".
+- [ ] **Live results system** (full setup + checks in `facilitator/live-results-setup.md`): confirm the Google Form accepts an anonymous submission (incognito, no Google login), that the test row reaches the linked Sheet, that the Cloudflare Worker URL returns the sheet as CSV, and that opening the live [Multiverse](https://codemoreh.github.io/applied-replication/results.html) page shows your test dot after pressing *Run Code*. Then clear the test rows from the Sheet.
 - [ ] Charge laptop. Confirm charger is in bag.
 - [ ] Print cheatsheets (one per pair = ~10 copies; file: `exercise/cheatsheet.qmd` rendered PDF or A4 HTML printout).
 - [ ] Prepare the Vevox session at `[VEVOX-LINK]`; confirm the three poll moments are queued; test that the QR on the slide resolves correctly. Note the fallback: all polls also work as hands-up. Nothing downstream depends on Vevox output.
@@ -44,8 +45,8 @@ execute:
 - [ ] Check power strips are accessible at tables; room has ~20 seats.
 - [ ] Place printed cheatsheets on tables (one per pair position).
 - [ ] Place sticky note pairs (green + red/orange) on each table.
-- [ ] If a second screen/laptop is available, log into GitHub Discussions gallery tab – useful to watch result lines land live during the debrief.
-- [ ] Confirm room wifi allows outbound HTTPS to `github.com`, `osf.io`, `codemoreh.github.io`. If not, activate instructor hotspot before the session starts.
+- [ ] If a second screen/laptop is available, open the live [Multiverse](https://codemoreh.github.io/applied-replication/results.html) page – press *Run Code* during the debrief to watch the room's dots appear live.
+- [ ] Confirm room wifi allows outbound HTTPS to `github.com`, `osf.io`, `codemoreh.github.io`, `docs.google.com` (the Form/Sheet) and your `*.workers.dev` Worker. If not, activate instructor hotspot before the session starts.
 
 ---
 
@@ -60,10 +61,18 @@ execute:
 | 11:03 | **Concepts – estimand + DAG** (18′) | Mini-lecture 8′ (slides 20–26): Silberzahn red-card study → A&B's diagnosis (four estimands, dispersion shrinks sevenfold when one is fixed) → Lundberg's three steps → confounder/mediator/collider crash-course → the Teney DAG, half-built. Then: "Now you finish it. Open Task C in your report." Guide 10′ hands-on. At ~11:20 ask one pair to share their adjustment-set output. | Write the estimand sentence; complete the DAG edges they believe in; run `adjustmentSets()`; note what two-way FE adjusts for and what it cannot. | If behind by >5 min at 11:03, compress to demo-only: run `adjustmentSets()` live on the projector, participants note the output, skip the pair build step. |
 | 11:21 | **Reproduce the constrained result** (12′) | Announce Task B + D1. "Run `R/get_data.R` – you are literally fetching from the published OSF project." Then fit the two-way FE model. Target: t ≈ −3.80. Circulate; watch for data-fetch failures (fallback chain is built-in). After ~8 min: "Does anyone have t = −3.80?" – show of hands; celebrate it. Mention: "`feols` and `plm` give the same point estimate; the SE difference is itself the lesson." | Run `get_data.R`; explore the panel; fit the constrained model; confirm t ≈ −3.80; first commit + push. | OSF rate-limiting is unlikely (28 KB file) but the fallback chain handles it silently. If no one gets the target t, check they used `unemp_c` (centred), not raw `unemp`. |
 | 11:33 | **Break** (10′) | "Ten-minute break – back at 11:43." Monitor the Discussion help thread during the break; answer any posted questions. | Break; post questions to Discussion if stuck. | Keep to 10 min. |
-| 11:43 | **Your analytical path** (22′) | Announce Task D2. "Pick ONE deviation from the spec menu. Before you run it – preregister it: Track B commit message `prereg: …` before running; Track A post your intention to the Discussion thread first." Circulate; prompt pairs who are blank: "What does your DAG say about GDP growth – confounder or co-exposure?" After ~15 min: "Run your spec, then post the `report_result()` line to the Results board thread." | Choose one spec; justify it in one sentence grounded in the DAG; preregister; run; post result to Discussion thread. | Watch for pairs who preregister after running – gently call it out as a teaching point, not a reprimand. Fast pairs: point to Task F (second spec or Hausman test). |
+| 11:43 | **Your analytical path** (22′) | Announce Task D2. "Pick ONE deviation from the spec menu. Before you run it – commit to it: Track B, a `prereg:` commit before running; Track A, write your spec and a one-sentence reason in your script and tell your partner." Circulate; prompt pairs who are blank: "What does your DAG say about GDP growth – confounder or co-exposure?" After ~15 min: "Run your spec, then run `report_result()` and click the link it prints – that submits your dot to the live chart." | Choose one spec; justify it in one sentence grounded in the DAG; write it down before running; run; submit via the `report_result()` link. | Watch for pairs who commit to a spec after running – gently call it out as a teaching point, not a reprimand. Fast pairs: point to Task F (second spec or Hausman test). |
 | 12:05 | **Share & publish** (10′) | "Now publish. Track B: commit, push – Action deploys in ~1–2 min. Track A: we'll do a 'first repo in 3 minutes' live demo – watch." Demo the web-upload flow on the projector: navigate to `github.com/new`, upload script/qmd, repo created. Remind: paste the repo URL (+ Pages URL if deployed) into the Results board thread. | Track B: final commit + push; watch Action; paste URLs. Track A: follow the demo; upload files; paste repo URL. | Actions queue can be slow on conference wifi. Reassure: "The Action will finish even after we leave – the URL will work." |
-| 12:15 | **Multiverse debrief** (12′) | Show the pre-computed spec curve (from `data/spec_grid.csv`) on the slides. Then overlay the class results posted to the thread. Ask questions from the debrief bank below. Land on: "We just did a mini-Multi100. Which menu choices moved the estimate most? Is the claim robust 'enough'?" | Look at the chart; locate their own result; contribute to discussion. | If fewer than 4 result lines in the thread, use the pre-computed grid alone – it's still a rich chart. Never type credentials on the projector. |
+| 12:15 | **Multiverse debrief** (12′) | Project the live [Multiverse](https://codemoreh.github.io/applied-replication/results.html) page; press *Run Code* on the Class-results chart to pull the room's dots (press it again as more arrive). Ask questions from the debrief bank below. Land on: "We just did a mini-Multi100. Which menu choices moved the estimate most? Is the claim robust 'enough'?" | Look at the chart; locate their own dot; contribute to discussion. | If few submissions have arrived, the pre-computed grid + five analysts is still a rich chart. If the live fetch fails (CORS/wifi), fall back to the static spec curve on the slides ("The class multiverse"). Never type credentials on the projector. |
 | 12:27 | **Wrap** (5′) | Recap the three skills: reproducible data retrieval + version-controlled literate report + published multiverse contribution. "You now own a public repo and a live site – that's a portfolio piece." Show take-home resources slide. Share Vevox feedback QR (`[VEVOX-LINK]`). Thank everyone. | Optionally fill in feedback poll; note URLs to keep. | If Vevox fails, ask for one-word verbal feedback: "What's the one thing you'll take away?" |
+
+---
+
+## Answer keys to some exercise questions:
+
+_template/index.qmd: first task:
+
+> 1 = reproducibility (named by the attempt; here it is a failed reproduction – the verdict is "not reproduced", but the activity is still reproducibility) · 2 = the grey area: changing software while keeping the same intended analysis is usually still reproducibility (a re-computation), though centring the predictor nudges toward robustness – good to argue both ways · 3 = replicability · 4 = the impostor: generalisability (different data and different methods)
 
 ---
 
@@ -86,7 +95,7 @@ execute:
 - If still behind: the multiverse debrief shrinks to 7 minutes (show the chart, ask two questions from the bank, wrap). The debrief is the intellectual payoff – protect at least 7 minutes for it.
 
 **Compressible in order:** Miske moderators → DAG hands-on → second commit during reproduce → publish demo → debrief (to 7 min minimum).
-**Never cut:** the five-analyst reveal; the preregister moment; posting to the Results board thread.
+**Never cut:** the five-analyst reveal; the preregister moment; submitting results to the live chart.
 
 ---
 
@@ -150,12 +159,12 @@ Use 4–6 of these, reading the room for which have the richest answers given wh
 
 ## After the session
 
-- [ ] Paste all result lines from the Discussion thread into `results.qmd` (the class-results section); commit and push – the page updates automatically.
-- [ ] Post a thank-you reply in the "Results board & gallery" Discussion thread: acknowledge contributions, link to the updated results page, note when the full multiverse chart will be live.
+- [ ] **Archive the class results for permanence.** The live chart reads the Google Sheet via the Worker; to keep the record after you retire the Sheet/Worker, export the responses Sheet (File → Download → CSV) and commit it as `data/class_results.csv`. See `facilitator/live-results-setup.md` → "After the session" for how to point the chart at the committed snapshot. Optionally close the Form to new responses (Responses tab → "Accepting responses" off).
+- [ ] Post a thank-you reply in the "Results board & gallery" Discussion thread: acknowledge contributions, link to the live [Multiverse](https://codemoreh.github.io/applied-replication/results.html) page.
 - [ ] Post a brief reply in the "Help / I'm stuck" thread: confirm the session is over, note that questions are still welcome, link to resources.
 - [ ] Note any timing issues, contingency events, or participant feedback for the improvement log. Key questions to record:
   - Which segment ran longest?
   - Did the browser-lab webR load reliably on room wifi?
   - How many pairs reached the publish step?
-  - Any `report_result()` formatting errors that broke the results board?
+  - Did the live results system work (Form submissions, Worker/CORS, dots appearing)? Any failed submissions?
 - [ ] Archive the Vevox results (export PDF or screenshot before the session expires).

@@ -6,3 +6,9 @@ programme-url: "https://go.ncl.ac.uk/orc"
 site-url: "https://codemoreh.github.io/applied-replication/"
 template-repo: "https://github.com/CodeMoreh/replication-lab"
 org: "https://github.com/CodeMoreh"
+# Live class-results system (see facilitator/live-results-setup.md).
+# The Multiverse page where submissions appear live:
+live-results-url: "https://codemoreh.github.io/applied-replication/results.html"
+# The Google Form participants submit results to. PLACEHOLDER – replace with the
+# real form URL once created (facilitator/live-results-setup.md, step 1):
+results-form-url: "https://forms.gle/MWhimagFDmGtprAPA"

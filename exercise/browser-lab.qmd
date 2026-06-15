@@ -327,17 +327,17 @@ summary(my_model)
 
 ### Preregister, then report
 
-The point of preregistration is that you commit to a choice **before** you see what it does. Track B participants do this with a `prereg:` git commit; your equivalent is the Discussion thread.
+The point of preregistration is that you commit to a choice **before** you see what it does. It stops you quietly picking the specification that happens to give the answer you wanted.
 
 ::: {.callout-warning icon=false}
 ## Do this in order
 
-1. **Preregister first.** Before you run the cell above with your chosen specification, post your intended choice to the [Results board Discussion thread](https://github.com/CodeMoreh/applied-replication/discussions) – one line, e.g. `prereg: mpos ~ log(unemp) + growth | feols_tw | crisis`. The timestamp is your preregistration.
+1. **Preregister first.** Before you run your chosen specification, write it down where you cannot change it unseen: type your spec and a one-sentence reason into the cell below as a comment, and tell your partner. That is your commitment. (Track B participants do the same thing with a `prereg:` git commit – the commit timestamp is the record.)
 2. **Then run** your specification.
-3. **Then report** the result line the helper below prints, pasted into the same thread.
+3. **Then report** – run `report_result()` below and click the submission link it prints.
 :::
 
-Paste the function below into the editable cell (or run it here after running your model) to print the standardised result line. It is self-contained and works for `fixest`, `plm`, and `lm` models:
+Paste the function below into the editable cell (or run it here after running your model) to get your one-click submission link. It is self-contained and works for `fixest`, `plm`, and `lm` models:
 
 ```{webr}
 #| autorun: false
@@ -370,17 +370,39 @@ report_result <- function(model, spec = "unspecified", term = NULL) {
   }
 
   r <- tval / sqrt(tval^2 + dfree)   # partial correlation, as Multi100 used
-  cat(sprintf(
-    "RESULT | spec: %s | b = %.5f | se = %.5f | t = %.3f | df = %d | n = %d | r = %.3f\n",
-    spec, b, se, tval, dfree, nobs_, r))
-  invisible(list(term = term, b = b, se = se, t = tval, df = dfree, n = nobs_, r = r))
+
+  # ---- One-click submission to the class-results Google Form ----------------
+  # The Form turns your numbers into a dot on the live Multiverse chart. Fill in
+  # FORM_ID and the entry.* field codes once the Form exists (the facilitator
+  # does this; see facilitator/live-results-setup.md, step 1). Until then the
+  # printed link is a placeholder, but the printed summary always works.
+  FORM_ID <- "1FAIpQLSezoAEOnZUfP4pkfN28_XtEBwSyc2RLsXB-h8RPSegF7_t76A"
+  field <- c(spec = "entry.832496914", b = "entry.1656311800", se = "entry.1337458262",
+             t = "entry.1940779437", df = "entry.1682711955", n = "entry.1586392724",
+             r = "entry.1660273001")
+  value <- c(spec = spec, b = sprintf("%.5f", b), se = sprintf("%.5f", se),
+             t = sprintf("%.3f", tval), df = as.character(dfree),
+             n = as.character(nobs_), r = sprintf("%.3f", r))
+  query <- paste(vapply(names(field), function(k)
+    paste0(field[[k]], "=", utils::URLencode(value[[k]], reserved = TRUE)),
+    character(1)), collapse = "&")
+  url <- sprintf(
+    "https://docs.google.com/forms/d/e/%s/viewform?usp=pp_url&%s", FORM_ID, query)
+
+  cat(sprintf(paste0("Your result:  spec = %s\n",
+              "  b = %.5f | se = %.5f | t = %.3f | df = %d | n = %d | r = %.3f\n\n"),
+              spec, b, se, tval, dfree, nobs_, r))
+  cat("Submit (opens the form with your numbers pre-filled - just press Send):\n")
+  cat(url, "\n")
+  invisible(list(term = term, b = b, se = se, t = tval, df = dfree,
+                 n = nobs_, r = r, url = url))
 }
 
 # example on the model you fitted above:
 report_result(my_model, spec = "mcosmo ~ unemp_c | feols_tw | all")
 ```
 
-Copy the `RESULT | …` line it prints and paste it into the Discussion thread, under your prereg post. That is your contribution to the class multiverse.
+Click the submission link it prints and press Send. Your result appears as an orange dot on the live [Multiverse]({{< var live-results-url >}}) chart within seconds. That is your contribution to the class multiverse.
 
 ---
 

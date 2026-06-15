@@ -2,7 +2,7 @@
 
 A hands-on workshop for the Open Research Conference, Newcastle University, on Tuesday 16 June 2026 (10:15–12:45, Room 1.06, Henry Daysh Building). Facilitator: [Chris Moreh](https://chrismoreh.com). This repository holds the workshop website, the reveal.js slide deck, and a zero-install browser lab.
 
-Workshop participants will complete a guided robustness reanalysis of one of the same articles reanalysed by the facilitator as part of a large replication exercise recently published in *Nature* (Aczel et al., 2026) in a special section bringing together two other papers from the same multi-year meta-project (*Systematizing Confidence in Open Research and Evidence* (SCORE) – Alipourfard et al., 2021). Participants will import data directly from an OSF repository and reproduce a constrained model, then choose one analytical deviation, make a reasoned argument for their choices supported by a Directed Acyclic Graph (DAG), preregister it by committing to git, and publish their own reanalysis as a webpage via GitHub Pages.
+Workshop participants will complete a guided robustness reanalysis of one of the same articles reanalysed by the facilitator as part of a large replication exercise recently published in *Nature* (Aczel et al., 2026) in a special section bringing together two other papers from the same multi-year meta-project (*Systematizing Confidence in Open Research and Evidence* (SCORE) – Alipourfard et al., 2021). Participants will import data directly from an OSF repository and reproduce a constrained model, then choose one analytical deviation, make a reasoned argument for their choices supported by a Directed Acyclic Graph (DAG), preregister that choice (a git commit on the full-pipeline track, a written note before running on the browser track), and publish their own reanalysis as a webpage via GitHub Pages.
 
 ## Live link
 
@@ -15,7 +15,7 @@ The session moves through three distinct concepts. First, the three "R"s – rep
 
 ## Two ways to take part
 
-- **Track A – Browser lab (zero-install).** Participants open the [browser lab](exercise/browser-lab.qmd), which runs Tasks A–D in-browser via webR and quarto-live. Nothing is installed; data is pre-loaded; work persists in the browser tab until refresh. Participants post results to the Discussion thread rather than committing.
+- **Track A – Browser lab (zero-install).** Participants open the [browser lab](exercise/browser-lab.qmd), which runs Tasks A–D in-browser via webR and quarto-live. Nothing is installed; data is pre-loaded; work persists in the browser tab until refresh. Participants submit results via the one-click `report_result()` link – which drops a dot on the live [Multiverse](results.qmd) chart – rather than committing.
 - **Track B – Template repo.** Participants click "Use this template" on the companion repository [`CodeMoreh/replication-lab`](https://github.com/CodeMoreh/replication-lab), clone it in Positron (or their IDE of choice), edit `index.qmd` locally, and run R directly. On push, that repo's own GitHub Actions workflow installs R, renders the report, and publishes to GitHub Pages.
 
 ## Repository layout

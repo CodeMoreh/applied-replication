@@ -87,21 +87,21 @@ The `fixest::feols()` call is the primary estimator (fast in webR). A `plm()` eq
 
 ### Task D2 – Your fork in the path (~22 minutes)
 
-**Goal:** choose ONE deviation from the [specification menu](spec-menu.qmd), preregister your choice, run the model, and report the result in the standard format.
+**Goal:** choose ONE deviation from the [specification menu](spec-menu.qmd), commit to it before you run it, run the model, and submit your result.
 
-**Preregistration (Track B):** commit your choice *before* running the model. The commit message must follow the format:
+**Preregister (Track B):** commit your choice *before* running the model. The commit message must follow the format:
 
 ```
 prereg: <DV> ~ <IV> | <estimator> | <sample>
 ```
 
-For example: `prereg: mposframe ~ unemp | twoway FE | all years`
+For example: `prereg: mpos ~ unemp | twoway FE | all years`
 
-**Preregistration (Track A):** post your intention to the [Discussion thread](https://github.com/CodeMoreh/applied-replication/discussions) *before* running the model, then run it.
+**Preregister (Track A):** write your chosen spec and a one-sentence reason into your script *before* you run it, and tell your partner. That is your commitment – no git needed.
 
-**After running:** paste your result into the Discussion thread using the standard result line (the `report_result()` helper in your template, or the format on the [Specification menu](spec-menu.qmd) page, produces this for you automatically).
+**After running:** run `report_result()` (on the [Browser lab](browser-lab.qmd) page, or from `R/report_result.R` in your template) and click the submission link it prints. Your result lands on the live [Multiverse](../results.qmd) chart within seconds.
 
-**Evidence artifact:** a timestamped commit (Track B) or Discussion post (Track A) showing the prereg precedes the result; the result line in the Discussion thread.
+**Evidence of the commitment:** Track B – the `prereg:` commit timestamp precedes your model code; Track A – your written-down spec, shared with your partner before running.
 
 ---
 
@@ -119,7 +119,7 @@ For example: `prereg: mposframe ~ unemp | twoway FE | all years`
 
 ### Task F – Stretch (if time allows)
 
-Pick a second specification from the menu, or compare your fixed-effects result with random effects using `plm()`'s Hausman test, or weight country-years by `n_cy`. Report a second result line to the thread.
+Pick a second specification from the menu, or compare your fixed-effects result with random effects using `plm()`'s Hausman test, or weight country-years by `n_cy`. Submit a second result via the `report_result()` link – it appears as another dot on the live chart.
 
 ---
 
@@ -128,7 +128,7 @@ Pick a second specification from the menu, or compare your fixed-effects result 
 Your result is valid for the multiverse chart if it:
 
 - reports the unemployment coefficient (or its transformation) from a model on `teney_panel.csv`,
-- includes a standard result line in the Discussion thread (the format is on the [Specification menu](spec-menu.qmd) page), and
+- is submitted to the class-results form via the `report_result()` link (so it lands on the live [Multiverse](../results.qmd) chart), and
 - has a written justification for the choice you made (2 sentences is enough).
 
 The justification is the key part. The lesson from Auspurg & Brüderl (2021) is that a multiverse without stated reasons is just noise – with stated reasons, it becomes evidence.

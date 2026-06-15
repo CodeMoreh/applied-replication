@@ -1,13 +1,38 @@
 ---
 title: "The Multiverse"
 subtitle: "Every line is a justifiable analysis"
+engine: knitr
+format:
+  live-html:
+    toc: true
+    webr:
+      packages:
+        - ggplot2
+resources:
+  - data/spec_grid.csv
+  - data/analysts5.csv
+  - data/class_results.csv
 execute:
   echo: false
   warning: false
   message: false
 ---
 
-This page shows the specification curve for the workshop exercise. When data files are present, the charts below render automatically. Before the session – or when the data files are absent – the page renders with placeholder messages.
+{{< include _extensions/r-wasm/live/_knitr.qmd >}}
+
+```{r}
+#| label: setup
+#| include: false
+# Palette mirrors slides/index.qmd setup so this page and the deck share one
+# visual grammar: red = the reproduced baseline, orange = you / C6HJR, grey = the
+# other analysts. Static charts below are rendered by knitr at build time; the
+# live class-results chart further down runs in the browser via webR.
+library(ggplot2)
+ncl_blue <- "#0e3b6a"; orange <- "#E69F00"; green <- "#009E73"
+d_red    <- "#a10000"; grey_mid <- "#848c94"
+```
+
+This page shows the specification curve for the workshop exercise. The static charts below render at build time from the pre-computed menu; the **Class results** chart at the foot of the page is live – it fetches the room's submissions in your browser and redraws when you press *Run Code*. Before the session – or when the data files are absent – the page renders with placeholder messages.
 
 The logic of the visualisation follows the specification-curve idea (Simonsohn, Simmons and Nelson): one point per justifiable analysis, ordered by size. Because the menu mixes outcome scales and exposure transforms, raw coefficients are not comparable across specifications – the chart therefore plots the **partial correlation** (r = t/sqrt(t^2 + df)), the same metric Multi100 used to compare analysts. A horizontal line at zero marks the boundary between negative and positive associations. Your contribution sits somewhere on this chart.
 
@@ -38,13 +63,13 @@ if (file.exists(spec_file)) {
     base_pt <- spec[spec$baseline, ]
 
     p <- ggplot(spec, aes(x = rank, y = r)) +
-      geom_hline(yintercept = 0, linetype = "dashed", colour = "grey50") +
+      geom_hline(yintercept = 0, colour = grey_mid, linewidth = 0.4) +
       geom_point(aes(colour = outcome, alpha = sig), size = 1.2) +
       geom_point(data = base_pt, shape = 23, size = 3.5,
-                 fill = "#a10000", colour = "black") +
+                 fill = d_red, colour = d_red, stroke = 0) +
       annotate("text", x = base_pt$rank, y = base_pt$r - 0.08,
                label = "constrained baseline\n(t = -3.80)", size = 3,
-               colour = "#a10000", hjust = 0.2) +
+               colour = d_red, hjust = 0.2) +
       scale_colour_brewer(palette = "Dark2", name = "Outcome") +
       scale_alpha_manual(values = c("FALSE" = 0.25, "TRUE" = 0.9),
                          name = "p < .05", labels = c("no", "yes")) +
@@ -56,7 +81,8 @@ if (file.exists(spec_file)) {
       ) +
       theme_minimal(base_size = 12) +
       theme(
-        plot.title = element_text(colour = "#0e3b6a"),
+        plot.title = element_text(face = "bold", colour = ncl_blue),
+        axis.title = element_text(colour = ncl_blue),
         legend.position = "bottom"
       )
 
@@ -99,8 +125,8 @@ if (file.exists(spec_file)) {
 
 ```{r}
 #| label: analysts-plot
-#| fig-width: 6
-#| fig-height: 3.5
+#| fig-width: 7
+#| fig-height: 3.2
 #| fig-alt: "Dot plot of partial r values for the five Multi100 analysts. Horizontal line at zero."
 
 analysts_file <- "data/analysts5.csv"
@@ -114,21 +140,22 @@ if (file.exists(analysts_file)) {
     analysts$highlight <- analysts$analyst_id == "C6HJR"
 
     p2 <- ggplot(analysts, aes(x = r, y = reorder(analyst_id, r))) +
-      geom_vline(xintercept = 0, linetype = "dashed", colour = "grey50") +
+      geom_vline(xintercept = 0, colour = grey_mid, linewidth = 0.4) +
       geom_point(
         aes(colour = highlight, size = highlight)
       ) +
-      scale_colour_manual(values = c("FALSE" = "#555555", "TRUE" = "#a10000"),
+      scale_colour_manual(values = c("FALSE" = grey_mid, "TRUE" = orange),
                           guide = "none") +
       scale_size_manual(values = c("FALSE" = 2.5, "TRUE" = 3.5), guide = "none") +
       labs(
         x = "Partial r",
         y = NULL,
         title = "Five Multi100 analysts – Task 2 partial r",
-        caption = "Red point = analyst C6HJR"
+        caption = "Orange point = analyst C6HJR"
       ) +
       theme_minimal(base_size = 12) +
-      theme(plot.title = element_text(colour = "#0e3b6a"))
+      theme(plot.title = element_text(face = "bold", colour = ncl_blue),
+            axis.title = element_text(colour = ncl_blue))
 
     print(p2)
 
@@ -145,4 +172,85 @@ if (file.exists(analysts_file)) {
 
 ## Class results – 16 June 2026
 
-<!-- to paste class results table here after the session -->
+This chart is **live**. It draws the pre-computed menu (grey) and the five Multi100 analysts (the dashed lines, C6HJR in orange) as a backdrop, then overlays the room's own submissions as orange dots, placed where each result's partial *r* falls on the curve. Press **Run Code** to pull the latest submissions.
+
+The R engine downloads into your browser the first time (10–30 seconds); the button changes from a spinner to *Run Code* when it is ready.
+
+```{webr}
+#| label: live-multiverse
+#| autorun: true
+#| fig-width: 9
+#| fig-height: 5
+#| caption: "Press Run Code to refresh – pull the latest class results"
+# ---------------------------------------------------------------------------
+# CONFIG. Set worker_url to your Cloudflare Worker URL once it is deployed
+# (see facilitator/live-results-setup.md, steps 1-3). Leave it as "" before the
+# Worker exists: the chart still renders the backdrop + the five analysts, so the
+# page works at any stage of setup.
+worker_url <- "https://class-results.chris-moreh.workers.dev/"
+# ---------------------------------------------------------------------------
+
+library(ggplot2)
+ncl_blue <- "#0e3b6a"; orange <- "#E69F00"; d_red <- "#a10000"; grey_mid <- "#848c94"
+
+# Backdrop, from the page's bundled resources (always available, even with zero
+# submissions or a failed fetch).
+spec <- read.csv("data/spec_grid.csv")
+spec <- spec[order(spec$r), ]
+spec$rank <- seq_len(nrow(spec))
+an <- read.csv("data/analysts5.csv")
+an$me <- an$analyst_id == "C6HJR"
+
+# Class results. Three regimes, in order of preference:
+#   1. live  – fetch from the Worker (cache-busted so each Run pulls fresh);
+#   2. archive – if the Worker is unset or fails, read a committed snapshot
+#                (data/class_results.csv), written after the session;
+#   3. none  – fall back to just the backdrop.
+read_clean <- function(path) {
+  d <- read.csv(path, stringsAsFactors = FALSE, check.names = FALSE)
+  names(d) <- tolower(trimws(names(d)))   # tolerate "R", " r ", etc.
+  d$r <- suppressWarnings(as.numeric(d$r))
+  d[!is.na(d$r), , drop = FALSE]
+}
+cls <- NULL
+if (nzchar(worker_url)) {
+  cls <- tryCatch({
+    download.file(paste0(worker_url, "?_=", as.numeric(Sys.time())),
+                  "class.csv", quiet = TRUE)
+    read_clean("class.csv")
+  }, error = function(e) NULL)
+}
+if (is.null(cls) && file.exists("data/class_results.csv")) {
+  cls <- tryCatch(read_clean("data/class_results.csv"), error = function(e) NULL)
+}
+
+p <- ggplot(spec, aes(rank, r)) +
+  geom_hline(yintercept = 0, colour = grey_mid, linewidth = 0.4) +
+  geom_point(colour = "#c7ccd2", size = 0.7, alpha = 0.5) +
+  geom_hline(data = an[!an$me, ], aes(yintercept = r),
+             colour = grey_mid, linetype = "22", linewidth = 0.6) +
+  geom_hline(data = an[an$me, ], aes(yintercept = r),
+             colour = orange, linetype = "22", linewidth = 0.9) +
+  labs(x = "specification (ranked by partial r)", y = "partial r",
+       title = "The class multiverse – live") +
+  coord_cartesian(ylim = c(-0.75, 0.78)) +
+  theme_minimal(base_size = 13) +
+  theme(plot.title = element_text(face = "bold", colour = ncl_blue),
+        axis.title = element_text(colour = ncl_blue))
+
+if (!is.null(cls) && nrow(cls) > 0) {
+  cls$rank <- findInterval(cls$r, spec$r)
+  p <- p +
+    geom_point(data = cls, aes(rank, r), colour = orange, size = 3, alpha = 0.9) +
+    labs(subtitle = paste(nrow(cls), "class result(s) so far"))
+} else {
+  p <- p + labs(subtitle = "No submissions yet – press Run Code to refresh")
+}
+p
+```
+
+::: {.callout-note collapse="true"}
+## How this works (facilitator)
+
+Submissions go to a Google Form, land in a linked Google Sheet, and are served as CSV with permissive CORS headers by a small Cloudflare Worker. The `{webr}` cell above fetches that CSV in the browser. Full setup and run-day steps are in `facilitator/live-results-setup.md`.
+:::

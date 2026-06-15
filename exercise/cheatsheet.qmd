@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Cheatsheet"
 subtitle: "Print this page before the session"
 format:
@@ -17,8 +17,10 @@ format:
 | | URL |
 |---|---|
 | **Workshop site** | <https://codemoreh.github.io/applied-replication/> |
+| **Submit your result** | [class-results form]({{< var results-form-url >}}) |
+| **Live multiverse** | [results page]({{< var live-results-url >}}) |
 | **Template repo** | <https://github.com/CodeMoreh/replication-lab> |
-| **Discussion thread** | <https://github.com/CodeMoreh/applied-replication/discussions> |
+| **Discussion thread (help & published-URL gallery)** | <https://github.com/CodeMoreh/applied-replication/discussions> |
 | **OSF fork – data & corrected analysis** | <https://osf.io/6zqct/> |
 | **Full SCORE dossier on the paper** | <https://osf.io/h7432/> |
 | **Multi100 project** | <https://osf.io/q5h2c/> |

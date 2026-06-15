@@ -35,9 +35,11 @@ This is the kind of justification that makes a specification defensible: it conn
 
 ---
 
-## Preregistering your choice (Track B)
+## Preregistering your choice
 
-Commit your justification **before running the model**. The commit message format is:
+Commit to your specification **before you run it** – that is what stops you picking the path that happens to give the answer you want. How you record the commitment depends on your track, but the gesture is the same.
+
+**Track B (git):** commit your justification before you add the model-fitting code. The commit message format is:
 
 ```
 prereg: <DV> ~ <IV> | <estimator> | <sample>
@@ -51,30 +53,26 @@ prereg: mcosmo ~ log(unemp) + growth | country FE | 2004-2008
 prereg: mutil ~ unemp_c | pooled OLS cluster-robust | excl GR+ES
 ```
 
-The timestamp on the commit is your preregistration. Write the justification in your report file (the Task D2 callout block) and commit that together with any setup code – before you add the model-fitting code.
+The timestamp on the commit is your preregistration. Write the justification in your report file (the Task D2 callout block) and commit it together with any setup code, before the model-fitting code.
 
-**Track A:** post your intention to the [Discussion thread](https://github.com/CodeMoreh/applied-replication/discussions) with the same information, then run the model.
+**Track A (browser):** write your chosen spec and a one-sentence reason into your script as a comment, and tell your partner – before you run. That is your commitment; you do not need git for it.
 
 ---
 
 ## Reporting your result
 
-After running your model, paste the following result line into the Discussion thread:
+After running your model, submit your result to the class-results Google Form. You do not fill it in by hand: the `report_result()` helper prints a one-click link with all your numbers already in it – open it and press Send. Your result then appears on the live [Multiverse]({{< var live-results-url >}}) chart.
 
-```
-RESULT | spec: <DV> ~ <IV> | <estimator> | <sample> | b = ... | se = ... | t = ... | df = ... | n = ... | r = ...
-```
+The helper standardises every submission to a **partial correlation**, `r = t / sqrt(t^2 + df)` – the same conversion Multi100 used – so that models on different outcome scales and estimators all sit on one comparable axis.
 
-where `r = t / sqrt(t^2 + df)` (the partial correlation, matching the conversion Multi100 used).
-
-**The `report_result()` helper** in the template repository (`R/report_result.R`) produces this line automatically:
+**Track A (browser):** the helper is already on the [Browser lab](browser-lab.qmd) page. **Track B (template):** it lives in your template repository at `R/report_result.R`:
 
 ```r
 source("R/report_result.R")
 report_result(my_model, spec = "mcosmo ~ unemp_c | twoway FE | all years")
 ```
 
-This prints the formatted result line, ready to copy into the Discussion thread.
+This prints your submission link, ready to click.
 
 ---
 
