@@ -3,11 +3,9 @@ title: "Applied Replication for Data Skills"
 subtitle: "A hands-on workshop · {{< var event >}}"
 ---
 
-You were taught that science self-corrects. Three papers published in *Nature* in April 2026 asked whether that is actually true – and found a more complicated picture. In this workshop, you step inside one of those studies, take the seat of "analyst no. 6", and test the robustness of a published finding using the same data and workflow the project used.
+This workshop aims to introduce several technical skills involved in modern empirical data analysis – retrieving data from an online repository, working with computer code in a reproducible fashion, version-controlling your analysis and publishing a reproducible report – through an applied "replication" exercise.
 
-Every technical skill you practise – retrieving data from OSF, version-controlling your analysis, publishing a reproducible report – is exercised because the replication task requires it, not as an end in itself.
-
----
+ Participants will reproduce one of the reanalyses that were part of the Multi100 project, whose results were recently published in Nature (Aczel et al. 2026), and test the robustness of a published claim from Teney (2016) – using the same data, tools, and workflow the Multi100 project used.
 
 ## Event details
 

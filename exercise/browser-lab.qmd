@@ -14,7 +14,6 @@ format:
         - fixest
         - plm
         - dagitty
-        - ggdag
 resources:
   - ../data/rep_data.csv
   - ../data/teney_panel.csv
@@ -51,18 +50,56 @@ You are **analyst no. 6**. Five analysts reanalysed a claim from Teney (2016) fo
 
 ## Task A – Concepts (warm-up while the engine loads)
 
-No code here – just three definitions to settle in your mind before you analyse anything. The wording you want is on the [Resources glossary](../resources.qmd); try to fill each blank yourself first, then check.
+**Before touching data, fix the vocabulary.** Four reanalysts walk into a seminar. Three are doing one of our three R's; one is doing something else entirely. Read the four scenarios, then label each in the code cell below.
 
-Three activities are easy to confuse, and the whole workshop turns on telling them apart:
+1. A reviewer reruns the authors' Stata `.do` file on the authors' data and gets a *different* coefficient from the one printed in the paper. (Is the activity still named by what they *tried* to do, even though it failed?)
+2. Same data, but the analyst re-implements the model in R instead of Stata and centres the predictor. Same conclusion. (Careful: is changing the *software* the same as changing the *analysis*?)
+3. A preregistered team tests the identical hypothesis on a *separate, much larger* dataset chosen to be theoretically equivalent, and gets results that contradict the original.
+4. A different team tests the same underlying idea on social-media text using a machine-learning classifier – a method the original never used.
 
-- **Reproducibility** – same question, same data, same analysis, you get … *(the same result – or you do not, which is itself a finding)*.
-- **Robustness** – same question, same data, a different but justifiable analysis, the result … *(holds up, or moves – this is what Task D2 tests)*.
-- **Replicability** – same question, brand-new independent data, the result … *(appears again, or does not)*.
+Replace each `______` with one of `"reproducibility"`, `"robustness"`, `"replicability"`, `"generalisability"` (keep the quotes). Press **Run Code**, then open the solution.
 
-::: {.callout-note collapse="true"}
-## Which one is this exercise?
+```{webr}
+#| exercise: vocab
+labels <- c(
+  scenario_1 = ______,
+  scenario_2 = ______,
+  scenario_3 = ______,
+  scenario_4 = ______
+)
+labels
+```
 
-Task D1 (recovering the published number) is a **reproducibility** check. Task D2 (your own justified specification) is a **robustness** check – you and your classmates together sample the 'multiverse' of defensible analyses. Replicability would need a fresh survey, which is out of scope today. The umbrella term Nosek et al. use for all three is **repeatability**.
+::: {.solution exercise="vocab"}
+::: {.callout-tip collapse="false"}
+## Answers – and the two traps
+
+1. **reproducibility** – rerunning the same code on the same data. Here it *failed* to match, but the activity is still reproducibility; "not reproduced" is the verdict.
+2. **reproducibility** (the grey area) – re-implementing on the same data in different software is a re-computation. Centring the predictor nudges toward **robustness**, so you can defend either – the point is to name your reason.
+3. **replicability** – same question, independent new data chosen to be theoretically equivalent.
+4. **generalisability** – the impostor: new data *and* a new method at once. It is the fourth cell of the matrix, not one of the three we test today.
+:::
+:::
+
+So, which of the three are *you* about to do? Complete the sentence:
+
+```{webr}
+#| exercise: which_r
+this_exercise_is <- ______   # "reproducibility" | "robustness" | "replicability"
+the_data_we_use  <- ______   # "the same as" | "new, independent of"
+our_analysis_is  <- ______   # "identical to" | "a defensible alternative to"
+
+cat("This exercise is a", this_exercise_is, "check: we use",
+    the_data_we_use, "the original study's data, and run an analysis that is",
+    our_analysis_is, "the original.\n")
+```
+
+::: {.solution exercise="which_r"}
+::: {.callout-tip collapse="false"}
+## Answer
+
+A **robustness** check: **the same as** the original study's data, analysed in **a defensible alternative to** the original analysis. Same data, different defensible choices – that is exactly Task D2.
+:::
 :::
 
 ---
@@ -122,7 +159,6 @@ That last clause is a causal claim, and a DAG makes it checkable. The cell below
 #| fig-width: 7
 #| fig-height: 5
 library(dagitty)
-library(ggdag)
 
 # The five edges we are willing to commit to:
 committed_edges <- "
@@ -150,7 +186,7 @@ dag <- dagitty(paste0(
 exposures(dag) <- "unemployment"
 outcomes(dag)  <- "framing"
 
-# tidy left-to-right layout (extra nodes are harmless if their edges are off)
+# tidy left-to-right layout (coordinates for unused nodes are simply ignored)
 coordinates(dag) <- list(
   x = c(unemployment = 0, framing = 3, growth = 1.5,
         country = 1.5, year = 2.4, bailout = 0.6, politicisation = 2.8),
@@ -158,17 +194,13 @@ coordinates(dag) <- list(
         country = 2.2, year = -1.6, bailout = -2.2, politicisation = 1.8)
 )
 
-# The plot. If ggdag misbehaves in your browser, the tryCatch prints a
-# message instead of failing – the same DAG is on the slides.
-plotted <- tryCatch({
-  print(ggdag(dag, text = TRUE, node_size = 16) + theme_dag())
-  TRUE
-}, error = function(e) {
-  cat("The DAG plot did not render in this browser session.\n")
-  cat("See the DAG figure on the slides; the adjustment set still prints below.\n")
-  cat("(technical detail:", conditionMessage(e), ")\n")
-  FALSE
-})
+# We use dagitty's own base-graphics plot here, NOT ggdag. ggdag pulls in
+# ggraph + igraph, which are too heavy for webR and can crash the browser
+# session; the prettier ggdag version is in the template repo and on the
+# slides. plot() is light and reliable in the browser.
+tryCatch(plot(dag), error = function(e)
+  cat("(DAG plot unavailable in this session – see the slides.",
+      conditionMessage(e), ")\n"))
 
 cat("\nMinimal sufficient adjustment set(s) to identify unemployment -> framing:\n")
 print(adjustmentSets(dag, exposure = "unemployment", outcome = "framing"))
@@ -266,12 +298,14 @@ cat(sprintf("corrected panel        : t = %.3f  <- the recorded value\n",
             broom::tidy(m_ten)$statistic))
 ```
 
-::: {.callout-note collapse="false"}
-## What happened – and why it is good news
+::: {.callout-important collapse="false"}
+## Why the discrepancy?
 
-The original data-prep script read the EB 70.1 file (ZA4819) twice – once for 2008 (correct) and again in place of EB 72.4 (ZA4994) for the year 2009 (incorrect). **The analyst spotted and corrected this during the project.** The recorded result (t = −3.804) came from the corrected pipeline. The annotated script is in the analyst's fork (`osf.io/6zqct`, folder `moreh_rep_vAPR2025/`), where it carries the note "APRIL 2025 – Mistake in dataset here; the dataset associated with 'eb724' should be 'ZA4994_v3-0-0.dta'". The official Multi100 component (`osf.io/8rtwe`) preserved only the earlier, uncorrected folder; the full trail is now public in the fork.
+The result recorded for this analyst (C6HJR) in the Multi100 dataset is **t = −3.804**, not −3.853. Why is that?
 
-This workshop's corrected panel (`teney_panel.csv`) rebuilds the same corrected wave set independently from the raw GESIS files – and the model on it recovers **t = −3.804 exactly**, confirming which dataset produced the recorded value. Frame this the right way: the published `rep_data.csv` is what made the discrepancy findable in the first place. Versioned, documented corrections are normal science; open materials are what keep the whole trail checkable. (Every non-2009 aggregate matches the published file to within 5.6e-17, which is how we know the rest of the pipeline is identical.)
+The original data-prep script read the EB 70.1 file (ZA4819) twice by mistake: once for 2008 (correct) and again in place of EB 72.4 (ZA4994) for 2009 (incorrect). **The analyst spotted this during the project and corrected it.** The recorded result came from the corrected pipeline. The annotation is preserved in the analyst's fork (`osf.io/6zqct`, folder `moreh_rep_vAPR2025/`): the script carries the note "APRIL 2025 – Mistake in dataset here; the dataset associated with 'eb724' should be 'ZA4994_v3-0-0.dta'". The official Multi100 component (`osf.io/8rtwe`) preserved only the earlier, uncorrected folder; the fork publishes the full trail.
+
+Coding can go wrong - even during a reanalysis! Keeping materials open and well documented helps spot any mistakes and correct them. That's the purpose of reproducibility.
 :::
 
 ---
