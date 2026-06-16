@@ -20,11 +20,12 @@ resources:
 live:
   show-hints: true
   show-solutions: true
+bibliography: ../references.bib
 ---
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
-::: {.callout-important icon=false}
+::: {.callout-important icon="false"}
 ## Before you touch anything – the R engine is downloading
 
 The R engine downloads into your browser the first time you open this page (10–30 seconds on conference wifi) – read Task A while it warms up. You will see the first code cell switch from a loading spinner to a "Run Code" button when it is ready.
@@ -44,69 +45,59 @@ rep <- read.csv("data/rep_data.csv")
 ten <- read.csv("data/teney_panel.csv")
 ```
 
-You are **analyst no. 6**. Five analysts reanalysed a claim from Teney (2016) for the Multi100 project; you are repeating the exercise with a transparent pipeline. The full task description, the claim, and the five-analyst table live on the [Exercise overview](index.qmd) – this page is the runnable version of Tasks A to D for people working entirely in the browser.
+Five analysts reanalysed a claim from @Teney2016DoesEUEconomic for the Multi100 project [@AczelEtAl2026InvestigatingAnalyticalRobustness]; you are repeating the exercise following similar guidelines. Read the full task description, the claim, and the five-analyst table of findings on the [Exercise overview](index.qmd) page (the [workshop slides](../slides/index.qmd) discuss the broader context of the project). 
 
----
+This page is the runnable version of Tasks A to D for those working entirely in the browser.
+
+------------------------------------------------------------------------
 
 ## Task A – Concepts (warm-up while the engine loads)
 
-**Before touching data, fix the vocabulary.** Four reanalysts walk into a seminar. Three are doing one of our three R's; one is doing something else entirely. Read the four scenarios, then label each in the code cell below.
+**Before touching data, fix the vocabulary.** In the four scenarios below, three are doing one of our three R's; one is doing something else entirely. Read the four scenarios, then label each in the code cell below.
 
-1. A reviewer reruns the authors' Stata `.do` file on the authors' data and gets a *different* coefficient from the one printed in the paper. (Is the activity still named by what they *tried* to do, even though it failed?)
-2. Same data, but the analyst re-implements the model in R instead of Stata and centres the predictor. Same conclusion. (Careful: is changing the *software* the same as changing the *analysis*?)
-3. A preregistered team tests the identical hypothesis on a *separate, much larger* dataset chosen to be theoretically equivalent, and gets results that contradict the original.
-4. A different team tests the same underlying idea on social-media text using a machine-learning classifier – a method the original never used.
+***Scenario 1:*** A reviewer reruns the authors' Stata `.do` file on the authors' data and gets a *different* coefficient from the one printed in the paper. This is an example of \_\_\_\_\_\_, even though what they *tried* to do failed.
 
-Replace each `______` with one of `"reproducibility"`, `"robustness"`, `"replicability"`, `"generalisability"` (keep the quotes). Press **Run Code**, then open the solution.
+***Scenario 2:*** The analyst uses the authors' submitted replication dataset, but they re-implement the model in R instead of Stata and centre the predictor. Is this a case of \_\_\_\_\_\_ or \_\_\_\_\_\_?
+
+***Scenario 3: *** A preregistered team tests the identical hypothesis on a *separate, much larger* dataset chosen to be theoretically equivalent, and gets results that contradict the original. Their conclusion is that the original analysis has failed to \_\_\_\_\_\_.
+
+***Scenario 4:*** Instead of the survey data used by the original authors, another researcher tests the same underlying idea on social-media texts using a machine-learning classifier method that the original never used. To their surprise, the authors' original findings prove \_\_\_\_\_\_ and the researcher concludes that they provide a reliable middle-range theory of the phenomenon they investigate.
+
+Now, if the R engine has loaded, give it a test run by filling in the gaps in the same text in the code chunk below and run the code to see the output.
 
 ```{webr}
 #| exercise: vocab
-labels <- c(
-  scenario_1 = ______,
-  scenario_2 = ______,
-  scenario_3 = ______,
-  scenario_4 = ______
-)
-labels
+#| code-overflow: wrap
+
+cat("
+  Scenario 1: A reviewer reruns the authors' Stata .do file on the authors' data and gets a *different* coefficient from the one printed in the paper. This is an example of ______ even though what they *tried* to do failed.
+
+  Scenario 2: The analyst uses the authors' submitted replication dataset, but they re-implement the model in R instead of Stata and centre the predictor. Is this a case of ______ or ______?
+
+  Scenario 3: A preregistered team tests the identical hypothesis on a *separate, much larger* dataset chosen to be theoretically equivalent, and gets results that contradict the original. Their conclusion is that the original analysis has failed to ______.
+
+  Scenario 4: Instead of the survey data used by the original authors, another researcher tests the same underlying idea on social-media texts using a machine-learning classifier method that the original never used. To their surprise, the authors' original findings prove ______, and the researcher concludes that they provide a reliable middle-range theory of the phenomenon they investigate.
+")
+
 ```
 
-::: {.solution exercise="vocab"}
+:::: {.solution exercise="vocab"}
 ::: {.callout-tip collapse="false"}
 ## Answers – and the two traps
 
-1. **reproducibility** – rerunning the same code on the same data. Here it *failed* to match, but the activity is still reproducibility; "not reproduced" is the verdict.
-2. **reproducibility** (the grey area) – re-implementing on the same data in different software is a re-computation. Centring the predictor nudges toward **robustness**, so you can defend either – the point is to name your reason.
-3. **replicability** – same question, independent new data chosen to be theoretically equivalent.
-4. **generalisability** – the impostor: new data *and* a new method at once. It is the fourth cell of the matrix, not one of the three we test today.
+1.  **reproducibility** – rerunning the same code on the same data. Here it *failed* to match, but the activity is still reproducibility; "not reproduced" is the verdict.
+2.  arguably still **reproducibility** (a grey area) – re-implementing on the same data in different software is technically a re-computation – but centring the predictor nudges toward **robustness**, not to mention that different software may have different implementations of the same estimators, so one must make sure they understand the functions they use.
+3.  **replicability** – same question, independent new data chosen to be theoretically equivalent.
+4.  **generalisability** – the impostor: new data *and* a new method at once. It is the fourth cell of the matrix, not one of the three we test today.
 :::
-:::
+::::
 
-So, which of the three are *you* about to do? Complete the sentence:
 
-```{webr}
-#| exercise: which_r
-this_exercise_is <- ______   # "reproducibility" | "robustness" | "replicability"
-the_data_we_use  <- ______   # "the same as" | "new, independent of"
-our_analysis_is  <- ______   # "identical to" | "a defensible alternative to"
-
-cat("This exercise is a", this_exercise_is, "check: we use",
-    the_data_we_use, "the original study's data, and run an analysis that is",
-    our_analysis_is, "the original.\n")
-```
-
-::: {.solution exercise="which_r"}
-::: {.callout-tip collapse="false"}
-## Answer
-
-A **robustness** check: **the same as** the original study's data, analysed in **a defensible alternative to** the original analysis. Same data, different defensible choices – that is exactly Task D2.
-:::
-:::
-
----
+------------------------------------------------------------------------
 
 ## Task B – Get the data and look at it
 
-The published artifact `rep_data.csv` is already loaded for you as `rep`. It comes from the analyst's fork on OSF (osf.io/6zqct – "Multi100 | Teney_EurSocioRev_2016 | Analyst_C6HJR"); the official Multi100 archival record is at osf.io/8rtwe. Track B participants fetch it over the network with the `osfr` package; in the browser it is pre-loaded so you can get straight to the analysis.
+The published artifact `rep_data.csv` is already loaded for you as `rep`. It comes from the analyst's fork on OSF (osf.io/6zqct – "Multi100 \| Teney_EurSocioRev_2016 \| Analyst_C6HJR"); the official Multi100 archival record is at osf.io/8rtwe. Track B participants fetch it over the network with the `osfr` package; in the browser it is pre-loaded so you can get straight to the analysis.
 
 Run the cell below to inspect the panel. Edit it freely – this is your environment.
 
@@ -144,7 +135,7 @@ ggplot(rep, aes(x = year, y = mcosmopolitan)) +
 
 Most countries drift gently; a few move sharply around the 2009 crisis. That variation – within a country, over time – is exactly what the fixed-effects model in Task D1 uses.
 
----
+------------------------------------------------------------------------
 
 ## Task C – Estimand and DAG
 
@@ -152,7 +143,29 @@ Before fitting anything, say what you are trying to estimate, in words. A templa
 
 > The **unit-specific quantity** is the change in a country-year's mean cosmopolitan EU framing associated with a one-point change in that country's unemployment rate. The **target population** is EU member states over 2004–2013. The **aggregation** is the average of those unit-specific effects, holding fixed each country's time-invariant traits and each year's EU-wide shocks.
 
-That last clause is a causal claim, and a DAG makes it checkable. The cell below builds a directed acyclic graph with the **five edges we are willing to commit to** – the same starter DAG as in the template repository's `R/dag_starter.R`. Five candidate edges are commented out – uncomment the ones you believe in, re-run, and watch how `adjustmentSets()` changes.
+That last clause is a causal claim, and a DAG makes it checkable. If the [dagitty.net](https://www.dagitty.net/dags.html) page below doesn't load, navigate to that external site.
+
+Paste the code below into the Model code field and update the graph:
+<br>
+
+```
+dag {
+unemployment [exposure]
+framing [outcome]
+country -> unemployment ; country -> framing
+year -> unemployment ; year -> framing
+unemployment -> framing
+}
+```
+
+
+```{=html}
+<iframe width="780" height="500" src="https://www.dagitty.net/dags.html" title="Dagitty"></iframe>
+```
+
+
+<!-- 
+The cell below builds a directed acyclic graph with the **five edges we are willing to commit to** – the same starter DAG as in the template repository's `R/dag_starter.R`. Five candidate edges are commented out – uncomment the ones you believe in, re-run, and watch how `adjustmentSets()` changes.
 
 ```{webr}
 #| autorun: false
@@ -206,15 +219,15 @@ cat("\nMinimal sufficient adjustment set(s) to identify unemployment -> framing:
 print(adjustmentSets(dag, exposure = "unemployment", outcome = "framing"))
 ```
 
-With the five committed edges, the adjustment set is `{ country, year }` – exactly what a two-way fixed-effects model absorbs. That is no accident: the DAG and the Task D1 model encode the same identification claim. Uncomment the `growth` edges and the set becomes `{ country, year, growth }` – now your model needs `+ growth` to match your beliefs. Write two sentences for your own notes: what do two-way fixed effects adjust for, and what can they **not** fix? (Hint: anything time-varying within a country that you have not measured.)
+With the five committed edges, the adjustment set is `{ country, year }` – exactly what a two-way fixed-effects model absorbs. That is no accident: the DAG and the Task D1 model encode the same identification claim. Uncomment the `growth` edges and the set becomes `{ country, year, growth }` – now your model needs `+ growth` to match your beliefs. Write two sentences for your own notes: what do two-way fixed effects adjust for, and what can they **not** fix? (Hint: anything time-varying within a country that you have not measured.) -->
 
----
+------------------------------------------------------------------------
 
 ## Task D1 – Reproduce the constrained result
 
 This is the **reproducibility** check. Fit the two-way fixed-effects model the Multi100 Task-2 constraints point to:
 
-```
+```         
 mcosmopolitan ~ unemp_c   with fixed effects for country and year
 ```
 
@@ -241,37 +254,37 @@ m1 <- feols(mcosmopolitan ~ unemp_c | ______, data = rep)
 broom::tidy(m1)
 ```
 
-::: {.hint exercise="reproduce"}
+:::: {.hint exercise="reproduce"}
 ::: {.callout-note collapse="false"}
 ## Hint 1 – centring
 
 To centre a variable on its grand mean, subtract the mean of the whole column:
 
-```r
+``` r
 rep$unemp_c <- rep$unemp - mean(rep$unemp)
 ```
 
 With fixed effects present this does not change the t-statistic, but it is the transformation the constrained specification asks for, so do it explicitly.
 :::
-:::
+::::
 
-::: {.hint exercise="reproduce"}
+:::: {.hint exercise="reproduce"}
 ::: {.callout-note collapse="false"}
 ## Hint 2 – the fixed-effects syntax
 
 In `fixest::feols`, the bar `|` separates the regression from the fixed effects. To add country and year fixed effects, list them after the bar separated by `+`:
 
-```r
+``` r
 feols(mcosmopolitan ~ unemp_c | cntry + year, data = rep)
 ```
 :::
-:::
+::::
 
-::: {.solution exercise="reproduce"}
+:::: {.solution exercise="reproduce"}
 ::: {.callout-tip collapse="false"}
 ## Fully worked solution
 
-```r
+``` r
 rep$unemp_c <- rep$unemp - mean(rep$unemp)
 m1 <- feols(mcosmopolitan ~ unemp_c | cntry + year, data = rep)
 broom::tidy(m1)
@@ -279,7 +292,7 @@ broom::tidy(m1)
 
 You should get `estimate ≈ −0.00341`, `std.error ≈ 0.00088`, `statistic ≈ −3.85`. `feols` reports IID standard errors by default when two fixed-effect dimensions are present, which is why it matches the `plm` value to three decimals.
 :::
-:::
+::::
 
 ### The result you got is not the result on file
 
@@ -308,7 +321,7 @@ The original data-prep script read the EB 70.1 file (ZA4819) twice by mistake: o
 Coding can go wrong - even during a reanalysis! Keeping materials open and well documented helps spot any mistakes and correct them. That's the purpose of reproducibility.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Task D2 – Your fork in the path
 
@@ -363,12 +376,12 @@ summary(my_model)
 
 The point of preregistration is that you commit to a choice **before** you see what it does. It stops you quietly picking the specification that happens to give the answer you wanted.
 
-::: {.callout-warning icon=false}
+::: {.callout-warning icon="false"}
 ## Do this in order
 
-1. **Preregister first.** Before you run your chosen specification, write it down where you cannot change it unseen: type your spec and a one-sentence reason into the cell below as a comment, and tell your partner. That is your commitment. (Track B participants do the same thing with a `prereg:` git commit – the commit timestamp is the record.)
-2. **Then run** your specification.
-3. **Then report** – run `report_result()` below and click the submission link it prints.
+1.  **Preregister first.** Before you run your chosen specification, write it down where you cannot change it unseen: type your spec and a one-sentence reason into the cell below as a comment, and tell your partner. That is your commitment. (Track B participants do the same thing with a `prereg:` git commit – the commit timestamp is the record.)
+2.  **Then run** your specification.
+3.  **Then report** – run `report_result()` below and click the submission link it prints.
 :::
 
 Paste the function below into the editable cell (or run it here after running your model) to get your one-click submission link. It is self-contained and works for `fixest`, `plm`, and `lm` models:
@@ -438,21 +451,21 @@ report_result(my_model, spec = "mcosmo ~ unemp_c | feols_tw | all")
 
 Click the submission link it prints and press Send. Your result appears as an orange dot on the live [Multiverse]({{< var live-results-url >}}) chart within seconds. That is your contribution to the class multiverse.
 
----
+------------------------------------------------------------------------
 
 ## Task E – Still want the GitHub experience?
 
 You did the whole analysis without installing anything – but Track A participants can still finish with a published repository. Three routes, easiest first:
 
-1. **Save your code.** Copy the cells you edited into a plain text file on your laptop (call it `analysis.R` or `report.qmd`). Everything you need is in this tab.
-2. **Make a repo by upload.** On [github.com](https://github.com), create a new public repository, then use **Add file → Upload files** to drag your saved file in. No git, no command line – your first repo in about three minutes.
-3. **Edit in the browser.** On any GitHub repository, press the `.` key to open **github.dev** (a full VS Code editor in the browser), or change `github.com` to `github.dev` in the URL. You can edit, commit, and push entirely online.
+1.  **Save your code.** Copy the cells you edited into a plain text file on your laptop (call it `analysis.R` or `report.qmd`). Everything you need is in this tab.
+2.  **Make a repo by upload.** On [github.com](https://github.com), create a new public repository, then use **Add file → Upload files** to drag your saved file in. No git, no command line – your first repo in about three minutes.
+3.  **Edit in the browser.** On any GitHub repository, press the `.` key to open **github.dev** (a full VS Code editor in the browser), or change `github.com` to `github.dev` in the URL. You can edit, commit, and push entirely online.
 
 The [Cheatsheet](cheatsheet.qmd) has the click-by-click version, including how to switch on GitHub Pages so your report gets a live URL.
 
----
+------------------------------------------------------------------------
 
-::: {.callout-tip icon=false}
+::: {.callout-tip icon="false"}
 ## After the workshop – the full pipeline
 
 Everything you did here also exists as a proper reproducible project: a template repository you clone, edit in Positron, and publish. If you want the version with version control, `osfr` data-fetching, and automated rendering, start from the [Full pipeline track](index.qmd) – the [`replication-lab` template](https://github.com/CodeMoreh/applied-replication) is yours to reuse.

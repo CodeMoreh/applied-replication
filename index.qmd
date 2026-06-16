@@ -48,10 +48,10 @@ You have R, Positron, Quarto, and Git installed. You will clone the [template re
 
 Track B is the richer experience: you leave the session with a live public page, a committed git history, and a portfolio piece.
 
-Not set up yet? Go to [Setup](setup.qmd) now – it takes about 30 minutes.
+Not set up yet? Go to [Setup](setup.qmd) now – it takes some time, depending on what you need to install.
 :::
 
-Work in **pairs**: one laptop per pair, one person drives. If one laptop in the pair has a broken toolchain, the other picks up Track B; the broken one follows along on Track A.
+Work in **pairs** to help each other out. If you do not have a laptop, try pairing up with someone who has; you can still complete Track A on the classroom computer, but also get an insight on the Track B workflow.
 
 ---
 
@@ -64,17 +64,11 @@ Work in **pairs**: one laptop per pair, one person drives. If one laptop in the 
 | 10:40 | Talk II – the Teney case: original claim, SCORE reproduction attempt, five-analyst findings |
 | 10:50 | Setup sprint: get a track working, or verify yours is ready |
 | 11:05 | Concepts: estimands and DAGs – mini-lecture then guided exercise |
-| 11:20 | Reproduce the constrained result (t ≈ −3.80) |
-| 11:35 | **Break** |
+| 11:20 | **Break** |
+| 11:35 | Reproduce the constrained result (t ≈ −3.80) |
 | 11:45 | Your analytical path: choose a specification, preregister, run, report |
 | 12:05 | Share and publish |
 | 12:15 | Multiverse debrief: the class specification curve |
 | 12:30 | Wrap and resources |
 
 ---
-
-::: {.callout-important}
-## Before you arrive → [Setup](setup.qmd)
-
-If you want Track B (full pipeline), please read the Setup page before the day and allow 30 minutes for installs. The single essential step for everyone – creating a free GitHub account and verifying your email – is much easier done at home than on conference wifi.
-:::

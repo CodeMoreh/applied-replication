@@ -249,8 +249,8 @@ if (!is.null(cls) && nrow(cls) > 0) {
 p
 ```
 
-::: {.callout-note collapse="true"}
+<!-- ::: {.callout-note collapse="true"}
 ## How this works (facilitator)
 
-Submissions go to a Google Form, land in a linked Google Sheet, and are served as CSV with permissive CORS headers by a small Cloudflare Worker. The `{webr}` cell above fetches that CSV in the browser. Full setup and run-day steps are in `facilitator/live-results-setup.md`.
-:::
+Submissions go to a Google Form, land in a linked Google Sheet, and are served as CSV with permissive CORS headers by a small Cloudflare Worker. The `{webr}` cell above fetches that CSV in the browser. 
+::: -->

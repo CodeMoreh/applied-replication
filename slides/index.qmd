@@ -1,6 +1,5 @@
 ﻿---
-title: "When we repeat the science, what survives?"
-subtitle: "Applied replication for data skills"
+title: "Applied replication for data skills"
 format: revealjs
 ---
 
@@ -151,29 +150,11 @@ Welcome – good to have you here. This morning has three movements. First I'll 
 # PART 1 – The three Rs {.darkslide background-color="rgba(0,0,0,0)"}
 
 ::: {.partlabel}
-Talk I · 18 minutes
+Talk I · 20 minutes
 :::
 
 ::: notes
 Part one, then. Three words that sound alike and are not – and the three *Nature* papers that put numbers on each of them. [18 minutes for this part – about 80 seconds a slide.]
-:::
-
-## In April 2026, *Nature* asked a hard question
-
-:::: {.none}
-Three papers, one issue, one question:
-
-::: {.fragment .fadeInUp}
-**"When we repeat the science of the social world, what survives?"**
-:::
-
-::: {.fragment .fadeInUp .slow}
-I was inside one of them.
-:::
-::::
-
-::: notes
-In April this year, *Nature* published three papers back to back – same issue, same programme – all asking versions of one question: when we repeat the science of the social world, what survives? Reading them together is sobering. And I should say up front: I was inside one of them, as one of several hundred analysts. So this is not a story about other people's research. Today you will be sitting exactly where I sat.
 :::
 
 ## "Replication" crises
@@ -213,23 +194,6 @@ repeatability_matrix()
 Here is the whole framework on one slide, and if you take a single thing home today, make it this grid. The question stays the same throughout; what varies is the data and the analysis. Same data, same analysis – reproducibility: if I rerun your recipe, do I get your number? Same data but a different, justifiable analysis – robustness: does your finding survive my defensible choices? New data, same question – replicability. The fourth cell, new data and new analysis, is really generalisation, and we set it aside today. Sit with this for a moment – everything that follows this morning hangs off it.
 :::
 
-## Today's "replication"
-
-```{r}
-#| label: matrix-robustness
-#| fig-width: 12
-#| fig-height: 7
-repeatability_matrix(highlight = "Robustness")
-```
-
-::: {.src}
-@AlipourfardEtAl2021SystematizingConfidenceOpen; @NosekEtAl2025BriefGlossaryTerms
-:::
-
-::: notes
-Same grid, one cell lit. Of the four, the one you are stepping into today is robustness: same data, a different but defensible analysis. Hold the other three in grey for now – we will meet each of them on this very paper before the morning is out – but this is the seat you are taking.
-:::
-
 ## Related concepts
 
 ::: {.scaled style="--fs: 0.9; --lh: 1.15"}
@@ -244,7 +208,7 @@ For example, credibility is advanced by addressing potential competing interests
 @NosekEtAl2025BriefGlossaryTerms
 :::
 
-## The SCORE-papers in the matrix
+## Three SCORE articles
 
 ::: {.matrix-grid}
 <div class="corner"></div>
@@ -276,19 +240,24 @@ For example, credibility is advanced by addressing potential competing interests
 Same four-cell map you have just learned – but now each box carries the actual disciplinary breakdown from its study. Three of the four corners have a SCORE paper behind them: reproduction top-left, replication top-right, reanalysis bottom-left. The fourth, generalisation, we set aside today. Notice the pattern jumps out by discipline rather than by concept: economics and political science sit at the top of reproduction, sociology lags; replication hovers around half almost everywhere; and reanalysis holds the original conclusion three times in four. Same data on the wall, three very different questions.
 :::
 
-## Quick check {.questionslide}
+<!-- ## Today's "replication"
 
-::: {.none}
-You submit your paper and replication package. It goes out to reviewers.
+```{r}
+#| label: matrix-robustness
+#| fig-width: 12
+#| fig-height: 7
+repeatability_matrix(highlight = "Robustness")
+```
 
-- "Reviewer 1" wants to ensure that your results are [reproducible]{.fragment .bounceIn}, so she sources your R script to run the entire analysis. You're in luck – she hasn't yet updated her `dplyr`, so the code runs.
-- "Reviewer 2" is very eager. He's unconvinced by your modelling choices, so he fits your data to another function to check if your findings are truly [robust]{.fragment .bounceIn}. You're in luck again – he recovers your point estimate to a reasonable precision, although the confidence intervals have widened.
-- "Reviewer 3" takes a special interest because he's just working on a similar paper on data they published recently. Do your results [replicate]{.fragment .bounceIn} when your methods are applied to that state-of-the-art dataset?
-- "Reviewer 2" just doesn't want to let go. He tried a few alternative analyses of your data, including a fancy new regression method that he just released as an R package. His method gives results that are generally aligned to yours, but for the method to work, it would require a larger dataset; would your results really [generalise]{.fragment .bounceIn} to this new dataset published by "Reviewer 3" that he just read about, if applying his new fancy method to it? 
+::: {.src}
+@AlipourfardEtAl2021SystematizingConfidenceOpen; @NosekEtAl2025BriefGlossaryTerms
 :::
 
+::: notes
+Same grid, one cell lit. Of the four, the one you are stepping into today is robustness: same data, a different but defensible analysis. Hold the other three in grey for now – we will meet each of them on this very paper before the morning is out – but this is the seat you are taking.
+::: -->
 
-## SCORE: where these numbers come from
+## What is SCORE?
 
 ::: {.small}
 - DARPA-funded programme to gauge the credibility of social-science claims
@@ -462,7 +431,7 @@ ggplot(sh, aes(r, y = 1)) +
 And this is what comes back. The median effect size halves: point two five in the originals, point one zero in the replications. By the significance criterion, fifty-five percent of claims replicate. But notice that "did it replicate?" is not even one question – the team scored the same studies against thirteen reasonable success criteria and got answers ranging from twenty-nine to seventy-five percent. Two sentences from the paper are worth carrying around. "Strictly speaking, there is no such thing as exact replication." And: "The problem to solve is not unreplicability per se, it is overconfidence."
 :::
 
-## The punchline
+## The take-away
 
 :::: {.none}
 Reproducible ≠ robust ≠ replicable.
@@ -480,6 +449,26 @@ So there is no single number for 'trust'. You have to ask *which* repetition you
 Now the bit that genuinely surprised me. You would hope these three properties travel together – that a reproducible finding is more likely to be robust, and a robust one more likely to replicate. Across SCORE, they do not. Measured on the same body of papers, the three indicators are essentially uncorrelated – knowing one tells you almost nothing about the others. So there is no single trust score for a finding. "Is it reliable?" is an incomplete question until you say which kind of repetition you mean. Hold that thought, because we are about to watch all three play out on one single paper.
 :::
 
+## Quick check: credibility in the wild {.questionslide transition="fade-in none-out"}
+
+::: {.none}
+You submit your paper and replication package. It goes out to reviewers.
+
+- "Reviewer 1" wants to ensure that your results are [reproducible]{.fragment .bounceIn}, so she sources your R script to run the entire analysis. You're in luck – she hasn't yet updated her `dplyr`, so the code runs.
+- "Reviewer 2" is very eager. He's unconvinced by your modelling choices, so he fits your data to another function to check if your findings are truly [robust]{.fragment .bounceIn}. You're in luck again – he recovers your point estimate to a reasonable precision, although the confidence intervals have widened.
+- "Reviewer 3" takes a special interest because he's just working on a similar paper on data they published recently. Do your results [replicate]{.fragment .bounceIn} when your methods are applied to that state-of-the-art dataset?
+:::
+
+## Quick check: credibility in the wild {.questionslide transition="none-in fade-out"}
+
+::: {.none}
+You submit your paper and replication package. It goes out to reviewers. 
+
+"Reviewer 2" just doesn't want to let go...
+
+- He tried a few alternative analyses of your data, including a fancy new regression method that he just released as an R package. His method gives results that are generally aligned to yours, but for the method to work, it would require a larger dataset; would your results really [generalise]{.fragment .bounceIn} to this new dataset published by "Reviewer 3" that he just read about, if applying his new fancy method to it?
+:::
+
 # PART 2 – Our case {.darkslide background-color="rgba(0,0,0,0)"}
 
 ::: {.partlabel}
@@ -489,6 +478,10 @@ Talk II · 10 minutes
 ::: notes
 Part two – one paper. The one I worked on, and the one you are about to.
 :::
+
+## On the OSF {.iframe-slide background-iframe="https://osf.io/6zqct/overview" background-interactive="true"}
+
+[https://osf.io/6zqct](https://osf.io/6zqct/overview)
 
 ## Teney (2016) in 60 seconds
 
