@@ -479,9 +479,11 @@ Talk II · 10 minutes
 Part two – one paper. The one I worked on, and the one you are about to.
 :::
 
-## On the OSF {.iframe-slide background-iframe="https://osf.io/6zqct/overview" background-interactive="true"}
+## On the OSF
 
-[https://osf.io/6zqct](https://osf.io/6zqct/overview)
+::: {.urlbox}
+https://osf.io/6zqct
+:::
 
 ## Teney (2016) in 60 seconds
 
@@ -1477,6 +1479,13 @@ Two sentences to take away. From the Multi100 paper: single-path analyses should
 - You made one justifiable choice today – transparently, with a reason, inside a multiverse.
 - This is a skill. 
 - And that was the workshop.
+:::
+
+::: {.urlbox}
+codemoreh.github.io/applied-replication
+:::
+::: {.none}
+Fork anything. Everything is open.
 :::
 
 ::: notes
