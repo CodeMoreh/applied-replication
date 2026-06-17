@@ -485,19 +485,24 @@ Part two – one paper. The one I worked on, and the one you are about to.
 https://osf.io/6zqct
 :::
 
-## Teney (2016) in 60 seconds
+## The *Teney (2016)* study
 
 ::: {.small}
-- 16 Eurobarometer waves, **2004–2013**; about **390,000** respondents in **27 countries**
-- "What does the EU mean to you personally?" → four 0–1 framing scales
-- cosmopolitan · utilitarian · communitarian · libertarian
-- Three-level multilevel models (respondents in country-years in countries)
+- 16 Eurobarometer waves, **2004–2013**; ~ **390,000** respondents in **27 countries**
+
+::: {.claimcard}
+"The results show, first, that *poor economic performances* **increase negative** and **decrease positive** *dimensions of EU framing*."
 :::
 
+- "What does the EU mean to you personally?"
+  - COSMOPOLITAN: positive non-materialist form of EU framing ('Peace'; 'Democracy'; 'Freedom to travel, study and work anywhere in the EU'; 'Cultural diversity'; 'Stronger say in the world')
+  - UTILITARIAN: positive materialist form of EU framing (economic prosperity and social protection) 
+  - COMMUNITARIAN: negative non-materialist form of EU framing ('Loss of our cultural identity'; 'More crime'; 'Not enough control at external borders'; 'Unemployment' 
+  - LIBERTARIAN: negative materialist form of EU framing ('Bureaucracy'; 'Waste of money')
+:::
 ::: {.src}
 [@Teney2016DoesEUEconomic].
 :::
-
 ::: notes
 The paper is Céline Teney's, from 2016, in the *European Sociological Review*. Sixteen Eurobarometer waves, 2004 to 2013 – the crisis years – about three hundred and ninety thousand respondents across twenty-seven member states. The outcome comes from a nice survey item: "what does the EU mean to you personally?" Thirteen response options, which she organises into four framing scales; the cosmopolitan one – peace, democracy, freedom to move, cultural diversity – is the one we will target. The predictors are national unemployment and GDP growth, in three-level multilevel models. We will work on a country-year aggregate of the same data – two hundred and seventy rows – which behaves the same for our purposes and runs in milliseconds.
 :::
@@ -519,14 +524,19 @@ The paper is Céline Teney's, from 2016, in the *European Sociological Review*. 
 This is, word for word, the claim every Multi100 analyst was handed: "poor economic performances decrease positive dimensions of EU framing". And this is the anchor number behind it, from Table 3, Model 1 – the unemployment coefficient on cosmopolitan framing: minus point zero zero three four, t of minus four. Keep one wrinkle in mind for later. In the paper's own Model 2, with more controls in, that same coefficient drops by more than half and loses significance. The robustness question is already alive inside the original paper.
 :::
 
-## SCORE tried to reproduce it – twice
+## Reproducibility
 
 ::: {.small}
-- No public archive with the paper – **but the author supplied two Stata do-files on request**; the data stayed GESIS-restricted
-- **Push-button reproduction** (with that author code) – **failed**:
+- Data: openly available but not freely redistributable
 
 ::: {.claimcard .fragment}
-"… file names that did not correspond with the names of the files available for download… 16 datasets are listed… the code references 18 files"
+"The required data to replicate my analyses can be downloaded on  the Gesis repository website. I am not allowed to forward the Eurobarometer data. Enclosed you´ll find the code to combine the different Eurobarometer data waves and the code for the analysis of the ESR piece"
+:::
+
+- Code: push-button replication failed
+
+::: {.claimcard .fragment}
+"The reproduction attempt failed because the authors used file names that did not correspond with the names of the files available for download. Additionally 16 datasets are listed on the website as being used but the code references 18 files"
 :::
 
 - **Source-data reproduction** (rebuild from raw) – **"not reproduced"**: could not extract nor re-calculate the original effect size
@@ -536,7 +546,7 @@ This is, word for word, the claim every Multi100 analyst was handed: "poor econo
 So what happened when SCORE tried to reproduce this paper? Two attempts, two different failures. And let me be fair to the author here: there was no public archive with the paper, but she did supply her two Stata do-files when asked – what she could not share was the data, because GESIS terms do not allow it. Even with her code in hand, the push-button reproduction failed, and the report's wording is instructive – the file names in the code did not correspond to the files you could actually download; sixteen datasets listed, eighteen referenced. The second attempt rebuilt the data from source, and could not recover the published effect size at all. So this claim entered the robustness study already carrying two failed reproductions, of two different kinds.
 :::
 
-## The five-analyst reveal
+## Robustness
 
 ```{r}
 #| label: forest5
@@ -569,12 +579,29 @@ ggplot(fa, aes(r, lab, colour = me)) +
 - All five negative – same direction · partial r from **−0.45 to −0.01** · one not significant
 :::
 
-::: {.src}
-Multi100 Task-2 reanalyses of the Teney claim.
-:::
-
 ::: notes
 And then five of us re-analysed it, independently. Here is what came back. All five found a negative effect – on direction, unanimity. On size, look at the spread: from essentially zero – that one is not significant – up to a partial correlation of minus point four five. Two orders of magnitude apart, on the same data, for the same claim. The orange dot is me: R and Quarto, minus point two four. We did not even use the same software – two of the five worked in Stata, three in R, which quietly makes today's case for reproducible pipelines. Five competent people, one fixed question: analysis is a garden of forking paths.
+:::
+
+## Replication
+
+::: {.small}
+- Analysis One: specifically serves as the focal test for evaluation of the claim replicated for the purposes of SCORE.
+
+  - 352,114 person-year observations in the analytic sample.
+  - b = 0.002, p = 0.046, se = 0.0008, t = 2.004
+
+- Analysis Two: "still studying" and "no full-time education" categories in the variable "age when finished full-timeeducation" were NOT converted to missing values. 
+
+  - 379,396 person-year observations in the analytic sample
+  - b = 0.002, p = 0.017, se = 0.0007, t = 2.394
+
+- A **positive coefficient** for unemployment on cosmopolitan framing, and **significant** at p=value results of 0.05 or less, after controlling for selected predictors, and wave and country-level effects
+- In this regard, this replication of the claim using Analysis Two was not successful according to the SCORE criteria
+:::
+
+::: {.src}
+[osf.io/zt5y2/files/7efsw](https://osf.io/zt5y2/files/7efsw)
 :::
 
 ## One paper, all three Rs
@@ -588,9 +615,9 @@ And then five of us re-analysed it, independently. Here is what came back. All f
 # row per R, colour-coded by verdict. Stays fully editable.
 sb <- tibble::tribble(
   ~ord, ~R,              ~verdict,         ~detail,                                              ~fill,
-  3,    "Reproducible?", "FAILED ×2", "push-button + source-data, two different failures",  d_red,
-  2,    "Robust?",       "MIXED",          "5 analysts, all negative; |r| 0.01–0.45 (×100)", orange,
-  1,    "Replicable?",   "SIGN FLIPPED",   "new Eurobarometer, N = 352,114; b = +0.002, p = .046", d_red
+  3,    "Reproducible?", "FAILED ×2", "push-button + source-data",  d_red,
+  2,    "Robust?",       "MIXED",          "5 analysts, \nnegative effect in line with original, \nvaried strength + significance ", orange,
+  1,    "Replicable?",   "FAILED",   "new Eurobarometer data, \nsign flipped/opposing results", d_red
 )
 
 ggplot(sb, aes(x = 1, y = ord)) +
@@ -617,38 +644,56 @@ ggplot(sb, aes(x = 1, y = ord)) +
   theme_void()
 ```
 
-::: {.small}
-- Reproduction failed (twice, differently) · robustness: same sign, sizes spanning two orders of magnitude · replication: **the sign flipped**
-:::
-
 ::: {.src}
-Full SCORE dossier on Teney (2016): osf.io/h7432. One paper, three Rs, three verdicts.
+[osf.io/h7432](https://osf.io/h7432)
 :::
 
 ::: notes
 Put the whole dossier together – every artifact here is public, the link is on the slide. Reproduction: failed, twice, in two different ways. Robustness: mixed – five analysts, one sign, sizes spanning two orders of magnitude. And replication: a preregistered study took the same question to new Eurobarometer data, three hundred and fifty-two thousand observations – and the coefficient flipped sign. Positive, just significant, the wrong way round. So: one paper, three Rs, three different verdicts. That is the uncorrelated-indicators result from part one, embodied in a single case. Asking "is this paper reliable?" gets you nowhere; asking "reliable in which sense?" gets you all of this. And now it is your turn – you are the sixth analyst.
 :::
 
-## You are analyst no. 6 – two tracks
+## You are Analyst no. 6
 
-::: {.small}
-- **Track A – browser lab** (zero install, webR in the page):
+::: {.big}
+- Aim 1: **Reproduce** the original reanalyst **C6HJR**'s *constrained result* (Multi100 Task 2) 
 :::
 
-::: {.urlbox}
-codemoreh.github.io/applied-replication/exercise/browser-lab.html
+  - **Task:** Focus on the ‘Cosmopolitan’ dimension for EU framing and on unemployment rate as the independent variable; disregard contextual variables
+
+  - **Procedure:** two-way fixed-effects model (`mcosmopolitan ~ unemp_c | cntry + year`)
+
+  - **Result:** t ≈ −3.80 (df = 233, N = 270, partial r ≈ −0.242)
+
+## You are Analyst no. 6
+
+::: {.big}
+- Aim 2: Assess the **robustness** of the original reanalyst **C6HJR**'s *constrained result*
 :::
 
-::: {.small}
-- **Track B – template repo** (full Positron + git pipeline):
+  - **Task:** Choose ONE deviation from the specification menu, evaluate the conceptual validity of your claim, clarify your estimand, commit to your chosen model before you run it, and submit your result
+
+  - **Procedure:** ???
+
+  - **Result:** ???
+
+## Two tracks
+
+::: none
+**Track A – browser lab** (zero install, webR in the page):
 :::
 
-::: {.urlbox}
-github.com/CodeMoreh/replication-lab → "Use this template" → clone in Positron
+::: {.urlbox .fragment}
+[codemoreh.github.io/applied-replication/exercise/browser-lab](codemoreh.github.io/applied-replication/exercise/browser-lab)
 :::
 
-::: {.small}
-- Work in **pairs** – at least one prepared laptop per pair
+::: none
+**Track B – template repo** (full Positron + git pipeline):
+:::
+
+::: {.urlbox .fragment}
+[github.com/CodeMoreh/replication-lab](github.com/CodeMoreh/replication-lab)
+
+["Use this template" → clone in Positron]{.fs-80}
 :::
 
 ::: notes
@@ -1204,7 +1249,9 @@ ggplot2::ggplot(dag_tidy,
 ```
 
 ::: {.dagcode}
-live version: dagitty.net/dags.html → Model code → paste this → drag nodes, add edges, watch the adjustment sets update
+For online version: [dagitty.net/dags.html](dagitty.net/dags.html) 
+Paste into Model code:
+Drag nodes, add edges, watch the adjustment sets update
 :::
 
 ```default
@@ -1229,90 +1276,6 @@ unemployment -> framing
 
 ::: notes
 And here is the graph you will finish yourselves. The solid part is what we are committing to: unemployment to framing is the path of interest, and country and year are the two confounder pairs – stable national traits on one side, EU-wide shocks in a given year on the other. Ask dagitty for the adjustment set on this graph and it answers: country and year. Which is precisely what a two-way fixed-effects model absorbs – the graph and the baseline model are the same claim, written in two languages. The three pale nodes are yours to wire up, and they are genuine decisions. Is GDP growth a time-varying confounder that fixed effects cannot reach – a slump that raises unemployment and sours sentiment in the same year? Is the bailout a mediator, in which case you leave it alone if you want the total effect? Multi100 told us to disregard politicisation – was that defensible? If you want to play with this live, paste the model code from the slide into dagitty.net and drag things around; the adjustment sets update as you edit. Whatever you decide here becomes your model in the next task – that is the point.
-:::
-
-## Add a control, watch the result move {.smaller}
-
-```{r}
-#| label: ctrl-grid
-#| include: false
-# Precompute the unemployment t-statistic from the constrained two-way FE model
-# (mcosmo ~ unemp + country + year) on the CORRECTED panel, for every on/off
-# combination of the two time-varying candidate controls that actually exist in
-# the panel: growth and bailout. Politicisation is not in the aggregate data, so
-# it cannot be toggled – that absence is itself part of the Multi100 lesson. The
-# base cell (neither control) reproduces the recorded t = -3.804. The grid is
-# handed to OJS via ojs_define() so the toggles below recompute nothing live.
-ten <- readr::read_csv("../data/teney_panel.csv", show_col_types = FALSE)
-ten$country <- factor(ten$country); ten$year <- factor(ten$year)
-ctrl_t <- function(growth, bailout) {
-  extra <- c(if (growth) "growth", if (bailout) "bailout")
-  rhs <- paste(c("unemp", extra, "country", "year"), collapse = " + ")
-  m <- lm(stats::as.formula(paste("mcosmo ~", rhs)), data = ten)
-  unname(summary(m)$coefficients["unemp", "t value"])
-}
-tgrid <- tidyr::expand_grid(growth = c(FALSE, TRUE), bailout = c(FALSE, TRUE)) |>
-  dplyr::mutate(code = as.integer(growth) + 2L * as.integer(bailout),
-                t = mapply(ctrl_t, growth, bailout))
-ojs_define(tgrid = tgrid)
-```
-
-:::: {.columns}
-::: {.column width="40%"}
-
-```{ojs}
-//| echo: false
-viewof addGrowth = Inputs.toggle({label: "+ GDP growth", value: false})
-```
-
-```{ojs}
-//| echo: false
-viewof addBailout = Inputs.toggle({label: "+ bailout", value: false})
-```
-
-::: {.small}
-Constrained model `mcosmo ~ unemp` + country + year fixed effects. *Politicisation* is not in the aggregate panel, so the third candidate cannot be tested here.
-:::
-
-:::
-::: {.column width="60%"}
-
-```{ojs}
-//| echo: false
-grid = transpose(tgrid)
-code = (addGrowth ? 1 : 0) + (addBailout ? 2 : 0)
-current = grid.find(d => d.code === code)
-sig = Math.abs(current.t) >= 1.96
-```
-
-```{ojs}
-//| echo: false
-html`<div style="font-size:2.7em;font-weight:700;line-height:1.05;color:${sig ? '#0e3b6a' : '#a10000'}">t = ${current.t.toFixed(3)}</div>
-<div style="font-size:1.05em;color:#848c94;margin:.15em 0 .7em">${sig ? 'still significant  (|t| ≥ 1.96)' : 'no longer significant  (|t| < 1.96)'}</div>`
-```
-
-```{ojs}
-//| echo: false
-html`<table style="border-collapse:collapse;font-size:.82em">
-<thead><tr style="color:#0e3b6a;font-weight:700;border-bottom:2px solid #0e3b6a">
-<th style="padding:3px 14px;text-align:left">growth</th>
-<th style="padding:3px 14px;text-align:left">bailout</th>
-<th style="padding:3px 14px;text-align:right">t</th></tr></thead>
-<tbody>${grid.map(d => html`<tr style="background:${d.code === code ? '#eaf0f6' : 'transparent'};font-weight:${d.code === code ? 700 : 400}">
-<td style="padding:3px 14px">${d.growth ? '✓' : '·'}</td>
-<td style="padding:3px 14px">${d.bailout ? '✓' : '·'}</td>
-<td style="padding:3px 14px;text-align:right;color:${Math.abs(d.t) >= 1.96 ? '#0e3b6a' : '#a10000'}">${d.t.toFixed(3)}</td></tr>`)}</tbody></table>`
-```
-
-:::
-::::
-
-::: {.src}
-Recomputed from `data/teney_panel.csv`; base cell = the recorded Multi100 value for analyst C6HJR.
-:::
-
-::: notes
-Before we open dagitty, one quick demonstration of why those three pale nodes matter. This is our exact constrained model – cosmopolitan framing on unemployment, with country and year fixed effects – and the only thing changing is which candidate control I switch on. With neither, you get minus three point eight, comfortably significant; that is the recorded number. Add GDP growth and it barely moves. But add the bailout indicator and the t-statistic falls to about minus one point nine – it crosses the line, and the result is no longer significant at five percent. One defensible control, and the finding flips. Notice politicisation is not even on the menu – it is not in the aggregate panel, so that Multi100 instruction could not be tested anyway. This is the multiverse in miniature, and in twenty minutes every one of you will be adding your own dot to it.
 :::
 
 ## {.iframe-slide background-iframe="https://www.dagitty.net/dags.html" background-interactive="true"}
@@ -1481,11 +1444,13 @@ Two sentences to take away. From the Multi100 paper: single-path analyses should
 - And that was the workshop.
 :::
 
+::: fragment
 ::: {.urlbox}
 codemoreh.github.io/applied-replication
 :::
 ::: {.none}
 Fork anything. Everything is open.
+:::
 :::
 
 ::: notes
@@ -1519,14 +1484,12 @@ What you take with you: a public repository, or your browser script if you worke
 
 ## Thank you – and your feedback
 
-<!-- VEVOX: replace with session link / QR for the feedback poll -->
-
 ::: {.pollbox}
 Feedback poll<br>
-<span style="font-size:0.7em">(Vevox session QR / short URL)</span>
+<span style="font-size:0.7em">(QR / short URL)</span>
 :::
 
 
 ::: notes
-That is the workshop. The feedback form is on screen – two minutes of your time, and it genuinely shapes how I run this next time. While you fill it in: everything you have touched today is open and forkable – the slides, the data, the template, even the scripts with my own mistake annotated in them. If you do one thing this week, state an estimand for a piece of your own work, out loud, in one sentence. Thank you very much – and enjoy the rest of the conference.
+Not added for this small workshop
 :::

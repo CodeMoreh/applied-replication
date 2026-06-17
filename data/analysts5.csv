@@ -1,6 +1,6 @@
-analyst_id,statistic_type,statistic,df1,n,r,d,tool,note
-018OL,t,-1.206,396.916,420,-0.06042320495899693,0.121,R (R Markdown),
-C6HJR,t,-3.804,233,270,-0.2418125651512993,0.498,R (Quarto),workshop facilitator
-KEVF1,t,-5.899,135.606,209826,-0.45189574025804713,1.013,R (script),
-KQXUE,t,-7.169,242,270,-0.418535741455841,0.922,Stata,
-PRL47,z,-3.594,NA,394575,-0.00572150395060247,0.011,Stata,
+analyst_id,statistic_type,statistic,df1,n,r,d,tool,document,note
+018OL,t,-1.206,396.916,420,-0.060423205,0.121,R,.Rmd,
+C6HJR,t,-3.804,233,270,-0.241812565,0.498,R,.qmd,Chris
+KEVF1,t,-5.899,135.606,209826,-0.45189574,1.013,R,.R,
+KQXUE,t,-7.169,242,270,-0.418535741,0.922,Stata,.do,
+PRL47,z,-3.594,NA,394575,-0.005721504,0.011,Stata,.do,
