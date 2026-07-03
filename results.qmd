@@ -182,30 +182,16 @@ The R engine downloads into your browser the first time (10–30 seconds); the b
 #| fig-width: 9
 #| fig-height: 5
 #| caption: "Press Run Code to refresh – pull the latest class results"
-# ---------------------------------------------------------------------------
-# CONFIG. Set worker_url to your Cloudflare Worker URL once it is deployed
-# (see facilitator/live-results-setup.md, steps 1-3). Leave it as "" before the
-# Worker exists: the chart still renders the backdrop + the five analysts, so the
-# page works at any stage of setup.
-worker_url <- "https://class-results.chris-moreh.workers.dev/"
-# ---------------------------------------------------------------------------
 
 library(ggplot2)
 ncl_blue <- "#0e3b6a"; orange <- "#E69F00"; d_red <- "#a10000"; grey_mid <- "#848c94"
 
-# Backdrop, from the page's bundled resources (always available, even with zero
-# submissions or a failed fetch).
 spec <- read.csv("data/spec_grid.csv")
 spec <- spec[order(spec$r), ]
 spec$rank <- seq_len(nrow(spec))
 an <- read.csv("data/analysts5.csv")
 an$me <- an$analyst_id == "C6HJR"
 
-# Class results. Three regimes, in order of preference:
-#   1. live  – fetch from the Worker (cache-busted so each Run pulls fresh);
-#   2. archive – if the Worker is unset or fails, read a committed snapshot
-#                (data/class_results.csv), written after the session;
-#   3. none  – fall back to just the backdrop.
 read_clean <- function(path) {
   d <- read.csv(path, stringsAsFactors = FALSE, check.names = FALSE)
   names(d) <- tolower(trimws(names(d)))   # tolerate "R", " r ", etc.

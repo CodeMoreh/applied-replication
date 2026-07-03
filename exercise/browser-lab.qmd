@@ -238,7 +238,6 @@ The cell below is an exercise. Replace the blanks (`______`) with the missing co
 ```{webr}
 #| setup: true
 #| exercise: reproduce
-# make the data available inside the exercise (independent of the cells above)
 rep <- read.csv("data/rep_data.csv")
 ```
 
@@ -418,11 +417,6 @@ report_result <- function(model, spec = "unspecified", term = NULL) {
 
   r <- tval / sqrt(tval^2 + dfree)   # partial correlation, as Multi100 used
 
-  # ---- One-click submission to the class-results Google Form ----------------
-  # The Form turns your numbers into a dot on the live Multiverse chart. Fill in
-  # FORM_ID and the entry.* field codes once the Form exists (the facilitator
-  # does this; see facilitator/live-results-setup.md, step 1). Until then the
-  # printed link is a placeholder, but the printed summary always works.
   FORM_ID <- "1FAIpQLSezoAEOnZUfP4pkfN28_XtEBwSyc2RLsXB-h8RPSegF7_t76A"
   field <- c(spec = "entry.832496914", b = "entry.1656311800", se = "entry.1337458262",
              t = "entry.1940779437", df = "entry.1682711955", n = "entry.1586392724",
