@@ -177,11 +177,13 @@ This chart is **live**. It draws the pre-computed menu (grey) and the five Multi
 The R engine downloads into your browser the first time (10–30 seconds); the button changes from a spinner to *Run Code* when it is ready.
 
 ```{webr}
-#| label: live-multiverse
+#| label: live-multiverse-setup
+#| include: false
 #| autorun: true
-#| fig-width: 9
-#| fig-height: 5
-#| caption: "Press Run Code to refresh – pull the latest class results"
+# Class submissions are served as CSV by a Cloudflare Worker in front of the
+# Google Sheet; when the Worker is unreachable the chart falls back to the
+# committed data/class_results.csv, or to the backdrop alone.
+worker_url <- "https://class-results.chris-moreh.workers.dev/"
 
 library(ggplot2)
 ncl_blue <- "#0e3b6a"; orange <- "#E69F00"; d_red <- "#a10000"; grey_mid <- "#848c94"
@@ -198,41 +200,53 @@ read_clean <- function(path) {
   d$r <- suppressWarnings(as.numeric(d$r))
   d[!is.na(d$r), , drop = FALSE]
 }
-cls <- NULL
-if (nzchar(worker_url)) {
-  cls <- tryCatch({
-    download.file(paste0(worker_url, "?_=", as.numeric(Sys.time())),
-                  "class.csv", quiet = TRUE)
-    read_clean("class.csv")
-  }, error = function(e) NULL)
-}
-if (is.null(cls) && file.exists("data/class_results.csv")) {
-  cls <- tryCatch(read_clean("data/class_results.csv"), error = function(e) NULL)
-}
 
-p <- ggplot(spec, aes(rank, r)) +
-  geom_hline(yintercept = 0, colour = grey_mid, linewidth = 0.4) +
-  geom_point(colour = "#c7ccd2", size = 0.7, alpha = 0.5) +
-  geom_hline(data = an[!an$me, ], aes(yintercept = r),
-             colour = grey_mid, linetype = "22", linewidth = 0.6) +
-  geom_hline(data = an[an$me, ], aes(yintercept = r),
-             colour = orange, linetype = "22", linewidth = 0.9) +
-  labs(x = "specification (ranked by partial r)", y = "partial r",
-       title = "The class multiverse – live") +
-  coord_cartesian(ylim = c(-0.75, 0.78)) +
-  theme_minimal(base_size = 13) +
-  theme(plot.title = element_text(face = "bold", colour = ncl_blue),
-        axis.title = element_text(colour = ncl_blue))
+refresh_multiverse <- function() {
+  cls <- NULL
+  if (nzchar(worker_url)) {
+    cls <- tryCatch({
+      download.file(paste0(worker_url, "?_=", as.numeric(Sys.time())),
+                    "class.csv", quiet = TRUE)
+      read_clean("class.csv")
+    }, error = function(e) NULL)
+  }
+  if (is.null(cls) && file.exists("data/class_results.csv")) {
+    cls <- tryCatch(read_clean("data/class_results.csv"), error = function(e) NULL)
+  }
 
-if (!is.null(cls) && nrow(cls) > 0) {
-  cls$rank <- findInterval(cls$r, spec$r)
-  p <- p +
-    geom_point(data = cls, aes(rank, r), colour = orange, size = 3, alpha = 0.9) +
-    labs(subtitle = paste(nrow(cls), "class result(s) so far"))
-} else {
-  p <- p + labs(subtitle = "No submissions yet – press Run Code to refresh")
+  p <- ggplot(spec, aes(rank, r)) +
+    geom_hline(yintercept = 0, colour = grey_mid, linewidth = 0.4) +
+    geom_point(colour = "#c7ccd2", size = 0.7, alpha = 0.5) +
+    geom_hline(data = an[!an$me, ], aes(yintercept = r),
+               colour = grey_mid, linetype = "22", linewidth = 0.6) +
+    geom_hline(data = an[an$me, ], aes(yintercept = r),
+               colour = orange, linetype = "22", linewidth = 0.9) +
+    labs(x = "specification (ranked by partial r)", y = "partial r",
+         title = "The class multiverse – live") +
+    coord_cartesian(ylim = c(-0.75, 0.78)) +
+    theme_minimal(base_size = 13) +
+    theme(plot.title = element_text(face = "bold", colour = ncl_blue),
+          axis.title = element_text(colour = ncl_blue))
+
+  if (!is.null(cls) && nrow(cls) > 0) {
+    cls$rank <- findInterval(cls$r, spec$r)
+    p <- p +
+      geom_point(data = cls, aes(rank, r), colour = orange, size = 3, alpha = 0.9) +
+      labs(subtitle = paste(nrow(cls), "class result(s) so far"))
+  } else {
+    p <- p + labs(subtitle = "No submissions yet – press Run Code to refresh")
+  }
+  p
 }
-p
+```
+
+```{webr}
+#| label: live-multiverse
+#| autorun: true
+#| fig-width: 9
+#| fig-height: 5
+#| caption: "Press Run Code to refresh – pull the latest class results"
+refresh_multiverse()
 ```
 
 <!-- ::: {.callout-note collapse="true"}
