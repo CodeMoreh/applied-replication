@@ -67,10 +67,12 @@ These three are the pre-session reading list for the preregistration block; all 
 
 ## Companion curriculum
 
-Four optional self-study modules sit around the one-day workshop – see the [curriculum overview](companion/index.qmd) for the suggested reading order.
+Six optional self-study modules sit around the one-day workshop – see the [curriculum overview](companion/index.qmd) for the suggested reading order.
 
 - [Getting started with R](companion/intro-r.qmd) – for participants arriving with no R at all; best read before the day.
 - [The statistical methods behind the workshop](companion/stats-methods.qmd) – every model fitted on the case's own data with real outputs read line by line, from a first `lm()` through fixed and random effects to multilevel, weighted, Bayesian and ordered-beta models, ending with meta-analysis and the common effect-size axis.
+- [The multiverse: origins, uses, and critics](companion/multiverse.qmd) – where specification-curve thinking came from, the three purposes a multiverse can serve, and the 2025–26 critical debate read against this workshop's own grid.
+- [Simulation as a method](companion/simulation.qmd) – the simulated person-level twin with a known recipe: parameter recovery, the degrees-of-freedom story run live, a null multiverse, a lineup, and design precision by simulation.
 - [Git and GitHub for reproducible research](companion/git-github.qmd) – version control and publishing your own report, the part lifted out of the core day so it can be learned on its own terms.
 - [Reproducibility repositories](companion/repositories.qmd) – research-data archives, the OSF nodes behind this case, and preregistration templates in more depth.
 
