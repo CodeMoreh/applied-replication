@@ -17,8 +17,7 @@ age_min,15,demographic and weight marginal
 age_max,98,demographic and weight marginal
 female_share,0.546103,demographic and weight marginal
 w1_sd_log,0.325201,demographic and weight marginal
-w1_p99,2.2184,demographic and weight marginal
+edu_le15,0.20694,"education band share, complete cases"
 edu_e16_19,0.427994,"education band share, complete cases"
 edu_e20plus,0.282984,"education band share, complete cases"
-edu_le15,0.20694,"education band share, complete cases"
 edu_studying,0.082082,"education band share, complete cases"
