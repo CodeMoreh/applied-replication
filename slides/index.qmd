@@ -127,7 +127,7 @@ spec_base <- function() {
     theme(legend.position = "right", legend.title = element_blank())
 }
 
-# Fork-importance decomposition, imported from the companion article
+# Fork-importance decomposition over the committed grid
 # (data/fork_importance.csv: share of specification variance in partial r per
 # menu axis, main-effects eta-squared). Read once; the Block 4 slide charts it.
 fork_imp <- readr::read_csv("../data/fork_importance.csv", show_col_types = FALSE)
@@ -1531,7 +1531,7 @@ Pick your deviation now. Draft the one-sentence justification. Don't run anythin
 :::
 
 ::: notes
-The menu page is on screen – eight axes, and every option comes with copy-paste code, so nobody is writing R from a blank line. Two of those axes open choices Multi100 held fixed: the outcome's distribution family, Gaussian or beta, and the claim-carrying predictor itself – with the grid pre-computed for all of it; my article discloses the aggregated family doubling as prior work and registers its person-level twin. And one convention binds the whole room: claim-alignment. If you pick a negative framing – communitarian, liberal, the negative composite – it is reverse-coded for you, one minus the scale, so that support for the claim reads as a negative sign for everyone. The claim-align switch sits in your preregistration cell as the explicit clue that this happens; without the convention the class chart would straddle zero by construction and read as noise. Two ground rules. First: from here on we work on the corrected panel – the grid we will compare you against this afternoon is built on it, so your baseline is the minus three point eight zero four you already confirmed. Second: one deviation. Change one axis, keep the others at baseline. That sounds restrictive, but it is what makes the class chart readable – every dot differs from the baseline in exactly one declared way. Pick your axis now, draft the one-sentence justification your DAG gives you, and do not run anything. The next ten minutes explain why not running it yet is the whole point.
+The menu page is on screen – eight axes, and every option comes with copy-paste code, so nobody is writing R from a blank line. Two of those axes open choices Multi100 held fixed: the outcome's distribution family, Gaussian or beta, and the claim-carrying predictor itself – with the grid pre-computed for all of it. And one convention binds the whole room: claim-alignment. If you pick a negative framing – communitarian, liberal, the negative composite – it is reverse-coded for you, one minus the scale, so that support for the claim reads as a negative sign for everyone. The claim-align switch sits in your preregistration cell as the explicit clue that this happens; without the convention the class chart would straddle zero by construction and read as noise. Two ground rules. First: from here on we work on the corrected panel – the grid we will compare you against this afternoon is built on it, so your baseline is the minus three point eight zero four you already confirmed. Second: one deviation. Change one axis, keep the others at baseline. That sounds restrictive, but it is what makes the class chart readable – every dot differs from the baseline in exactly one declared way. Pick your axis now, draft the one-sentence justification your DAG gives you, and do not run anything. The next ten minutes explain why not running it yet is the whole point.
 :::
 
 ## Every reanalysis leaves a public trail
@@ -1594,30 +1594,6 @@ Three minutes, everyone: open the dossier and find the replication component –
 
 ::: notes
 And here is the scale version of the same discipline. Multi100 – the study you have been an analyst inside all day – was itself preregistered. One hundred claims, five or more analysts each, complete analytical freedom. The part that had to be pinned down in advance was the judging: what counts as 'the same conclusion', how close is 'close' for an effect size. Those rules went up on OSF before a single analyst's result came back, which is why the seventy-four percent and thirty-four percent you met this morning mean something – nobody could move the goalposts after seeing where the balls landed. [Confirm the registered-protocol wording against osf.io/7snkz before delivery – say what the registration actually fixed, not a paraphrase.]
-:::
-
-## A real, live preregistration – mine
-
-::: {.small}
-- The journal article this workshop grew into has a **preregistration drafted for OSF** – I will put the real document on screen
-- Its section 2 is the uncomfortable one: **"Prior data access and completed analyses"** – I already hold all the data, and I say exactly what I have already run
-- That is *your* situation too, in miniature, this afternoon
-:::
-
-::: notes
-Now the personal exhibit. The article this workshop grew into – the full multiverse paper on this claim – has its own preregistration, and I am going to show you the actual document, not a tidied slide of it. [switch to the document on screen] The section to read closely is section two: prior data access and completed analyses. Preregistration was invented for studies that had not collected their data yet. I already hold every byte of mine, and so do you. The only defensible move is to say so, precisely: what I have run, what I know, and therefore what my registration can still bind. Notice this is exactly your afternoon in miniature – you know the baseline is minus three point eight zero four, and your declaration will say so out loud.
-:::
-
-## What a grown-up registered design looks like
-
-::: {.small}
-- Section 3: each research question with **the basis for each expectation** stated
-- Section 5.1: the registered person-level universe – **3,840 specifications, laid out as a fork table** before any of them runs
-- Section 8: **"Deviations"** – the upfront promise about departures
-:::
-
-::: notes
-Three more parts of the same document, quickly, because your declaration block mirrors all three. Section three states each research question with the basis for the expectation – not just "I predict X" but why. Section five point one is the multiverse equivalent of declaring one spec: it lays out three thousand eight hundred and forty specifications as a table of forks, all registered before any of them runs – you will meet that universe again at the end of today. And section eight promises, in advance, how any departure from the plan will be disclosed. A registration is not a cage; it is a public record of the difference between the plan and the journey. Same shape as your five fields, only larger.
 :::
 
 ## The template we use – and the one we point to
@@ -1787,7 +1763,7 @@ Before I show you the answer, commit to a guess – you have just spent a day ma
 #| fig-width: 9
 #| fig-height: 4
 # Share of specification variance in partial r per menu axis, from the
-# companion article's decomposition (data/fork_importance.csv, main-effects
+# facilitator's extended decomposition (data/fork_importance.csv, main-effects
 # eta-squared). Bars ordered by share; the outcome fork in orange.
 fi <- fork_imp |>
   dplyr::mutate(axis = dplyr::recode(term,
@@ -1817,7 +1793,7 @@ ggplot(fi, aes(share, axis, fill = axis == "outcome")) +
 :::
 
 ::: {.src}
-Computed over data/spec_grid.csv for the companion article; imported as data/fork_importance.csv.
+Computed over the committed data/spec_grid.csv; imported as data/fork_importance.csv.
 :::
 
 ::: notes
@@ -1992,7 +1968,7 @@ Here is the trap the percentages set. Sixty-three point nine percent of our spec
 :::
 
 ::: {.src}
-Registered design of the companion article (appendix in your reading); permutation inference after [@PhipsonSmyth2010PermutationPValues].
+The design is worked through in your inference reading; permutation inference after [@PhipsonSmyth2010PermutationPValues].
 :::
 
 ::: notes
@@ -2004,7 +1980,7 @@ The nothing is built like this. The claim says a country's unemployment moves it
 ::: {.small}
 - With B = 500, the smallest reportable p is **2/(B+1) ≈ 0.004** – a floor, not a zero
 - Near p = .05 the Monte-Carlo wobble is about **±0.01** – treat p = .04 vs .06 as the same finding
-- [REGISTERED · NOT YET COMPUTED]{.highlight bg-colour="#ffe3b3"} – the test is registered in the companion article and runs after registration; today we read the design, not a result
+- [A DESIGN · NOT YET RUN]{.highlight bg-colour="#ffe3b3"} – a curve-level test has to be fixed in advance, and this one has not been run; today we read the design, not a result
 :::
 
 ::: {.fragment}
@@ -2012,7 +1988,7 @@ The nothing is built like this. The claim says a country's unemployment moves it
 :::
 
 ::: notes
-Two literacy points and then you argue. First: with five hundred draws, the smallest p-value the test can report is two over five hundred and one – about point zero zero four. That is a resolution floor, not a zero; more draws buy sharper floors at real compute cost. Second: near the point-oh-five boundary the Monte-Carlo wobble is around plus or minus point zero one, so a permutation p of point zero four and point zero six are the same finding twice. And the badge matters: this test is registered, not run – you are reading a design today, which is itself the preregistration lesson again. Now the discussion beat. The constrained universe – cosmopolitan outcome only, 140 specifications – is 70.7 percent negative, 57.1 percent negative and significant. Two minutes: is that strong evidence? Against what null? Type your answer. [harvest: the sharp ones will say – we don't know until we know what chance produces on these dependent data; that is exactly the point.]
+Two literacy points and then you argue. First: with five hundred draws, the smallest p-value the test can report is two over five hundred and one – about point zero zero four. That is a resolution floor, not a zero; more draws buy sharper floors at real compute cost. Second: near the point-oh-five boundary the Monte-Carlo wobble is around plus or minus point zero one, so a permutation p of point zero four and point zero six are the same finding twice. And the badge matters: this test is designed, not run – you are reading a plan today, which is itself the preregistration lesson again. Now the discussion beat. The constrained universe – cosmopolitan outcome only, 140 specifications – is 70.7 percent negative, 57.1 percent negative and significant. Two minutes: is that strong evidence? Against what null? Type your answer. [harvest: the sharp ones will say – we don't know until we know what chance produces on these dependent data; that is exactly the point.]
 :::
 
 ## What stands without the test
@@ -2041,42 +2017,6 @@ The book-length how-to: [@YoungCumberworth2025MultiverseAnalysisComputational]; 
 
 ::: notes
 One last literacy layer: the method you practised is under live debate, and you can now read it. Katrin Auspurg – Block 2's estimand diagnosis – answered a 3.6-billion-estimate study with this slide's first title: only thoughtful, justified models belong in a curve. Today mostly agreed with her: our grid is a curated eight hundred and forty, not an enumeration, and the fork chart does the one job every critic endorses – it tells you where the argument has to happen. Lakens and colleagues say that once the question is fixed, only one analysis implements it correctly. Your preregistration answered cherry-picking; their deeper point – that declaring early does not make a choice justified – is exactly why we built the DAG before declaring. And Rohrer, Hullman and Gelman ask what a multiverse is for: reflection, persuasion, or inference – each wanting a differently built set. Ours was built for reflection. How much more to read into it is the debate you have now joined. [advance]
-:::
-
-## The registered extension {.smaller}
-
-::: {.small}
-[REGISTERED · NOT YET COMPUTED]{.highlight bg-colour="#ffe3b3"}
-
-The companion article's preregistration – the document you saw before your own declaration – registers what comes next:
-
-- **3,840 person-level specifications** – the same menu logic, plus the outcome-family fork, refitted on the ~417,000 respondents
-- **The 5,520-spec joint universe** – aggregated and person-level curves, one frame, with the unit of analysis as a declared fork
-- **The data-version fork** – every specification run twice: as-submitted vs corrected panel (this morning's slip, industrialised)
-- **The B = 500 permutation** · **re-implementations of all five analysts**
-:::
-
-::: notes
-And here is where the story goes after today – with the same badge on it, registered, not yet computed. The preregistration you watched me walk through this afternoon fixes the next universe in advance: the person-level grid, three thousand eight hundred and forty specifications refitted on the four hundred and seventeen thousand respondents themselves; the joint universe of five thousand five hundred and twenty, where the unit of analysis becomes a declared fork rather than an accident of convenience; the data-version fork, which takes the slip from this morning's story and runs it as a systematic comparison across every single specification; the permutation test; and full re-implementations of all five analysts. None of these numbers exist yet. You are looking at a research programme frozen before its results – which, after today, you know is exactly what it should look like. [Variant A note: when the registered results land, this slide and the next are replaced by the results slides – imported CSVs, no redesign.]
-:::
-
-## Your prediction, on the record
-
-::: {.none}
-When the person-level curve lands, where will it sit against today's aggregated one?
-
-- **A** – noticeably more negative overall
-- **B** – noticeably less negative overall
-- **C** – same centre, *wider* spread
-- **D** – same centre, *narrower* spread
-
-::: {.fragment}
-Type A, B, C or D – with one clause of *why*. I will send the answer to this cohort when it exists.
-:::
-:::
-
-::: notes
-Last participatory beat of the day, and it is a real prediction with a real payoff. When the registered person-level grid is computed, where will its curve sit relative to the aggregated one you built today? More negative, less negative, same centre with wider spread, or narrower? You have real evidence to reason from – you know the two person-level analysts sat at the extremes, and you know the outcome fork dwarfs the estimator fork. Type your letter and one clause of why. [collect] These go on the record with today's chat log, and when the results land I will send this cohort the answer and the winners get bragging rights. That, incidentally, is a preregistered prediction – you could not help yourselves, you have been trained.
 :::
 
 ## What we learned
@@ -2137,7 +2077,7 @@ One tool we deliberately left out of today, named on the way out. Everything you
 ::: {.small}
 - **Yours now**: a preregistered, rendered report · a real error, caught in the open, in real submitted code · your dot on the class curve · your prediction, on the record
 - **Read**: the three *Nature* 2026 papers [@MiskeEtAl2026InvestigatingReproducibilitySocial; @AczelEtAl2026InvestigatingAnalyticalRobustness; @TynerEtAl2026InvestigatingReplicabilitySocial] · the glossary [@NosekEtAl2025BriefGlossaryTerms] · @AuspurgBruderl2021HasCredibilitySocial · @LundbergEtAl2021WhatYourEstimand · @Teney2016DoesEUEconomic · the workshop's own reading on specification curves
-- **Explore**: the companion curriculum (intro to R · the statistics behind today · repositories & preregistration · git & GitHub) · the Multi100 data · `fixest` & `dagitty` docs
+- **Explore**: the companion curriculum (intro to R · the statistics behind today · the multiverse debate · simulation · repositories & preregistration · git & GitHub) · the Multi100 data · `fixest` & `dagitty` docs
 - **Keep going locally**: your university's research-software and open-research teams · a ReproducibiliTea journal club near you
 :::
 
@@ -2148,7 +2088,7 @@ codemoreh.github.io/applied-replication
 Fork anything. Everything is open.
 :::
 ::: notes
-What you take with you: a rendered report with a preregistration block in it; the story of an error caught in the open, in genuinely submitted code; a dot on the class curve; and a prediction that will get settled by a registered analysis. The website on screen holds everything else – the readings, the data, both companion modules, the specification-curve reading, and the full SCORE dossier on the paper if you want to dig further. Two pointers for keeping the habit alive wherever you work: most universities have a research-software engineering team and an open-research or library data service that run training exactly like today's, and ReproducibiliTea journal clubs meet in dozens of cities – if there is not one near you, they will help you start it.
+What you take with you: a rendered report with a preregistration block in it; the story of an error caught in the open, in genuinely submitted code; and a dot on the class curve. The website on screen holds everything else – the readings, the data, the companion modules, the specification-curve reading, and the full SCORE dossier on the paper if you want to dig further. Two pointers for keeping the habit alive wherever you work: most universities have a research-software engineering team and an open-research or library data service that run training exactly like today's, and ReproducibiliTea journal clubs meet in dozens of cities – if there is not one near you, they will help you start it.
 :::
 
 ## References {.scrollable .smaller visibility="uncounted"}
@@ -2165,5 +2105,5 @@ Feedback form<br>
 :::
 
 ::: notes
-That is the day. Before you go: the feedback form link is in the chat – two minutes, and it genuinely shapes the next delivery of this workshop. I will leave the class multiverse on screen while you fill it in; find your dot one last time. Thank you for the work you put in today – you reproduced a published result, caught a real error, preregistered like an analyst, and read a specification curve like a reviewer. The site stays up, the chart stays live, and when the registered results land, this cohort hears about it first.
+That is the day. Before you go: the feedback form link is in the chat – two minutes, and it genuinely shapes the next delivery of this workshop. I will leave the class multiverse on screen while you fill it in; find your dot one last time. Thank you for the work you put in today – you reproduced a published result, caught a real error, preregistered like an analyst, and read a specification curve like a reviewer. The site stays up and the chart stays live – come back whenever you want to show someone your dot.
 :::

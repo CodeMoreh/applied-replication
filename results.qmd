@@ -124,7 +124,7 @@ if (file.exists(grid_file)) {
       sprintf("z = %.2f (no residual df: converted with n)", an$statistic)
     )
     # each analyst's model in the menu's vocabulary, from the public Multi100
-    # code (inventoried in the companion article repo). Task 2 fixed the
+    # code. Task 2 fixed the
     # outcome family and the predictor; everything else was each analyst's call.
     recipe <- data.frame(
       analyst_id = c("018OL", "C6HJR", "KEVF1", "KQXUE", "PRL47"),

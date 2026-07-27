@@ -97,7 +97,7 @@ The two rows report nearly the same slope – ignoring clustering does not bias 
 
 ## 4. Building the nothing, hands-on {#sec-null}
 
-The [inference reading](../exercise/reading-inference.qmd) argues that to test a specification curve you must know what the curve would look like if there were nothing to find – and the workshop's registered test builds that 'nothing' by permutation. Simulation gives you a more direct route to the same object: write a recipe with the effect removed. Set $\beta_1 = 0$, keep every other part of the structure – the country effects, the cell effects, the person noise, the cell sizes – and generate a world in which unemployment does nothing.
+The [inference reading](../exercise/reading-inference.qmd) argues that to test a specification curve you must know what the curve would look like if there were nothing to find – and the test designed there builds that 'nothing' by permutation. Simulation gives you a more direct route to the same object: write a recipe with the effect removed. Set $\beta_1 = 0$, keep every other part of the structure – the country effects, the cell effects, the person noise, the cell sizes – and generate a world in which unemployment does nothing.
 
 ```{r}
 #| label: null-world
@@ -141,7 +141,7 @@ null_fits |>
   mutate(across(where(is.numeric), \(x) signif(x, 3)))
 ```
 
-Every row of that table is an estimate of a quantity you *know* to be zero. Run it a few times with different seeds (the chunk takes a seed argument for exactly that reason) and you will see the estimates wander, occasionally straying to nominal significance – most readily in the pooled row, which treats twenty thousand echoing respondents as independent. A mini-multiverse fitted to a null world is the cleanest possible intuition for what the registered permutation test constructs at full scale: the distribution of whole curves under nothing. It also disciplines how you read the real curve's percentages, a point [the multiverse module](multiverse.qmd#sec-reading) develops: some share of any universe will look supportive under a true zero, so a share alone, without a null to stand it against, is a description and not a verdict.
+Every row of that table is an estimate of a quantity you *know* to be zero. Run it a few times with different seeds (the chunk takes a seed argument for exactly that reason) and you will see the estimates wander, occasionally straying to nominal significance – most readily in the pooled row, which treats twenty thousand echoing respondents as independent. A mini-multiverse fitted to a null world is the cleanest possible intuition for what a full-scale permutation test constructs: the distribution of whole curves under nothing. It also disciplines how you read the real curve's percentages, a point [the multiverse module](multiverse.qmd#sec-reading) develops: some share of any universe will look supportive under a true zero, so a share alone, without a null to stand it against, is a description and not a verdict.
 
 ## 5. What noise looks like {#sec-noise}
 
