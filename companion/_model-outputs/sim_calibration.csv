@@ -1,0 +1,24 @@
+parameter,value,provenance
+p_zero_mention,0.063175,share of respondents mentioning no item
+mu_cosmo,0.533755,mean dimension share among mentioners
+mu_util,0.105589,mean dimension share among mentioners
+mu_comm,0.207709,mean dimension share among mentioners
+mu_lib,0.152947,mean dimension share among mentioners
+var_ratio_cosmo,0.508837,within-cell Var(share) / mu(1-mu)
+var_ratio_util,0.438948,within-cell Var(share) / mu(1-mu)
+var_ratio_comm,0.489095,within-cell Var(share) / mu(1-mu)
+var_ratio_lib,0.459736,within-cell Var(share) / mu(1-mu)
+lambda_k,2.4,"authored: K = 1 + Poisson(lambda), truncated at 13"
+phi,5.518623,Dirichlet concentration implied by the dispersion
+e_k,3.399983,implied mean mention count
+age_mean,47.982476,demographic and weight marginal
+age_sd,18.188609,demographic and weight marginal
+age_min,15,demographic and weight marginal
+age_max,98,demographic and weight marginal
+female_share,0.546103,demographic and weight marginal
+w1_sd_log,0.325201,demographic and weight marginal
+w1_p99,2.2184,demographic and weight marginal
+edu_e16_19,0.427994,"education band share, complete cases"
+edu_e20plus,0.282984,"education band share, complete cases"
+edu_le15,0.20694,"education band share, complete cases"
+edu_studying,0.082082,"education band share, complete cases"
