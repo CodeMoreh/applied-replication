@@ -1,0 +1,307 @@
+---
+title: "Getting started with R"
+subtitle: "Foundation – for arriving with no R at all"
+bibliography: [../references.bib, ../references-new.bib]
+---
+
+This is the first module of the [companion curriculum](index.qmd), and it is written for the person who arrives with no R at all: a student, a professional from another field, or anyone curious about how the workshop's analysis is actually built. It does not assume you have programmed before. By the end you will know what R is, what the editor around it does, how to store and reshape data, how R's package system and its main dialects fit together, and where the workshop's own materials pick up from here.
+
+One practical note before we start, the same one the other companion modules make. Every command below is **shown, not run for you**. R is a language you learn by typing into it and watching what comes back, so the way to use this page is to try each snippet yourself, either in the workshop's zero-install [browser lab](../exercise/browser-lab.qmd) or in your own copy of R. Nothing on this page executes when it renders.
+
+## 1. What R and Positron are, and how they relate {#sec-what}
+
+**R** is a programming language built for working with data: reading it in, reshaping it, fitting statistical models, and drawing figures. It is free, open source, and the common language of quantitative social science, which is why the workshop's analysis is written in it. R is the engine – the thing that actually does the calculation – and on its own it is just a program that reads instructions and returns answers.
+
+**Positron** is the editor you drive R from. An editor (the general term is an integrated development environment, or IDE) is the workbench around the engine: a window with your files on one side, a place to write and run code, and panels that show results, figures and the objects you have created. Positron is free, made by the company behind R's most-used tools, and it is the editor the workshop demonstrates on the shared screen. The relationship is worth stating plainly, because newcomers often conflate the two: you install R once so the language is present on your machine, you install Positron once as the place you work, and when you first open Positron it finds the R you installed and connects to it. R does the computing; Positron is where you sit while it happens.
+
+You do not strictly need Positron to use R – R has its own bare console, and other editors exist – but a modern editor makes everything easier to see and to keep, so the workshop settles on Positron and this module assumes it. The [setup page](../setup.qmd) walks through installing both.
+
+::: {.callout-tip}
+## Try it
+
+You do not have to install anything to begin. Open the workshop's [browser lab](../exercise/browser-lab.qmd): a full copy of R starts up inside the tab after a few seconds, with no editor and no install to manage. Everything in the sections below can be typed straight into it, which makes it the fastest way to follow along on a first read.
+:::
+
+## 2. The console, scripts, and Quarto documents {#sec-surfaces}
+
+There are three surfaces you type R into, and knowing which is for what saves a great deal of confusion later.
+
+The **console** is the interactive prompt. You type one line, press Enter, and R answers immediately. It is where you try things out, check a value, or run a quick calculation. Its weakness is that the moment you close the session, everything you typed there is gone, and there is no record of how you reached a result.
+
+A **script** is a plain text file, with the extension `.R`, that holds a sequence of commands you want to keep. Instead of typing into the console and losing it, you write the commands in the script and run them from there – all at once, or line by line. A script is a record: it runs the same way tomorrow and on someone else's machine, and it shows exactly how a result was produced. The rule the workshop follows is simple. Try things in the console, but the moment something matters, move it into a script.
+
+A **Quarto document**, with the extension `.qmd`, is a script and a written report woven together in one file. It holds ordinary prose (the sentences you are reading now are written this way) interleaved with 'chunks' of R code; when you 'render' the document, R runs every chunk and drops its results – tables, figures, numbers – into the finished report at exactly the point they belong. This is the unit of work the workshop is built around, because it keeps the analysis and the writing that explains it in a single file that cannot drift apart. Your workshop report is a Quarto document, and rendering it is how your preregistration block gets a timestamp.
+
+## 3. Objects, vectors, and data frames {#sec-objects}
+
+R works by putting values into named **objects** and then referring to them by name. You assign a value to a name with the arrow `<-` (type it as a less-than sign followed by a hyphen). After that, the name stands in for the value everywhere you use it.
+
+```r
+unemployment_rate <- 7.5        # a single number
+country           <- "Germany"  # text, called a 'character string', is quoted
+in_crisis         <- TRUE       # a logical value: TRUE or FALSE
+
+unemployment_rate               # typing the name prints the value back
+```
+
+Most data is not a single value but a column of them. A **vector** is an ordered run of values of one type, built with `c()` (for 'combine'). Arithmetic and summary functions work on the whole vector at once, which is why R rarely needs the loops other languages reach for.
+
+```r
+unemp <- c(5.8, 5.6, 4.9, 4.1, 5.8)   # unemployment across five years
+
+length(unemp)   # how many values
+mean(unemp)     # their average
+unemp * 100     # every element multiplied, in one step
+```
+
+You reach into a vector with square brackets, either by position or – far more useful in analysis – by a condition, which keeps only the elements where the condition is `TRUE`.
+
+```r
+unemp[1]           # the first value
+unemp[unemp > 5]   # only the years above five per cent
+```
+
+A **data frame** is R's table: a set of equal-length vectors sitting side by side as columns, one row per observation. Almost everything in the workshop is a data frame. You pull a single column out by name with the `$` operator, and a rectangular block with `[rows, columns]`.
+
+```r
+# A tiny data frame built by hand, three country-years:
+d <- data.frame(
+  country = c("Austria", "Austria", "Greece"),
+  year    = c(2004, 2005, 2010),
+  unemp   = c(5.8, 5.6, 12.7)
+)
+
+d              # the whole table
+d$unemp        # one column, as a vector
+d[1:2, ]       # the first two rows, all columns
+```
+
+## 4. Packages: how R grows {#sec-packages}
+
+Everything so far – `c()`, `mean()`, `data.frame()` – ships with R itself, a core known as **base R**. Everything else arrives as **packages**: bundles of functions, their documentation, and sometimes data, written by researchers and developers around the world and published on **CRAN**, the Comprehensive R Archive Network, which holds over twenty thousand of them. When the next section reads a file with `read_csv()`, that function comes from a package called `readr`, not from R itself, and the sections after that lean on packages for nearly everything.
+
+Using a package is a two-step, and the two steps trip nearly every newcomer at least once:
+
+```r
+install.packages("readr")   # step 1: download it to your machine – once, ever
+library(readr)              # step 2: load it into the session – once, each session
+```
+
+`install.packages()` fetches the package from CRAN and stores it in your machine's package library. You run it once and never again, until you want an update. `library()` takes an installed package and attaches it to the running session so its functions are available by name, and it belongs at the top of every script that needs it. The analogy that sticks: installing is buying the book, `library()` is taking it off the shelf. Confuse the two and you meet R's most common error messages. `there is no package called 'readr'` means step 1 never happened on this machine, while `could not find function "read_csv"` usually means step 2 is missing from the current session.
+
+Two habits around packages are worth adopting from the start. First, put every `library()` call at the top of the script, together: the block then doubles as a plain statement of what the script depends on, which is a small but real piece of reproducibility – anyone opening the file sees at a glance what they need installed. Second, know the `::` form: `readr::read_csv()` calls a function through its package name without attaching anything, and you will meet it in code that wants the provenance of every function to be visible on the line that uses it.
+
+The workshop's own workspace applies all of this for you: its `R/check_setup.R` script checks the eleven packages the exercise needs and, if any are missing, prints the ready-made line that installs them.
+
+::: {.callout-tip}
+## Try it
+
+Run `library(fakepackagename)` and read the error carefully, then run `library(readr)` (preinstalled in the browser lab) and notice that success is silent. Learning to read error messages calmly – this one says nothing more alarming than "not on the shelf" – is a genuine R skill, and this is the message you will see most often.
+:::
+
+## 5. Reading data: a CSV first, then every other format {#sec-reading}
+
+You will rarely type data by hand. Most data arrives as a **CSV** – a 'comma-separated values' file, a plain text table where each line is a row and commas divide the columns. The workshop ships its data this way precisely because a CSV is readable, diff-able text rather than an opaque binary blob. Two of the committed files matter here: `rep_data.csv`, the analysis exactly as it was submitted to the Multi100 project, and `EUframes_cy.csv`, the corrected country-year panel every later specification is built on.
+
+R reads a CSV into a data frame in one call. Base R has `read.csv()`; the `readr` package's `read_csv()` is a little faster and reports the column types it inferred, and it is the one the workshop uses.
+
+```r
+library(readr)
+
+euframes <- read_csv("data/EUframes_cy.csv")   # a project-relative path
+
+euframes            # print the table
+nrow(euframes)      # 270 country-years
+names(euframes)     # the column names
+```
+
+Note the path: `"data/EUframes_cy.csv"` is written relative to the project folder, not as `C:/Users/yourname/Desktop/...`. A relative path works on any machine that has the project; an absolute path breaks the moment the work moves. Opening your workspace as a project and letting that be the anchor for every path is one of the plainest reproducibility habits there is.
+
+Two functions tell you what you just read without printing the whole thing:
+
+```r
+head(euframes)              # the first few rows
+summary(euframes$unemp)     # min, median, mean and max of one column
+```
+
+::: {.callout-tip}
+## Try it
+
+Read `data/rep_data.csv` into an object called `rep` with `read_csv()`, then run `nrow(rep)` and `names(rep)`. It holds the same 270 country-years as the corrected panel but under the column names the original submission used. Comparing the two column lists is a gentle first look at why the workshop keeps both files side by side.
+:::
+
+### The other formats you will meet
+
+Real research data rarely arrives as a tidy CSV, and the workshop's own raw material is the plainest example: the Eurobarometer surveys behind the panel are distributed by the GESIS data archive as **Stata** (`.dta`) and **SPSS** (`.sav`) files, because those are the packages much of survey research historically ran on. R reads both through the `haven` package, one function per format (the file names below are illustrative – none of these files ship with the workshop):
+
+```r
+library(haven)
+
+eb <- read_dta("eurobarometer_wave.dta")   # Stata; read_sav() reads SPSS
+```
+
+What makes these formats different from a CSV is **labelled data**. A Stata or SPSS survey file knows that a column called `eu_meaning` carries the question "What does the EU mean to you?", and that its stored values 1, 2, 3 stand for named answer options. `haven` keeps all of that: labelled columns print with their question text attached, and `as_factor()` turns the numeric codes into their labels when you want to work with the words rather than the numbers.
+
+```r
+eb$eu_meaning                # prints with its question and value labels attached
+as_factor(eb$eu_meaning)     # codes become their labels: a factor
+```
+
+**Excel** files are where data is born in many organisations, and the `readxl` package reads them – one sheet at a time, since a workbook is really a stack of tables:
+
+```r
+library(readxl)
+
+rates <- read_excel("unemployment_rates.xlsx", sheet = "annual")
+```
+
+Treat what arrives from a spreadsheet with mild suspicion. Excel displays one thing and stores another often enough – dates especially – that checking column types with `summary()` straight after import is a habit worth keeping.
+
+Finally, **Parquet** and **Feather** are the newer columnar formats you will increasingly meet where datasets are large or move between languages. They are compressed, fast, and – unlike a CSV – they carry their column types inside the file, so nothing has to be re-inferred on reading. The `arrow` package reads both, and the small `nanoparquet` package reads and writes Parquet with no dependencies at all:
+
+```r
+library(arrow)
+
+panel <- read_parquet("EUframes_cy.parquet")   # read_feather() for Feather
+```
+
+Whatever the source format, the landing object is the same data frame, and everything downstream – the verbs of the next sections, the models of the next module – proceeds identically. Every `read_` function here also has a `write_` counterpart (`write_csv()`, `write_dta()`, `write_parquet()`, and the `writexl` package's `write_xlsx()`), so R also serves as the converter between all of these formats. The workshop still ships CSV by choice: at 270 rows the efficiency of the binary formats buys nothing, and the transparency of plain text – open it in anything, diff it, read it in an email – is worth more.
+
+## 6. The pipe {#sec-pipe}
+
+Reading data is the start; the real work is reshaping it, and reshaping is almost always a sequence of steps. R's **pipe**, written `|>`, exists to make such sequences readable. It takes whatever is on its left and passes it as the first argument to the function on its right, so instead of wrapping functions inside one another and reading them inside-out, you write the steps top to bottom in the order they happen:
+
+```r
+# without the pipe: innermost first, hard to follow
+round(mean(euframes$unemp), 1)
+
+# with the pipe: left to right, in the order it happens
+euframes$unemp |> mean() |> round(1)
+```
+
+On one short line the gain is small. Over the multi-step chains of the next section it is the difference between prose and a puzzle, which is why nearly all modern R is written this way. One historical note, because you will meet it in other people's code: `|>` has been part of R itself only since 2021, and older code uses `%>%`, a pipe from a package called `magrittr` that does nearly the same job. Read them identically; write the native `|>`, as all the workshop's materials do.
+
+## 7. One task, three dialects: base R, the tidyverse, easystats {#sec-dialects}
+
+R is old enough to have grown dialects – families of packages with their own vocabulary and style, all doing the same underlying work. You will meet three, and it is worth seeing the same small task in each so that none of them ever looks foreign. The task: keep the crisis-period rows of the panel, with a handful of columns.
+
+**Base R** does it with the bracket-and-`$` machinery of [section 3](#sec-objects), no packages required:
+
+```r
+crisis <- euframes[euframes$year >= 2009, c("country", "year", "unemp", "mcosmo")]
+```
+
+It works, it always will, and code written this way twenty years ago still runs. Its weakness is that the brackets say *how* rather than *what*: the reader must decode positions and conditions to reconstruct the intent.
+
+**The tidyverse** is the dominant modern dialect: a family of packages sharing one design philosophy, installable and attachable under the single name `tidyverse` [@WickhamEtAl2019WelcomeTidyverse]. You have already met two of its members, `readr` and – now – `dplyr`, which gives each common data operation a named verb:
+
+- `filter()` keeps rows that meet a condition;
+- `select()` chooses columns;
+- `mutate()` adds or changes a column;
+- `summarise()` collapses many rows into a summary.
+
+Chained with the pipe, the same task reads as what it is:
+
+```r
+library(dplyr)
+
+euframes |>
+  filter(year >= 2009) |>              # crisis-period rows only
+  select(country, year, unemp, mcosmo) # the columns of interest
+```
+
+`mutate()` derives a new column from existing ones, and `summarise()` reduces the table to a single row (or, with `group_by()`, one row per group). The pipeline below adds a plain-language crisis flag, groups the country-years by whether a bailout programme was active, and reports the average cosmopolitan-framing score in each group:
+
+```r
+euframes |>
+  mutate(crisis = year >= 2009) |>            # a new TRUE/FALSE column
+  group_by(bailout) |>                        # split by bailout status
+  summarise(
+    n_cells    = n(),                         # how many country-years
+    mean_cosmo = mean(mcosmo),                # their average outcome
+    mean_unemp = mean(unemp)
+  )
+```
+
+Read the chain aloud and it is almost English: take the panel, add a crisis flag, group by bailout status, and for each group report the count and two averages. That readability is a reproducibility feature, not just a comfort – code a reviewer can read is code a reviewer can check – and it is why the workshop's own scripts are built from these verbs.
+
+**easystats** is the third dialect, and the one this module most wants you to know exists, because the workshop's facilitator uses and recommends it. It is likewise a family of packages under one installable name, `easystats` [@LudeckeEtAl2022EasystatsFrameworkEasy], but its centre of gravity is different: where the tidyverse is at its best preparing data *before* a model, easystats is built for everything that happens *after* one. It has a data-preparation member too – `datawizard`, whose verbs deliberately mirror dplyr's –
+
+```r
+library(datawizard)
+
+euframes |>
+  data_filter(year >= 2009) |>
+  data_select(c("country", "year", "unemp", "mcosmo"))
+```
+
+– but its real contribution begins once a model exists, and that is the subject of the next section. The three dialects are not rivals to choose between so much as layers to grow through: base R is always underneath, the tidyverse gives data work its grammar, and easystats gives the modelling stage a grammar of its own.
+
+::: {.callout-tip}
+## Try it
+
+Write a chain on `euframes` that keeps only Greece (`filter(country == "Greece")`), selects `year`, `unemp` and `mcosmo`, and prints the result. Then extend it with `summarise()` to report Greece's mean unemployment across the whole period. You have now filtered, selected and summarised in one pipeline – the core loop of everyday data work. If you are curious, redo the first step in base R and in `datawizard`, and notice you can already read all three.
+:::
+
+## 8. After the model: easystats and the estimand habit {#sec-easystats}
+
+This section looks one step ahead. Fitting models is the next module's subject, and everything there is read through base R's `summary()` printout; nothing that follows is needed for the workshop's tasks. It is here because it completes the map of the dialects – and because it connects R's tooling to the workshop's central discipline.
+
+Suppose the model exists – a plain linear model of cosmopolitan framing on unemployment and growth (the [next module](stats-methods.qmd) reads exactly this kind of output line by line):
+
+```r
+m <- lm(mcosmo ~ unemp + growth, data = euframes)
+```
+
+Base R answers with `summary(m)`: a printout to read with your eyes. The easystats packages instead treat the fitted model as an object to interrogate, one named question per function:
+
+```r
+library(easystats)
+
+model_parameters(m)    # the coefficient table as a tidy data frame, with confidence intervals
+model_performance(m)   # fit indices – R2, AIC and friends – in one row
+check_model(m)         # the assumption dashboard: residual plots, normality, influential rows
+report(m)              # the model written out in publishable sentences
+```
+
+`model_parameters()` returns the coefficients as data you can work with rather than text to squint at [@LudeckeEtAl2020ExtractingComputingExploring]; `check_model()` turns the diagnostic checks most people skip into one picture [@LudeckeEtAl2021PerformanceRPackage]; and `report()` writes the results paragraph itself, numbers drawn live from the object – which means the prose cannot drift from the model, the same guarantee a rendered Quarto document gives and a copy-pasted number never does.
+
+The deepest connection to this workshop, though, is in the `modelbased` member of the family [@MakowskiEtAl2025ModelbasedRPackage]. A coefficient table answers whatever question the model's parameterisation happens to pose. These functions make you *name the quantity you want* – the **estimand** – and then compute exactly it from the model:
+
+```r
+euframes <- euframes |> mutate(bailout = factor(bailout))
+m2 <- lm(mcosmo ~ unemp + bailout, data = euframes)
+
+estimate_slopes(m, trend = "unemp")           # the unemployment slope, with its uncertainty
+estimate_means(m2, by = "bailout")            # expected framing with and without a bailout programme
+estimate_contrasts(m2, contrast = "bailout")  # the difference between those two expectations
+```
+
+An expected outcome under each condition, a slope, a contrast between scenarios: each is a quantity you can state in words before touching the software. (Under the bonnet these functions drive the `marginaleffects` package, whose job Stata users will recognise from `margins`.) That habit – say what you want to estimate first, then derive the analysis that estimates it – is precisely what the workshop drills in its estimand-and-DAG block and again at the preregistration moment, where you commit to a target quantity before running anything. The tools and the discipline reinforce each other, and that is the real sense in which learning R here is not separate from learning the workshop's ideas: the coding, the statistics, the conceptual work of naming estimands, and the reproducibility habits are one connected practice.
+
+## 9. Where the workshop's own materials fit {#sec-materials}
+
+Everything above is preparation for the two ways of taking part in the day, and each gives your new R a real home.
+
+**The Positron workspace (Route 1).** If you install R and Positron, you download a single zip file – a ready-made project folder holding the data, a set of short `R/` scripts, and a report skeleton called `index.qmd`. That report skeleton is your first real script. It is a Quarto document you open, read, and fill in as the day goes, running its chunks and rendering it to a finished report. The smaller scripts around it do one job each – `R/check_setup.R` confirms your installation works, `R/get_data.R` fetches the data, `R/report_result.R` submits your result – and reading them is a gentle way to see the vocabulary of this module used in earnest. The [setup page](../setup.qmd) has the download and the step-by-step.
+
+**The browser lab (Route 2).** If you would rather install nothing, the [browser lab](../exercise/browser-lab.qmd) runs the whole exercise inside a web tab, with a full copy of R that starts up on its own. It is the zero-install place to try everything on this page, and it reaches identical numbers to the Positron route. Many people work through this module in the browser lab first, then decide whether to install the full workspace.
+
+Whichever route you take, the sequence is the same one you have just practised in miniature: read the data, reshape it with a few verbs, then fit a model and read what it says. The rest of the workshop is that loop, made careful.
+
+## Sources and further study {#sec-sources}
+
+This module is written fresh for the workshop rather than adapted from an existing lesson, so there is no borrowed text to attribute. It teaches only the slice of R the workshop's own materials use, in the order the day needs it, plus the map of dialects that puts those materials in context.
+
+If you want a fuller, self-paced grounding in R after this, these open resources are worth the time, and all are recommended here as further reading rather than adapted from:
+
+- **The Carpentries, "R for Reproducible Scientific Analysis" and "Programming with R".** <https://swcarpentry.github.io/r-novice-gapminder/> and <https://swcarpentry.github.io/r-novice-inflammation/>. Both are licensed **CC BY 4.0** and are the standard hands-on introductions to R for researchers, covering the same objects-vectors-data-frames foundation in far more depth than this page attempts.
+- **The Turing Way, "Guide for Reproducible Research".** <https://book.the-turing-way.org/>. Licensed **CC BY 4.0**. Not an R tutorial as such, but the best short statement of why the habits this module gestures at – scripts over console history, relative paths, one file for analysis and report – are worth building from the first day.
+- **The package documentation sites**, which for the packages of sections 5 to 8 are genuinely readable introductions rather than reference dumps: [tidyverse.org](https://www.tidyverse.org/) (with the free book *R for Data Science* at [r4ds.hadley.nz](https://r4ds.hadley.nz/)), [easystats.github.io/easystats](https://easystats.github.io/easystats/), [haven.tidyverse.org](https://haven.tidyverse.org/), [readxl.tidyverse.org](https://readxl.tidyverse.org/), and the arrow R package site at [arrow.apache.org/docs/r](https://arrow.apache.org/docs/r/).
+
+When you are ready for your first statistical model, the next module, [the statistical methods behind the workshop](stats-methods.qmd), starts exactly where this page leaves off: with a single `lm()` on the panel you have just learned to read and reshape, and everything the case then demands of it.
+
+## References
+
+::: {#refs}
+:::

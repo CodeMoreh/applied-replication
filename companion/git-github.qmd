@@ -1,0 +1,259 @@
+---
+title: "Git and GitHub for reproducible research"
+subtitle: "Optional, self-driven – for after the workshop"
+---
+
+This is the git and GitHub module of the [companion curriculum](index.qmd), and it is optional. Nothing in the one-day workshop depends on it: the core day runs entirely git-free, in either of its two routes. Route 1 downloads a self-contained zip workspace that you open in Positron and render locally – no repository to clone, no account to create. Route 2 runs the whole exercise in your browser, using webR, with nothing installed at all. Neither route asks you to touch git or GitHub at any point, and the [Setup page](../setup.qmd) says so plainly.
+
+That is a deliberate design decision, not an oversight, and it is worth explaining because a "reproducibility workshop" might reasonably be expected to teach git as a matter of course. The first in-person delivery did exactly that: version control sat alongside reproduction, estimands and the multiverse as a fourth thing to learn in a single session, with a required commit-and-push step before a result could count. Carrying all four at once turned out to ask too much. Participants spent attention on git mechanics – staging, committing, authenticating with GitHub – that was needed for the harder ideas the day exists to teach: what a reanalysis is, what an estimand is, and what a multiverse of specifications shows you. So version control was lifted out of the core day and given a home of its own here. You can work through this module before the workshop to arrive with the habit already in place, afterwards to take your own report further, or at any later point when a real project of yours needs it.
+
+The module assumes you are comfortable with R and with the workshop's reproducibility habits – project-relative paths, a rendered Quarto report as the unit of work, a data trail you can point to rather than describe from memory. It is also the natural next step after the companion module on [reproducibility repositories](repositories.qmd): that module is about finding and reading other people's materials, and about depositing your own; this one is about the tool, git, that makes a deposit of your own possible to build, inspect and correct over time.
+
+One practical note before we start. Every command below is **shown, not run for you**. Git is a tool you drive from a terminal or from your editor, so the way to learn it is to type the commands yourself against a folder of your own. Copy the snippets one at a time and watch what each does. Nothing on this page executes when it renders.
+
+## 1. Why version control matters for a reanalysis {#sec-why}
+
+A piece of quantitative social science is not one file frozen at a single moment. It is a folder that changes for weeks: a preparation script gains a filter, a model gains a control, a report gains a paragraph, and a number that looked right turns out to be wrong and has to be put right. **Version control** is a system that records that folder's history as a sequence of deliberate snapshots, so the state of the work at any past moment can be recovered, compared and explained. Git is the version-control system almost everyone now uses, and GitHub is the best known of the websites that host git projects so other people can see and contribute to them. The distinction matters and we keep it throughout the module: git is the tool that lives on your machine, GitHub is one place your git project can also live online. (The framing in this section adapts Software Carpentry's "Version Control with Git" lesson and The Turing Way's "Version Control" chapter, both used under their CC BY 4.0 licences – full attribution in the sources section below.)
+
+It is worth being concrete about why this is worth a social scientist's time, because "use version control" is advice that is easy to give and easy to ignore. Four things it buys you, in ascending order of how much they matter to research:
+
+**Reversibility.** Because each commit is a complete, labelled snapshot, you can always return to a known-good past state. If a change to your model breaks a result you had working yesterday, you do not reconstruct yesterday from memory – you ask git for it. This is what ends the folder full of `report_final.qmd`, `report_final_v2.qmd`, `report_FINAL_actually.qmd` that everyone recognises. One file, many recorded states.
+
+**History as an audit trail.** The sequence of commits is a dated, authored, message-by-message record of how the analysis came to be what it is. For work that is meant to be reproducible, this is not housekeeping – it is evidence. A reader who wants to know when the sample restriction to crisis years entered your model, or why, can read the commit that added it and the message that explains it. Provenance stops being a story told after the fact and becomes a property of the project itself.
+
+**Collaboration without overwriting.** When two people work on one project, git lets each make changes independently and then combines them, flagging the rare lines where the two genuinely disagree rather than letting the second save silently overwrite the first.
+
+**Public error flagging and correction.** This is the one that connects most directly to what this workshop is about, so it is worth dwelling on. When analysis code is committed and made public, other people can read it, run it, find its faults and propose fixes – in the open, with a record of who found what and how it was resolved.
+
+::: {.callout-note}
+## The workshop's own case, in passing
+The next paragraph recounts the real data-preparation error behind the EU-frames analysis – the same story the workshop tells openly in its Block 2. It is told, not hidden: reading it here spoils nothing.
+:::
+
+The workshop's own case study is a real instance of exactly this. The Multi100 analyst you are standing in for (analyst C6HJR) submitted a prep script that read one Eurobarometer wave file twice and never read the wave it should have used for 2009 – a wave-duplication error that shifted the recorded result from t = −3.853 to the correct t = −3.804. The analyst found and corrected the mistake, and the correction now lives in the open on the maintained OSF fork ([`osf.io/6zqct`](https://osf.io/6zqct/)), in a script carrying the analyst's own dated annotation: "APRIL 2025 – Mistake in dataset here; the dataset associated with 'eb724' should be 'ZA4994_v3-0-0.dta'". That single line is public error flagging and correction in miniature – a documented, attributable, timestamped fix to a real research artefact, sitting where anyone can read it. Git and GitHub are the everyday machinery for making that kind of correction routine rather than exceptional: instead of an annotation added to a script by hand and hoped that someone notices, a commit message states the fix, a diff shows exactly what changed, and the history keeps both the mistake and the correction on the record together.
+
+::: {.callout-tip}
+## Try it
+
+Open [`osf.io/6zqct`](https://osf.io/6zqct/) and find the `moreh_rep_vAPR2025/` folder. Locate the script carrying the April 2025 annotation quoted above. Read the surrounding lines and write two sentences: what would a reader who only had the original, uncorrected script (the one preserved in the official archival record, `osf.io/8rtwe`) be unable to tell that this annotated version makes clear? That gap between a silently-fixed result and a visibly-corrected one is the gap version control exists to close.
+:::
+
+## 2. Git on your own machine {#sec-local}
+
+Everything git does locally rests on one mental model, and it repays five minutes of care up front. A file in a git project moves through three places (this three-part picture adapts Software Carpentry's lesson):
+
+1. the **working directory** – the files as they currently sit on disk, where you edit;
+2. the **staging area** – a holding space where you gather the specific changes you want to record next;
+3. the **repository** – the permanent, ordered history of committed snapshots.
+
+You edit in the working directory, `git add` the changes you want to keep into the staging area, and `git commit` them into the repository as one labelled snapshot. The staging step feels like an extra move at first, but it is the whole point: it lets you commit one coherent change at a time even when your working directory holds several half-finished ones.
+
+### Telling git who you are
+
+Git stamps every commit with a name and an email, so the first thing on any new machine is to set them. You do this once, not per project – that is what `--global` means.
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+```
+
+### Starting a repository
+
+Suppose you have a folder for your own extended reanalysis – say `euframes-reanalysis` – holding a Quarto report and the two committed CSVs. You turn that ordinary folder into a git repository by moving into it and initialising:
+
+```bash
+cd euframes-reanalysis
+git init
+```
+
+Nothing visible changes except a hidden `.git` folder, where git keeps the entire history. Ask git what it sees at any time with `git status`, the command you will run more than any other:
+
+```bash
+git status
+```
+
+At this point it will report that your files are "untracked" – present in the working directory but not yet in git's care.
+
+### Your first commit
+
+Staging and committing is a two-step. You stage the file you want to record, then commit it with a short message describing the change:
+
+```bash
+git add report.qmd
+git commit -m "Add reanalysis report skeleton"
+```
+
+The message matters more than it looks. A commit message is the one-line explanation your future self and any collaborator read to understand what a snapshot was for, so it should say what the change accomplishes, not merely that a change happened. Write it in the imperative – "Add tutor-clustered standard errors", "Restrict sample to crisis years" – as if completing the sentence "this commit will…". A log full of "update", "stuff", "changes" tells you nothing later. (Good-commit-message practice here follows the guidance in the Software Carpentry lesson and The Turing Way.)
+
+::: {.callout-note}
+## A historical aside: the commit message that used to carry the preregistration
+
+The June 2026 in-person cohort of this workshop did once tie a git action to a specific research step. Before running a chosen specification, participants committed their choice with a message in a fixed format: `prereg: mpos ~ unemp | twoway FE | all years`. The habit was well chosen for what it did – a commit's timestamp is set automatically and cannot be edited after the fact, so the message-plus-timestamp pair was, in effect, a free, tamper-evident preregistration record. But it also meant that stating your analytical choice before running it depended on already knowing git, in a session where many participants were meeting git for the first time. The workshop has since moved preregistration to an OSF-style template block completed and rendered inside the report itself, which needs no git at all and is explained fully in [the repositories module](repositories.qmd#sec-prereg-templates). The `prereg:` commit convention is retired from the core day, but it remains a genuinely useful pattern for your own future projects: if you are already working under version control, committing a stated choice before you run the analysis that tests it is a real, low-effort form of preregistration, and git gives you the timestamp for free.
+:::
+
+The application section below breaks a reanalysis into exactly the units that make good commits: fetching the data, building the DAG, fitting the constrained model, adding one specification-menu choice at a time. Each step is one meaningful thing to have done, and each is a natural commit – small, self-contained changes that each do one nameable thing, rather than one enormous commit at the end that records "the whole analysis" and explains none of it.
+
+### Reading the history
+
+Once you have made a few commits, the log is your project's biography:
+
+```bash
+git log --oneline
+```
+
+The `--oneline` flag prints one compact line per commit – a short identifier and your message – which is usually what you want. Drop it for the full record with dates and authors.
+
+### Seeing what changed
+
+The command that turns git from a filing cabinet into a thinking tool is `diff`, which shows the exact lines that differ between two states. Before you stage anything, this shows what you have changed since the last commit:
+
+```bash
+git diff
+```
+
+After staging, `git diff --staged` shows what you are about to commit. Reading the diff before every commit is the single habit that most improves the quality of a history, because it forces you to look at precisely what you are recording and to describe it accurately.
+
+### Doing all of this without the terminal
+
+You do not have to use the command line. Positron – the editor this workshop demonstrates on the shared screen throughout the hands-on segments – ships a **Git pane** that does the same work through a graphical interface. Changed files appear in a list with a checkbox beside each one; ticking a box is `git add`. A text field takes your commit message and a Commit button records the snapshot. A history view shows the log, and clicking a file shows its diff with additions and deletions colour-coded. Nothing new is happening underneath – the pane is issuing the same commands – but for many people the visual staging-and-committing loop is easier to learn and to live with. For a thorough, R-focused walkthrough of setting this up, including the fiddly business of connecting an editor to git and to GitHub, Jennifer Bryan's "Happy Git and GitHub for the useR" is the standard reference, linked in full in the sources below.
+
+::: {.callout-tip}
+## Try it
+
+In a scratch folder, run `git init`, create a small text file, and take it through the full loop yourself: `git status` to see it untracked, `git add` to stage it, `git commit -m "..."` with a message that describes the content, and `git log --oneline` to see your commit. Then change one line of the file, run `git diff` to see exactly that line reported, and commit the change as a second snapshot. You have now used every core local command there is.
+:::
+
+## 3. GitHub: putting a repository online {#sec-github}
+
+So far everything has lived on your laptop. GitHub is a website that hosts git repositories, which does two jobs at once: it is an off-machine backup of your full history, and it is the place other people go to see your work, raise problems with it, and offer changes. A repository on GitHub that another machine talks to is called a **remote**. (This section adapts the "Remotes" and "Collaborating" material from the Software Carpentry lesson, CC BY 4.0.)
+
+### Getting an account
+
+Creating a GitHub account is free and takes a few minutes at [github.com](https://github.com/); you choose a username, confirm an email, and set up two-factor authentication, which GitHub now requires. The one step that reliably trips people up is authentication from the command line – modern GitHub does not accept your password from git and expects a personal access token or an SSH key instead. Rather than reproduce that setup here, where it would date quickly, we point you to the account-and-credentials chapters of "Happy Git and GitHub for the useR", which walk R users through it carefully. The Software Carpentry lesson's setup episode covers the same ground.
+
+### Connecting a local repository to a remote
+
+Once you have created a new, empty repository on GitHub, you link your local one to it and send your history up for the first time:
+
+```bash
+git remote add origin https://github.com/yourname/euframes-reanalysis.git
+git branch -M main
+git push -u origin main
+```
+
+`origin` is just the conventional name for your main remote. `push` uploads the commits you have made locally. From then on, `git push` sends new commits up and `git pull` brings down any that others have added, keeping the local and online copies in step:
+
+```bash
+git push
+git pull
+```
+
+To get a copy of a repository that already exists – yours or anyone else's public one – you `clone` it, which downloads the full project and its entire history in one command. This works on any public repository, so you can practise on the workshop's own template:
+
+```bash
+git clone https://github.com/CodeMoreh/replication-lab.git
+```
+
+### The README
+
+A repository's front page on GitHub is whatever you write in a file called `README.md` at its root – plain Markdown, the same syntax as Quarto prose, which GitHub renders automatically. A good README says what the project is, what is in it, and how to reproduce the result: for a reanalysis, that means naming the paper, the claim, and the steps to render the report from the committed materials.
+
+### Issues as public error flagging
+
+An **issue** is a numbered, threaded note attached to a repository, used to report a bug, ask a question, or propose a change, with a discussion underneath and a record of how it was resolved. This is the routine, everyday form of the public error flagging discussed in section 1: instead of a coding mistake taking months to surface and fix, a reader opens an issue that says "the outcome scale looks reversed here" and the conversation, the fix, and the closing of the issue are all preserved.
+
+### Forks and pull requests, in concept
+
+Two more terms complete the picture, and for this module you only need them at the level of an idea. A **fork** is your own copy of someone else's repository, taken so you can work on it freely without touching theirs. A **pull request** is a formal proposal to merge changes from your fork (or your branch) back into the original, opened for the maintainer to review, discuss, and accept or decline. OSF has its own version of this idea, under the same name: the analyst's maintained fork of the EU-frames case's materials, `osf.io/6zqct`, is described on OSF itself as "a public fork" of the archival record `osf.io/8rtwe` – the same manoeuvre GitHub's git-based forks perform, taking your own editable copy of someone else's public research object so you can change it without touching the original. [The repositories module](repositories.qmd) walks that OSF trail in full; the concept is the same one this section teaches, on a different platform. If you spotted a genuine mistake in someone's public analysis code and it lived on GitHub, the principled route to a fix is exactly this: fork the repository, correct the line, and open a pull request explaining the fix – a correction offered in public, on the record, for the original author to accept.
+
+::: {.callout-tip}
+## Try it
+
+Clone the workshop's template repository with the `git clone` command above, move into the folder it creates, and run `git log --oneline` on it. You are reading the real commit history of the project this workshop's IDE route is built from. Scroll through a few messages and notice how the good ones tell you what each change was for.
+:::
+
+## 4. The reproducibility connection: what belongs in git, and what never does {#sec-repro}
+
+Version control and reproducibility are the same instinct pointed at two different problems. A Quarto project is an especially good fit for git because its inputs are plain text: the `.qmd` source, the `.R` preparation scripts, small results files – all lines of text that git can diff meaningfully, so their history reads as a sequence of legible changes rather than a wall of unreadable binary.
+
+That raises the governing question of this section: what belongs in git, and what must be kept out. Getting it wrong is where reproducible-research projects most often come to grief.
+
+**What belongs in git** is the source of the work: the Quarto documents, the preparation and analysis scripts, the README, the codebook, and small, git-friendly results such as this workshop's own `spec_grid.csv` – 840 pre-computed specifications, kept as a CSV precisely so its rows diff and read cleanly rather than sitting opaque inside a binary format.
+
+**What does not belong in git** falls into three kinds. Rendered output – a `_site/` folder, the `.html` files Quarto builds – is regenerated from the source on demand, so committing it only clutters the history; you track the recipe, not the cake. (One documented exception: this workshop's own site commits its `_freeze/` cache deliberately, so that continuous integration can publish without installing R at all – a cache is source-adjacent in a way a finished HTML page is not, and the reason for keeping it is written down rather than assumed.) Bulky binary objects and saved R workspaces (`.RData`, `.rds`) diff badly and bloat the repository. And, most importantly for social scientists, **data you are not licensed to redistribute must never be committed at all.**
+
+This last point is not a nicety, and this project's own discipline shows why. The raw Eurobarometer microdata behind `EUframes_cy.csv` are licensed by GESIS, and GESIS's terms do not permit redistributing them. Nothing raw ever enters this workshop's repository: the `data/` folder holds only the derived, country-year aggregates the codebook documents, the preparation scripts that built them are kept as an exhibit rather than a runnable pipeline over real files, and a participant who wants the underlying microdata registers with GESIS directly, under their own account, exactly as the analyst originally did. A `.gitignore` file – a plain list of patterns git refuses to track – is the everyday mechanism for holding that line:
+
+```text
+# Raw microdata and licensed survey files – never commit
+*.dta
+*.sav
+data_raw/
+
+# Rendered output – regenerate from source, do not track
+/_site/
+
+# R session cruft
+.Rhistory
+.RData
+```
+
+Git makes this a decision you must get right from the start, not one you can correct later, and the reason is the very property that makes git useful. History is permanent. A file that is committed and pushed lives in the repository's history even after you delete it from the current version, and can be recovered by anyone with access to that history. The rule that follows is simple: decide what is safe to track before the first commit, encode that decision in `.gitignore`, and treat "I will remove it later" as not an option for anything licensed or sensitive.
+
+One further piece pins down reproducibility in a way git alone does not. Git records your code, but not the exact versions of R and the packages that ran it, and a result can quietly change when a package updates. The `renv` package closes that gap by writing a **lockfile** that records the exact version of every package a project uses, committed alongside the code: `renv::init()` starts tracking a project, `renv::snapshot()` updates the lockfile after you install or upgrade something, and `renv::restore()` reinstalls those exact versions on another machine, so a collaborator rebuilds your environment rather than merely your code.
+
+::: {.callout-tip}
+## Try it
+
+Look at the `.gitignore` pattern above and write one sentence for each line explaining why it is there: because the file can be regenerated, because it diffs badly, or because a licence forbids redistributing it. Being able to justify each exclusion, rather than copying a generic template, is what separates a considered `.gitignore` from an accident waiting to happen.
+:::
+
+## 5. Application: taking your own reanalysis further {#sec-application}
+
+The natural first project for these skills is the one you already have: your own extended reanalysis, built from the workshop's IDE-route workspace. This closing section is a worked addendum rather than new material – it puts sections 2 to 4 together on your own deliverable, as an optional next step after the session.
+
+**Try it on a real project: the workshop's own template repository.** The zip workspace you worked from during the session (if you took Route 1) is built from [`CodeMoreh/replication-lab`]({{< var template-repo >}}) with its git-specific setup stripped out, so that it renders offline with no repository underneath it. The template repository itself never stopped being a real, version-controlled project – it is the maintenance home of that workspace, and cloning or forking it directly, rather than downloading the zip, is the most direct way to try everything in this module against a project you already understand. `git clone` it (section 3 above), and you have a working repository with a real history to read, a real `.github/workflows/publish.yml` to inspect, and a real render target to extend.
+
+**Put your report under version control.** Start in your own copy of the workspace, add a `.gitignore` before anything else so nothing licensed or regenerable can slip in, then make a first commit of the source:
+
+```bash
+cd euframes-reanalysis
+git init
+# create .gitignore first – exclude licensed data patterns and rendered output
+git add .gitignore
+git commit -m "Add .gitignore excluding licensed data and rendered output"
+git add report.qmd README.md
+git commit -m "Add reanalysis report and README"
+```
+
+**Commit each analysis decision separately.** As you work through the [specification menu](../exercise/spec-menu.qmd), resist the urge to save everything in one lump. Each defensible choice along its eight axes is its own commit, with a message that states the choice and, ideally, hints at the reason:
+
+```bash
+git add report.qmd
+git commit -m "Restrict sample to crisis years (2009-2013)"
+
+git add report.qmd
+git commit -m "Switch outcome to mpos, the composite positive-framing scale"
+```
+
+A history built this way is a second, parallel record of your reasoning that sits alongside your report's own preregistration block. Someone reading it later can watch the analysis take shape one justified decision at a time – the transparency the workshop teaches, now written into the structure of the project rather than described after the fact.
+
+**Publish it, if you want to.** This absorbs what used to be a required workshop task and is now entirely optional. Push the repository to GitHub as in section 3, and the work is backed up and readable. GitHub can also serve a rendered site straight from a repository through a feature called **GitHub Pages**, which turns your committed HTML into a public web page at a `github.io` address; the template repository's own `.github/workflows/publish.yml` does exactly this on every push, installing R and re-rendering so that your edited chunks actually re-run rather than being served stale. Quarto also has a standalone command, `quarto publish gh-pages`, that automates the same path from source to published site for a project without that workflow file. We mention this only at the level of the idea: publishing is not a requirement of this module or the workshop, and doing it well means returning to the licensing questions from section 4 – a published page is a public artefact, so everything it exposes must be something you are free to share.
+
+::: {.callout-tip}
+## Try it
+
+Take whatever you built during the workshop – even a short draft report and one figure – and carry it through the full sequence above on your own machine: a `.gitignore` first, then a first commit, then at least two further commits that each record one nameable change with a message that describes it. If you have a GitHub account, push it and write a README that names the paper and the claim. You will have turned a workshop exercise into a small, genuine, version-controlled research project.
+:::
+
+## Sources and further study {#sec-sources}
+
+This module was built by adapting well-established open teaching materials rather than inventing a syllabus from scratch. The three sources below were each checked directly for their licence terms; what follows records, for each, its address, its licence, and whether this module adapts its text or only cites and links to it.
+
+- **Software Carpentry, "Version Control with Git".** <https://swcarpentry.github.io/git-novice/>. Licensed **CC BY 4.0** (Creative Commons Attribution 4.0). **Adapted here** – its structure and worked-example approach shaped sections 1 to 4, in particular the working-directory / staging-area / repository mental model, the good-commit-message guidance, the remotes-and-collaboration material, and the treatment of ignoring files. CC BY 4.0 permits adaptation, including for commercial use, with attribution, which this credit provides.
+
+- **The Turing Way, "Version Control" chapter.** <https://book.the-turing-way.org/reproducible-research/vcs>. Licensed **CC BY 4.0**. **Adapted here** – its framing of why version control matters for reproducible research and its emphasis on history as provenance informed section 1 and section 4. As with the Carpentries lesson, CC BY 4.0 allows this reuse with attribution.
+
+- **Jennifer Bryan, "Happy Git and GitHub for the useR".** <https://happygitwithr.com/>. Licensed **CC BY-NC 4.0** (Creative Commons Attribution-NonCommercial 4.0). **Cited and linked only, not adapted.** Because the NonCommercial clause is more restrictive than this project's own reuse needs allow, no text from this book has been copied or paraphrased here. It is recommended in section 2 and section 3 as the standard reference for the R- and RStudio/Positron-specific setup – connecting an editor to git and to GitHub, and handling credentials – which it covers far more thoroughly than this module attempts to.
+
+The worked examples throughout – the analyst's own annotated correction on the OSF fork, the `prereg:` commit convention from the June 2026 cohort, the template repository's publishing workflow – are drawn from this workshop's own materials: [`osf.io/6zqct`](https://osf.io/6zqct/), the [data codebook](../data/EUframes_cy_codebook.md), and the [`replication-lab` template]({{< var template-repo >}}). For the fuller trail behind the OSF nodes named here, and for how preregistration works in this workshop now that it no longer runs through git, see [the repositories module, Reproducibility repositories](repositories.qmd).

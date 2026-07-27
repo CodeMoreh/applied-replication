@@ -1,0 +1,23 @@
+ Family: ordbeta  ( logit )
+Formula:          cosmo ~ unemp + (1 | cntry) + (1 | cntry:year)
+Data: person
+
+      AIC       BIC    logLik -2*log(L)  df.resid 
+ 683220.8  683297.4 -341603.4  683206.8    416691 
+
+Random effects:
+
+Conditional model:
+ Groups     Name        Variance Std.Dev.
+ cntry      (Intercept) 0.015782 0.1256  
+ cntry:year (Intercept) 0.006162 0.0785  
+Number of obs: 416698, groups:  cntry, 27; cntry:year, 270
+
+Dispersion parameter for ordbeta family (): 9.28 
+
+Conditional model:
+             Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  0.183815   0.028629   6.421 1.36e-10 ***
+unemp       -0.011789   0.001665  -7.080 1.44e-12 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1

@@ -1,96 +1,75 @@
 ---
 title: "Setup"
-subtitle: "What to do before {{< var date >}}"
+subtitle: "What to prepare before the workshop"
 ---
 
-This page tells you exactly what to prepare before the workshop. Read through all three levels and do everything that applies to you.
-
----
-
-## Level 1 – Essential (5 minutes, do this at home)
-
-**Create a free GitHub account and verify your email address.**
-
-1. Go to [github.com](https://github.com) and sign up with any email address you use regularly.
-2. GitHub will send you a verification email. Click the link in it **before the day** – this is important. Unverified accounts cannot push code or enable GitHub Pages, and verifying on conference wifi can be slow due to CAPTCHA checks.
-3. That is all. You do not need to do anything else at this stage.
-
-If you already have a GitHub account, make sure your email address is verified (Settings → Emails).
+This page tells you what to prepare before the workshop. There are two ways to take part, and you only need to prepare for the one you choose. Both cover every task and reach the same results, so pick whichever suits your machine and your comfort level.
 
 ---
 
-## Level 2 – Recommended for Track B (~30 minutes, do this at home)
+## Choose your route
 
-Track B is the full-pipeline experience: local R, version control, and automatic publishing. If you want this, install the following before the day.
+### Route 1 – R and Positron (recommended)
 
-### Software to install
+You install two free programs once, then download a ready-made workspace and open it. This is the fuller experience: you work in the same kind of editor a researcher uses, and you keep the workspace afterwards. Allow yourself a little time before the day, depending on what you already have installed.
 
-| Software | Minimum version | Download |
-|---|---|---|
-| **R** | 4.4 | [cran.r-project.org](https://cran.r-project.org/) |
-| **Positron** | latest | [positron.posit.co](https://positron.posit.co) |
-| **Quarto CLI** | 1.5+ | [quarto.org/docs/get-started/](https://quarto.org/docs/get-started/) |
-| **Git** | 2.40+ | [git-scm.com/downloads](https://git-scm.com/downloads) |
+**Step 1 – Install R.** R is the language the analysis is written in. Download it from [cran.r-project.org](https://cran.r-project.org/) and run the installer for your system (Windows `.exe`, macOS `.pkg`, or your Linux package manager). Accept the defaults.
 
-Install them in the order listed; Positron will detect R and Quarto automatically if they are already present.
+**Step 2 – Install Positron.** Positron is the editor you will work in – it is where you open files, run code, and read results. Download it from [positron.posit.co](https://positron.posit.co) and install it (Windows: run the installer; macOS: open the `.dmg` and drag Positron to Applications; Linux: use the download for your system). When you first open Positron it will find the R you installed in step 1 on its own.
 
-### Platform notes
+**Step 3 – Download the workspace.** Download the workspace as a single zip file:
 
-**Windows:** Use the standard `.exe` installers for all four. When the Git installer asks about PATH, choose "Git from the command line and also from 3rd-party software".
+[Download the workspace (zip)]({{< var template-repo >}}/archive/refs/heads/main.zip)
 
-**macOS:** R and Quarto have `.pkg` installers. For Positron, use the `.dmg`. Install Git via [git-scm.com](https://git-scm.com/download/mac) or Homebrew (`brew install git`).
+Save it somewhere you will find again, such as your Desktop or Documents folder, then unzip it. You now have a folder containing the analysis code, the data, and a report to fill in. There is no account to create and nothing to sign into.
 
-**Linux:** Use your distribution's package manager for R and Git. Download Positron and Quarto from their respective sites.
+**Step 4 – Open the folder in Positron.** In Positron, choose **File → Open Folder** and pick the folder you just unzipped. The files appear in a panel on the left. Everything you need for the day lives in this one folder.
 
-### Configure git with your name and email
+**Step 5 – Check that it works.** In the folder, open the file `R/check_setup.R` and run it (in Positron, open the file and click **Run**, or type `source("R/check_setup.R")` in the console at the bottom). The script prints a short OK or FAIL report – R version, the packages the workshop uses, and access to the data. If any package is missing it offers to install it for you; say yes. Fix any FAIL before the day, and if you get stuck, come along anyway and use Route 2 on the day.
 
-Open a terminal (or the Positron terminal) and run these two commands, substituting your own details:
+::: {.callout-note}
+The workshop uses a set of standard R packages (for tidying data, fitting models, drawing causal graphs, and making tables). You do not need to install these by hand – the check script in step 5 sorts them out. All are free and come from CRAN, R's official package archive.
+:::
 
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "your@email.com"
-```
+### Route 2 – Browser lab (nothing to install)
 
-Use the same email address as your GitHub account.
+If you would rather install nothing, or you are on a borrowed or locked-down computer, you can do the whole exercise in your web browser.
 
-### Sign into GitHub from Positron
+- **Nothing to install.** A recent version of **Chrome, Edge, or Firefox** is all you need. (Safari works too, but the others are more reliable for this.)
+- **The one link.** On the day, open the [Browser lab](exercise/browser-lab.qmd) page. A full copy of R starts up inside the tab – it takes ten to thirty seconds the first time – and then every task runs right there.
+- **You miss nothing.** Route 2 has full parity with Route 1: the same data, the same models, the same result submitted to the same live class chart.
 
-In Positron, open the Accounts menu (bottom-left of the window) and sign in with your GitHub account via browser OAuth. This handles authentication for cloning and pushing – no personal access tokens needed.
-
-### Test your setup
-
-Run the check script from the template repository. In R (or the Positron console):
-
-```r
-source("https://raw.githubusercontent.com/CodeMoreh/replication-lab/main/R/check_setup.R")
-```
-
-The script prints OK or FAIL for each requirement (R version, Quarto on PATH, Git on PATH, git user.name/email, required packages, network access to osf.io). Fix any FAILs before the day.
-
-The template repository is at [{{< var template-repo >}}]({{< var template-repo >}}).
-
-### R packages
-
-The check script will install missing packages automatically if you allow it. The packages used in the workshop are: `dplyr`, `readr`, `tidyr`, `ggplot2`, `broom`, `fixest`, `plm`, `sandwich`, `lmtest`, `dagitty`, `ggdag`, `modelsummary`, `haven`, `osfr`. All are on CRAN.
+You do not need to do anything before the day for Route 2. You may want to open the [Browser lab](exercise/browser-lab.qmd) once in advance just to confirm it loads on your machine.
 
 ---
 
-## Level 3 – Nothing installed? No problem
+## What you do not need
 
-If you arrive without R, Positron, or Git installed, you can complete the full analytical exercise on Track A – the browser-only path.
+The day is deliberately free of accounts and sign-ups. In particular, you do **not** need:
 
-Track A uses [webR](https://docs.r-wasm.org/webr/latest/), which runs R entirely inside your browser. No installation, no account beyond GitHub, no admin rights needed on your machine. The [Browser lab](exercise/browser-lab.qmd) page has everything you need.
-
-The only step that differs is the publishing step: instead of pushing from Positron, you will upload your saved script to a new GitHub repository via the web interface. The workshop will walk you through this ("first repo in 3 minutes").
+- **git or a GitHub account** – nothing in the day depends on version control. If you want to learn it, the optional [Git and GitHub companion module](companion/git-github.qmd) is there for afterwards.
+- **an OSF account** – you will see how preregistration works on the Open Science Framework and complete one yourself, but as a template inside your own report. No account required.
+- **paid software** – everything used is free and open.
+- **any sign-up at all** – you can arrive, take part in full, and leave without creating a single account.
 
 ---
 
-## Optional pre-reading
+## For the online session
 
-These are not required, but if you want to arrive with context:
+The workshop runs online. You will get the most out of it with a little room to work:
 
-| Reading | Why | Effort |
-|---|---|---|
-| [Nosek et al. (2025) – A Brief Glossary of Terms about Repeatability](https://doi.org/10.31222/osf.io/mqfp4_v1) | Pins down the vocabulary the workshop uses; 4 pages, genuinely brief | **Essential if unfamiliar with the terminology** |
-| [Aczel et al. (2026)](https://doi.org/10.1038/s41586-025-09844-9) – the Multi100 *Nature* paper | The study your workshop exercise is drawn from | Recommended |
-| [Auspurg & Brüderl (2021)](https://doi.org/10.1177/23780231211024421) – Reanalysing 'Many Analysts, One Data Set' | Short, open-access; explains why the estimand matters and why fixing it narrows the multiverse | Recommended |
+- **Two surfaces help.** Join the video call on one screen (or one device), and keep a second window or a second device free for your own work – Positron for Route 1, or the browser lab for Route 2. That way you can follow the shared screen and do the hands-on tasks side by side, without one covering the other.
+- **The links arrive with your joining instructions.** The call link, and any session-specific links, come to you with the joining details. You do not need to hunt for anything in advance beyond the setup on this page.
+
+---
+
+## Optional pre-session reading
+
+None of these is required, and everything is taught on the day. If you would like to arrive with some context, these are worth the time. One line each on why:
+
+| Reading | Why it is worth the time |
+|---|---|
+| [Nosek et al. (2018) – The preregistration revolution](https://doi.org/10.1073/pnas.1708274114) | A short, readable primer on the one idea Block 3 turns on: the difference between predicting a result and explaining one after the fact – and it speaks directly to the case where the data already exist, which is ours. |
+| The [AsPredicted](https://aspredicted.org) eight-question form | The exact template you will fill in during the session; skim the eight questions once so it feels familiar rather than a cold start. |
+| [van den Akker et al. (2021) – Preregistration of secondary data analysis](https://doi.org/10.15626/MP.2020.2625) | The fuller preregistration template built for exactly our situation – reanalysing data that already exist. Optional, but it is the grown-up tool for the job you do on the day. |
+| [Reading a specification curve](exercise/reading-inference.qmd) | The workshop's own reading for the final block: what a large set of results together can and cannot establish, and why thousands of estimates are not thousands of tests. |

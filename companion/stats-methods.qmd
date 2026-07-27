@@ -1,0 +1,789 @@
+---
+title: "The statistical methods behind the workshop"
+subtitle: "Foundation to advanced – the methods at work in the case"
+bibliography: [../references.bib, ../references-new.bib]
+---
+
+```{r}
+#| label: setup
+#| include: false
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(readr)
+  library(fixest)
+  library(plm)
+  library(sandwich)
+  library(lmtest)
+  library(lmerTest)
+  library(metafor)
+  library(ggplot2)
+  library(patchwork)
+})
+options(width = 88)
+euframes <- read_csv("../data/EUframes_cy.csv", show_col_types = FALSE)
+show_fit <- function(file) cat(readLines(file.path("_model-outputs", file)), sep = "\n")
+```
+
+This is the second module of the [companion curriculum](index.qmd). It works through the statistical methods the EU-frames case draws on, from the simplest linear model to Bayesian and generalised extensions, using the workshop's own data throughout: the country-year panel you fit models on, the raw respondent-level records behind it, the specification grid behind the class chart, and the five Multi100 analysts whose results you meet on the day. It follows on naturally from [getting started with R](intro-r.qmd) and assumes only what that module covers – reading a CSV, a dplyr chain, and the idea of a model formula.
+
+Unlike a textbook chapter, every model on this page is genuinely fitted and every output shown is real. The outputs come in two kinds, and the difference is worth knowing from the start. Models on the **committed workshop data** – the 270-row country-year panel and the small analyst and grid files – execute when this page is built, so what you see is what the code produces, and you can reproduce every one of them yourself from the shipped files. (The one exception is the Bayesian model of section 8: its data ship with the workshop too, but Stan compiles and samples for a minute or two, so its saved output is displayed instead – with the exact call that made it.) Models on the **respondent-level microdata** cannot ship: the raw Eurobarometer records are GESIS-licensed and may not be redistributed. Those models were fitted once, on the facilitator's machine, by the script `companion/_model-outputs/fit_models.R` in the site's source repository, and their printed summaries are displayed here exactly as R returned them. The code above each such output is the code that produced it.
+
+## 1. From respondents to country-years: what aggregation does {#sec-aggregation}
+
+The original author (OA) modelled individual survey respondents directly, in the original study. Sixteen Eurobarometer waves pool to 416,698 people interviewed across 27 EU member states between 2004 and 2013, each asked what the European Union means to them. The workshop's core exercise does not work with those individuals. It works with `EUframes_cy.csv`, which collapses them to **270 country-year rows** – 27 countries observed in each of 10 years – with every framing scale averaged within the cell. For country $c$ in year $t$, the cell value is the mean of its respondents' scores:
+
+$$ \bar{y}_{ct} = \frac{1}{n_{ct}} \sum_{i \,\in\, (c,t)} y_{ict} $$
+
+where $y_{ict}$ is respondent $i$'s framing scale and $n_{ct}$ the number of respondents in that country-year. Unemployment and GDP growth, which are national figures to begin with, attach directly to each cell.
+
+The data therefore live at three levels – respondents, country-years, and countries – and this module climbs through all three. Two things are gained by working at the middle level. The first is practical and it is the reason the workshop can exist at all: the raw microdata are GESIS-licensed and cannot be redistributed, whereas the derived country-year averages can be released under an open licence and shipped with the materials. The second is that the country-year is the level at which the predictor genuinely varies. Every respondent interviewed in Germany in 2010 shares one German 2010 unemployment rate, so all the information the data hold about the alignment of unemployment with EU framing is carried by 270 country-level pairings, not by the hundreds of thousands of individuals. Aggregating to that level discards almost no identifying variation about the relationship of interest.
+
+What is lost is equally worth naming. Averaging within a cell removes all the between-individual variation inside it, so nothing about how framing differs across people of different ages, educations or outlooks survives in the panel. The standard errors no longer reflect 416,698 respondents but 270 cells, which is why the fitted models below carry residual degrees of freedom in the low hundreds rather than the hundreds of thousands. And a relationship among country-year averages need not hold among individuals: reading an aggregate association as if it described people is the ecological inference problem, and the country-year panel cannot speak to the individual-level question at all. Whether that matters is not a technicality but a question about what you are trying to measure, which is the theme [section 6](#sec-multilevel) returns to.
+
+::: {.callout-tip}
+## Try it
+
+Read `data/EUframes_cy.csv` and sum its `n_cy` column (`sum(euframes$n_cy)`); you should recover the 416,698 respondents that stand behind the 270 rows. Then run `nrow(euframes)` to confirm the 270. Holding those two numbers side by side – the people who were interviewed and the rows you actually analyse – is the whole of what aggregation does, made concrete.
+:::
+
+## 2. Ordinary least squares: one simple model, read line by line {#sec-ols}
+
+Every model in this module is a variation on one idea, so it pays to meet the idea in its plainest form. A **linear model** proposes that the outcome is a straight-line function of a predictor plus noise. For row $i$ of the panel:
+
+$$ y_i = \beta_0 + \beta_1 x_i + \varepsilon_i $$
+
+Each symbol has a plain meaning. $y_i$ is the outcome, here a country-year's mean cosmopolitan framing score. $x_i$ is the predictor, its unemployment rate. $\beta_0$, the **intercept**, is the expected outcome when the predictor is zero. $\beta_1$, the **slope**, is the expected change in the outcome for a one-unit rise in the predictor, and it is the number every research question in this case turns on. $\varepsilon_i$ is the **error**: everything else that moves the outcome, assumed to average out to zero. **Ordinary least squares** (OLS) estimates the two $\beta$s by choosing the line that minimises the sum of squared errors,
+
+$$ (\hat\beta_0, \hat\beta_1) = \underset{\beta_0,\,\beta_1}{\arg\min} \sum_i \left( y_i - \beta_0 - \beta_1 x_i \right)^2 $$
+
+which is what `lm()` (for 'linear model') computes. The name is literal, and a picture makes it so:
+
+```{r}
+#| label: fig-ols-squares
+#| echo: false
+#| fig-width: 7
+#| fig-height: 4.6
+#| fig-cap: "The geometry of 'least squares' on the workshop panel. Each red square's side is one country-year's error – the vertical gap between the point and the line – so its area is that error squared. OLS chooses the line that makes the summed area of all 270 such squares (six of them drawn here) as small as possible. Both axes are standardised so the squares draw true."
+d_std <- euframes |>
+  mutate(x = as.numeric(scale(unemp)), y = as.numeric(scale(mcosmo)))
+m_std <- lm(y ~ x, data = d_std)
+d_std <- d_std |> mutate(fit = fitted(m_std), res = resid(m_std))
+show_pts <- d_std |>
+  filter(abs(res) > 0.35, abs(res) < 0.95) |>
+  arrange(x) |>
+  slice(round(seq(1, n(), length.out = 6)))
+ggplot(d_std, aes(x, y)) +
+  geom_point(colour = "grey70", size = 1.2) +
+  geom_abline(intercept = coef(m_std)[1], slope = coef(m_std)[2],
+              colour = "#0e3b6a", linewidth = 0.9) +
+  geom_rect(data = show_pts, inherit.aes = FALSE,
+            aes(xmin = x, xmax = x + abs(res),
+                ymin = pmin(y, fit), ymax = pmax(y, fit)),
+            fill = "#a10000", alpha = 0.15, colour = "#a10000", linewidth = 0.3) +
+  geom_segment(data = show_pts, aes(x = x, xend = x, y = fit, yend = y),
+               colour = "#a10000", linewidth = 0.5) +
+  geom_point(data = show_pts, colour = "#a10000", size = 1.8) +
+  coord_fixed() +
+  labs(x = "unemployment rate (standardised)",
+       y = "mean cosmopolitan framing (standardised)") +
+  theme_minimal(base_size = 12)
+```
+
+Nothing in that geometry is tied to a single predictor. Give the model two,
+
+$$ y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \varepsilon_i $$
+
+and the fitted object is no longer a line but a **plane** floating over the two predictors' grid. The errors are still the vertical gaps between each point and the fitted surface, OLS still minimises their summed squares, and each slope acquires the reading it keeps for the rest of this module: $\beta_1$ is the expected change in the outcome for a one-unit rise in $x_1$ *with* $x_2$ *held fixed* – movement along the plane parallel to one axis. That is all 'controlling for' means, made literal. The figure below fits exactly this on the panel, with GDP growth as the second predictor – the very variable the specification menu can add as a co-predictor – and it is a live three-dimensional object: **drag it to rotate, scroll to zoom**, and watch the red residual drops stay vertical from every angle.
+
+```{r}
+#| label: fig-ols-plane
+#| echo: false
+#| fig-cap: "The same geometry, one predictor up: mean cosmopolitan framing against unemployment and GDP growth, with the OLS plane fitted to all 270 country-years. Red segments are residuals for eight of the larger gaps – vertical distances from point to plane, whose squared sum the fit minimises. Drag to rotate and scroll to zoom. Axes in raw units."
+options(rgl.useNULL = TRUE)
+library(rgl)
+
+m_plane <- lm(mcosmo ~ unemp + growth, data = euframes)
+
+grid_u <- seq(min(euframes$unemp), max(euframes$unemp), length.out = 24)
+grid_g <- seq(min(euframes$growth), max(euframes$growth), length.out = 24)
+plane_z <- outer(grid_u, grid_g,
+                 \(u, g) predict(m_plane, data.frame(unemp = u, growth = g)))
+
+drops <- euframes |>
+  mutate(fit = fitted(m_plane), res = resid(m_plane)) |>
+  arrange(desc(abs(res))) |>
+  slice(seq(1, 40, by = 5))
+
+open3d()
+plot3d(euframes$unemp, euframes$growth, euframes$mcosmo,
+       xlab = "unemployment", ylab = "growth", zlab = "mcosmo",
+       col = "grey45", size = 4)
+surface3d(grid_u, grid_g, plane_z,
+          color = "#0e3b6a", alpha = 0.35, lit = FALSE)
+segments3d(
+  x = rep(drops$unemp, each = 2),
+  y = rep(drops$growth, each = 2),
+  z = as.vector(rbind(drops$fit, drops$mcosmo)),
+  color = "#a10000", lwd = 2
+)
+points3d(drops$unemp, drops$growth, drops$mcosmo, col = "#a10000", size = 6)
+aspect3d(1, 1, 0.7)
+view3d(theta = -35, phi = -12, zoom = 0.85)
+rglwidget(width = 720, height = 540)
+```
+
+With a third predictor the plane becomes a hyperplane no picture can hold, but the algebra in the arg-min never changes, and neither does the reading of a coefficient: each slope is a comparison with everything else in the model held level. The sections that follow stay with the single-slope version until the menu's co-predictor choice brings growth back in.
+
+`lm()`'s first argument is a **formula**, written `outcome ~ predictor` and read "outcome as explained by predictor". The panel was read into `euframes` at the top of the page, this way:
+
+```r
+library(readr)
+euframes <- read_csv("../data/EUframes_cy.csv")   # ../ because this page lives in companion/
+```
+
+Fitting the model and reading it back takes two lines:
+
+```{r}
+first_model <- lm(mcosmo ~ unemp, data = euframes)
+summary(first_model)
+```
+
+This output format recurs, with variations, in every model this module fits, so it is worth reading slowly once. The `Call` restates the model. The `Residuals` block summarises the estimated errors $\hat\varepsilon_i = y_i - \hat y_i$, the gaps between each observed value and the fitted line. The `Coefficients` table is the heart, one row per $\beta$, four columns each:
+
+- **Estimate** is $\hat\beta$ itself. The `unemp` row says a one-point rise in the unemployment rate goes with a fall of about 0.0011 in the cosmopolitan-framing score; the `(Intercept)` row says a hypothetical country-year with zero unemployment would be expected to score about 0.52.
+- **Std. Error** is the standard deviation of the estimate across imagined repeated samples: how precisely the data pin the coefficient down. It is the denominator of everything that follows.
+- **t value** is Estimate divided by Std. Error – how many standard errors the estimate sits from zero. It is unit-free, which is why the workshop can put every submitted result on one chart: whatever the scale of the model, its `t` means the same thing.
+- **Pr(>|t|)** is the p-value: the probability of a `t` at least this large in magnitude if the true coefficient were zero. Small values are conventionally read as evidence the association is not just noise.
+
+Below the table, the **residual standard error** (0.070 here) estimates the spread of $\varepsilon$, on **268 degrees of freedom** – the 270 observations minus the two $\beta$s estimated. Degrees of freedom measure how many independent pieces of information remain for estimating uncertainty, and they become a central character later in this module. **Multiple R-squared** is the share of the outcome's variance the line explains – 0.4% here, essentially nothing – and the **F-statistic** tests all the predictors at once.
+
+So read as a whole: this first model finds no relationship worth reporting. The slope is small, its `t` of −1.04 is well inside the range chance produces, and the p-value of 0.30 confirms it. Yet the workshop's anchor result, on exactly these 270 rows, is a clearly negative and conventionally significant t = −3.80. Nothing about the data changes between here and there – only the model's structure does, and the rest of this module is the story of that structure.
+
+The reason to distrust this simple fit is precise, and it names the module's agenda. OLS's standard errors assume the 270 errors $\varepsilon_i$ are **independent and identically distributed**, and the estimate itself is only unbiased if the error is uncorrelated with the predictor. Both assumptions are strained here. The 270 rows are not 270 unrelated observations; they are 27 countries observed ten times each, and Denmark's ten rows share everything durable about Denmark. Those shared national features sit in $\varepsilon$, they are correlated within country, and – since unemployment levels also differ durably between countries – they are correlated with $x$ too. The next three sections deal with each consequence in turn: first the standard errors, then the estimate itself.
+
+## 3. Pooled OLS, like-for-like results, and cluster-robust errors {#sec-pooled}
+
+Applied to a panel, the simple regression of section 2 has a proper name: **pooled OLS**, because it pools all country-years into one undifferentiated cloud. Writing the same equation with the panel's two-index notation makes the pooling visible – one line for all $c$ and $t$, with nothing in the model that knows rows share a country:
+
+$$ \bar{y}_{ct} = \beta_0 + \beta_1 x_{ct} + \varepsilon_{ct} $$
+
+R offers several routes to this fit, and the workshop's materials use three of them: base R's `lm()`, `feols()` from the fixest package [@BergeEtAl2026FastUserfriendlyEconometrics], and `plm()` from the plm package [@CroissantMillo2023PanelDataEconometrics], the panel-econometrics toolkit the published Multi100 analysis used. A habit this module recommends before any new setting is introduced: **make different functions agree on the model you already understand**. If two functions give the same numbers under settings you can name, you know exactly what each is doing; when their defaults later diverge, you will know which setting moved.
+
+```{r}
+#| message: false
+library(fixest)
+library(plm)
+
+m_lm  <- lm(mcosmo ~ unemp, data = euframes)
+m_fx  <- feols(mcosmo ~ unemp, data = euframes, vcov = "iid")
+m_plm <- plm(mcosmo ~ unemp, data = euframes,
+             index = c("cntry", "year"), model = "pooling")
+
+tibble(
+  fitted_with = c("lm()", "feols()", "plm()"),
+  estimate  = c(coef(m_lm)["unemp"], coef(m_fx)["unemp"], coef(m_plm)["unemp"]),
+  std_error = c(sqrt(vcov(m_lm)["unemp", "unemp"]),
+                sqrt(vcov(m_fx)["unemp", "unemp"]),
+                sqrt(vcov(m_plm)["unemp", "unemp"]))
+)
+```
+
+Identical to every digit, because it is one estimator under three names: `vcov = "iid"` asks fixest for the classical standard errors that `lm()` and `plm(model = "pooling")` report by default. That is the like-for-like baseline. Now change one thing only.
+
+The first repair for the correlated-errors problem keeps the estimate and fixes the uncertainty. **Cluster-robust standard errors** replace the classical variance formula with one that permits the errors inside each cluster – here, each country – to be correlated however they like:
+
+$$ \widehat{\operatorname{Var}}(\hat\beta) \;=\; (X'X)^{-1} \Big( \textstyle\sum_{g=1}^{G} X_g' \hat\varepsilon_g^{\vphantom{\prime}} \hat\varepsilon_g' X_g^{\vphantom{\prime}} \Big) (X'X)^{-1} $$
+
+The notation is less fearsome than it looks. $X$ is the matrix of predictor values and $G$ the number of clusters (27 countries). The formula is a sandwich: the outer 'bread' terms are the ordinary OLS ingredients, and the middle 'meat' sums each country's residuals in a way that keeps every within-country correlation intact rather than assuming it away. Only the standard error changes; $\hat\beta$ is untouched.
+
+```{r}
+#| message: false
+library(sandwich)
+library(lmtest)
+
+# fixest: one argument
+m_cl <- feols(mcosmo ~ unemp, data = euframes, cluster = ~cntry)
+coeftable(m_cl)
+
+# the same repair applied to the lm() fit via the sandwich package
+coeftest(m_lm, vcov = vcovCL(m_lm, cluster = ~cntry, type = "HC1"))
+```
+
+The two routes agree once the settings are matched: fixest's default small-sample adjustment corresponds to sandwich's `type = "HC1"` (and to plm's `vcovHC(..., type = "sss")`); with `type = "HC0"` the numbers would drift apart in the trailing digits, which is exactly the kind of discrepancy the like-for-like habit exists to explain. Substantively, clustering doubles the standard error, and the `t` falls from −1.04 to −0.50. The 270 rows were never 270 independent pieces of evidence, and the clustered errors say so.
+
+What clustering cannot do is rescue the estimate, and here the pooled estimate itself is the problem. Because the model absorbs no between-country differences, its slope blends two different comparisons: how framing moves when a single country's unemployment rises over time, and how framing differs between high-unemployment and low-unemployment countries in the cross-section. In these data the two point in opposite directions – [section 5](#sec-re) puts numbers on them: about −0.0056 within countries and +0.0041 between – and the pooled slope of −0.0011 is their blend, close to zero and, in many nearby specifications, on the wrong side of it.
+
+That is exactly the pattern participants see on the class chart. Of the 140 specifications in the cosmopolitan universe (outcome = `mcosmo`), 41 come out with the 'wrong' sign, a positive coefficient running against the claim's negative direction. Almost all of them sit in one estimator:
+
+| Estimator | Wrong-sign specifications (cosmopolitan universe) |
+|---|---|
+| Pooled OLS (cluster-robust) | 33 |
+| Two-way fixed effects | 8 |
+| Country fixed effects only | 0 |
+| Random effects | 0 |
+| **Total** | **41** |
+
+Thirty-three of the 41 wrong-sign results are pooled models. The sign flip is overwhelmingly a property of throwing away the panel structure, not of any other choice on the menu. Clustering is the right way to report uncertainty once you have committed to the pooled estimator; it does nothing to the sign, because the sign is a property of the estimate, not of its standard error.
+
+::: {.callout-tip}
+## Try it
+
+Read `data/spec_grid.csv`, keep the cosmopolitan universe (`filter(outcome == "mcosmo")`), and count the wrong-sign specifications by estimator (`filter(!supports_claim) |> count(estimator)`). You should recover the 33-and-8 split in the table above. Seeing it fall straight out of the committed grid, rather than taking it on trust, is the point.
+:::
+
+## 4. Two-way fixed effects: the workshop's anchor model {#sec-fe}
+
+The second repair goes after the estimate itself. The workshop's anchor model, the one you reproduce in Task 3, is deliberately constrained: cosmopolitan framing regressed on the unemployment rate, with **country and year fixed effects** and nothing else.
+
+$$ \bar{y}_{ct} = \beta\, x_{ct} + \alpha_c + \gamma_t + \varepsilon_{ct} $$
+
+Here $\alpha_c$ is a separate intercept for each country and $\gamma_t$ a separate intercept for each year. The value of the fixed effects is in what they absorb. The country effects $\alpha_c$ soak up everything time-constant about a country – its language, institutions, size, and its enduring baseline level of EU enthusiasm – so the unemployment slope is identified only from how a country changes against itself over time, never from the fact that, say, Denmark and Greece differ. The year effects $\gamma_t$ soak up everything common to all countries in a given year, the EU-wide shocks and the shared arc of the crisis among them. Two-way fixed effects, in one line, compare a country to itself over time, net of whatever moved all of Europe together that year.
+
+Mechanically there are two equivalent ways to fit this, and seeing them agree teaches how the estimator works. The literal way estimates every intercept: 26 country dummies and 9 year dummies alongside the slope, the 'least squares dummy variable' route. The efficient way never estimates them at all: the **within transformation** subtracts each country's mean and each year's mean from both sides,
+
+$$ \left( \bar{y}_{ct} - \bar{y}_{c\cdot} - \bar{y}_{\cdot t} + \bar{y} \right) \;=\; \beta \left( x_{ct} - \bar{x}_{c\cdot} - \bar{x}_{\cdot t} + \bar{x} \right) + \tilde\varepsilon_{ct} $$
+
+where a dot in place of an index means "averaged over it". The demeaning wipes the $\alpha_c$ and $\gamma_t$ out of the equation, and OLS on the transformed data recovers exactly the same $\beta$:
+
+```{r}
+m_lsdv   <- lm(mcosmo ~ unemp + factor(cntry) + factor(year), data = euframes)
+m_within <- plm(mcosmo ~ unemp, data = euframes, index = c("cntry", "year"),
+                effect = "twoways", model = "within")
+m_twfe   <- feols(mcosmo ~ unemp | cntry + year, data = euframes, vcov = "iid")
+
+c(lsdv = coef(m_lsdv)["unemp"], plm = coef(m_within)["unemp"],
+  feols = coef(m_twfe)["unemp"])
+```
+
+Three functions, one estimator, one number. The fixest summary is the most informative to read:
+
+```{r}
+summary(m_twfe)
+```
+
+The slope is −0.00347: within a country, a one-point rise in unemployment goes with a fall of about 0.0035 in the mean cosmopolitan-framing score, net of common yearly shocks. Its `t` of −3.80 (p = 0.0002) is the workshop's anchor. Two R-squared lines repay attention. The overall adjusted R-squared of 0.72 mostly measures how much the fixed effects themselves explain – country identities are hugely predictive of framing levels – while the **within R-squared** of 0.058 is the slope's own contribution: unemployment movements explain about 6% of the within-country variation. Both are true; only the second is about the research question.
+
+The same model on the as-submitted Multi100 file gives the day's other anchor:
+
+```{r}
+#| message: false
+rep_data <- read_csv("../data/rep_data.csv", show_col_types = FALSE)
+feols(mcosmopolitan ~ unemp | cntry + year, data = rep_data, vcov = "iid") |>
+  coeftable()
+```
+
+On the corrected panel the constrained model returns **t = −3.804** (df = 233, N = 270), the value on record for analyst C6HJR; on the as-submitted file the same specification returns **t = −3.853**. The small gap is produced by a data-preparation error whose story Block 2 tells – a wave file read twice in the as-submitted pipeline, caught and corrected during the project; both figures are exact, and the story belongs there rather than in this module.
+
+Two footnotes to the anchor, both of which recur on the specification menu. First, grand-mean centring the predictor shifts the intercept but leaves the slope and its `t` untouched once fixed effects are present: a centred predictor and its raw form give an identical coefficient, which is exactly why the specification grid keeps only the raw row rather than carrying a redundant centred twin. Second, the standard error above is the classical one, matching the published analysis; ask fixest to cluster by country instead and the same slope's `t` becomes −2.31 (p = 0.029). Still negative, still conventionally significant, but a reminder that even after the estimator is settled, the uncertainty convention is a separate, consequential choice – when you compare outputs across analysts, check which convention each is reporting before comparing the `t`s.
+
+What fixed effects cannot do is the other half of the lesson, and it is the reason Block 3 builds a causal graph before choosing a specification. They are silent on **time-varying confounding**: anything that changes within a country over the period and moves both its unemployment and its EU framing – a national political scandal, a country-specific austerity programme, a swing in the governing party's Europe stance – is not absorbed by either set of effects and can bias $\beta$. They are equally silent on **feedback**: if EU framing itself feeds back onto economic outcomes, or if both respond to some third time-varying driver, the model has no way to know. A fixed-effects design is a strong answer to time-constant confounders and common shocks, and no answer at all to confounders that move.
+
+## 5. Random effects, the Hausman question, and within versus between {#sec-re}
+
+Between the pooled and fixed-effects extremes sits a third estimator. **Random effects** keeps a country term in the model but, rather than estimating 27 separate intercepts, treats the country departures as draws from a distribution:
+
+$$ \bar{y}_{ct} = \beta_0 + \beta_1 x_{ct} + u_c + \varepsilon_{ct}, \qquad u_c \sim N(0, \sigma_u^2) $$
+
+Instead of 27 numbers, the model estimates one: $\sigma_u^2$, the variance of the country effects. Estimation is by generalised least squares, and its mechanics locate the estimator on the pooled-to-fixed spectrum precisely. Where fixed effects subtract each country's *entire* mean, random effects subtract a *fraction* $\theta$ of it:
+
+$$ \bar{y}_{ct} - \theta \bar{y}_{c\cdot} = \beta_0 (1 - \theta) + \beta_1 \left( x_{ct} - \theta \bar{x}_{c\cdot} \right) + \text{error}, \qquad \theta = 1 - \sqrt{ \frac{\sigma_\varepsilon^2}{\sigma_\varepsilon^2 + T \sigma_u^2} } $$
+
+with $T$ the number of years per country. At $\theta = 0$ this is pooled OLS; at $\theta = 1$ it is fixed effects; the data place it in between according to how much of the total variance sits between countries.
+
+```{r}
+m_re <- plm(mcosmo ~ unemp, data = euframes,
+            index = c("cntry", "year"), model = "random")
+summary(m_re)
+```
+
+The `Effects` block is the new output to learn. The **individual** variance (0.0032) is $\hat\sigma_u^2$, the between-country component; the **idiosyncratic** variance (0.0016) is $\hat\sigma_\varepsilon^2$, the within noise; the `share` column says 66% of the error variance is between-country. The reported $\theta$ of 0.78 places this fit 78% of the way from pooled towards fixed effects, and the slope duly lands near the country-fixed-effects answer: −0.0053 (z = −6.5) against the −0.0056 that country fixed effects give on their own. (Note that `plm`'s default random-effects model has country effects only, so its natural comparator is one-way, not two-way, fixed effects.)
+
+Random effects is more efficient than fixed effects when its central assumption holds: that the country effects $u_c$ are **uncorrelated with the predictor**. Here that assumption is a strong one, because a country's unemployment level is very likely tied up with the same durable national features that shape its baseline EU framing – exactly the correlation fixed effects were designed to sweep away. The **Hausman test** formalises the comparison: if the assumption held, fixed and random effects would estimate the same quantity and differ only by noise, so a large gap between them is evidence against it. Comparing the two one-way (country) estimators:
+
+```{r}
+fe_country <- plm(mcosmo ~ unemp, data = euframes, index = c("cntry", "year"),
+                  effect = "individual", model = "within")
+re_country <- plm(mcosmo ~ unemp, data = euframes, index = c("cntry", "year"),
+                  effect = "individual", model = "random")
+phtest(fe_country, re_country)
+```
+
+The test rejects (p = 0.002): the estimators disagree by more than chance allows, the random-effects assumption is not defensible here, and the fixed-effects estimate is the safer of the two.
+
+There is, though, a more informative response than picking a winner, and it dissolves the fixed-versus-random dilemma rather than settling it. Split the predictor into its two kinds of variation – each country's *average* unemployment across the decade, and each year's *departure* from that average – and give each its own slope. This is the **within–between** (or Mundlak) formulation:
+
+$$ \bar{y}_{ct} = \beta_0 + \beta_W \left( x_{ct} - \bar{x}_{c\cdot} \right) + \beta_B\, \bar{x}_{c\cdot} + u_c + \varepsilon_{ct} $$
+
+$\beta_W$ is the within-country slope, $\beta_B$ the between-country one. The fit below uses `lmer()` from lme4 [@BatesEtAl2015FittingLinearMixedeffects], the mixed-model workhorse that [section 6](#sec-multilevel) introduces properly; the random-intercept term `(1 | cntry)` plays the role of $u_c$:
+
+```{r}
+#| message: false
+library(lmerTest)   # lme4's lmer(), plus degrees of freedom for its t-tests
+
+euframes_wb <- euframes |>
+  group_by(cntry) |>
+  mutate(unemp_between = mean(unemp),
+         unemp_within  = unemp - unemp_between) |>
+  ungroup()
+
+m_wb <- lmer(mcosmo ~ unemp_within + unemp_between + (1 | cntry), data = euframes_wb)
+summary(m_wb)
+```
+
+Read the two slopes against everything fitted so far. The within slope, −0.0056, is *exactly* the country-fixed-effects estimate (fit `feols(mcosmo ~ unemp | cntry, ...)` and compare), because separating out the between variation is precisely what fixed effects do. The between slope is +0.0041 – positive, imprecise, and telling its own story: countries with chronically higher unemployment do not frame the EU less cosmopolitanly; if anything, slightly the reverse. Now the pooled puzzle of section 3 has an arithmetic answer: the pooled slope of −0.0011 was a weighted blend of −0.0056 and +0.0041, two real patterns with opposite signs, averaged into meaninglessness. The Hausman rejection above is the same fact in test form – it fires precisely because $\beta_W \neq \beta_B$. And the estimand lesson lands early: 'the effect of unemployment on EU framing' was never one number; there is a within-country number and a between-country number, and a model is a decision about which one you are asking for. (For the fuller argument that this formulation should usually replace the fixed-versus-random contest, see @BellJones2015ExplainingFixedEffects.)
+
+One practical note completes the estimator tour. The random-effects estimator is also the reason the grid holds 840 specifications rather than the full 960 that the menu's six remaining axes – with the outcome family held at Gaussian and the claim-carrying predictor at unemployment – would otherwise produce: six outcomes, two predictor forms, two co-predictor sets, four estimators, five samples and two weighting choices multiply to 960, but frequency weights do not compose cleanly with the variance-component machinery a random-effects GLS estimates, so the 120 weighted random-effects cells are omitted as not well defined. That arithmetic – and the shares quoted from the grid, 68.7% of specifications in the claim's direction and 63.9% significant – is all computable from the committed `spec_grid.csv`.
+
+## 6. The multilevel framework: modelling respondents directly {#sec-multilevel}
+
+Everything so far has lived at the country-year level. OA's own study did not: its anchor result – **b = −0.0034, t = −4.03, p < .001** (Table 3, Model 1) – comes from a three-level random-intercept model fitted to the individual respondents. This section climbs down to that level and fits the same family of models on the actual microdata: 416,698 respondents, rebuilt from the sixteen GESIS waves exactly as the codebook describes.
+
+::: {.callout-note}
+## How the outputs in this section were produced
+
+The respondent-level file cannot ship with the workshop (GESIS licence), so every model fitted to it – the multilevel fits below, the weighted fits of [section 7](#sec-weights), and the generalised models of [section 9](#sec-glm) – is displayed rather than executed on the page. Each output was produced by the script `companion/_model-outputs/fit_models.R` in the site's repository, run on the facilitator's machine against the rebuilt person-level data; the text shown is R's output verbatim. (The Bayesian summaries of [section 8](#sec-bayes) come from the same script for a different reason: their model uses the committed panel, but compiling and sampling it takes a minute or two rather than the instant a live chunk needs.) These are single, deliberately simple fits chosen to teach each method's output. They are not the preregistered person-level multiverse of the companion research article, which is a separate, registered exercise. To run them yourself you need the raw waves under your own (free) GESIS registration – the [repositories module](repositories.qmd#sec-gesis) walks that path.
+:::
+
+A **multilevel model** (also called a hierarchical or mixed model) fits the respondents directly while representing the nesting explicitly: respondents sit inside country-years, which sit inside countries. Written at its three levels, with $i$ indexing respondents:
+
+$$ y_{i(ct)} = \pi_{ct} + \varepsilon_{ict} \qquad\qquad \text{(respondents around their cell mean)} $$
+$$ \pi_{ct} = \alpha_c + \beta x_{ct} + r_{ct} \qquad \text{(cell means moved by unemployment)} $$
+$$ \alpha_c = \gamma_0 + v_c \qquad\qquad\quad \text{(countries around the grand mean)} $$
+
+or, substituted into one line:
+
+$$ y_{ict} = \gamma_0 + \beta x_{ct} + v_c + r_{ct} + \varepsilon_{ict} $$
+
+with $v_c \sim N(0, \sigma_v^2)$, $r_{ct} \sim N(0, \sigma_r^2)$ and $\varepsilon_{ict} \sim N(0, \sigma_\varepsilon^2)$. Three variance components now share the noise: $\sigma_v^2$ for durable country differences, $\sigma_r^2$ for country-year departures, and $\sigma_\varepsilon^2$ for person-to-person differences inside a cell. The fixed part ($\gamma_0 + \beta x_{ct}$) is shared by everyone; the random part is a sum of draws at each level. This is the random-effects idea of section 5 generalised, and `(1 | group)` in `lmer()` notation declares each random intercept. Drawn rather than written, the structure looks like this:
+
+```{r}
+#| label: fig-ml-structure
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+#| fig-cap: "The three levels of the multilevel model, in a simulated miniature: three countries, two survey years each, fourteen respondents per cell. Respondents (grey points) scatter around their country-year cell mean (red bars) – the person-level noise. Cell means scatter around their country's own level (solid blue line) – the country-year component. And country levels scatter around the grand mean (dashed line) – the country component. A multilevel model estimates one variance for each of those three kinds of scatter."
+set.seed(11)
+countries <- c("Country A", "Country B", "Country C")
+country_eff <- c(-0.08, 0.02, 0.09)
+toy_cells <- expand.grid(country = countries, year = c("2008", "2009")) |>
+  arrange(country, year) |>
+  mutate(cell_mu = 0.5 + rep(country_eff, each = 2) + rnorm(6, 0, 0.045))
+toy <- toy_cells |>
+  slice(rep(1:6, each = 14)) |>
+  mutate(y = cell_mu + rnorm(84, 0, 0.09))
+country_means <- toy_cells |>
+  group_by(country) |>
+  summarise(mu = mean(cell_mu), .groups = "drop")
+ggplot(toy, aes(year, y)) +
+  geom_hline(yintercept = mean(toy_cells$cell_mu), linetype = "dashed",
+             colour = "grey40") +
+  geom_hline(data = country_means, aes(yintercept = mu),
+             colour = "#0e3b6a", linewidth = 0.7) +
+  geom_jitter(width = 0.12, height = 0, colour = "grey65", size = 1.4) +
+  stat_summary(fun = mean, geom = "crossbar", width = 0.4,
+               colour = "#a10000", linewidth = 0.5) +
+  facet_grid(cols = vars(country)) +
+  labs(x = NULL, y = "framing score") +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.minor = element_blank())
+```
+
+Start deliberately wrong, with only the country level declared:
+
+```r
+library(lme4)
+person <- readRDS("person_level.rds")   # 416,698 respondents; GESIS-licensed rebuild
+
+m_two <- lmer(cosmo ~ unemp + (1 | cntry), data = person)
+summary(m_two)
+```
+
+```{r}
+#| echo: false
+show_fit("lmer_2lvl.txt")
+```
+
+The output's anatomy: the `Random effects` block reports the estimated variance components ($\hat\sigma_v^2 = 0.0039$ for countries, $\hat\sigma_\varepsilon^2 = 0.1367$ for respondents), and the `Fixed effects` table reads like an `lm()` coefficient table with one addition – a `df` column, computed by Satterthwaite's approximation, saying how many independent pieces of information stand behind each `t`. And that column exposes the model's flaw. A slope of −0.0048 with t = −24.5 on **391,200 degrees of freedom** looks like overwhelming evidence, but the model has been allowed to treat every respondent as fresh information about unemployment, when every respondent in a country-year shares one unemployment value. The predictor only has 270 distinct values; a model whose df runs to six figures is counting people as if they were countries.
+
+Declare the country-year level and the same data answer differently:
+
+```r
+m_three <- lmer(cosmo ~ unemp + (1 | cntry) + (1 | cntry:year), data = person)
+summary(m_three)
+```
+
+```{r}
+#| echo: false
+show_fit("lmer_3lvl.txt")
+```
+
+The slope barely moves (−0.0052), but everything around it does. The standard error quadruples, the `t` falls from −24.5 to −6.5, and the Satterthwaite df collapses from 391,200 to **253** – the scale of the 270 cells, not of the 416,698 respondents, because the cells are where the genuine predictor contrasts live. The new variance component ($\hat\sigma_r^2 = 0.0015$) is small in absolute terms, yet acknowledging it changes the inference fourfold, because it is the level at which the predictor lives. Compare this fit with section 5's aggregate models: the three-level person model's slope of −0.0052 (t = −6.5) is, to two decimals, the aggregate random-intercept estimate. Once the error structure matches the data's real structure, modelling 416,698 people and modelling their 270 cell means give the same answer about a country-year-level predictor – which is the deep reason the workshop can teach the case from the shipped panel.
+
+The framework's genuine additions come when you let more than the intercept vary. A **random slope** lets each country have its own unemployment coefficient, drawn from a distribution whose spread is estimated:
+
+$$ y_{ict} = \gamma_0 + (\beta + b_c)\, x_{ct} + v_c + r_{ct} + \varepsilon_{ict}, \qquad b_c \sim N(0, \sigma_b^2) $$
+
+```r
+m_slopes <- lmer(cosmo ~ unemp + (1 + unemp | cntry) + (1 | cntry:year), data = person)
+summary(m_slopes)
+```
+
+```{r}
+#| echo: false
+show_fit("lmer_slopes.txt")
+```
+
+Two things in this output matter. In the `Random effects` block, the slope's standard deviation is 0.0061 – larger than the mean slope of −0.0057 itself. Countries do not share one unemployment effect: the model estimates that the effect ranges from clearly negative in some countries to positive in others, with the average sitting where the earlier fits put it (the `Corr` of −0.44 adds that higher-intercept countries tend to have more negative slopes). And the fixed slope's df is now about **19** – once each country testifies mainly about its own slope, the effective evidence for the *average* slope is the 27 countries, not the 270 cells. The df column keeps strict count of where the information genuinely comes from, and it will decide the effect-size story in [section 10](#sec-onescale).
+
+Two of the five Multi100 analysts worked at this level, and they bracket the recorded range. Analyst KEVF1 (in R) reported t = −5.90 with a Satterthwaite-style df of about 136, converting to a partial correlation of −0.452; analyst PRL47 (in Stata) reported z = −3.59 with the respondent count of nearly 395,000 standing in for df, converting to −0.006. Same data, same model family, same negative direction – and a 75-fold gap in converted effect size produced almost entirely by the df convention you have just watched move from 391,200 to 253 to 19 across three model declarations. The unit of analysis, and the error structure declared around it, is therefore an **estimand** choice: a decision about what 'the effect' refers to and which draws of the world would count as replications, not a software preference. The aggregated models answer a question about country-years; the person-level models appear to answer one about people, but with a predictor that varies only by country-year they mostly re-ask the same question with more elaborate error accounting. Reasonable analysts answering "which question?" differently get genuinely different numbers, before any estimation begins.
+
+Carry section 5's grid arithmetic down a level, finally, and the framework's consequences for the multiverse become concrete. Moving to the respondents does not just re-estimate the same 840 cells with richer machinery; it widens the menu itself. Person-level covariates that simply do not exist in the aggregates – age, gender, education – become available as a new adjustment fork. The estimator axis changes membership: the multilevel designs of this section stand alongside their fixed-effects and pooled counterparts. The design weights every respondent carries become usable at last ([section 7](#sec-weights)), and with them one block of cells comes back from the dead – the aggregate grid had to drop its 120 weighted random-effects cells because frequency weights do not compose with GLS, but genuine design weights *do* compose with multilevel models through the pseudo-maximum-likelihood route of the next section, so the weighted multilevel cells are well defined at the person level. Multiply the menu out – six outcomes, two predictor forms, two macro co-predictor sets, four estimators, five samples, two weight choices, and the new demographic-adjustment fork – and the person-level menu holds 1,920 Gaussian cells. The registered design of the facilitator's companion research article adds one more binary fork, the outcome-family choice [section 9](#sec-glm) introduces, and registers the doubled universe: **3,840 person-level specifications**. Pooled with the family universe of 1,680 aggregated cells (the 840 of section 5 plus their family twins of section 9), they make a **5,520**-specification joint universe in which the level of aggregation is itself a further fork, arguably the most consequential one on the whole menu. None of this is hypothetical: it is preregistered and, at the time of writing, deliberately not yet computed.
+
+## 7. Survey weights: from design to estimation {#sec-weights}
+
+Every Eurobarometer respondent arrives with a number attached: a **survey weight**. This section is about what those numbers are, how estimation uses them, and why they interact awkwardly with the multilevel framework – a corner of practice where software choices genuinely change results.
+
+Weights exist because samples are not miniature populations. Some people are harder to reach, some decline, some designs deliberately over-sample small groups; the result is that a 60-year-old rural woman may stand for more people than an urban student who was easier to find. A design weight $w_i$ is, at its cleanest, the inverse of person $i$'s probability of ending up in the sample, $w_i = 1 / \pi_i$; post-stratification adjustments then align the weighted sample with known population margins. Estimation uses the weights by letting each observation count $w_i$ times. The weighted mean is the simplest case,
+
+$$ \hat{\bar{Y}} = \frac{\sum_i w_i\, y_i}{\sum_i w_i} $$
+
+and weighted least squares generalises it, choosing coefficients to minimise $\sum_i w_i \left( y_i - \beta_0 - \beta_1 x_i \right)^2$ so that under-represented kinds of people pull the line with their population share rather than their sample share.
+
+The Eurobarometer's own weighting scheme, documented in the GESIS Eurobarometer Data Service's weighting overview [@GESISWeightingOverview], is a complete worked example of that logic, and every wave's file labels its weights plainly. The basic one is **W1, "WEIGHT RESULT FROM TARGET"** – the `w1` of the rebuilt person file. It is a pure post-stratification (in the Eurobarometer's vocabulary, *redressment*) weight: an iterative marginal-weighting procedure aligns each national sample with its population's known margins on sex, age, region (NUTS 2) and size of locality, reproducing each country's real case count. W1 makes each national sample representative *of its own country*, and it deliberately does nothing to rescale countries against one another. The companion weights divide the remaining labour. W3 ("WEIGHT GERMANY") and W4 ("WEIGHT UNITED KINGDOM") combine the separately drawn East/West German and Great Britain/Northern Ireland samples into united national totals – the same sample splits that the workshop codebook's DE and GB recodes fold together. The long W5–W30 series ("WEIGHT EU6" through "WEIGHT EU27", euro zone in and out) add the population-size scaling needed when similarly sized national samples must stand for populations as different as Malta's and Germany's, and **WEX** ("WEIGHT EXTRA POPULATION 15+") extrapolates results to the actual population aged fifteen and over. The habit that transfers to any survey: find the weighting documentation, identify which weight answers *your* question's population, and say in the methods which one you used. For a question about the within-country alignment of framing and unemployment, W1 is the natural choice – and it is the weights fork the companion article's registered person-level universe adopts.
+
+In R, design-based estimation is the survey package's job [@Lumley2004AnalysisComplexSurvey]. You declare the design once – weights, and where the data supply them, clusters and strata – and then every estimator respects it:
+
+```r
+library(survey)
+
+des <- svydesign(ids = ~1, weights = ~w1, data = person)   # weights only; no PSU info here
+m_svy <- svyglm(cosmo ~ unemp, design = des)
+summary(m_svy)
+```
+
+```{r}
+#| echo: false
+show_fit("svyglm.txt")
+```
+
+Two readings of this output. As a weighting demonstration: the W1-weighted pooled slope is +0.0001 with t = 0.8 – nothing, and on the wrong side of zero. Weights repair *representation*, and they have done their job; what they cannot repair is a mis-structured model, and this is the pooled estimator of section 3 again, blending within and between variation across 27 countries. A weighted wrong model is a well-weighted wrong model. As an output-reading exercise: note that `svyglm()` reports design-robust (linearised) standard errors as a matter of course – there is no classical-SE option to forget, which is one reason survey statisticians like the package.
+
+The awkward corner is combining weights with the multilevel framework. The difficulty is conceptual before it is computational: a multilevel model needs to know the selection probability *at each level* – the country's probability of inclusion, then the respondent's probability given the country – but surveys typically publish one all-in weight per person, and there is no unique way to split it. The standard answer is **pseudo-maximum-likelihood**, weighting each level's contribution to the likelihood [@Rabe-HeskethSkrondal2006MultilevelModellingComplex], and it comes with a genuine fork: level-1 weights can be scaled in more than one defensible way, the choice can move variance estimates noticeably, and the literature's recommendation is to report sensitivity across scalings rather than trust any one [@Carle2009FittingMultilevelModels].
+
+Because implementations differ in those choices, **the same weighted multilevel model can return different numbers in different software**, and knowing which convention you are running is part of reporting the model. Three practical facts anchor the R side. First, `lmer()`'s `weights` argument is *not* a survey-weights argument – it treats weights as precision weights, a different quantity entirely, and silently gives design-inconsistent answers if you feed it `w1`. Second, Stata's `mixed` accepts probability weights (`[pw = ...]`) and implements pseudo-maximum-likelihood with its own scaling options (`pwscale()`); much of the applied literature's weighted multilevel results were produced under its conventions. Third, the R package that speaks Stata's dialect is **WeMix** [@BaileyEtAl2023WeMixWeightedMixed]: it takes one weight column per level and fits by pseudo-maximum-likelihood; in our own comparative survey work it has reproduced Stata's weighted `mixed` fixed-effect estimates to three decimals, which makes it the tool of choice when a published Stata result needs re-implementing in R.
+
+Two of the five Multi100 analysts worked in Stata, and their public code turns these abstractions into something you can point at. Analyst PRL47 – the person-level multilevel analyst of [section 6](#sec-multilevel) – builds the level-2 cell identifier and fits three-level random intercepts with `mixed`; these lines are from their Multi100 upload:
+
+```stata
+egen cquarter=concat(country quarter)    // the country-by-quarter cell id
+mixed cosmo || country: || cquarter:     // three-level random intercepts
+```
+
+Two absences in that second line repay a close look. The weight is missing: PRL47's script carefully assembles a survey weight for every wave (`gen weight=w3a4a`), then uses it only in descriptive checks (`sum cosmo cosmo2 [w=weight]`) – it never reaches the model, because carrying it there would mean committing to `[pw = ...]` and a defensible `pwscale()` choice, exactly the pseudo-maximum-likelihood fork above. Building a weight is easy; defending its use inside a multilevel model is a decision, and a careful analyst who stops short of it is itself instructive. And no estimation options are missing by accident either: a bare `mixed` estimates by maximum likelihood with model-based standard errors, whereas R's `lmer()` defaults to REML – so a line-for-line port disagrees with the original for no substantive reason unless one side's default is overridden. The correspondence, made explicit for Stata users:
+
+```stata
+* Stata – PRL47's estimator (maximum likelihood by Stata's default)
+mixed cosmo || country: || cquarter:
+* what a design-weighted version would have needed
+mixed cosmo [pw = weight] || country: || cquarter:, pwscale(size)
+```
+
+```r
+# the R twin – lmer() defaults to REML, so match Stata's ML explicitly
+lmer(cosmo ~ 1 + (1 | country) + (1 | cquarter), data = d, REML = FALSE)
+
+# the design-weighted twin – WeMix, pseudo-maximum-likelihood, one weight per level
+mix(cosmo ~ 1 + (1 | country), data = d, weights = c("weight", "w_country"))
+```
+
+Back to the case's data. Supplying a constant 1 at the country level reproduces the common "weights at level 1 only" scenario:
+
+```r
+library(WeMix)
+
+person <- person |>
+  mutate(w_lvl2 = 1)   # unit weight at the country level – weighting at level 1 only
+m_wemix <- mix(cosmo ~ unemp + (1 | cntry), data = person,
+               weights = c("w1", "w_lvl2"))
+summary(m_wemix)
+```
+
+```{r}
+#| echo: false
+show_fit("wemix_2lvl.txt")
+```
+
+Set this beside the unweighted two-level fit of section 6 and read the comparison carefully, because it contains one more like-for-like trap. The weighted slope, −0.0049, sits next to the unweighted −0.0048: the W1 weights barely move the estimate, which is itself a finding (the framing–unemployment alignment is not an artefact of who is over- or under-represented within national samples). The standard errors, though, are not comparable at a glance – 0.0015 here against 0.0002 there – and most of that gap is not the weights but the *variance estimator*: WeMix reports design-linearised (robust) standard errors while `lmer()` reports model-based ones. Two settings changed between the outputs, and only one of them is the weighting. The habit from section 3 applies at every level of sophistication: before attributing a difference to the interesting setting, equalise the boring ones.
+
+The workshop's own weighting axis, finally, is a humbler object than any of this. The specification menu offers `n_cy` weighting – each country-year weighted by the number of respondents behind its average, on the reasoning that a cell mean built from 3,000 people is measured more precisely than one built from 300. That is a precision argument about aggregated cells, not a design weight, and the genuine design weights cannot be reconstructed from the shipped aggregates at all; they live with the microdata, as above. The case's second Stata analyst, KQXUE, works at exactly this end of the spectrum, and their pipeline shows the whole weighting question dissolving in two lines:
+
+```stata
+collapse cosmo util, by(cntry year)    // unweighted country-year means
+xtreg cosmo unemployment, fe           // = the within estimator of section 4
+```
+
+The `collapse` averages every respondent equally, so the design weights are gone before any model is fitted, and each cell then enters `xtreg` with equal say whether 300 people or 3,000 stand behind it – precisely the axis the menu's `n_cy` option toggles. (The Stata–R correspondence continues here too: `xtreg, fe` after `xtset cntry_num year` is `plm`'s within estimator.) The menu's weighting fork, for the record, moves almost nothing: it contributes less than one per cent of the specification variance in the grid.
+
+## 8. Bayesian estimation with brms {#sec-bayes}
+
+The multilevel framework has a natural next step. Partial pooling – every random effect shrunk towards the grand mean in proportion to its group's data – is already half the Bayesian idea, and hierarchical models are the setting where the full version pays for itself most clearly. The shift is one of interpretation before machinery. Frequentist estimation asks "what parameter values make this data likeliest?" and attaches uncertainty via imagined repeated sampling. **Bayesian** estimation treats the parameters themselves as uncertain quantities, starts from a **prior** distribution $p(\theta)$ expressing what is plausible before the data, and updates it through the likelihood into a **posterior**:
+
+$$ p(\theta \mid y) \;\propto\; p(y \mid \theta)\; p(\theta) $$
+
+Everything you report – point estimates, intervals, probabilities of direction – is then read directly off the posterior distribution. For hierarchical models this buys three concrete things: group-level variances carry their full uncertainty even with few groups (our ten years are few), every derived quantity inherits that uncertainty rather than a plug-in point estimate, and the assumptions that frequentist multilevel models make implicitly become visible, stated priors you can inspect and vary.
+
+Spelled out, the three ingredients read like a recipe. The **likelihood** $p(y \mid \theta)$ is the model itself – exactly the multilevel equations of section 6, read as a statement of how probable the observed data are under candidate parameter values. The **prior** $p(\theta)$ says what is plausible for each parameter before the data arrive; here, mild commitments like "the between-country standard deviation is positive and probably not enormous". Their product, renormalised, is the **posterior** $p(\theta \mid y)$: a full probability distribution over all the parameters jointly, of which any coefficient table is only a summary. For real models that distribution has no closed form, so it is explored by sampling – **Markov chain Monte Carlo** draws thousands of parameter values whose long-run frequencies match the posterior, and the modern samplers (Stan's Hamiltonian Monte Carlo, underneath everything below) have made this routine for exactly the hierarchical models this page has been building. Inference then *is* the summarising of draws: a posterior mean, an interval containing 95% of them, the share of them below zero. Two books carry a reader from this page to fluency. Gelman and Hill's classic [-@GelmanHill2007DataAnalysisUsing] is the bridge from single-level regression to multilevel and Bayesian thinking – its statistical chapters have aged well, though its software examples predate Stan and should not be typed in. McElreath's *Statistical Rethinking* [-@McElreath2020StatisticalRethinkingBayesian] is the modern course-style introduction, and its examples exist in a free online translation into brms and tidyverse code [@Kurz2023StatisticalRethinkingBrms] that pairs naturally with everything on this page.
+
+The **brms** package [@Burkner2017BrmsPackageBayesian] makes the transition almost frictionless: it accepts the same formula syntax as `lmer()`, translates the model to Stan, and estimates it by Markov chain Monte Carlo (MCMC) – four independent 'chains' wandering the posterior, whose agreement is itself the convergence diagnostic. Here is section 5's aggregate random-intercept model, now with a year intercept alongside, in its Bayesian form. This one uses the committed panel, so you can run it yourself; it compiles for about a minute and samples in seconds:
+
+$$ \bar{y}_{ct} \sim N\!\left( \gamma_0 + \beta x_{ct} + v_c + w_t,\; \sigma^2 \right), \qquad v_c \sim N(0, \sigma_v^2), \quad w_t \sim N(0, \sigma_w^2) $$
+
+```r
+library(brms)
+
+m_bayes <- brm(mcosmo ~ unemp + (1 | cntry) + (1 | year), data = euframes,
+               backend = "cmdstanr", chains = 4, iter = 4000, seed = 2026)
+summary(m_bayes)
+```
+
+```{r}
+#| echo: false
+show_fit("brms_panel.txt")
+```
+
+The output's vocabulary maps onto what you already know, with meanings upgraded. **Estimate** is now the posterior mean and **Est.Error** the posterior standard deviation – the analogues of coefficient and standard error. The **l-95% / u-95% CI** columns are a **credible interval**, and unlike the confidence interval it means what everyone wants intervals to mean: given model and data, the parameter lies in this range with 95% probability. The genuinely new columns are the diagnostics. **Rhat** compares the four chains' answers; at convergence it is 1.00, and values above about 1.01 mean the sampler has not settled and the numbers should not be used. **Bulk_ESS** and **Tail_ESS** are effective sample sizes – how many independent draws the correlated MCMC samples are worth. And the `Multilevel Hyperparameters` block shows the machinery earning its keep: `sd(Intercept)` for `year` is estimated at 0.018 with an interval running from 0.009 to 0.033, a candid statement of how little ten years can say about a between-year variance, where a frequentist fit would hand you a bare point estimate.
+
+Notice where the slope itself landed: −0.0036, between the country-only random-effects estimate (−0.0053) and the two-way fixed-effects anchor (−0.0035), because the year intercepts absorb the common yearly shocks much as the year fixed effects did. That placement is a property of the model, not of the Bayesian machinery, and the direct check is to fit the same model by REML – its exact frequentist twin, live on the committed panel:
+
+```{r}
+m_freq_twin <- lmer(mcosmo ~ unemp + (1 | cntry) + (1 | year), data = euframes)
+summary(m_freq_twin)$coefficients
+```
+
+Identical to the displayed posterior within Monte Carlo error: −0.0036 with a standard error of 0.0009 against a posterior mean of −0.0036 with an Est.Error of 0.0009. With 270 observations and weak priors, Bayesian and frequentist answers agree, as they should – the data dominate. The traditions come apart, in exactly the direction this section opened with, where data are thin: compare the twins' between-year variance statements, a bare REML point estimate against a full posterior interval.
+
+The priors this model ran with are inspectable, and inspecting them is the habit to build:
+
+```r
+prior_summary(m_bayes)
+```
+
+```{r}
+#| echo: false
+show_fit("brms_priors.txt")
+```
+
+brms's defaults are deliberately mild: flat on the slope, a Student-t centred on the data's own median for the intercept, and half-Student-t distributions keeping the variance components positive but otherwise unconstrained. Priors are stated assumptions, which makes them arguable – and re-fitting under different reasonable priors, exactly as the workshop re-fits under different reasonable specifications, is the Bayesian wing of the same robustness discipline. The person-level extension is a one-line change (the section 6 formula, `data = person`, and patience while 416,698 rows sample), and it is the gateway to the generalised models next.
+
+## 9. Beyond the continuous outcome: generalised models {#sec-glm}
+
+One assumption has ridden along unexamined since section 2: that a Gaussian linear model is the right shape for this outcome. Strictly, it never was. Every framing scale in this case is bounded between 0 and 1; a Gaussian model has unbounded support, so a straight line extended far enough always predicts impossible values, and nothing inside `lm()` knows the walls exist. What changes between the two levels of the data is not whether that assumption is wrong but how much its wrongness costs, and one pair of pictures carries the whole argument:
+
+```{r}
+#| label: fig-outcome-scales
+#| echo: false
+#| fig-width: 8
+#| fig-height: 3.4
+#| fig-cap: "The same outcome at two levels. Left: the person-level cosmopolitan score is bounded, with heavy masses at exactly 0 (26% of respondents) and exactly 1 (25%) – a shape no Gaussian can imitate. Right: averaging within country-years produces 270 cell means huddled in mid-scale, far from either bound, where a Gaussian model is a safe working approximation despite being wrong in principle. The person-level distribution is plotted from committed aggregate counts (companion/_model-outputs/cosmo_dist.csv)."
+cosmo_dist <- read_csv("_model-outputs/cosmo_dist.csv", show_col_types = FALSE)
+p_person <- ggplot(cosmo_dist, aes(cosmo, n_respondents / sum(n_respondents))) +
+  geom_col(width = 0.022, fill = "#0e3b6a") +
+  scale_x_continuous(limits = c(-0.02, 1.02)) +
+  labs(title = "416,698 respondents", x = "cosmopolitan framing score",
+       y = "share of respondents") +
+  theme_minimal(base_size = 11)
+p_cells <- ggplot(euframes, aes(mcosmo)) +
+  geom_histogram(binwidth = 0.025, boundary = 0, fill = "#0e3b6a") +
+  coord_cartesian(xlim = c(0, 1)) +
+  labs(title = "270 country-year means", x = "mean cosmopolitan framing",
+       y = "count of cells") +
+  theme_minimal(base_size = 11)
+p_person + p_cells
+```
+
+At the aggregate level (right panel) the cell means bunch in the middle of the scale, several residual standard deviations clear of either bound. Fitted values from the models of sections 2 to 5 never approach the walls, the probability the Gaussian error places beyond them is negligible, and the approximation is safe *in practice* – safe because of where this particular outcome happens to sit, not because the model respects the bounds. That is a judgement to make consciously, and to re-make whenever an outcome drifts towards its floor or ceiling. At the person level (left panel) the judgement reverses emphatically. A respondent's score is the share of their mentioned items that are cosmopolitan: a quarter of all respondents sit at exactly 0 and another quarter at exactly 1, and a Gaussian model treats those pile-ups as ordinary noise around a middle that describes almost nobody. The **generalised linear model** (GLM) family fixes the shape problem by modelling a *transformed* mean:
+
+$$ g\!\left( \mathbb{E}[y_i] \right) = \eta_i = \beta_0 + \beta_1 x_i $$
+
+The **linear predictor** $\eta_i$ stays a familiar straight line; the **link function** $g$ maps the outcome's constrained mean onto the unconstrained line, and a distribution suited to the outcome's actual support replaces the Gaussian.
+
+The classic member is **logistic regression**, for binary outcomes, with the log-odds link. Collapsing our outcome to "mentions at least one cosmopolitan item":
+
+$$ \log \frac{p_i}{1 - p_i} = \beta_0 + \beta_1 x_i, \qquad p_i = \Pr(y_i = 1) $$
+
+```r
+m_logit <- glm(I(cosmo > 0) ~ unemp, family = binomial(), data = person)
+summary(m_logit)
+```
+
+```{r}
+#| echo: false
+show_fit("glm_logit.txt")
+```
+
+Reading a GLM's coefficients takes one extra step, because the estimate lives on the link scale. The slope of −0.027 is a change in *log-odds* per unemployment point; exponentiating gives an odds ratio of $e^{-0.027} \approx 0.974$, and the quick 'divide by four' rule bounds the probability change at about −0.027 / 4 ≈ −0.7 percentage points per unemployment point at most. The `z value` replaces `t` (the dispersion is fixed, not estimated) and **deviance** replaces R-squared as the fit currency. And one number should now trigger the section 3 alarm: z = −31.9 is the pooled-independence illusion again, 416,698 respondents counted as if each were fresh evidence about 270 unemployment values. The generalised and multilevel machineries are not rivals; they are two orthogonal upgrades, and this outcome needs both at once.
+
+For a *bounded continuous* outcome the classical tool is **beta regression**, which models a variable on the open interval (0, 1) with a logit-linked mean and a precision parameter $\phi$. Its defect for our variable is those endpoint masses: the beta distribution has no probability at exactly 0 or 1, and the traditional dodge of nudging the data inward is exactly the kind of silent choice this workshop exists to make visible. **Ordered beta regression** [@Kubinec2023OrderedBetaRegression] repairs it at the root: one model with ordered cutpoints deciding whether an observation is exactly 0, in between, or exactly 1, and a beta distribution for the middle – one coefficient vector governing all three parts, so the slope keeps a single interpretation.
+
+Both of the day's inferential traditions implement it. The frequentist route is **glmmTMB** [@BrooksEtAl2017GlmmTMBBalancesSpeed], a fast maximum-likelihood engine for GLMs with random effects – here with the full three-level structure of section 6, on all 416,698 respondents:
+
+```r
+library(glmmTMB)
+
+m_ordfreq <- glmmTMB(cosmo ~ unemp + (1 | cntry) + (1 | cntry:year),
+                     family = ordbeta(), data = person)
+summary(m_ordfreq)
+```
+
+```{r}
+#| echo: false
+show_fit("glmmtmb_ordbeta.txt")
+```
+
+The output assembles pieces you now recognise: variance components for the two grouping levels (on the latent logit scale, so not directly comparable with section 6's), a dispersion parameter ($\phi$ = 9.3, the beta precision), and a conditional-model slope of −0.012 on the logit scale with z = −7.1 – the divide-by-four rule translates it to at most −0.3 percentage points of cosmopolitan share per unemployment point, the same order as every Gaussian estimate of it, now from a model whose predictions cannot leave the unit interval. Note the z of −7, not −32: the random effects are doing the clustering work the bare logistic model ignored.
+
+The Bayesian route is **ordbetareg**, Kubinec's own implementation of the model on top of brms [@Kubinec2023OrderedBetaRegression]. The exhibit below runs on a random subsample of 20,000 respondents – the full-data posterior would sample for hours, and the purpose here is the output's shape, not a production estimate:
+
+```r
+library(ordbetareg)
+
+set.seed(2026)
+person_sub <- slice_sample(person, n = 20000)
+m_ordbayes <- ordbetareg(cosmo ~ unemp + (1 | cntry), data = person_sub,
+                         true_bounds = c(0, 1), backend = "cmdstanr",
+                         chains = 4, iter = 2000, seed = 2026)
+summary(m_ordbayes)
+```
+
+```{r}
+#| echo: false
+show_fit("ordbetareg_sub.txt")
+```
+
+Everything in it combines sections 8 and above, and it rewards the discipline of reading diagnostics first – because doing so catches something. The intercept's Rhat of 1.016 sits above the 1.01 bar, so its chains have not fully settled; in a production analysis the response would be to sample longer before using that parameter. The slope, by contrast, is clean (Rhat at 1.00, effective sample sizes in the thousands), and its posterior – −0.008 on the logit scale, credible interval −0.012 to −0.004 – agrees with the full-data glmmTMB estimate while being less precise on a twentieth of the data. The family's extra distributional parameters close the loop: `cutzero` and `cutone` are the ordered cutpoints governing the exact-0 and exact-1 masses, and `phi`, the beta precision, posts 9.29 where glmmTMB's maximum likelihood put it at 9.28 on all 416,698 respondents. Two estimation traditions, one model family, one answer.
+
+The reason to know this model family goes back to the workshop's central finding: the fork that moves this case's results is the outcome's operationalisation, and how you model the outcome's *distribution* is part of that fork. Treat the family as one more binary fork, Gaussian versus beta, both defensible for a bounded scale, and every universe it touches doubles. For the aggregated grid the doubling is computed, not hypothetical. The committed `data/spec_grid_family.csv` holds **the family universe of 1,680 specifications** – the canonical 840, imported verbatim, plus a beta twin of each – built by `companion/_model-outputs/build_family_grid.R` from the committed panel and grid alone. The file sits on the [specification menu](../exercise/spec-menu.qmd) as an optional seventh axis, and one label travels with it everywhere: the family axis is a **workshop extension**, not part of the Multi100 menu. Its status in the companion article is split down the middle: this aggregated family grid is disclosed there as prior work rather than registered confirmatory content, while its person-level twin is registered, sight unseen, inside the 3,840-specification universe of [section 6](#sec-multilevel).
+
+A second extension works the predictor side of the same lesson. Multi100's Task 2 fixed unemployment as the measure of poor economic performance, but Task 1 shows three of the five analysts, left free, chose GDP measures instead – and OA's own operationalisation used both. The committed `data/spec_grid_full.csv` therefore adds GDP growth as a second, claim-carrying predictor: raw form, alone or beside unemployment as a co-predictor, 840 cells across both outcome families, taking the full universe to 2,520 (the family universe of 1,680 rows plus these 840 growth rows). Only the raw form is fitted, deliberately. Affine transforms – centring, z-standardising – rescale a coefficient without moving its t, p or partial correlation, so on an r-ranked curve they would only ever duplicate a point that is already there. That is exactly why the canonical grid keeps a single raw-and-log pair per specification rather than the four affine variants it once carried, and it is also part of why the predictor-form fork's share of specification variance is essentially zero. The growth universe's own result is the two-indicator construct speaking: the direction agrees with the claim about as often as unemployment's (70.5%), but significance falls below half (46.9%).
+
+The twins are plain logit-link beta regressions on the cell means, well defined because the 270 means sit strictly inside the unit interval, as the right panel above showed, with none of the endpoint masses that force the ordered-beta repair at the person level. betareg carries the pooled and fixed-effects designs, with the fixed effects as country and year dummies and the pooled errors cluster-robust by country. glmmTMB's `beta_family()` carries the random-effects design, and section 5's weighted random-effects exclusion is mirrored, 120 cells per family. A beta model reports a z statistic rather than a t, and that changes nothing downstream. The [section 10](#sec-onescale) conversion $r = z / \sqrt{z^{2} + \mathit{df}}$ reads a z exactly as the record read analyst PRL47's, so every twin lands on the common axis unchanged; the grid also evaluates each twin's significance against the same t reference its Gaussian sibling uses, a deliberate uniformity that matters only in the third decimal place at 100-plus df. Both halves can be checked straight from the committed file:
+
+```{r}
+read_csv("../data/spec_grid_family.csv", show_col_types = FALSE) |>
+  group_by(family) |>
+  summarise(specifications = n(),
+            claim_direction = mean(supports_claim))
+```
+
+Two facts in the twins are worth carrying away. The Gaussian half posts the canonical shares, 68.7% of specifications in the claim's direction and 63.9% significant; the beta half posts 71.0% and 63.1%. The beta twin of the workshop's anchor – `mcosmo`, raw predictor, no co-predictor, two-way fixed effects, all years, unweighted – estimates a logit-scale slope of −0.014 with **z = −4.075**, converting to a partial correlation of **−0.258** against the Gaussian anchor's −0.242. Same direction, still significant, slightly stronger. And the wrong-sign anatomy of section 3 reappears line for line. In the cosmopolitan universe each family holds exactly 41 wrong-sign specifications, 33 of them pooled and 8 two-way fixed effects. Run section 3's 'Try it' count on the family grid and the split repeats twice over. The family fork moves the numbers, not the lessons.
+
+The person-level doubling, unlike the aggregated one, is registered rather than computed. The companion article's preregistration adopts the family fork at both levels of analysis, with one substitution the person-level data force: the person-level scales place real mass on exact zeros, so the beta likelihood is unavailable there and a logit-link fractional-response binomial stands in as each cell's twin (reverse-coding stays exact, since the flip works through the same logit identity). That takes the registered person-level universe to 3,840 specifications and the joint universe to 5,520, none of it computed at the time of writing. The lesson the arithmetic teaches: universes grow geometrically, one defensible fork at a time, and the discipline is not to run the largest universe you can afford but to state in advance which forks you consider defensible and why. That statement is precisely what a preregistration is for.
+
+## 10. From many results to one axis: meta-analysis and standardised effects {#sec-onescale}
+
+The five Multi100 analysts fitted different models, in different software, at different levels of analysis, so their raw coefficients are not comparable: a Stata pooled coefficient, an R fixed-effects coefficient and a person-level multilevel coefficient are not the same kind of number. The discipline with a century of practice at exactly this problem is **meta-analysis**, and its machinery is worth meeting properly before seeing what Multi100 borrowed from it – not least because that machinery turns out to be an old friend.
+
+Meta-analysis starts from $K$ estimates $\hat\theta_k$, each with a known sampling variance $v_k$ (from its standard error). The **equal-effects** model assumes one true value $\theta$ behind them all and pools by inverse-variance weighting, so precise studies count for more:
+
+$$ \hat\theta_{\text{EE}} = \frac{\sum_k \hat\theta_k / v_k}{\sum_k 1 / v_k} $$
+
+The **random-effects** model drops the one-true-value assumption and lets the true effects themselves vary between studies:
+
+$$ \hat\theta_k = \mu + u_k + e_k, \qquad u_k \sim N(0, \tau^2), \quad e_k \sim N(0, v_k) $$
+
+Here $\mu$ is the average true effect, $\tau^2$ the between-study variance, and $e_k$ each study's sampling error. Look at that equation twice and section 6 looks back: a random-effects meta-analysis **is a two-level multilevel model** – studies as level-2 units, random intercepts $u_k$ – with a single twist, that the level-1 variances $v_k$ are not estimated but *known*, imported from each study's standard error. That is the whole difference between the two traditions. Heterogeneity statistics then quantify the between-study spread: $\tau$ on the effect's own scale, Cochran's $Q$ as a test, and $I^2$ as the share of total variability that is real between-study difference rather than sampling noise.
+
+For correlations, the conventional pooling scale is **Fisher's z** transformation, $z = \operatorname{atanh}(r)$, whose sampling variance depends only on sample size, $v = 1/(n - 3)$. The five analysts' recorded partial correlations are in the committed `analysts5.csv`, so the standard tool – the metafor package [@Viechtbauer2010ConductingMetaanalysesMetafor] – can run on them live:
+
+```{r}
+#| message: false
+library(metafor)
+
+analysts <- read_csv("../data/analysts5.csv", show_col_types = FALSE) |>
+  mutate(zi = atanh(r), vi = 1 / (n - 3))
+
+ma_re <- rma(yi = zi, vi = vi, data = analysts, method = "REML", slab = analyst_id)
+ma_re
+```
+
+Run as a demonstration, this output is worth every line; run as an analysis, it would be seriously wrong, and both halves are the lesson. The heterogeneity block first: $I^2$ = 99.97%. In a genuine meta-analysis that number would say the studies barely share a phenomenon; here it says something cleaner, because we *know* all five results come from the same data and claim. Sampling error explains essentially none of the spread between the five analysts – the spread is analytic variation, choices about outcome, estimator, level and df, which is precisely the multiverse's subject read off a meta-analytic dial. The pooled estimate, by contrast, should not be believed even as arithmetic: meta-analysis assumes independent studies, and five reanalyses of one dataset are the textbook violation. The weighting adds its own distortion – the two person-level analysts enter with $v_k$ built from six-figure respondent counts, so the equal-effects pooled value (run `method = "EE"` yourself: −0.17) is mostly their voice, inheriting exactly the df problem section 6 dissected. Multi100's design takes the point: it borrowed meta-analysis's *standardisation* step, but deliberately not its *pooling* step, reporting the distribution of results rather than an average pretending to independence.
+
+Meta-analysis's native picture, the **forest plot**, makes the same case at a glance:
+
+```{r}
+#| label: fig-forest
+#| fig-width: 7.5
+#| fig-height: 3.6
+#| fig-cap: "The five Multi100 analysts as a forest plot. Each row is one analyst's partial correlation with its 95% interval, back-transformed from Fisher's z; the two person-level analysts' intervals are vanishingly narrow because their sampling variances are computed from six-figure respondent counts – the df problem in visual form. The diamond at the bottom is the random-effects pooled estimate. In a genuine meta-analysis the diamond would be the result; here the plot's real message is the spread, which the pooling assumptions cannot explain."
+forest(ma_re, atransf = tanh, refline = 0,
+       xlab = "partial correlation r (back-transformed from Fisher's z)",
+       header = c("Analyst", "r [95% CI]"))
+```
+
+### What the five analysts actually did {#sec-analysts}
+
+The five reanalyses were not free-for-alls. Multi100's Task 2 fixed both ends of the question – use the positive non-materialist (cosmopolitan) form of EU framing as the outcome, use the unemployment rate as the measure of poor economic performance, and disregard the paper's EU-policy and party-politicisation contextual variables – and left everything between them open. What each analyst did with that freedom, read off their public code:
+
+| Analyst | Data as analysed | Outcome construction | Predictor | Controls | Estimator | SEs and df |
+|---|---|---|---|---|---|---|
+| 018OL | 420 country-by-wave cell means, EU-27 | mean of the 5 items, rescaled 0–1 | unemployment 15–74, raw | none | crossed random intercepts: country, year, EB wave | Satterthwaite, 396.9 |
+| **C6HJR** | **270 country-years** | **cosmopolitan share, corrected panel** | **unemployment, centred** | **none** | **two-way FE: country + year** | **conventional, 233** |
+| KEVF1 | 209,826 respondents | sum of the 5 items (0–7) | unemployment, raw | none | nested random intercepts: year within country | Satterthwaite, 135.6 |
+| KQXUE | 270 country-years | cosmopolitan share | unemployment 20–64, raw | none | one-way country FE | conventional, 242 |
+| PRL47 | 394,575 respondents | cosmopolitan share, no-opinion coded 0 | unemployment 25–64, raw + yearly change | gender, age, education, occupation, rural, crisis dummy, log GDP, growth | three-level: respondent in country-quarter in country | Wald z, no df |
+
+That brief, though, was the *second* act of Multi100's two-phase design [@AczelEtAl2026InvestigatingAnalyticalRobustness]. Task 1, months earlier, was free: analysts "could conduct and report as many analyses as they wished, but they had to draw a single conclusion". What freedom produced belongs beside the standardised table:
+
+| Analyst | Free-phase predictor | Free-phase outcome | Recorded verdict |
+|---|---|---|---|
+| 018OL | GDP per capita (level, Eurostat) | positive framing, 7-item mean | evidence for the claim |
+| KEVF1 | GDP growth (Eurostat) | positive framing, 7-item sum | evidence for the claim |
+| PRL47 | log GDP + quarterly growth + crisis dummy | three positive-framing shares | evidence for the claim |
+| KQXUE | GDP growth and unemployment (Eurostat) | cosmopolitan + utilitarian shares | evidence for the claim |
+| **C6HJR** | **GDP growth and unemployment (World Bank)** | **positive framing, 7-item share** | **evidence for the claim** |
+
+Three of the five never used the unemployment rate until the instructions named it; most were not using the non-materialist outcome the instructions fixed. Yet all five recorded the same categorical Task-1 verdict, because Task 1 asked for a conclusion, not a number – no standardised Task-1 effect sizes exist anywhere in the project's public data. The instructions therefore did not trim covariates from five similar models; they *created* the common question the standardised results answer. Read together, the two phases separate two robustness claims that are easily conflated: the five free analyses agreed in words, and the five standardised estimates, finally comparable, disagreed across a 75-fold range. This workshop runs the arc in reverse – participants start from the standardised baseline and open one axis at a time – so the day's freedom arrives as a menu rather than a blank page.
+
+Every row of the standardised table is a defensible reading of the same brief, and the table explains the numbers that puzzle first-time readers. The Ns differ because the units differ. KQXUE and C6HJR collapsed respondents to 270 country-year means; 018OL kept the survey wave as its own grouping level, giving 420 country-by-wave cells; KEVF1 and PRL47 modelled respondents directly, and even their two Ns disagree for pipeline reasons – KEVF1 merged an unemployment series with full country coverage only from 2009 (2004–2008 exists only for France), so complete-case fitting halved the stacked file to 209,826, while PRL47's EU-27 filter and respondent-level controls left 394,575. The dfs then differ because each model keeps its own account of where the information about a country-year predictor lives: fixed-effects OLS counts observations minus parameters, the Satterthwaite approximation estimates an effective df (397 on 420 cells, but 136 on 209,826 respondents, because the predictor varies only across country-years and the approximation knows it), and Stata's `mixed` reports an asymptotic z with no residual df at all. The conversion machinery below turns those choices into the numbers on the common axis.
+
+The standardisation step is this. Every recorded result is converted to a **partial correlation** from just two numbers, the test statistic and its degrees of freedom:
+
+$$ r = \frac{t}{\sqrt{t^{2} + \mathit{df}}} $$
+
+Feed it any model's `t` (or `z`) and df, and it returns a number between −1 and 1 that a Stata pooled model, an R fixed-effects model and every class submission can be read on together. This is the exact conversion the workshop's `report_result()` helper applies before a dot lands on the multiverse chart, and it is why Task 2 asked every analyst for a statistic and its degrees of freedom in the first place. The closely related Cohen's $d$ follows from the same $r$:
+
+$$ d = \frac{2r}{\sqrt{1 - r^{2}}} $$
+
+The same pair of numbers also carries the significance verdict, and the conversion is worth stating alongside the effect-size one because the two run in opposite directions. A t statistic's two-sided p-value is the probability of a result at least as extreme when the true effect is zero – in R, `2 * pt(-abs(t), df)`. A z statistic runs the identical computation on the standard normal, `2 * pnorm(-abs(z))`, which is simply the t-distribution with its df sent to infinity; that is literally where PRL47's missing df entry went. The df matters only at the margins here: with 20 df the 5% threshold is |t| = 2.09, and by a hundred df it has effectively converged on the normal's 1.96. What matters far more is what each conversion does with the volume of data. The p-value asks whether the estimate stands out from zero *given* how much data went in, so at any fixed underlying effect it shrinks as n grows; the partial correlation divides the sample size back out. Feed both conversions the same t and df and they can disagree spectacularly about which results are 'big', which is exactly what the five analysts show:
+
+| Analyst | Tool | Model unit | Statistic | df | p (two-sided) | N | Partial r |
+|---|---|---|---|---|---|---|---|
+| 018OL | R | aggregate | t = −1.21 | 396.9 | .229 | 420 | −0.060 |
+| **C6HJR** | **R** | **country-year (270)** | **t = −3.80** | **233** | **< .001** | **270** | **−0.242** |
+| KEVF1 | R | person-level multilevel | t = −5.90 | 135.6 | < .001 | 209,826 | −0.452 |
+| KQXUE | Stata | country-year (270) | t = −7.17 | 242 | < .001 | 270 | −0.419 |
+| PRL47 | Stata | person-level multilevel | z = −3.59 | – | < .001 | 394,575 | −0.006 |
+
+Every analyst found a negative effect, agreeing on direction, and four of the five clear the conventional significance bar decisively. Read the last two columns against each other, though, and the verdicts come apart. PRL47's z of −3.59 is unambiguously significant (p < .001) while converting to a partial correlation of −0.006 – significance carried by 394,575 respondents, not by the size of the effect. 018OL, the one non-significant row (p = .23), converts to an r ten times PRL47's. A p-value and a standardised effect are answers to different questions, and neither substitutes for the other. Yet the partial correlations run from −0.006 to −0.452, a factor of about 75, and the two person-level analysts sit at the opposite extremes. You have now seen the whole mechanism from the inside: KEVF1's conversion divides through a group-scale df of about 136, of the kind the three-level and random-slope fits of section 6 produce; PRL47's runs the respondent count through the denominator, of the kind the two-level fit produced. The same negative relationship, converted under two df conventions, becomes either a substantial correlation or a rounding error. The habit the workshop insists on follows: read the degrees of freedom before reading the effect size, because a converted number is only as meaningful as the df behind it.
+
+The common axis is also what makes the workshop's central result legible. Decomposing the 840-specification grid to ask which analytical fork moves the estimate most gives an unambiguous answer:
+
+| Analytical fork | Share of specification variance |
+|---|---|
+| Outcome (which framing scale) | ≈ 49.7% |
+| Estimator + predictor form + co-predictor + weights (combined) | < 2% |
+
+The choice of outcome – which of the four framing dimensions, or their positive and negative composites, you treat as 'EU framing' – accounts for roughly half of all the variation across the grid. Everything else the menu lets you vary, the estimator tour of sections 3 to 6 included, together moves the result by under two per cent. Two qualifications keep that number readable. The decomposition is computed on the grid as estimated, before the claim-alignment convention the workshop's charts apply for display. Part of the outcome share is therefore the polarity split between positive and negative framings: real variation in what the specifications estimate, which the aligned chart removes from the picture but not from the decomposition. Recomputed on the claim-aligned scale in the companion article, the ranking inverts, with the estimator fork rising to about 58% and the outcome fork falling to roughly 11–12%; once every outcome points the same way, the pooled-versus-within contrast of section 5 becomes the biggest mover. The outcome-family fork of section 9, meanwhile, barely registers: across the family universe of 1,680 rows the Gaussian-versus-beta choice accounts for under 1% of claim-aligned specification variance, and the two family curves all but coincide.
+
+The lesson participants leave with survives every recount. Deciding what 'EU framing' means – which scale, and which polarity – sets what a model estimates before the machinery of sections 3 to 6 gets its say, and modelling the outcome's *distribution* matters far less than choosing the outcome itself. For what a specification curve can and cannot conclude once all those results are on one axis, the workshop's [reading on the specification curve](../exercise/reading-inference.qmd) picks up exactly here.
+
+## Sources and provenance {#sec-sources}
+
+This module is written fresh for the workshop rather than adapted from an existing lesson, and every number in it is computed, not quoted. The models of sections 2 to 5 and the meta-analysis of section 10 execute on this page from the committed files (`EUframes_cy.csv`, `rep_data.csv`, `analysts5.csv`, `spec_grid.csv`); the country-year construction and item definitions are in the [data codebook](../data/EUframes_cy_codebook.md). The person-level and Bayesian outputs of sections 6 to 9 were produced by `companion/_model-outputs/fit_models.R` in the site's source repository, run against the person-level rebuild of the sixteen GESIS waves; the raw microdata are GESIS-licensed and never travel with the workshop – the [repositories module](repositories.qmd#sec-gesis) explains the registration route. The Stata excerpts in section 7 are from analysts PRL47's and KQXUE's public Multi100 materials; the Task-1 free-phase recipes and recorded verdicts in section 10 come from the same analysts' public code and the Multi100 project's public dataset [@AczelEtAl2026InvestigatingAnalyticalRobustness]. The wrong-sign counts, the 840-versus-960 arithmetic, and the claim-direction and significance shares come from `spec_grid.csv`; the fork-importance decompositions (outcome ≈ 49.7% of specification variance as estimated, estimator ≈ 58% on the claim-aligned scale) and the registered 3,840- and 5,520-specification universes come from the facilitator's companion multiverse article, which extends the same grid. The exhibit fits on this page are illustrations of each method; the companion article's preregistered person-level analyses are a separate, registered exercise and are not computed here.
+
+The methods and software cited above are gathered in the reference list below: the panel estimators [@BergeEtAl2026FastUserfriendlyEconometrics; @CroissantMillo2023PanelDataEconometrics], within–between modelling [@BellJones2015ExplainingFixedEffects], the multilevel workhorse [@BatesEtAl2015FittingLinearMixedeffects], survey-weighted estimation [@Lumley2004AnalysisComplexSurvey; @Rabe-HeskethSkrondal2006MultilevelModellingComplex; @Carle2009FittingMultilevelModels; @BaileyEtAl2023WeMixWeightedMixed; @GESISWeightingOverview], Bayesian estimation and its textbooks [@Burkner2017BrmsPackageBayesian; @GelmanHill2007DataAnalysisUsing; @McElreath2020StatisticalRethinkingBayesian; @Kurz2023StatisticalRethinkingBrms], the generalised models [@BrooksEtAl2017GlmmTMBBalancesSpeed; @Kubinec2023OrderedBetaRegression], and meta-analysis [@Viechtbauer2010ConductingMetaanalysesMetafor].
+
+## References
+
+::: {#refs}
+:::

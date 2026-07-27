@@ -10,8 +10,8 @@ The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms.
 
 | Term | Definition | In this workshop |
 |------------------------|------------------------|------------------------|
-| **Reproducibility** | Same question · same data · same analysis → same result | Tested by the SCORE programme [@AlipourfardEtAl2021SystematizingConfidenceOpen]; Teney's result was not reproducible [@MiskeEtAl2026InvestigatingReproducibilitySocial] |
-| **Robustness** | Same question · same data · justifiable alternative analysis → stable result | Multi100's design [@AczelEtAl2026InvestigatingAnalyticalRobustness]; the five-analyst table; Task D2 |
+| **Reproducibility** | Same question · same data · same analysis → same result | Tested by the SCORE programme [@AlipourfardEtAl2021SystematizingConfidenceOpen]; the result reported by the original author (OA) was not reproducible [@MiskeEtAl2026InvestigatingReproducibilitySocial] |
+| **Robustness** | Same question · same data · justifiable alternative analysis → stable result | Multi100's design [@AczelEtAl2026InvestigatingAnalyticalRobustness]; the five-analyst table; Task 6 |
 | **Replicability** | Same question · independent new data → same result | Tyner et al. [@TynerEtAl2026InvestigatingReplicabilitySocial]; discussed in Talk I |
 | **Repeatability** | Umbrella term covering all three above | Used in the Nosek et al. glossary as the overarching category |
 
@@ -41,6 +41,20 @@ The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms.
 
 - @SilberzahnEtAl2018ManyAnalystsOne – Silberzahn et al. (2018). Many analysts, one data set: making transparent how variations in analytic choices affect results. *Advances in Methods and Practices in Psychological Science*, 1(3), 337–356. <https://doi.org/10.1177/2515245917747646>
 
+### Preregistration
+
+These three are the pre-session reading list for the preregistration block; all are open access. None is required – everything is taught on the day – but they let you arrive with the ideas in hand.
+
+- Nosek, Ebersole, DeHaven & Mellor (2018). The preregistration revolution. *PNAS*, 115(11), 2600–2606. <https://doi.org/10.1073/pnas.1708274114> – a short primer on the idea the block turns on: predicting a result versus explaining one after the fact, and the case, like ours, where the data already exist.
+
+- The AsPredicted eight-question form – the short template you complete in the session, listed on OSF as the "Preregistration Template from AsPredicted.org". Live form: <https://aspredicted.org>; OSF listing: <https://help.osf.io/article/158-create-a-preregistration>.
+
+- van den Akker, Weston, Campbell, et al. (2021). Preregistration of secondary data analysis: A template and tutorial. *Meta-Psychology*, 5, 2625. <https://doi.org/10.15626/MP.2020.2625> – the fuller template built for exactly our situation, reanalysing data that already exist; the tool a full version of today's exercise would use.
+
+### Reading the multiverse
+
+- [Reading a specification curve: what it can and cannot say](exercise/reading-inference.qmd) – this workshop's own reading for the final block: why a large set of results is not a large set of independent tests, and what a single test across the whole curve can and cannot establish.
+
 ### The case study paper
 
 - @Teney2016DoesEUEconomic – Teney (2016). Does the EU economic crisis undermine subjective Europeanization? *European Sociological Review*, 32(5), 619–633. <https://doi.org/10.1093/esr/jcw008>
@@ -48,6 +62,17 @@ The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms.
 ### The SCORE programme
 
 - @AlipourfardEtAl2021SystematizingConfidenceOpen – Alipourfard et al. (2021). Systematizing Confidence in Open Research and Evidence (SCORE). *SocArXiv*. <https://doi.org/10.31235/osf.io/46mnb>
+
+------------------------------------------------------------------------
+
+## Companion curriculum
+
+Four optional self-study modules sit around the one-day workshop – see the [curriculum overview](companion/index.qmd) for the suggested reading order.
+
+- [Getting started with R](companion/intro-r.qmd) – for participants arriving with no R at all; best read before the day.
+- [The statistical methods behind the workshop](companion/stats-methods.qmd) – every model fitted on the case's own data with real outputs read line by line, from a first `lm()` through fixed and random effects to multilevel, weighted, Bayesian and ordered-beta models, ending with meta-analysis and the common effect-size axis.
+- [Git and GitHub for reproducible research](companion/git-github.qmd) – version control and publishing your own report, the part lifted out of the core day so it can be learned on its own terms.
+- [Reproducibility repositories](companion/repositories.qmd) – research-data archives, the OSF nodes behind this case, and preregistration templates in more depth.
 
 ------------------------------------------------------------------------
 
@@ -59,14 +84,14 @@ The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms.
 | Multi100 – GitHub repo (effect sizes) | <https://github.com/marton-balazs-kovacs/multi100> |
 | OSF fork – data & corrected analysis (workshop fetch target) | <https://osf.io/6zqct/> |
 | Official Multi100 archival record for analyst C6HJR | <https://osf.io/8rtwe/> |
-| Full SCORE dossier on Teney (2016) | <https://osf.io/h7432/> |
+| Full SCORE dossier on the EU-frames case | <https://osf.io/h7432/> |
 | Multi100 navigation sheet (claims list) | Available from the Multi100 OSF project above |
 
 ------------------------------------------------------------------------
 
-## The Teney (2016) SCORE dossier – one paper, all three Rs
+## The EU-frames case SCORE dossier – one paper, all three Rs
 
-The Teney (2016) paper was subjected to all three SCORE activities: reproduction, robustness reanalysis, and replication. The parent node for the full dossier is [**https://osf.io/h7432/**](https://osf.io/h7432/){.uri}. The table below summarises each component.
+The target article [@Teney2016DoesEUEconomic] was subjected to all three SCORE activities: reproduction, robustness reanalysis, and replication. The parent node for the full dossier is [**https://osf.io/h7432/**](https://osf.io/h7432/){.uri}. The table below summarises each component.
 
 | Component | What | Outcome |
 |------------------------|------------------------|------------------------|
@@ -84,7 +109,9 @@ Three Rs, three different verdicts on one paper: reproduction failed (twice, dif
 
 ------------------------------------------------------------------------
 
-## Newcastle University resources
+## If you are at Newcastle University
+
+The workshop is open to anyone, so support of the kind below exists wherever you are: your own institution's library and its research-software or research-data team are the places to ask. As one worked example, participants based at Newcastle University can draw on the following.
 
 | Resource | URL |
 |------------------------------------|------------------------------------|

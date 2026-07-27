@@ -1,0 +1,18 @@
+
+Call:
+svyglm(formula = cosmo ~ unemp, design = des)
+
+Survey design:
+svydesign(ids = ~1, weights = ~w1, data = person)
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 0.5055600  0.0014713  343.61   <2e-16 ***
+unemp       0.0001262  0.0001538    0.82    0.412    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for gaussian family taken to be 0.1398685)
+
+Number of Fisher Scoring iterations: 2
+

@@ -1,6 +1,6 @@
-# Codebook: `teney_panel.csv`
+# Codebook: `EUframes_cy.csv`
 
-Country-year panel built for the workshop "Applied replication for data skills" (Open Research Conference, Newcastle University, 16 June 2026). One row per EU member state per year, 2004–2013 (27 countries × 10 years = 270 rows).
+Country-year panel built for the workshop "Applied Replication for Data Skills" (first delivered at the Open Research Conference, Newcastle University, June 2026). One row per EU member state per year, 2004–2013 (27 countries × 10 years = 270 rows).
 
 ## Sources and construction
 
@@ -17,7 +17,7 @@ Dimension item assignment (questionnaire item → dimension):
 | Communitarian (negative, non-materialist) | Unemployment; Loss of cultural identity; More crime; Not enough control at external borders |
 | Libertarian (negative, materialist) | Bureaucracy; Waste of money |
 
-**Wave-set note.** The original data-prep script read the EB 70.1 file (ZA4819) twice: once for 2008 (correct) and again in place of EB 72.4 (ZA4994) for the year 2009 (incorrect). The analyst spotted and corrected this during the project – the annotated script in the fork's `moreh_rep_vAPR2025/` folder (osf.io/6zqct) carries the note "APRIL 2025 – Mistake in dataset here; the dataset associated with 'eb724' should be 'ZA4994_v3-0-0.dta'". The official Multi100 component (osf.io/8rtwe) preserved only the earlier, uncorrected folder; the correction is published in the fork. This panel uses the corrected wave set (ZA4994 for 2009) and was rebuilt independently from the raw GESIS files. A rebuild using the as-published wave set reproduces the `rep_data.csv` aggregates to machine precision (max diff 5.6e-17), which verifies that the rest of the pipeline is identical. The constrained Multi100 Task-2 model (`mcosmo ~ unemp_c`, two-way fixed effects) gives t = −3.853 on the published `rep_data.csv` and t = −3.804 on this corrected panel; the latter matches the result recorded for analyst C6HJR in the Multi100 dataset, confirming which dataset produced the recorded value.
+**Provenance note.** This panel was rebuilt independently from the raw GESIS files, using the sixteen-wave inventory above. The as-submitted Multi100 artifact (`rep_data.csv`) is preserved unchanged alongside it; how the two builds relate is worked through during the workshop's Block 2 exercise.
 
 ## Variables
 

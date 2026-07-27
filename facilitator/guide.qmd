@@ -1,6 +1,6 @@
 ---
 title: "Facilitator guide – Applied Replication for Data Skills"
-subtitle: "Open Research Conference, Newcastle University · 16 June 2026 · 10:15–12:45 · Room 1.06 Henry Daysh"
+subtitle: "Facilitator run sheet – full-day format"
 format:
   html:
     toc: true
@@ -12,90 +12,152 @@ execute:
 ---
 
 ::: {.callout-note}
-**This document is for the facilitator's eyes only.** It is rendered as part of the site but not included in the navbar.
+**This document is for the facilitator's eyes only.** It is rendered as part of the site but not linked in the navbar. It carries the full run sheet, answer keys, and crib facts – including the Block 2 story of the data-preparation slip, which the deck tells openly.
 :::
 
 ---
 
-## The night before (15 June)
+## Delivery lifecycle
 
-- [ ] Render the full site: `quarto render` from the workspace root; check no errors; push; confirm Pages build completes on GitHub Actions.
-- [ ] Test the full participant loop from a throwaway GitHub account: "Use this template" → own public repo → enable Pages → clone in Positron → `quarto preview` renders skeleton → push → Action deploys → live URL appears.
-- [ ] Open the two pinned Discussion threads in browser tabs and verify they are visible to a logged-out visitor: "Results board & gallery" and "Help / I'm stuck".
-- [ ] **Live results system** (full setup + checks in `facilitator/live-results-setup.md`): confirm the Google Form accepts an anonymous submission (incognito, no Google login), that the test row reaches the linked Sheet, that the Cloudflare Worker URL returns the sheet as CSV, and that opening the live [Multiverse](https://codemoreh.github.io/applied-replication/results.html) page shows your test dot after pressing *Run Code*. Then clear the test rows from the Sheet.
-- [ ] Charge laptop. Confirm charger is in bag.
-- [ ] Print cheatsheets (one per pair = ~10 copies; file: `exercise/cheatsheet.qmd` rendered PDF or A4 HTML printout).
-- [ ] Prepare the Vevox session at `[VEVOX-LINK]`; confirm the three poll moments are queued; test that the QR on the slide resolves correctly. Note the fallback: all polls also work as hands-up. Nothing downstream depends on Vevox output.
-- [ ] Cut ~20 sticky notes: green (= "working") and red/orange (= "help needed") per pair table.
-- [ ] Set `_variables.yml` date/room fields if not already finalised. Confirm the OSF fork `6zqct` is still public (anonymous `osfr` download works without login; cross-check that `osf.io/8rtwe` also remains public as the archival record).
-- [ ] Fix the fork wiki self-link: the fork's wiki currently says "https://osf.io/zb3ec (this project)" – zb3ec is a deleted earlier fork (HTTP 410). Update the wiki to point to the correct self-link: https://osf.io/6zqct/.
+The site is evergreen between deliveries. Scheduling one is a three-step edit; resetting after one is a four-step export.
+
+**Scheduling a delivery.**
+
+- [ ] Fill the `delivery:` block in `_variables.yml` (date, venue/platform, event, mode, registration URL) and set `active: 'true'`. Re-render and push; the landing page grows a "Next delivery" callout. Set `active: 'false'` again afterwards.
+- [ ] Decide the extended-universe option at **T-2 weeks** against the go/no-go checklist in `_planning/extended-universe-spec.md`. If GO, the opt-in text there goes into the joining email.
+- [ ] Decide recording. If recording: talk segments only, announced at the start of each recorded stretch, paused for hands-on and chat-heavy segments. Nothing in the day depends on the recording either way.
+- [ ] Optionally create the prereg mirror form from `_planning/prereg-form-spec.md` and paste its URL into `_variables.yml`. The rendered declaration block is the primary record; the form is a silent secondary. Skipping it costs nothing.
+
+**Resetting after a delivery (before the next one).**
+
+- [ ] Export the responses Sheet (File → Download → CSV) and commit it as a date-stamped snapshot (e.g. `data/class_results_2026-06-16.csv`); refresh `data/class_results.csv` per `facilitator/live-results-setup.md` if you want the archived cohort visible on the evergreen site.
+- [ ] Clear (or archive to a second tab) the old rows in the live Sheet so the next cohort's chart opens near-empty. **Do not touch the Form, the Worker, or the field schema** – the pipeline is working; only the rows rotate.
+- [ ] Save the previous cohort's prediction log (chat export) with the snapshot – it feeds the follow-up when the registered results land.
 
 ---
 
-## Room setup (09:45–10:15)
+## The week before
 
-- [ ] Project the slide deck (`slides/index.qmd`) on the room screen from 09:45.
-- [ ] Show **two QR codes simultaneously** on the opening title slide (or on a holding slide before the deck):
-  - Site: `https://codemoreh.github.io/applied-replication/`
-  - Template repo: `https://github.com/CodeMoreh/replication-lab`
-- [ ] Write on the whiteboard (or have a slide):
-  - Room wifi SSID and password
-  - Short URL to the site
-  - The five in-room URLs from the cheatsheet
-- [ ] Check power strips are accessible at tables; room has ~20 seats.
-- [ ] Place printed cheatsheets on tables (one per pair position).
-- [ ] Place sticky note pairs (green + red/orange) on each table.
-- [ ] If a second screen/laptop is available, open the live [Multiverse](https://codemoreh.github.io/applied-replication/results.html) page – press *Run Code* during the debrief to watch the room's dots appear live.
-- [ ] Confirm room wifi allows outbound HTTPS to `github.com`, `osf.io`, `codemoreh.github.io`, `docs.google.com` (the Form/Sheet) and your `*.workers.dev` Worker. If not, activate instructor hotspot before the session starts.
+- [ ] Click once through the Block 3 tab choreography (deck → the live preregistration document → the spec-menu page → the results page and back) so the switching order is in your fingers – it is the one sequence the day performs live several times.
+- [ ] Send joining instructions: setup page link (two routes), the two-window/two-device tip, the optional pre-reading (listed on the setup page), and – if GO – the extended-universe opt-in text.
+- [ ] Confirm the deck's Multi100 slide against the registered protocol at osf.io/7snkz (the note on that slide asks for the registration's actual wording, not a paraphrase).
+
+## The night before
+
+- [ ] Render the full site: `quarto render` from the workspace root; check no errors; push; confirm the Pages build completes on GitHub Actions.
+- [ ] **Live results loop** (full setup + checks in `facilitator/live-results-setup.md`): submit one anonymous test row via the Form (incognito), confirm it reaches the Sheet, confirm the Worker returns the sheet as CSV, press *Run Code* on the live [Multiverse]({{< var live-results-url >}}) page and see the test dot. Then delete the test row.
+- [ ] **Prereg block loop**: open the workspace zip fresh (download it as a participant would), complete the declaration block with a dummy spec, render, and check the rendered block and timestamp. If the mirror form exists, submit one dummy row and delete it.
+- [ ] **Browser lab cold load**: open `exercise/browser-lab.qmd`'s live page in a private window on the venue-typical connection; time the webR engine load; run the first chunk and the Task 3 reproduce chunk (t = −3.804).
+- [ ] Confirm both OSF nodes load logged-out: osf.io/6zqct (fork) and osf.io/8rtwe (archive); confirm osf.io/h7432 shows the replication component (the scavenger target).
+- [ ] Prepare the catch-up card, the help doc, and the day-plan message (texts below) as ready-to-paste snippets.
+- [ ] Charge everything; second device signed in to Teams as a participant-view check.
+
+## Opening the (virtual) room – 30 minutes before
+
+- [ ] Open the Teams meeting early; enable chat for everyone; check breakout rooms are available (they are optional – nothing depends on them).
+- [ ] Seed the chat: site URL · browser-lab URL · cheatsheet URL · the timestamped day plan (the standing order if the host drops: "follow the day plan; finish the current task or take the break early; I will rejoin").
+- [ ] Post the interaction key: "green circle emoji = working · STUCK = I need help · answers to quizzes: type but hold until I say go".
+- [ ] Share the deck; keep four tabs ready to switch: the deck, the spec menu, the live preregistration document, the Multiverse page.
+- [ ] If recording: announce it now and state what is and is not recorded.
 
 ---
 
 ## Run sheet
 
-| Clock | Segment | What I do | What participants do | Watch out for |
+Times are block-relative. B1 starts at the advertised hour; 15-minute breaks after B1 and B3; 45-minute lunch after B2.
+
+### Block 1 – One paper, three verdicts (90′)
+
+| Rel. | Segment | What I do | What participants do | Watch out for |
 |---|---|---|---|---|
-| 10:15 | **Welcome & pairs** (5′) | Welcome. State premise in two sentences: "In April *Nature* published three papers on trust in social science. I was inside one of them – today you sit where I sat." Show roadmap slide. Ask: "Who ran the check script and got all green?" – those hands spread out around the room, one per pair (see pair formation script below). Display wifi + QR codes. | Find a partner, scan QR, note the site URL. | Keep this brisk – 5 min hard cap. If check-script hands are fewer than ~5, proceed anyway; Track A absorbs. |
-| 10:20 | **Talk I – the three Rs** (18′) | Walk slides 1–14 at measured pace. Reveal the three *Nature* papers in sequence. Use the quiz fragments on slide 5 ("I rerun your Stata do-file on your data – which R?") as hands-up beats. Land on the punchline: reproducible ≠ robust ≠ replicable, the three indicators are near-uncorrelated. | Listen; hands-up quiz beats; brief pair chat on slide 5 prompt. | Don't over-run. If behind after Miske (slide 8), cut Tyner to one sentence ("55% replicated; effect sizes halved") and skip moderators slide. |
-| 10:38 | **Talk II – the Teney case** (10′) | Slide 15: Teney (2016) in 60 seconds. Slide 16: the claim card verbatim. Slide 17: SCORE's "not reproduced" – pause, let it land. Slides 18–19: reveal the five-analyst plot **one row at a time**; ask after each: "Same data. Same claim. Why five answers?" End: "Today you are analyst no. 6." | Watch the reveal; absorb the range; begin to wonder what *their* choice would be. | The five-analyst table is the emotional hook. Don't rush slide 18. |
-| 10:48 | **Setup sprint – two tracks** (15′) | Announce Track A (browser) vs Track B (full pipeline). Read out the pair formation result: Track B pairs drive the template flow; Track A pairs open the browser-lab page directly. Project the setup page URL. Circulate with sticky notes: green = working, red/orange = help. Watch the room; triage red notes first. At 11:00 call time: "If you're not rendering yet, open the browser-lab page now – you can do everything there." | Track B: "Use this template" → own public repo → enable Pages → clone in Positron → `quarto preview`. Track A: navigate to site → Browser Lab page → wait for webR engine (~10–30 s). | The setup sprint is the highest-risk segment. Have the github.dev fallback in mind. Announce it at 10:55 if red notes persist: "Press `.` on your repo on GitHub – that's enough to edit and commit." |
-| 11:03 | **Concepts – estimand + DAG** (18′) | Mini-lecture 8′ (slides 20–26): Silberzahn red-card study → A&B's diagnosis (four estimands, dispersion shrinks sevenfold when one is fixed) → Lundberg's three steps → confounder/mediator/collider crash-course → the Teney DAG, half-built. Then: "Now you finish it. Open Task C in your report." Guide 10′ hands-on. At ~11:20 ask one pair to share their adjustment-set output. | Write the estimand sentence; complete the DAG edges they believe in; run `adjustmentSets()`; note what two-way FE adjusts for and what it cannot. | If behind by >5 min at 11:03, compress to demo-only: run `adjustmentSets()` live on the projector, participants note the output, skip the pair build step. |
-| 11:21 | **Reproduce the constrained result** (12′) | Announce Task B + D1. "Run `R/get_data.R` – you are literally fetching from the published OSF project." Then fit the two-way FE model. Target: t ≈ −3.80. Circulate; watch for data-fetch failures (fallback chain is built-in). After ~8 min: "Does anyone have t = −3.80?" – show of hands; celebrate it. Mention: "`feols` and `plm` give the same point estimate; the SE difference is itself the lesson." | Run `get_data.R`; explore the panel; fit the constrained model; confirm t ≈ −3.80; first commit + push. | OSF rate-limiting is unlikely (28 KB file) but the fallback chain handles it silently. If no one gets the target t, check they used `unemp_c` (centred), not raw `unemp`. |
-| 11:33 | **Break** (10′) | "Ten-minute break – back at 11:43." Monitor the Discussion help thread during the break; answer any posted questions. | Break; post questions to Discussion if stuck. | Keep to 10 min. |
-| 11:43 | **Your analytical path** (22′) | Announce Task D2. "Pick ONE deviation from the spec menu. Before you run it – commit to it: Track B, a `prereg:` commit before running; Track A, write your spec and a one-sentence reason in your script and tell your partner." Circulate; prompt pairs who are blank: "What does your DAG say about GDP growth – confounder or co-exposure?" After ~15 min: "Run your spec, then run `report_result()` and click the link it prints – that submits your dot to the live chart." | Choose one spec; justify it in one sentence grounded in the DAG; write it down before running; run; submit via the `report_result()` link. | Watch for pairs who commit to a spec after running – gently call it out as a teaching point, not a reprimand. Fast pairs: point to Task F (second spec or Hausman test). |
-| 12:05 | **Share & publish** (10′) | "Now publish. Track B: commit, push – Action deploys in ~1–2 min. Track A: we'll do a 'first repo in 3 minutes' live demo – watch." Demo the web-upload flow on the projector: navigate to `github.com/new`, upload script/qmd, repo created. Remind: paste the repo URL (+ Pages URL if deployed) into the Results board thread. | Track B: final commit + push; watch Action; paste URLs. Track A: follow the demo; upload files; paste repo URL. | Actions queue can be slow on conference wifi. Reassure: "The Action will finish even after we leave – the URL will work." |
-| 12:15 | **Multiverse debrief** (12′) | Project the live [Multiverse](https://codemoreh.github.io/applied-replication/results.html) page; press *Run Code* on the Class-results chart to pull the room's dots (press it again as more arrive). Ask questions from the debrief bank below. Land on: "We just did a mini-Multi100. Which menu choices moved the estimate most? Is the claim robust 'enough'?" | Look at the chart; locate their own dot; contribute to discussion. | If few submissions have arrived, the pre-computed grid + five analysts is still a rich chart. If the live fetch fails (CORS/wifi), fall back to the static spec curve on the slides ("The class multiverse"). Never type credentials on the projector. |
-| 12:27 | **Wrap** (5′) | Recap the three skills: reproducible data retrieval + version-controlled literate report + published multiverse contribution. "You now own a public repo and a live site – that's a portfolio piece." Show take-home resources slide. Share Vevox feedback QR (`[VEVOX-LINK]`). Thank everyone. | Optionally fill in feedback poll; note URLs to keep. | If Vevox fails, ask for one-word verbal feedback: "What's the one thing you'll take away?" |
+| 0:00 | Welcome + what you do not need (8′) | Premise in two sentences ("*Nature* asked three times whether social science holds up – I was inside one of the papers; today you sit where I sat"). Roadmap. "Open the lab tab / your workspace NOW." | Open lab tab (engine warms) or Positron workspace; type one word in chat for why they came. | Late joiners: greet in chat, never restart. Two-device tip again. |
+| 0:08 | Talk: the three Rs (20′) | Slides at measured pace; quiz beats as chat waterfalls (type, hold, "go"). | Chat waterfalls. | If behind after Miske, cut the moderators slide to one line. |
+| 0:28 | Talk: the EU-frames case (14′) | Claim card verbatim; the five-analyst forest **one row at a time**; end on "you are analyst no. 6 – and the code is mine". | Watch the reveal. | Never rush the reveal. |
+| 0:42 | Stretch (3′) | Cameras off, stand up. | Stretch. | Actually stop talking. |
+| 0:45 | Hands-on 1: Tasks 1–3 (35′) | Drive Positron / the browser lab on the shared screen alongside them; monitor chat + help doc at 0:55, 1:05, 1:15; buddy-chunk any STUCK on my screen. Then the waterfall: "type your t, hold, go". | Fix the vocabulary (Task 1), meet the EU-frames panel (Task 2), fit the constrained model (Task 3); land **t = −3.804**; waterfall the t. | The wall of identical −3.804s is the payoff – wait for a critical mass before "go". Dead compute → cheatsheet ladder. |
+| 1:20 | One number too many + break (10′) | Achievement line in chat; then open the thread for the afternoon with the deck slide "One number too many": you reproduced **t = −3.804**, but a *second* number, **t = −3.853**, sits in this analysis's public trail – I wrote both. Say the gap has a story and that I tell it after the break. Post break-return time in chat; countdown slide. | Name the achievement; break. | Hold the reveal: name the second number, but keep its cause for the told story that opens Block 2 – the payoff depends on the pause. |
+
+### Block 2 – The record's second number, then the question underneath (90′)
+
+| Rel. | Segment | What I do | What participants do | Watch out for |
+|---|---|---|---|---|
+| 0:00 | The story of the second number (20′) | Told, not hunted. Walk the deck's reveal sequence: "The other number in the record" (−3.804 vs −3.853; the two builds diverge on 2009 alone, every other year flat) → "One file, read twice" (`ZA4819` read a second time in place of `ZA4994`, so 2009 is 2008 respondents relabelled) → "The discovery and the correction" (my April-2025 annotation; the open OSF fork trail – `moreh_rep/` as-submitted, `moreh_rep_vAPR2025/` corrected script + exported data, `EUframes_cy.csv` now in 6zqct's main folder, 8rtwe uncorrected only) → "The same slip, one desk over" (KQXUE's double-appended wave) → "This is reproducibility working". | Watch; react. Anyone who wants to see the divergence for themselves opens the optional `forensics.R` exhibit. | Tell it slowly – it is the morning's hinge. Not a gotcha about the original author or me; land the moral (the open trail is what let the slip be caught) before changing gear. |
+| 0:20 | Stretch (3′) | Cameras off, stand up. | Stretch. | Actually stop talking. |
+| 0:23 | Talk: estimands (30′) | Red-card → A&B's four estimands → Lundberg → *Revenons*. Estimand waterfall on the *Revenons* slide: read 3–4 aloud, point at the spread. | Type their one-sentence estimand; hold; send on "go". | Silent room: name two people gently, or take reactions; two answers from twenty is a proceed. |
+| 0:53 | Talk: DAG crash course (30′) | Confounder/mediator/collider; open/closed paths; which effect; spurious-by-design; A&B resolution; end in dagitty. | Watch; optionally open dagitty.net alongside. | Task 4 (the DAG) hands-on is AFTER lunch – resist starting it now. |
+| 1:23 | Close + lunch launch (7′) | Achievement line; lunch slide; post return time + the spec-menu link ("worth five minutes with a sandwich"). | Lunch. | Lunch is a hard firewall – an overrun here may not cross it. |
+
+### Block 3 – Preregister like an analyst (90′)
+
+| Rel. | Segment | What I do | What participants do | Watch out for |
+|---|---|---|---|---|
+| 0:00 | Re-entry + roll-call (5′) | "Raise hand" roll-call; paste the catch-up card for late returners (text below). | Rejoin; late returners follow the card. | Do not wait past 0:05 – the card carries stragglers. |
+| 0:05 | Hands-on 3: Task 4, the DAG (17′) | Half-built DAG slide; they wire the three candidate nodes and run `adjustmentSets()`; pairs in breakouts if available, chat variant otherwise; one share-out. | Finish the DAG; run `adjustmentSets()`; two-sentence FE note. | **Trigger at 0:20:** if the room is behind, switch to demo-only (proven in v1) – run it on my screen, they note the output. |
+| 0:22 | Spec menu (10′) | Walk the one menu, every axis first-class – outcome, family, predictor, predictor form, copredictor, estimator, sample, weights; give the historical provenance (Multi100's Task 2 fixed unemployment and, implicitly, the gaussian scale; the menu opens both axes, and Task 1 shows three of five analysts freely chose GDP measures; beta fits report z, not t); state the **claim-alignment convention** (negative framings reverse-coded, 1 − y, applied automatically by `claim_align <- TRUE` – support = negative sign for everyone, and the class chart uses that scale); two worked examples of spec + one-sentence justification. The whole day works from the **corrected panel** (`EUframes_cy.csv`) – there is no separate as-submitted working file. | Pick their ONE deviation; draft the justification. Nobody runs anything. | Blank pairs: "what does your DAG say about growth – confounder or copredictor?" |
+| 0:32 | OSF + preregistration (18′) | The three OSF addresses; **scavenger beat** (3′): open h7432, find the replication, paste the b in chat; Multi100's registered protocol; my live preregistration on screen (sections 2, 3, 5.1, 8); the AsPredicted eight questions and the mapping table. | Scavenge; read; ask. | The scavenger is a live-web moment – if OSF is slow, show it on my screen and keep the beat. |
+| 0:50 | THE PREREGISTRATION MOMENT (10′) | Called from the front, synchronous. Complete fields 1–5 → render (Route 1) / save into script (Route 2) → type "declared". Count aloud ("eight declared… twelve…"). **Proceed rule:** move on at ~80% declared or at 10′, whichever first; stragglers finish while others start running. | Complete, render, declare. | Never cut. The rendered block is the record; the mirror form (if any) is silent and optional. |
+| 1:00 | Run + submit (20′) | "Build and run your declared spec – only that one" (Task 6). Then `report_result()` (Task 7) – it takes no arguments: it reads the preregistered choices, auto-builds the spec label, always submits claim-aligned values, and prints the submission line plus a one-click pre-filled form link. Keep the Multiverse page shared; press *Run Code* at ~1:05, 1:12, 1:20 as dots land. Buddy-chunk rescues in the main room; check help doc at 1:08 and 1:16. Fast finishers → a second, exploratory spec (the first declaration was the preregistration; anything after it is exploration – naming which is which out loud is the point), or the extended-universe option, if GO. | Run, submit, watch the chart grow; a second exploratory spec if fast. | Everyone lands a dot: if the form will not open, they read the printed numbers aloud and I submit for them; the last-resort ladder ends at the grid lookup + hand submission. Watch the Sheet tab for malformed rows. |
+| 1:20 | First look (10′) | Two questions from the bank (sign flip? significance loss?); find-your-dot. Post break time; countdown slide. | Locate their dot; discuss. | Leave the Multiverse page open over the break. |
+
+### Block 4 – Reading the multiverse (90′)
+
+| Rel. | Segment | What I do | What participants do | Watch out for |
+|---|---|---|---|---|
+| 0:00 | Class chart debrief (12′) | The class multiverse + the five-analyst overlay; question bank. | Discuss; find their dot against the analysts. | If submissions are few, the 840 grid + analysts still carries it. |
+| 0:12 | Prediction → fork importance → analysts → flips (18′) | "Place your bet" waterfall FIRST; then the 49.7% reveal; the placement chart (person-level analysts at the extremes); the patterned flips. | Bet; watch the reveals; connect to their own axis choice. | The bet must come before the reveal – do not skip it to save time; it is what makes the 49.7% land. |
+| 0:30 | Hands-on 4: your percentile (10′) | Point at the **browser lab's** percentile chunk – both routes use the lab cell (the workspace report has no percentile section); waterfall the results. | Compute their percentile; waterfall it. | Participants without a submission use the baseline (−3.804) – percentile ≈ 49.6% on the claim-aligned scale. |
+| 0:40 | Stretch (2′) | Cameras off. | Stretch. | – |
+| 0:42 | Inference literacy (15′) | Two jobs; not-840-tests; the permutation design; how to read B = 500; then the **discussion beat** ("70.7% – strong evidence? against what null?"): 2′ think, chat, harvest; then what-stands-without-the-test and the critics slide (the live 2025–26 debate – name the three positions, leave it open). | Think; argue in chat. | The target answer: "we can't say until we know what chance produces on these dependent data." Someone will get there – let them say it. |
+| 0:57 | The registered extension + your prediction (8′) | Badged slides; variant A/B wording per the pending-slot status; the prediction micro-action (A/B/C/D + one clause). Save the chat log after – it is the follow-up hook. | Predict, on the record. | Badge discipline: nothing on these slides is a result. |
+| 1:05 | Taking it home (10′) | The git sketch; companion modules; take-home resources. | Note links. | Keep the git sketch to ~8′ – it is a signpost, not a lesson. |
+| 1:15 | Wrap + feedback (15′) | Achievements restated; feedback form in chat; chart left on screen; thanks. | Feedback; goodbyes. | End on time – online goodbyes drag. |
 
 ---
 
-## Answer keys to some exercise questions:
+## Online / in-person cue sheet
 
-_template/index.qmd: first task:
+Same materials; only the interaction layer swaps.
 
-> 1 = reproducibility (named by the attempt; here it is a failed reproduction – the verdict is "not reproduced", but the activity is still reproducibility) · 2 = the grey area: changing software while keeping the same intended analysis is usually still reproducibility (a re-computation), though centring the predictor nudges toward robustness – good to argue both ways · 3 = replicability · 4 = the impostor: generalisability (different data and different methods)
+| Beat | Online (Teams) | In person |
+|---|---|---|
+| Quiz / waterfall answers | type in chat, hold until "go" | write on paper, hands up on "go" (or Vevox if the venue has it) |
+| Working / stuck status | green-circle emoji / "STUCK" in chat | green / red-orange sticky notes |
+| Roll-call | Teams "raise hand" | visual sweep |
+| Pair moments | breakout rooms if available; scripted chat variant otherwise | table pairs |
+| Rescues | buddy-chunk on the shared screen | facilitator circulates |
+| The live chart | everyone opens the Multiverse page themselves | projector + own laptops |
+| Form links | pasted in chat | QR codes on the slides |
+| Breaks | countdown slide + "back at :xx" in chat | countdown slide + verbal |
+| Facilitator absent | published day plan = standing order | n/a |
 
 ---
 
-## Timing flex notes
+## Chat protocols and ready-to-paste texts
 
-### If 5 minutes behind
+**Waterfall:** "Type your answer now but DON'T send – hold it. … Go." Guarantees independent answers; produces the wall-of-identical-values beats.
 
-- Cut the **Miske moderators** content (slide 9): state one line ("data-sharing policies predict availability") and move on.
-- Tighten the estimand sentence-writing to a show-of-hands: "Who wrote 'country-year' as the unit? Who wrote 'individual'?" – makes the point without pair work.
+**Help:** STUCK in chat flags; the standing **help doc** (shared editable doc, link seeded at open) is the second surface for pasted errors – check it at the named minutes in the run sheet, not continuously. Rescue in the main room via buddy-chunk (their spec, my webR/Positron, everyone learns).
 
-### If 10 minutes behind
+**Silent room:** after 20 seconds, take reactions (thumbs) as the minimal response; name one or two people gently ("Sam, what did you get?"); two substantive answers from twenty participants is a proceed, not a failure.
 
-- Above, plus: compress the DAG guided exercise to live demo only – run `adjustmentSets()` on the projector, participants note the answer, no individual build.
-- Drop the Track B "first commit + push" call during the reproduce segment (participants still commit later; Action still deploys).
+**Catch-up card (paste at Block 3 re-entry):**
 
-### If 15 minutes behind
+> Just back? You missed nothing you can't recover: (1) open your report's Task 4 (Estimand and DAG) section and run the DAG chunk as-is; (2) open the spec menu and pick ONE deviation; (3) when the room preregisters, complete the block and type "declared" like everyone else. Flag STUCK and I'll come to you in the run window.
 
-- All of the above, plus: drop the **second-spec / Task F** stretch entirely (already optional).
-- Cut the publish demo to a single sentence and a QR to the setup page's "First repo" instructions.
-- If still behind: the multiverse debrief shrinks to 7 minutes (show the chart, ask two questions from the bank, wrap). The debrief is the intellectual payoff – protect at least 7 minutes for it.
+**Facilitator-drop standing order (seeded in chat at open):**
 
-**Compressible in order:** Miske moderators → DAG hands-on → second commit during reproduce → publish demo → debrief (to 7 min minimum).
-**Never cut:** the five-analyst reveal; the preregister moment; submitting results to the live chart.
+> If I drop off the call: keep going. The day plan (link) has the timings – finish the current task or take the break early. I will rejoin as soon as I can.
+
+---
+
+## Compression ladders (with trigger times)
+
+- **Block 1** – trigger 0:28: cut the Miske moderators slide to one line. Trigger 1:05 (hands-on dragging): the Task 3 fit becomes follow-my-screen for the stragglers; the waterfall still happens.
+- **Block 2** – trigger ~1:00 (running long after estimands): the DAG crash course drops the spurious-by-design slide (one sentence instead) and reaches dagitty sooner. The story of the second number and the estimand waterfall are never compressed.
+- **Block 3** – trigger 0:20: Task 4 (the DAG) to demo-only (the v1-proven variant). Trigger 0:45: the OSF segment folds my-prereg slides into one (the deck's notes mark the fold). The prereg moment and the run window are never compressed.
+- **Block 4** – trigger 0:55: inference module leans on the reading (two slides instead of four); the pending slot compresses to 3′; the git sketch to a pointer. The class-chart debrief and the fork-importance reveal are never compressed.
+
+**Never cut:** the five-analyst reveal · the story of the second number (the −3.853/−3.804 arc, the corrected-build annotation, the open OSF trail) · the preregistration moment · results submission + the live chart debrief · the fork-importance reveal.
 
 ---
 
@@ -103,68 +165,59 @@ _template/index.qmd: first task:
 
 | Situation | What to do |
 |---|---|
-| **Participants arrive without GitHub account or installs** | Pair them immediately with a Track B partner. Direct to Track A (browser lab) as their primary track – they can do Tasks A–E entirely in the browser. No setup required. |
-| **Track A (browser lab) webR fails to load** | Rare; try a hard reload. If it persists, direct the pair to `github.dev` (see below) for editing; they can run code in Positron on their partner's machine. As last resort: follow along on the projector. |
-| **Local git or Positron broken** | Direct to `github.dev`: press `.` on the repo page in a browser. Full edit + commit + push interface; the Action still deploys. Code execution is lost, but Tasks A, C (written), E all work. |
-| **Room wifi blocks or throttles GitHub/OSF** | Data fallback chain (osfr → direct osf.io URL → site copy at `codemoreh.github.io/applied-replication/data/rep_data.csv`) handles silently for most pairs. If GitHub itself is blocked, activate the **instructor hotspot** (SSID/password on a slip of paper, not on the projector). |
-| **OSF rate-limits simultaneous downloads** | File is 28 KB – rate-limiting is very unlikely. The fallback chain's third step (site copy) will serve. Announce: "If the OSF download hangs, the script tries a backup URL automatically – just wait 10 seconds." |
-| **GitHub Actions queue very slow** | Publishing is async by design; nothing in the session blocks on it. Reassure participants the URL will work within minutes. The gallery thread accepts repo URLs too, not only Pages URLs. |
-| **Positron GitHub OAuth fails (managed laptop)** | Cheatsheet includes the Git Credential Manager browser-auth path. If that also fails: `git remote set-url origin https://TOKEN@github.com/...` with a classic PAT (participant creates one in GitHub Settings → Developer settings). As absolute last resort: one shared demo account – **project the screen, never type the credentials on the projector**. |
-| **Vevox fails** | All poll moments have been designed to work as hands-up. Nothing downstream depends on poll output. Proceed without Vevox. |
-| **Pair migration needed (one laptop entirely broken)** | Both participants join a working pair as a trio. Three people on one laptop is fine – more conversation, not less. |
+| **A participant's webR fails mid-task** | The cheatsheet ladder: hard reload + rerun chunks above → second browser → buddy-chunk on my screen → grid lookup + hand submission (any spec looks up in `data/spec_grid_full.csv`, the full 2,520-row universe). Everyone lands a dot. |
+| **Route 1 machine breaks** | Switch to the browser lab (full parity); their workspace survives for later. |
+| **The live chart fails during the day** (Form, Worker, CORS) | Rung 1: `results.qmd` falls back to the committed `data/class_results.csv` automatically. Rung 2: pull the Sheet CSV, commit, re-render locally, share my screen. Rung 3: the static 840-spec curve + five-analyst slides still carry the debrief. Submissions are safe in the Sheet regardless – nothing upstream blocks on the chart. |
+| **Breakout rooms unavailable** | Every pair moment has a scripted chat variant. Zero structural cost. |
+| **OSF slow/unreachable during the scavenger** | Show h7432 on my screen; the beat survives. Data never depends on OSF live – it ships with both routes. |
+| **My connection drops** | The standing order in chat: participants continue the current task or break early; I rejoin. The pipeline keeps collecting – it is entirely independent of the call. |
+| **A participant cannot speak/hear** | Everything essential is chat-and-screen; deliver any spoken instruction in chat on request. |
+| **Recording objections** | Recording is optional by design – stop it; nothing depends on it. |
+| **Prereg mirror form fails** | The rendered block is the record; carry on. |
 
 ---
 
-## Pair formation script
+## Answer keys and expected numbers
 
-**Goal:** match prepared (Track B) laptops with unprepared or browser-only laptops in under 3 minutes.
-
-> "Before we start – quick show of hands: who ran the check script this morning and got all green ticks? Keep your hand up."
-
-Count. Expect roughly half the room (some will have done it, some won't).
-
-> "Great. Those of you with hands up – you're the Track B drivers. Please spread out around the room, one per table or one per pair of seats. Leave a space next to you."
-
-Wait 30 seconds for movement.
-
-> "Everyone else – sit next to one of the Track B folks. You're the Track A partner, which means you'll be running everything in the browser. You'll do all the same tasks; your partner will show you the full pipeline alongside."
-
-If Track B volunteers are fewer than ~5:
-
-> "No problem – we'll mostly work in the browser today. Every table, find a partner. Both of you open the browser lab page now."
-
-If everyone has a green check script:
-
-> "Excellent. Pair up with the person next to you. Both of you have the full pipeline – one of you will also keep the browser-lab page open as a backup."
-
-**Sticky-note protocol:** hand each pair one green note (place visible when working fine) and one red/orange note (display when stuck). Circulate and respond to red notes during the setup sprint and exercise segments.
+- Warm-up matrix question set: 1 = reproducibility (a failed attempt is still reproducibility) · 2 = the grey area between reproducibility and robustness – argue both ways · 3 = replicability · 4 = generalisability.
+- Task 3 (both routes): b = −0.00347, SE = 0.00091, **t = −3.804**, df = 233, N = 270 (`EUframes_cy.csv`) – the value on record for C6HJR, reproduced directly from `euframes`.
+- The story's first number (told in Block 2, not a participant task): b = −0.00341, SE = 0.00088, **t = −3.853**, df = 233, N = 270 (the as-submitted `moreh_rep/` pipeline; its exported artifact is `rep_data.csv`, which now lives only inside the story and on OSF).
+- The divergence (the "other number in the record" slide; participants can verify it via the optional `forensics.R` exhibit): only 2009 diverges (mean |diff| 0.030, max 0.132; all other years 0.000); n_cy 2008 = 53,279 vs 2009 = 26,618, ratio exactly 0.500 (the tell is the 2008→2009 drop, not 2009's size – 2006/2007/2013 are also ≈26,600).
+- The cause (the "one file, read twice" slide): prep chunks #8 (`eb701`) and #9 (`eb724`) both read `ZA4819_v3-0-2.dta`; ZA4994 (EB 72.4) is never read.
+- Public-record beat (show on request): the Multi100 cleaning sheet records C6HJR's self-reported **t = −3.853** with the cleaned value **−3.804** and no cleaning note (`multi100_reanalyzed-effect-sizes_raw_data.csv`; local copies + provenance in `_planning/multi100/`) – the day's contrast sits in the public record.
+- Depersonalising beat (the "same slip, one desk over" slide): KQXUE's own `task1.do`/`task2.do` double-append EB 62.0 (autumn 2004) – the same class of error, one desk over, present in both their submissions and caught by nobody. Two of the five pipelines in this one case carry a wave-set slip.
+- Family axis (a first-class menu axis; not part of Multi100's Task-2 menu, which fixed unemployment and, implicitly, the gaussian scale – in the companion article the aggregated family grid is disclosed prior work, its person-level twin registered): beta submissions report **z**, not t. In the browser lab every spec, beta included, is read from the pre-computed grid, so `report_result()` takes no fit; Route 1 fits beta live. Grid-lookup fallback: any spec looks up in `data/spec_grid_full.csv` (the full universe of 2,520 rows), with `data/spec_grid_family.csv` (the family universe of 1,680 rows = the 840 Gaussian rows + their beta twins) as its family-only sibling. Beta twin of the anchor: b(logit) = −0.01399, **z = −4.075**, r = −0.258 (Gaussian anchor r = −0.242: same direction, still significant, slightly stronger).
+- Claim-alignment (the room's convention, set on the spec menu): negative framings (`mcomm`, `mlib`, `mneg`) reverse-coded 1 − y before fitting; sign of b, t and r flips, magnitudes and p untouched (exactly so for beta too). Aligned r runs **−0.70 to +0.24** (gaussian; beta reaches +0.29) – so a class dot above ≈ +0.25 is almost certainly an **un-recoded negative framing**, not a genuine contrary result; name that in the debrief. One caveat from the growth-predictor axis: legitimately aligned growth-predictor dots can reach ≈ +0.37 – check the declared spec before calling it.
+- Analyst placement (share of grid more negative, claim-aligned): KEVF1 15.8% · KQXUE 21.5% · C6HJR 49.6% · 018OL 63.1% · PRL47 67.9%. The two person-level analysts (KEVF1, PRL47) sit at the extremes; the constrained baseline lands almost exactly at the aligned grid's median.
+- Task-1 layer (slide after analyst placement): free phase = five different questions – 018OL GDP p.c. level, KEVF1 growth, PRL47 a GDP battery; only KQXUE and C6HJR used unemployment – with one shared recorded verdict ('evidence for the claim'). No standardised Task-1 effect sizes exist in the public Multi100 data (verdict + free text only). My own Task 1 (`mposframe ~ growth + unemp`, two-way FE, World Bank series) reproduces from the committed as-submitted panel: unemployment t = −4.72, growth ns – standardisation *weakened* my result.
+- Predictor axis (a first-class menu axis; menu + lab lookup, `spec_grid_full.csv`, full universe 2,520 = the family universe of 1,680 + growth 840, both families; not part of Multi100's Task-2 menu, though Task 1 shows three of five analysts freely chose GDP measures): GDP growth as claim carrier, raw form only – affine forms are t-inert (centred≡raw, log-z≡log), which is why the deduplicated canon holds 840 distinct analyses. Growth predictor (840 rows in the full grid): 70.5% claim-direction / 46.9% significant, aligned max +0.37 – direction without significance, matching KQXUE's Task-1 growth null. Growth mirror of my Task-1 model on the corrected panel: b = +0.00167, t = 1.59, ns. Growth polarity: claim-aligned reporting flips the sign (lab lookup does it).
+- Fork importance: outcome 49.7% · residual/interactions 49.2% · sample 0.7 · estimator 0.4 · predictor form/copredictor/weights ≈ 0.
+- Sign flips (mcosmo universe, 140 specs): 41 wrong-sign; 33 in `pooled_cl`, 8 in `fe_twoway`; 24 of the 41 in bailout-excluding samples (halved from the pre-dedupe counts – every distinct analysis appeared exactly twice before, so shares are invariant).
+- Constrained universe: 140 specs · 70.7% negative · 57.1% negative-and-significant. Discussion-beat target: "no verdict without a null for dependent specifications – that is what the registered permutation supplies."
+- Baseline percentile (for participants without their own submission): −3.804 ⇒ ≈ 49.6% on the claim-aligned scale.
 
 ---
 
-## Debrief question bank (multiverse discussion, 12:15–12:27)
+## Debrief question bank
 
-Use 4–6 of these, reading the room for which have the richest answers given what pairs posted.
+Use 4–6, reading the room.
 
-1. **Sign flip:** "Did anyone's specification flip the sign – unemployment associated with *more* positive framing? If not, what does that tell us about the claim's robustness?"
-2. **Significance loss:** "Did any specification lose statistical significance? What was the spec? Is that a reason to doubt the claim, or a reason to scrutinise that particular spec?"
-3. **Axis that moved estimates most:** "Looking at the chart – which menu axis spread estimates furthest apart? Was it the outcome, the sample, the estimator? What does that say about where the 'forking path' is most consequential?"
-4. **Justification quality:** "Who found their DAG helpful in justifying their choice? Who felt the DAG didn't settle the question – that it could justify multiple specs equally well?"
-5. **Preregistration value:** "Track B partners – did writing `prereg:` in your commit message before running change how you felt about the result? Would you have made a different choice if you'd run it first?"
-6. **Robustness tolerance:** "The Multi100 paper uses two tolerance bands: ±0.05 d and ±0.20 d. Looking at our class results – is the Teney claim robust by the tight standard? The loose standard? What tolerance is appropriate for a policy-relevant claim about unemployment and EU attitudes?"
-7. **Against the five analysts:** "Our class results overlap with the five Multi100 analysts' range. Does that mean we replicated the Multi100 multiverse? What would it mean if we'd found a result *outside* their range?"
-8. **Take-home:** "Auspurg and Brüderl found that fixing the estimand shrank dispersion sevenfold. Did we test that today? Would a clearer estimand have narrowed our class multiverse?"
-9. **The three Rs on one paper:** "The same Teney paper failed push-button reproduction (despite author-provided code), survived robustness in sign but not in magnitude, and returned a sign flip in a preregistered replication. Which of the three Rs should worry us most here, and why? Does the answer depend on what you want the finding to be used for?"
+1. **Sign flip:** "Did anyone's specification flip the sign? If not – after seeing the flips chart, where would you have had to stand in the menu to flip it?"
+2. **Significance loss:** "Did any spec lose significance? Reason to doubt the claim, or to scrutinise that spec?"
+3. **Axis that moved most:** "Before I showed the decomposition – which axis did you bet on, and why did most of us get it wrong?"
+4. **Justification quality:** "Whose DAG settled their choice? Whose DAG could have justified three different specs equally well?"
+5. **Preregistration felt:** "Did completing the block before running change how the result felt when it landed? Would you have chosen differently after seeing it?"
+6. **Robustness tolerance:** "Multi100 used ±0.05 and ±0.20 d. Is the claim robust by the tight standard here? The loose one? Who gets to choose the tolerance for a policy claim?"
+7. **Against the five analysts:** "The class overlaps the five analysts' range. Is that reassuring or circular? What would a result *outside* their range have meant?"
+8. **Percentile literacy:** "Your percentile places you among 840 defensible alternatives. What does a 10th-percentile analyst owe their reader that a 50th-percentile analyst does not?"
+9. **The three Rs on one paper:** "This paper failed reproduction, survived robustness in sign but not magnitude, and sign-flipped in replication. Which R should worry us most – and does it depend on what the finding is used for?"
+10. **The inference gap:** "If the registered permutation comes back at p = .30, what survives of today? What if it comes back at p = .004?"
 
 ---
 
 ## After the session
 
-- [ ] **Archive the class results for permanence.** The live chart reads the Google Sheet via the Worker; to keep the record after you retire the Sheet/Worker, export the responses Sheet (File → Download → CSV) and commit it as `data/class_results.csv`. See `facilitator/live-results-setup.md` → "After the session" for how to point the chart at the committed snapshot. Optionally close the Form to new responses (Responses tab → "Accepting responses" off).
-- [ ] Post a thank-you reply in the "Results board & gallery" Discussion thread: acknowledge contributions, link to the live [Multiverse](https://codemoreh.github.io/applied-replication/results.html) page.
-- [ ] Post a brief reply in the "Help / I'm stuck" thread: confirm the session is over, note that questions are still welcome, link to resources.
-- [ ] Note any timing issues, contingency events, or participant feedback for the improvement log. Key questions to record:
-  - Which segment ran longest?
-  - Did the browser-lab webR load reliably on room wifi?
-  - How many pairs reached the publish step?
-  - Did the live results system work (Form submissions, Worker/CORS, dots appearing)? Any failed submissions?
-- [ ] Archive the Vevox results (export PDF or screenshot before the session expires).
+- [ ] Run the reset procedure (Delivery lifecycle above): export + commit the date-stamped snapshot, rotate the Sheet rows, save the prediction log from the chat export.
+- [ ] Export the feedback form responses.
+- [ ] Improvement log – record: which segment ran longest; did the story of the second number land cleanly (attention held, the moral clear); how many declarations before the proceed rule fired; did every participant land a dot (which ladder rungs fired); did webR hold on home connections; Teams frictions (chat scale, breakouts, share switching).
+- [ ] When the registered analyses land: swap the pending-slot slides to variant A, import the results CSVs, and send this cohort the prediction pay-off.

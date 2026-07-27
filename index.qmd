@@ -1,74 +1,79 @@
 ---
 title: "Applied Replication for Data Skills"
-subtitle: "A hands-on workshop · {{< var event >}}"
+subtitle: "A hands-on workshop · {{< var workshop.format >}}"
+execute:
+  freeze: false
 ---
+
+<!-- Not frozen: the next-delivery include below reads _variables.yml at
+render time. Under freeze, Quarto would key the cache on this page's source
+alone and ignore edits to _variables.yml, so flipping delivery.active would
+silently have no effect. The chunk is trivially cheap, so re-executing it on
+every render costs nothing. -->
 
 This workshop aims to introduce several technical skills involved in modern empirical data analysis – retrieving data from an online repository, working with computer code in a reproducible fashion, version-controlling your analysis and publishing a reproducible report – through an applied "replication" exercise.
 
- Participants will reproduce one of the reanalyses that were part of the Multi100 project, whose results were recently published in Nature (Aczel et al. 2026), and test the robustness of a published claim from Teney (2016) – using the same data, tools, and workflow the Multi100 project used.
+ Participants will reproduce one of the reanalyses that were part of the Multi100 project, whose results were recently published in Nature (Aczel et al. 2026), and test the robustness of a published claim by the original author (OA) [@Teney2016DoesEUEconomic] – using the same data, tools, and workflow the Multi100 project used.
 
-## Event details
+{{< include _includes/next-delivery.qmd >}}
 
-| | |
-|---|---|
-| **Event** | {{< var event >}} |
-| **Date** | {{< var date >}} |
-| **Time** | {{< var time >}} |
-| **Room** | {{< var room >}} |
-| **Programme** | [{{< var programme-url >}}]({{< var programme-url >}}) |
+## About this workshop
+
+{{< var workshop.name >}} runs as {{< var workshop.format >}}, facilitated by {{< var workshop.organiser >}}. The site stands as an evergreen, undated course; the callout above appears only when a specific date and venue are scheduled.
+
+Last delivered at {{< var last-delivery.event >}}, {{< var last-delivery.date >}}.
 
 ---
 
 ## What you will do
 
-The workshop centres on Teney (2016), a study of EU attitudes across 27 countries. You will:
+The day centres on the EU-frames case, OA's 2016 study of EU attitudes across 27 countries. You step into the role of a sixth analyst reanalysing a published claim, and you work through the same moves a researcher actually makes:
 
-1. **Reproduce** the constrained result that five independent analysts published as part of the Multi100 project – confirming the same coefficient from the same data.
-2. **Deviate (with reasons)** – choose one justifiable alternative from a specification menu, commit to your choice before you run it, run the model, and submit a standardised result.
-3. **See the multiverse** – your result, alongside your classmates' and the five published analysts', on one chart.
+1. **Reproduce a published analyst's result.** Take the analysis code as it was submitted to the Multi100 project, run it on the original data, and land the exact coefficient it produced.
+2. **Hear how a real error entered real submitted code.** Your run reproduces the recorded value first time; a second number in the public trail does not match it, and its story – a wave file read twice, caught and corrected in the open – is told with the full OSF trail on screen.
+3. **State an estimand and build a DAG.** Say precisely what the study is trying to measure, then draw the causal graph that tells you which variables to adjust for.
+4. **Preregister one specification, the way researchers do on OSF.** Pick one defensible analysis from a menu of choices and write down what you expect, in a shortened version of a real preregistration template, before you run anything.
+5. **Run it and watch the class multiverse grow.** Submit your result and see it land on a live chart, next to your classmates' and the five published analysts'.
+6. **Learn to read a specification curve.** Understand what a thousand-plus results together can, and cannot, tell you.
 
-The exercise is a miniature version of Multi100 itself: same claim, five-plus analysts, explicit choices, comparable results.
+The exercise is a miniature version of Multi100 itself: same claim, many analysts, explicit choices, comparable results.
 
 ---
 
-## Two tracks – pick the one that fits your setup
+## Two working routes – pick the one that fits your setup
 
-::: {.callout-note}
-### Track A – Browser only (no installation required)
-
-Open the [Browser lab](exercise/browser-lab.qmd) page. The R engine runs entirely in your browser via webR – no R, Positron, or Git needed on your machine. The page will take 10–30 seconds to load the first time; read the task while it warms up.
-
-This track covers the full analytical exercise. The only thing you cannot do in-browser is the git workflow; for that step, you will use the GitHub web interface.
-:::
+Both routes cover every task, and both reach exactly the same numbers. Whichever you choose, you do the same analysis; nobody misses anything by picking one over the other.
 
 ::: {.callout-tip}
-### Track B – Full pipeline (Positron + Git)
+### Route 1 – R and Positron (recommended)
 
-You have R, Positron, Quarto, and Git installed. You will clone the [template repository]({{< var template-repo >}}), work locally, commit as you go, and publish your report to GitHub Pages automatically via a pre-built workflow.
+Install R and the Positron editor once, before the day, then download a ready-made workspace – a single zip file holding the analysis code, the data, and a report to fill in. There is nothing to configure and no account to create: you open the folder and start working. This is the closest to how the analysis is really done, and the workspace is yours to keep afterwards.
 
-Track B is the richer experience: you leave the session with a live public page, a committed git history, and a portfolio piece.
-
-Not set up yet? Go to [Setup](setup.qmd) now – it takes some time, depending on what you need to install.
+The [Setup](setup.qmd) page walks you through the installation in plain steps. Give yourself a little time before the day, depending on what you already have.
 :::
 
-Work in **pairs** to help each other out. If you do not have a laptop, try pairing up with someone who has; you can still complete Track A on the classroom computer, but also get an insight on the Track B workflow.
+::: {.callout-note}
+### Route 2 – Browser lab (nothing to install)
+
+Open the [Browser lab](exercise/browser-lab.qmd) page and everything runs inside the tab, on a version of R that lives in your web browser. Nothing to install, no account, and it works on a borrowed or locked-down machine. The page takes ten to thirty seconds to wake up the first time; read the task while it warms. Every required task is here, at full parity with Route 1.
+:::
+
+You need no git, no GitHub account, no OSF account and no sign-ups for either route. If you would like to add version control and publishing to your toolkit later, the optional [Git and GitHub companion module](companion/git-github.qmd) shows you how, at your own pace.
 
 ---
 
 ## Session schedule
 
-| Time | Segment |
-|---|---|
-| 10:15 | Welcome and pairs formed |
-| 10:20 | Talk I – the three Rs: reproducibility, robustness, replicability (via the three *Nature* 2026 papers) |
-| 10:40 | Talk II – the Teney case: original claim, SCORE reproduction attempt, five-analyst findings |
-| 10:50 | Setup sprint: get a track working, or verify yours is ready |
-| 11:05 | Concepts: estimands and DAGs – mini-lecture then guided exercise |
-| 11:20 | **Break** |
-| 11:35 | Reproduce the constrained result (t ≈ −3.80) |
-| 11:45 | Your analytical path: choose a specification, preregister, run, report |
-| 12:05 | Share and publish |
-| 12:15 | Multiverse debrief: the class specification curve |
-| 12:30 | Wrap and resources |
+The day runs as four 90-minute blocks, with a 15-minute break after Block 1, a 45-minute lunch after Block 2, and a further 15-minute break after Block 3. Times below are block-relative; a facilitator maps them onto the clock on the day.
+
+| Block | Relative time | Focus |
+|---|---|---|
+| Block 1 – "One paper, three verdicts" | 0:00–1:30 | The three Rs (reproducibility, robustness, replicability) and the EU-frames case, ending with a first hands-on run of the constrained model. |
+| Break | 1:30–1:45 | 15-minute break. |
+| Block 2 – "The record's second number, then the question underneath" | 1:45–3:15 | The story of the −3.853/−3.804 gap – a wave file read twice, caught and corrected in the open – then estimands and DAGs. |
+| Lunch | 3:15–4:00 | 45-minute lunch. |
+| Block 3 – "Preregister like an analyst" | 4:00–5:30 | Completing a causal graph, choosing one analytical deviation from a specification menu, preregistering it, then running and submitting your own result. |
+| Break | 5:30–5:45 | 15-minute break. |
+| Block 4 – "Reading the multiverse" | 5:45–7:15 | Reading the class's results against the full specification curve and the five published analysts, with an introduction to inference across a multiverse of results. |
 
 ---

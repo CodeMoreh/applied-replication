@@ -17,61 +17,58 @@ format:
 | | URL |
 |---|---|
 | **Workshop site** | <https://codemoreh.github.io/applied-replication/> |
+| **Browser lab (Route 2)** | [browser lab](browser-lab.qmd) |
+| **Workspace download (Route 1 zip)** | [{{< var template-repo >}}/archive/refs/heads/main.zip]({{< var template-repo >}}/archive/refs/heads/main.zip) |
 | **Submit your result** | [class-results form]({{< var results-form-url >}}) |
 | **Live multiverse** | [results page]({{< var live-results-url >}}) |
-| **Template repo** | <https://github.com/CodeMoreh/replication-lab> |
-| **Discussion thread (help & published-URL gallery)** | <https://github.com/CodeMoreh/applied-replication/discussions> |
-| **OSF fork – data & corrected analysis** | <https://osf.io/6zqct/> |
+| **Specification menu** | [spec menu](spec-menu.qmd) |
+| **OSF fork – data** | <https://osf.io/6zqct/> |
 | **Full SCORE dossier on the paper** | <https://osf.io/h7432/> |
 | **Multi100 project** | <https://osf.io/q5h2c/> |
 
 ---
 
-## Track B – Git flow in Positron (6 steps)
+## Getting your dot on the chart (Route 2)
 
-1. **Clone:** File → New Folder from Git → paste the template repo URL → choose a folder → Open.
-2. **Edit:** make your changes in the editor.
-3. **Save:** Ctrl+S / Cmd+S (the Source Control panel shows changed files in blue).
-4. **Stage:** in the Source Control panel, click **+** next to each file you want to include (or click **+** at the top to stage all).
-5. **Commit:** type a message in the box, then click the ✓ (tick) button. Use descriptive messages, e.g. `prereg: mcosmo ~ unemp | twoway FE | all years`.
-6. **Push / Sync:** click the **Sync Changes** button (circular arrows) to push to GitHub. The Actions workflow triggers automatically and deploys your site.
+Four cells, run in order, each reading the one before it:
 
----
+1. **Preregister.** Make one choice on every axis in the preregistration cell (`claim_align <- TRUE` is already set for you), then run it. That declaration is your commitment – copy the whole cell into your notes.
+2. **`build_model(...)`** – write your specification as a formula. It accepts only code that matches your preregistration and tells you what is off when it does not.
+3. **`run_spec(my_model)`** – computes your specification and shows the coefficient, its claim-aligned partial *r* (below zero supports the claim), and your placement against the canonical 840-spec grid.
+4. **`report_result()`** – no arguments. It builds your submission from the preregistration and prints a clickable, pre-filled form link; open it and press **Send**, and your dot lands on the live chart.
 
-## Quarto commands
-
-```bash
-quarto preview       # live preview in your browser (auto-reloads on save)
-quarto render        # render all files to _site/
-quarto render index.qmd   # render one file only
-```
-
-Run these in the Positron terminal (View → Terminal).
+If any of that stalls, work the ladder below – rung 4 gets you a dot no matter what your machine does.
 
 ---
 
-## Git config (if not already done)
+## If the browser lab stalls – the four-rung ladder
 
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "your@email.com"
-```
+Route 2 runs R inside your browser tab, and browsers occasionally baulk. Work down this list. Each rung is more certain than the one before, and rung 4 gets you a dot on the chart no matter what your machine does.
+
+1. **Hard reload, then rerun.** Reload the page clearing the cache (Ctrl+Shift+R / Cmd+Shift+R), wait for R to restart, and **rerun the chunks above** the one that failed – webR needs the earlier chunks to have run in this session before a later one will work.
+2. **Switch browser.** If a chunk still will not run, open the browser lab in a different browser (Chrome, Edge, or Firefox). A fresh browser clears most stubborn webR problems.
+3. **Follow the shared screen – the 'buddy chunk'.** If your machine simply will not cooperate, watch the facilitator run the exact chunk on the shared screen and read your numbers from there. You miss no step by doing this.
+4. **Read your numbers to the facilitator.** If `run_spec()` or `report_result()` printed your result but the form link will not open – or a cell simply refuses to run – read the printed `b`, `se`, `t` (or `z` for a beta family), `df`, `n` and claim-aligned `r` to the facilitator, who lands the dot for you. The lab has already applied the claim-alignment convention, so there is nothing to convert. Everyone gets a dot – no working form link required.
+
+::: {.callout-note}
+## Facilitator rescue – the by-hand grid lookup
+Last resort, facilitator-side, if a participant's cells will not run at all: every menu specification is a row in `data/spec_grid_full.csv` (a beta-family row reports `z` in place of `t`). Set the eight axes to their declared choice, read off `b`, `se`, `t`/`z`, `df`, `n` and `r`, then apply the claim-alignment flips the lab applies automatically – reverse the sign of `b`, `t`/`z` and `r` for a negative framing (`mcomm`, `mlib`, `mneg`), and again for a GDP-growth predictor – and enter those into the [form]({{< var results-form-url >}}). A guaranteed dot, no fitting required.
+:::
 
 ---
 
-## github.dev fallback
+## Route 1 (Positron) quick fixes
 
-If your local toolchain fails, press the **period key (`.`)** on any GitHub repo page. This opens a browser-based VS Code editor. You can edit files and commit from there – the Actions workflow still runs and deploys your site. You just cannot run R code locally.
-
----
-
-## "If X fails, do Y"
-
-| Problem | Fix |
+| If ... | Then ... |
 |---|---|
-| `quarto preview` gives "command not found" | Open the Positron terminal and run `quarto --version` – if it fails, reinstall Quarto and restart Positron |
-| Git push asks for a password | Sign into GitHub via the Accounts menu in Positron (bottom-left); restart Positron if it still asks |
-| OSF download times out | The script falls back automatically; if all fallbacks fail, download `rep_data.csv` directly from `https://codemoreh.github.io/applied-replication/data/rep_data.csv` |
-| Pages not deploying | Check Settings → Pages: Source must be "GitHub Actions". Also check Actions tab for error messages. |
-| `feols()` not found | Run `install.packages("fixest")` in the R console |
-| Whole local setup broken | Switch to Track A: open the [Browser lab](browser-lab.qmd) and continue there; pair with a Track B partner for the git steps |
+| A package will not load, or `feols` / `plm` is "not found" | Run the checker again – `source("R/check_setup.R")` – and let it install what is missing; or install by hand, e.g. `install.packages("fixest")`. |
+| The `renv` / `pak` restore stalls or half-finishes | Restart R (Session menu), then run the restore again; a second pass usually completes what the first left. |
+| "Permission denied" while installing a package | Let R use a personal library it can write to – accept Positron's offer to create a user library, then reinstall. |
+| A data file is "not found" | Check you opened the unzipped **folder** in Positron (File → Open Folder), not a single file – the paths in the code are relative to that folder. |
+| Everything is stuck | Switch to Route 2: open the [browser lab](browser-lab.qmd) and carry on there. You lose nothing required. |
+
+---
+
+## Rendering your report (Route 1)
+
+Render your report so your preregistration block is written down and timestamped before you run your specification. In Positron, press the **Render** button at the top of the open report, or run `quarto render` in the terminal (View → Terminal). In Route 2 the same block lives on the browser-lab page and updates in the tab.

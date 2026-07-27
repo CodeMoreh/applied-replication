@@ -8,8 +8,11 @@ format:
     webr:
       packages:
         - ggplot2
+        - ggiraph
 resources:
   - data/spec_grid.csv
+  - data/spec_grid_family.csv
+  - data/spec_grid_full.csv
   - data/analysts5.csv
   - data/class_results.csv
 execute:
@@ -24,155 +27,324 @@ execute:
 #| label: setup
 #| include: false
 # Palette mirrors slides/index.qmd setup so this page and the deck share one
-# visual grammar: red = the reproduced baseline, orange = you / C6HJR, grey = the
-# other analysts. Static charts below are rendered by knitr at build time; the
-# live class-results chart further down runs in the browser via webR.
+# visual grammar: blue and green carry the two outcome families; red = the
+# against-claim band and the paper's anchor tag, orange = you / C6HJR's tag,
+# grey = the other analysts' tags. The build-time chart is a
+# ggiraph widget – hover over any point to read the recipe behind it; the live
+# class-results chart further down runs in the browser via webR.
 library(ggplot2)
+library(ggiraph)
 ncl_blue <- "#0e3b6a"; orange <- "#E69F00"; green <- "#009E73"
 d_red    <- "#a10000"; grey_mid <- "#848c94"
+
+tooltip_css <- "background-color:#0e3b6a;color:white;padding:7px;border-radius:4px;font-size:12px;line-height:1.5;"
+girafe_opts <- list(
+  opts_tooltip(css = tooltip_css, opacity = 0.95),
+  opts_hover(css = girafe_css(css = "stroke-width:3px;",
+                              text = "font-weight:bold;")),
+  opts_hover_inv(css = "opacity:0.25;"),
+  opts_sizing(rescale = TRUE, width = 1),
+  opts_toolbar(saveaspng = FALSE)
+)
 ```
 
-This page shows the specification curve for the workshop exercise. The static charts below render at build time from the pre-computed menu; the **Class results** chart at the foot of the page is live – it fetches the room's submissions in your browser and redraws when you press *Run Code*. Before the session – or when the data files are absent – the page renders with placeholder messages.
+This page shows the specification curve for the workshop exercise. Every justifiable analysis of one claim sits on one chart. The chart is **claim-aligned**: the claim predicts opposite signs for the positive framings (`mcosmo`, `mutil`, `mpos`) and the negative framings (`mcomm`, `mlib`, `mneg`), so the negative framings are reverse-coded (1 − y) before plotting. That is the same convention your preregistration records (`claim_align`), applied automatically, and it puts every result on one readable scale. **A specification below zero supports the claim, whichever outcome it uses.** The chart renders at build time and is interactive. Hover over any point to read the full recipe behind it. The **Class results** chart at the foot of the page is live in a different sense. It fetches the room's submissions in your browser and redraws when you press *Run Code*. Before the session, or when the data files are absent, the page renders with placeholder messages.
 
-The logic of the visualisation follows the specification-curve idea (Simonsohn, Simmons and Nelson): one point per justifiable analysis, ordered by size. Because the menu mixes outcome scales and exposure transforms, raw coefficients are not comparable across specifications – the chart therefore plots the **partial correlation** (r = t/sqrt(t^2 + df)), the same metric Multi100 used to compare analysts. A horizontal line at zero marks the boundary between negative and positive associations. Your contribution sits somewhere on this chart.
+The logic of the visualisation follows the specification-curve idea (Simonsohn, Simmons and Nelson): one point per justifiable analysis, ordered by size. Because the menu mixes outcome scales and predictor forms, raw coefficients are not comparable across specifications – the chart therefore plots the **partial correlation** (r = t/sqrt(t^2 + df)), the same metric Multi100 used to compare analysts, on the claim-aligned scale. The horizontal line at zero is the boundary between support for the claim and evidence against it. Your contribution sits somewhere on this chart.
 
 ---
 
-## Specification curve
+## The claim-aligned multiverse
+
+The chart holds all **2,520** pre-computed specifications: the canonical 840 (the `gaussian` family in blue, unemployment as the predictor, open triangles), the beta-family twin of each one (in green) – together the family universe of 1,680 – and the **growth predictor**: GDP growth as the claim carrier, alone or beside unemployment, in both families (840 more, drawn as open squares). Colour carries the outcome family, the marker carries the claim-carrying predictor, and fading means one thing only: not significant at 5%. Both axes are workshop additions beyond the Multi100 menu, which fixed unemployment as the predictor; Task 1 of Multi100 shows three of the five analysts freely chose GDP measures before that instruction existed. Each family's curve is ranked within itself, and the claim-alignment convention extends once more: growth's claim-expected sign is positive on the positive framings, so growth-predictor results are sign-flipped on top of the outcome recoding – below zero supports the claim, whichever variable and framing a specification uses. The five Multi100 analysts sit on the gaussian curve styled as what they ran – blue unemployment triangles, slightly enlarged – each found by its name tag: C6HJR's gold tag marks the constrained baseline you reproduce in Task 3. The original author (OA) joins them under a red tag, their own published anchor result converted to the common axis exactly as the analysts' results were. Every mark answers on hover, and hovering a name tag (or its marker) lights the pair up boldly while the rest of the chart dims. That the paper's own anchor lands beside PRL47's near-zero diamond rather than out among the strong results is the degrees-of-freedom lesson of the [statistical methods module](companion/stats-methods.qmd#sec-onescale) in one picture: a person-level t of −4.03 with no recorded residual df is read against its 335,566 respondents, and almost nothing survives the conversion.
 
 ```{r}
-#| label: spec-curve
-#| fig-width: 9
-#| fig-height: 5
-#| fig-alt: "Specification curve: partial correlations for 1,680 specifications, ordered by size, coloured by outcome variable, with the constrained baseline marked. Horizontal line at zero."
+#| label: spec-curve-family
+#| fig-alt: "Interactive claim-aligned specification curve: 2,520 specifications across two outcome families, gaussian in blue and beta in green, each ranked within its family by claim-aligned partial correlation, with non-significant points faded. Triangles carry unemployment as the claim predictor, squares the GDP-growth predictor. Slightly enlarged triangles with name tags mark the five Multi100 analysts on the gaussian curve, C6HJR tagged in gold, and OA's own published anchor result tagged in red, sitting just below zero once converted with the respondent count as degrees of freedom. A lightly shaded band above zero marks the region running against the claim; points below the zero line support it."
 
-library(ggplot2)
+grid_file <- "data/spec_grid_full.csv"
+family_file <- "data/spec_grid_family.csv"
+analysts_file <- "data/analysts5.csv"
+g_curve <- NULL
 
-spec_file <- "data/spec_grid.csv"
+if (file.exists(grid_file)) {
+  fam <- read.csv(grid_file)
 
-if (file.exists(spec_file)) {
-  spec <- read.csv(spec_file)
+  # claim-alignment: reverse-coding the negative framings flips the sign, and
+  # growth predictors flip once more (their claim-expected sign is positive on
+  # the positive framings); nothing else changes
+  pol <- ifelse(fam$positive_outcome, 1, -1) *
+    ifelse(fam$predictor == "growth", -1, 1)
+  fam$r_ca <- fam$r * pol
+  fam$stat_ca <- fam$statistic * pol
 
-  required_cols <- c("estimate", "statistic", "df", "r", "outcome", "baseline")
-  if (all(required_cols %in% names(spec))) {
+  fam <- fam[order(fam$family, fam$r_ca), ]
+  fam$rank <- ave(fam$r_ca, fam$family, FUN = seq_along)
+  fam$sig <- abs(fam$statistic) > qt(0.975, fam$df)
+  fam$stat_label <- ifelse(fam$family == "beta", "z", "t")
+  fam$p_val <- 2 * pt(-abs(fam$statistic), fam$df)
+  fam$p_lab <- ifelse(fam$p_val < 0.001, "p &lt; 0.001",
+                      sprintf("p = %.3f", fam$p_val))
+  fam$pred_lab <- ifelse(fam$predictor == "unemp",
+    ifelse(fam$copredictor == "growth", "unemployment + GDP growth", "unemployment"),
+    ifelse(fam$copredictor == "unemp", "GDP growth + unemployment", "GDP growth"))
+  fam$claim_lab <- ifelse(fam$predictor == "unemp",
+    paste0("unemployment (", fam$pred_form, ")"),
+    paste0("GDP growth (", fam$pred_form, ")"))
+  fam$tip <- sprintf(
+    paste0("<b>claim-aligned r = %.3f</b> (%s = %.2f on %d df, %s)<br/>",
+           "family: %s<br/>outcome: %s%s<br/>predictors: %s<br/>",
+           "claim coefficient: %s<br/>",
+           "estimator: %s<br/>sample: %s<br/>weights: %s"),
+    fam$r_ca, fam$stat_label, fam$stat_ca, fam$df, fam$p_lab,
+    fam$family, fam$outcome,
+    ifelse(fam$positive_outcome, "", " (reverse-coded)"),
+    fam$pred_lab, fam$claim_lab, fam$estimator, fam$sample, fam$weights
+  )
 
-    # order by partial r - the cross-specification comparable metric
-    spec <- spec[order(spec$r), ]
-    spec$rank <- seq_len(nrow(spec))
-    spec$sig <- abs(spec$statistic) > qt(0.975, spec$df)
-    base_pt <- spec[spec$baseline, ]
+  # the five analysts and OA's own published anchor, placed on the gaussian
+  # (canonical) curve at the rank where each partial r falls – C6HJR's value IS
+  # the constrained baseline, so no separate baseline marker is drawn. Each
+  # mark carries a small name-tag label sharing its data_id: hovering either
+  # highlights the pair (opts_hover_inv dims the rest) and shows the same
+  # tooltip, formatted to match the grid points' recipe tooltips.
+  marks <- NULL
+  if (file.exists(analysts_file)) {
+    gauss_r <- sort(fam$r_ca[fam$family == "gaussian"])
+    an <- read.csv(analysts_file)
+    an$p_val <- ifelse(an$statistic_type == "t",
+                       2 * pt(-abs(an$statistic), an$df1),
+                       2 * pnorm(-abs(an$statistic)))
+    an$p_lab <- ifelse(an$p_val < 0.001, "p &lt; 0.001",
+                       sprintf("p = %.3f", an$p_val))
+    an$df_lab <- sub("\\.0$", "", sprintf("%.1f", an$df1))
+    an$stat_seg <- ifelse(
+      an$statistic_type == "t",
+      sprintf("t = %.2f on %s df", an$statistic, an$df_lab),
+      sprintf("z = %.2f (no residual df: converted with n)", an$statistic)
+    )
+    # each analyst's model in the menu's vocabulary, from the public Multi100
+    # code (inventoried in the companion article repo). Task 2 fixed the
+    # outcome family and the predictor; everything else was each analyst's call.
+    recipe <- data.frame(
+      analyst_id = c("018OL", "C6HJR", "KEVF1", "KQXUE", "PRL47"),
+      r_outcome = c(
+        "positive non-materialist mean of the 5 items, cell means rescaled 0-1",
+        "mcosmo (cosmopolitan share, corrected panel)",
+        "positive non-materialist sum of the 5 items (0-7)",
+        "cosmopolitan share",
+        "cosmopolitan share (no-opinion coded 0)"),
+      r_predictor = c(
+        "unemployment 15-74, raw", "unemployment, grand-mean centred",
+        "unemployment, raw", "unemployment 20-64, raw",
+        "unemployment 25-64, raw + its yearly change"),
+      r_controls = c(
+        "none", "none", "none", "none",
+        "gender, age, education, occupation, rural, crisis dummy, log GDP, GDP growth"),
+      r_estimator = c(
+        "crossed random intercepts: country, year, EB wave",
+        "two-way fixed effects: country + year",
+        "nested random intercepts: year within country",
+        "one-way country fixed effects",
+        "three-level: respondent &lt; country-quarter &lt; country"),
+      r_sample = c(
+        "420 country-wave cells, EU-27",
+        "270 country-years, all waves",
+        "209,826 respondents (the merged unemployment series limits the waves)",
+        "270 country-years, EU members",
+        "394,575 respondents, EU-27")
+    )
+    an <- merge(an, recipe, by = "analyst_id")
+    an$tip <- sprintf(
+      paste0("<b>analyst %s</b><br/><b>claim-aligned r = %.3f</b> (%s, %s)",
+             "<br/>family: gaussian<br/>outcome: %s<br/>predictor: %s",
+             "<br/>controls: %s<br/>estimator: %s<br/>sample: %s",
+             "<br/>weights: none<br/>n = %s<br/>tool: %s"),
+      an$analyst_id, an$r, an$stat_seg, an$p_lab,
+      an$r_outcome, an$r_predictor, an$r_controls, an$r_estimator, an$r_sample,
+      format(an$n, big.mark = ","), an$tool
+    )
 
-    p <- ggplot(spec, aes(x = rank, y = r)) +
-      geom_hline(yintercept = 0, colour = grey_mid, linewidth = 0.4) +
-      geom_point(aes(colour = outcome, alpha = sig), size = 1.2) +
-      geom_point(data = base_pt, shape = 23, size = 3.5,
-                 fill = d_red, colour = d_red, stroke = 0) +
-      annotate("text", x = base_pt$rank, y = base_pt$r - 0.08,
-               label = "constrained baseline\n(t = -3.80)", size = 3,
-               colour = d_red, hjust = 0.2) +
-      scale_colour_brewer(palette = "Dark2", name = "Outcome") +
-      scale_alpha_manual(values = c("FALSE" = 0.25, "TRUE" = 0.9),
-                         name = "p < .05", labels = c("no", "yes")) +
-      labs(
-        x = "Specification (ordered by partial r)",
-        y = "Partial correlation (unemployment coefficient)",
-        title = "1,680 justifiable analyses of one claim",
-        caption = "Under the claim, positive framings (mcosmo, mutil, mpos) should sit below zero and negative framings (mcomm, mlib, mneg) above it. Faded points: not significant at 5%."
-      ) +
-      theme_minimal(base_size = 12) +
-      theme(
-        plot.title = element_text(face = "bold", colour = ncl_blue),
-        axis.title = element_text(colour = ncl_blue),
-        legend.position = "bottom"
-      )
+    # OA's published anchor (Table 3, model 1): b = -0.0034, t = -4.03 on
+    # an analysis sample of 335,566 respondents, 16 waves 2004-2013. A
+    # person-level t with no recorded residual df is read with the respondent
+    # count as df, the arithmetic PRL47's recorded r reproduces; a group-scale
+    # df of KEVF1's kind (~136) would put the same t at r of about -0.33 – the
+    # df lesson of the stats-methods module, drawn as one marker.
+    teney_t <- -4.03; teney_n <- 335566
+    teney_r <- teney_t / sqrt(teney_t^2 + teney_n)
+    teney_tip <- sprintf(
+      paste0("<b>The original author's published anchor (2016) &#8211; Table 3, model 1</b>",
+             "<br/><b>claim-aligned r = %.3f</b> (t = -4.03, p &lt; 0.001)",
+             "<br/>family: gaussian<br/>outcome: cosmopolitan scale",
+             "<br/>predictor: unemployment, grand-mean centred",
+             "<br/>controls: gender, age, education, SES, urban; GDP growth; ",
+             "education x macro interactions",
+             "<br/>estimator: three-level: respondent &lt; country-wave &lt; country",
+             "<br/>sample: 335,566 respondents, 16 waves 2004-2013",
+             "<br/>b = -0.0034, converted with n as df",
+             "<br/>(a group-scale df, as KEVF1's, would give r of about -0.33)"),
+      teney_r
+    )
 
-    print(p)
-
-  } else {
-    cat("**Note:** `data/spec_grid.csv` is present but missing expected columns (",
-        paste(setdiff(required_cols, names(spec)), collapse = ", "),
-        "). Chart will render once the file is complete.\n")
+    marks <- rbind(
+      data.frame(id = an$analyst_id, label = an$analyst_id, r = an$r,
+                 tip = an$tip,
+                 kind = ifelse(an$analyst_id == "C6HJR", "me", "analyst")),
+      data.frame(id = "teney2016", label = "OA 2016", r = teney_r,
+                 tip = teney_tip, kind = "paper")
+    )
+    marks$rank <- findInterval(marks$r, gauss_r)
+    # tags sit well clear of the curve, alternating two heights left to right
+    # so neighbouring tags never crowd; OA's tag hangs below
+    marks$lab_dy <- -0.12
+    above <- which(marks$kind != "paper")
+    above <- above[order(marks$rank[above])]
+    marks$lab_dy[above] <- rep(c(0.12, 0.18), length.out = length(above))
+    marks$lab_col <- c(analyst = "grey25", me = orange, paper = d_red)[marks$kind]
   }
 
+  p_f <- ggplot(fam, aes(x = rank, y = r_ca)) +
+    annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0, ymax = Inf,
+             fill = d_red, alpha = 0.045) +
+    geom_hline(yintercept = 0, colour = grey_mid, linewidth = 0.4) +
+    geom_point_interactive(
+      aes(colour = family, shape = predictor, alpha = sig, tooltip = tip,
+          data_id = interaction(family, rank)),
+      size = 1.7, stroke = 0.3
+    ) +
+    scale_colour_manual(
+      values = c(gaussian = ncl_blue, beta = green),
+      breaks = c("gaussian", "beta"),
+      labels = c("gaussian family", "beta family"),
+      name = NULL,
+      guide = guide_legend(override.aes = list(shape = 16, size = 2.4,
+                                               alpha = 1))
+    ) +
+    scale_shape_manual(
+      values = c(unemp = 2, growth = 0),
+      breaks = c("unemp", "growth"),
+      labels = c("unemployment", "GDP growth"),
+      name = NULL,
+      guide = guide_legend(override.aes = list(colour = "grey30", size = 2.4,
+                                               stroke = 0.8, alpha = 1))
+    ) +
+    scale_alpha_manual(values = c("FALSE" = 0.25, "TRUE" = 0.9),
+                       name = "p < .05", labels = c("no", "yes")) +
+    labs(
+      x = "Specification (ordered by claim-aligned partial r within family)",
+      y = "Claim-aligned partial correlation",
+      title = "The multiverse, claim-aligned – 2,520 specifications",
+      # ggplot captions do not wrap on their own – strwrap keeps the full
+      # text on the canvas instead of overflowing the SVG on one line
+      caption = paste(strwrap(
+        paste0("Below zero = supports the claim (negative framings ",
+               "reverse-coded; growth predictors sign-flipped); the shaded ",
+               "band above zero runs against it. Blue: gaussian family; ",
+               "green: beta. Triangles: unemployment as the claim-carrying ",
+               "predictor; squares: GDP growth – opened beyond the Multi100 ",
+               "menu. Name ",
+               "tags mark the five Multi100 analysts on the gaussian curve – ",
+               "gold = C6HJR, the constrained baseline (t = −3.80) – and, in ",
+               "red, OA's own published result (t = −4.03, read with the ",
+               "respondent count as df); each marker is drawn as the ",
+               "specification it is, a gaussian unemployment triangle. Faded ",
+               "points: not significant at 5%. Hover any mark or its name ",
+               "tag for the recipe; the rest of the chart dims."),
+        width = 150), collapse = "\n")
+    ) +
+    theme_minimal(base_size = 12) +
+    theme(
+      plot.title = element_text(face = "bold", colour = ncl_blue),
+      axis.title = element_text(colour = ncl_blue),
+      plot.caption = element_text(hjust = 0, size = 7.5, colour = "grey35"),
+      legend.position = "bottom"
+    )
+
+  if (!is.null(marks)) {
+    p_f <- p_f +
+      geom_segment(
+        data = marks,
+        aes(x = rank, xend = rank, y = r, yend = r + lab_dy),
+        colour = grey_mid, linewidth = 0.3, alpha = 0.6, inherit.aes = FALSE
+      ) +
+      geom_point_interactive(
+        data = marks,
+        aes(x = rank, y = r, tooltip = tip, data_id = id),
+        shape = 2, size = 2.6, colour = ncl_blue, stroke = 0.7,
+        inherit.aes = FALSE
+      ) +
+      geom_label_interactive(
+        data = marks,
+        aes(x = rank, y = r + lab_dy, label = label, tooltip = tip,
+            data_id = id),
+        size = 2.5, colour = marks$lab_col, fill = "#FFFFFFBF",
+        linewidth = 0.15,
+        fontface = ifelse(marks$kind == "analyst", "plain", "bold"),
+        inherit.aes = FALSE
+      )
+  }
+
+  g_curve <- girafe(ggobj = p_f, width_svg = 9, height_svg = 5.6,
+                    options = girafe_opts)
+
 } else {
-  cat("**Note:** `data/spec_grid.csv` not yet available. The specification curve will appear here once the pre-computed multiverse file is in place.\n")
+  cat("**Note:** `data/spec_grid_full.csv` not yet available. The specification curve will appear here once the pre-computed multiverse file is in place.\n")
 }
+
+g_curve
 ```
 
 ```{r}
-#| label: spec-summary
+#| label: family-summary
 #| output: asis
 
-if (file.exists(spec_file)) {
-  s <- read.csv(spec_file)
-  s$sig <- abs(s$statistic) > qt(0.975, s$df)
+if (file.exists(family_file)) {
+  f <- read.csv(family_file)
+  f$sig <- abs(f$statistic) > qt(0.975, f$df)
+  by_fam <- split(f, f$family)
   cat(sprintf(
     paste0(
-      "Across all %d specifications: **%.0f%%** point in the claim-consistent direction, ",
-      "**%.0f%%** are significant at the 5%% level, and **%.0f%%** are both. ",
-      "The partial correlation ranges from %.2f to %.2f. ",
-      "Same data, same claim – the answer depends on the path.\n"
+      "On the claim-aligned scale every supportive specification sits below zero: ",
+      "**%.1f%%** of the family universe of %s (**%.1f%%** of the canonical gaussian half, ",
+      "**%.1f%%** of the beta half), with **%.1f%%** significant at the 5%% level overall. ",
+      "The two family curves all but coincide, and in the cosmopolitan universe ",
+      "(outcome `mcosmo`) the wrong-sign anatomy is identical in each family: the same ",
+      "33 pooled and 8 two-way specifications run against the claim whichever likelihood ",
+      "is used. The beta family sits on the menu beyond Multi100's constraints. ",
+      "The [specification menu](exercise/spec-menu.qmd) describes both the extra axis and ",
+      "the claim-alignment convention, and the module on ",
+      "[statistical methods](companion/stats-methods.qmd) explains the beta model itself.\n"
     ),
-    nrow(s), 100 * mean(s$supports_claim), 100 * mean(s$sig),
-    100 * mean(s$sig & s$supports_claim), min(s$r), max(s$r)
+    100 * mean(f$supports_claim), format(nrow(f), big.mark = ","),
+    100 * mean(by_fam$gaussian$supports_claim),
+    100 * mean(by_fam$beta$supports_claim),
+    100 * mean(f$sig)
   ))
-}
-```
-
----
-
-## Five Multi100 analysts (partial r)
-
-```{r}
-#| label: analysts-plot
-#| fig-width: 7
-#| fig-height: 3.2
-#| fig-alt: "Dot plot of partial r values for the five Multi100 analysts. Horizontal line at zero."
-
-analysts_file <- "data/analysts5.csv"
-
-if (file.exists(analysts_file)) {
-  analysts <- read.csv(analysts_file)
-
-  if ("r" %in% names(analysts) && "analyst_id" %in% names(analysts)) {
-
-    # Highlight the workshop analyst
-    analysts$highlight <- analysts$analyst_id == "C6HJR"
-
-    p2 <- ggplot(analysts, aes(x = r, y = reorder(analyst_id, r))) +
-      geom_vline(xintercept = 0, colour = grey_mid, linewidth = 0.4) +
-      geom_point(
-        aes(colour = highlight, size = highlight)
-      ) +
-      scale_colour_manual(values = c("FALSE" = grey_mid, "TRUE" = orange),
-                          guide = "none") +
-      scale_size_manual(values = c("FALSE" = 2.5, "TRUE" = 3.5), guide = "none") +
-      labs(
-        x = "Partial r",
-        y = NULL,
-        title = "Five Multi100 analysts – Task 2 partial r",
-        caption = "Orange point = analyst C6HJR"
-      ) +
-      theme_minimal(base_size = 12) +
-      theme(plot.title = element_text(face = "bold", colour = ncl_blue),
-            axis.title = element_text(colour = ncl_blue))
-
-    print(p2)
-
-  } else {
-    cat("**Note:** `data/analysts5.csv` is present but missing `r` or `analyst_id` column. Chart will render once the file is complete.\n")
+  if (file.exists(grid_file)) {
+    gr <- read.csv(grid_file)
+    gr <- gr[gr$predictor == "growth", ]
+    gr$sig <- abs(gr$statistic) > qt(0.975, gr$df)
+    cat(sprintf(
+      paste0(
+        "The growth half of the universe tells its own story: across the %s ",
+        "growth-predictor specifications the direction agrees with the claim ",
+        "almost as often (**%.1f%%**), but only **%.1f%%** are significant – ",
+        "the two halves of OA's two-indicator construct do not testify ",
+        "equally, exactly as analyst KQXUE's free-phase growth null hinted.\n"
+      ),
+      format(nrow(gr), big.mark = ","),
+      100 * mean(gr$supports_claim), 100 * mean(gr$sig)
+    ))
   }
-
-} else {
-  cat("**Note:** `data/analysts5.csv` not yet available. The analyst plot will appear here once the file is in place.\n")
 }
 ```
 
 ---
 
-## Class results – 16 June 2026
+## Class results
 
-This chart is **live**. It draws the pre-computed menu (grey) and the five Multi100 analysts (the dashed lines, C6HJR in orange) as a backdrop, then overlays the room's own submissions as orange dots, placed where each result's partial *r* falls on the curve. Press **Run Code** to pull the latest submissions.
+This chart is **live**, and it speaks the same visual language as the chart above: the full universe of 2,520 pre-computed specifications as the muted backdrop – the gaussian curve in grey, its beta twin in green-grey, triangles carrying unemployment and squares GDP growth, each family ranked within itself – the analysts and OA as name-tagged triangles on the gaussian curve, and the room's own submissions overlaid as open black circles, numbered in arrival order and placed where each result's claim-aligned partial *r* falls on the curve. Hover a circle for the specification it declared. Press **Run Code** to pull the latest submissions.
 
 The R engine downloads into your browser the first time (10–30 seconds); the button changes from a spinner to *Run Code* when it is ready.
 
@@ -186,13 +358,68 @@ The R engine downloads into your browser the first time (10–30 seconds); the b
 worker_url <- "https://class-results.chris-moreh.workers.dev/"
 
 library(ggplot2)
+# ggiraph gives this chart the hover grammar of the build-time chart above;
+# when its wasm download is unavailable the chart falls back to a static
+# ggplot automatically
+have_ggiraph <- tryCatch({ library(ggiraph); TRUE }, error = function(e) FALSE)
 ncl_blue <- "#0e3b6a"; orange <- "#E69F00"; d_red <- "#a10000"; grey_mid <- "#848c94"
+tooltip_css <- "background-color:#0e3b6a;color:white;padding:7px;border-radius:4px;font-size:12px;line-height:1.5;"
 
-spec <- read.csv("data/spec_grid.csv")
-spec <- spec[order(spec$r), ]
-spec$rank <- seq_len(nrow(spec))
+spec <- read.csv("data/spec_grid_full.csv")
+# claim-aligned backdrop – negative framings reverse-coded and growth
+# predictors sign-flipped (their claim-expected sign is positive), matching
+# the day's convention and the chart above (submissions arrive already
+# claim-aligned)
+spec$r <- spec$r * ifelse(spec$positive_outcome, 1, -1) *
+  ifelse(spec$predictor == "growth", -1, 1)
+# each family ranked within itself, as in the chart above – the gaussian and
+# beta curves draw as two overlaid backdrops rather than one merged sequence
+spec <- spec[order(spec$family, spec$r), ]
+spec$rank <- ave(spec$r, spec$family, FUN = seq_along)
+# analysts, OA and class submissions place on the gaussian (canonical) curve
+gauss_r <- sort(spec$r[spec$family == "gaussian"])
+sg <- spec[spec$family == "gaussian", ]
+sb <- spec[spec$family == "beta", ]
+
+# the analysts and OA's published anchor, as name-tagged markers matching
+# the chart above
 an <- read.csv("data/analysts5.csv")
-an$me <- an$analyst_id == "C6HJR"
+an$p_val <- ifelse(an$statistic_type == "t",
+                   2 * pt(-abs(an$statistic), an$df1),
+                   2 * pnorm(-abs(an$statistic)))
+an$p_lab <- ifelse(an$p_val < 0.001, "p &lt; 0.001",
+                   sprintf("p = %.3f", an$p_val))
+an$stat_seg <- ifelse(
+  an$statistic_type == "t",
+  sprintf("t = %.2f on %s df", an$statistic,
+          sub("\\.0$", "", sprintf("%.1f", an$df1))),
+  sprintf("z = %.2f (no residual df: converted with n)", an$statistic)
+)
+an$tip <- sprintf(
+  paste0("<b>analyst %s</b><br/><b>claim-aligned r = %.3f</b> (%s, %s)",
+         "<br/>n = %s<br/>tool: %s"),
+  an$analyst_id, an$r, an$stat_seg, an$p_lab,
+  format(an$n, big.mark = ","), an$tool
+)
+teney_t <- -4.03; teney_n <- 335566
+marks <- rbind(
+  data.frame(id = an$analyst_id, label = an$analyst_id, r = an$r, tip = an$tip,
+             kind = ifelse(an$analyst_id == "C6HJR", "me", "analyst")),
+  data.frame(id = "teney2016", label = "OA 2016",
+             r = teney_t / sqrt(teney_t^2 + teney_n),
+             tip = paste0("<b>The original author's published anchor (2016) &#8211; Table 3, model 1</b><br/>",
+                          "b = -0.0034, t = -4.03, p &lt; 0.001<br/>",
+                          "converted with the respondent count (335,566) as df"),
+             kind = "paper")
+)
+marks$rank <- findInterval(marks$r, gauss_r)
+# tags clear of the curve, alternating two heights as in the chart above;
+# OA's tag hangs below
+marks$lab_dy <- -0.12
+above <- which(marks$kind != "paper")
+above <- above[order(marks$rank[above])]
+marks$lab_dy[above] <- rep(c(0.12, 0.18), length.out = length(above))
+marks$lab_col <- c(analyst = "grey25", me = orange, paper = d_red)[marks$kind]
 
 read_clean <- function(path) {
   d <- read.csv(path, stringsAsFactors = FALSE, check.names = FALSE)
@@ -214,29 +441,105 @@ refresh_multiverse <- function() {
     cls <- tryCatch(read_clean("data/class_results.csv"), error = function(e) NULL)
   }
 
-  p <- ggplot(spec, aes(rank, r)) +
+  p <- ggplot() +
     geom_hline(yintercept = 0, colour = grey_mid, linewidth = 0.4) +
-    geom_point(colour = "#c7ccd2", size = 0.7, alpha = 0.5) +
-    geom_hline(data = an[!an$me, ], aes(yintercept = r),
-               colour = grey_mid, linetype = "22", linewidth = 0.6) +
-    geom_hline(data = an[an$me, ], aes(yintercept = r),
-               colour = orange, linetype = "22", linewidth = 0.9) +
-    labs(x = "specification (ranked by partial r)", y = "partial r",
+    # the two family curves, muted: gaussian grey, beta green-grey; as in the
+    # chart above, triangles carry unemployment and squares GDP growth
+    geom_point(data = sg, aes(rank, r),
+               shape = ifelse(sg$predictor == "growth", 0, 2),
+               colour = "#c7ccd2", size = 0.7, alpha = 0.5) +
+    geom_point(data = sb, aes(rank, r),
+               shape = ifelse(sb$predictor == "growth", 0, 2),
+               colour = "#a9c7b9", size = 0.7, alpha = 0.5) +
+    geom_segment(data = marks,
+                 aes(x = rank, xend = rank, y = r, yend = r + lab_dy),
+                 colour = grey_mid, linewidth = 0.3, alpha = 0.6,
+                 inherit.aes = FALSE) +
+    labs(x = "specification (ranked by claim-aligned partial r within family)",
+         y = "claim-aligned partial r",
          title = "The class multiverse – live") +
-    coord_cartesian(ylim = c(-0.75, 0.78)) +
     theme_minimal(base_size = 13) +
     theme(plot.title = element_text(face = "bold", colour = ncl_blue),
           axis.title = element_text(colour = ncl_blue))
 
-  if (!is.null(cls) && nrow(cls) > 0) {
-    cls$rank <- findInterval(cls$r, spec$r)
+  if (have_ggiraph) {
     p <- p +
-      geom_point(data = cls, aes(rank, r), colour = orange, size = 3, alpha = 0.9) +
+      geom_point_interactive(data = marks,
+                             aes(x = rank, y = r, tooltip = tip, data_id = id),
+                             shape = 2, size = 2.6, colour = ncl_blue,
+                             stroke = 0.7, inherit.aes = FALSE) +
+      geom_label_interactive(data = marks,
+                             aes(x = rank, y = r + lab_dy, label = label,
+                                 tooltip = tip, data_id = id),
+                             size = 2.4, colour = marks$lab_col,
+                             fill = "#FFFFFFBF", linewidth = 0.15,
+                             inherit.aes = FALSE)
+  } else {
+    p <- p +
+      geom_point(data = marks, aes(x = rank, y = r),
+                 shape = 2, size = 2.6, colour = ncl_blue, stroke = 0.7,
+                 inherit.aes = FALSE) +
+      geom_label(data = marks, aes(x = rank, y = r + lab_dy, label = label),
+                 size = 2.4, colour = marks$lab_col, fill = "#FFFFFFBF",
+                 linewidth = 0.15, inherit.aes = FALSE)
+  }
+
+  # the growth tail of the full universe reaches aligned r of about +0.37
+  ylim_hi <- max(spec$r, na.rm = TRUE) + 0.05
+  if (!is.null(cls) && nrow(cls) > 0) {
+    cls$rank <- findInterval(cls$r, gauss_r)
+    cls$n_lab <- paste0("#", seq_len(nrow(cls)))
+    cls$tip <- paste0(
+      "<b>submission ", cls$n_lab, "</b>",
+      "<br/><b>claim-aligned r = ", sprintf("%.3f", cls$r), "</b>",
+      if (all(c("t", "df") %in% names(cls)))
+        ifelse(is.na(cls$t) | is.na(cls$df), "",
+               paste0("<br/>t = ", cls$t, " on ", cls$df, " df")) else "",
+      if ("spec" %in% names(cls))
+        ifelse(is.na(cls$spec) | !nzchar(cls$spec), "",
+               paste0("<br/>", cls$spec)) else ""
+    )
+    if (have_ggiraph) {
+      p <- p + geom_point_interactive(
+        data = cls, aes(x = rank, y = r, tooltip = tip, data_id = n_lab),
+        shape = 1, size = 3, colour = "black", stroke = 0.8,
+        inherit.aes = FALSE
+      )
+    } else {
+      p <- p + geom_point(data = cls, aes(x = rank, y = r),
+                          shape = 1, size = 3, colour = "black", stroke = 0.8,
+                          inherit.aes = FALSE)
+    }
+    # submissions landing on the same specification stack their number tags
+    # vertically instead of overprinting
+    cls$vj <- -1.1 - 1.15 * (ave(seq_len(nrow(cls)), cls$rank,
+                                 FUN = seq_along) - 1)
+    p <- p +
+      geom_text(data = cls, aes(x = rank, y = r, label = n_lab),
+                colour = "black", size = 2.6, vjust = cls$vj,
+                inherit.aes = FALSE) +
       labs(subtitle = paste(nrow(cls), "class result(s) so far"))
+    # a dot far above the band is almost certainly an un-recoded negative
+    # framing: stretch the axis so it stays visible for the debrief
+    ylim_hi <- max(ylim_hi, max(cls$r, na.rm = TRUE) + 0.06)
   } else {
     p <- p + labs(subtitle = "No submissions yet – press Run Code to refresh")
   }
-  p
+  p <- p + coord_cartesian(ylim = c(-0.75, ylim_hi))
+
+  if (have_ggiraph) {
+    girafe(ggobj = p, width_svg = 9, height_svg = 5,
+           options = list(
+             opts_tooltip(css = tooltip_css, opacity = 0.95),
+             opts_hover(css = girafe_css(css = "stroke-width:3px;",
+                                         text = "font-weight:bold;")),
+             opts_hover_inv(css = "opacity:0.25;"),
+             opts_sizing(rescale = TRUE, width = 1),
+             opts_toolbar(saveaspng = FALSE)
+           ))
+  } else {
+    p
+  }
 }
 ```
 
@@ -252,5 +555,5 @@ refresh_multiverse()
 <!-- ::: {.callout-note collapse="true"}
 ## How this works (facilitator)
 
-Submissions go to a Google Form, land in a linked Google Sheet, and are served as CSV with permissive CORS headers by a small Cloudflare Worker. The `{webr}` cell above fetches that CSV in the browser. 
+Submissions go to a Google Form, land in a linked Google Sheet, and are served as CSV with permissive CORS headers by a small Cloudflare Worker. The `{webr}` cell above fetches that CSV in the browser.
 ::: -->

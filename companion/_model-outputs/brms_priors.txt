@@ -1,0 +1,20 @@
+                  prior     class      coef group resp dpar nlpar lb ub tag
+                 (flat)         b                                          
+                 (flat)         b     unemp                                
+ student_t(3, 0.5, 2.5) Intercept                                          
+   student_t(3, 0, 2.5)        sd                                  0       
+   student_t(3, 0, 2.5)        sd           cntry                  0       
+   student_t(3, 0, 2.5)        sd Intercept cntry                  0       
+   student_t(3, 0, 2.5)        sd            year                  0       
+   student_t(3, 0, 2.5)        sd Intercept  year                  0       
+   student_t(3, 0, 2.5)     sigma                                  0       
+       source
+      default
+ (vectorized)
+      default
+      default
+ (vectorized)
+ (vectorized)
+ (vectorized)
+ (vectorized)
+      default

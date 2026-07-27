@@ -1,0 +1,20 @@
+Call:
+mix(formula = cosmo ~ unemp + (1 | cntry), data = person, weights = c("w1", 
+    "w_lvl2"))
+
+Variance terms:
+ Level    Group        Name Variance Std. Error Std.Dev.
+     2    cntry (Intercept) 0.003741   0.001394  0.06116
+     1 Residual             0.136155   0.004246  0.36899
+Groups:
+ Level Group n size mean wgt sum wgt
+     2 cntry     27        1      27
+     1   Obs 416677        1  416698
+
+Fixed Effects:
+             Estimate Std. Error t value
+(Intercept)  0.555062   0.015043  36.898
+unemp       -0.004915   0.001488  -3.302
+
+lnl= -175909.61 
+Intraclass Correlation= 0.02674 

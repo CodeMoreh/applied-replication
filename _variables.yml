@@ -1,14 +1,50 @@
-date: "Tuesday 16 June 2026"
-time: "10:15–12:45"
-room: "Room 1.06, Henry Daysh Building"
-event: "Open Research Conference, Newcastle University"
-programme-url: "https://go.ncl.ac.uk/orc"
+# Applied Replication for Data Skills – site variables.
+#
+# This is the ONE file to edit for site-wide facts and for scheduling a
+# delivery. Three parts:
+#   1. Evergreen variables – stable across deliveries; used in prose via the
+#      Quarto shortcode {{< var name.subname >}}.
+#   2. The delivery block – set delivery.active to 'true' to switch the
+#      next-delivery callout on the landing page on; set it back to 'false'
+#      for the evergreen (no-date) site. Nothing else needs touching.
+#   3. The last-delivery block – feeds the "last delivered at ..." wording
+#      that the evergreen site shows instead of a fixed date/venue table.
+
+# --- Evergreen variables --------------------------------------------------
+workshop:
+  name: "Applied Replication for Data Skills"
+  format: "one full day – four 90-minute blocks"
+  organiser: "Chris Moreh"
+  # Add a public contact address here if you want one shown on the site.
+  contact: ""
+
 site-url: "https://codemoreh.github.io/applied-replication/"
-template-repo: "https://github.com/CodeMoreh/replication-lab"
 org: "https://github.com/CodeMoreh"
-# Live class-results system (see facilitator/live-results-setup.md).
+
+# --- Frozen live-results pipeline (see facilitator/live-results-setup.md).
+# Do not rename or reformat these three keys: template-repo, live-results-url
+# and results-form-url wire a working results pipeline end to end.
+template-repo: "https://github.com/CodeMoreh/replication-lab"
 # The Multiverse page where submissions appear live:
 live-results-url: "https://codemoreh.github.io/applied-replication/results.html"
 # The Google Form participants submit results to. PLACEHOLDER – replace with the
 # real form URL once created (facilitator/live-results-setup.md, step 1):
 results-form-url: "https://forms.gle/MWhimagFDmGtprAPA"
+
+# --- Next-delivery block --------------------------------------------------
+# Set active to 'true' to schedule a delivery; fill in the fields below.
+# Set active back to 'false' to return the site to its evergreen state.
+delivery:
+  active: 'false'
+  date: ""
+  venue: ""
+  event: ""
+  mode: ""
+  registration_url: ""
+  note: ""
+
+# --- Last delivery ---------------------------------------------------------
+# Feeds the evergreen "Last delivered at ..." line on the landing page.
+last-delivery:
+  event: "Open Research Conference, Newcastle University"
+  date: "16 June 2026"

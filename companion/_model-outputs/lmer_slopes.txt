@@ -1,0 +1,28 @@
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: cosmo ~ unemp + (1 + unemp | cntry) + (1 | cntry:year)
+   Data: person
+
+REML criterion at convergence: 350388.3
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.76748 -0.95971  0.01417  0.99887  1.89847 
+
+Random effects:
+ Groups     Name        Variance  Std.Dev. Corr  
+ cntry:year (Intercept) 1.201e-03 0.034660       
+ cntry      (Intercept) 4.133e-03 0.064291       
+            unemp       3.713e-05 0.006093 -0.44 
+ Residual               1.355e-01 0.368061       
+Number of obs: 416698, groups:  cntry:year, 270; cntry, 27
+
+Fixed effects:
+             Estimate Std. Error        df t value Pr(>|t|)    
+(Intercept)  0.553728   0.015552 20.196050  35.606  < 2e-16 ***
+unemp       -0.005712   0.001684 18.815257  -3.392  0.00309 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+      (Intr)
+unemp -0.658

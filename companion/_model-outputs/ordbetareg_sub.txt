@@ -1,0 +1,26 @@
+ Family: ord_beta_reg 
+  Links: mu = identity 
+Formula: cosmo ~ unemp + (1 | cntry) 
+   Data: data (Number of observations: 20000) 
+  Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 4000
+
+Multilevel Hyperparameters:
+~cntry (Number of levels: 27) 
+              Estimate Est.Error l-95% CI u-95% CI   Rhat Bulk_ESS Tail_ESS
+sd(Intercept)   0.1305    0.0209   0.0962   0.1782 1.0051      647     1264
+
+Regression Coefficients:
+          Estimate Est.Error l-95% CI u-95% CI   Rhat Bulk_ESS Tail_ESS
+Intercept   0.1508    0.0316   0.0894   0.2107 1.0163      464     1126
+unemp      -0.0078    0.0020  -0.0118  -0.0038 0.9998     4370     3540
+
+Further Distributional Parameters:
+        Estimate Est.Error l-95% CI u-95% CI   Rhat Bulk_ESS Tail_ESS
+phi       9.2926    0.1278   9.0450   9.5445 1.0009     3555     2674
+cutzero  -0.9643    0.0170  -0.9976  -0.9314 1.0000     3123     3302
+cutone    0.7709    0.0085   0.7543   0.7878 1.0002     3138     3064
+
+Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).

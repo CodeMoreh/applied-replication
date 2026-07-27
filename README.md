@@ -1,6 +1,6 @@
 # Applied Replication for Data Skills
 
-A hands-on workshop for the Open Research Conference, Newcastle University, on Tuesday 16 June 2026 (10:15–12:45, Room 1.06, Henry Daysh Building). Facilitator: [Chris Moreh](https://chrismoreh.com). This repository holds the workshop website, the reveal.js slide deck, and a zero-install browser lab.
+A hands-on, one-day workshop in applied replication for data skills. Facilitator: [Chris Moreh](https://chrismoreh.com). This repository holds the workshop website, the reveal.js slide deck, and a zero-install browser lab. Most recently delivered at the Open Research Conference, Newcastle University, 16 June 2026.
 
 Workshop participants will complete a guided robustness reanalysis of one of the same articles reanalysed by the facilitator as part of a large replication exercise recently published in *Nature* (Aczel et al., 2026) in a special section bringing together two other papers from the same multi-year meta-project (*Systematizing Confidence in Open Research and Evidence* (SCORE) – Alipourfard et al., 2021). Participants will import data directly from an OSF repository and reproduce a constrained model, then choose one analytical deviation, make a reasoned argument for their choices supported by a Directed Acyclic Graph (DAG), preregister that choice (a git commit on the full-pipeline track, a written note before running on the browser track), and publish their own reanalysis as a webpage via GitHub Pages.
 
@@ -11,7 +11,7 @@ The site deploys to GitHub Pages at <https://codemoreh.github.io/applied-replica
 
 ## What happens
 
-The session moves through three distinct concepts. First, the three "R"s – reproducibility, robustness, and replicability – grounded in three *Nature* (2026) papers measuring these outcomes across SCORE's sample of published social and behavioural science papers. Second, those three Rs are traced through a single case: Teney's (2016) article on the correlates of EU framing based on Eurobarometer data. Third, estimands and DAGs – distinguishing theoretical, empirical, and estimation targets, and reading confounders, mediators, and colliders from causal graphs.
+The session moves through three distinct concepts. First, the three "R"s – reproducibility, robustness, and replicability – grounded in three *Nature* (2026) papers measuring these outcomes across SCORE's sample of published social and behavioural science papers. Second, those three Rs are traced through the EU-frames case: a 2016 study by the original author (OA) of the correlates of EU framing based on Eurobarometer data. Third, estimands and DAGs – distinguishing theoretical, empirical, and estimation targets, and reading confounders, mediators, and colliders from causal graphs.
 
 ## Two ways to take part
 
@@ -41,9 +41,9 @@ The `data/` directory holds four CSVs and a codebook, served verbatim so the bro
 | File | What it is |
 |------------------------|-----------------------------------------------|
 | `rep_data.csv` | As-published aggregates (270 country-years), with the original wave set |
-| `teney_panel.csv` | Corrected panel, rebuilt independently from the raw GESIS microdata |
-| `teney_panel_codebook.md` | Codebook for `teney_panel.csv` (sources, scales, variables, licence) |
-| `spec_grid.csv` | 1,680 pre-computed specifications across the task menu |
+| `EUframes_cy.csv` | Corrected panel, rebuilt independently from the raw GESIS microdata |
+| `EUframes_cy_codebook.md` | Codebook for `EUframes_cy.csv` (sources, scales, variables, licence) |
+| `spec_grid.csv` | 840 pre-computed specifications across the task menu |
 | `analysts5.csv` | The five Multi100 analysts' results for the constrained claim |
 
 **OSF nodes.** The workshop fetches from [osf.io/6zqct](https://osf.io/6zqct), the facilitator's personal extended fork of the official archival Multi100 component for analyst C6HJR [osf.io/8rtwe](https://osf.io/8rtwe). The full SCORE dossier on the reanalysed paper is [osf.io/h7432](https://osf.io/h7432).

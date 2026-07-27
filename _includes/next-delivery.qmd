@@ -1,0 +1,65 @@
+```{r}
+#| echo: false
+#| results: asis
+#| message: false
+#| warning: false
+
+# Next-delivery toggle.
+#
+# Reads the `delivery` block from _variables.yml (the single file the
+# organiser edits) and, when delivery.active is "true", emits a styled callout
+# with the next delivery's details. When it is "false" – the evergreen default
+# – this chunk emits nothing, so the page reads as an undated, standing
+# workshop. Activation is therefore a one-line edit in _variables.yml and needs
+# no change to any page.
+
+find_variables_file <- function() {
+  candidates <- c("_variables.yml", "../_variables.yml", "../../_variables.yml")
+  hits <- candidates[file.exists(candidates)]
+  if (length(hits)) hits[[1]] else NA_character_
+}
+
+vars_path <- find_variables_file()
+
+if (!is.na(vars_path) && requireNamespace("yaml", quietly = TRUE)) {
+  vars <- yaml::read_yaml(vars_path)
+  delivery <- vars[["delivery"]]
+
+  # Accept either a quoted string ('true') or a bare YAML boolean (true).
+  is_active <- !is.null(delivery) &&
+    tolower(as.character(delivery[["active"]])) == "true"
+
+  if (is_active) {
+    field <- function(x) {
+      if (is.null(x)) return(NA_character_)
+      x <- as.character(x)
+      if (!nzchar(x)) NA_character_ else x
+    }
+    present <- function(...) {
+      vals <- c(...)
+      vals[!is.na(vals)]
+    }
+
+    date <- field(delivery[["date"]])
+    venue <- field(delivery[["venue"]])
+    event <- field(delivery[["event"]])
+    mode <- field(delivery[["mode"]])
+    reg_url <- field(delivery[["registration_url"]])
+    note <- field(delivery[["note"]])
+
+    out <- c("", '::: {.callout-tip title="Next delivery" appearance="default"}')
+
+    when_where <- paste(present(date, venue), collapse = " – ")
+    if (nzchar(when_where)) out <- c(out, "", paste0("**", when_where, "**"))
+    if (!is.na(event)) out <- c(out, "", paste0("Event: ", event))
+    if (!is.na(mode)) out <- c(out, "", paste0("Mode: ", mode))
+    if (!is.na(note)) out <- c(out, "", note)
+    if (!is.na(reg_url)) {
+      out <- c(out, "", paste0("[Register or express interest](", reg_url, ")"))
+    }
+    out <- c(out, "", ":::", "")
+
+    cat(paste(out, collapse = "\n"))
+  }
+}
+```
