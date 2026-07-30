@@ -67,17 +67,26 @@ panel <- read_csv("data/EUframes_cy.csv", show_col_types = FALSE) |>
                 .names = "cond_{.col}"))
 
 # --- authored constants -----------------------------------------------------
-# Five constants here correspond to nothing measured; everything else in the
+# Three constants here correspond to nothing measured; everything else in the
 # file is estimated from the public panel or calibrated from the licensed
-# respondents. Only the first is an effect on what a respondent answers, which
-# is the sense in which the twin has one authored individual-level effect. The
-# other four govern who ends up in the sample and how many of them there are.
-# A sixth authored quantity sits outside this script: lambda_k in
-# sim_calibration.csv, the mean mention count, which the recorded shares cannot
-# identify and which phi absorbs whatever value it takes.
-SIM_UNEMPLOYED_EFFECT <- c(cosmo = -0.04, util = -0.01, comm = 0.04, lib = 0.01)
-SIM_EMP_PARTICIPATION <- 0.6   # unemployed share of the 15+ population, as a
-                               # fraction of the published unemployment rate
+# respondents. NONE of them is an effect on what a respondent answers – every
+# individual-level effect in the twin is calibrated. What these govern is who
+# ends up in the sample and how many of them there are. A fourth authored
+# quantity sits outside this script: lambda_k in sim_calibration.csv, the mean
+# mention count, which the recorded shares cannot identify and which phi
+# absorbs whatever value it takes.
+#
+# A respondent's own employment status is deliberately absent. Eurobarometer
+# does record occupation, so an individual indicator could in principle be
+# calibrated from the licensed file, but nothing here was: an earlier version
+# authored one and gave it a prevalence linear in the country's unemployment
+# rate, which fused two different constructs. A national unemployment rate is a
+# property of a labour market; being out of work is a property of a person, and
+# the case's claim is about the first. Wiring them together opened a second path
+# from the macro rate into the cell mean that the tuning loop never saw, and so
+# split every planted unemployment coefficient into two. Nothing in the twin is
+# authored at the individual level now, and each macro slope plants exactly one
+# number.
 SIM_YOUTH_TILT    <- 0.15      # fieldwork distortion: selection odds per
                                # decade below the mean age
 SIM_DISTORT_SLOPE <- 0         # >0 makes the distortion stronger where
@@ -93,8 +102,6 @@ SIM_FRACTION      <- 0.10      # cell sizes as a fraction of the real n_cy.
                                # size, which the module teaches rather than
                                # hides. Raising it improves precision and the
                                # file size together
-stopifnot("authored effects must sum to zero across dimensions" =
-            abs(sum(SIM_UNEMPLOYED_EFFECT)) < 1e-12)
 
 # --- calibrated marginals ---------------------------------------------------
 PHI      <- cget("phi")
@@ -239,8 +246,6 @@ sim <- sim |>
     age10  = (age - 48) / 10,
     female = rbinom(n_person, 1, FEMALE),
     edu4   = sample(names(EDU), n_person, replace = TRUE, prob = EDU),
-    unemployed = rbinom(n_person, 1,
-                        pmin(0.9, SIM_EMP_PARTICIPATION * unemp / 100)),
     w1_raw = exp(tilt * (age - AGE_MEAN) / 10)
   ) |>
   mutate(w1 = round(w1_raw / mean(w1_raw), 4), .by = c(cntry, year))
@@ -255,8 +260,6 @@ sim <- sim |>
 age10_ref <- (AGE_MEAN + AGE_SD *
   (dnorm((AGE_MIN - AGE_MEAN) / AGE_SD) - dnorm((AGE_MAX - AGE_MEAN) / AGE_SD)) /
   (pnorm(AGE_MAX, AGE_MEAN, AGE_SD) - pnorm(AGE_MIN, AGE_MEAN, AGE_SD)) - 48) / 10
-unemployed_ref <- SIM_EMP_PARTICIPATION *
-  weighted.mean(panel$unemp, panel$n_cy) / 100
 
 demo_shift <- function(out) {
   pget(out, "age10")           * (sim$age10 - age10_ref) +
@@ -269,8 +272,7 @@ demo_shift <- function(out) {
 p_mention <- plogis(qlogis(pmin(0.999, pmax(0.5, sim$mention))) +
                       demo_shift("mention_logit"))
 
-shift <- sapply(DIMS, \(d) demo_shift(d) +
-                  SIM_UNEMPLOYED_EFFECT[[d]] * (sim$unemployed - unemployed_ref))
+shift <- sapply(DIMS, demo_shift)
 base <- as.matrix(sim[, DIMS])
 # A respondent's shift can push a small part below zero, and the Dirichlet
 # needs every part positive. Rather than clip each part and renormalise the
@@ -329,32 +331,18 @@ sim <- sim |>
 # model fitted to the real panel lands. The composites inherit the sums of
 # their parts, and nothing is induced from any one privileged dimension.
 #
-# Unemployment plants two coefficients rather than one, because a respondent's
-# own `unemployed` status also moves their composition and its prevalence is
-# linear in the cell rate. That is a second path from unemployment to a cell
-# mean, and the tuning loop above never sees it: the loop works on the
-# composition the cell recipe supplies, before any individual is drawn. Hold
-# `unemployed` fixed and a model recovers the contextual coefficient, which is
-# the panel's own. Leave it out and the model recovers that coefficient plus
-# this channel, which is the marginal one. Both are estimands of the twin and
-# both are recorded, so a reader can say which one their model is after.
-# Growth opens no such path and needs no second column.
+# Each macro slope plants exactly one number. The only route from a country's
+# unemployment rate to a respondent's answer runs through the cell recipe, and
+# the tuning loop above sees that route in full, so there is no second quantity
+# for a reader to have to choose between.
 slope_of <- function(y) coef(lm(cell_form("y"),
                                 data = mutate(panel, y = y)))[["unemp"]]
-prevalence <- pmin(0.9, SIM_EMP_PARTICIPATION * panel$unemp / 100)
-channel <- map_dbl(set_names(DIMS),
-                   \(d) slope_of(p_cell * SIM_UNEMPLOYED_EFFECT[[d]] *
-                                   (prevalence - unemployed_ref)))
-channel <- c(channel,
-             pos = channel[["cosmo"]] + channel[["util"]],
-             neg = channel[["comm"]]  + channel[["lib"]])
 
 planted <- map(c(DIMS, "pos", "neg"), \(v) {
   cf <- coef(lm(cell_form(paste0("m", v)), data = panel))
-  tibble(outcome                  = v,
-         planted_unemp_contextual = cf[["unemp"]],
-         planted_unemp_marginal   = cf[["unemp"]] + channel[[v]],
-         planted_growth           = cf[["growth"]])
+  tibble(outcome        = v,
+         planted_unemp  = cf[["unemp"]],
+         planted_growth = cf[["growth"]])
 }) |>
   list_rbind()
 
@@ -372,33 +360,27 @@ comparison <- map(c(DIMS, "pos", "neg"), \(v) {
 }) |>
   list_rbind() |>
   left_join(planted, by = "outcome") |>
-  select(outcome,
-         contextual = planted_unemp_contextual,
-         marginal   = planted_unemp_marginal, sim_unemp,
-         planted_growth, sim_growth) |>
+  select(outcome, planted_unemp, sim_unemp, planted_growth, sim_growth) |>
   mutate(across(where(is.numeric), \(x) signif(x, 4)))
 
 # The education reference category has to match the one the calibration used,
 # or the contrast recovered here is against a different band and looks wrong.
-m_ind <- feols(cosmo ~ age10 + female + edu4 + unemployed | cntry^year,
+m_ind <- feols(cosmo ~ age10 + female + edu4 | cntry^year,
                data = sim |>
                  filter(k > 0) |>
                  mutate(edu4 = factor(edu4, levels = names(EDU))))
 
 # Where any gap between the planted coefficient and the simulated slope enters,
-# on the cosmopolitan dimension: the tuning target, the marginal quantity the
-# unemployed channel adds to it, the tuned cell expectation, that expectation
-# carried down to individuals (which adds the covariance between mentioning and
-# composition, and the simplex scale-back), and the realised draw. The realised
-# row holds no individual controls, so `marginal` is the row it should be read
-# against.
+# on the cosmopolitan dimension: the tuning target, the tuned cell expectation,
+# that expectation carried down to individuals (which adds the covariance
+# between mentioning and composition, and the simplex scale-back), and the
+# realised draw.
 expected_person <- tibble(cntry = sim$cntry, year = sim$year,
                           e = p_mention * cond[, "cosmo"]) |>
   summarise(e = mean(e), .by = c(cntry, year)) |>
   right_join(panel |> select(cntry, year), by = c("cntry", "year"))
 slope_trace <- c(
-  contextual    = tgt["cosmo", "unemp"],
-  marginal      = planted$planted_unemp_marginal[planted$outcome == "cosmo"],
+  planted       = tgt["cosmo", "unemp"],
   tuned_cell    = slope_of(p_cell * cond_fixed[, "cosmo"]),
   expected_pers = slope_of(expected_person$e),
   realised      = coef(lm(cell_form("cosmo"), data = sim_cells))[["unemp"]])
@@ -420,10 +402,8 @@ report <- list(
   individual   = rbind(
     calibrated = c(age10 = pget("cosmo", "age10"),
                    female = pget("cosmo", "female"),
-                   e20plus = pget("cosmo", "edu4e20plus"),
-                   unemployed = SIM_UNEMPLOYED_EFFECT[["cosmo"]]),
-    recovered  = round(coef(m_ind)[c("age10", "female", "edu4e20plus",
-                                     "unemployed")], 5)),
+                   e20plus = pget("cosmo", "edu4e20plus")),
+    recovered  = round(coef(m_ind)[c("age10", "female", "edu4e20plus")], 5)),
   age        = c(unweighted = round(mean(sim$age), 1),
                  weighted = round(weighted.mean(sim$age, sim$w1), 1)),
   # The twin's respondents are drawn in proportion to n_cy, so a person-level
@@ -450,6 +430,6 @@ if (nzchar(sweep_file)) {
 
 sim |>
   mutate(across(c(cosmo, util, comm, lib, pos, neg), \(x) round(x, 6))) |>
-  select(pid, cntry, year, w1, age, female, edu4, unemployed,
+  select(pid, cntry, year, w1, age, female, edu4,
          cosmo, util, comm, lib, pos, neg, unemp, growth, bailout) |>
   write_csv(Sys.getenv("SIM_OUT", "data/EUframes_person_sim.csv"))

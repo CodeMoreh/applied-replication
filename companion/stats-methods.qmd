@@ -263,16 +263,7 @@ summary(m_twfe)
 
 The slope is −0.00347: within a country, a one-point rise in unemployment goes with a fall of about 0.0035 in the mean cosmopolitan-framing score, net of common yearly shocks. Its `t` of −3.80 (p = 0.0002) is the workshop's anchor. Two R-squared lines repay attention. The overall adjusted R-squared of 0.72 mostly measures how much the fixed effects themselves explain – country identities are hugely predictive of framing levels – while the **within R-squared** of 0.058 is the slope's own contribution: unemployment movements explain about 6% of the within-country variation. Both are true; only the second is about the research question.
 
-The same model on the as-submitted Multi100 file gives the day's other anchor:
-
-```{r}
-#| message: false
-rep_data <- read_csv("../data/rep_data.csv", show_col_types = FALSE)
-feols(mcosmopolitan ~ unemp | cntry + year, data = rep_data, vcov = "iid") |>
-  coeftable()
-```
-
-On the corrected panel the constrained model returns **t = −3.804** (df = 233, N = 270), the value on record for analyst C6HJR; on the as-submitted file the same specification returns **t = −3.853**. The small gap is produced by a data-preparation error whose story Block 2 tells: a wave file read twice in the as-submitted pipeline, caught and corrected during the project. Both figures are exact, and the story belongs there rather than in this module.
+The value on record for analyst C6HJR is **t = −3.804** (df = 233, N = 270), which is what this model returns and what the workshop reproduces in Task 3.
 
 Two footnotes to the anchor, both of which recur on the specification menu. First, grand-mean centring the predictor shifts the intercept but leaves the slope and its `t` untouched once fixed effects are present: a centred predictor and its raw form give an identical coefficient, which is exactly why the specification grid keeps only the raw row rather than carrying a redundant centred twin. Second, the standard error above is the classical one, matching the published analysis; ask fixest to cluster by country instead and the same slope's `t` becomes −2.31 (p = 0.029). Still negative, still conventionally significant, but a reminder that even after the estimator is settled, the uncertainty convention is a separate, consequential choice. When you compare outputs across analysts, check which convention each is reporting before comparing the `t`s.
 
@@ -727,7 +718,7 @@ The five reanalyses were not free-for-alls. Multi100's Task 2 fixed both ends of
 | Analyst | Data as analysed | Outcome construction | Predictor | Controls | Estimator | SEs and df |
 |---|---|---|---|---|---|---|
 | 018OL | 420 country-by-wave cell means, EU-27 | mean of the 5 items, rescaled 0–1 | unemployment 15–74, raw | none | crossed random intercepts: country, year, EB wave | Satterthwaite, 396.9 |
-| **C6HJR** | **270 country-years** | **cosmopolitan share, corrected panel** | **unemployment, centred** | **none** | **two-way FE: country + year** | **conventional, 233** |
+| **C6HJR** | **270 country-years** | **cosmopolitan share, EU-frames panel** | **unemployment, centred** | **none** | **two-way FE: country + year** | **conventional, 233** |
 | KEVF1 | 209,826 respondents | sum of the 5 items (0–7) | unemployment, raw | none | nested random intercepts: year within country | Satterthwaite, 135.6 |
 | KQXUE | 270 country-years | cosmopolitan share | unemployment 20–64, raw | none | one-way country FE | conventional, 242 |
 | PRL47 | 394,575 respondents | cosmopolitan share, no-opinion coded 0 | unemployment 25–64, raw + yearly change | gender, age, education, occupation, rural, crisis dummy, log GDP, growth | three-level: respondent in country-quarter in country | Wald z, no df |

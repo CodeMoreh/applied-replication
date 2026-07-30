@@ -138,7 +138,7 @@ if (file.exists(grid_file)) {
       analyst_id = c("018OL", "C6HJR", "KEVF1", "KQXUE", "PRL47"),
       r_outcome = c(
         "positive non-materialist mean of the 5 items, cell means rescaled 0-1",
-        "mcosmo (cosmopolitan share, corrected panel)",
+        "mcosmo (cosmopolitan share, EU-frames panel)",
         "positive non-materialist sum of the 5 items (0-7)",
         "cosmopolitan share",
         "cosmopolitan share (no-opinion coded 0)"),

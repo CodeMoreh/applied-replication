@@ -85,7 +85,7 @@ Seven optional self-study modules sit around the one-day workshop – see the [c
 |------------------------------------|------------------------------------|
 | Multi100 – OSF project | <https://osf.io/q5h2c/> |
 | Multi100 – GitHub repo (effect sizes) | <https://github.com/marton-balazs-kovacs/multi100> |
-| OSF fork – data & corrected analysis (workshop fetch target) | <https://osf.io/6zqct/> |
+| OSF fork – data & maintained analysis (workshop fetch target) | <https://osf.io/6zqct/> |
 | Official Multi100 archival record for analyst C6HJR | <https://osf.io/8rtwe/> |
 | Full SCORE dossier on the EU-frames case | <https://osf.io/h7432/> |
 | Multi100 navigation sheet (claims list) | Available from the Multi100 OSF project above |
@@ -105,7 +105,7 @@ The target article [@Teney2016DoesEUEconomic] was put through all three SCORE ac
 | `4rjbf` | **Source-data reproduction** | **'Not reproduced'** – original effect size could not be extracted or re-calculated |
 | `gr8u6` | **Multi100 robustness** – 5 independent reanalysts | All 5 coefficients negative (claim-consistent direction); partial r from −0.006 to −0.452 |
 | `zt5y2` | **Secondary-data replication** (Eurobarometer + Eurostat, different waves; preregistered; N = 352,114 person-year obs.) | **Not replicated – sign flip**: positive coefficient (b = 0.002, t = 2.004, p = 0.046) in both Analysis One and Analysis Two |
-| `6zqct` | Analyst's maintained fork (workshop fetch target) – adds corrected April 2025 analysis | <https://osf.io/6zqct/> |
+| `6zqct` | Analyst's maintained fork (workshop fetch target) – carries the working materials and today's data | <https://osf.io/6zqct/> |
 | `8rtwe` | Official Multi100 archival record for analyst C6HJR | <https://osf.io/8rtwe/> |
 
 Three Rs, three different verdicts on one paper: reproduction failed (twice, differently); robustness held in sign but spanned two orders of magnitude in effect size; replication returned a sign flip. This is the glossary's point that the three indicators are near-uncorrelated – made concrete by a single case built entirely from public artefacts.

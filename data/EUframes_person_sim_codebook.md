@@ -19,8 +19,8 @@ four shares sum to one because that is what the survey instrument makes them do,
 and a set of coefficients estimated the same way on all four automatically sums
 to zero, so no dimension has to be held passive to keep the composition intact.
 Individual characteristics carry the effects they carry in the real respondents.
-Six quantities in the whole file are invented. Exactly one of them is an effect
-on what a respondent answers, and all six are named below.
+Four quantities in the whole file are invented, none of them an effect on what a
+respondent answers, and all four are named below.
 
 ## Estimated, calibrated, authored
 
@@ -43,17 +43,25 @@ module](../companion/repositories.qmd#sec-gesis) explains that regime. The
 generator itself reads no microdata: only the committed summaries and the
 public panel.
 
-**Authored** – the six quantities corresponding to nothing measured. Only the
-first changes what a respondent answers: the effect of being unemployed oneself
-on the framing composition. The other five govern who ends up in the sample and
-how many of them there are. They are the prevalence rule behind the
-`unemployed` indicator, at 0.6 of the published unemployment rate; the fieldwork
-selection tilt that gives `w1` something to correct, at 0.15 per decade below
-the mean age; the switch that makes that tilt grow with a cell's unemployment,
-zero by default; the cell size as a fraction of the real respondent count, 0.10;
-and the mean mention count `lambda_k` = 2.4 in `sim_calibration.csv`, which the
-recorded shares cannot identify and which the Dirichlet concentration absorbs
-whatever value it takes.
+**Authored** – the four quantities corresponding to nothing measured. None of
+them changes what a respondent answers; every individual-level effect in the
+file is calibrated. What they govern is who ends up in the sample and how many
+of them there are. They are the fieldwork selection tilt that gives `w1`
+something to correct, at 0.15 per decade below the mean age; the switch that
+makes that tilt grow with a cell's unemployment, zero by default; the cell size
+as a fraction of the real respondent count, 0.10; and the mean mention count
+`lambda_k` = 2.4 in `sim_calibration.csv`, which the recorded shares cannot
+identify and which the Dirichlet concentration absorbs whatever value it takes.
+
+**A respondent's own employment status is deliberately not in the file.**
+Eurobarometer records occupation, so an indicator could in principle have been
+calibrated from the licensed extract, but none was. An earlier version of this
+twin authored one and set its prevalence to a fixed multiple of the country's
+unemployment rate. That fused two constructs measured at different levels – a
+labour market's unemployment rate and a person's employment status – and opened
+a route from the macro rate into the cell mean that the cell-level recipe never
+saw, which split every planted unemployment coefficient into two. It is gone,
+and each macro slope now plants exactly one number.
 
 ## The recipe
 
@@ -65,7 +73,7 @@ dimensions by a Dirichlet-multinomial draw around an expected composition
 $$
 \text{composition}_{ict} \;=\; \underbrace{a_j + b_j\,\text{unemp}_{ct}
 + c_j\,\text{growth}_{ct} + \text{year}_{jt} + u_{jc} + u_{jct}}_{\text{the cell, from the public panel}}
-\;+\; \underbrace{\text{own age, sex, education, employment}}_{\text{from the calibration}} ,
+\;+\; \underbrace{\text{own age, sex, education}}_{\text{from the calibration}} ,
 $$
 
 with the individual terms centred on the population marginals, so that a
@@ -139,24 +147,19 @@ the same specification, recorded in `companion/_model-outputs/sim_planted.csv`.
 A model fitted to the twin should therefore land where the same model fitted to
 the real data lands.
 
-Unemployment plants two coefficients rather than one. A respondent's own
-`unemployed` status also moves their composition, and its prevalence is linear
-in the cell's unemployment rate, so there is a second path from unemployment to
-a cell mean that the cell-level recipe never sees. Hold `unemployed` fixed and a
-model recovers the contextual coefficient, which is the panel's own. Leave it
-out and the model recovers that coefficient plus the individual channel, which
-is the marginal one. Both are estimands of the twin and both are recorded, so a
-reader can say which of them their own model is after. Growth opens no such
-path and has a single column.
+Each macro slope plants exactly one number. The only route from a country's
+unemployment rate to a respondent's answer runs through the cell recipe, and
+the generator's tuning loop sees that route in full, so there is no second
+quantity for a reader to choose between. Growth is the same.
 
-| Outcome | Unemployment, contextual | Unemployment, marginal | GDP growth |
-|---|---:|---:|---:|
-| `cosmo` | −0.003561 | −0.003788 | −0.000242 |
-| `util` | −0.000678 | −0.000735 | +0.001914 |
-| `comm` | +0.005235 | +0.005462 | −0.001629 |
-| `lib` | +0.000105 | +0.000161 | +0.000005 |
-| `pos` | −0.004239 | −0.004523 | +0.001672 |
-| `neg` | +0.005340 | +0.005623 | −0.001624 |
+| Outcome | Unemployment | GDP growth |
+|---|---:|---:|
+| `cosmo` | −0.003561 | −0.000242 |
+| `util` | −0.000678 | +0.001914 |
+| `comm` | +0.005235 | −0.001629 |
+| `lib` | +0.000105 | +0.000005 |
+| `pos` | −0.004239 | +0.001672 |
+| `neg` | +0.005340 | −0.001624 |
 
 The substantive pattern is worth reading before modelling anything: rising
 unemployment pushes framing away from *both* cosmopolitan and utilitarian
@@ -167,10 +170,8 @@ dimensions share one instrument, an analyst who picks `util` and one who picks
 why the outcome fork carries so much specification variance in the real
 multiverse.
 
-The authored individual-level effect, on the same share scale: being unemployed
-oneself moves the composition by (−0.04 cosmopolitan, −0.01 utilitarian,
-+0.04 communitarian, +0.01 libertarian). The calibrated demographic effects sit
-in `sim_calibration_person.csv`; the largest is education, which moves
+Every individual-level effect in the file is calibrated rather than authored,
+and they sit in `sim_calibration_person.csv`. The largest is education, which moves
 graduates about 0.12 towards cosmopolitan framing and 0.11 away from
 communitarian, relative to those who left school by 15.
 
@@ -179,28 +180,27 @@ respondents who mention something. The shares are undefined for anyone who
 mentions nothing and are stored as zeros, so a fit that recovers these values
 has to carry the filter `cosmo + util + comm + lib > 0`. The two estimands
 genuinely differ, because education drives the propensity to mention as well as
-the composition: the committed draw returns +0.122 for graduates on
-cosmopolitan framing among mentioners, against a calibrated 0.124, but +0.150
+the composition: the committed draw returns +0.112 for graduates on
+cosmopolitan framing among mentioners, against a calibrated 0.124, but +0.140
 on all rows.
 
 Across the 20 independent draws recorded in
 `companion/_model-outputs/sim_recovery_sweep.csv` the twin recovers the planted
-values, though not every one of them exactly. Read against the marginal column,
-the average of the 20 sits within two-thirds of a single draw's standard
+values. The average of the 20 sits within 0.41 of a single draw's standard
 deviation of the planted value on all twelve quantities. Measured instead
-against the precision of that 20-draw average, the largest discrepancy is 2.8
-standard errors, on utilitarian framing's unemployment slope in this block of
-seeds. With twelve quantities on the table a maximum of that size is roughly a
-one-in-twenty event if the twin were exactly unbiased, so the fair statement is
-that the twin is very nearly rather than exactly unbiased, with no dimension a
-standing exception.
+against the precision of that 20-draw average, every one of the twelve falls
+inside two standard errors and the largest discrepancy is 1.8, which is what a
+set of twelve should look like when there is nothing systematic in it. Twenty
+draws cannot rule out a bias smaller than the noise, so this establishes that
+the twin is unbiased to the precision twenty draws can see, not that it is
+exactly unbiased.
 
-Read against the contextual column instead, five of the six unemployment
-averages sit further from their planted value, and the four outcomes with the
-largest individual channel are exactly the four that move most. That is what
-identifies the channel as the source of the displacement, rather than the
-simplex projection: the tuning loop that sets the cell-level composition
-reproduces the contextual column to within 4e-11.
+That statement is stronger than it was. An earlier version of the generator
+authored an `unemployed` indicator whose prevalence tracked the country's
+unemployment rate, and the same sweep put its largest discrepancy at 2.8
+standard errors – too large for twelve quantities to produce by chance. The
+indicator was the source, and removing it removed the residual rather than
+relabelling it.
 
 A **single** draw lands on none of these values, and cannot: each cell mean is
 an average over a tenth of the real respondents, so a cell-level slope carries a
@@ -255,7 +255,6 @@ positive everywhere; 0.01 is a good setting to try.
 | `age` | Simulated age, 15–98; carries its real calibrated effect |
 | `female` | Simulated indicator at the calibrated marginal (0.546); carries its real calibrated effect |
 | `edu4` | Simulated education band (`le15` / `e16_19` / `e20plus` / `studying`) at calibrated marginals; carries its real calibrated effects, the largest in the file |
-| `unemployed` | **Authored** indicator; probability is 0.6 × the cell's real unemployment rate as a proportion, so about 5% at the average |
 | `cosmo`, `util`, `comm`, `lib` | Simulated dimension shares; sum to 1 for anyone who mentions anything, to 0 otherwise |
 | `pos`, `neg` | Composites: `pos` = `cosmo` + `util`, `neg` = `comm` + `lib` |
 | `unemp`, `growth`, `bailout` | Real published values, joined from `EUframes_cy.csv` |

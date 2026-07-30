@@ -306,7 +306,7 @@ cat("
 
 ## Task 2 – Look before you model {#task-2-get-the-data-and-look-at-it}
 
-The **EU-frames dataset** (`EUframes_cy.csv`) is already loaded for you as `euframes`. It is the corrected country-year panel behind the whole exercise. The copy this page loads is byte-identical to the one published in the analyst's fork on OSF (osf.io/6zqct – "Multi100 \| Teney_EurSocioRev_2016 \| Analyst_C6HJR", main folder), and the official Multi100 archival record sits at osf.io/8rtwe. Route 1 participants download the same file into their Positron workspace; in the browser it is pre-loaded, so you start straight on the analysis.
+The **EU-frames dataset** (`EUframes_cy.csv`) is already loaded for you as `euframes`. It is the country-year panel behind the whole exercise. The copy this page loads is byte-identical to the one published in the analyst's fork on OSF (osf.io/6zqct – "Multi100 \| Teney_EurSocioRev_2016 \| Analyst_C6HJR", main folder), and the official Multi100 archival record sits at osf.io/8rtwe. Route 1 participants download the same file into their Positron workspace; in the browser it is pre-loaded, so you start straight on the analysis.
 
 Run the cell below to inspect the panel. Edit it freely – this is your environment.
 
@@ -417,15 +417,13 @@ You should get `estimate ≈ −0.00347`, `std.error ≈ 0.00091`, `statistic �
 ::::
 
 ::: {.callout-note collapse="true"}
-## The record's second number, and where it came from
+## Everyone gets the same number. So why did five analysts disagree?
 
-There is a second number in this analysis's public trail: **t = −3.853**. It is what the *first* submitted pipeline produced, and the gap to the −3.804 you just reproduced has a story.
+You reproduced the recorded value exactly, and so did everyone else in the room – because everyone ran the same code on the same file. Reproducibility is the cheap R.
 
-The as-submitted data-preparation script stacked sixteen Eurobarometer waves and read the EB 70.1 file (`ZA4819`) twice by mistake: once for 2008 (correct) and again in place of EB 72.4 (`ZA4994`) for 2009. The panel's 2009 rows were therefore a copy of the 2008 respondents. The two builds diverge on 2009 and nowhere else, and 2009 carried about half the respondents it should have. The analyst caught the slip during the project and corrected it, and the recorded −3.804 comes from the corrected build – the very `EUframes_cy.csv` you are using.
+The five Multi100 analysts each wrote their own code for the same claim, and came back with five different answers, one of them not significant. Their pipelines are competent, well-organised work, so the spread is not a quality problem. It is what happens when a claim stated in words leaves several genuinely defensible quantities on the table, and different analysts estimate different ones without noticing they have chosen.
 
-The whole trail is public in the analyst's fork ([osf.io/6zqct](https://osf.io/6zqct/)): the `moreh_rep/` folder preserves the as-submitted pipeline; `moreh_rep_vAPR2025/` holds the corrected script – annotated "APRIL 2025 – Mistake in dataset here; the dataset associated with 'eb724' should be 'ZA4994_v3-0-0.dta'" – together with the exported corrected dataset; and the main folder carries `EUframes_cy.csv` itself, the exact file this page loads. The official Multi100 component ([osf.io/8rtwe](https://osf.io/8rtwe/)) preserved only the earlier, uncorrected folder.
-
-Coding can go wrong – even during a reanalysis. Keeping materials open and well documented is what lets a mistake be spotted and corrected. That is reproducibility working, not failing.
+That is what Task 4 addresses. Naming the quantity you are after – the estimand – and drawing the causal graph your adjustment set follows from is how you make the choice visible instead of accidental.
 :::
 
 ------------------------------------------------------------------------

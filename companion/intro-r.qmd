@@ -101,7 +101,7 @@ Run `library(fakepackagename)` and read the error carefully, then run `library(r
 
 ## 5. Every format lands as a data frame {#sec-reading}
 
-You will rarely type data by hand. Most data arrives as a **CSV** – a 'comma-separated values' file, a plain text table where each line is a row and commas divide the columns. The workshop ships its data this way precisely because a CSV is readable, diff-able text rather than an opaque binary blob. Two of the committed files matter here: `rep_data.csv`, the analysis exactly as it was submitted to the Multi100 project, and `EUframes_cy.csv`, the corrected country-year panel every later specification is built on.
+You will rarely type data by hand. Most data arrives as a **CSV** – a 'comma-separated values' file, a plain text table where each line is a row and commas divide the columns. The workshop ships its data this way precisely because a CSV is readable, diff-able text rather than an opaque binary blob. The file that matters most here is `EUframes_cy.csv`, the country-year panel every specification in the workshop is built on.
 
 R reads a CSV into a data frame in one call. Base R has `read.csv()`; the `readr` package's `read_csv()` is a little faster and reports the column types it inferred, and it is the one the workshop uses.
 
@@ -127,7 +127,7 @@ summary(euframes$unemp)     # min, median, mean and max of one column
 ::: {.callout-tip}
 ## Try it
 
-Read `data/rep_data.csv` into an object called `rep` with `read_csv()`, then run `nrow(rep)` and `names(rep)`. It holds the same 270 country-years as the corrected panel but under the column names the original submission used. Comparing the two column lists is a gentle first look at why the workshop keeps both files side by side.
+Read `data/analysts5.csv` into an object called `analysts` with `read_csv()`, then run `nrow(analysts)` and `names(analysts)`. It holds the five Multi100 analysts' recorded results, one row each, and it is the smallest file in the project – a good one to print whole and look at properly. Compare its column list against `euframes`: one file describes country-years, the other describes analyses, and noticing what a row *is* in each is the first question to ask of any dataset.
 :::
 
 ### Real data rarely arrives as a CSV

@@ -25,17 +25,14 @@ It is worth being concrete about why this deserves a social scientist's time, be
 
 **Public error flagging and correction.** This is the one that connects most directly to what this workshop is about, so it is worth dwelling on. When analysis code is committed and made public, other people can read it, run it, find its faults and propose fixes – in the open, with a record of who found what and how it was resolved.
 
-::: {.callout-note}
-## The workshop's own case, told openly
-The next paragraph recounts the real data-preparation error behind the EU-frames analysis – the same story the workshop tells openly in its Block 2. It is told, not hidden: reading it here spoils nothing.
-:::
+Analysis code changes after it is published. A reviewer asks for a robustness check, a dependency updates, a collaborator spots something, or the author simply improves a step. Without version control each of those revisions overwrites its predecessor, and the record shows only wherever the file happened to land. A reader who wants to know whether the published number came from this version of the script has nothing to go on.
 
-The workshop's own case study is a real instance of exactly this. The Multi100 analyst you are standing in for (analyst C6HJR) submitted a prep script that read one Eurobarometer wave file twice and never read the wave it should have used for 2009. That wave-duplication error shifted the recorded result from t = −3.853 to the correct t = −3.804. The analyst found and corrected the mistake, and the correction now lives in the open on the maintained OSF fork ([`osf.io/6zqct`](https://osf.io/6zqct/)), in a script carrying the analyst's own dated annotation: "APRIL 2025 – Mistake in dataset here; the dataset associated with 'eb724' should be 'ZA4994_v3-0-0.dta'". That single line is public error flagging and correction in miniature, a documented, attributable and timestamped fix to a real research artefact, sitting where anyone can read it. Git and GitHub are the everyday machinery for making that kind of correction routine rather than exceptional. Instead of an annotation added to a script by hand, in the hope that a later reader notices it, a commit message states the fix, a diff shows exactly what changed, and the history keeps the mistake and the correction on the record together.
+Git closes that gap by construction. A commit message states what changed and why, a diff shows exactly which lines moved, and the history keeps the earlier state and the revision on the record together rather than replacing one with the other. Corrections stop being embarrassing exceptions and become the ordinary texture of a project: documented, attributable, timestamped, and readable by anyone.
 
 ::: {.callout-tip}
 ## Try it
 
-Open [`osf.io/6zqct`](https://osf.io/6zqct/) and find the `moreh_rep_vAPR2025/` folder. Locate the script carrying the April 2025 annotation quoted above. Read the surrounding lines and write two sentences: what would a reader who only had the original, uncorrected script (the one preserved in the official archival record, `osf.io/8rtwe`) be unable to tell that this annotated version makes clear? That gap between a silently-fixed result and a visibly-corrected one is the gap version control exists to close.
+Open the workshop's own repository, [`github.com/CodeMoreh/applied-replication`](https://github.com/CodeMoreh/applied-replication), and pick any file with more than a handful of commits – `slides/index.qmd` is a good one. Press the "History" button, choose a commit, and read its diff. Then write two sentences: what does this history tell you about how the material reached its current state that the current files alone cannot? That gap – between an artefact and the record of how it came to be – is the gap version control exists to close.
 :::
 
 ## 2. Git lives on your machine {#sec-local}

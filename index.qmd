@@ -30,7 +30,7 @@ Last delivered at {{< var last-delivery.event >}}, {{< var last-delivery.date >}
 The day centres on the EU-frames case, OA's 2016 study of how the EU was framed across 27 countries. Five analysts have already reanalysed its central claim for the Multi100 project, and their results are public. You become the sixth, and you work through the same moves a researcher actually makes:
 
 1. **Reproduce a published analyst's result.** Take the analysis code as it was submitted to the Multi100 project, run it on the original data and land the exact coefficient it produced.
-2. **See how an error entered real submitted code.** Your run reproduces the recorded value first time. A second number in the public trail does not match it, and the story behind that gap – a survey wave read twice, caught and corrected in the open – is told with the full OSF record on screen.
+2. **See why five analysts got five answers.** Everyone in the room reproduces the same number, because everyone runs the same code. The five published analysts each wrote their own, and disagreed. That spread is not carelessness, and naming what it actually is takes up the rest of the morning.
 3. **State an estimand and draw the graph.** Say precisely which quantity the study is trying to estimate. That quantity is the estimand. Then draw the causal graph, a directed acyclic graph or DAG, that tells you which variables to adjust for.
 4. **Preregister one specification, the way researchers do on OSF.** Pick one defensible analysis from a menu of choices, then write down what you expect in a shortened version of a real preregistration template, before you run anything.
 5. **Run it and watch the class multiverse grow.** Submit your result and see it land on a live chart, next to your classmates' and the five published analysts'.
@@ -70,7 +70,7 @@ Two breaks and a lunch sit between the blocks. The callout above gives the clock
 |---|---|---|
 | Block 1 – "One paper, three verdicts" | 90 minutes | The three Rs (reproducibility, robustness, replicability) and the EU-frames case, ending with a first hands-on run of the constrained model. |
 | Break | | |
-| Block 2 – "The record's second number, then the question underneath" | 90 minutes | The story of the −3.853/−3.804 gap – a wave file read twice, caught and corrected in the open – then estimands and DAGs. |
+| Block 2 – "The question underneath" | 90 minutes | Why analysts who look like they disagree are often answering different questions. Estimands, causal graphs, and the case's own DAG, which you finish yourself. |
 | Lunch | | |
 | Block 3 – "Preregister like an analyst" | 90 minutes | Completing a causal graph, choosing one analytical deviation from a specification menu, preregistering it, then running and submitting your own result. |
 | Break | | |

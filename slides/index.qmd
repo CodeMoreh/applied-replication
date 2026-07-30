@@ -169,14 +169,14 @@ A full-day workshop · four blocks
 :::: {.todaybox}
 ::: {.nonincremental}
 1. One paper, three verdicts – what survives when science repeats itself?
-2. The record's second number, then the question underneath – a real slip in my published pipeline, caught in the open; estimands and DAGs
+2. The question underneath – why five analysts got five answers; estimands and DAGs
 3. Preregister like an analyst – your DAG, your one specification, declared before it runs
 4. Reading the multiverse – 840 specifications, and where you landed in them
 :::
 ::::
 
 ::: {.todaytake}
-You leave with: a reproduced result · a real error traced in the open · a preregistered analysis · your dot on a live class multiverse
+You leave with: a reproduced result · an estimand and a DAG of your own · a preregistered analysis · your dot on a live class multiverse
 :::
 
 ::: {.todaymeta}
@@ -184,7 +184,7 @@ Work along in Positron (Route 1) or in the browser lab (Route 2) – solo or in 
 :::
 
 ::: notes
-Welcome – good to have you here. We have a full day together, in four blocks of ninety minutes. First, what happened when *Nature* asked, three times over, whether social science holds up when you repeat it – told through one paper I know from the inside, because I was one of its re-analysts. Second, I hand you my own submitted code, you reproduce the recorded result, and then I walk you through a real mistake that once lived in that pipeline – how it happened, and how keeping everything open is what caught it. Third, we sharpen the question with estimands and causal graphs, and you preregister one analysis of your own the way researchers do it on OSF. And fourth, we read the multiverse your results build over the day. You leave with a reproduced result, a real error traced in the open, a preregistered analysis, and your own dot on a live chart. Work in Positron if you set it up, or in the browser lab – both do everything we need.
+Welcome – good to have you here. We have a full day together, in four blocks of ninety minutes. First, what happened when *Nature* asked, three times over, whether social science holds up when you repeat it – told through one paper I know from the inside, because I was one of its re-analysts. Second, I hand you my own submitted code and you reproduce the recorded result – and then we go after the harder thing, which is why five analysts of that same claim came back with five different answers. That takes us to estimands and to causal graphs. Third, you preregister one analysis of your own, the way researchers do it on OSF. And fourth, we read the multiverse your results build over the day. You leave with a reproduced result, an estimand and a DAG you wrote yourself, a preregistered analysis, and your own dot on a live chart. Work in Positron if you set it up, or in the browser lab – both do everything we need.
 :::
 
 ## What you do not need today
@@ -751,28 +751,24 @@ Target: **t = −3.804** – the value on record for analyst C6HJR. When you hav
 Now you work. Route 1: open the report skeleton in your Positron workspace. Route 2: the browser lab, and start at Task one while the engine warms up. Tasks one and two are the warm-up – pin down the three R-words, then get a feel for the panel: two hundred and seventy rows, one per country-year, the corrected EU-frames data already loaded for you. Then Task three is the real one: fit the constrained model – cosmopolitan framing on centred unemployment, with country and year fixed effects. You should land on t equals minus three point eight zero four, which is the value Multi100 has on record for me, analyst C6HJR. When you have it, type the t into chat but do not send – when I say "go", everyone sends at once. [Wait for the wall of identical numbers.] There it is: thirty people, one number, to the third decimal. That, precisely, is reproducibility.
 :::
 
-## One number too many
+## One number, thirty people
 
 :::: {.none}
 ::: {.fragment}
-You just reproduced **t = −3.804** – the value on record for analyst C6HJR.
+Thirty of you just landed on **t = −3.804**, to the third decimal. That is reproducibility, and it is the easy R.
 :::
 
 ::: {.fragment}
-But there is a *second* number in this analysis's public trail: **t = −3.853**.
+You all ran the *same code*. The five Multi100 analysts each wrote their own – and came back with five different answers.
 :::
 
 ::: {.fragment}
-It is what my *first* submitted pipeline produced. Close – but not the same number, and I wrote both.
-:::
-
-::: {.fragment}
-The gap between them has a story. **After the break, I tell it.**
+None of them was careless. **After the break: what they were actually doing differently.**
 :::
 ::::
 
 ::: notes
-One more thing before the break, and it opens the thread for the rest of the morning. You have just reproduced minus three point eight zero four – the number Multi100 has on record for me. But if you go digging in the public trail for this analysis, you find a second number: minus three point eight five three. [pause] That is what my very first submitted pipeline produced, before anyone had reproduced anything. Close to the recorded value, but not the same – and I wrote both of them. The gap turns out to be exactly one wrongly-read data file, and the whole story of how it got there and how it was caught is worth telling slowly. So take half an hour, and when we come back I will walk you through it. Nothing to prepare – just come back.
+Look at what just happened. Thirty people, thirty machines, one number, agreeing to the third decimal. That is reproducibility, and I want you to notice how cheap it was: you all ran the same code on the same file, so of course you got the same number. Reproducibility is the easy R. [pause] Now hold that against the chart from earlier this morning – the five analysts of this same claim, five different answers, one of them not even significant. And here is the thing I want you chewing on over the break. Not one of those five was careless. I have read all four of the others' code, line by line, and they are competent, well-organised pipelines written by people who knew what they were doing. So the spread is not a quality problem. It is something else, and naming it is the whole of the next ninety minutes. Take half an hour – nothing to prepare, just come back.
 :::
 
 ## Break {.darkslide background-color="rgba(0,0,0,0)"}
@@ -782,123 +778,14 @@ One more thing before the break, and it opens the thread for the rest of the mor
 :::
 
 
-# BLOCK 2 – The record's second number, then the question underneath {.darkslide background-color="rgba(0,0,0,0)"}
+# BLOCK 2 – The question underneath {.darkslide background-color="rgba(0,0,0,0)"}
 
 ::: {.partlabel}
 Block 2 · 90 minutes
 :::
 
 ::: notes
-Block two, in two halves. First I tell you the story of the second number – a real mistake that once lived in my pipeline, how it happened, and how the open trail caught it. Then we use what that story teaches to sharpen the day's central idea: a lot of what looks like 'analysis variability' is really *question* variability, and fixing the question precisely is a skill you can learn. That is where estimands and causal graphs come in.
-:::
-
-## The other number in the record {.smaller}
-
-::: {.small}
-Two numbers, one analysis:
-
-- **t = −3.804** – what you reproduced, and the value Multi100 has on record for me
-- **t = −3.853** – what my *first* submitted pipeline produced
-:::
-
-::: {.fragment}
-The two builds are byte-identical everywhere except **one year, 2009**. Every other year agrees to machine precision.
-:::
-
-::: {.fragment}
-So the whole gap between the two t-statistics lives in how the 2009 rows were built – and that leads to a single line of my data-preparation code.
-:::
-
-::: notes
-So, the second number. Minus three point eight five three is what my first submitted data-preparation pipeline produced. When you put that build side by side with the corrected one you reproduced this morning, they agree to machine precision on every year except one – twenty oh nine. Nine of the ten years are flat zeros in the difference; only 2009 moves. That is already a strong clue, because a mistake that touches exactly one year is almost always a mistake in how that one year's data were read. And if you look at the respondent counts, twenty oh eight has around fifty-three thousand people behind it and twenty oh nine has twenty-six and a half – suspiciously close to exactly half. So something about the 2009 rows is wrong, and the whole gap between the two t-values lives right there. Let me show you the line.
-:::
-
-## One file, read twice
-
-::: {.small}
-The as-submitted script stacked sixteen Eurobarometer waves. Two of its read steps:
-:::
-
-```r
-eb701 <- read_dta("ZA4819_v3-0-2.dta")   # 2008, EB 70.1 – correct
-eb724 <- read_dta("ZA4819_v3-0-2.dta")   # 2009, EB 72.4 – should be ZA4994;
-                                         #                 ZA4819 read a second time
-```
-
-::: {.fragment}
-- The 2009 rows are a **copy of the 2008 respondents**, relabelled 2009 – which is why 2009 carries about half the respondents it should, and why only that year moves
-- One wrong file name, and nowhere else in the pipeline
-:::
-
-::: notes
-Here is the line. My preparation script builds the panel by stacking sixteen Eurobarometer waves, each read from its own GESIS file. The 2008 wave is EB seventy-point-one, archive number Z-A four-eight-one-nine – read correctly. The 2009 wave should be EB seventy-two-point-four, a completely different file, Z-A four-nine-nine-four. But the object I called eb724 points at four-eight-one-nine again – the 2008 file, read a second time. So every row labelled 2009 in my submitted panel is really 2008 respondents wearing the wrong year. That is why only 2009 moved between the two builds, and why its respondent count is about half – EB seventy-point-one is a smaller wave than the one that belonged there. One wrong file name, and the whole five-hundredths gap in t.
-:::
-
-## The discovery – and the correction {.smaller}
-
-::: {.small}
-- I caught the slip myself during the project and fixed it – the recorded **−3.804** comes from the corrected build, the very `EUframes_cy.csv` you reproduced from this morning:
-:::
-
-::: {.claimcard}
-"APRIL 2025 – Mistake in dataset here; the dataset associated with 'eb724' should be 'ZA4994_v3-0-0.dta'" <span class="src">– my own annotation, in the script</span>
-:::
-
-::: {.small}
-The whole trail is public in my fork, **osf.io/6zqct**:
-
-- `moreh_rep/` – the as-submitted pipeline that gives −3.853
-- `moreh_rep_vAPR2025/` – the corrected script *and* the exported corrected dataset
-- the main folder carries `EUframes_cy.csv` itself – the file this exercise reproduces from
-- the official Multi100 component (**osf.io/8rtwe**) preserved only the earlier, uncorrected folder
-:::
-
-::: notes
-Now, who caught it? I did, during the project – though it took me a good deal longer than the length of a coffee break. When I found it I left the annotation you see on the slide, dated April twenty twenty-five: mistake in dataset here, the file for eb724 should be Z-A four-nine-nine-four. I rebuilt the panel with the right file, and that corrected build is what produced the recorded minus three point eight zero four – the exact dataset you reproduced from this morning. And here is the part that matters most. The whole trail is public in my OSF fork: the original submitted pipeline is there, the corrected script is there, the exported corrected data is there, and the corrected panel sits in the main folder. What slipped is the archive – the official Multi100 component kept only the earlier, uncorrected version.
-:::
-
-## The same slip, one desk over {.smaller}
-
-::: {.small}
-Analyst KQXUE's own data preparation, in the same Multi100 folder – in Task 1 *and* Task 2:
-:::
-
-```stata
-use `eb610', clear
-append using `eb620'
-append using `eb620'
-```
-
-::: {.small}
-- **EB 62.0 appended twice** – every 2004 country-year mean double-counts an entire wave of respondents
-- Present in both submissions; caught by nobody – not the analyst, not the platform, not a reader
-- Wave-set errors are a *class* of error, not a personal failing – re-runnable, diff-able pipelines are the real defence
-:::
-
-::: {.src}
-Analyst KQXUE's public task1.do and task2.do (Multi100 materials, osf.io/gr8u6).
-:::
-
-::: notes
-And before anyone concludes this is a story about me being uniquely careless: same claim, different desk. Analyst KQXUE's preparation script – a careful, well-organised piece of Stata – appends the autumn 2004 wave twice. Every 2004 average in their panel counts one full wave of respondents double. It is there in their Task 1 file, it survived unchanged into their Task 2 file, and nobody caught it: not the analyst, not the platform, not anyone reading the results. Two of the five pipelines in this single case carry a wave-set error. That is the base rate speaking. The lesson is not "be more careful" – everyone believes they are careful. It is that this class of slip is invisible in a results table and obvious in a diff, which is why the whole day keeps insisting on open, re-runnable pipelines.
-:::
-
-## This is reproducibility *working*
-
-:::: {.none}
-A mistake in a reanalysis is normal science. The only question is whether the trail stays visible.
-
-::: {.fragment}
-Here it did – the as-submitted data, the real script, my own annotation, the corrected build, all public. That is what let the slip be caught and corrected.
-:::
-
-::: {.fragment}
-Reproducibility working, not failing. Keep the whole trail open.
-:::
-::::
-
-::: notes
-And that is the moral, before we change gear. A coding mistake in the middle of a reanalysis is not a scandal – it is ordinary science, the kind that happens to careful people all the time. The only thing that actually matters is whether the trail stays visible. In this case it did: the submitted data, the real preparation script, my own annotation admitting the error, and the corrected rebuild are all sitting in the open, which is precisely what let the mistake be caught and fixed rather than quietly propagating. None of this is a gotcha, not about the original author and not about me – it is what open materials are for. Now we change gear: from finding flaws in *pipelines* to finding flaws in *questions*. Stretch for a minute, cameras off if you like, and then we start on estimands.
+Block two is where the day stops being about numbers and starts being about questions. The whole block turns on one idea: a great deal of what gets called 'analysis variability' is really *question* variability. Analysts who look like they disagree about an answer are very often answering different questions without noticing. So we start with the most famous demonstration of that – twenty-nine teams, one dataset – then build the two tools that let you say precisely which question you are asking. First the estimand, which is the quantity you are after, stated before any model exists. Then the causal graph, which turns your assumptions about what causes what into a picture you can read an adjustment set off. Both are working tools, and you use both before lunch.
 :::
 
 ## The red-card study: 29 teams, one dataset
@@ -1360,26 +1247,6 @@ ggplot(contrast, aes(or, grp, colour = grp)) +
 And here is the optimistic half of the red-card story. Auspurg and Brüderl fixed one estimand – discrimination, properly defined – used a causal graph to derive every model specification consistent with it, four hundred and eighty-six of them, and ran the lot. Look what happens to the spread: standard deviation point four five in the crowd, point zero six with the question fixed. Same caveat as before – these strips are sketches from the published summary figures. The recipe we take from them is the workshop's recipe: a precise question, assumptions drawn out explicitly, then a whole multiverse rather than one path, then sensitivity analysis. Their conclusion, roughly: it is research without a clear question that has the credibility problem.
 :::
 
-## Lunch {.darkslide background-color="rgba(0,0,0,0)"}
-
-::: {.partlabel}
-An hour – the return time is in the chat · lunchtime browsing, if you like: the specification menu
-:::
-
-::: notes
-Lunch – a full hour, and the return time is in the chat. If you want a head start on the afternoon, the specification menu page is worth five minutes with a sandwich: it is the list of choices you will pick from when you become the sixth analyst for real. See you back here.
-:::
-
-# BLOCK 3 – Preregister like an analyst {.darkslide background-color="rgba(0,0,0,0)"}
-
-::: {.partlabel}
-Block 3 · 90 minutes
-:::
-
-::: notes
-Welcome back – and if you are just rejoining, the catch-up card in the chat has everything you missed. This block is the heart of the day. You finish your causal graph, choose one specification of your own from the menu, and then do the thing that separates a disciplined analysis from a decorated one: you declare your choice – the way researchers do it on OSF – before you run it. By the end of the block, your result is a dot on our live chart. First, the graph.
-:::
-
 ## The EU-frames DAG, half built
 
 :::: {.columns}
@@ -1489,6 +1356,46 @@ dagify(
 And here is the graph you will finish yourselves. The solid part is what we are committing to: unemployment to framing is the path of interest, and country and year are the two confounder pairs – stable national traits on one side, EU-wide shocks in a given year on the other. Run `adjustmentSets()` on this graph and it answers: country and year. Which is precisely what a two-way fixed-effects model absorbs – the graph and the baseline model are the same claim, written in two languages. The three pale nodes are yours to wire up, and they are genuine decisions. Is GDP growth a time-varying confounder that fixed effects cannot reach – a slump that raises unemployment and sours sentiment in the same year? Is the bailout a mediator, in which case you leave it alone if you want the total effect? Multi100 told us to disregard politicisation – was that defensible? The code beside the picture is the same graph written as R formulas, one arrow to a line, so wiring a node up is uncommenting the line you believe and running it again to see what the adjustment set has become. Whatever you decide here becomes your model in the next task – that is the point.
 :::
 
+## Hands-on 2: your estimand, your graph
+
+::: {.small}
+- **Task 4** – write the estimand in words, then wire up the DAG
+- The template gives you the unit-specific quantity, the target population, the aggregation – fill in each one for *this* claim
+- Then take the `#` off the arrows you are willing to defend and run `adjustmentSets()`
+:::
+
+::: {.fragment}
+Two sentences for your notes: **what do two-way fixed effects adjust for, and what can they not fix?**
+:::
+
+::: {.fragment}
+Whatever you decide here is the justification you preregister after lunch.
+:::
+
+::: notes
+Your turn, and this is the piece of the day that people tell me afterwards was the one that changed how they work. Task four, in either route. First the estimand, in words, using the template on the page – the unit-specific quantity, the population you want it over, and how you are averaging. Write it for this claim specifically; the whole value is in being forced to be precise. Then the graph. Take the hash off the arrows you actually believe, re-run, and watch what `adjustmentSets` gives back. If you add growth as a confounder it will tell you something the two-way model cannot deliver, and that is a real finding about the design, not a bug in your code. Then those two sentences for your notes: what the fixed effects do adjust for, and what they cannot fix. Fifteen minutes. I will be in the room – shout in chat if you get stuck, and put a question mark in chat if you want me to come back to something over lunch.
+:::
+
+## Lunch {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+An hour – the return time is in the chat · lunchtime browsing, if you like: the specification menu
+:::
+
+::: notes
+Lunch – a full hour, and the return time is in the chat. If you want a head start on the afternoon, the specification menu page is worth five minutes with a sandwich: it is the list of choices you will pick from when you become the sixth analyst for real. See you back here.
+:::
+
+# BLOCK 3 – Preregister like an analyst {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Block 3 · 90 minutes
+:::
+
+::: notes
+Welcome back – and if you are just rejoining, the catch-up card in the chat has everything you missed. This block is the heart of the day. You have your estimand and your graph from before lunch; now you choose one specification of your own from the menu, and then do the thing that separates a disciplined analysis from a decorated one: you declare your choice – the way researchers do it on OSF – before you run it. By the end of the block, your result is a dot on our live chart. First, what you are actually being asked to do.
+:::
+
 ## You are Analyst no. 6 – for real this time
 
 ::: {.big}
@@ -1509,7 +1416,7 @@ This morning you reproduced my constrained result. Now comes the part Multi100 a
 
 ::: {.small}
 - Six axes: **outcome** · **predictor form** · **estimator** · **copredictor set** · **sample** · **weights**
-- Baseline: the constrained model on the **corrected panel** (`EUframes_cy.csv`) – the 840-spec grid this afternoon is built on it
+- Baseline: the constrained model on the **EU-frames panel** (`EUframes_cy.csv`) – the 840-spec grid this afternoon is built on it
 - Copy-paste code for every axis sits on the specification menu page
 :::
 
@@ -1527,7 +1434,7 @@ Pick your deviation now. Draft the one-sentence justification. Don't run anythin
 :::
 
 ::: notes
-The menu page is on screen – eight axes, and every option comes with copy-paste code, so nobody is writing R from a blank line. Two of those axes open choices Multi100 held fixed: the outcome's distribution family, Gaussian or beta, and the claim-carrying predictor itself – with the grid pre-computed for all of it. And one convention binds the whole room: claim-alignment. If you pick a negative framing – communitarian, liberal, the negative composite – it is reverse-coded for you, one minus the scale, so that support for the claim reads as a negative sign for everyone. The claim-align switch sits in your preregistration cell as the explicit clue that this happens; without the convention the class chart would straddle zero by construction and read as noise. Two ground rules. First: from here on we work on the corrected panel – the grid we will compare you against this afternoon is built on it, so your baseline is the minus three point eight zero four you already confirmed. Second: one deviation. Change one axis, keep the others at baseline. That sounds restrictive, but it is what makes the class chart readable – every dot differs from the baseline in exactly one declared way. Pick your axis now, draft the one-sentence justification your DAG gives you, and do not run anything. The next ten minutes explain why not running it yet is the whole point.
+The menu page is on screen – eight axes, and every option comes with copy-paste code, so nobody is writing R from a blank line. Two of those axes open choices Multi100 held fixed: the outcome's distribution family, Gaussian or beta, and the claim-carrying predictor itself – with the grid pre-computed for all of it. And one convention binds the whole room: claim-alignment. If you pick a negative framing – communitarian, liberal, the negative composite – it is reverse-coded for you, one minus the scale, so that support for the claim reads as a negative sign for everyone. The claim-align switch sits in your preregistration cell as the explicit clue that this happens; without the convention the class chart would straddle zero by construction and read as noise. Two ground rules. First: from here on we work on the one panel, EU-frames – the grid we will compare you against this afternoon is built on it, so your baseline is the minus three point eight zero four you already confirmed. Second: one deviation. Change one axis, keep the others at baseline. That sounds restrictive, but it is what makes the class chart readable – every dot differs from the baseline in exactly one declared way. Pick your axis now, draft the one-sentence justification your DAG gives you, and do not run anything. The next ten minutes explain why not running it yet is the whole point.
 :::
 
 ## Every reanalysis leaves a public trail
@@ -1539,17 +1446,17 @@ The menu page is on screen – eight axes, and every option comes with copy-past
 :::
 
 ::: notes
-Before the declaring, the infrastructure. Everything you have touched today – the submitted dataset, my script with its April 2025 annotation, the codebook – lives at a permanent public address on the Open Science Framework. OSF does two jobs. It archives materials, which is what let this morning's story be told – and the slip be caught. And it registers plans: a registration is a frozen, timestamped snapshot of what you intend to do, filed before you do it, that nobody – including you – can quietly edit afterwards. You do not need an account for any of this today. We are going to read OSF the way a reviewer or a sceptical reader would, starting with this paper's own trail.
+Before the declaring, the infrastructure. Everything you have touched today – the dataset, my analysis script, the codebook – lives at a permanent public address on the Open Science Framework. OSF does two jobs. It archives materials, which is the only reason you were able to stand in a real analyst's shoes this morning rather than a made-up one. And it registers plans: a registration is a frozen, timestamped snapshot of what you intend to do, filed before you do it, that nobody – including you – can quietly edit afterwards. You do not need an account for any of this today. We are going to read OSF the way a reviewer or a sceptical reader would, starting with this paper's own trail.
 :::
 
 ## Three addresses, three jobs
 
 ::: {.urlbox}
-[osf.io/8rtwe](https://osf.io/8rtwe) [– the archival Multi100 record (the uncorrected folder you reproduced)]{.fs-80}
+[osf.io/8rtwe](https://osf.io/8rtwe) [– the archival Multi100 record: analyst C6HJR, frozen as submitted]{.fs-80}
 :::
 
 ::: {.urlbox .fragment}
-[osf.io/6zqct](https://osf.io/6zqct) [– the maintained fork: the corrected script, the annotation, today's data]{.fs-80}
+[osf.io/6zqct](https://osf.io/6zqct) [– the maintained fork: the script, the codebook, today's data]{.fs-80}
 :::
 
 ::: {.urlbox .fragment}
@@ -1557,7 +1464,7 @@ Before the declaring, the infrastructure. Everything you have touched today – 
 :::
 
 ::: notes
-Each of these does a different job. The first is the official archive: the Multi100 component for analyst C6HJR, frozen as submitted – which, as you heard this morning, means frozen with the slip. The second is the living fork: that is where the correction is documented, and where the workshop fetches its data. Archives preserve; forks maintain – you have now seen why a project sometimes needs both. The third address is the one I want you inside in a moment: the full SCORE dossier on this paper, every reproduction report, the robustness study, the replication. It is all public. Time to go read some of it.
+Each of these does a different job. The first is the official archive: the Multi100 component for analyst C6HJR, frozen at the moment of submission and never touched again. That is what an archive is for, and it is also its limit – an archive cannot follow a project onwards. The second address is the living fork, which is where the working materials are maintained and where this workshop fetches its data from. Archives preserve, forks maintain, and a project that expects to keep moving usually needs both. The third address is the one I want you inside in a moment: the full SCORE dossier on this paper, every reproduction report, the robustness study, the replication. It is all public. Time to go read some of it.
 :::
 
 ## Scavenger beat: open the dossier
@@ -2065,13 +1972,13 @@ If the morning had one sentence, it is this one. There is no privileged single a
 :::
 
 ::: notes
-One tool we deliberately left out of today, named on the way out. Everything you did ran without version control – that was a design decision, not an oversight, because the first delivery taught me that git alongside everything else is one skill too many for a single day. But the skill is worth having: a git history is a timestamped public trail of every change you ever made – my April 2025 correction would have been one commit in plain sight, and the first cohort of this workshop actually preregistered with a commit message, letting git supply the timestamp we got today from a rendered report. The site has a self-study companion module that takes you from a plain folder – your workspace zip is ideal – to a published repository. At your own pace, with nothing riding on it. That is the last tool in the kit.
+One tool we deliberately left out of today, named on the way out. Everything you did ran without version control – that was a design decision, not an oversight, because the first delivery taught me that git alongside everything else is one skill too many for a single day. But the skill is worth having: a git history is a timestamped public trail of every change you ever made, so every correction you ever apply sits in plain sight with a date on it. The first cohort of this workshop actually preregistered with a commit message, letting git supply the timestamp we got today from a rendered report. The site has a self-study companion module that takes you from a plain folder – your workspace zip is ideal – to a published repository. At your own pace, with nothing riding on it. That is the last tool in the kit.
 :::
 
 ## What you take with you
 
 ::: {.small}
-- **Yours now**: a preregistered, rendered report · a real error, caught in the open, in real submitted code · your dot on the class curve · your prediction, on the record
+- **Yours now**: a preregistered, rendered report · an estimand and a causal graph you wrote yourself · your dot on the class curve · your prediction, on the record
 - **Read**: the three *Nature* 2026 papers [@MiskeEtAl2026InvestigatingReproducibilitySocial; @AczelEtAl2026InvestigatingAnalyticalRobustness; @TynerEtAl2026InvestigatingReplicabilitySocial] · the glossary [@NosekEtAl2025BriefGlossaryTerms] · @AuspurgBruderl2021HasCredibilitySocial · @LundbergEtAl2021WhatYourEstimand · @Teney2016DoesEUEconomic · the workshop's own reading on specification curves
 - **Explore**: the companion curriculum (intro to R · the statistics behind today · causal graphs · the multiverse debate · simulation · repositories & preregistration · git & GitHub) · the Multi100 data · `fixest` & `ggdag` docs
 - **Keep going locally**: your university's research-software and open-research teams · a ReproducibiliTea journal club near you
@@ -2084,7 +1991,7 @@ codemoreh.github.io/applied-replication
 Fork anything. Everything is open.
 :::
 ::: notes
-Here is what goes home with you. A rendered report with a preregistration block in it, the story of an error caught in the open, in genuinely submitted code, and a dot on the class curve. The website on screen holds everything else – the readings, the data, the companion modules, the specification-curve reading, and the full SCORE dossier on the paper if you want to dig further. Two pointers for keeping the habit alive wherever you work: most universities have a research-software engineering team and an open-research or library data service that run training exactly like today's, and ReproducibiliTea journal clubs meet in dozens of cities – if there is not one near you, they will help you start it.
+Here is what goes home with you. A rendered report with a preregistration block in it, an estimand and a causal graph that you wrote for a real published claim, and a dot on the class curve. The website on screen holds everything else – the readings, the data, the companion modules, the specification-curve reading, and the full SCORE dossier on the paper if you want to dig further. Two pointers for keeping the habit alive wherever you work: most universities have a research-software engineering team and an open-research or library data service that run training exactly like today's, and ReproducibiliTea journal clubs meet in dozens of cities – if there is not one near you, they will help you start it.
 :::
 
 ## References {.scrollable .smaller visibility="uncounted"}
