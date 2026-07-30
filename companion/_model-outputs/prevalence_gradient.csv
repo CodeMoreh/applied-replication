@@ -1,0 +1,3 @@
+specification,gradient,se,mean_share,mean_rate
+pooled across country-years,0.00791677,3.77729e-4,0.075289,8.70637
+within country and year (two-way fixed effects),0.00742726,3.12964e-4,0.075289,8.70637

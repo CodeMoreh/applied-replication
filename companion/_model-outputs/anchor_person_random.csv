@@ -1,0 +1,17 @@
+outcome,component,sd
+cosmo,cyw,0.038639
+cosmo,cntry,0.0602558
+cosmo,Residual,0.360263
+cosmo,residual_sd,0.360263
+util,cyw,0.0190612
+util,cntry,0.0376815
+util,Residual,0.198052
+util,residual_sd,0.198052
+comm,cyw,0.0257293
+comm,cntry,0.0633938
+comm,Residual,0.275359
+comm,residual_sd,0.275359
+lib,cyw,0.0276138
+lib,cntry,0.0580121
+lib,Residual,0.238319
+lib,residual_sd,0.238319
