@@ -28,7 +28,7 @@ format:
 
 ---
 
-## Getting your dot on the chart (Route 2)
+## Get your dot on the chart (Route 2) {#getting-your-dot-on-the-chart-route-2}
 
 Four cells, run in order, each reading the one before it:
 
@@ -37,7 +37,7 @@ Four cells, run in order, each reading the one before it:
 3. **`run_spec(my_model)`** – computes your specification and shows the coefficient, its claim-aligned partial *r* (below zero supports the claim), and your placement against the canonical 840-spec grid.
 4. **`report_result()`** – no arguments. It builds your submission from the preregistration and prints a clickable, pre-filled form link; open it and press **Send**, and your dot lands on the live chart.
 
-If any of that stalls, work the ladder below – rung 4 gets you a dot no matter what your machine does.
+If any of that stalls, work the ladder below.
 
 ---
 
@@ -52,7 +52,7 @@ Route 2 runs R inside your browser tab, and browsers occasionally baulk. Work do
 
 ::: {.callout-note}
 ## Facilitator rescue – the by-hand grid lookup
-Last resort, facilitator-side, if a participant's cells will not run at all: every menu specification is a row in `data/spec_grid_full.csv` (a beta-family row reports `z` in place of `t`). Set the eight axes to their declared choice, read off `b`, `se`, `t`/`z`, `df`, `n` and `r`, then apply the claim-alignment flips the lab applies automatically – reverse the sign of `b`, `t`/`z` and `r` for a negative framing (`mcomm`, `mlib`, `mneg`), and again for a GDP-growth predictor – and enter those into the [form]({{< var results-form-url >}}). A guaranteed dot, no fitting required.
+Last resort, facilitator-side, if a participant's cells will not run at all: every menu specification is a row in `data/spec_grid_full.csv` (a beta-family row reports `z` in place of `t`). Set the eight axes to their declared choice and read off `b`, `se`, `t`/`z`, `df`, `n` and `r`. Then apply the claim-alignment flips the lab applies automatically, reversing the sign of `b`, `t`/`z` and `r` for a negative framing (`mcomm`, `mlib`, `mneg`), and again for a GDP-growth predictor. Enter those into the [form]({{< var results-form-url >}}). A guaranteed dot, no fitting required.
 :::
 
 ---
@@ -69,6 +69,6 @@ Last resort, facilitator-side, if a participant's cells will not run at all: eve
 
 ---
 
-## Rendering your report (Route 1)
+## Render before you run (Route 1) {#rendering-your-report-route-1}
 
 Render your report so your preregistration block is written down and timestamped before you run your specification. In Positron, press the **Render** button at the top of the open report, or run `quarto render` in the terminal (View → Terminal). In Route 2 the same block lives on the browser-lab page and updates in the tab.

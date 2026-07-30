@@ -40,9 +40,11 @@ DIMS <- c("cosmo", "util", "comm", "lib")
 # --- whether a respondent mentions anything ---------------------------------
 # On the logit scale, so that the generator can shift an individual's
 # probability without it ever leaving (0, 1). A linear probability model would
-# be the natural companion to the composition below, but mentioning nothing is
-# rare enough - about six per cent - that a linear education effect drives the
-# probability negative for most graduates.
+# be the natural companion to the composition below, but mentioning something
+# is common enough – about 94 per cent – that a linear education effect of the
+# size recovered here pushes graduates past a probability of one in 86 per cent
+# of cells. Read from the other end, it drives the probability of mentioning
+# nothing below zero.
 m_mention <- feglm(mention ~ age10 + female + edu4 | cell, data = person,
                    family = binomial())
 
@@ -128,6 +130,13 @@ edu <- person |>
   count(edu4) |>
   mutate(share = n / sum(n))
 
+# w1_sd_log is measured but never read: the twin's weight is the exact
+# reciprocal of its own authored age tilt, so its spread follows from
+# SIM_YOUTH_TILT and the age distribution and could match a real
+# post-stratification weight's only by coincidence. It stays in the table as
+# the yardstick that makes that difference visible.
+w1_note <- "real weight's log spread, not read by the generator"
+
 params <- bind_rows(
   tibble(parameter = "p_zero_mention", value = 1 - mean(person$mention),
          provenance = "share of respondents mentioning no item"),
@@ -141,7 +150,8 @@ params <- bind_rows(
                         "Dirichlet concentration implied by the dispersion",
                         "implied mean mention count")),
   tibble(parameter = names(demo), value = as.numeric(demo[1, ]),
-         provenance = "demographic and weight marginal"),
+         provenance = if_else(names(demo) == "w1_sd_log", w1_note,
+                              "demographic and weight marginal")),
   tibble(parameter = paste0("edu_", edu$edu4), value = edu$share,
          provenance = "education band share, complete cases")
 ) |>

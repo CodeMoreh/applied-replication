@@ -17,7 +17,7 @@ Dimension item assignment (questionnaire item → dimension):
 | Communitarian (negative, non-materialist) | Unemployment; Loss of cultural identity; More crime; Not enough control at external borders |
 | Libertarian (negative, materialist) | Bureaucracy; Waste of money |
 
-**Provenance note.** This panel was rebuilt independently from the raw GESIS files, using the sixteen-wave inventory above. The as-submitted Multi100 artifact (`rep_data.csv`) is preserved unchanged alongside it; how the two builds relate is worked through during the workshop's Block 2 exercise.
+**Provenance note.** This panel was rebuilt independently from the raw GESIS files, using the sixteen-wave inventory above. The as-submitted Multi100 artefact (`rep_data.csv`) is preserved unchanged alongside it, and how the two builds relate is worked through during the workshop's Block 2.
 
 ## Variables
 
@@ -39,4 +39,8 @@ Dimension item assignment (questionnaire item → dimension):
 
 ## Licence
 
-Derived aggregate data: CC BY 4.0. Underlying microdata: GESIS Eurobarometer terms apply. Macro indicators: World Bank Open Data (CC BY 4.0).
+Three different regimes apply to the three layers of this file.
+
+- **Derived aggregate data** (this file): CC BY 4.0.
+- **Underlying microdata**: GESIS Eurobarometer terms apply, and nothing individual-level may be redistributed.
+- **Macro indicators**: World Bank Open Data (CC BY 4.0).

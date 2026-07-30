@@ -28,7 +28,7 @@ You do all of this; participants do nothing except click one link.
 
 Why the Worker exists: a browser will only read a remote file if that file is served with an `Access-Control-Allow-Origin` (CORS) header. Google Sheets does **not** reliably send that header to a third-party site like `codemoreh.github.io`, and the URL it does serve redirects across origins, which browsers block. The Worker is a tiny relay that you control: the browser talks to the Worker, the Worker fetches the Sheet server-to-server (no browser, no CORS on that hop), and hands the CSV back with the right header. This removes the single biggest live-demo risk. It is \~20 lines and runs free.
 
-**Design note (prereg + format).** This system handles the **results** submission only. Preregistration is deliberately kept as a lightweight gesture (Track B: a `prereg:` git commit; Track A: write your spec + reason in the cell and tell your partner) so that each participant makes **one** submission, not two. The earlier friction was Track A having to post twice; one results-Form keeps that gain. If you would rather make prereg fully digital and timestamped too, see section 9.
+**Design note (prereg + format).** This system handles the **results** submission only. Preregistration is deliberately kept off it (Route 1 renders the declaration block in the report; Route 2 completes the same block in the browser lab and copies it into notes) so that each participant makes **one** submission, not two. The earlier friction was browser participants having to post twice, and one results-Form keeps that gain. If you would rather make prereg fully digital and timestamped too, see section 9.
 
 ------------------------------------------------------------------------
 
@@ -175,7 +175,7 @@ Four edits. Two carry a literal `PASTE_…` marker in the code (items 1 and 2); 
                r = "entry.777777")
     ```
 
-3.  **The template repo** (`CodeMoreh/replication-lab`, the separate repo participants copy) – make the **same** edit to its `R/report_result.R` so Track B participants get working links too. (That file is gitignored from this repo; edit it in its own checkout.)
+3.  **The template repo** (`CodeMoreh/replication-lab`, the separate repo participants copy) – make the **same** edit to the `report_result()` helper in its `R/spec_tools.R` so Route 1 participants get working links too. (That file is gitignored from this repo; edit it in its own checkout.)
 
     [**ACTUAL: I CAN'T LOCATE THAT !!!**]{.underline}
 

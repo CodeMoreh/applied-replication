@@ -52,6 +52,8 @@ website:
             text: "Getting started with R"
           - href: companion/stats-methods.qmd
             text: "Statistical methods"
+          - href: companion/dags.qmd
+            text: "Causal graphs & adjustment sets"
           - href: companion/multiverse.qmd
             text: "The multiverse: concept & critics"
           - href: companion/simulation.qmd

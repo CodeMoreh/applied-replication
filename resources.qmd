@@ -4,9 +4,9 @@ subtitle: "Readings, links, and tools"
 bibliography: references.bib
 ---
 
-## Glossary
+## Four words that are not synonyms {#glossary}
 
-The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms. The 'in this workshop' column says where each concept appears in the session.
+The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms. They are not interchangeable, and the day turns on the difference: a finding can survive every robustness check and still be one nobody can recompute from the original data, or reproduce cleanly and still fail on new data. The 'in this workshop' column says where each concept appears in the session.
 
 | Term | Definition | In this workshop |
 |------------------------|------------------------|------------------------|
@@ -43,7 +43,7 @@ The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms.
 
 ### Preregistration
 
-These three are the pre-session reading list for the preregistration block; all are open access. None is required – everything is taught on the day – but they let you arrive with the ideas in hand.
+These three are the pre-session reading list for the preregistration block, and all are open access. None is required, because everything is taught on the day, but they let you arrive with the ideas already in hand.
 
 - Nosek, Ebersole, DeHaven & Mellor (2018). The preregistration revolution. *PNAS*, 115(11), 2600–2606. <https://doi.org/10.1073/pnas.1708274114> – a short primer on the idea the block turns on: predicting a result versus explaining one after the fact, and the case, like ours, where the data already exist.
 
@@ -67,14 +67,15 @@ These three are the pre-session reading list for the preregistration block; all 
 
 ## Companion curriculum
 
-Six optional self-study modules sit around the one-day workshop – see the [curriculum overview](companion/index.qmd) for the suggested reading order.
+Seven optional self-study modules sit around the one-day workshop – see the [curriculum overview](companion/index.qmd) for the suggested reading order.
 
 - [Getting started with R](companion/intro-r.qmd) – for participants arriving with no R at all; best read before the day.
 - [The statistical methods behind the workshop](companion/stats-methods.qmd) – every model fitted on the case's own data with real outputs read line by line, from a first `lm()` through fixed and random effects to multilevel, weighted, Bayesian and ordered-beta models, ending with meta-analysis and the common effect-size axis.
+- [Draw the arrows you believe](companion/dags.qmd) – causal graphs written as R formulas with `dagify()`: confounders, mediators and colliders fitted rather than only described, the EU-frames graph whose adjustment set is what two-way fixed effects absorb, and what fixed effects cannot fix.
 - [The multiverse: origins, uses, and critics](companion/multiverse.qmd) – where specification-curve thinking came from, the three purposes a multiverse can serve, and the 2025–26 critical debate read against this workshop's own grid.
 - [Simulation as a method](companion/simulation.qmd) – a simulated person-level twin with a known recipe, built to carry the original analysis: parameter recovery, composition against context, recovering individual effects, weights that matter, the degrees-of-freedom story run live, a null multiverse, a lineup, and design precision by simulation.
-- [Git and GitHub for reproducible research](companion/git-github.qmd) – version control and publishing your own report, the part lifted out of the core day so it can be learned on its own terms.
 - [Reproducibility repositories](companion/repositories.qmd) – research-data archives, the OSF nodes behind this case, and preregistration templates in more depth.
+- [Git and GitHub for reproducible research](companion/git-github.qmd) – version control and publishing your own report, the part lifted out of the core day so it can be learned on its own terms.
 
 ------------------------------------------------------------------------
 
@@ -91,9 +92,9 @@ Six optional self-study modules sit around the one-day workshop – see the [cur
 
 ------------------------------------------------------------------------
 
-## The EU-frames case SCORE dossier – one paper, all three Rs
+## One paper, all three Rs {#the-eu-frames-case-score-dossier-one-paper-all-three-rs}
 
-The target article [@Teney2016DoesEUEconomic] was subjected to all three SCORE activities: reproduction, robustness reanalysis, and replication. The parent node for the full dossier is [**https://osf.io/h7432/**](https://osf.io/h7432/){.uri}. The table below summarises each component.
+The target article [@Teney2016DoesEUEconomic] was put through all three SCORE activities: reproduction, robustness reanalysis, and replication. Few papers are, which is why this one case can carry the whole day. The parent node for the full dossier is [**https://osf.io/h7432/**](https://osf.io/h7432/){.uri}, and the table below summarises each component.
 
 | Component | What | Outcome |
 |------------------------|------------------------|------------------------|

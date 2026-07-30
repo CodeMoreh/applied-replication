@@ -50,7 +50,7 @@ repeatability_cells <- tibble::tribble(
   "SAME METHODS",      "SAME DATA", "Reproducibility", "Testing the reliability of a prior finding\nwith the same data and same analysis\nstrategy by comparing the outcome of an\ninferential test as reported in a paper\nwith a re-calculation of that inferential\ntest from the original data.", "#0e3b6a",
   "DIFFERENT METHODS", "SAME DATA", "Robustness",  "Testing the reliability of a prior finding\nwith the same data and different analysis\nstrategy by conducting alternative\ntests on the original data.",  "#E69F00",
   "SAME METHODS",      "DIFFERENT DATA",  "Replicability",   "Testing the reliability of a prior finding\nwith new data expected to be theoretically\nequivalent by comparing the outcome of an\ninferential test as reported in a paper\nwith the equivalent inferential test as\ncalculated in the new dataset.",               "#009E73",
-  "DIFFERENT METHODS", "DIFFERENT DATA", "Generalisibility", "Testing the reliability of a prior finding\nin a new dataset in a way that differs\nfrom the original study but is expected\nto produce similar results.",                 "#834848"
+  "DIFFERENT METHODS", "DIFFERENT DATA", "Generalisability", "Testing the reliability of a prior finding\nin a new dataset in a way that differs\nfrom the original study but is expected\nto produce similar results.",                 "#834848"
 )
 
 # Draw the matrix. `highlight = NULL` keeps all four cells in full colour; pass
@@ -192,7 +192,7 @@ Welcome – good to have you here. We have a full day together, in four blocks o
 ::: {.none}
 - No git, and no GitHub account
 - No OSF account – we will read OSF, not log into it
-- No installs on Route 2 – the browser is the whole toolchain
+- No installs on Route 2: the browser is the whole toolchain
 - Nothing to sign up for; nothing leaves your machine except seven numbers you choose to submit
 :::
 
@@ -214,14 +214,14 @@ Block 1 · 90 minutes
 Block one, then. Three words that sound alike and are not – and the three *Nature* papers that put numbers on each of them. Then the one paper we will spend the whole day inside. [About 35 minutes of talk in this block, then hands-on.]
 :::
 
-## "Replication" crises
+## 'Replication' crises
 
 :::: {.none}
 ::: {.fragment}
-Another "replication" crisis – terminological confusion?
+Another 'replication' crisis – terminological confusion?
 :::
 ::: {.fragment}
-The term "reproducibility" has been used as a synonym for a number of different characteristics  – reproducibility, robustness, replicability, repeatability, credibility, and trustworthiness.
+The term 'reproducibility' has been used as a synonym for a number of different characteristics – reproducibility, robustness, replicability, repeatability, credibility, and trustworthiness.
 :::
 [[Successfully rerun the same code on the same data?]{colour="#b22222"}]{.fragment}
 [[Re-analyse the same data a different way?]{colour="#1C69A8"}]{.fragment}
@@ -251,7 +251,7 @@ repeatability_matrix()
 Here is the whole framework on one slide, and if you take a single thing home today, make it this grid. The question stays the same throughout; what varies is the data and the analysis. Same data, same analysis – reproducibility: if I rerun your recipe, do I get your number? Same data but a different, justifiable analysis – robustness: does your finding survive my defensible choices? New data, same question – replicability. The fourth cell, new data and new analysis, is really generalisation, and we set it aside today. Sit with this for a moment – everything that follows this morning hangs off it.
 :::
 
-## Related concepts
+## Credibility is not truth
 
 ::: {.scaled style="--fs: 0.9; --lh: 1.15"}
 **Repeatability** is used when referring to reproducibility, robustness, and replicability as a constellation of concepts intended to assess whether answers to scientific questions are unchanged when different steps of the research process are repeated.
@@ -265,7 +265,7 @@ For example, credibility is advanced by addressing potential competing interests
 @NosekEtAl2025BriefGlossaryTerms
 :::
 
-## Three SCORE articles
+## Three corners, three studies
 
 ::: {.matrix-grid}
 <div class="corner"></div>
@@ -374,7 +374,7 @@ ggplot(mw, aes(stage, n, fill = stage)) +
 :::
 
 ::: notes
-Read it left to right. Six hundred papers sampled. Data were available for twenty-four percent of them – for nearly three quarters there was neither data nor code. That leaves 143 papers you can actually assess. Of those, just over half reproduce precisely, and about three quarters at least approximately. Which sounds respectable – until you notice what happens if you count the papers nobody could check as failures: the overall rate falls to roughly eighteen percent. The barrier is not arithmetic. It is access.
+Read it left to right. Six hundred papers sampled. Data were available for twenty-four per cent of them – for nearly three quarters there was neither data nor code. That leaves 143 papers you can actually assess. Of those, just over half reproduce precisely, and about three quarters at least approximately. Which sounds respectable – until you notice what happens if you count the papers nobody could check as failures: the overall rate falls to roughly eighteen per cent. The barrier is not arithmetic. It is access.
 :::
 
 ## Why some fields do better
@@ -396,7 +396,7 @@ Read it left to right. Six hundred papers sampled. Data were available for twent
 :::
 
 ::: notes
-And access follows policy. Where journals mandate data sharing, availability sits between about ninety and one hundred percent; without a mandate, sixteen. Political science and economics built the habit early and are far ahead of the rest. The first quote is the paper's own conclusion – the biggest barrier was simply that the data were not there. The second quote deserves a beat of silence: "reproducibility success does not mean that the finding is correct." Reproducing a number tells you the computation was faithful. It does not tell you the claim about the world is true.
+And access follows policy. Where journals mandate data sharing, availability sits between about ninety and one hundred per cent; without a mandate, sixteen. Political science and economics built the habit early and are far ahead of the rest. The first quote is the paper's own conclusion – the biggest barrier was simply that the data were not there. The second quote deserves a beat of silence: "reproducibility success does not mean that the finding is correct." Reproducing a number tells you the computation was faithful. It does not tell you the claim about the world is true.
 :::
 
 ## Robustness – Aczel et al. (Multi100)
@@ -405,7 +405,7 @@ And access follows policy. Where journals mandate data sharing, availability sit
 - **100 studies**, each re-analysed by **≥5 independent analysts**
 - Same data; each analyst free to choose any *justifiable* analysis
 - A peer panel judges whether each pipeline is appropriate
-- This is the paper I was an analyst in
+- I was one of its analysts
 :::
 
 ::: {.src}
@@ -446,7 +446,7 @@ So what do free, justifiable choices do to the same data? They move the answer �
 :::
 
 ::: notes
-The third paper is the strictest test: not the same data analysed differently, but genuinely new data. Two hundred and seventy-four claims, each replicated to a preregistered, peer-reviewed protocol, often with the original authors consulted, and with a median statistical power of ninety-nine point six percent. That last number matters: these studies were built so that a real effect would be very hard to miss. So whatever fails here is not failing for lack of trying.
+The third paper is the strictest test: not the same data analysed differently, but genuinely new data. Two hundred and seventy-four claims, each replicated to a preregistered, peer-reviewed protocol, often with the original authors consulted, and with a median statistical power of ninety-nine point six per cent. That last number matters: these studies were built so that a real effect would be very hard to miss. So whatever fails here is not failing for lack of trying.
 :::
 
 ## Even success shrinks
@@ -485,10 +485,10 @@ ggplot(sh, aes(r, y = 1)) +
 :::
 
 ::: notes
-And this is what comes back. The median effect size halves: point two five in the originals, point one zero in the replications. By the significance criterion, fifty-five percent of claims replicate. But notice that "did it replicate?" is not even one question – the team scored the same studies against thirteen reasonable success criteria and got answers ranging from twenty-nine to seventy-five percent. Two sentences from the paper are worth carrying around. "Strictly speaking, there is no such thing as exact replication." And: "The problem to solve is not unreplicability per se, it is overconfidence."
+And this is what comes back. The median effect size halves: point two five in the originals, point one zero in the replications. By the significance criterion, fifty-five per cent of claims replicate. But notice that "did it replicate?" is not even one question – the team scored the same studies against thirteen reasonable success criteria and got answers ranging from twenty-nine to seventy-five per cent. Two sentences from the paper are worth carrying around. "Strictly speaking, there is no such thing as exact replication." And: "The problem to solve is not unreplicability per se, it is overconfidence."
 :::
 
-## The take-away
+## The three Rs do not travel together
 
 :::: {.none}
 Reproducible ≠ robust ≠ replicable.
@@ -519,7 +519,7 @@ You submit your paper and replication package. It goes out to reviewers.
 ## Quick check: credibility in the wild {.questionslide transition="none-in fade-out"}
 
 ::: {.none}
-You submit your paper and replication package. It goes out to reviewers. 
+You submit your paper and replication package. It goes out to reviewers.
 
 "Reviewer 2" just doesn't want to let go...
 
@@ -532,10 +532,10 @@ You submit your paper and replication package. It goes out to reviewers.
 https://osf.io/6zqct
 :::
 
-## The target article
+## The paper we spend the day inside
 
 ::: {.small}
-- 16 Eurobarometer waves, **2004–2013**; ~ **390,000** respondents in **27 countries**
+- 16 Eurobarometer waves, **2004–2013**; about **390,000** respondents in **27 countries**
 
 ::: {.claimcard}
 "The results show, first, that *poor economic performances* **increase negative** and **decrease positive** *dimensions of EU framing*."
@@ -543,8 +543,8 @@ https://osf.io/6zqct
 
 - "What does the EU mean to you personally?"
   - COSMOPOLITAN: positive non-materialist form of EU framing ('Peace'; 'Democracy'; 'Freedom to travel, study and work anywhere in the EU'; 'Cultural diversity'; 'Stronger say in the world')
-  - UTILITARIAN: positive materialist form of EU framing (economic prosperity and social protection) 
-  - COMMUNITARIAN: negative non-materialist form of EU framing ('Loss of our cultural identity'; 'More crime'; 'Not enough control at external borders'; 'Unemployment' 
+  - UTILITARIAN: positive materialist form of EU framing (economic prosperity and social protection)
+  - COMMUNITARIAN: negative non-materialist form of EU framing ('Loss of our cultural identity'; 'More crime'; 'Not enough control at external borders'; 'Unemployment')
   - LIBERTARIAN: negative materialist form of EU framing ('Bureaucracy'; 'Waste of money')
 :::
 ::: {.src}
@@ -571,7 +571,7 @@ This is the original author's paper – I'll say OA from here – from 2016, in 
 This is, word for word, the claim every Multi100 analyst was handed: "poor economic performances decrease positive dimensions of EU framing". And this is the anchor number behind it, from Table 3, Model 1 – the unemployment coefficient on cosmopolitan framing: minus point zero zero three four, t of minus four. Keep one wrinkle in mind for later. In the paper's own Model 2, with more controls in, that same coefficient drops by more than half and loses significance. The robustness question is already alive inside the original paper.
 :::
 
-## Reproducibility
+## Reproducibility: two attempts, two failures
 
 ::: {.small}
 - Data: openly available but not freely redistributable
@@ -580,20 +580,20 @@ This is, word for word, the claim every Multi100 analyst was handed: "poor econo
 "The required data to replicate my analyses can be downloaded on  the Gesis repository website. I am not allowed to forward the Eurobarometer data. Enclosed you´ll find the code to combine the different Eurobarometer data waves and the code for the analysis of the ESR piece"
 :::
 
-- Code: push-button replication failed
+- Code: push-button reproduction failed
 
 ::: {.claimcard .fragment}
 "The reproduction attempt failed because the authors used file names that did not correspond with the names of the files available for download. Additionally 16 datasets are listed on the website as being used but the code references 18 files"
 :::
 
-- **Source-data reproduction** (rebuild from raw) – **"not reproduced"**: could not extract nor re-calculate the original effect size
+- **Source-data reproduction** (rebuild from raw) – **"not reproduced"**: could neither extract nor re-calculate the original effect size
 :::
 
 ::: notes
 So what happened when SCORE tried to reproduce this paper? Two attempts, two different failures. And let me be fair to OA here: there was no public archive with the paper, but OA did supply their two Stata do-files when asked – what OA could not share was the data, because GESIS terms do not allow it. Even with OA's code in hand, the push-button reproduction failed, and the report's wording is instructive – the file names in the code did not correspond to the files you could actually download; sixteen datasets listed, eighteen referenced. The second attempt rebuilt the data from source, and could not recover the published effect size at all. So this claim entered the robustness study already carrying two failed reproductions, of two different kinds.
 :::
 
-## Robustness
+## Robustness: one sign, very different sizes
 
 ```{r}
 #| label: forest5
@@ -630,21 +630,21 @@ ggplot(fa, aes(r, lab, colour = me)) +
 And then five of us re-analysed it, independently. Here is what came back. All five found a negative effect – on direction, unanimity. On size, look at the spread: from essentially zero – that one is not significant – up to a partial correlation of minus point four five. Two orders of magnitude apart, on the same data, for the same claim. The orange dot is me: R and Quarto, minus point two four. We did not even use the same software – two of the five worked in Stata, three in R, which quietly makes today's case for reproducible pipelines. Five competent people, one fixed question: analysis is a garden of forking paths.
 :::
 
-## Replication
+## Replication: the coefficient flips sign
 
 ::: {.small}
-- Analysis One: specifically serves as the focal test for evaluation of the claim replicated for the purposes of SCORE.
+- Analysis One – the focal test on which SCORE evaluates the claim
 
-  - 352,114 person-year observations in the analytic sample.
+  - 352,114 person-year observations in the analytic sample
   - b = 0.002, p = 0.046, se = 0.0008, t = 2.004
 
-- Analysis Two: "still studying" and "no full-time education" categories in the variable "age when finished full-timeeducation" were NOT converted to missing values. 
+- Analysis Two – the "still studying" and "no full-time education" categories in the variable "age when finished full-timeeducation" were **not** converted to missing values
 
   - 379,396 person-year observations in the analytic sample
   - b = 0.002, p = 0.017, se = 0.0007, t = 2.394
 
-- A **positive coefficient** for unemployment on cosmopolitan framing, and **significant** at p=value results of 0.05 or less, after controlling for selected predictors, and wave and country-level effects
-- In this regard, this replication of the claim using Analysis Two was not successful according to the SCORE criteria
+- Both give a **positive coefficient** for unemployment on cosmopolitan framing, **significant** at p-values of 0.05 or less, after controlling for selected predictors and for wave and country-level effects
+- By SCORE's criteria, Analysis Two did not replicate the claim
 :::
 
 ::: {.src}
@@ -696,13 +696,13 @@ ggplot(sb, aes(x = 1, y = ord)) +
 :::
 
 ::: notes
-Put the whole dossier together – every artifact here is public, the link is on the slide. Reproduction: failed, twice, in two different ways. Robustness: mixed – five analysts, one sign, sizes spanning two orders of magnitude. And replication: a preregistered study took the same question to new Eurobarometer data, three hundred and fifty-two thousand observations – and the coefficient flipped sign. Positive, just significant, the wrong way round. So: one paper, three Rs, three different verdicts. That is the uncorrelated-indicators result from part one, embodied in a single case. Asking "is this paper reliable?" gets you nowhere; asking "reliable in which sense?" gets you all of this. And now it is your turn – you are the sixth analyst.
+Put the whole dossier together – every artefact here is public, the link is on the slide. Reproduction: failed, twice, in two different ways. Robustness: mixed – five analysts, one sign, sizes spanning two orders of magnitude. And replication: a preregistered study took the same question to new Eurobarometer data, three hundred and fifty-two thousand observations – and the coefficient flipped sign. Positive, just significant, the wrong way round. So: one paper, three Rs, three different verdicts. That is the uncorrelated-indicators result from part one, embodied in a single case. Asking "is this paper reliable?" gets you nowhere; asking "reliable in which sense?" gets you all of this. And now it is your turn – you are the sixth analyst.
 :::
 
 ## You are Analyst no. 6
 
 ::: {.big}
-- Aim 1: **Reproduce** the original reanalyst **C6HJR**'s *constrained result* (Multi100 Task 2) 
+- Aim 1: **Reproduce** reanalyst **C6HJR**'s *constrained result* (Multi100 Task 2)
 :::
 
   - **Task:** Focus on the ‘Cosmopolitan’ dimension for EU framing and on unemployment rate as the independent variable; disregard contextual variables
@@ -718,7 +718,7 @@ Put the whole dossier together – every artifact here is public, the link is on
 :::
 
 ::: {.urlbox .fragment}
-[github.com/CodeMoreh/replication-lab](github.com/CodeMoreh/replication-lab)
+[github.com/CodeMoreh/replication-lab](https://github.com/CodeMoreh/replication-lab)
 
 [download zip → unzip → open folder in Positron]{.fs-80}
 :::
@@ -728,7 +728,7 @@ Put the whole dossier together – every artifact here is public, the link is on
 :::
 
 ::: {.urlbox .fragment}
-[codemoreh.github.io/applied-replication/exercise/browser-lab](codemoreh.github.io/applied-replication/exercise/browser-lab)
+[codemoreh.github.io/applied-replication/exercise/browser-lab](https://codemoreh.github.io/applied-replication/exercise/browser-lab.html)
 :::
 
 ::: notes
@@ -772,13 +772,13 @@ The gap between them has a story. **After the break, I tell it.**
 ::::
 
 ::: notes
-One more thing before the break, and it opens the thread for the rest of the morning. You have just reproduced minus three point eight zero four – the number Multi100 has on record for me. But if you go digging in the public trail for this analysis, you find a second number: minus three point eight five three. [pause] That is what my very first submitted pipeline produced, before anyone had reproduced anything. Close to the recorded value, but not the same – and I wrote both of them. The gap turns out to be exactly one wrongly-read data file, and the whole story of how it got there and how it was caught is worth telling slowly. So take fifteen minutes, and when we come back I will walk you through it. Nothing to prepare – just come back.
+One more thing before the break, and it opens the thread for the rest of the morning. You have just reproduced minus three point eight zero four – the number Multi100 has on record for me. But if you go digging in the public trail for this analysis, you find a second number: minus three point eight five three. [pause] That is what my very first submitted pipeline produced, before anyone had reproduced anything. Close to the recorded value, but not the same – and I wrote both of them. The gap turns out to be exactly one wrongly-read data file, and the whole story of how it got there and how it was caught is worth telling slowly. So take half an hour, and when we come back I will walk you through it. Nothing to prepare – just come back.
 :::
 
 ## Break {.darkslide background-color="rgba(0,0,0,0)"}
 
 ::: {.partlabel}
-15 minutes – the exact return time is in the chat
+30 minutes – the exact return time is in the chat
 :::
 
 
@@ -849,7 +849,7 @@ The whole trail is public in my fork, **osf.io/6zqct**:
 
 - `moreh_rep/` – the as-submitted pipeline that gives −3.853
 - `moreh_rep_vAPR2025/` – the corrected script *and* the exported corrected dataset
-- the main folder now carries `EUframes_cy.csv` itself – the file this exercise reproduces from
+- the main folder carries `EUframes_cy.csv` itself – the file this exercise reproduces from
 - the official Multi100 component (**osf.io/8rtwe**) preserved only the earlier, uncorrected folder
 :::
 
@@ -1025,18 +1025,16 @@ Now apply it to our paper – and this one is a chat exercise. Write the sentenc
 #| label: mini-dags
 #| fig-width: 9.5
 #| fig-height: 3.6
-# Three tiny DAGs: confounder / mediator / collider, built with ggdag.
-mini <- function(spec, coords) {
-  d <- dagitty::dagitty(spec)
-  dagitty::coordinates(d) <- coords
-  d
-}
-conf <- mini("dag { Z -> X  Z -> Y  X -> Y }",
-  list(x = c(X = 0, Y = 2, Z = 1), y = c(X = 0, Y = 0, Z = 1)))
-med  <- mini("dag { X -> M  M -> Y  X -> Y }",
-  list(x = c(X = 0, Y = 2, M = 1), y = c(X = 0, Y = 0, M = 1)))
-coll <- mini("dag { X -> C  Y -> C  X -> Y }",
-  list(x = c(X = 0, Y = 2, C = 1), y = c(X = 0, Y = 0, C = -1)))
+# Three tiny DAGs: confounder / mediator / collider. Each arrow is an R formula
+# read outcome-first, so `X ~ Z` is the arrow Z -> X; dagify() takes the
+# coordinates, the exposure and the outcome in the same call, and returns a
+# plain dagitty object that adjustmentSets() and paths() accept unchanged.
+conf <- ggdag::dagify(X ~ Z, Y ~ X + Z,
+  coords = list(x = c(X = 0, Y = 2, Z = 1), y = c(X = 0, Y = 0, Z = 1)))
+med  <- ggdag::dagify(M ~ X, Y ~ M + X,
+  coords = list(x = c(X = 0, Y = 2, M = 1), y = c(X = 0, Y = 0, M = 1)))
+coll <- ggdag::dagify(C ~ X + Y, Y ~ X,
+  coords = list(x = c(X = 0, Y = 2, C = 1), y = c(X = 0, Y = 0, C = -1)))
 
 # Edges are coloured by role: the X -> Y causal effect (the estimand) is GREEN
 # in every panel; the secondary structure carries an accent – RED where it
@@ -1154,7 +1152,7 @@ Here is a strong correlation – r of about nought point six. Before you reach f
 # Same confounder graph, twice. LEFT: the back-door path X <- Z -> Y is open
 # (red), so the naive X -> Y estimate is biased. RIGHT: adjusting for Z (boxed)
 # blocks the back-door (greyed), leaving the green causal path clean. Reuses
-# `conf` and `mini()` from the mini-dags chunk.
+# `conf` from the mini-dags chunk.
 path_panel <- function(adjust_z = FALSE) {
   td <- ggdag::tidy_dagitty(conf)
   td$data <- dplyr::mutate(td$data,
@@ -1188,7 +1186,7 @@ patchwork::wrap_plots(path_panel(FALSE), path_panel(TRUE), nrow = 1)
 ```
 
 ::: {.small}
-Association flows along **every open path** – not only the causal arrow. A fork or chain is open until you adjust the variable on it; a collider is the reverse – shut until you adjust it.
+Association flows along **every open path**, not only along the causal arrow. A fork or a chain is open until you adjust the variable sitting on it. A collider is the reverse: shut by default, and opened by the very act of adjusting for it.
 
 - **Back-door criterion**: close every path that enters X from behind, keep the causal X → Y path open
 - That adjustment set – and only that set – earns a causal reading
@@ -1264,8 +1262,8 @@ Now the question the estimand discussion was circling. Suppose M sits between yo
 # two-wave cross-lagged panel. The claim U1 -> F2 is green; the reverse path
 # F1 -> U2 is red; the autoregressive paths are grey. Two-way FE handles
 # neither feedback nor time-varying confounding.
-sel <- mini("dag { A -> S  B -> S }",
-  list(x = c(A = 0, S = 1, B = 2), y = c(A = 0, S = 1, B = 0)))
+sel <- ggdag::dagify(S ~ A + B,
+  coords = list(x = c(A = 0, S = 1, B = 2), y = c(A = 0, S = 1, B = 0)))
 tds <- ggdag::tidy_dagitty(sel)
 tds$data <- dplyr::mutate(tds$data, edge_kind = "structural")
 p_sel <- ggplot2::ggplot(tds,
@@ -1287,9 +1285,9 @@ p_sel <- ggplot2::ggplot(tds,
   ggplot2::theme(plot.title = element_text(face = "bold", colour = ncl_blue,
                               hjust = 0.5, size = 14, margin = margin(b = 8)))
 
-clp <- mini("dag { U1 -> U2  F1 -> F2  U1 -> F2  F1 -> U2 }",
-  list(x = c(U1 = 0, F1 = 0, U2 = 2, F2 = 2),
-       y = c(U1 = 1, F1 = 0, U2 = 1, F2 = 0)))
+clp <- ggdag::dagify(U2 ~ U1 + F1, F2 ~ F1 + U1,
+  coords = list(x = c(U1 = 0, F1 = 0, U2 = 2, F2 = 2),
+                y = c(U1 = 1, F1 = 0, U2 = 1, F2 = 0)))
 tdc <- ggdag::tidy_dagitty(clp)
 tdc$data <- dplyr::mutate(tdc$data, edge_kind = dplyr::case_when(
   name == "U1" & to == "F2" ~ "claim",
@@ -1325,7 +1323,7 @@ patchwork::wrap_plots(p_sel, p_clp, nrow = 1)
 Two last ways a relationship can be spurious, both of which live in our case. The first is selection, or collider bias. If you condition on – or merely sample on – something that both your variables cause, you manufacture a correlation out of nothing. A lot of the early COVID risk-factor findings were exactly this: conclusions drawn from people who had been tested, which is a selected group. The second is reverse causation and feedback. Our data are a panel, and in a panel today's outcome can feed tomorrow's predictor. Two-way fixed effects – which is the model we are about to draw – soak up stable differences between countries and shocks common to a year. They do not, on their own, fix a time-varying confounder or a feedback loop. Keep that in mind when we build the graph for our own paper.
 :::
 
-## A&B's resolution: fix the estimand first
+## Fix the estimand, and the spread collapses
 
 ```{r}
 #| label: redcard-contrast
@@ -1365,11 +1363,11 @@ And here is the optimistic half of the red-card story. Auspurg and Brüderl fixe
 ## Lunch {.darkslide background-color="rgba(0,0,0,0)"}
 
 ::: {.partlabel}
-45 minutes – the return time is in the chat · lunchtime browsing, if you like: the specification menu
+An hour – the return time is in the chat · lunchtime browsing, if you like: the specification menu
 :::
 
 ::: notes
-Lunch – forty-five minutes, and the return time is in the chat. If you want a head start on the afternoon, the specification menu page is worth five minutes with a sandwich: it is the list of choices you will pick from when you become the sixth analyst for real. See you back here.
+Lunch – a full hour, and the return time is in the chat. If you want a head start on the afternoon, the specification menu page is worth five minutes with a sandwich: it is the list of choices you will pick from when you become the sixth analyst for real. See you back here.
 :::
 
 # BLOCK 3 – Preregister like an analyst {.darkslide background-color="rgba(0,0,0,0)"}
@@ -1398,29 +1396,25 @@ Welcome back – and if you are just rejoining, the catch-up card in the chat ha
 # decide whether to add in Task 4. That is what makes it 'half built'. Nodes are
 # coloured by ROLE (predictor orange, outcome navy, candidates light grey),
 # labels sit inside the nodes in white/dark, edges are thick and gently curved.
-dag <- dagitty::dagitty('dag {
-  unemployment   [exposure]
-  framing        [outcome]
-  country
-  year
-  growth
-  bailout
-  politicisation
+dag <- ggdag::dagify(
+  framing ~ unemployment,
+  framing ~ country + year,
+  unemployment ~ country + year,
+  exposure = "unemployment",
+  outcome  = "framing",
+  coords = list(
+    x = c(unemployment = 0, framing = 3, country = 1, year = 2),
+    y = c(unemployment = 0, framing = 0, country = 1.4, year = 1.4)))
 
-  unemployment -> framing
-  country -> unemployment
-  country -> framing
-  year -> unemployment
-  year -> framing
-}')
-
-# 'growth' nudged down off the year -> unemployment crossing arrow; the other
-# floating candidates kept clear of the committed edges.
-dagitty::coordinates(dag) <- list(
-  x = c(unemployment = 0, framing = 3, country = 1, year = 2,
-        growth = 0.9, bailout = 1.5, politicisation = 3),
-  y = c(unemployment = 0, framing = 0, country = 1.4, year = 1.4,
-        growth = -1.0, bailout = -1.2, politicisation = -0.95))
+# dagify() has no way to hold a node with no edges, so the three candidates
+# join the picture at the tidy-data layer instead. 'growth' is nudged down off
+# the year -> unemployment crossing arrow; the other two are kept clear of the
+# committed edges.
+candidates <- tibble::tribble(
+  ~name,             ~x,    ~y,
+  "growth",           0.9, -1.0,
+  "bailout",          1.5, -1.2,
+  "politicisation",   3.0, -0.95)
 
 # Role lookup → drives node fill and label colour; short display labels keep
 # the longer names from overflowing the nodes (the underlying graph keeps the
@@ -1438,17 +1432,22 @@ role_fill <- c(predictor = orange, outcome = ncl_blue,
 role_lab  <- c(predictor = "#FFFFFF", outcome = "#FFFFFF",
                adjusted = ncl_blue, candidate = "#5d666e")
 
-dag_tidy <- dag |>
-  ggdag::tidy_dagitty() |>
+dag_tidy <- ggdag::tidy_dagitty(dag)
+ggdag::update_dag_data(dag_tidy) <- ggdag::pull_dag_data(dag_tidy) |>
+  dplyr::bind_rows(candidates) |>
   dplyr::left_join(roles, by = "name") |>
   dplyr::mutate(role = factor(role,
     levels = c("predictor", "outcome", "adjusted", "candidate")))
 
 ggplot2::ggplot(dag_tidy,
     ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+  # geom_dag_edges_arc() takes `arrow`, not the `arrow_directed` of
+  # geom_dag_edges(); and the nodes are wide enough to paint over an arrowhead,
+  # so end_cap stops each edge short of the circle it points at.
   ggdag::geom_dag_edges_arc(curvature = 0.18, edge_colour = grey_mid,
                             edge_width = 1.1,
-                            arrow_directed = grid::arrow(
+                            end_cap = ggraph::circle(11, "mm"),
+                            arrow = grid::arrow(
                               length = grid::unit(9, "pt"), type = "closed")) +
   ggdag::geom_dag_point(ggplot2::aes(fill = role), shape = 21,
                         size = 32, stroke = 0, colour = "white") +
@@ -1462,19 +1461,18 @@ ggplot2::ggplot(dag_tidy,
 ```
 
 ::: {.dagcode}
-For online version: [dagitty.net/dags.html](dagitty.net/dags.html) 
-Paste into Model code:
-Drag nodes, add edges, watch the adjustment sets update
+The same graph in R. Every arrow is a formula, read outcome-first – so a `#` takes an arrow out and the code still runs:
 :::
 
-```default
-dag {
-unemployment [exposure]
-framing [outcome]
-country -> unemployment ; country -> framing
-year -> unemployment ; year -> framing
-unemployment -> framing
-}
+```r
+dagify(
+  framing ~ unemployment,
+  framing ~ country + year,
+  unemployment ~ country + year,
+  # framing ~ growth,        # uncomment the
+  # unemployment ~ growth,   # arrows you believe
+  exposure = "unemployment", outcome = "framing"
+) |> adjustmentSets()
 ```
 :::
 
@@ -1488,10 +1486,8 @@ unemployment -> framing
 ::::
 
 ::: notes
-And here is the graph you will finish yourselves. The solid part is what we are committing to: unemployment to framing is the path of interest, and country and year are the two confounder pairs – stable national traits on one side, EU-wide shocks in a given year on the other. Ask dagitty for the adjustment set on this graph and it answers: country and year. Which is precisely what a two-way fixed-effects model absorbs – the graph and the baseline model are the same claim, written in two languages. The three pale nodes are yours to wire up, and they are genuine decisions. Is GDP growth a time-varying confounder that fixed effects cannot reach – a slump that raises unemployment and sours sentiment in the same year? Is the bailout a mediator, in which case you leave it alone if you want the total effect? Multi100 told us to disregard politicisation – was that defensible? If you want to play with this live, paste the model code from the slide into dagitty.net and drag things around; the adjustment sets update as you edit. Whatever you decide here becomes your model in the next task – that is the point.
+And here is the graph you will finish yourselves. The solid part is what we are committing to: unemployment to framing is the path of interest, and country and year are the two confounder pairs – stable national traits on one side, EU-wide shocks in a given year on the other. Run `adjustmentSets()` on this graph and it answers: country and year. Which is precisely what a two-way fixed-effects model absorbs – the graph and the baseline model are the same claim, written in two languages. The three pale nodes are yours to wire up, and they are genuine decisions. Is GDP growth a time-varying confounder that fixed effects cannot reach – a slump that raises unemployment and sours sentiment in the same year? Is the bailout a mediator, in which case you leave it alone if you want the total effect? Multi100 told us to disregard politicisation – was that defensible? The code beside the picture is the same graph written as R formulas, one arrow to a line, so wiring a node up is uncommenting the line you believe and running it again to see what the adjustment set has become. Whatever you decide here becomes your model in the next task – that is the point.
 :::
-
-## {.iframe-slide background-iframe="https://www.dagitty.net/dags.html" background-interactive="true"}
 
 ## You are Analyst no. 6 – for real this time
 
@@ -1509,21 +1505,21 @@ And here is the graph you will finish yourselves. The solid part is what we are 
 This morning you reproduced my constrained result. Now comes the part Multi100 actually paid us in reputation for: the robustness reanalysis. Your task is one deviation – exactly one – from the constrained specification, chosen from the menu you may have browsed at lunch. The discipline is that your causal graph has to be able to defend the choice: if you add growth as a copredictor, that is an edge you believe; if you change the outcome, that is a different estimand and you should be able to say so in one sentence. The procedure is the new part – declare first, run second – and the result will be yours, on the class chart, next to five published analysts. Let me show you the menu.
 :::
 
-## The specification menu – one deviation
+## Change one thing, keep five
 
 ::: {.small}
 - Six axes: **outcome** · **predictor form** · **estimator** · **copredictor set** · **sample** · **weights**
 - Baseline: the constrained model on the **corrected panel** (`EUframes_cy.csv`) – the 840-spec grid this afternoon is built on it
-- Copy-paste code for every axis is on the menu page – change one thing, keep five
+- Copy-paste code for every axis sits on the specification menu page
 :::
 
 ::: {.fragment .small}
 - Two axes the menu opens beyond Multi100's constraints: **outcome family** (`gaussian` | `beta`), doubling the pre-computed grid to the family universe of 1,680
-- And the **predictor** itself: GDP growth as the claim carrier – the freedom Task 1 shows three analysts actually took, returned to the menu; the full pre-computed universe is **2,520**
+- And the **predictor** itself: GDP growth as the claim carrier. Task 1 shows three analysts took exactly that freedom; the full pre-computed universe is **2,520**
 :::
 
 ::: {.fragment .small}
-- One room-wide convention: **claim-alignment** – negative framings reverse-coded (1 − y) in your own code, so support = negative sign for every outcome; the class chart uses that scale
+- One room-wide convention: **claim-alignment**. Negative framings are reverse-coded (1 − y) in your own code, so support reads as a negative sign for every outcome, and the class chart uses that scale
 :::
 
 ::: {.fragment}
@@ -1539,14 +1535,14 @@ The menu page is on screen – eight axes, and every option comes with copy-past
 ::: {.small}
 - OSF – the Open Science Framework: a timestamped, citable, public home for data, code, and **registrations**
 - A registration is a **frozen, dated snapshot of a plan** – anyone can check what you said you would do, and when
-- You need no account today – we are going to *read* OSF the way reviewers do
+- You need no account today. We are going to *read* OSF the way reviewers do
 :::
 
 ::: notes
 Before the declaring, the infrastructure. Everything you have touched today – the submitted dataset, my script with its April 2025 annotation, the codebook – lives at a permanent public address on the Open Science Framework. OSF does two jobs. It archives materials, which is what let this morning's story be told – and the slip be caught. And it registers plans: a registration is a frozen, timestamped snapshot of what you intend to do, filed before you do it, that nobody – including you – can quietly edit afterwards. You do not need an account for any of this today. We are going to read OSF the way a reviewer or a sceptical reader would, starting with this paper's own trail.
 :::
 
-## This case's three OSF addresses
+## Three addresses, three jobs
 
 ::: {.urlbox}
 [osf.io/8rtwe](https://osf.io/8rtwe) [– the archival Multi100 record (the uncorrected folder you reproduced)]{.fs-80}
@@ -1561,7 +1557,7 @@ Before the declaring, the infrastructure. Everything you have touched today – 
 :::
 
 ::: notes
-Three addresses, three jobs. The first is the official archive: the Multi100 component for analyst C6HJR, frozen as submitted – which, as you heard this morning, means frozen with the slip. The second is the living fork: that is where the correction is documented, and where the workshop fetches its data. Archives preserve; forks maintain – you have now seen why a project sometimes needs both. The third address is the one I want you inside in a moment: the full SCORE dossier on this paper, every reproduction report, the robustness study, the replication. It is all public. Time to go read some of it.
+Each of these does a different job. The first is the official archive: the Multi100 component for analyst C6HJR, frozen as submitted – which, as you heard this morning, means frozen with the slip. The second is the living fork: that is where the correction is documented, and where the workshop fetches its data. Archives preserve; forks maintain – you have now seen why a project sometimes needs both. The third address is the one I want you inside in a moment: the full SCORE dossier on this paper, every reproduction report, the robustness study, the replication. It is all public. Time to go read some of it.
 :::
 
 ## Scavenger beat: open the dossier
@@ -1593,10 +1589,10 @@ Three minutes, everyone: open the dossier and find the replication component –
 :::
 
 ::: notes
-And here is the scale version of the same discipline. Multi100 – the study you have been an analyst inside all day – was itself preregistered. One hundred claims, five or more analysts each, complete analytical freedom. The part that had to be pinned down in advance was the judging: what counts as 'the same conclusion', how close is 'close' for an effect size. Those rules went up on OSF before a single analyst's result came back, which is why the seventy-four percent and thirty-four percent you met this morning mean something – nobody could move the goalposts after seeing where the balls landed. [Confirm the registered-protocol wording against osf.io/7snkz before delivery – say what the registration actually fixed, not a paraphrase.]
+And here is the scale version of the same discipline. Multi100 – the study you have been an analyst inside all day – was itself preregistered. One hundred claims, five or more analysts each, complete analytical freedom. The part that had to be pinned down in advance was the judging: what counts as 'the same conclusion', how close is 'close' for an effect size. Those rules went up on OSF before a single analyst's result came back, which is why the seventy-four per cent and thirty-four per cent you met this morning mean something – nobody could move the goalposts after seeing where the balls landed. [Confirm the registered-protocol wording against osf.io/7snkz before delivery – say what the registration actually fixed, not a paraphrase.]
 :::
 
-## The template we use – and the one we point to
+## Two templates, one choice
 
 ::: {.small}
 - Today: the **AsPredicted short form** – eight plain-language questions (on OSF: "Preregistration Template from AsPredicted.org")
@@ -1605,7 +1601,7 @@ And here is the scale version of the same discipline. Multi100 – the study you
 :::
 
 ::: notes
-Two templates, one choice. Today we use the AsPredicted short form – eight questions in plain language, the shortest recognised template there is, and completable in the eight minutes we have. But I want you to know its limits: AsPredicted was written for people who have not collected data yet. Its very first question – "have any data been collected?" – has, for us, the awkward answer "it's complicated, I already hold everything". There is a template built precisely for that situation: the secondary-data preregistration template by van den Akker and colleagues, twenty-six items, with a whole section on what you already know about the data. It is in your reading list, and it is the tool a full version of today's exercise would use. Our block borrows its best idea.
+Two templates on the table, and we use one of them. Today it is the AsPredicted short form – eight questions in plain language, the shortest recognised template there is, and completable in the eight minutes we have. But I want you to know its limits. AsPredicted was written for people who have not collected data yet. Its very first question – "have any data been collected?" – has, for us, the awkward answer "it's complicated, I already hold everything". There is a template built precisely for that situation: the secondary-data preregistration template by van den Akker and colleagues, twenty-six items, with a whole section on what you already know about the data. It is in your reading list, and it is the tool a full version of today's exercise would use. Our block borrows its best idea.
 :::
 
 ## Eight questions, your answers already mapped {.smaller}
@@ -1661,7 +1657,7 @@ Go. Run the specification you declared – just that one – and when the number
 ## Break {.darkslide background-color="rgba(0,0,0,0)"}
 
 ::: {.partlabel}
-15 minutes – then we read what the room built · leave the Multiverse page open
+30 minutes – then we read what the room built · leave the Multiverse page open
 :::
 
 # BLOCK 4 – Reading the multiverse {.darkslide background-color="rgba(0,0,0,0)"}
@@ -1695,7 +1691,7 @@ Pre-computed over the specification menu (data/spec_grid.csv), claim-aligned –
 :::
 
 ::: notes
-This is the space your results live in. I took the whole specification menu – every outcome, every predictor form, with and without growth, every estimator, every sample window, weighted and not – and ran all of it. Eight hundred and forty models, each one a dot, ranked by partial correlation. Everything is claim-aligned, the same convention you applied in your own code: the negative framings are reverse-coded, so below zero means supports the claim, whatever the outcome. Blue means significant, grey means not. About two thirds sit below the line; about two thirds are significant; the red dot is the baseline we all reproduced. And notice the shape the alignment reveals: nothing above the line climbs past plus point two four, while support reaches minus point seven. You can still buy a null in here – but not a strong reversal. Right – where did the room land? Call them out: did anyone end up above the line? Lose significance? Which choice moved your estimate most?
+This is the space your results live in. I took the whole specification menu – every outcome, every predictor form, with and without growth, every estimator, every sample window, weighted and not – and ran all of it. Eight hundred and forty models, each one a dot, ranked by partial correlation. Everything is claim-aligned, the same convention you applied in your own code: the negative framings are reverse-coded, so below zero means supports the claim, whatever the outcome. Blue means significant, grey means not. About two thirds sit below the line; about two thirds are significant; the red dot is the baseline we all reproduced. And notice the shape the alignment reveals: nothing above the line climbs past plus point two four, while support reaches minus point seven. You can still buy a null in here, but not a strong reversal. Right. Where did the room land? Call them out: did anyone end up above the line? Lose significance? Which choice moved your estimate most?
 :::
 
 ## Where your result lands
@@ -1797,10 +1793,10 @@ Computed over the committed data/spec_grid.csv; imported as data/fork_importance
 :::
 
 ::: notes
-The outcome fork carries essentially half of all the variation in the grid – forty-nine point seven percent. And now look at the bottom of the chart: estimator, predictor form, copredictor and weights – the axes we argue about in seminars – together account for under two percent. The residual block is interactions: combinations mattering beyond any single axis. One caveat, stated plainly: this decomposition is computed on the grid as estimated, before claim-alignment, so part of the outcome fork's share is the polarity split itself – positive framings falling, negative framings rising. That split is real variation in what the specifications estimate; the aligned chart removes it from the display, not from the decomposition. So the day's sharpest empirical lesson stands: *what you measure* dwarfs *how you model it*. The fixed-versus-random-effects debate, the to-weight-or-not debate – on this claim, they barely move the needle. Deciding what 'EU framing' means moves it half the distance all by itself. Whoever guessed "outcome" in the chat: take the point.
+The outcome fork carries essentially half of all the variation in the grid – forty-nine point seven per cent. And now look at the bottom of the chart: estimator, predictor form, copredictor and weights – the axes we argue about in seminars – together account for under two per cent. The residual block is interactions, combinations that matter beyond any single axis. One caveat, stated plainly: this decomposition is computed on the grid as estimated, before claim-alignment, so part of the outcome fork's share is the polarity split itself – positive framings falling, negative framings rising. That split is real variation in what the specifications estimate; the aligned chart removes it from the display, not from the decomposition. So the day's empirical lesson stands: *what you measure* dwarfs *how you model it*. The fixed-versus-random-effects debate, the to-weight-or-not debate – on this claim, they barely move the needle. Deciding what 'EU framing' means moves it half the distance all by itself. Whoever guessed "outcome" in the chat: take the point.
 :::
 
-## The five analysts, placed in the grid
+## The unit of analysis does the work
 
 ```{r}
 #| label: analyst-placement
@@ -1838,7 +1834,7 @@ ggplot(an_placed,
 Now put the five published analysts inside the same grid – for each one, the share of all eight hundred and forty claim-aligned specifications that come out more negative than their value. And look who sits at the ends. KEVF1, the most strongly claim-supporting of the five at around the sixteenth percentile, and PRL47, the closest to the null at around the sixty-eighth – those two, at the opposite extremes, are the two analysts who worked at *person level*, on the third of a million respondents, rather than on aggregates. The three aggregate pipelines sit between them; my own constrained baseline lands almost exactly at the grid's median. It is not Stata versus R, and it is not the estimator: it is the unit of analysis and the outcome metric, decided before any model is fitted, that scatter five competent people across half the curve. Which is the fork-importance chart again, wearing faces.
 :::
 
-## Before the instructions: the five free analyses {.smaller}
+## Same verdict, five different questions {.smaller}
 
 ::: {.small}
 | Analyst | Free-phase predictor | Free-phase outcome | Estimator |
@@ -1851,7 +1847,7 @@ Now put the five published analysts inside the same grid – for each one, the s
 :::
 
 ::: {.fragment .small}
-- Five free analyses, **five different questions** – three never touched unemployment – and **one shared recorded verdict**: 'evidence for the claim'
+- Five free analyses, **five different questions** (three never touched unemployment), and **one shared recorded verdict**: 'evidence for the claim'
 - Task 2's three instructions then *created* the common question; its five comparable answers span **−0.006 to −0.45**
 - Conclusions can agree while estimates cannot even be compared – the two robustness questions Multi100 was built to separate [@AczelEtAl2026InvestigatingAnalyticalRobustness]
 - The menu hands that freedom back: **GDP growth** sits on it as a claim-carrying predictor – direction agrees ≈ 70% of the time, significance falls below half
@@ -1922,7 +1918,7 @@ Paste your percentile in chat – hold – send on "go".
 :::
 
 ::: notes
-Your turn to be placed. Open the percentile chunk in the browser lab – Route 1 people too, this one lives in the lab and it is just a browser tab, no install – and give it your submitted result. It computes for you exactly the statistic I computed for the five analysts: the share of the whole grid that is more negative than your value. Two or three minutes. Then paste your percentile in chat, hold it, send on go. [go] Look at the range in the chat – the room spans a good stretch of the curve, and every one of you can now say precisely where you stand relative to eight hundred and forty defensible alternatives. That sentence – 'my estimate sits at the Nth percentile of the specification space' – is a genuinely publishable way to report a robustness check. You have just done it.
+Your turn to be placed. Open the percentile chunk in the browser lab – Route 1 people too, this one lives in the lab and it is just a browser tab, no install – and give it your submitted result. It computes for you exactly the statistic I computed for the five analysts: the share of the whole grid that is more negative than your value. Two or three minutes. Then paste your percentile in chat, hold it, send on go. [go] Look at the range in the chat – the room spans a good stretch of the curve, and every one of you can now say precisely where you stand relative to eight hundred and forty defensible alternatives. That sentence – "my estimate sits at the Nth percentile of the specification space" – is a genuinely publishable way to report a robustness check. You have just done it.
 :::
 
 ## Two jobs, one curve
@@ -1935,7 +1931,7 @@ Your turn to be placed. Open the percentile chunk in the browser lab – Route 1
 :::
 
 ::: {.fragment}
-The two are detachable – and most published curves stop at description.
+The two are detachable, and most published curves stop at description.
 :::
 :::
 
@@ -1951,12 +1947,12 @@ Last conceptual move of the day, and it is the one that separates careful reader
 
 ::: {.small}
 - Every specification re-uses the **same 270 country-years** – the estimates are deeply dependent
-- "63.9% significant" **describes** the curve; it is not a p-value for the claim
+- '63.9% significant' **describes** the curve; it is not a p-value for the claim
 - Vote-counting across dependent specifications has no null distribution – you cannot just tally the stars
 :::
 
 ::: notes
-Here is the trap the percentages set. Sixty-three point nine percent of our specifications are significant. It is very tempting to read that as evidence strength – 'most tests pass, so the claim holds'. But all eight hundred and forty specifications interrogate the same two hundred and seventy country-years. They share the data, so they share the noise: if sampling luck pushed a handful of country-years the claim's way, it pushed hundreds of specifications the same way at once. The percentage significant is a description of the curve, not a test of the claim. To test the claim at curve level you need to know what the whole curve would look like if there were nothing to find – and that requires building the nothing.
+Here is the trap the percentages set. Sixty-three point nine per cent of our specifications are significant. It is very tempting to read that as evidence strength: "most tests pass, so the claim holds". But all eight hundred and forty specifications interrogate the same two hundred and seventy country-years. They share the data, so they share the noise: if sampling luck pushed a handful of country-years the claim's way, it pushed hundreds of specifications the same way at once. The percentage significant is a description of the curve, not a test of the claim. To test the claim at curve level you need to know what the whole curve would look like if there were nothing to find – and that requires building the nothing.
 :::
 
 ## Building the nothing: the permutation design
@@ -1979,7 +1975,7 @@ The nothing is built like this. The claim says a country's unemployment moves it
 
 ::: {.small}
 - With B = 500, the smallest reportable p is **2/(B+1) ≈ 0.004** – a floor, not a zero
-- Near p = .05 the Monte-Carlo wobble is about **±0.01** – treat p = .04 vs .06 as the same finding
+- Near p = .05 the Monte-Carlo wobble is about **±0.01**, so treat p = .04 and p = .06 as the same finding
 - [A DESIGN · NOT YET RUN]{.highlight bg-colour="#ffe3b3"} – a curve-level test has to be fixed in advance, and this one has not been run; today we read the design, not a result
 :::
 
@@ -1988,7 +1984,7 @@ The nothing is built like this. The claim says a country's unemployment moves it
 :::
 
 ::: notes
-Two literacy points and then you argue. First: with five hundred draws, the smallest p-value the test can report is two over five hundred and one – about point zero zero four. That is a resolution floor, not a zero; more draws buy sharper floors at real compute cost. Second: near the point-oh-five boundary the Monte-Carlo wobble is around plus or minus point zero one, so a permutation p of point zero four and point zero six are the same finding twice. And the badge matters: this test is designed, not run – you are reading a plan today, which is itself the preregistration lesson again. Now the discussion beat. The constrained universe – cosmopolitan outcome only, 140 specifications – is 70.7 percent negative, 57.1 percent negative and significant. Two minutes: is that strong evidence? Against what null? Type your answer. [harvest: the sharp ones will say – we don't know until we know what chance produces on these dependent data; that is exactly the point.]
+Two literacy points and then you argue. First: with five hundred draws, the smallest p-value the test can report is two over five hundred and one – about point zero zero four. That is a resolution floor, not a zero; more draws buy sharper floors at real compute cost. Second: near the point-oh-five boundary the Monte-Carlo wobble is around plus or minus point zero one, so a permutation p of point zero four and point zero six are the same finding twice. And the badge matters: this test is designed, not run – you are reading a plan today, which is itself the preregistration lesson again. Now the discussion beat. The constrained universe – cosmopolitan outcome only, 140 specifications – is 70.7 per cent negative, 57.1 per cent negative and significant. Two minutes: is that strong evidence? Against what null? Type your answer. [harvest: the sharp ones will say – we don't know until we know what chance produces on these dependent data; that is exactly the point.]
 :::
 
 ## What stands without the test
@@ -2000,15 +1996,15 @@ Two literacy points and then you argue. First: with five hundred draws, the smal
 :::
 
 ::: notes
-So that nothing feels deflated: notice how much of today needs no permutation at all. That the outcome fork carries half the variance – description, stands. That the two person-level analysts bracket the range – stands. That the sign flips concentrate in the pooled estimator and the non-bailout samples – stands. The correction arc, your preregistered dot, the whole anatomy of the curve – all of it stands. The single sentence that has to wait is 'this curve as a whole is unlikely if there is no effect'. Keeping those two layers apart in your own writing – saying which one your claim lives in – puts you ahead of most published specification curves. That is inference literacy, and you now have it.
+So that nothing feels deflated: notice how much of today needs no permutation at all. That the outcome fork carries half the variance – description, stands. That the two person-level analysts bracket the range – stands. That the sign flips concentrate in the pooled estimator and the non-bailout samples – stands. The correction arc, your preregistered dot, the whole anatomy of the curve – all of it stands. The single sentence that has to wait is "this curve as a whole is unlikely if there is no effect". Keeping those two layers apart in your own writing – saying which one your claim lives in – puts you ahead of most published specification curves. That is inference literacy, and you now have it.
 :::
 
 ## The multiverse has its critics {.smaller}
 
 ::: {.small}
-- "Robustness is better assessed with a **few thoughtful models** than with billions of regressions" [@Auspurg2025RobustnessBetterAssessed; answering @GanslmeierVlandas2025EstimatingExtentSources] – only *justified* models targeting the *same estimand* belong in one curve; today's grid is a **curated 840**, not billions – and the fork chart does the job every critic endorses: it locates where the argument must happen
-- "**There is only one correct analysis**" once the question is fully specified [@LakensEtAl2026ThereOnlyOne] – your declared specification answers *cherry-picking*; the deeper point stands: declared in advance is not yet *justified* – that is what the estimand and DAG work were for
-- "What's a multiverse **good for** anyway?" – reflection, persuasion, or inference, and each purpose wants a *differently built* universe [@RohrerEtAl2026WhatsMultiverseGood] – today's was built for **reflection**; how much more to read into it is the open debate
+- "Robustness is better assessed with a **few thoughtful models** than with billions of regressions" [@Auspurg2025RobustnessBetterAssessed; answering @GanslmeierVlandas2025EstimatingExtentSources] – only *justified* models targeting the *same estimand* belong in one curve. Today's grid is a **curated 840**, not billions, and the fork chart does the job every critic endorses: it locates where the argument must happen
+- "**There is only one correct analysis**" once the question is fully specified [@LakensEtAl2026ThereOnlyOne] – your declared specification answers *cherry-picking*, and their deeper point is that declaring in advance does not yet make a choice *justified*, which is what the estimand and DAG work were for
+- "What's a multiverse **good for** anyway?" – reflection, persuasion, or inference, and each purpose wants a *differently built* universe [@RohrerEtAl2026WhatsMultiverseGood]. Today's was built for **reflection**, and how much more to read into it is the open debate
 :::
 
 ::: {.src}
@@ -2016,10 +2012,10 @@ The book-length how-to: [@YoungCumberworth2025MultiverseAnalysisComputational]; 
 :::
 
 ::: notes
-One last literacy layer: the method you practised is under live debate, and you can now read it. Katrin Auspurg – Block 2's estimand diagnosis – answered a 3.6-billion-estimate study with this slide's first title: only thoughtful, justified models belong in a curve. Today mostly agreed with her: our grid is a curated eight hundred and forty, not an enumeration, and the fork chart does the one job every critic endorses – it tells you where the argument has to happen. Lakens and colleagues say that once the question is fixed, only one analysis implements it correctly. Your preregistration answered cherry-picking; their deeper point – that declaring early does not make a choice justified – is exactly why we built the DAG before declaring. And Rohrer, Hullman and Gelman ask what a multiverse is for: reflection, persuasion, or inference – each wanting a differently built set. Ours was built for reflection. How much more to read into it is the debate you have now joined. [advance]
+One last literacy layer: the method you practised is under live debate, and you can now read it. Katrin Auspurg – Block 2's estimand diagnosis – answered a 3.6-billion-estimate study with the line at the top of this slide: only thoughtful, justified models belong in a curve. Today mostly agreed with her: our grid is a curated eight hundred and forty, not an enumeration, and the fork chart does the one job every critic endorses – it tells you where the argument has to happen. Lakens and colleagues say that once the question is fixed, only one analysis implements it correctly. Your preregistration answered cherry-picking; their deeper point – that declaring early does not make a choice justified – is exactly why we built the DAG before declaring. And Rohrer, Hullman and Gelman ask what a multiverse is for: reflection, persuasion, or inference – each wanting a differently built set. Ours was built for reflection. How much more to read into it is the debate you have now joined. [advance]
 :::
 
-## What we learned
+## Two sentences worth keeping
 
 ::: {.claimcard}
 "the common single-path analyses in social and behavioural research should not be simply assumed to be robust to alternative analyses" [@AczelEtAl2026InvestigatingAnalyticalRobustness]
@@ -2035,7 +2031,7 @@ A blueprint: precise question → causal reasoning (DAG) → multiverse → sens
 :::
 
 ::: notes
-Two sentences to take away. From the Multi100 paper: single-path analyses should not simply be assumed robust. And notice what preregistration did and did not do for you today – it protected your choice from being opportunistic, but it gave your declared dot no special status inside the curve. You lived both halves: the declaration made your one path defensible, and the grid showed it was still just one path among 840. That pairing – declare your path, then show the space it sits in – is the whole method. From Auspurg and Brüderl, the constructive recipe we followed: precise question, explicit assumptions, multiverse, sensitivity. And keep the two robustness standards apart in your own writing: same *conclusion* – seventy-four percent in Multi100 – and same *number* – thirty-four. When you claim robustness, say which one you mean.
+Two sentences to take away. From the Multi100 paper: single-path analyses should not simply be assumed robust. And notice what preregistration did and did not do for you today – it protected your choice from being opportunistic, but it gave your declared dot no special status inside the curve. You lived both halves: the declaration made your one path defensible, and the grid showed it was still just one path among 840. That pairing – declare your path, then show the space it sits in – is the whole method. From Auspurg and Brüderl, the constructive recipe we followed: precise question, explicit assumptions, multiverse, sensitivity. And keep the two robustness standards apart in your own writing: same *conclusion* – seventy-four per cent in Multi100 – and same *number* – thirty-four. When you claim robustness, say which one you mean.
 :::
 
 ## A single analytical path is a choice
@@ -2043,7 +2039,7 @@ Two sentences to take away. From the Multi100 paper: single-path analyses should
 ::: {.none .fs-140}
 - There is no privileged single analytical path – only justifiable ones, explored openly.
 - You made one justifiable choice today – transparently, with a reason, inside a multiverse.
-- This is a skill. 
+- This is a skill.
 - And that was the workshop.
 :::
 
@@ -2060,10 +2056,10 @@ Fork anything. Everything is open.
 If the morning had one sentence, it is this one. There is no privileged single analytical path – only justifiable ones, explored openly. And notice that you have already done the right thing once: you made one defensible choice, you wrote down your reason before running it, and you placed your answer inside the space of alternatives rather than pretending it was the only one. That is the transferable habit. Everything else today was tooling in its service.
 :::
 
-## If you want the full toolkit: git
+## Git: the tool we left out
 
 ::: {.small}
-- Today ran with **no version control at all** – a deliberate design, so nothing stood between you and the analysis
+- Today ran with **no version control at all**. That is a deliberate design, so nothing stood between you and the analysis
 - What a git history would add: a **timestamped public trail** of every change – the workshop's first cohort even preregistered by commit message, letting git supply the timestamp
 - The **companion module** on the site takes you from a plain folder to a published repository, at your own pace – your workspace zip is the perfect practice project
 :::
@@ -2072,12 +2068,12 @@ If the morning had one sentence, it is this one. There is no privileged single a
 One tool we deliberately left out of today, named on the way out. Everything you did ran without version control – that was a design decision, not an oversight, because the first delivery taught me that git alongside everything else is one skill too many for a single day. But the skill is worth having: a git history is a timestamped public trail of every change you ever made – my April 2025 correction would have been one commit in plain sight, and the first cohort of this workshop actually preregistered with a commit message, letting git supply the timestamp we got today from a rendered report. The site has a self-study companion module that takes you from a plain folder – your workspace zip is ideal – to a published repository. At your own pace, with nothing riding on it. That is the last tool in the kit.
 :::
 
-## Take home & resources
+## What you take with you
 
 ::: {.small}
 - **Yours now**: a preregistered, rendered report · a real error, caught in the open, in real submitted code · your dot on the class curve · your prediction, on the record
 - **Read**: the three *Nature* 2026 papers [@MiskeEtAl2026InvestigatingReproducibilitySocial; @AczelEtAl2026InvestigatingAnalyticalRobustness; @TynerEtAl2026InvestigatingReplicabilitySocial] · the glossary [@NosekEtAl2025BriefGlossaryTerms] · @AuspurgBruderl2021HasCredibilitySocial · @LundbergEtAl2021WhatYourEstimand · @Teney2016DoesEUEconomic · the workshop's own reading on specification curves
-- **Explore**: the companion curriculum (intro to R · the statistics behind today · the multiverse debate · simulation · repositories & preregistration · git & GitHub) · the Multi100 data · `fixest` & `dagitty` docs
+- **Explore**: the companion curriculum (intro to R · the statistics behind today · causal graphs · the multiverse debate · simulation · repositories & preregistration · git & GitHub) · the Multi100 data · `fixest` & `ggdag` docs
 - **Keep going locally**: your university's research-software and open-research teams · a ReproducibiliTea journal club near you
 :::
 
@@ -2088,7 +2084,7 @@ codemoreh.github.io/applied-replication
 Fork anything. Everything is open.
 :::
 ::: notes
-What you take with you: a rendered report with a preregistration block in it; the story of an error caught in the open, in genuinely submitted code; and a dot on the class curve. The website on screen holds everything else – the readings, the data, the companion modules, the specification-curve reading, and the full SCORE dossier on the paper if you want to dig further. Two pointers for keeping the habit alive wherever you work: most universities have a research-software engineering team and an open-research or library data service that run training exactly like today's, and ReproducibiliTea journal clubs meet in dozens of cities – if there is not one near you, they will help you start it.
+Here is what goes home with you. A rendered report with a preregistration block in it, the story of an error caught in the open, in genuinely submitted code, and a dot on the class curve. The website on screen holds everything else – the readings, the data, the companion modules, the specification-curve reading, and the full SCORE dossier on the paper if you want to dig further. Two pointers for keeping the habit alive wherever you work: most universities have a research-software engineering team and an open-research or library data service that run training exactly like today's, and ReproducibiliTea journal clubs meet in dozens of cities – if there is not one near you, they will help you start it.
 :::
 
 ## References {.scrollable .smaller visibility="uncounted"}

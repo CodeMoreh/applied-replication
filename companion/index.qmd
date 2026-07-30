@@ -3,28 +3,30 @@ title: "Companion curriculum"
 subtitle: "Optional self-study around the one-day workshop"
 ---
 
-The companion curriculum is a set of six self-contained modules that sit alongside the workshop rather than inside it. The one-day session is deliberately compressed – it teaches reproduction, estimands and the multiverse through a single hands-on case – and these modules are where the surrounding data-analytical and open-science skills live for anyone who wants them. You can read one before the workshop to arrive prepared, or after it to take your own work further. Each stands on its own, so you can pick just the one you need and leave the rest.
+The companion curriculum is a set of seven self-contained modules that sit alongside the workshop rather than inside it. The one-day session is deliberately compressed – it teaches reproduction, estimands and the multiverse through a single hands-on case – and these modules are where the surrounding data-analytical and open-science skills live for anyone who wants them. You can read one before the workshop to arrive prepared, or after it to take your own work further. Each stands on its own, so you can pick just the one you need and leave the rest.
 
 **Nothing here is required for the workshop.** The day runs in full without any of it, in either of its two routes, with nothing to install and no account to create. Treat the curriculum as optional depth: preparation on one side of the day, next steps on the other.
 
-## The six modules
+## Seven modules, each standing alone
 
 | Module | Level | What it covers | When to read it |
 |---|---|---|---|
-| [Getting started with R](intro-r.qmd) | Foundation | What R and Positron are; the console, scripts and Quarto; objects, vectors and data frames; reading a CSV; the pipe and a first dplyr chain. For arriving with no R at all. | Before the day |
+| [Getting started with R](intro-r.qmd) | Foundation | What R and Positron are; the console, scripts and Quarto; objects, vectors and data frames; reading a CSV; the pipe and a first dplyr chain; a grammar-of-graphics tutorial that builds up to reading the workshop's own class chart; naming the quantity before estimating it. For arriving with no R at all. | Before the day |
 | [The statistical methods behind the workshop](stats-methods.qmd) | Foundation to advanced | Every model fitted on the case's own data, output by output: a first linear model read line by line; pooled OLS and cluster-robust errors; two-way fixed effects; random effects and within–between; person-level multilevel models; survey weights and WeMix; Bayesian estimation with brms; ordered beta regression; meta-analysis and effect sizes on one axis. | Either side of the day |
+| [Draw the arrows you believe](dags.qmd) | Intermediate | What a causal graph is and what drawing one commits you to; confounders, mediators and colliders, each fitted rather than only described; building graphs from R formulas with `dagify()`; the EU-frames graph, whose adjustment set turns out to be exactly what two-way fixed effects absorb; what fixed effects cannot fix; stating an estimand for your own research and drawing its graph. | Either side of the day |
 | [The multiverse: origins, uses, and critics](multiverse.qmd) | Intermediate | Where multiverse thinking came from; the three purposes a multiverse can serve and why they pull apart; the 2025–26 critical debate (Auspurg; Rohrer, Hullman and Gelman; Lakens and colleagues) read against this workshop's own grid; how to read a curve without over-reading it. | After the day |
 | [Simulation as a method](simulation.qmd) | Intermediate | Data with a known recipe: a simulated person-level twin built to carry the original analysis, every framing dimension with its own response; parameter recovery and the sampling distribution of a level-2 estimate; composition against context; recovering individual effects; weights that actually matter; the degrees-of-freedom story run live; a null multiverse; a lineup; design precision by simulation. | After the day |
 | [Reproducibility repositories](repositories.qmd) | Foundation to advanced | The GESIS licensed archive; the OSF nodes behind the case; what registration and forking mean; preregistration templates, feeding into Block 3. | After the day (the preregistration part also works before) |
 | [Git and GitHub for reproducible research](git-github.qmd) | Advanced | Version control from first principles; git on your own machine; putting a repository online; what belongs in git and what never does; taking your own reanalysis further. | After the day |
 
-## A reading order for a complete beginner
+## Start here if you are new
 
 If you are new to all of this and want a route through, take the modules in this order:
 
 1. **Before the day: [Getting started with R](intro-r.qmd).** Arrive able to read a data frame, a pipe and a model formula, so the hands-on tasks are about the ideas rather than the syntax.
-2. **Either side of the day: [The statistical methods behind the workshop](stats-methods.qmd).** The first five sections – aggregation through the estimator tour – make good preparation; the multilevel, weighting, Bayesian and effect-size sections land better once you have seen the class multiverse, so they reward a second read afterwards.
-3. **After the day: [The multiverse module](multiverse.qmd), then [Simulation as a method](simulation.qmd).** The first gives the ideas behind what you just did – and the arguments now running against them; the second gives you a laboratory, a person-level dataset whose true recipe is known, for testing what your models can recover.
-4. **After the day: [Reproducibility repositories](repositories.qmd) and [Git and GitHub](git-github.qmd).** Once you have a report of your own, these two turn it into something you can archive, version and share – the natural next steps beyond the workshop's own scope.
+2. **Either side of the day: [The statistical methods behind the workshop](stats-methods.qmd).** The first five sections, aggregation through the estimator tour, make good preparation. The multilevel, weighting, Bayesian and effect-size sections land better once you have seen the class multiverse, so they reward a second read afterwards.
+3. **Either side of the day: [Draw the arrows you believe](dags.qmd).** The workshop introduces causal graphs in about thirty minutes and asks you to finish one in Task 4. Reading this beforehand turns that task into a decision you already know how to make; reading it afterwards is the more thorough option, because the models it fits are the ones you will have just seen scatter across the class chart.
+4. **After the day: [The multiverse module](multiverse.qmd), then [Simulation as a method](simulation.qmd).** The first gives the ideas behind what you just did, and the arguments now running against them. The second gives you a laboratory, a person-level dataset whose recipe is known in advance, on which you can test what your models actually recover.
+5. **After the day: [Reproducibility repositories](repositories.qmd) and [Git and GitHub](git-github.qmd).** Once you have a report of your own, these two turn it into something you can archive, version and share – the natural next steps beyond the workshop's own scope.
 
 Read as much or as little as suits you. The workshop stands on its own; the curriculum is here for when you want to go further.

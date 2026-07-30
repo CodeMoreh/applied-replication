@@ -13,9 +13,10 @@
 #               companion/_model-outputs/sim_calibration_kdist.csv
 #               companion/_model-outputs/sim_calibration_person.csv
 # Writes:       data/EUframes_person_sim.csv
-#               companion/_model-outputs/sim_truths.csv
+#               companion/_model-outputs/sim_planted.csv
+#               the file named by $SIM_SWEEP, when that is set
 # Author:       Chris Moreh (with Claude)
-# Last updated: 2026-07-27
+# Last updated: 2026-07-30
 ################################################################################
 
 library(dplyr)
@@ -25,7 +26,8 @@ library(purrr)
 library(fixest)
 
 # The committed file is the default seed's draw. Override $SIM_SEED to inspect
-# a different one - the estimates move, the truths do not, which is the point.
+# a different one – the estimates move, the planted values do not, which is the
+# point.
 set.seed(as.integer(Sys.getenv("SIM_SEED", "20260727")))
 
 DIMS <- c("cosmo", "util", "comm", "lib")
@@ -36,10 +38,23 @@ kdist <- read_csv("companion/_model-outputs/sim_calibration_kdist.csv",
                   show_col_types = FALSE)
 pcoef <- read_csv("companion/_model-outputs/sim_calibration_person.csv",
                   show_col_types = FALSE)
-cget  <- function(nm) cal$value[cal$parameter == nm]
-pget  <- function(out, term) {
+# Both lookups are strict on purpose. Every quantity looked up here is one the
+# calibration script writes, so a miss means a calibration file has been
+# renamed, truncated or duplicated - and a silent fallback would then hand back
+# a complete, plausible, quietly different twin with no warning anywhere.
+cget <- function(nm) {
+  v <- cal$value[cal$parameter == nm]
+  if (length(v) != 1)
+    stop("sim_calibration.csv: expected exactly one row for '", nm,
+         "', found ", length(v), call. = FALSE)
+  v
+}
+pget <- function(out, term) {
   v <- pcoef$value[pcoef$outcome == out & pcoef$term == term]
-  if (length(v) == 0) 0 else v
+  if (length(v) != 1)
+    stop("sim_calibration_person.csv: expected exactly one row for '", out,
+         "' x '", term, "', found ", length(v), call. = FALSE)
+  v
 }
 
 # A cell has two things going on: what share of its respondents mention
@@ -52,9 +67,14 @@ panel <- read_csv("data/EUframes_cy.csv", show_col_types = FALSE) |>
                 .names = "cond_{.col}"))
 
 # --- authored constants -----------------------------------------------------
-# These are the only quantities in the file that correspond to nothing
-# measured. Everything else is estimated from the public panel or calibrated
-# from the licensed respondents.
+# Five constants here correspond to nothing measured; everything else in the
+# file is estimated from the public panel or calibrated from the licensed
+# respondents. Only the first is an effect on what a respondent answers, which
+# is the sense in which the twin has one authored individual-level effect. The
+# other four govern who ends up in the sample and how many of them there are.
+# A sixth authored quantity sits outside this script: lambda_k in
+# sim_calibration.csv, the mean mention count, which the recorded shares cannot
+# identify and which phi absorbs whatever value it takes.
 SIM_UNEMPLOYED_EFFECT <- c(cosmo = -0.04, util = -0.01, comm = 0.04, lib = 0.01)
 SIM_EMP_PARTICIPATION <- 0.6   # unemployed share of the 15+ population, as a
                                # fraction of the published unemployment rate
@@ -69,7 +89,7 @@ SIM_FRACTION      <- 0.10      # cell sizes as a fraction of the real n_cy.
                                # The twin's cell means are averages over this
                                # many people, so they are noisier than the
                                # panel's; at 0.10 a cell-level slope carries a
-                               # standard error near a quarter of the anchor's
+                               # standard error near a third of the anchor's
                                # size, which the module teaches rather than
                                # hides. Raising it improves precision and the
                                # file size together
@@ -110,7 +130,7 @@ centred_fitted <- function(m) {
 p_cell    <- centred_fitted(fit_mention)
 cond_base <- sapply(DIMS, \(d) centred_fitted(fit_cond[[d]]))
 
-# The truths are the panel's own observed-scale coefficients: what a
+# The tuning target is the panel's own observed-scale coefficient: what a
 # participant fits is the dimension score with its zeros in, and the twin
 # should reproduce the coefficient the real panel gives under the same model.
 target <- map(DIMS, \(d) coef(lm(cell_form(paste0("m", d)), data = panel))) |>
@@ -142,7 +162,7 @@ cond_fixed <- cond_base + panel$unemp %o% delta[, "unemp"] +
 
 # --- fresh country and cell deviations --------------------------------------
 # Drawn rather than reused, so the twin's countries are not copies of the real
-# ones, and residualised against the full cell-level design - year included,
+# ones, and residualised against the full cell-level design – year included,
 # because growth is dominated by common shocks and a draw orthogonal to raw
 # growth can still correlate with it once year is absorbed. Three dimensions
 # are drawn and the fourth closes the composition.
@@ -153,6 +173,14 @@ cell_cov   <- cov(sapply(free, \(d) residuals(fit_cond[[d]])))
 draw_free <- function(n, Sigma) {
   matrix(rnorm(n * ncol(Sigma)), n) %*% chol(Sigma + diag(1e-12, ncol(Sigma)))
 }
+# Only sd(x) travels from the first argument: what comes back is the fit's
+# residual rescaled to that spread. The two mentioning lines below hand the fit
+# a second, fresh rnorm draw instead of the vector they scale by. Orthogonality
+# to the design holds either way, because the result is a residual of that
+# design whichever vector went in; the constructions differ only in whether the
+# realised scale and orientation are dependent. Handing over one vector would
+# consume half as many draws and so rewrite every random quantity after this
+# point, committed twin included, which is why the fit here takes its own.
 orthogonalise <- function(x, fit) {
   r <- residuals(fit)
   r / sd(r) * sd(x)
@@ -196,7 +224,7 @@ n_person <- nrow(sim)
 # Age is drawn from the calibrated population distribution, tilted towards the
 # young by the selection factor exp(-tilt (age - mean)/10). Tilting a normal
 # density that way shifts its mean and leaves its spread alone, so the tilted
-# population is another truncated normal, sampled here exactly by inverse CDF -
+# population is another truncated normal, sampled here exactly by inverse CDF –
 # which matters because w1 is the exact reciprocal of the same factor, and only
 # then does weighting recover the untilted population.
 age_shift <- (sim$tilt / 10) * AGE_SD^2
@@ -246,15 +274,19 @@ shift <- sapply(DIMS, \(d) demo_shift(d) +
 base <- as.matrix(sim[, DIMS])
 # A respondent's shift can push a small part below zero, and the Dirichlet
 # needs every part positive. Rather than clip each part and renormalise the
-# whole composition - which damps the large shifts wherever any part is tight -
+# whole composition – which damps the large shifts wherever any part is tight –
 # the shift vector is scaled back just far enough to keep the smallest part at
 # the floor. The direction of the shift survives, its size is reduced only for
 # the respondents who need it, and the share affected is reported below.
 FLOOR <- 0.002
-# A handful of cells sit below the floor on their smallest dimension before any
-# individual is added; they are lifted first, so the scaling below always has a
-# non-negative amount of room to work with.
-base_share <- mean(apply(base, 1, min) < FLOOR)
+# Around seven per cent of cells sit below the floor on their smallest
+# dimension once the drawn deviations are added, and none does before them.
+# Those cells are lifted first, so the scaling below always has a non-negative
+# amount of room to work with. Both shares below are worth watching: the cell
+# one says how much of the panel the lift touches, the person one how many
+# respondents inherit a lifted cell, and cells are not equally populated.
+floor_cells <- mean(apply(as.matrix(cells[, DIMS]), 1, min) < FLOOR)
+base_share  <- mean(apply(base, 1, min) < FLOOR)
 base <- pmax(base, FLOOR)
 base <- base / rowSums(base)
 room  <- (base - FLOOR) / pmax(1e-12, -shift)
@@ -291,19 +323,43 @@ sim <- sim |>
          pos   = cosmo + util,
          neg   = comm + lib)
 
-# --- the truths -------------------------------------------------------------
-# Every dimension's truth is the coefficient the real panel yields under the
-# same specification, so a model fitted to the twin lands where the same model
-# fitted to the real panel lands. The composites inherit the sums of their
-# parts, and nothing is induced from any one privileged dimension.
-truths <- map(c(DIMS, "pos", "neg"), \(v) {
+# --- what the recipe plants -------------------------------------------------
+# Every dimension's planted coefficient is the one the real panel yields under
+# the same specification, so a model fitted to the twin lands where the same
+# model fitted to the real panel lands. The composites inherit the sums of
+# their parts, and nothing is induced from any one privileged dimension.
+#
+# Unemployment plants two coefficients rather than one, because a respondent's
+# own `unemployed` status also moves their composition and its prevalence is
+# linear in the cell rate. That is a second path from unemployment to a cell
+# mean, and the tuning loop above never sees it: the loop works on the
+# composition the cell recipe supplies, before any individual is drawn. Hold
+# `unemployed` fixed and a model recovers the contextual coefficient, which is
+# the panel's own. Leave it out and the model recovers that coefficient plus
+# this channel, which is the marginal one. Both are estimands of the twin and
+# both are recorded, so a reader can say which one their model is after.
+# Growth opens no such path and needs no second column.
+slope_of <- function(y) coef(lm(cell_form("y"),
+                                data = mutate(panel, y = y)))[["unemp"]]
+prevalence <- pmin(0.9, SIM_EMP_PARTICIPATION * panel$unemp / 100)
+channel <- map_dbl(set_names(DIMS),
+                   \(d) slope_of(p_cell * SIM_UNEMPLOYED_EFFECT[[d]] *
+                                   (prevalence - unemployed_ref)))
+channel <- c(channel,
+             pos = channel[["cosmo"]] + channel[["util"]],
+             neg = channel[["comm"]]  + channel[["lib"]])
+
+planted <- map(c(DIMS, "pos", "neg"), \(v) {
   cf <- coef(lm(cell_form(paste0("m", v)), data = panel))
-  tibble(outcome = v, b_unemp = cf[["unemp"]], b_growth = cf[["growth"]])
+  tibble(outcome                  = v,
+         planted_unemp_contextual = cf[["unemp"]],
+         planted_unemp_marginal   = cf[["unemp"]] + channel[[v]],
+         planted_growth           = cf[["growth"]])
 }) |>
   list_rbind()
 
-write_csv(truths |> mutate(across(where(is.numeric), \(x) signif(x, 6))),
-          "companion/_model-outputs/sim_truths.csv")
+write_csv(planted |> mutate(across(where(is.numeric), \(x) signif(x, 6))),
+          "companion/_model-outputs/sim_planted.csv")
 
 # --- validation report (this block IS the script's output) ------------------
 sim_cells <- sim |>
@@ -315,9 +371,11 @@ comparison <- map(c(DIMS, "pos", "neg"), \(v) {
   tibble(outcome = v, sim_unemp = cf[["unemp"]], sim_growth = cf[["growth"]])
 }) |>
   list_rbind() |>
-  left_join(truths, by = "outcome") |>
-  select(outcome, real_unemp = b_unemp, sim_unemp,
-         real_growth = b_growth, sim_growth) |>
+  left_join(planted, by = "outcome") |>
+  select(outcome,
+         contextual = planted_unemp_contextual,
+         marginal   = planted_unemp_marginal, sim_unemp,
+         planted_growth, sim_growth) |>
   mutate(across(where(is.numeric), \(x) signif(x, 4)))
 
 # The education reference category has to match the one the calibration used,
@@ -327,18 +385,20 @@ m_ind <- feols(cosmo ~ age10 + female + edu4 + unemployed | cntry^year,
                  filter(k > 0) |>
                  mutate(edu4 = factor(edu4, levels = names(EDU))))
 
-# Where any gap between the target and the simulated slope enters: the tuned
-# cell expectation, then the same expectation carried down to individuals
-# (which adds the covariance between mentioning and composition), then the
-# realised draw.
-slope_of <- function(y) coef(lm(cell_form("y"),
-                                data = mutate(panel, y = y)))[["unemp"]]
+# Where any gap between the planted coefficient and the simulated slope enters,
+# on the cosmopolitan dimension: the tuning target, the marginal quantity the
+# unemployed channel adds to it, the tuned cell expectation, that expectation
+# carried down to individuals (which adds the covariance between mentioning and
+# composition, and the simplex scale-back), and the realised draw. The realised
+# row holds no individual controls, so `marginal` is the row it should be read
+# against.
 expected_person <- tibble(cntry = sim$cntry, year = sim$year,
                           e = p_mention * cond[, "cosmo"]) |>
   summarise(e = mean(e), .by = c(cntry, year)) |>
   right_join(panel |> select(cntry, year), by = c("cntry", "year"))
 slope_trace <- c(
-  target        = tgt["cosmo", "unemp"],
+  contextual    = tgt["cosmo", "unemp"],
+  marginal      = planted$planted_unemp_marginal[planted$outcome == "cosmo"],
   tuned_cell    = slope_of(p_cell * cond_fixed[, "cosmo"]),
   expected_pers = slope_of(expected_person$e),
   realised      = coef(lm(cell_form("cosmo"), data = sim_cells))[["unemp"]])
@@ -346,7 +406,9 @@ slope_trace <- c(
 report <- list(
   rows         = n_person,
   cells        = n_distinct(sim$cntry, sim$year),
-  clamp_share  = c(cells = round(base_share, 4), persons = round(clamp_share, 4)),
+  floor_shares = c(cells_lifted   = round(floor_cells, 4),
+                   persons_lifted = round(base_share, 4),
+                   persons_scaled = round(clamp_share, 4)),
   mention_rate = c(sim = round(mean(sim$k > 0), 4),
                    real = round(mean(panel$mention), 4)),
   mean_shares  = round(colMeans(sim[c(DIMS, "pos", "neg")]), 4),
@@ -364,17 +426,20 @@ report <- list(
                                      "unemployed")], 5)),
   age        = c(unweighted = round(mean(sim$age), 1),
                  weighted = round(weighted.mean(sim$age, sim$w1), 1)),
+  # The twin's respondents are drawn in proportion to n_cy, so a person-level
+  # mean of theirs targets the panel's respondent-weighted value, not the
+  # average of its 270 cell means.
   cosmo_mean = c(unweighted = round(mean(sim$cosmo), 4),
                  weighted = round(weighted.mean(sim$cosmo, sim$w1), 4),
-                 real = round(mean(panel$mcosmo), 4))
+                 real = round(weighted.mean(panel$mcosmo, panel$n_cy), 4))
 )
 print(report)
 
 # Point $SIM_SWEEP at a file and each run appends its estimates to it: the same
 # recipe, a different draw, one row each. That is a simulation study in the
 # ordinary sense, and the module reads the result back to show what the
-# sampling distribution of a cell-level estimate looks like when the truth is
-# known.
+# sampling distribution of a cell-level estimate looks like when the planted
+# value is known.
 sweep_file <- Sys.getenv("SIM_SWEEP")
 if (nzchar(sweep_file)) {
   comparison |>

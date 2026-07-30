@@ -6,8 +6,23 @@
 .Rproj.user/
 *.Rproj
 /slides/*_files/
+/companion/*_files/
 .DS_Store
 *_cache/
+
+# GESIS-licensed microdata, and any person-level file derived from it, must
+# never enter this repository: the usage regulations carry a breach clause and
+# a push cannot be taken back. These patterns are a mechanical backstop, not a
+# substitute for keeping the licensed file outside the working tree. Nothing
+# matching them has ever been committed; if you need to commit one, force it
+# deliberately and say why.
+*.dta
+*.sav
+*.por
+*.rds
+*.RData
+.Rhistory
+.Rdata
 # Note: /_freeze/ is intentionally NOT ignored – it must be committed so CI can deploy without running R
 
 **/*.quarto_ipynb

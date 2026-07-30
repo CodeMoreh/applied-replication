@@ -3,39 +3,39 @@ title: "Setup"
 subtitle: "What to prepare before the workshop"
 ---
 
-This page tells you what to prepare before the workshop. There are two ways to take part, and you only need to prepare for the one you choose. Both cover every task and reach the same results, so pick whichever suits your machine and your comfort level.
+There are two ways to take part, and you only need to prepare for the one you choose. Both cover every task and reach the same results, so pick whichever suits your machine and your comfort level.
 
 ---
 
-## Choose your route
+## Pick your route
 
 ### Route 1 – R and Positron (recommended)
 
-You install two free programs once, then download a ready-made workspace and open it. This is the fuller experience: you work in the same kind of editor a researcher uses, and you keep the workspace afterwards. Allow yourself a little time before the day, depending on what you already have installed.
+You install two free programs once, then download a ready-made workspace and open it. This is the fuller experience. You work in the same kind of editor a researcher uses, and you keep the workspace afterwards. Allow yourself a little time before the day, depending on what you already have installed.
 
 **Step 1 – Install R.** R is the language the analysis is written in. Download it from [cran.r-project.org](https://cran.r-project.org/) and run the installer for your system (Windows `.exe`, macOS `.pkg`, or your Linux package manager). Accept the defaults.
 
-**Step 2 – Install Positron.** Positron is the editor you will work in – it is where you open files, run code, and read results. Download it from [positron.posit.co](https://positron.posit.co) and install it (Windows: run the installer; macOS: open the `.dmg` and drag Positron to Applications; Linux: use the download for your system). When you first open Positron it will find the R you installed in step 1 on its own.
+**Step 2 – Install Positron.** Positron is the editor you will work in – it is where you open files, run code and read results. Download it from [positron.posit.co](https://positron.posit.co) and install it (Windows: run the installer; macOS: open the `.dmg` and drag Positron to Applications; Linux: use the download for your system). When you first open Positron it will find the R you installed in step 1 on its own.
 
 **Step 3 – Download the workspace.** Download the workspace as a single zip file:
 
 [Download the workspace (zip)]({{< var template-repo >}}/archive/refs/heads/main.zip)
 
-Save it somewhere you will find again, such as your Desktop or Documents folder, then unzip it. You now have a folder containing the analysis code, the data, and a report to fill in. There is no account to create and nothing to sign into.
+Save it somewhere you will find again, such as your Desktop or Documents folder, then unzip it. You now have a folder containing the analysis code, the data and a report to fill in. There is no account to create and nothing to sign into.
 
 **Step 4 – Open the folder in Positron.** In Positron, choose **File → Open Folder** and pick the folder you just unzipped. The files appear in a panel on the left. Everything you need for the day lives in this one folder.
 
-**Step 5 – Check that it works.** In the folder, open the file `R/check_setup.R` and run it (in Positron, open the file and click **Run**, or type `source("R/check_setup.R")` in the console at the bottom). The script prints a short OK or FAIL report – R version, the packages the workshop uses, and access to the data. If any package is missing it offers to install it for you; say yes. Fix any FAIL before the day, and if you get stuck, come along anyway and use Route 2 on the day.
+**Step 5 – Check that it works.** In the folder, open `R/check_setup.R` and run it – in Positron, click **Run**, or type `source("R/check_setup.R")` in the console at the bottom. The script prints a short OK or FAIL report covering your R version, the packages the workshop uses and access to the data. If any package is missing it offers to install it for you, so say yes. Fix any FAIL before the day. If you get stuck, come along anyway and use Route 2.
 
 ::: {.callout-note}
-The workshop uses a set of standard R packages (for tidying data, fitting models, drawing causal graphs, and making tables). You do not need to install these by hand – the check script in step 5 sorts them out. All are free and come from CRAN, R's official package archive.
+The workshop uses a set of standard R packages, for tidying data, fitting models, drawing causal graphs and making tables. You do not need to install these by hand – the check script in step 5 sorts them out. All are free and come from CRAN, R's official package archive.
 :::
 
 ### Route 2 – Browser lab (nothing to install)
 
 If you would rather install nothing, or you are on a borrowed or locked-down computer, you can do the whole exercise in your web browser.
 
-- **Nothing to install.** A recent version of **Chrome, Edge, or Firefox** is all you need. (Safari works too, but the others are more reliable for this.)
+- **Nothing to install.** A recent version of **Chrome, Edge or Firefox** is all you need. (Safari works too, but the others are more reliable for this.)
 - **The one link.** On the day, open the [Browser lab](exercise/browser-lab.qmd) page. A full copy of R starts up inside the tab – it takes ten to thirty seconds the first time – and then every task runs right there.
 - **You miss nothing.** Route 2 has full parity with Route 1: the same data, the same models, the same result submitted to the same live class chart.
 
@@ -43,18 +43,18 @@ You do not need to do anything before the day for Route 2. You may want to open 
 
 ---
 
-## What you do not need
+## No accounts, no purchases
 
 The day is deliberately free of accounts and sign-ups. In particular, you do **not** need:
 
 - **git or a GitHub account** – nothing in the day depends on version control. If you want to learn it, the optional [Git and GitHub companion module](companion/git-github.qmd) is there for afterwards.
 - **an OSF account** – you will see how preregistration works on the Open Science Framework and complete one yourself, but as a template inside your own report. No account required.
 - **paid software** – everything used is free and open.
-- **any sign-up at all** – you can arrive, take part in full, and leave without creating a single account.
+- **any sign-up at all** – you can arrive, take part in full and leave without creating a single account.
 
 ---
 
-## For the online session
+## Give yourself two screens
 
 The workshop runs online. You will get the most out of it with a little room to work:
 
@@ -63,13 +63,13 @@ The workshop runs online. You will get the most out of it with a little room to 
 
 ---
 
-## Optional pre-session reading
+## Read ahead if you like
 
 None of these is required, and everything is taught on the day. If you would like to arrive with some context, these are worth the time. One line each on why:
 
 | Reading | Why it is worth the time |
 |---|---|
-| [Nosek et al. (2018) – The preregistration revolution](https://doi.org/10.1073/pnas.1708274114) | A short, readable primer on the one idea Block 3 turns on: the difference between predicting a result and explaining one after the fact – and it speaks directly to the case where the data already exist, which is ours. |
-| The [AsPredicted](https://aspredicted.org) eight-question form | The exact template you will fill in during the session; skim the eight questions once so it feels familiar rather than a cold start. |
+| [Nosek et al. (2018) – The preregistration revolution](https://doi.org/10.1073/pnas.1708274114) | A short, readable primer on the one idea Block 3 turns on: the difference between predicting a result and explaining one after the fact. It speaks directly to the case where the data already exist, which is ours. |
+| The [AsPredicted](https://aspredicted.org) eight-question form | The exact template you will fill in during the session. Skim the eight questions once so the form feels familiar rather than a cold start. |
 | [van den Akker et al. (2021) – Preregistration of secondary data analysis](https://doi.org/10.15626/MP.2020.2625) | The fuller preregistration template built for exactly our situation – reanalysing data that already exist. Optional, but it is the grown-up tool for the job you do on the day. |
 | [Reading a specification curve](exercise/reading-inference.qmd) | The workshop's own reading for the final block: what a large set of results together can and cannot establish, and why thousands of estimates are not thousands of tests. |

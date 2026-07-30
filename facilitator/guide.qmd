@@ -12,23 +12,23 @@ execute:
 ---
 
 ::: {.callout-note}
-**This document is for the facilitator's eyes only.** It is rendered as part of the site but not linked in the navbar. It carries the full run sheet, answer keys, and crib facts – including the Block 2 story of the data-preparation slip, which the deck tells openly.
+**This document is for the facilitator's eyes only.** It renders as part of the site but sits outside the navbar, so nothing on the site points at it. It carries the full run sheet, the answer keys and the crib facts – including the Block 2 story of the data-preparation slip, which the deck tells openly.
 :::
 
 ---
 
-## Delivery lifecycle
+## Schedule a delivery, then reset it {#delivery-lifecycle}
 
 The site is evergreen between deliveries. Scheduling one is a three-step edit; resetting after one is a four-step export.
 
-**Scheduling a delivery.**
+**Scheduling.**
 
 - [ ] Fill the `delivery:` block in `_variables.yml` (date, venue/platform, event, mode, registration URL) and set `active: 'true'`. Re-render and push; the landing page grows a "Next delivery" callout. Set `active: 'false'` again afterwards.
 - [ ] Decide the extended-universe option at **T-2 weeks** against the go/no-go checklist in `_planning/extended-universe-spec.md`. If GO, the opt-in text there goes into the joining email.
 - [ ] Decide recording. If recording: talk segments only, announced at the start of each recorded stretch, paused for hands-on and chat-heavy segments. Nothing in the day depends on the recording either way.
 - [ ] Optionally create the prereg mirror form from `_planning/prereg-form-spec.md` and paste its URL into `_variables.yml`. The rendered declaration block is the primary record; the form is a silent secondary. Skipping it costs nothing.
 
-**Resetting after a delivery (before the next one).**
+**Resetting, before the next one.**
 
 - [ ] Export the responses Sheet (File → Download → CSV) and commit it as a date-stamped snapshot (e.g. `data/class_results_2026-06-16.csv`); refresh `data/class_results.csv` per `facilitator/live-results-setup.md` if you want the archived cohort visible on the evergreen site.
 - [ ] Clear (or archive to a second tab) the old rows in the live Sheet so the next cohort's chart opens near-empty. **Do not touch the Form, the Worker, or the field schema** – the pipeline is working; only the rows rotate.
@@ -51,7 +51,7 @@ The site is evergreen between deliveries. Scheduling one is a three-step edit; r
 - [ ] Prepare the catch-up card, the help doc, and the day-plan message (texts below) as ready-to-paste snippets.
 - [ ] Charge everything; second device signed in to Teams as a participant-view check.
 
-## Opening the (virtual) room – 30 minutes before
+## Open the room 30 minutes early {#opening-the-virtual-room--30-minutes-before}
 
 - [ ] Open the Teams meeting early; enable chat for everyone; check breakout rooms are available (they are optional – nothing depends on them).
 - [ ] Seed the chat: site URL · browser-lab URL · cheatsheet URL · the timestamped day plan (the standing order if the host drops: "follow the day plan; finish the current task or take the break early; I will rejoin").
@@ -63,7 +63,19 @@ The site is evergreen between deliveries. Scheduling one is a three-step edit; r
 
 ## Run sheet
 
-Times are block-relative. B1 starts at the advertised hour; 15-minute breaks after B1 and B3; 45-minute lunch after B2.
+Times in the block tables are block-relative: 0:00 is the start of that block. The clock below maps them onto the next delivery.
+
+| Segment | Romanian time (EEST) | UK time (BST) |
+|---|---|---|
+| Block 1 – One paper, three verdicts | 10:00–11:30 | 08:00–09:30 |
+| Break | 11:30–12:00 | 09:30–10:00 |
+| Block 2 – The record's second number | 12:00–13:30 | 10:00–11:30 |
+| Lunch | 13:30–14:30 | 11:30–12:30 |
+| Block 3 – Preregister like an analyst | 14:30–16:00 | 12:30–14:00 |
+| Break | 16:00–16:30 | 14:00–14:30 |
+| Block 4 – Reading the multiverse | 16:30–18:00 | 14:30–16:00 |
+
+You are two hours behind the room all day: the room's 10:00 start is your 08:00. Everything you post in chat should carry the Romanian clock, because that is the one the summer school published.
 
 ### Block 1 – One paper, three verdicts (90′)
 
@@ -80,10 +92,10 @@ Times are block-relative. B1 starts at the advertised hour; 15-minute breaks aft
 
 | Rel. | Segment | What I do | What participants do | Watch out for |
 |---|---|---|---|---|
-| 0:00 | The story of the second number (20′) | Told, not hunted. Walk the deck's reveal sequence: "The other number in the record" (−3.804 vs −3.853; the two builds diverge on 2009 alone, every other year flat) → "One file, read twice" (`ZA4819` read a second time in place of `ZA4994`, so 2009 is 2008 respondents relabelled) → "The discovery and the correction" (my April-2025 annotation; the open OSF fork trail – `moreh_rep/` as-submitted, `moreh_rep_vAPR2025/` corrected script + exported data, `EUframes_cy.csv` now in 6zqct's main folder, 8rtwe uncorrected only) → "The same slip, one desk over" (KQXUE's double-appended wave) → "This is reproducibility working". | Watch; react. Anyone who wants to see the divergence for themselves opens the optional `forensics.R` exhibit. | Tell it slowly – it is the morning's hinge. Not a gotcha about the original author or me; land the moral (the open trail is what let the slip be caught) before changing gear. |
+| 0:00 | The story of the second number (20′) | Told, not hunted. Walk the deck's reveal sequence: "The other number in the record" (−3.804 vs −3.853; the two builds diverge on 2009 alone, every other year flat) → "One file, read twice" (`ZA4819` read a second time in place of `ZA4994`, so 2009 is 2008 respondents relabelled) → "The discovery – and the correction" (my April-2025 annotation; the open OSF fork trail – `moreh_rep/` as-submitted, `moreh_rep_vAPR2025/` corrected script + exported data, `EUframes_cy.csv` now in 6zqct's main folder, 8rtwe uncorrected only) → "The same slip, one desk over" (KQXUE's double-appended wave) → "This is reproducibility working". | Watch; react. Anyone who wants to see the divergence for themselves opens the optional `forensics.R` exhibit. | Tell it slowly – it is the morning's hinge. Not a gotcha about the original author or me; land the moral (the open trail is what let the slip be caught) before changing gear. |
 | 0:20 | Stretch (3′) | Cameras off, stand up. | Stretch. | Actually stop talking. |
 | 0:23 | Talk: estimands (30′) | Red-card → A&B's four estimands → Lundberg → *Revenons*. Estimand waterfall on the *Revenons* slide: read 3–4 aloud, point at the spread. | Type their one-sentence estimand; hold; send on "go". | Silent room: name two people gently, or take reactions; two answers from twenty is a proceed. |
-| 0:53 | Talk: DAG crash course (30′) | Confounder/mediator/collider; open/closed paths; which effect; spurious-by-design; A&B resolution; end in dagitty. | Watch; optionally open dagitty.net alongside. | Task 4 (the DAG) hands-on is AFTER lunch – resist starting it now. |
+| 0:53 | Talk: DAG crash course (30′) | Confounder/mediator/collider; open/closed paths; which effect; spurious-by-design; A&B resolution; end on the half-built graph and its `dagify()` code panel. | Watch; nothing to open or install. | Task 4 (the DAG) hands-on is AFTER lunch – resist starting it now. |
 | 1:23 | Close + lunch launch (7′) | Achievement line; lunch slide; post return time + the spec-menu link ("worth five minutes with a sandwich"). | Lunch. | Lunch is a hard firewall – an overrun here may not cross it. |
 
 ### Block 3 – Preregister like an analyst (90′)
@@ -91,7 +103,7 @@ Times are block-relative. B1 starts at the advertised hour; 15-minute breaks aft
 | Rel. | Segment | What I do | What participants do | Watch out for |
 |---|---|---|---|---|
 | 0:00 | Re-entry + roll-call (5′) | "Raise hand" roll-call; paste the catch-up card for late returners (text below). | Rejoin; late returners follow the card. | Do not wait past 0:05 – the card carries stragglers. |
-| 0:05 | Hands-on 3: Task 4, the DAG (17′) | Half-built DAG slide; they wire the three candidate nodes and run `adjustmentSets()`; pairs in breakouts if available, chat variant otherwise; one share-out. | Finish the DAG; run `adjustmentSets()`; two-sentence FE note. | **Trigger at 0:20:** if the room is behind, switch to demo-only (proven in v1) – run it on my screen, they note the output. |
+| 0:05 | Hands-on 3: Task 4, the DAG (17′) | Half-built DAG slide; they uncomment the arrows they believe inside the `dagify()` call and run `adjustmentSets()`; pairs in breakouts if available, chat variant otherwise; one share-out. | Finish the DAG; run `adjustmentSets()`; two-sentence FE note. | **Trigger at 0:20:** if the room is behind, switch to demo-only (proven in v1) – run it on my screen, they note the output. The lab's picture cell installs `ggdag` (~23 MB, one slow moment on poor wifi); the adjustment set itself needs none of it. |
 | 0:22 | Spec menu (10′) | Walk the one menu, every axis first-class – outcome, family, predictor, predictor form, copredictor, estimator, sample, weights; give the historical provenance (Multi100's Task 2 fixed unemployment and, implicitly, the gaussian scale; the menu opens both axes, and Task 1 shows three of five analysts freely chose GDP measures; beta fits report z, not t); state the **claim-alignment convention** (negative framings reverse-coded, 1 − y, applied automatically by `claim_align <- TRUE` – support = negative sign for everyone, and the class chart uses that scale); two worked examples of spec + one-sentence justification. The whole day works from the **corrected panel** (`EUframes_cy.csv`) – there is no separate as-submitted working file. | Pick their ONE deviation; draft the justification. Nobody runs anything. | Blank pairs: "what does your DAG say about growth – confounder or copredictor?" |
 | 0:32 | OSF + preregistration (18′) | The three OSF addresses; **scavenger beat** (3′): open h7432, find the replication, paste the b in chat; Multi100's registered protocol; the AsPredicted eight questions and the mapping table, with time to dwell on the data-in-hand question. | Scavenge; read; ask. | The scavenger is a live-web moment – if OSF is slow, show it on my screen and keep the beat. |
 | 0:50 | THE PREREGISTRATION MOMENT (10′) | Called from the front, synchronous. Complete fields 1–5 → render (Route 1) / save into script (Route 2) → type "declared". Count aloud ("eight declared… twelve…"). **Proceed rule:** move on at ~80% declared or at 10′, whichever first; stragglers finish while others start running. | Complete, render, declare. | Never cut. The rendered block is the record; the mirror form (if any) is silent and optional. |
@@ -112,9 +124,9 @@ Times are block-relative. B1 starts at the advertised hour; 15-minute breaks aft
 
 ---
 
-## Online / in-person cue sheet
+## Only the interaction layer swaps {#online--in-person-cue-sheet}
 
-Same materials; only the interaction layer swaps.
+The materials are identical in both rooms. What changes is the mechanics of answering, of flagging trouble and of pairing up – so the table below is a swap list, not a second plan.
 
 | Beat | Online (Teams) | In person |
 |---|---|---|
@@ -130,13 +142,13 @@ Same materials; only the interaction layer swaps.
 
 ---
 
-## Chat protocols and ready-to-paste texts
+## Chat runs on protocol {#chat-protocols-and-ready-to-paste-texts}
 
-**Waterfall:** "Type your answer now but DON'T send – hold it. … Go." Guarantees independent answers; produces the wall-of-identical-values beats.
+**Waterfall:** "Type your answer now but DON'T send – hold it. … Go." Holding the answers back keeps each one independent of the others, and releasing them together is what produces the wall-of-identical-values beats.
 
-**Help:** STUCK in chat flags; the standing **help doc** (shared editable doc, link seeded at open) is the second surface for pasted errors – check it at the named minutes in the run sheet, not continuously. Rescue in the main room via buddy-chunk (their spec, my webR/Positron, everyone learns).
+**Help:** a STUCK in chat is the first flag. The standing **help doc** – a shared editable doc whose link goes into the chat at open – is the second surface, and the place errors get pasted. Check it at the minutes the run sheet names, not continuously. Rescues run in the main room by buddy-chunk: their spec, my webR or Positron, and everyone watching learns from it.
 
-**Silent room:** after 20 seconds, take reactions (thumbs) as the minimal response; name one or two people gently ("Sam, what did you get?"); two substantive answers from twenty participants is a proceed, not a failure.
+**Silent room:** wait 20 seconds, then take reactions (thumbs) as the minimal response, and name one or two people gently ("Sam, what did you get?"). Two substantive answers from twenty participants is a proceed, not a failure.
 
 **Catch-up card (paste at Block 3 re-entry):**
 
@@ -148,10 +160,10 @@ Same materials; only the interaction layer swaps.
 
 ---
 
-## Compression ladders (with trigger times)
+## Cut in this order {#compression-ladders-with-trigger-times}
 
 - **Block 1** – trigger 0:28: cut the Miske moderators slide to one line. Trigger 1:05 (hands-on dragging): the Task 3 fit becomes follow-my-screen for the stragglers; the waterfall still happens.
-- **Block 2** – trigger ~1:00 (running long after estimands): the DAG crash course drops the spurious-by-design slide (one sentence instead) and reaches dagitty sooner. The story of the second number and the estimand waterfall are never compressed.
+- **Block 2** – trigger ~1:00 (running long after estimands): the DAG crash course drops the spurious-by-design slide (one sentence instead) and reaches the half-built graph sooner. The story of the second number and the estimand waterfall are never compressed.
 - **Block 3** – trigger 0:20: Task 4 (the DAG) to demo-only (the v1-proven variant). The prereg moment and the run window are never compressed.
 - **Block 4** – trigger 0:55: inference module leans on the reading (two slides instead of four); the git sketch to a pointer. The class-chart debrief and the fork-importance reveal are never compressed.
 
@@ -159,7 +171,9 @@ Same materials; only the interaction layer swaps.
 
 ---
 
-## Contingency table
+## Nothing here stops the day {#contingency-table}
+
+Each row names the first move, not the only one, and every ladder ends somewhere the session can carry on from.
 
 | Situation | What to do |
 |---|---|
@@ -175,11 +189,11 @@ Same materials; only the interaction layer swaps.
 
 ---
 
-## Answer keys and expected numbers
+## Know these numbers cold {#answer-keys-and-expected-numbers}
 
 - Warm-up matrix question set: 1 = reproducibility (a failed attempt is still reproducibility) · 2 = the grey area between reproducibility and robustness – argue both ways · 3 = replicability · 4 = generalisability.
 - Task 3 (both routes): b = −0.00347, SE = 0.00091, **t = −3.804**, df = 233, N = 270 (`EUframes_cy.csv`) – the value on record for C6HJR, reproduced directly from `euframes`.
-- The story's first number (told in Block 2, not a participant task): b = −0.00341, SE = 0.00088, **t = −3.853**, df = 233, N = 270 (the as-submitted `moreh_rep/` pipeline; its exported artifact is `rep_data.csv`, which now lives only inside the story and on OSF).
+- The story's first number (told in Block 2, not a participant task): b = −0.00341, SE = 0.00088, **t = −3.853**, df = 233, N = 270 (the as-submitted `moreh_rep/` pipeline; its exported artefact is `rep_data.csv`, which now lives only inside the story and on OSF).
 - The divergence (the "other number in the record" slide; participants can verify it via the optional `forensics.R` exhibit): only 2009 diverges (mean |diff| 0.030, max 0.132; all other years 0.000); n_cy 2008 = 53,279 vs 2009 = 26,618, ratio exactly 0.500 (the tell is the 2008→2009 drop, not 2009's size – 2006/2007/2013 are also ≈26,600).
 - The cause (the "one file, read twice" slide): prep chunks #8 (`eb701`) and #9 (`eb724`) both read `ZA4819_v3-0-2.dta`; ZA4994 (EB 72.4) is never read.
 - Public-record beat (show on request): the Multi100 cleaning sheet records C6HJR's self-reported **t = −3.853** with the cleaned value **−3.804** and no cleaning note (`multi100_reanalyzed-effect-sizes_raw_data.csv`; local copies + provenance in `_planning/multi100/`) – the day's contrast sits in the public record.
@@ -196,9 +210,9 @@ Same materials; only the interaction layer swaps.
 
 ---
 
-## Debrief question bank
+## Ask four to six of these {#debrief-question-bank}
 
-Use 4–6, reading the room.
+Choose by what the class chart actually shows, not by the order below.
 
 1. **Sign flip:** "Did anyone's specification flip the sign? If not – after seeing the flips chart, where would you have had to stand in the menu to flip it?"
 2. **Significance loss:** "Did any spec lose significance? Reason to doubt the claim, or to scrutinise that spec?"
@@ -215,6 +229,6 @@ Use 4–6, reading the room.
 
 ## After the session
 
-- [ ] Run the reset procedure (Delivery lifecycle above): export + commit the date-stamped snapshot, rotate the Sheet rows.
+- [ ] Run the reset procedure from the top of this guide: export + commit the date-stamped snapshot, rotate the Sheet rows.
 - [ ] Export the feedback form responses.
 - [ ] Improvement log – record: which segment ran longest; did the story of the second number land cleanly (attention held, the moral clear); how many declarations before the proceed rule fired; did every participant land a dot (which ladder rungs fired); did webR hold on home connections; Teams frictions (chat scale, breakouts, share switching).

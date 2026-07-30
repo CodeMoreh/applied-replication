@@ -118,13 +118,14 @@ body.reveal-viewport {
   background-color: #fff;
 }
 
-/* Full-bleed background-iframe slides (the live dagitty editor). Reveal leaves
-   the background <iframe> as display:inline, so it did not fill its box and
-   ~60% of the slide showed through as a blank white band (the white leaf
-   canvas painted by the rule above). Mark such a slide with `.iframe-slide`
-   to force the iframe to block-fill the viewport; the white canvas stays,
-   so any gap dagitty leaves transparent (its panel edges) reads white rather
-   than the dark hex layer, matching dagitty's own light UI. */
+/* Full-bleed background-iframe slides. No slide in the deck embeds an external
+   site, so nothing currently carries `.iframe-slide`; the rule is kept because
+   the gotcha behind it costs an afternoon to rediscover. Reveal leaves a
+   background <iframe> as display:inline, so it does not fill its box and most
+   of the slide shows through as a blank white band (the white leaf canvas
+   painted by the rule above). The class forces the iframe to block-fill the
+   viewport; the white canvas stays, so any region the embedded page leaves
+   transparent reads white rather than dark hex. */
 .reveal .slide-background.iframe-slide .slide-background-content iframe {
   display: block !important;
   position: absolute !important;

@@ -26,7 +26,7 @@ bibliography: ../references.bib
 ::: {.callout-important icon="false"}
 ## Before you touch anything – the R engine is downloading
 
-The R engine downloads into your browser the first time you open this page (10–30 seconds on conference wifi) – read Task 1 while it warms up. You will see the first code cell switch from a loading spinner to a "Run Code" button when it is ready.
+The R engine downloads into your browser the first time you open this page (10–30 seconds on a slow connection) – read Task 1 while it warms up. You will see the first code cell switch from a loading spinner to a "Run Code" button when it is ready.
 
 Keep this tab open. Your work lives in this page until you refresh – there is nothing to install, nothing to save to disk, and no account needed.
 :::
@@ -254,25 +254,25 @@ report_result <- function() {
 }
 ```
 
-Five analysts reanalysed a claim from @Teney2016DoesEUEconomic for the Multi100 project [@AczelEtAl2026InvestigatingAnalyticalRobustness]; you are analyst no. 6. Read the full task description, the claim, and the five-analyst table of findings on the [Exercise overview](index.qmd) page (the [workshop slides](../slides/index.qmd) discuss the broader context of the project).
+Five analysts reanalysed a claim from the EU-frames case [@Teney2016DoesEUEconomic] for the Multi100 project [@AczelEtAl2026InvestigatingAnalyticalRobustness]; you are analyst no. 6. Read the full task description, the claim, and the five-analyst table of findings on the [Exercise overview](index.qmd) page (the [workshop slides](../slides/index.qmd) discuss the broader context of the project).
 
 This page is the whole exercise, runnable in the browser: seven tasks that take you from vocabulary to a dot on the live class chart.
 
 ------------------------------------------------------------------------
 
-## Task 1 – Concepts (warm-up while the engine loads)
+## Task 1 – Three R's, and one impostor {#task-1-concepts-warm-up-while-the-engine-loads}
 
-**Before touching data, fix the vocabulary.** In the four scenarios below, three are doing one of our three R's; one is doing something else entirely. Read the four scenarios, then label each in the code cell below.
+**Fix the vocabulary before you touch any data.** This is the warm-up while the engine loads. Three of the four scenarios below are doing one of our three R's – reproducibility, robustness, replicability. The fourth is doing something else entirely. Read all four, then label each one in the code cell.
 
 ***Scenario 1:*** A reviewer reruns the authors' Stata `.do` file on the authors' data and gets a *different* coefficient from the one printed in the paper. This is an example of \_\_\_\_\_\_, even though what they *tried* to do failed.
 
 ***Scenario 2:*** The analyst uses the authors' submitted replication dataset, but they re-implement the model in R instead of Stata and centre the predictor. Is this a case of \_\_\_\_\_\_ or \_\_\_\_\_\_?
 
-***Scenario 3: *** A preregistered team tests the identical hypothesis on a *separate, much larger* dataset chosen to be theoretically equivalent, and gets results that contradict the original. Their conclusion is that the original analysis has failed to \_\_\_\_\_\_.
+***Scenario 3:*** A preregistered team tests the identical hypothesis on a *separate, much larger* dataset chosen to be theoretically equivalent, and gets results that contradict the original. Their conclusion is that the original analysis has failed to \_\_\_\_\_\_.
 
 ***Scenario 4:*** Instead of the survey data used by the original authors, another researcher tests the same underlying idea on social-media texts using a machine-learning classifier method that the original never used. To their surprise, the authors' original findings prove \_\_\_\_\_\_ and the researcher concludes that they provide a reliable middle-range theory of the phenomenon they investigate.
 
-Now, if the R engine has loaded, give it a test run by filling in the gaps in the same text in the code chunk below and run the code to see the output.
+The engine should be ready by now. Fill in the gaps in the same text in the code cell below and run it – that prints your answers back and confirms that R is alive in your browser.
 
 ```{webr}
 #| exercise: vocab
@@ -294,8 +294,8 @@ cat("
 ::: {.callout-tip collapse="false"}
 ## Answers – and the two traps
 
-1.  **reproducibility** – rerunning the same code on the same data. Here it *failed* to match, but the activity is still reproducibility; "not reproduced" is the verdict.
-2.  arguably still **reproducibility** (a grey area) – re-implementing on the same data in different software is technically a re-computation – but centring the predictor nudges toward **robustness**, not to mention that different software may have different implementations of the same estimators, so one must make sure they understand the functions they use.
+1.  **reproducibility** – rerunning the same code on the same data. Here it *failed* to match, but the activity is still reproducibility, and 'not reproduced' is the verdict.
+2.  arguably still **reproducibility**, in a grey area – re-implementing on the same data in different software is technically a re-computation – but centring the predictor nudges towards **robustness**. Two packages can also implement the same estimator differently, so make sure you know what the function you call is doing.
 3.  **replicability** – same question, independent new data chosen to be theoretically equivalent.
 4.  **generalisability** – the impostor: new data *and* a new method at once. It is the fourth cell of the matrix, not one of the three we test today.
 :::
@@ -304,9 +304,9 @@ cat("
 
 ------------------------------------------------------------------------
 
-## Task 2 – Get the data and look at it
+## Task 2 – Look before you model {#task-2-get-the-data-and-look-at-it}
 
-The **EU-frames dataset** (`EUframes_cy.csv`) is already loaded for you as `euframes`. It is the corrected country-year panel behind the whole exercise, and the copy this page loads is byte-identical to the one published in the analyst's fork on OSF (osf.io/6zqct – "Multi100 \| Teney_EurSocioRev_2016 \| Analyst_C6HJR", main folder); the official Multi100 archival record is at osf.io/8rtwe. Route 1 participants download the same file into an IDE workspace; in the browser it is pre-loaded so you can get straight to the analysis.
+The **EU-frames dataset** (`EUframes_cy.csv`) is already loaded for you as `euframes`. It is the corrected country-year panel behind the whole exercise. The copy this page loads is byte-identical to the one published in the analyst's fork on OSF (osf.io/6zqct – "Multi100 \| Teney_EurSocioRev_2016 \| Analyst_C6HJR", main folder), and the official Multi100 archival record sits at osf.io/8rtwe. Route 1 participants download the same file into their Positron workspace; in the browser it is pre-loaded, so you start straight on the analysis.
 
 Run the cell below to inspect the panel. Edit it freely – this is your environment.
 
@@ -320,7 +320,7 @@ cat("\nCountries:", dplyr::n_distinct(euframes$cntry),
     " Rows:", nrow(euframes), "\n")
 ```
 
-You should see **270 rows**, **27 countries**, **10 years** (2004–2013), and 13 columns. The outcome we care about first is `mcosmo` – the mean 'cosmopolitan' framing of the EU in each country-year (a 0–1 scale; the other framings and every column are described in the [codebook](../data/EUframes_cy_codebook.md)). The predictor is `unemp`, the annual unemployment rate; `growth` is annual GDP growth, and `n_cy` counts the survey respondents behind each row.
+You should see **270 rows**, **27 countries**, **10 years** (2004–2013), and 13 columns. The outcome we care about first is `mcosmo`, the mean 'cosmopolitan' framing of the EU in each country-year, on a 0–1 scale. The predictor is `unemp`, the annual unemployment rate. `growth` is annual GDP growth, and `n_cy` counts the survey respondents behind each row. The [codebook](../data/EUframes_cy_codebook.md) describes the other framings and every remaining column.
 
 Now look at the outcome over time, one small panel per country:
 
@@ -356,7 +356,7 @@ mcosmo ~ unemp_c   with fixed effects for country and year
 
 where `unemp_c` is the unemployment rate centred on its grand mean. The target is **t = −3.804** (df = 233, N = 270) – the value on record for analyst C6HJR in the Multi100 dataset.
 
-The cell below is an exercise. Replace the blanks (`______`) with the missing code, then press "Run Code". Stuck? Open the hint; want to check? Open the solution.
+The cell below is an exercise. Replace the blanks (`______`) with the missing code, then press "Run Code". Stuck? Open the hint. Want to check your answer? Open the solution.
 
 ```{webr}
 #| setup: true
@@ -417,60 +417,205 @@ You should get `estimate ≈ −0.00347`, `std.error ≈ 0.00091`, `statistic �
 ::::
 
 ::: {.callout-note collapse="true"}
-## The other number in the record – a story worth opening
+## The record's second number, and where it came from
 
 There is a second number in this analysis's public trail: **t = −3.853**. It is what the *first* submitted pipeline produced, and the gap to the −3.804 you just reproduced has a story.
 
-The as-submitted data-preparation script stacked sixteen Eurobarometer waves and read the EB 70.1 file (`ZA4819`) twice by mistake: once for 2008 (correct) and again in place of EB 72.4 (`ZA4994`) for 2009. The panel's 2009 rows were therefore a copy of the 2008 respondents – the two builds diverge on 2009 and nowhere else, and 2009 carried about half the respondents it should have. The analyst caught the slip during the project and corrected it; the recorded −3.804 comes from the corrected build – the very `EUframes_cy.csv` you are using.
+The as-submitted data-preparation script stacked sixteen Eurobarometer waves and read the EB 70.1 file (`ZA4819`) twice by mistake: once for 2008 (correct) and again in place of EB 72.4 (`ZA4994`) for 2009. The panel's 2009 rows were therefore a copy of the 2008 respondents. The two builds diverge on 2009 and nowhere else, and 2009 carried about half the respondents it should have. The analyst caught the slip during the project and corrected it, and the recorded −3.804 comes from the corrected build – the very `EUframes_cy.csv` you are using.
 
-The whole trail is public in the analyst's fork ([osf.io/6zqct](https://osf.io/6zqct/)): the `moreh_rep/` folder preserves the as-submitted pipeline; `moreh_rep_vAPR2025/` holds the corrected script – annotated "APRIL 2025 – Mistake in dataset here; the dataset associated with 'eb724' should be 'ZA4994_v3-0-0.dta'" – together with the exported corrected dataset; and the main folder now carries `EUframes_cy.csv` itself, the exact file this page loads. The official Multi100 component ([osf.io/8rtwe](https://osf.io/8rtwe/)) preserved only the earlier, uncorrected folder.
+The whole trail is public in the analyst's fork ([osf.io/6zqct](https://osf.io/6zqct/)): the `moreh_rep/` folder preserves the as-submitted pipeline; `moreh_rep_vAPR2025/` holds the corrected script – annotated "APRIL 2025 – Mistake in dataset here; the dataset associated with 'eb724' should be 'ZA4994_v3-0-0.dta'" – together with the exported corrected dataset; and the main folder carries `EUframes_cy.csv` itself, the exact file this page loads. The official Multi100 component ([osf.io/8rtwe](https://osf.io/8rtwe/)) preserved only the earlier, uncorrected folder.
 
 Coding can go wrong – even during a reanalysis. Keeping materials open and well documented is what lets a mistake be spotted and corrected. That is reproducibility working, not failing.
 :::
 
 ------------------------------------------------------------------------
 
-## Task 4 – Estimand and DAG
+## Task 4 – Name the estimand, draw the graph {#task-4-estimand-and-dag}
 
 Before fitting anything, say what you are trying to estimate, in words. A template you can adapt:
 
 > The **unit-specific quantity** is the change in a country-year's mean cosmopolitan EU framing associated with a one-point change in that country's unemployment rate. The **target population** is EU member states over 2004–2013. The **aggregation** is the average of those unit-specific effects, holding fixed each country's time-invariant traits and each year's EU-wide shocks.
 
-That last clause is a causal claim, and a DAG makes it checkable. If the [dagitty.net](https://www.dagitty.net/dags.html) page below doesn't load, navigate to that external site.
+That last clause is a causal claim, and a directed acyclic graph makes it checkable. A DAG is a picture of what causes what: variables are nodes, arrows run from cause to effect, and the rules of the graph then tell you which variables have to be adjusted for if the arrow you care about is to be read cleanly. Here is the graph this exercise commits to.
 
-Paste the code below into the Model code field and update the graph:
-<br>
+```{r}
+#| label: dag-reference
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 8
+#| fig-height: 4.4
+#| fig-align: center
+#| fig-cap: "The committed graph: unemployment to framing, with country and year as confounder pairs. The three pale nodes carry no arrows yet."
+library(ggdag)
+library(ggplot2)
+library(dplyr)
+library(tibble)
 
+ncl_blue <- "#0e3b6a"; orange <- "#E69F00"; grey_mid <- "#848c94"
+
+dag_ref <- dagify(
+  framing      ~ unemployment,
+  framing      ~ country,
+  unemployment ~ country,
+  framing      ~ year,
+  unemployment ~ year,
+  exposure = "unemployment",
+  outcome  = "framing",
+  coords = list(
+    x = c(unemployment = 0, framing = 3, country = 1, year = 2),
+    y = c(unemployment = 0, framing = 0, country = 1.4, year = 1.4)))
+
+# dagify() holds edges, so a node with no arrows cannot live in the graph
+# object; the three undecided nodes join at the drawing layer instead.
+floaters <- tribble(
+  ~name,            ~x,   ~y,
+  "growth",         0.9, -1.0,
+  "bailout",        1.5, -1.2,
+  "politicisation", 3.0, -0.95)
+
+roles <- tribble(
+  ~name,            ~role,       ~disp,
+  "unemployment",   "predictor", "unemp.",
+  "framing",        "outcome",   "framing",
+  "country",        "adjusted",  "country",
+  "year",           "adjusted",  "year",
+  "growth",         "candidate", "growth",
+  "bailout",        "candidate", "bailout",
+  "politicisation", "candidate", "politic.")
+
+dag_tidy <- tidy_dagitty(dag_ref)
+update_dag_data(dag_tidy) <- pull_dag_data(dag_tidy) |>
+  bind_rows(floaters) |>
+  left_join(roles, by = "name") |>
+  mutate(role = factor(role, levels = c("predictor", "outcome",
+                                        "adjusted", "candidate")))
+
+ggplot(dag_tidy, aes(x = x, y = y, xend = xend, yend = yend)) +
+  geom_dag_edges_arc(curvature = 0.18, edge_colour = grey_mid,
+                     edge_width = 1.1,
+                     arrow = grid::arrow(length = grid::unit(9, "pt"),
+                                         type = "closed")) +
+  geom_dag_point(aes(fill = role), shape = 21, size = 26, stroke = 0,
+                 colour = "white") +
+  geom_dag_text(aes(label = disp, colour = role), size = 3.6,
+                fontface = "bold") +
+  scale_fill_manual(values = c(predictor = orange, outcome = ncl_blue,
+                               adjusted = "#c7ccd2", candidate = "#dde2e7"),
+                    guide = "none") +
+  scale_colour_manual(values = c(predictor = "#FFFFFF", outcome = "#FFFFFF",
+                                 adjusted = ncl_blue, candidate = "#5d666e"),
+                      guide = "none") +
+  theme_dag() +
+  expand_limits(x = c(-0.5, 3.5), y = c(-1.7, 1.9))
 ```
-dag {
-unemployment [exposure]
-framing [outcome]
-country -> unemployment ; country -> framing
-year -> unemployment ; year -> framing
-unemployment -> framing
+
+Five arrows are drawn. `unemployment -> framing` is the path of interest. Above it, `country` is a common cause of both: stable national traits such as size, EU tenure and labour-market institutions move local unemployment and shape how people frame the EU. `year` does the same job for the EU-wide shocks that hit every country in the same calendar year. The three pale nodes below carry no arrows yet, because whether they belong is a decision you make rather than one the exercise makes for you.
+
+You build the graph yourself in the cells below, in ordinary R. `dagify()` takes one formula per arrow, written the way you write a model, so `framing ~ unemployment` is the arrow that runs *into* `framing`. Read the tilde as 'is caused by' rather than 'is regressed on' and the direction comes out right every time. Because each arrow is a line of R rather than a fragment of a string, an arrow you are unsure about can sit there commented out, and adopting it means deleting a `#`.
+
+Drawing the graph in your browser needs `ggdag`, which this page does not preload. It brings `igraph`, `ggraph` and four further dependencies with it: roughly 23 MB of download, and a noticeable pause on a slow connection. Run the cell if you want the plot. Everything else in Task 4 works without it, because the figure above is the same graph. If the install fails, the cell falls back to `dagitty` on its own – about 3 MB with its own dependencies, an eighth of the download, and enough to answer the adjustment-set question.
+
+```{webr}
+#| autorun: false
+have_ggdag <- tryCatch({
+  webr::install("ggdag", quiet = TRUE)
+  library(ggdag)
+  TRUE
+}, error = function(e) FALSE)
+
+if (have_ggdag) {
+  cat("ggdag is loaded: dagify() and the plot are both available.\n")
+} else {
+  webr::install("dagitty", quiet = TRUE)
+  library(dagitty)
+  # The light path. dagify() belongs to ggdag, so this stand-in turns the same
+  # formulas into the graph dagitty expects and the next cell reads
+  # identically either way. Only the plot is unavailable.
+  dagify <- function(..., exposure = NULL, outcome = NULL, coords = NULL) {
+    arrows <- vapply(list(...), \(f)
+      paste(paste(all.vars(f[[3]]), "->", all.vars(f[[2]])), collapse = "\n"),
+      character(1))
+    dagitty::dagitty(paste0(
+      "dag {\n", exposure, " [exposure]\n", outcome, " [outcome]\n",
+      paste(arrows, collapse = "\n"), "\n}"))
+  }
+  cat("ggdag did not install; running on dagitty alone.\nThe adjustment set still works – use the figure above for the picture.\n")
 }
 ```
 
+Now specify the graph. The five committed arrows are live; the arguable ones are commented out, one substantive claim per line. Uncomment any you believe, then run the cell.
 
-```{=html}
-<iframe width="780" height="500" src="https://www.dagitty.net/dags.html" title="Dagitty"></iframe>
+```{webr}
+#| autorun: false
+my_dag <- dagify(
+  # The path of interest, and the two confounder pairs two-way fixed effects
+  # soak up.
+  framing      ~ unemployment,
+  framing      ~ country,
+  unemployment ~ country,
+  framing      ~ year,
+  unemployment ~ year,
+
+  # GROWTH as a time-varying confounder: a slump raises unemployment and may
+  # sour EU sentiment in the same year.
+  # framing      ~ growth,
+  # unemployment ~ growth,
+
+  # BAILOUT as a mediator: unemployment triggers a financial-assistance
+  # programme, which then shapes framing.
+  # bailout ~ unemployment,
+  # framing ~ bailout,
+
+  # POLITICISATION of the EU by parties and elites as another cause of
+  # framing. Multi100 instructed analysts to disregard it.
+  # framing ~ politicisation,
+
+  exposure = "unemployment",
+  outcome  = "framing",
+  # Coordinates for all seven nodes; the three not currently wired up are
+  # simply ignored, so this block never needs editing.
+  coords = list(
+    x = c(unemployment = 0, framing = 3, country = 1, year = 2,
+          growth = 0.9, bailout = 1.5, politicisation = 3),
+    y = c(unemployment = 0, framing = 0, country = 1.4, year = 1.4,
+          growth = -1.0, bailout = -1.2, politicisation = -0.95)))
+
+dagitty::adjustmentSets(my_dag)
 ```
 
-With the five committed edges, the minimal adjustment set is `{ country, year }` – exactly what a two-way fixed-effects model absorbs. That is no accident: the DAG and the Task 3 model encode the same identification claim. Add a `growth -> unemployment` and a `growth -> framing` edge and the set becomes `{ country, year, growth }` – now your model needs the co-predictor to match your beliefs. Write two sentences for your own notes: what do two-way fixed effects adjust for, and what can they **not** fix? (Hint: anything time-varying within a country that you have not measured.)
+With the five committed arrows the minimal adjustment set is `{ country, year }` – exactly what a two-way fixed-effects model absorbs. Country fixed effects adjust for `country` and year fixed effects adjust for `year`, so the model you fitted in Task 3 and the graph you just wrote are one identification claim in two languages.
+
+Now uncomment the growth pair and run the cell again. The set becomes `{ country, growth, year }`, because a slump varies within a country over time and fixed effects only remove country-constant and year-common variation. Nothing in the Task 3 model reaches it, and your specification would need `growth` as a co-predictor to match your beliefs – a choice waiting for you on the menu in Task 5. The bailout arrows behave differently. A mediator sits on the path you are trying to measure, so the adjustment set does not grow when you add one; adjusting for it would strip out part of the very effect you are after.
+
+```{webr}
+#| autorun: false
+#| fig-width: 8
+#| fig-height: 4
+# Needs the ggdag install; on the light path the figure at the top of this
+# task stands in.
+if (requireNamespace("ggdag", quietly = TRUE)) {
+  print(ggdag::ggdag_classic(my_dag, size = 4) + ggdag::theme_dag())
+} else {
+  cat("ggdag is not installed – scroll up to the reference figure instead.\n")
+}
+```
+
+Write two sentences for your own notes. What do two-way fixed effects adjust for, and what can they **not** fix? (Hint: anything time-varying within a country that you have not measured.)
 
 ------------------------------------------------------------------------
 
-## Task 5 – My preregistration
+## Task 5 – Commit before you look {#task-5-my-preregistration}
 
-The point of preregistration is that you commit to a choice **before** you see what it does. It stops you quietly picking the specification that happens to give the answer you wanted. Here the commitment is real in a mechanical sense too: the choices you declare in this cell are remembered by the session, and every later cell reads them from here – the model builder will refuse code that deviates from them.
+The point of preregistration is that you commit to a choice **before** you see what it does. It stops you quietly picking the specification that happens to give the answer you wanted. Here the commitment binds mechanically as well: the session remembers the choices you declare in this cell, and every later cell reads them from here. The model builder refuses code that departs from them.
 
 ::: {.callout-important icon="false"}
-## How the block maps to a real preregistration
+## The block is a real preregistration, shortened
 
-*A real preregistration, shortened. Each numbered comment maps to a question in the OSF "Preregistration Template from AsPredicted.org" (the eight-question short form). Because you are reanalysing data that already exist, field 2 also stands in for the prior-knowledge section of the secondary-data template (van den Akker et al. 2021) – the part AsPredicted leaves out.*
+*Each numbered comment maps to a question in the OSF "Preregistration Template from AsPredicted.org" (the eight-question short form). Because you are reanalysing data that already exist, field 2 also stands in for the prior-knowledge section of the secondary-data template (van den Akker et al. 2021) – the part AsPredicted leaves out.*
 :::
 
-Make one choice on each axis of the [specification menu](spec-menu.qmd) – every axis is live, including the outcome family and the predictor – complete the dotted lines, then run the cell. `claim_align <- TRUE` is the day's convention, applied automatically: negative framings are reverse-coded (1 − y) and growth's claim-expected sign is flipped, so 'supports the claim' reads as a negative sign for everyone.
+Make one choice on each axis of the [specification menu](spec-menu.qmd), complete the dotted lines, then run the cell. Every axis is live, the outcome family and the predictor included. `claim_align <- TRUE` is the day's convention, applied automatically: negative framings are reverse-coded (1 − y) and growth's claim-expected sign is flipped, so 'supports the claim' reads as a negative sign for everyone.
 
 ```{webr}
 #| autorun: false
@@ -489,7 +634,7 @@ my_family      <- "gaussian"   # gaussian | beta   (logit-link on the cell
 my_predictor   <- "unemp"      # unemp | growth    (the claim-carrying measure)
 my_pred_form   <- "raw"        # raw | log   (growth: raw only; centring or
                                #              z-scaling would leave t, r and p
-                               #              unchanged - not separate analyses)
+                               #              unchanged, not separate analyses)
 my_copredictor <- "none"       # none | growth (beside unemp) | unemp (beside growth)
 my_estimator   <- "fe_twoway"  # fe_twoway | fe_country | re | pooled_cl
 my_sample      <- "all"        # all | y2004_2008 | y2009_2013 | no_bailout | no_GR_ES
@@ -504,13 +649,13 @@ claim_align    <- TRUE         # the day's convention, applied automatically
 prereg()   # checks every choice against the menu and records the declaration
 ```
 
-An optional mirror form may be used to log preregistrations for the room – the link is shared in the session. It is not required: the cell above, copied into your notes, is your official preregistration.
+An optional mirror form logs preregistrations for the room, and the link is shared in the session. It is not required. The cell above, copied into your notes, is your preregistration record.
 
 ------------------------------------------------------------------------
 
 ## Task 6 – Build and run your specification
 
-This is the **robustness** check, and it is the part your classmates cannot copy from you: together the room samples the multiverse of defensible analyses. You have declared your specification; now translate it into model syntax yourself. Fill the three gaps – the outcome, the right-hand side, and the estimator code – exactly as you preregistered them. `build_model()` knows your declaration and will not accept anything else; its error messages tell you what is off. (Write the log form as `log(unemp)`, and add any co-predictor with `+`.)
+This is the **robustness** check, and it is the part your classmates cannot copy from you: together the room samples the multiverse of defensible analyses. You have declared your specification. Now translate it into model syntax yourself, filling the three gaps – the outcome, the right-hand side, and the estimator code – exactly as you preregistered them. `build_model()` knows your declaration and accepts nothing else, and its error messages tell you what is off. Write the log form as `log(unemp)`, and add any co-predictor with `+`.
 
 ```{webr}
 #| autorun: false
@@ -530,15 +675,15 @@ When the model is accepted, run it. Every specification on the menu is pre-compu
 run_spec(my_model)
 ```
 
-Read the output like an analyst: the coefficient and its claim-aligned partial *r* (below zero supports the claim), and your placement – how much of the canonical 840-specification grid supports the claim more strongly than your choice does. The five Multi100 analysts run from about the 16th percentile (the most strongly claim-supporting) to about the 68th (near the null); your dot is about to join theirs.
+Read the output like an analyst: the coefficient and its claim-aligned partial *r* (below zero supports the claim), and your placement – what share of the canonical 840-specification grid supports the claim more strongly than your choice does. The five Multi100 analysts run from about the 16th percentile (the most strongly claim-supporting) to about the 68th (near the null), and your dot is about to join theirs.
 
-**A second specification?** Edit the preregistration cell, rerun `prereg()`, rebuild, rerun. The mechanics allow it – but the label changes honour: your *first* declaration was a preregistration; everything after it is exploration. Saying which is which, out loud, is the entire discipline the day is about.
+**A second specification?** Edit the preregistration cell, rerun `prereg()`, rebuild, rerun. The mechanics allow it. The label changes, though: your *first* declaration was a preregistration, and everything after it is exploration. Saying which is which, out loud, is the entire discipline the day is about.
 
 ------------------------------------------------------------------------
 
 ## Task 7 – Report to the class chart
 
-Your result travels to the room from your preregistered choices – there is nothing to fill in and nothing to transcribe. The cell prints your submission line and a pre-filled form link; click it and press **Send**. Your result appears as an open circle on the live [Multiverse]({{< var live-results-url >}}) chart within seconds.
+Your result travels to the room from your preregistered choices – there is nothing to fill in and nothing to transcribe. The cell prints your submission line and a pre-filled form link. Click it and press **Send**. Your dot appears as an open circle on the live [Multiverse]({{< var live-results-url >}}) chart within seconds.
 
 ```{webr}
 #| autorun: false
@@ -551,10 +696,10 @@ If the form will not open on your machine, read the printed numbers to the facil
 
 ## Taking it home
 
-You did the whole analysis without installing anything. Putting your own work under version control and publishing the rendered report is the natural next step – a git and GitHub self-study module walks it click by click: [Git and GitHub self-study](../companion/git-github.qmd).
+You did the whole analysis without installing anything. Putting your own work under version control and publishing the rendered report is the natural next step. A self-study module walks through it click by click: [Git and GitHub self-study](../companion/git-github.qmd).
 
 ::: {.callout-tip icon="false"}
 ## After the workshop – the full pipeline
 
-Everything you did here also exists as a downloadable IDE workspace: a folder you open in Positron, edit, and render offline. If you want the version with `osfr` data-fetching and an automated publish step, start from the [Full pipeline route](index.qmd) – the [`replication-lab` workspace](https://github.com/CodeMoreh/replication-lab) is yours to reuse.
+Everything you did here also exists as Route 1's downloadable workspace: a folder you open in Positron, edit, and render offline. If you want the version with `osfr` data-fetching and an automated publish step, start from the [exercise overview](index.qmd) – the [`replication-lab` workspace](https://github.com/CodeMoreh/replication-lab) is yours to reuse.
 :::
