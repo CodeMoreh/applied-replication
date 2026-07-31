@@ -14,6 +14,9 @@
       facilitator nothing. This prints the part, the position inside it, the
       position overall, and a badge saying which version of the deck is on
       the projector - extended, lean, or extended-and-inside-an-optional-run.
+      In lean mode a burgundy dot appears on the two slides an optional run
+      sits between, so hidden material announces itself rather than having to
+      be remembered.
 
    3. A JUMP BAR. `g` opens a filter box: type a few letters of any slide
       title and press Enter.
@@ -55,13 +58,20 @@
     stash = [];
   }
 
+  /* Slides reveal can stop on: leaves of the stack tree, not the stacks
+     themselves. Queried live, so a caller that needs the FULL deck must run
+     before hideRuns() has taken anything out. */
+  function allLeaves() {
+    return Array.prototype.slice.call(
+      document.querySelectorAll(".reveal .slides section"))
+      .filter(function (s) { return !s.querySelector("section"); });
+  }
+
   /* The first non-optional slide after this one - which is where the run was
      going to let out anyway. Read BEFORE the nodes are removed, or there is
      nothing left to walk. */
   function nextSurvivor(from) {
-    var all = Array.prototype.slice.call(
-      document.querySelectorAll(".reveal .slides section"))
-      .filter(function (s) { return !s.querySelector("section"); });
+    var all = allLeaves();
     for (var k = all.indexOf(from) + 1; k > 0 && k < all.length; k++) {
       if (!all[k].classList.contains("deepdive")) return all[k];
     }
@@ -143,9 +153,7 @@
   function optionalRuns() {
     if (runs) return runs;
     runs = [];
-    var leaves = Array.prototype.slice.call(
-      document.querySelectorAll(".reveal .slides section"))
-      .filter(function (s) { return !s.querySelector("section"); });
+    var leaves = allLeaves();
     var cur = null;
     leaves.forEach(function (s) {
       if (s.classList.contains("deepdive")) {
@@ -163,6 +171,25 @@
       if (k > -1) return { n: k + 1, of: rs[i].length };
     }
     return null;
+  }
+
+  /* The ordinary slides immediately either side of an optional run. In lean
+     mode the run itself is out of the DOM, so these two are the only places
+     where the deck can say "there is more here if you want it" - hence the
+     burgundy dot on the readout. Cached from boot, when every slide is still
+     present; afterwards the neighbours are all that survive to be matched. */
+  var seams = null;
+  function runSeams() {
+    if (seams) return seams;
+    var leaves = allLeaves();
+    seams = [];
+    optionalRuns().forEach(function (run) {
+      [leaves[leaves.indexOf(run[0]) - 1],
+       leaves[leaves.indexOf(run[run.length - 1]) + 1]].forEach(function (s) {
+        if (s && seams.indexOf(s) < 0) seams.push(s);
+      });
+    });
+    return seams;
   }
 
   function updateReadout() {
@@ -188,10 +215,16 @@
     var vPos = inPart.indexOf(cur) + 1;
 
     /* Second line: which version of the deck is on the projector, and - when
-       the slide on screen belongs to an optional run - where inside it. */
-    var mode, runTxt = "";
+       the slide on screen belongs to an optional run - where inside it. In
+       lean mode a burgundy dot marks the two slides that an optional run used
+       to sit between, so its absence is visible from the front of the room. */
+    var mode, runTxt = "", seamTxt = "";
     if (!depthOn) {
       mode = "lean";
+      if (cur && runSeams().indexOf(cur) > -1) {
+        seamTxt = '<span class="nseam" title="optional slides hidden here'
+                + ' - press d"></span>';
+      }
     } else if (cur && cur.classList.contains("deepdive")) {
       mode = "optional";
       var rp = runPosition(cur);
@@ -208,7 +241,7 @@
         (vPos > 0 ? '<span class="nv">' + vPos + "/" + inPart.length + "</span>" : "") +
         '<span class="nt">' + (overall > 0 ? overall : "–") + "/" + all.length + "</span>" +
       "</div>" +
-      '<div class="nr-mode">' +
+      '<div class="nr-mode">' + seamTxt +
         '<span class="badge ' + mode + '">' + mode + "</span>" + runTxt +
       "</div>";
   }
@@ -299,7 +332,7 @@
     if (!window.Reveal || !Reveal.isReady || !Reveal.isReady()) {
       return setTimeout(boot, 60);
     }
-    optionalRuns();   /* capture the run structure while every slide is still present */
+    runSeams();       /* capture the runs AND their neighbours while every slide is still present */
     applyDepth();
     Reveal.on("slidechanged", updateReadout);
     updateReadout();

@@ -1047,6 +1047,25 @@ span.src {
   margin: 0;
 }
 
+/* Two logos sharing one tile, for a pair named together ("Stata / SPSS").
+   Same 3.1em footprint as a single logo, so the row stays level. */
+.toolgrid .tool > .pair {
+  height: 3.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  width: 100%;
+}
+
+.toolgrid .tool > .pair > img {
+  max-height: 2.5em;
+  max-width: 44%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
 /* The typographic stand-in, same footprint as a logo. */
 .toolgrid .tool > .badge {
   height: 3.1em;
@@ -1136,6 +1155,18 @@ span.src {
   .nv { color: #6b737b; }
   .nt { color: #b6bcc3; }
   .nrun { color: #6b737b; font-weight: 700; }
+
+  /* Lean mode only: this slide is on the edge of a run that has been taken
+     out of the deck. Same burgundy as the 'optional' badge, so the dot and
+     the thing it points at read as one colour. */
+  .nseam {
+    align-self: center;
+    width: 0.62em;
+    height: 0.62em;
+    border-radius: 50%;
+    background: $burgundy;
+    flex: 0 0 auto;
+  }
 
   /* The mode badge is always present, because a marker that only ever says
      "this slide is optional" leaves the facilitator guessing on every slide

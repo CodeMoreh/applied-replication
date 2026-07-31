@@ -468,7 +468,7 @@ Same four-cell map you have just learned – but now each box carries the actual
 :::
 
 ::: {.src}
-[@MiskeEtAl2026InvestigatingReproducibilitySocial].
+@MiskeEtAl2026InvestigatingReproducibilitySocial.
 :::
 
 ::: notes
@@ -524,7 +524,7 @@ Read it left to right. Six hundred papers sampled. Data were available for twent
 :::
 
 ::: {.src}
-[@MiskeEtAl2026InvestigatingReproducibilitySocial].
+@MiskeEtAl2026InvestigatingReproducibilitySocial.
 :::
 
 ::: notes
@@ -541,7 +541,7 @@ And access follows policy. Where journals mandate data sharing, availability sit
 :::
 
 ::: {.src}
-[@AczelEtAl2026InvestigatingAnalyticalRobustness].
+@AczelEtAl2026InvestigatingAnalyticalRobustness.
 :::
 
 ::: notes
@@ -558,7 +558,7 @@ The middle paper – the one I was in. One hundred studies, and for each one at 
 :::
 
 ::: {.src}
-[@AczelEtAl2026InvestigatingAnalyticalRobustness].
+@AczelEtAl2026InvestigatingAnalyticalRobustness.
 :::
 
 ::: notes
@@ -574,7 +574,7 @@ So what do free, justifiable choices do to the same data? They move the answer �
 :::
 
 ::: {.src}
-[@TynerEtAl2026InvestigatingReplicabilitySocial].
+@TynerEtAl2026InvestigatingReplicabilitySocial.
 :::
 
 ::: notes
@@ -613,7 +613,7 @@ ggplot(sh, aes(r, y = 1)) +
 :::
 
 ::: {.src}
-[@TynerEtAl2026InvestigatingReplicabilitySocial].
+@TynerEtAl2026InvestigatingReplicabilitySocial.
 :::
 
 ::: notes
@@ -673,7 +673,7 @@ And two things I could not see: **who the other analysts were**, and **what they
 :::
 
 ::: {.src}
-[@AczelEtAl2026InvestigatingAnalyticalRobustness]. Registered protocol: osf.io/7snkz
+@AczelEtAl2026InvestigatingAnalyticalRobustness. Registered protocol: osf.io/7snkz
 :::
 
 ::: notes
@@ -694,7 +694,7 @@ Let me show you what this was like from the inside, because it shapes how you re
 :::
 
 ::: {.src}
-[@Teney2016DoesEUEconomic]. The full methodological reading is Part 2.
+@Teney2016DoesEUEconomic. The full methodological reading is Part 2.
 :::
 
 ::: notes
@@ -831,22 +831,22 @@ Why does open source matter here specifically? Four reasons, and only one of the
 
 ::: {.toolgrid style="--cols: 4"}
 <div class="grouphead">Analyse</div>
-<div class="tool ours"><span class="badge" style="--tint:#276DC3">R</span><span class="name">R</span><span class="what">statistics-first language</span></div>
+<div class="tool ours"><img src="pics/tools/r.svg" alt="R"><span class="name">R</span><span class="what">statistics-first language</span></div>
 <div class="tool"><img src="pics/tools/python.png" alt="Python"><span class="name">Python</span><span class="what">general purpose, strong ML</span></div>
 <div class="tool"><img src="pics/tools/julia.png" alt="Julia"><span class="name">Julia</span><span class="what">fast numerics</span></div>
-<div class="tool"><span class="badge" style="--tint:#1a476f">Sta</span><span class="name">Stata / SPSS</span><span class="what">proprietary, still standard in places</span></div>
+<div class="tool"><span class="pair"><img src="pics/tools/stata.svg" alt="Stata"><img src="pics/tools/spss.svg" alt="SPSS"></span><span class="name">Stata / SPSS</span><span class="what">proprietary, still standard in places</span></div>
 
 <div class="grouphead">Write</div>
-<div class="tool ours"><span class="badge" style="--tint:#3B4C9A">Po</span><span class="name">Positron</span><span class="what">today's Route 1</span></div>
-<div class="tool"><span class="badge" style="--tint:#75AADB">RS</span><span class="name">RStudio</span><span class="what">the familiar one</span></div>
+<div class="tool ours"><img src="pics/tools/positron.png" alt="Positron"><span class="name">Positron</span><span class="what">today's Route 1</span></div>
+<div class="tool"><img src="pics/tools/rstudio.svg" alt="RStudio"><span class="name">RStudio</span><span class="what">the familiar one</span></div>
 <div class="tool"><img src="pics/tools/vscode.png" alt="VS Code"><span class="name">VS Code</span><span class="what">everything, via extensions</span></div>
 <div class="tool"><img src="pics/tools/jupyter.png" alt="Jupyter"><span class="name">Jupyter</span><span class="what">notebooks, Python-first</span></div>
 
 <div class="grouphead">Publish and share</div>
 <div class="tool ours"><img src="pics/tools/quarto.png" alt="Quarto"><span class="name">Quarto</span><span class="what">text + code → anything</span></div>
-<div class="tool"><span class="badge" style="--tint:#F05033">git</span><span class="name">Git</span><span class="what">every version, dated</span></div>
-<div class="tool"><span class="badge" style="--tint:#24292F">GH</span><span class="name">GitHub</span><span class="what">where the repository lives</span></div>
-<div class="tool"><span class="badge" style="--tint:#2C3E50">OSF</span><span class="name">OSF / Zenodo</span><span class="what">archive with a DOI</span></div>
+<div class="tool"><img src="pics/tools/git.svg" alt="Git"><span class="name">Git</span><span class="what">every version, dated</span></div>
+<div class="tool"><img src="pics/tools/github.svg" alt="GitHub"><span class="name">GitHub</span><span class="what">where the repository lives</span></div>
+<div class="tool"><span class="pair"><img src="pics/tools/osf.png" alt="OSF"><img src="pics/tools/zenodo.svg" alt="Zenodo"></span><span class="name">OSF / Zenodo</span><span class="what">archive with a DOI</span></div>
 :::
 
 ::: {.fragment .small}
@@ -860,10 +860,10 @@ Here is the whole landscape on one slide, in three jobs rather than three brand 
 ## Languages: what you are actually choosing {.smaller .deepdive}
 
 ::: {.toolgrid style="--cols: 4"}
-<div class="tool ours"><span class="badge" style="--tint:#276DC3">R</span><span class="name">R</span><span class="what">Built by statisticians for data analysis. Unbeatable for models, tables and figures; the ecosystem is the reason.</span></div>
+<div class="tool ours"><img src="pics/tools/r.svg" alt="R"><span class="name">R</span><span class="what">Built by statisticians for data analysis. Unbeatable for models, tables and figures; the ecosystem is the reason.</span></div>
 <div class="tool"><img src="pics/tools/python.png" alt="Python"><span class="name">Python</span><span class="what">A general language that also does data. Better for pipelines, scraping, text and machine learning.</span></div>
 <div class="tool"><img src="pics/tools/julia.png" alt="Julia"><span class="name">Julia</span><span class="what">Fast, young, small ecosystem. Worth it when your model takes hours.</span></div>
-<div class="tool"><span class="badge" style="--tint:#1a476f">Sta</span><span class="name">Stata</span><span class="what">Excellent panel and survey estimators, superb docs, one syntax. Costs money and hides its source.</span></div>
+<div class="tool"><img src="pics/tools/stata.svg" alt="Stata"><span class="name">Stata</span><span class="what">Excellent panel and survey estimators, superb docs, one syntax. Costs money and hides its source.</span></div>
 :::
 
 ::: {.fragment .small}
@@ -877,8 +877,8 @@ A slower look at the languages, because people agonise about this and mostly sho
 ## Where you write it {.smaller .deepdive}
 
 ::: {.toolgrid style="--cols: 5"}
-<div class="tool ours"><span class="badge" style="--tint:#3B4C9A">Po</span><span class="name">Positron</span><span class="what">Posit's newer IDE. R and Python as equals, VS Code underneath.</span></div>
-<div class="tool"><span class="badge" style="--tint:#75AADB">RS</span><span class="name">RStudio</span><span class="what">Still excellent, still supported. If it is what you know, use it.</span></div>
+<div class="tool ours"><img src="pics/tools/positron.png" alt="Positron"><span class="name">Positron</span><span class="what">Posit's newer IDE. R and Python as equals, VS Code underneath.</span></div>
+<div class="tool"><img src="pics/tools/rstudio.svg" alt="RStudio"><span class="name">RStudio</span><span class="what">Still excellent, still supported. If it is what you know, use it.</span></div>
 <div class="tool"><img src="pics/tools/vscode.png" alt="VS Code"><span class="name">VS Code</span><span class="what">Does anything, once configured. Big extension ecosystem.</span></div>
 <div class="tool"><img src="pics/tools/jupyter.png" alt="Jupyter"><span class="name">Jupyter</span><span class="what">Notebook-first. Beware: cells can run out of order.</span></div>
 <div class="tool"><img src="pics/tools/neovim.png" alt="Neovim"><span class="name">Neovim</span><span class="what">For the keyboard-only. Steep, and very fast once climbed.</span></div>
@@ -977,10 +977,10 @@ Version control is the tool I have deliberately kept out of today, so let me at 
 ## Where data and code go to live {.smaller}
 
 ::: {.toolgrid style="--cols: 4"}
-<div class="tool ours"><span class="badge" style="--tint:#2C3E50">OSF</span><span class="name">OSF</span><span class="what">Projects, files, and registrations. Free, and where our case's trail lives.</span></div>
-<div class="tool"><span class="badge" style="--tint:#1682D4">Ze</span><span class="name">Zenodo</span><span class="what">CERN-run archive. Gives a DOI; takes a GitHub release directly.</span></div>
-<div class="tool"><span class="badge" style="--tint:#C55B28">Dv</span><span class="name">Dataverse</span><span class="what">Institutional data archives with proper metadata and curation.</span></div>
-<div class="tool"><span class="badge" style="--tint:#4a6741">GE</span><span class="name">Domain archives</span><span class="what">GESIS, UK Data Service, ICPSR – licensed access to survey microdata.</span></div>
+<div class="tool ours"><img src="pics/tools/osf.png" alt="OSF"><span class="name">OSF</span><span class="what">Projects, files, and registrations. Free, and where our case's trail lives.</span></div>
+<div class="tool"><img src="pics/tools/zenodo.svg" alt="Zenodo"><span class="name">Zenodo</span><span class="what">CERN-run archive. Gives a DOI; takes a GitHub release directly.</span></div>
+<div class="tool"><img src="pics/tools/dataverse.svg" alt="Dataverse"><span class="name">Dataverse</span><span class="what">Institutional data archives with proper metadata and curation.</span></div>
+<div class="tool"><span class="badge" style="--tint:#4a6741">XYZ</span><span class="name">Your domain's archive</span><span class="what">GESIS, UK Data Service, ICPSR – licensed access to survey microdata.</span></div>
 :::
 
 ::: {.fragment .small}
@@ -1119,7 +1119,7 @@ Part two. We left the morning with five analysts, one claim, and answers spannin
   - LIBERTARIAN: negative materialist form of EU framing ('Bureaucracy'; 'Waste of money')
 :::
 ::: {.src}
-[@Teney2016DoesEUEconomic].
+@Teney2016DoesEUEconomic.
 :::
 ::: notes
 Back to OA's paper, and this time properly. Sixteen Eurobarometer waves, 2004 to 2013 – the crisis decade – about three hundred and ninety thousand respondents across twenty-seven member states. The outcome comes from one rather good survey item: what does the EU mean to you personally? Thirteen response options, which OA organises into four framing scales, and read those slowly because the whole afternoon turns on them. Cosmopolitan is the positive non-materialist one: peace, democracy, freedom to travel and study and work anywhere, cultural diversity, a stronger voice in the world. Utilitarian is positive and materialist: prosperity and social protection. Communitarian and libertarian are the negative pair. That sorting into four scales is itself a substantive theoretical claim about what the EU means to people, and it is one you could argue with – which, this afternoon, several of you will.
@@ -1159,7 +1159,7 @@ Anchor result, Table 3 Model 1 – unemployment on cosmopolitan framing: **b = �
 :::
 
 ::: {.src}
-[@Teney2016DoesEUEconomic].
+@Teney2016DoesEUEconomic.
 :::
 
 ::: notes
@@ -1331,7 +1331,33 @@ Free-phase records: the public Multi100 dataset (osf.io/q5h2c) – categorical v
 :::
 
 ::: notes
-Here is the layer underneath, and it is the sharpest illustration I have of this morning's point. Multi100 ran in two phases, and this table is the first one – months before the constrained task, complete freedom. Look at what freedom produced. GDP per capita for one analyst, GDP growth for another, a whole battery of GDP measures at three levels for a third – and three of the five of us never touched the unemployment rate at all. Different outcomes too: a mean, a sum, a share, three separate shares. Five different questions, in other words. And every single one of us recorded the same verdict: evidence for the claim. Then the constrained task arrived, manufactured one common question, and the five comparable answers ran from minus point zero zero six to minus point four five. Conclusions agreed in words while the numbers disagreed by two orders of magnitude. Hold that beside the red-card study.
+Here is the layer underneath, and it is the sharpest illustration I have of this morning's point. Multi100 ran in two phases, and this table is the first one – months before the constrained task, complete freedom. Look at what freedom produced. GDP per capita for one analyst, GDP growth for another, a whole battery of GDP measures at three levels for a third – and three of the five of us never touched the unemployment rate at all. Different outcomes too: a mean, a sum, a share, three separate shares. Five different questions, in other words. And every single one of us recorded the same verdict: evidence for the claim. Then the constrained task arrived, manufactured one common question, and the five comparable answers ran from minus point zero zero six to minus point four five. Conclusions agreed in words while the numbers disagreed by two orders of magnitude. Now, that is five people on one paper. What happens when it is twenty-nine teams?
+:::
+
+## Two studies to set beside our five {.smaller}
+
+::: {.small}
+Our own case has just shown us the pattern in miniature. It was described first, and at far greater scale, somewhere else – and the two studies that did it are the ones the rest of this part rests on.
+:::
+
+::: {.fragment .small}
+**Silberzahn and colleagues (2018)** gave twenty-nine research teams one dataset and one question, and published what came back. This is the study that opened the many-analysts literature.
+:::
+
+::: {.fragment .small}
+**Auspurg and Brüderl (2021)** went back through all twenty-nine of those analyses and asked a question the original had not: what was each team actually trying to measure?
+:::
+
+::: {.fragment .small}
+The first establishes that careful people disagree. The second explains **why** – and that explanation is what the whole of Part 2 is built on.
+:::
+
+::: {.src}
+@SilberzahnEtAl2018ManyAnalystsOne; @AuspurgBruderl2021HasCredibilitySocial
+:::
+
+::: notes
+Before we go further into our own case, I want to put two other studies beside it, because they are where this pattern was first described and they supply the vocabulary for the rest of the day. Both are about the same twenty-nine analyses. The first, Silberzahn and colleagues in twenty eighteen, is the study that opened this whole literature: twenty-nine teams, one dataset, one question, and they published everything that came back. The second, Auspurg and Brüderl in twenty twenty-one, is a reanalysis – they went back through all twenty-nine pipelines and asked something the original had not thought to ask, which is what each team was actually trying to measure. So the first study establishes that careful people disagree. The second explains why they disagree. And that second answer is the hinge of this part. Let me take them in order.
 :::
 
 ## The red-card study: 29 teams, one dataset
@@ -1366,7 +1392,7 @@ ggplot(rc, aes(or, y = 1)) +
 ```
 
 ::: {.src}
-[@SilberzahnEtAl2018ManyAnalystsOne]. Display sketch from published median (1.31) + range (0.89–2.93).
+@SilberzahnEtAl2018ManyAnalystsOne. Display sketch from published median (1.31) + range (0.89–2.93).
 :::
 
 ::: notes
@@ -1384,7 +1410,7 @@ Auspurg & Brüderl re-read the 29 analyses and found **four** different estimand
 :::
 
 ::: {.src}
-[@AuspurgBruderl2021HasCredibilitySocial]
+@AuspurgBruderl2021HasCredibilitySocial
 :::
 
 ::: notes
@@ -1407,7 +1433,7 @@ Which is a considerably more optimistic reading – and a more demanding one, be
 :::
 
 ::: {.src}
-[@AuspurgBruderl2021HasCredibilitySocial]
+@AuspurgBruderl2021HasCredibilitySocial
 :::
 
 ::: notes
@@ -1448,7 +1474,7 @@ ggplot(steps, aes(x, 1)) +
 :::
 
 ::: {.src}
-[@LundbergEtAl2021WhatYourEstimand].
+@LundbergEtAl2021WhatYourEstimand.
 :::
 
 ::: notes
@@ -1591,7 +1617,7 @@ The data look identical in all four. Only an assumption about *how the data aros
 ::::
 
 ::: {.src}
-[@DAgostinoMcGowanEtAl2024CausalInferenceNot; @KeeleEtAl2020CausalInterpretationEstimated]. Scatter simulated for illustration.
+@DAgostinoMcGowanEtAl2024CausalInferenceNot; @KeeleEtAl2020CausalInterpretationEstimated. Scatter simulated for illustration.
 :::
 
 ::: notes
@@ -1648,7 +1674,7 @@ Association flows along **every open path**, not only along the causal arrow. A 
 :::
 
 ::: {.src}
-[@HernanRobins2020CausalInferenceWhat; @Huntington-Klein2021EffectIntroductionResearch].
+@HernanRobins2020CausalInferenceWhat; @Huntington-Klein2021EffectIntroductionResearch.
 :::
 
 ::: notes
@@ -1699,7 +1725,7 @@ ggplot2::ggplot(td,
 ::::
 
 ::: {.src}
-[@KeeleEtAl2020CausalInterpretationEstimated; @DAgostinoMcGowanEtAl2024CausalInferenceNot].
+@KeeleEtAl2020CausalInterpretationEstimated; @DAgostinoMcGowanEtAl2024CausalInferenceNot.
 :::
 
 ::: notes
@@ -1771,7 +1797,7 @@ patchwork::wrap_plots(p_sel, p_clp, nrow = 1)
 :::
 
 ::: {.src}
-[@GriffithEtAl2020ColliderBiasUndermines; @ColeEtAl2010IllustratingBiasDue; @LeszczenskyWolbring2022HowDealReverse].
+@GriffithEtAl2020ColliderBiasUndermines; @ColeEtAl2010IllustratingBiasDue; @LeszczenskyWolbring2022HowDealReverse.
 :::
 
 ::: notes
@@ -1808,7 +1834,7 @@ ggplot(contrast, aes(or, grp, colour = grp)) +
 :::
 
 ::: {.src}
-[@AuspurgBruderl2021HasCredibilitySocial]. Display sketches from published medians + SDs (illustrative spread).
+@AuspurgBruderl2021HasCredibilitySocial. Display sketches from published medians + SDs (illustrative spread).
 :::
 
 ::: notes
@@ -2934,7 +2960,7 @@ Today's grid was built for **reflection**. Reading it as inference is the mistak
 :::
 
 ::: {.src}
-[@RohrerEtAl2026WhatsMultiverseGood]
+@RohrerEtAl2026WhatsMultiverseGood
 :::
 
 ::: notes
@@ -3240,7 +3266,7 @@ The two are detachable, and most published curves stop at description.
 :::
 
 ::: {.src}
-[@SteegenEtAl2016IncreasingTransparencyMultiverse; @SimonsohnEtAl2020SpecificationCurveAnalysis]
+@SteegenEtAl2016IncreasingTransparencyMultiverse; @SimonsohnEtAl2020SpecificationCurveAnalysis
 :::
 
 ::: notes
@@ -3268,7 +3294,7 @@ Here is the trap the percentages set. Sixty-three point nine per cent of our spe
 :::
 
 ::: {.src}
-The design is worked through in your inference reading; permutation inference after [@PhipsonSmyth2010PermutationPValues].
+The design is worked through in your inference reading; permutation inference after @PhipsonSmyth2010PermutationPValues.
 :::
 
 ::: notes
@@ -3312,7 +3338,7 @@ So that nothing feels deflated: notice how much of today needs no permutation at
 :::
 
 ::: {.src}
-The book-length how-to: [@YoungCumberworth2025MultiverseAnalysisComputational]; the estimand diagnosis behind Part 2: [@AuspurgBruderl2021HasCredibilitySocial].
+The book-length how-to: @YoungCumberworth2025MultiverseAnalysisComputational; the estimand diagnosis behind Part 2: @AuspurgBruderl2021HasCredibilitySocial.
 :::
 
 ::: notes
@@ -3331,7 +3357,7 @@ Lakens and colleagues push back hard, and the argument deserves to be taken seri
 :::
 
 ::: {.src}
-[@LakensEtAl2026ThereOnlyOne]
+@LakensEtAl2026ThereOnlyOne
 :::
 
 ::: notes
@@ -3467,7 +3493,7 @@ Three minutes, everyone: open the dossier and find the replication component –
 :::
 
 ::: {.src}
-[@AczelEtAl2026InvestigatingAnalyticalRobustness]. Project: osf.io/7snkz
+@AczelEtAl2026InvestigatingAnalyticalRobustness. Project: osf.io/7snkz
 :::
 
 ::: notes

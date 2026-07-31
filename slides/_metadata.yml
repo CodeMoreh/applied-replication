@@ -18,6 +18,12 @@ link-citations: true
 
 format:
   revealjs:
+    # Pinned source footers name the author outside the brackets, so they open
+    # with a bare `@Key`. Pandoc's example-list syntax claims exactly that
+    # shape – a citation at the start of a block is read as a list marker and
+    # silently replaced by a number – and the deck has no example lists to
+    # lose. Turning the extension off is what makes `@Key.` a citation.
+    from: markdown-example_lists
     fig-align: center
     logo: ../assets/logo.png
     template-partials:

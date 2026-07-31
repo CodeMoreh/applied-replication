@@ -79,24 +79,25 @@ You are two hours behind the room all day: the room's 10:00 start is your 08:00.
 
 **Three stretches of the deck are optional depth**, marked on screen and skippable in one keystroke: the R tutorial (Part 2, 10 slides), the methodological tutorial (Part 3, 12 slides) and the multiverse tutorial (Part 4, 8 slides). Five slides in Part 1's tools segment carry the same mark. Decide on the day how much of each the room wants. The timings below assume you walk roughly half of each; walking all three in full costs about 25 minutes you do not have, and skipping all three entirely leaves the hands-on tasks with more room than they need.
 
-### Driving 146 slides {#deck-navigation}
+### Driving 147 slides {#deck-navigation}
 
 | Key | What it does |
 |---|---|
 | space · right arrow · clicker | next slide. **Always exactly one slide** – the deck is in linear mode on purpose, so nothing a clicker sends can skip a segment |
-| **`d`** | switch between the **extended** and the **lean** deck, live. In lean mode the optional slides leave entirely: every key skips them and the count drops from 146 to 111 |
+| **`d`** | switch between the **extended** and the **lean** deck, live. In lean mode the optional slides leave entirely: every key skips them and the count drops from 147 to 112 |
 | **`]`** and **`[`** | jump to the **next / previous part**. Four parts, four jumps |
 | **`g`** | **jump bar**: type a few letters of any slide title, press Enter |
 | **`s`** | speaker view (notes, timer, next slide) |
 | **`f`** · **`esc`** | fullscreen · slide overview |
 
-**The readout, top right.** Two lines. The first names the part and gives both positions – `PART 3 · 8/24 · 90/146`. The second is a badge that is always present, so the state of the deck is never a guess:
+**The readout, top right.** Two lines. The first names the part and gives both positions – `PART 3 · 8/24 · 90/147`. The second is a badge that is always present, so the state of the deck is never a guess:
 
 | Badge | Means |
 |---|---|
 | green **extended** | the full deck, and this slide is part of the main flow |
 | burgundy **optional** | the full deck, and this slide belongs to an optional run. The figure beside it is your position inside that run – `3/12` |
 | amber **lean** | the optional runs are switched off |
+| a burgundy **dot** before the amber badge | lean mode, and an optional run has been lifted out right here – either the slide you are on is the last before it, or the first after it. Press `d` if the room wants it |
 
 The readout steps aside on the title slide, the part dividers and the break slides, where it would sit over the dark background beside the brand mark.
 
