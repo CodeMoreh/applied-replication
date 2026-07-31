@@ -326,107 +326,7 @@ None of these steps requires a dishonest person. That is exactly why the problem
 :::
 
 ::: notes
-Now the important qualification, and I want to be emphatic about it. This is not mostly a story about fraud. Fraud exists and it is spectacular when it surfaces, but it is rare and it is not what these numbers are measuring. The mechanism is ordinary and it is structural. Journals want novel, clean, significant results, so that is what gets submitted. Every analysis contains dozens of small, individually defensible choices, and the analyst makes them while looking at the data, because how else would you make them. Nobody writes up the twelve specifications that did not work, so the reader sees one path through a garden with hundreds. And in most cases neither the data nor the code are available, so nobody can check any of it. John, Loewenstein and Prelec went and asked researchers directly, anonymously, with a mechanism designed to make truthful answers worth giving – and a majority admitted to at least one of these practices. Not one of those steps requires a bad actor. Which is exactly why the problem is hard: you cannot solve it by hiring better people.
-:::
-
-## 'Replication' crises
-
-:::: {.none}
-::: {.fragment}
-Another 'replication' crisis – terminological confusion?
-:::
-::: {.fragment}
-The term 'reproducibility' has been used as a synonym for a number of different characteristics – reproducibility, robustness, replicability, repeatability, credibility, and trustworthiness.
-:::
-[[Successfully rerun the same code on the same data?]{colour="#b22222"}]{.fragment}
-[[Re-analyse the same data a different way?]{colour="#1C69A8"}]{.fragment}
-[[Collect fresh data and analyse it in the same way?]{colour="#4D179A"}]{.fragment}
-[[Using the same data and same analysis but asking a different question?]{colour="#3C6301"}]{.fragment}
-[[Asking the same question but answering it with fresh data and a different analysis?]{colour="#3BB8DB"}]{.fragment}
-::::
-
-::: notes
-And part of the problem is the word itself. For years 'replication' covered everything: rerunning someone's code, re-analysing their data a different way, collecting new data altogether. Those are three different operations, answering three different questions – but because we called them all 'replication', the crisis debates had people talking past each other for a decade. So before any numbers, we need vocabulary.
-:::
-
-## The data $\times$ analysis matrix
-
-```{r}
-#| label: matrix
-#| fig-width: 12
-#| fig-height: 7
-repeatability_matrix()
-```
-
-::: {.src}
-@AlipourfardEtAl2021SystematizingConfidenceOpen; @NosekEtAl2025BriefGlossaryTerms
-:::
-
-::: notes
-Here is the whole framework on one slide, and if you take a single thing home today, make it this grid. The question stays the same throughout; what varies is the data and the analysis. Same data, same analysis – reproducibility: if I rerun your recipe, do I get your number? Same data but a different, justifiable analysis – robustness: does your finding survive my defensible choices? New data, same question – replicability. The fourth cell, new data and new analysis, is really generalisation, and we set it aside today. Sit with this for a moment – everything that follows this morning hangs off it.
-:::
-
-## Credibility is not truth
-
-::: {.scaled style="--fs: 0.9; --lh: 1.15"}
-**Repeatability** is used when referring to reproducibility, robustness, and replicability as a constellation of concepts intended to assess whether answers to scientific questions are unchanged when different steps of the research process are repeated.
-
-**Credibility** and **trustworthiness** refer to the confidence one can have in research findings. Because scientific knowledge claims are tentative, they are *not* synonymous with truth.
-
-For example, credibility is advanced by addressing potential competing interests in the conducting and reporting of research, by taking existing knowledge into account, by using methods that have been validated, by controlling for biases in the research context, by pursuing precise and reliable evidence, and by calibrating the strength of the claims to the uncertainty of the evidence.
-:::
-
-::: {.src}
-@NosekEtAl2025BriefGlossaryTerms
-:::
-
-::: notes
-The glossary is worth reading slowly, because it separates two things we routinely run together. Repeatability is the umbrella: reproducibility, robustness and replicability as a family, all asking whether the answer survives repeating some step of the process. Credibility and trustworthiness are about how much confidence a finding deserves – and note the sentence in the middle. Because scientific claims are tentative, credibility is not the same as truth. A credible finding can be wrong. What credibility is built from is the list at the bottom: declared interests, validated methods, precise evidence, and claims calibrated to the uncertainty behind them. That last one is the one we will keep coming back to.
-:::
-
-## Open research: the practices {.smaller}
-
-::: {.small}
-| Practice | What it makes possible |
-|---|---|
-| **Open data** | Someone else can re-analyse your evidence |
-| **Open code** | Someone else can rerun your exact analysis |
-| **Open materials** | Someone else can run your study again |
-| **Open access** | Someone else can read the claim in the first place |
-| **Preregistration** | A dated record of the plan, before the results exist |
-| **Registered reports** | Peer review of the plan, with publication decided before results |
-:::
-
-::: {.fragment .small}
-Each one removes a specific obstacle. None of them is a general-purpose guarantee. The programme, set out at length: [@MunafoEtAl2017ManifestoReproducibleScience]
-:::
-
-::: notes
-So what does open research actually propose? Not a philosophy – a list of practices, and each one removes a specific, identifiable obstacle. Open data means someone else can re-analyse your evidence rather than taking your word for it. Open code means they can rerun your exact analysis. Open materials means they can run the study again in a new sample. Open access means they can read the thing at all, which sounds trivial until you try to get a paper from outside a wealthy university. Preregistration produces a dated record of the plan before the results exist. And registered reports go further: the plan is peer-reviewed and the publication decision is made before anyone sees a result, which removes the incentive to find something. Each removes one obstacle. None is a general guarantee, and I want to be clear about that before we get enthusiastic.
-:::
-
-## What openness does not fix {.smaller}
-
-:::: {.none}
-::: {.fragment}
-A fully open, perfectly reproducible pipeline can still answer **the wrong question**.
-:::
-
-::: {.fragment}
-It can still be built on a **selected sample**, a **mismeasured** construct, or an **untestable assumption**.
-:::
-
-::: {.fragment}
-> "Reproducibility success does not mean that the finding is correct." [@MiskeEtAl2026InvestigatingReproducibilitySocial]
-:::
-
-::: {.fragment}
-Openness makes claims **checkable**. It does not make them **right**. The checking is still work, and someone still has to do it.
-:::
-::::
-
-::: notes
-Here is the qualification that the enthusiasm usually skips. A completely open, perfectly reproducible pipeline can still be answering the wrong question. It can still rest on a selected sample, or a construct that does not measure what its name says, or an assumption nobody can test. The sentence on the slide is from one of the papers we are about to meet, and it deserves a beat of silence: reproducibility success does not mean the finding is correct. All openness does – and this is still a great deal – is make claims checkable. It does not make them right. Somebody still has to do the checking, and that turns out to be the interesting part. So who has done it, and what happened?
+Now the important qualification, and I want to be emphatic about it. This is not mostly a story about fraud. Fraud exists and it is spectacular when it surfaces, but it is rare and it is not what these numbers are measuring. The mechanism is ordinary and it is structural. Journals want novel, clean, significant results, so that is what gets submitted. Every analysis contains dozens of small, individually defensible choices, and the analyst makes them while looking at the data, because how else would you make them. Nobody writes up the twelve specifications that did not work, so the reader sees one path through a garden with hundreds. And in most cases neither the data nor the code are available, so nobody can check any of it. John, Loewenstein and Prelec went and asked researchers directly, anonymously, with a mechanism designed to make truthful answers worth giving – and a majority admitted to at least one of these practices. Not one of those steps requires a bad actor. Which is exactly why the problem is hard: you cannot solve it by hiring better people. [pause] So suppose you did hire the best people you could find, gave them all the same data and the same question, and watched. Somebody did exactly that.
 :::
 
 ## Twenty-nine teams, one question {.smaller}
@@ -507,6 +407,106 @@ ggplot(szf, aes(or, lab, colour = significant)) +
 
 ::: notes
 And here is what came back. Read it as a list of twenty-nine analyses of one dataset. The odds ratios run from nought point eight nine to two point nine three – the low end says dark-skinned players were red-carded slightly *less* often – and the median is one point three one. Twenty of the twenty-nine intervals exclude one; nine do not. So about two thirds found an effect and a third did not, on identical data. [pause] Now look at the left column, because that is where the day's real subject is. The teams are grouped by the response distribution they assumed – linear, logistic, Poisson, and two that fit none of the three. That is not a detail of implementation. It is a decision each team made, defensibly, before touching the data, and it is the same kind of decision you will be making after lunch. Hold on to that grouping; we come back to it twice.
+:::
+
+## 'Replication' crises
+
+:::: {.none}
+::: {.fragment}
+Another 'replication' crisis – terminological confusion?
+:::
+::: {.fragment}
+The term 'reproducibility' has been used as a synonym for a number of different characteristics – reproducibility, robustness, replicability, repeatability, credibility, and trustworthiness.
+:::
+[[Successfully rerun the same code on the same data?]{colour="#b22222"}]{.fragment}
+[[Re-analyse the same data a different way?]{colour="#1C69A8"}]{.fragment}
+[[Collect fresh data and analyse it in the same way?]{colour="#4D179A"}]{.fragment}
+[[Using the same data and same analysis but asking a different question?]{colour="#3C6301"}]{.fragment}
+[[Asking the same question but answering it with fresh data and a different analysis?]{colour="#3BB8DB"}]{.fragment}
+::::
+
+::: notes
+So: twenty-nine competent teams, one dataset, and no agreement. Now notice what I have carefully not said yet – what *kind* of failure that is. And that turns out to be the whole difficulty, because part of the problem is the word itself. For years 'replication' covered everything: rerunning someone's code, re-analysing their data a different way, collecting new data altogether. Those are three different operations, answering three different questions – but because we called them all 'replication', the crisis debates had people talking past each other for a decade. So before any numbers, we need vocabulary.
+:::
+
+## The data $\times$ analysis matrix
+
+```{r}
+#| label: matrix
+#| fig-width: 12
+#| fig-height: 7
+repeatability_matrix()
+```
+
+::: {.src}
+@AlipourfardEtAl2021SystematizingConfidenceOpen; @NosekEtAl2025BriefGlossaryTerms
+:::
+
+::: notes
+Here is the whole framework on one slide, and if you take a single thing home today, make it this grid. The question stays the same throughout; what varies is the data and the analysis. Same data, same analysis – reproducibility: if I rerun your recipe, do I get your number? Same data but a different, justifiable analysis – robustness: does your finding survive my defensible choices? New data, same question – replicability. The fourth cell, new data and new analysis, is really generalisation, and we set it aside today. Sit with this for a moment – everything that follows this morning hangs off it.
+:::
+
+## Credibility is not truth
+
+::: {.scaled style="--fs: 0.9; --lh: 1.15"}
+**Repeatability** is used when referring to reproducibility, robustness, and replicability as a constellation of concepts intended to assess whether answers to scientific questions are unchanged when different steps of the research process are repeated.
+
+**Credibility** and **trustworthiness** refer to the confidence one can have in research findings. Because scientific knowledge claims are tentative, they are *not* synonymous with truth.
+
+For example, credibility is advanced by addressing potential competing interests in the conducting and reporting of research, by taking existing knowledge into account, by using methods that have been validated, by controlling for biases in the research context, by pursuing precise and reliable evidence, and by calibrating the strength of the claims to the uncertainty of the evidence.
+:::
+
+::: {.src}
+@NosekEtAl2025BriefGlossaryTerms
+:::
+
+::: notes
+The glossary is worth reading slowly, because it separates two things we routinely run together. Repeatability is the umbrella: reproducibility, robustness and replicability as a family, all asking whether the answer survives repeating some step of the process. Credibility and trustworthiness are about how much confidence a finding deserves – and note the sentence in the middle. Because scientific claims are tentative, credibility is not the same as truth. A credible finding can be wrong. What credibility is built from is the list at the bottom: declared interests, validated methods, precise evidence, and claims calibrated to the uncertainty behind them. That last one is the one we will keep coming back to.
+:::
+
+## Open research: the practices {.smaller}
+
+::: {.small}
+| Practice | What it makes possible |
+|---|---|
+| **Open data** | Someone else can re-analyse your evidence |
+| **Open code** | Someone else can rerun your exact analysis |
+| **Open materials** | Someone else can run your study again |
+| **Open access** | Someone else can read the claim in the first place |
+| **Preregistration** | A dated record of the plan, before the results exist |
+| **Registered reports** | Peer review of the plan, with publication decided before results |
+:::
+
+::: {.fragment .small}
+Each one removes a specific obstacle. None of them is a general-purpose guarantee. The programme, set out at length: [@MunafoEtAl2017ManifestoReproducibleScience]
+:::
+
+::: notes
+So what does open research actually propose? Not a philosophy – a list of practices, and each one removes a specific, identifiable obstacle. Open data means someone else can re-analyse your evidence rather than taking your word for it. Open code means they can rerun your exact analysis. Open materials means they can run the study again in a new sample. Open access means they can read the thing at all, which sounds trivial until you try to get a paper from outside a wealthy university. Preregistration produces a dated record of the plan before the results exist. And registered reports go further: the plan is peer-reviewed and the publication decision is made before anyone sees a result, which removes the incentive to find something. Each removes one obstacle. None is a general guarantee, and I want to be clear about that before we get enthusiastic.
+:::
+
+## What openness does not fix {.smaller}
+
+:::: {.none}
+::: {.fragment}
+A fully open, perfectly reproducible pipeline can still answer **the wrong question**.
+:::
+
+::: {.fragment}
+It can still be built on a **selected sample**, a **mismeasured** construct, or an **untestable assumption**.
+:::
+
+::: {.fragment}
+> "Reproducibility success does not mean that the finding is correct." [@MiskeEtAl2026InvestigatingReproducibilitySocial]
+:::
+
+::: {.fragment}
+Openness makes claims **checkable**. It does not make them **right**. The checking is still work, and someone still has to do it.
+:::
+::::
+
+::: notes
+Here is the qualification that the enthusiasm usually skips. A completely open, perfectly reproducible pipeline can still be answering the wrong question. It can still rest on a selected sample, or a construct that does not measure what its name says, or an assumption nobody can test. The sentence on the slide is from one of the papers we are about to meet, and it deserves a beat of silence: reproducibility success does not mean the finding is correct. All openness does – and this is still a great deal – is make claims checkable. It does not make them right. Somebody still has to do the checking, and that turns out to be the interesting part, because when people do the checking at scale you get the three studies we look at next.
 :::
 
 ## What is SCORE?
@@ -888,15 +888,15 @@ And here are the five of us, on this one claim. All five found a negative effect
 :::
 
 :::: {.none}
-::: {.fragment}
+::: {.fragment .fadeInUp}
 The software did **not** cause the spread. There is no Stata answer and R answer to this claim.
 :::
 
-::: {.fragment}
+::: {.fragment .fadeInUp}
 But because each of us submitted a document somebody else could **open and run**, it became possible, afterwards, to find out what *did* cause it.
 :::
 
-::: {.fragment}
+::: {.fragment .fadeInUp}
 That is the whole case for the toolchain – and it is what you spend this afternoon doing.
 :::
 ::::
@@ -1483,13 +1483,18 @@ Before we go further into our own case, I want to put two studies beside it – 
 
 ## They were not answering the same question
 
-::: {.none}
+:::: {.none}
 <br>
 Auspurg & Brüderl re-read the 29 analyses and found **four** different estimands:
 
-- descriptive association · discrimination *net of mediators* · variance-maximising · exploratory
-- The dispersion was largely a **question**-multiverse, not an analysis-multiverse
+::: {.fragment .fadeInUp}
+descriptive association · discrimination *net of mediators* · variance-maximising · exploratory
 :::
+
+::: {.fragment .fadeInUp}
+The dispersion was largely a **question**-multiverse, not an analysis-multiverse.
+:::
+::::
 
 ::: {.src}
 @AuspurgBruderl2021HasCredibilitySocial
@@ -1500,19 +1505,77 @@ And here is what they found, which is the hinge of this morning: the teams were 
 :::
 
 
-## The crisis has a crisis of its own {.smaller}
+## Fix the estimand, and the spread collapses
+
+```{r}
+#| label: redcard-contrast
+#| fig-width: 9
+#| fig-height: 3.2
+# Dispersion contrast. TOP ROW IS REAL: the 29 published estimates, same file
+# the Part 1 forest reads. BOTTOM ROW IS A SKETCH: Auspurg & Brüderl give the
+# median (1.28) and SD (0.06) of their 486-model multiverse but not the 486
+# values, so these are evenly spaced quantiles of a normal on exactly those two
+# numbers - deterministic, and reproducing the published summary by
+# construction rather than by a lucky seed.
+ab <- qnorm(seq(0.5, 485.5, by = 1) / 486, mean = 1.28, sd = 0.06)
+contrast <- dplyr::bind_rows(
+  tibble::tibble(grp = "29 teams,\nquestion left open", or = silberzahn29$or),
+  tibble::tibble(grp = "486 models,\nestimand fixed", or = ab)
+) |>
+  dplyr::mutate(grp = factor(grp, levels = c("486 models,\nestimand fixed",
+                                             "29 teams,\nquestion left open")))
+
+ggplot(contrast, aes(or, grp, colour = grp)) +
+  geom_vline(xintercept = 1, linetype = "longdash", colour = grey_mid) +
+  geom_point(shape = 21, fill = NA, size = 4.6, stroke = 1.1, alpha = 0.75) +
+  annotate("text", x = 3.0, y = 2.42, label = "SD 0.45", hjust = 1,
+           colour = d_red, fontface = "bold", size = 4.6) +
+  annotate("text", x = 3.0, y = 1.42, label = "SD 0.06", hjust = 1,
+           colour = ncl_blue, fontface = "bold", size = 4.6) +
+  scale_colour_manual(values = c(ncl_blue, d_red)) +
+  scale_x_continuous(breaks = c(1, 1.5, 2, 2.5, 3)) +
+  coord_cartesian(xlim = c(0.8, 3.05), ylim = c(0.7, 2.6)) +
+  labs(x = "odds ratio", y = NULL) +
+  theme_slide(14) +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_line(colour = "grey92"))
+```
 
 ::: {.small}
+- Fix the question → derive the model space from a DAG → run **all 486** justifiable models → **SD 0.45 → 0.06**
+- The top row's spread is **two analyses wide**: a tight cluster plus the two outliers, which are what carry that 0.45
+:::
+
+::: {.src}
+@AuspurgBruderl2021HasCredibilitySocial. Top row: the 29 published estimates. Bottom row: drawn to their reported median (1.28) and SD (0.06) – the 486 values are not published.
+:::
+
+::: notes
+And here is the optimistic half of the red-card story. Auspurg and Brüderl fixed one estimand – discrimination, properly defined – used a causal graph to derive every model specification consistent with it, four hundred and eighty-six of them, and ran the lot. Look what happens to the spread: standard deviation point four five in the crowd, point zero six with the question fixed. Same caveat as before – these strips are sketches from the published summary figures. The recipe we take from them is the workshop's recipe: a precise question, assumptions drawn out explicitly, then a whole multiverse rather than one path, then sensitivity analysis. And notice where the spread in the top row actually comes from – a tight cluster and two outliers, which is why the standard deviation is four times what the cluster alone would give you. Fix the question and even those go. [advance]
+:::
+
+
+## The crisis has a crisis of its own {.smaller}
+
+:::: {.none}
 Auspurg and Brüderl's title asks it directly: *has the credibility of the social sciences been credibly destroyed?*
 
-- If the twenty-nine teams were answering **four different questions**, then their disagreement is not evidence that analysis is unreliable
-- It is evidence that **the question was under-specified** – and that is a fixable, and rather ordinary, defect
-- Read that way, the many-analyst literature is not a verdict on social science. It is a **diagnosis of vague research questions**
+::: {.fragment .fadeInUp}
+If the twenty-nine teams answered **four different questions**, their disagreement is not evidence that analysis is unreliable.
 :::
 
-::: {.fragment .small}
-Which is a considerably more optimistic reading – and a more demanding one, because it puts the work back on the person writing the question.
+::: {.fragment .fadeInUp}
+It is evidence that **the question was under-specified** – an ordinary, fixable defect.
 :::
+
+::: {.fragment .fadeInUp}
+So this literature is not a verdict on social science. It is a **diagnosis of vague research questions**.
+:::
+
+::: {.fragment .fadeInUp}
+More optimistic – and more demanding, because it hands the problem to whoever writes the question.
+:::
+::::
 
 ::: {.src}
 @AuspurgBruderl2021HasCredibilitySocial
@@ -1561,25 +1624,6 @@ ggplot(steps, aes(x, 1)) +
 
 ::: notes
 Which brings us to the most useful question in quantitative research: what is your estimand? Lundberg and colleagues split the answer into three steps. First, the theoretical estimand: a unit-specific quantity and a target population, stated in plain words, before any model exists. Second, the empirical estimand: what in the observable data corresponds to that quantity – and making that link forces your identification assumptions into the open, which is exactly where the causal graph lives. Only third comes estimation, where R finally opens. When they audited a full year of papers in a top sociology journal, the unit quantity was clearly stated in five out of thirty-two. Their demand is the one to remember: every quantitative study must be able to answer the question – what is your estimand?
-:::
-
-## *Revenons à nos moutons*
-
-::: {.claimcard}
-"The expected change in [unit quantity] among [target population] for a 1-percentage-point difference in unemployment, holding [assumptions] fixed."
-:::
-
-::: {.small}
-- Unit quantity – a *person's* cosmopolitan framing, or a *country-year* mean?
-- Target population – which countries, which years?
-:::
-
-::: {.fragment}
-**In chat, now:** your one-sentence estimand for the claim. Type it, hold it, send on "go".
-:::
-
-::: notes
-Now apply it to our paper – and this one is a chat exercise. Write the sentence on the slide with the brackets filled in: your one-sentence estimand for the claim. Type it, hold it, send when I say go. [go; read three or four aloud.] Look at the spread in the chat – some of you wrote about a person's framing, some about a country-year average, some named different years. None of those are wrong; they are different questions, with different confounding stories, and the coefficient means something different in each. That spread, in a room that just watched the same slides, is the red-card diagnosis happening live. Keep your sentence – it goes into your preregistration this afternoon, and this afternoon you will also see what the unit choice did to the five published analysts.
 :::
 
 ## DAG crash course: three roles {.smaller}
@@ -1886,43 +1930,24 @@ patchwork::wrap_plots(p_sel, p_clp, nrow = 1)
 Two last ways a relationship can be spurious, both of which live in our case. The first is selection, or collider bias. If you condition on – or merely sample on – something that both your variables cause, you manufacture a correlation out of nothing. A lot of the early COVID risk-factor findings were exactly this: conclusions drawn from people who had been tested, which is a selected group. The second is reverse causation and feedback. Our data are a panel, and in a panel today's outcome can feed tomorrow's predictor. Two-way fixed effects – which is the model we are about to draw – soak up stable differences between countries and shocks common to a year. They do not, on their own, fix a time-varying confounder or a feedback loop. Keep that in mind when we build the graph for our own paper.
 :::
 
-## Fix the estimand, and the spread collapses
+## *Revenons à nos moutons*
 
-```{r}
-#| label: redcard-contrast
-#| fig-width: 9
-#| fig-height: 3.6
-# Dispersion contrast: the 29-team crowd (SD 0.45) vs Auspurg & Brüderl's
-# 486-model multiverse with the estimand fixed (median 1.28, SD 0.06).
-# Both are display sketches from the published median + SD, clearly labelled.
-set.seed(7)
-contrast <- dplyr::bind_rows(
-  tibble::tibble(grp = "29 teams\n(SD 0.45)",
-                 or = rnorm(29, 1.31, 0.45)),
-  tibble::tibble(grp = "486 models,\nestimand fixed (SD 0.06)",
-                 or = rnorm(200, 1.28, 0.06))
-)
-ggplot(contrast, aes(or, grp, colour = grp)) +
-  geom_vline(xintercept = 1, colour = grey_mid, linewidth = 0.4) +
-  geom_jitter(height = 0.22, width = 0, size = 2.5, alpha = 0.55) +
-  scale_colour_manual(values = c(d_red, ncl_blue)) +
-  scale_x_continuous(limits = c(0.5, 3.1)) +
-  labs(x = "odds ratio", y = NULL) +
-  theme_slide(15)
-```
-
-::: {.small}
-- Fix the question → derive the model space → run **all 486** justifiable models → **SD 0.45 → 0.06**
+::: {.claimcard}
+"The expected change in [unit quantity] among [target population] for a 1-percentage-point difference in unemployment, holding [assumptions] fixed."
 :::
 
-::: {.src}
-@AuspurgBruderl2021HasCredibilitySocial. Display sketches from published medians + SDs (illustrative spread).
+::: {.small}
+- Unit quantity – a *person's* cosmopolitan framing, or a *country-year* mean?
+- Target population – which countries, which years?
+:::
+
+::: {.fragment}
+**In chat, now:** your one-sentence estimand for the claim. Type it, hold it, send on "go".
 :::
 
 ::: notes
-And here is the optimistic half of the red-card story. Auspurg and Brüderl fixed one estimand – discrimination, properly defined – used a causal graph to derive every model specification consistent with it, four hundred and eighty-six of them, and ran the lot. Look what happens to the spread: standard deviation point four five in the crowd, point zero six with the question fixed. Same caveat as before – these strips are sketches from the published summary figures. The recipe we take from them is the workshop's recipe: a precise question, assumptions drawn out explicitly, then a whole multiverse rather than one path, then sensitivity analysis. Their conclusion, roughly: it is research without a clear question that has the credibility problem.
+Now apply it to our paper – and this one is a chat exercise. Write the sentence on the slide with the brackets filled in: your one-sentence estimand for the claim. Type it, hold it, send when I say go. [go; read three or four aloud.] Look at the spread in the chat – some of you wrote about a person's framing, some about a country-year average, some named different years. None of those are wrong; they are different questions, with different confounding stories, and the coefficient means something different in each. That spread, in a room that just watched the same slides, is the red-card diagnosis happening live. Keep your sentence – it goes into your preregistration this afternoon, and this afternoon you will also see what the unit choice did to the five published analysts.
 :::
-
 
 ## We cannot identify a causal effect here {.smaller}
 
@@ -3365,11 +3390,19 @@ Last conceptual move of the day, and it is the one that separates careful reader
 
 ## 840 estimates are not 840 tests
 
-::: {.small}
-- Every specification re-uses the **same 270 country-years** – the estimates are deeply dependent
-- '63.9% significant' **describes** the curve; it is not a p-value for the claim
-- Vote-counting across dependent specifications has no null distribution – you cannot just tally the stars
+:::: {.none}
+::: {.fragment .fadeInUp}
+Every specification re-uses the **same 270 country-years**. The estimates are deeply dependent.
 :::
+
+::: {.fragment .fadeInUp}
+'63.9% significant' **describes** the curve. It is not a p-value for the claim.
+:::
+
+::: {.fragment .fadeInUp}
+Vote-counting across dependent specifications has no null distribution. You cannot tally the stars.
+:::
+::::
 
 ::: notes
 Here is the trap the percentages set. Sixty-three point nine per cent of our specifications are significant. It is very tempting to read that as evidence strength: "most tests pass, so the claim holds". But all eight hundred and forty specifications interrogate the same two hundred and seventy country-years. They share the data, so they share the noise: if sampling luck pushed a handful of country-years the claim's way, it pushed hundreds of specifications the same way at once. The percentage significant is a description of the curve, not a test of the claim. To test the claim at curve level you need to know what the whole curve would look like if there were nothing to find – and that requires building the nothing.
@@ -3409,11 +3442,19 @@ Two literacy points and then you argue. First: with five hundred draws, the smal
 
 ## What stands without the test
 
-::: {.small}
-- Everything descriptive survives: the **49.7%** outcome fork · the analysts' placement · the sign-flip anatomy · the correction arc · **your dot**
-- What waits for the permutation: the sentence "the curve as a whole is unlikely under no effect"
-- Careful reporting says which of the two layers a claim lives in
+:::: {.none}
+::: {.fragment .fadeInUp}
+Everything descriptive survives: the **49.7%** outcome fork, the analysts' placement, the sign-flip anatomy, **your dot**.
 :::
+
+::: {.fragment .fadeInUp}
+What waits for the permutation is one sentence: "the curve as a whole is unlikely under no effect".
+:::
+
+::: {.fragment .fadeInUp}
+Careful reporting says which of the two layers a claim lives in.
+:::
+::::
 
 ::: notes
 So that nothing feels deflated: notice how much of today needs no permutation at all. That the outcome fork carries half the variance – description, stands. That the two person-level analysts bracket the range – stands. That the sign flips concentrate in the pooled estimator and the non-bailout samples – stands. The correction arc, your preregistered dot, the whole anatomy of the curve – all of it stands. The single sentence that has to wait is "this curve as a whole is unlikely if there is no effect". Keeping those two layers apart in your own writing – saying which one your claim lives in – puts you ahead of most published specification curves. That is inference literacy, and you now have it.
@@ -3534,11 +3575,19 @@ This afternoon you reproduced my constrained result, and then you explored – s
 
 ## Every reanalysis leaves a public trail
 
-::: {.small}
-- OSF – the Open Science Framework: a timestamped, citable, public home for data, code, and **registrations**
-- A registration is a **frozen, dated snapshot of a plan** – anyone can check what you said you would do, and when
-- You need no account today. We are going to *read* OSF the way reviewers do
+:::: {.none}
+::: {.fragment .fadeInUp}
+**OSF**, the Open Science Framework: a timestamped, citable, public home for data, code, and **registrations**.
 :::
+
+::: {.fragment .fadeInUp}
+A registration is a **frozen, dated snapshot of a plan**. Anyone can check what you said you would do, and when.
+:::
+
+::: {.fragment .fadeInUp}
+You need no account today. We are going to *read* OSF the way reviewers do.
+:::
+::::
 
 ::: notes
 Before the declaring, the infrastructure. Everything you have touched today – the dataset, my analysis script, the codebook – lives at a permanent public address on the Open Science Framework. OSF does two jobs. It archives materials, which is the only reason you were able to stand in a real analyst's shoes this morning rather than a made-up one. And it registers plans: a registration is a frozen, timestamped snapshot of what you intend to do, filed before you do it, that nobody – including you – can quietly edit afterwards. You do not need an account for any of this today. We are going to read OSF the way a reviewer or a sceptical reader would, starting with this paper's own trail.
@@ -3681,12 +3730,23 @@ Two sentences to take away. From the Multi100 paper: single-path analyses should
 
 ## A single analytical path is a choice
 
-::: {.none .fs-140}
-- There is no privileged single analytical path – only justifiable ones, explored openly.
-- You made one justifiable choice today – transparently, with a reason, inside a multiverse.
-- This is a skill.
-- And that was the workshop.
+:::: {.none .fs-120}
+::: {.fragment .fadeInUp}
+There is no privileged single analytical path – only justifiable ones, explored openly.
 :::
+
+::: {.fragment .fadeInUp}
+You made one justifiable choice today – transparently, with a reason, inside a multiverse.
+:::
+
+::: {.fragment .fadeInUp}
+This is a skill.
+:::
+
+::: {.fragment .fadeInUp}
+And that was the workshop.
+:::
+::::
 
 ::: fragment
 ::: {.urlbox}
