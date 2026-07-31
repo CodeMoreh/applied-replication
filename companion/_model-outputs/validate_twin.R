@@ -75,8 +75,8 @@ out_file <- if (identical(twin_file, TWIN_DEFAULT)) {
 } else {
   f <- file.path("companion/_model-outputs",
                  paste0("twin_validation_", tools::file_path_sans_ext(basename(twin_file)), ".csv"))
-  cat("NOTE: non-default twin, writing to", f, "and leaving the canonical table alone
-")
+  cat("NOTE: non-default twin, writing to", f,
+      "and leaving the canonical table alone\n")
   f
 }
 
