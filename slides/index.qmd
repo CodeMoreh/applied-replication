@@ -265,20 +265,31 @@ That handover is the whole enterprise. Everything today is about whether it work
 Start with the obvious question that nobody asks out loud. What are we actually doing? We are making claims about the world – claims that could turn out to be wrong, and that come with some statement of how we would find out. And crucially, a claim is not a private possession. You publish it so that other people can check it, use it, argue with it, and build on top of it. That handover is not an administrative afterthought; it is the entire enterprise. A finding nobody else can examine is not a contribution, it is an assertion. So when we ask today whether social science is in trouble, the question is really quite specific: does the handover work? Can someone else pick your finding up and do anything with it?
 :::
 
-## Three findings that made people nervous {.smaller}
+## Three arguments that made people nervous {.smaller}
 
 ::: {.small}
-- Give researchers ordinary, defensible flexibility – which cases to drop, which covariates to keep, when to stop collecting – and a **false-positive rate of 5% becomes over 60%** [@SimmonsEtAl2011FalsePositivePsychology]
-- No fraud required: with a **garden of forking paths**, choices made *in response to the data* invalidate the p-value even when the analyst runs only one test [@GelmanLoken2014StatisticalCrisisScience]
+- **The theory, 2005.** With small studies, small true effects, flexible designs and many teams chasing the same question, most published findings in a field can be false with nobody breaking any rules [@Ioannidis2005WhyMostPublished]
+- **The demonstration, 2011.** Give researchers only the flexibility they legitimately have – which cases to drop, which covariates to keep, when to stop collecting – and a **false-positive rate of 5% becomes over 60%** [@SimmonsEtAl2011FalsePositivePsychology]
+- **The subtlety, 2014.** You do not need many tests. In a **garden of forking paths**, a single test *chosen after looking at the data* already has the wrong p-value [@GelmanLoken2014StatisticalCrisisScience]
+:::
+
+::: notes
+Three arguments, in order of how uncomfortable they are. Ioannidis in 2005 made the theoretical case: put together small studies, small true effects, flexible designs and lots of teams chasing the same question, and you can show that most published findings in a field will be false without anybody breaking a single rule. Then Simmons, Nelson and Simonsohn demonstrated it in practice – give researchers only the flexibility they legitimately have, and you can push a five per cent false-positive rate above sixty. They proved it by 'showing', with real participants and real statistics, that listening to a Beatles song makes you younger. And Gelman and Loken added the subtlety that I find hardest to shake: you do not have to run many tests for this to bite. If the one test you ran was chosen after you looked at the data, its p-value is already wrong.
+:::
+
+## And then people counted {.smaller}
+
+::: {.small}
+- **100 psychology experiments**, replicated with high power and the original materials: **97%** of the originals were significant, **36%** of the replications were, and effect sizes roughly **halved** [@OpenScienceCollaboration2015EstimatingReproducibilityPsychological]
 - **161 researchers, 73 teams, one hypothesis** on immigration and support for social policy: **1,253** models, and no convergence on either sign or significance [@BreznauEtAl2022ObservingManyResearchers]
 :::
 
 ::: {.fragment .small}
-Three different literatures, one uncomfortable conclusion: the finding depends on the finder.
+Different fields, different designs, one uncomfortable conclusion: **the finding depends on the finder.**
 :::
 
 ::: notes
-Three findings, from three different corners, that between them made the field nervous. The first is Simmons, Nelson and Simonsohn: they showed that if you give researchers only the flexibility they legitimately have – which observations to exclude, which covariates to include, when to stop collecting – you can push a five per cent false-positive rate above sixty. They demonstrated it by 'proving', with real participants and real statistics, that listening to a Beatles song makes you younger. The second is Gelman and Loken's point, and it is subtler: you do not need to run many tests. If your single test was chosen after looking at the data, the p-value is already wrong. And the third is closest to home – a sociological many-analyst study, seventy-three teams, one hypothesis about immigration and social policy, and no agreement at all. The finding depends on the finder.
+And then people stopped arguing and counted. The Open Science Collaboration took a hundred psychology experiments and replicated them properly – high power, original materials, the original authors consulted where possible. Ninety-seven per cent of the original studies had reported a significant result. Thirty-six per cent of the replications did, and the effect sizes came back at about half the original size. That is the study that made 'replication crisis' a phrase outside methodology seminars. The second one is closest to home, because it is ours: seventy-three teams of sociologists and political scientists, one hypothesis about immigration and support for social policy, more than twelve hundred models between them, and no agreement on the sign, let alone the significance. Different fields, different designs, and the same uncomfortable conclusion. The finding depends on the finder.
 :::
 
 ## It is not mostly fraud {.smaller}
@@ -293,11 +304,15 @@ The mechanism is **ordinary and structural**:
 :::
 
 ::: {.fragment .small}
+Ask researchers anonymously, with an incentive to answer truthfully, and a **majority admit** to at least one of these practices – not fraud, the ordinary kind [@JohnEtAl2012MeasuringPrevalenceQuestionable]
+:::
+
+::: {.fragment .small}
 None of these steps requires a dishonest person. That is exactly why the problem is hard: you cannot fix it by hiring better people.
 :::
 
 ::: notes
-Now the important qualification, and I want to be emphatic about it. This is not mostly a story about fraud. Fraud exists and it is spectacular when it surfaces, but it is rare and it is not what these numbers are measuring. The mechanism is ordinary and it is structural. Journals want novel, clean, significant results, so that is what gets submitted. Every analysis contains dozens of small, individually defensible choices, and the analyst makes them while looking at the data, because how else would you make them. Nobody writes up the twelve specifications that did not work, so the reader sees one path through a garden with hundreds. And in most cases neither the data nor the code are available, so nobody can check any of it. Not one of those steps requires a bad actor. Which is exactly why the problem is hard – you cannot solve it by hiring better people.
+Now the important qualification, and I want to be emphatic about it. This is not mostly a story about fraud. Fraud exists and it is spectacular when it surfaces, but it is rare and it is not what these numbers are measuring. The mechanism is ordinary and it is structural. Journals want novel, clean, significant results, so that is what gets submitted. Every analysis contains dozens of small, individually defensible choices, and the analyst makes them while looking at the data, because how else would you make them. Nobody writes up the twelve specifications that did not work, so the reader sees one path through a garden with hundreds. And in most cases neither the data nor the code are available, so nobody can check any of it. John, Loewenstein and Prelec went and asked researchers directly, anonymously, with a mechanism designed to make truthful answers worth giving – and a majority admitted to at least one of these practices. Not one of those steps requires a bad actor. Which is exactly why the problem is hard: you cannot solve it by hiring better people.
 :::
 
 ## 'Replication' crises
@@ -369,7 +384,7 @@ The glossary is worth reading slowly, because it separates two things we routine
 :::
 
 ::: {.fragment .small}
-Each one removes a specific obstacle. None of them is a general-purpose guarantee.
+Each one removes a specific obstacle. None of them is a general-purpose guarantee. The programme, set out at length: [@MunafoEtAl2017ManifestoReproducibleScience]
 :::
 
 ::: notes

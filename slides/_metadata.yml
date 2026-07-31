@@ -8,8 +8,12 @@ author: "Chris Moreh"
 event: "Applied replication for data skills · a CodeMoreh workshop"
 
 # Citations resolve against the project bibliography; rendered citations link
-# to the scrollable References slide at the end of the deck.
-bibliography: ../references.bib
+# to the scrollable References slide at the end of the deck. references-new.bib
+# is the staging file for entries not yet in the facilitator's Zotero library –
+# once they are imported and moved into references.bib, this second entry can go.
+bibliography:
+  - ../references.bib
+  - ../references-new.bib
 link-citations: true
 
 format:
