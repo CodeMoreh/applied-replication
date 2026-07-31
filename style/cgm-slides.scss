@@ -19,6 +19,7 @@ $orange:         #E69F00 !default;
 $green:          #009E73 !default;
 $d-red:          #a10000;            /* dark red */
 $vd-red:         #400000;            /* very dark red */
+$burgundy:       #7b2038;            /* optional-run badge (nav readout) */
 $ncl-blue:       #0e3b6a;
 $grey:           #848c94 !default;
 $dark-grey:      #485153 !default;
@@ -1096,57 +1097,63 @@ span.src {
 
 .toolgrid .grouphead:first-child { margin-top: 0; }
 
-/* Optional-depth slides: the tutorial runs that may be walked or skipped on
-   the day depending on the room. The marker rides INLINE on the heading
-   rather than in an absolutely-positioned pseudo-element: reveal keeps
-   adjacent slides in the DOM, and an absolute badge anchors to the deck
-   container, so every optional slide in the DOM stacked its badge in the
-   same corner and the top one was clipped by the viewport. */
-.deepdive h2::after {
-  content: " · optional depth";
-  font-size: 0.34em;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: #b6bcc3;
-  white-space: nowrap;
-  vertical-align: 0.35em;
-}
+/* Optional-depth slides carry no marker in their title. The badge on the
+   navigation readout says so instead, which also covers the slides that are
+   NOT optional - a title-tag can only ever say "this one is", never "this one
+   is not", and the facilitator needs both. See slides/nav-tools.html. */
 
 /* ------------------------------------------------------------------ *
    Front-of-room navigation chrome (see slides/nav-tools.html)
  * ------------------------------------------------------------------ */
 
-/* Position readout, bottom-centre. Names the part rather than counting to
-   141, because a bare count tells a facilitator nothing about where they are. */
+/* Position readout, top-right, in the margin the verticator dots used to
+   occupy. Two lines: where you are, and which version of the deck is on the
+   projector. It names the part rather than counting to 146, because a bare
+   count tells a facilitator nothing about where they are. */
 #nav-readout {
   position: fixed;
-  bottom: 1.15em;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0.6em;
+  right: 1.1em;
   z-index: 40;
   display: flex;
-  gap: 0.55em;
-  align-items: baseline;
-  font-size: 0.62rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.22em;
+  font-size: 0.82rem;
   letter-spacing: 0.04em;
+  line-height: 1.15;
   color: #9aa2aa;
   pointer-events: none;
+  text-align: right;
+
+  .nr-pos, .nr-mode {
+    display: flex;
+    gap: 0.5em;
+    align-items: baseline;
+  }
 
   .np { font-weight: 700; color: $ncl-blue; }
   .nv { color: #6b737b; }
   .nt { color: #b6bcc3; }
-  .nd {
+  .nrun { color: #6b737b; font-weight: 700; }
+
+  /* The mode badge is always present, because a marker that only ever says
+     "this slide is optional" leaves the facilitator guessing on every slide
+     that is not. Green = the full deck. Burgundy = full deck, and this slide
+     belongs to an optional run. Amber = the optional runs are switched off. */
+  .badge {
     color: #fff;
-    background: $orange;
     border-radius: 0.25em;
-    padding: 0 0.4em;
+    padding: 0.05em 0.45em;
     font-weight: 700;
+    text-transform: lowercase;
+    letter-spacing: 0.05em;
+
+    &.extended { background: $green; }
+    &.optional { background: $burgundy; }
+    &.lean     { background: $orange; }
   }
 }
-
-/* The optional-depth tag on a heading. Dimmed to nothing when the runs are
-   hidden, so a lean deck carries no orphan labels. */
-body.depth-off .deepdive h2::after { content: ""; }
 
 #nav-toast {
   position: fixed;
@@ -1217,4 +1224,12 @@ body.depth-off .deepdive h2::after { content: ""; }
 
     &:hover { color: $orange !important; border-bottom-color: $orange; }
   }
+}
+
+/* The readout is chrome for content slides. On the title slide, the dark part
+   dividers and the break slides it would sit grey-on-navy next to the brand
+   mark, so it steps out of the way there. */
+.reveal:has(.slides section.present.darkslide) #nav-readout,
+.reveal:has(.slides section.present.title-slide) #nav-readout {
+  opacity: 0;
 }

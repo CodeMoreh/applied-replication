@@ -95,6 +95,36 @@
       });
   }
 
+  /* The optional runs, as runs rather than as 35 loose slides: consecutive
+     .deepdive siblings in document order form one tutorial, so a slide can
+     report "2/12" - where it sits inside its own run - and not merely that it
+     is optional. Computed once; the DOM order never changes. */
+  var runs = null;
+  function optionalRuns() {
+    if (runs) return runs;
+    runs = [];
+    var leaves = Array.prototype.slice.call(
+      document.querySelectorAll(".reveal .slides section"))
+      .filter(function (s) { return !s.querySelector("section"); });
+    var cur = null;
+    leaves.forEach(function (s) {
+      if (s.classList.contains("deepdive")) {
+        if (!cur) { cur = []; runs.push(cur); }
+        cur.push(s);
+      } else cur = null;
+    });
+    return runs;
+  }
+
+  function runPosition(slide) {
+    var rs = optionalRuns();
+    for (var i = 0; i < rs.length; i++) {
+      var k = rs[i].indexOf(slide);
+      if (k > -1) return { n: k + 1, of: rs[i].length };
+    }
+    return null;
+  }
+
   function updateReadout() {
     if (!window.Reveal || !Reveal.isReady || !Reveal.isReady()) return;
     var el = document.getElementById("nav-readout");
@@ -117,12 +147,28 @@
       }) : [];
     var vPos = inPart.indexOf(cur) + 1;
 
-    var name = stackName(i.h);
+    /* Second line: which version of the deck is on the projector, and - when
+       the slide on screen belongs to an optional run - where inside it. */
+    var mode, runTxt = "";
+    if (!depthOn) {
+      mode = "lean";
+    } else if (cur && cur.classList.contains("deepdive")) {
+      mode = "optional";
+      var rp = runPosition(cur);
+      if (rp) runTxt = '<span class="nrun">' + rp.n + "/" + rp.of + "</span>";
+    } else {
+      mode = "extended";
+    }
+
     el.innerHTML =
-      '<span class="np">' + name + "</span>" +
-      (inPart.length ? '<span class="nv">' + vPos + "/" + inPart.length + "</span>" : "") +
-      '<span class="nt">' + (overall > 0 ? overall : "?") + "/" + all.length + "</span>" +
-      (depthOn ? "" : '<span class="nd">lean</span>');
+      '<div class="nr-pos">' +
+        '<span class="np">' + stackName(i.h) + "</span>" +
+        (inPart.length ? '<span class="nv">' + vPos + "/" + inPart.length + "</span>" : "") +
+        '<span class="nt">' + (overall > 0 ? overall : "?") + "/" + all.length + "</span>" +
+      "</div>" +
+      '<div class="nr-mode">' +
+        '<span class="badge ' + mode + '">' + mode + "</span>" + runTxt +
+      "</div>";
   }
 
   /* ---- jump bar ------------------------------------------------------- */

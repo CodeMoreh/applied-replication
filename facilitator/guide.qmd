@@ -84,20 +84,25 @@ You are two hours behind the room all day: the room's 10:00 start is your 08:00.
 | Key | What it does |
 |---|---|
 | space · right arrow · clicker | next slide. **Always exactly one slide** – the deck is in linear mode on purpose, so nothing a clicker sends can skip a segment |
-| **`d`** | show or hide **all optional-depth slides**, live. Hidden slides leave the deck entirely: every key skips them and the slide count drops from 146 to 111. A banner confirms which state you are in |
+| **`d`** | switch between the **extended** and the **lean** deck, live. In lean mode the optional slides leave entirely: every key skips them and the count drops from 146 to 111 |
 | **`]`** and **`[`** | jump to the **next / previous part**. Four parts, four jumps |
 | **`g`** | **jump bar**: type a few letters of any slide title, press Enter |
-| **`m`** | reveal's own **menu**, grouped by part, with every slide title listed |
 | **`s`** | speaker view (notes, timer, next slide) |
 | **`f`** · **`esc`** | fullscreen · slide overview |
 
-Two more things worth knowing.
+**The readout, top right.** Two lines. The first names the part and gives both positions – `PART 3 · 8/24 · 90/146`. The second is a badge that is always present, so the state of the deck is never a guess:
 
-**Opening the lean deck directly.** Add `?depth=0` to the address and the optional runs are gone before the first slide appears – useful if you already know the room. Without it the deck opens complete. If you open a link to a slide that is hidden in lean mode, you land on the slide the run lets out onto, not on a blank.
+| Badge | Means |
+|---|---|
+| green **extended** | the full deck, and this slide is part of the main flow |
+| burgundy **optional** | the full deck, and this slide belongs to an optional run. The figure beside it is your position inside that run – `3/12` |
+| amber **lean** | the optional runs are switched off |
 
-**The escape hatch on screen.** The first slide of each optional run carries a small grey link at the top right saying how many slides the run costs and where it lets out. Clicking it jumps straight there, which is the mouse equivalent of `d` for one run rather than all three.
+The readout steps aside on the title slide, the part dividers and the break slides, where it would sit over the dark background beside the brand mark.
 
-**The readout along the bottom** names the part, your position inside it, and your position in the whole deck – `PART 3 · 8/24 · 90/146`. In lean mode it adds an orange `lean` badge, so you can never be unsure which version is on the projector.
+**Opening the lean deck directly.** Add `?depth=0` to the address and the optional runs are gone before the first slide appears – useful if you already know the room. Without it the deck opens complete. If you follow a link to a slide that is hidden in lean mode, you land on the slide the run lets out onto, not on a blank.
+
+**The escape hatch on screen.** The first slide of each optional run carries a small grey link at the top right saying how many slides the run costs and where it lets out. Clicking it jumps straight there, which is the mouse equivalent of `d` for one run rather than all of them.
 
 ### Part 1 – Why any of this, and with what tools (90′)
 

@@ -44,13 +44,11 @@ format:
       data-transition-speed: "default"
     history: false
     controls: true
-    # The menu plugin's slide list is grouped by horizontal stack, which in
-    # this deck is one group per part - the fastest way to cross 141 slides.
-    # Press M.
-    menu:
-      side: left
-      numbers: true
-      useTextContentForMissingTitles: true
+    # Off: its hamburger button sits bottom-left, on top of the brand mark.
+    # `g` (slides/nav-tools.html) does the same job without a button. To bring
+    # the menu back WITHOUT the button, replace `menu: false` with:
+    #   menu: {side: left, numbers: true, openButton: false}
+    menu: false
     incremental: true
     controls-back-arrows: faded
     slide-number: false          # nav-tools.html prints a named readout instead
@@ -74,20 +72,24 @@ format:
     reference-location: document
     smaller: false
     scrollable: false
-    verticator:
-      themetag: 'h1'
-      color: ''
-      inversecolor: ''
-      skipuncounted: false
-      clickable: true
-      position: 'auto'
-      offset: '3vmin'
-      autogenerate: true
-      tooltip: false
-      scale: 1
+    # The verticator dot column is off: with up to 36 slides in a part it was a
+    # dense stripe rather than a position cue, and the named readout in
+    # slides/nav-tools.html replaces it. Uncomment this block AND the plugin
+    # entry below to bring it back.
+    # verticator:
+    #   themetag: 'h1'
+    #   color: ''
+    #   inversecolor: ''
+    #   skipuncounted: false
+    #   clickable: true
+    #   position: 'auto'
+    #   offset: '3vmin'
+    #   autogenerate: true
+    #   tooltip: false
+    #   scale: 1
 
 revealjs-plugins:
-  - verticator
+  # - verticator      # see the commented config block above
 
 filters:
   - highlight-text
