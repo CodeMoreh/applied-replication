@@ -77,7 +77,27 @@ Times in the block tables are block-relative: 0:00 is the start of that block. T
 
 You are two hours behind the room all day: the room's 10:00 start is your 08:00. Everything you post in chat should carry the Romanian clock, because that is the one the summer school published.
 
-**Three stretches of the deck are optional depth**, bracketed in the source by `DEEP DIVE START` / `DEEP DIVE END` comments and marked on screen: the R tutorial (Part 2, 11 slides), the methodological tutorial (Part 3, 12 slides) and the multiverse tutorial (Part 4, 8 slides). Decide on the day how much of each the room wants. The timings below assume you walk roughly half of each; walking all three in full costs about 25 minutes you do not have, and skipping all three entirely leaves the hands-on tasks with more room than they need.
+**Three stretches of the deck are optional depth**, marked on screen and skippable in one keystroke: the R tutorial (Part 2, 10 slides), the methodological tutorial (Part 3, 12 slides) and the multiverse tutorial (Part 4, 8 slides). Five slides in Part 1's tools segment carry the same mark. Decide on the day how much of each the room wants. The timings below assume you walk roughly half of each; walking all three in full costs about 25 minutes you do not have, and skipping all three entirely leaves the hands-on tasks with more room than they need.
+
+### Driving 146 slides {#deck-navigation}
+
+| Key | What it does |
+|---|---|
+| space · right arrow · clicker | next slide. **Always exactly one slide** – the deck is in linear mode on purpose, so nothing a clicker sends can skip a segment |
+| **`d`** | show or hide **all optional-depth slides**, live. Hidden slides leave the deck entirely: every key skips them and the slide count drops from 146 to 111. A banner confirms which state you are in |
+| **`]`** and **`[`** | jump to the **next / previous part**. Four parts, four jumps |
+| **`g`** | **jump bar**: type a few letters of any slide title, press Enter |
+| **`m`** | reveal's own **menu**, grouped by part, with every slide title listed |
+| **`s`** | speaker view (notes, timer, next slide) |
+| **`f`** · **`esc`** | fullscreen · slide overview |
+
+Two more things worth knowing.
+
+**Opening the lean deck directly.** Add `?depth=0` to the address and the optional runs are gone before the first slide appears – useful if you already know the room. Without it the deck opens complete. If you open a link to a slide that is hidden in lean mode, you land on the slide the run lets out onto, not on a blank.
+
+**The escape hatch on screen.** The first slide of each optional run carries a small grey link at the top right saying how many slides the run costs and where it lets out. Clicking it jumps straight there, which is the mouse equivalent of `d` for one run rather than all three.
+
+**The readout along the bottom** names the part, your position inside it, and your position in the whole deck – `PART 3 · 8/24 · 90/146`. In lean mode it adds an orange `lean` badge, so you can never be unsure which version is on the projector.
 
 ### Part 1 – Why any of this, and with what tools (90′)
 

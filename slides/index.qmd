@@ -1971,11 +1971,15 @@ And here is the graph you will finish yourselves. The solid part is what we are 
 :::
 
 
-<!-- DEEP DIVE START: R tutorial (11 slides). To skip it on the day, comment
+<!-- DEEP DIVE START: R tutorial (10 slides). To skip it on the day, comment
      out the region between this marker and DEEP DIVE END. Every slide in the
      run also carries the .deepdive class. -->
 
 ## R, in one slide {.smaller .deepdive}
+
+::: {.skiplink}
+[10 optional slides · skip to Hands-on 2 →](#hands-on-2-meet-the-panel-draw-the-graph)
+:::
 
 ```{.r code-line-numbers="|1|3|5|7"}
 x <- 42                          # <- assigns. "x gets 42"
@@ -2412,6 +2416,10 @@ Two ground rules before you touch the menu. First, one deviation: change one axi
 
 ## Six ways to say 'EU framing' {.smaller .deepdive}
 
+::: {.skiplink}
+[12 optional slides · skip to Hands-on 4 →](#hands-on-4-work-the-menu)
+:::
+
 ::: {.small}
 | Scale | Items | Claim predicts |
 |---|---|---|
@@ -2771,6 +2779,10 @@ Look at what you just did. You ran three or four specifications, every one of th
      comment out the region between this marker and DEEP DIVE END. -->
 
 ## Where the idea comes from {.smaller .deepdive}
+
+::: {.skiplink}
+[8 optional slides · skip to the class chart →](#the-class-multiverse)
+:::
 
 ::: {.small}
 - **Multiverse analysis** [@SteegenEtAl2016IncreasingTransparencyMultiverse] – born from *data-processing* choices: how you code, exclude and combine. Report the whole set of datasets your choices could have produced

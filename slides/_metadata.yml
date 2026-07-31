@@ -44,13 +44,26 @@ format:
       data-transition-speed: "default"
     history: false
     controls: true
-    menu: false
+    # The menu plugin's slide list is grouped by horizontal stack, which in
+    # this deck is one group per part - the fastest way to cross 141 slides.
+    # Press M.
+    menu:
+      side: left
+      numbers: true
+      useTextContentForMissingTitles: true
     incremental: true
     controls-back-arrows: faded
-    slide-number: false          # verticator handles position instead
+    slide-number: false          # nav-tools.html prints a named readout instead
     preview-links: true
     embed-resources: false
+    # The deck's four parts ARE four horizontal reveal stacks, so 'vertical'
+    # here (reveal's default mode) would put part-to-part jumps on the left and
+    # right arrows. It is kept LINEAR instead, because a presentation clicker
+    # sends the right arrow and a clicker that skips a whole part mid-sentence
+    # is not a feature. Part jumps live on [ and ] instead
+    # (slides/nav-tools.html), which nothing fires by accident.
     navigation-mode: linear
+    include-after-body: nav-tools.html
     controls-layout: bottom-right
     controls-tutorial: true
     toc: false

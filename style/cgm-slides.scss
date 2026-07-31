@@ -1111,3 +1111,110 @@ span.src {
   white-space: nowrap;
   vertical-align: 0.35em;
 }
+
+/* ------------------------------------------------------------------ *
+   Front-of-room navigation chrome (see slides/nav-tools.html)
+ * ------------------------------------------------------------------ */
+
+/* Position readout, bottom-centre. Names the part rather than counting to
+   141, because a bare count tells a facilitator nothing about where they are. */
+#nav-readout {
+  position: fixed;
+  bottom: 1.15em;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  display: flex;
+  gap: 0.55em;
+  align-items: baseline;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  color: #9aa2aa;
+  pointer-events: none;
+
+  .np { font-weight: 700; color: $ncl-blue; }
+  .nv { color: #6b737b; }
+  .nt { color: #b6bcc3; }
+  .nd {
+    color: #fff;
+    background: $orange;
+    border-radius: 0.25em;
+    padding: 0 0.4em;
+    font-weight: 700;
+  }
+}
+
+/* The optional-depth tag on a heading. Dimmed to nothing when the runs are
+   hidden, so a lean deck carries no orphan labels. */
+body.depth-off .deepdive h2::after { content: ""; }
+
+#nav-toast {
+  position: fixed;
+  bottom: 2.6em;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  background: rgba(14, 59, 106, 0.94);
+  color: #fff;
+  padding: 0.35em 0.9em;
+  border-radius: 0.3em;
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  opacity: 0;
+  transition: opacity 0.18s;
+
+  &.on { opacity: 1; }
+}
+
+/* Jump bar: type a few letters of a slide title, press Enter. */
+#nav-jump {
+  position: fixed;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 70;
+  width: min(46rem, 82vw);
+  background: #fff;
+  border-radius: 0.4em;
+  box-shadow: 0 6px 34px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+
+  input {
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid $ncl-blue;
+    padding: 0.7em 0.9em;
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+  }
+
+  ul { list-style: none; margin: 0; padding: 0.2em 0; max-height: 55vh; overflow-y: auto; }
+
+  li {
+    padding: 0.3em 0.9em;
+    font-size: 0.8rem;
+    cursor: pointer;
+    color: #2b333b;
+
+    b { color: #b6bcc3; font-weight: 700; margin-right: 0.5em; }
+    &.sel, &:hover { background: #eef3f8; }
+  }
+}
+
+/* The escape hatch at the top of each optional-depth run: how many slides it
+   costs and where it lets out. Sits above the content, quiet until hovered. */
+.skiplink {
+  text-align: right;
+  font-size: 0.42em;
+  letter-spacing: 0.03em;
+  margin: -0.6em 0 0.4em 0;
+
+  a {
+    color: #9aa2aa !important;
+    border-bottom: 1px dotted #c7ccd2;
+    text-decoration: none;
+
+    &:hover { color: $orange !important; border-bottom-color: $orange; }
+  }
+}

@@ -1,0 +1,222 @@
+<script>
+/* ------------------------------------------------------------------ *
+   Navigating a 141-slide deck from the front of a room.
+
+   Three things live here, none of which reveal.js gives you by default.
+
+   1. OPTIONAL DEPTH IS A SWITCH, NOT A LABEL. The three tutorial runs are
+      marked `.deepdive` in the source. `?depth=0` in the address opens the
+      lean deck; the `d` key toggles them live, mid-delivery. Hidden slides
+      leave the deck entirely - they are skipped by every navigation key and
+      drop out of the slide count, so the position readout stays truthful.
+
+   2. A POSITION READOUT THAT NAMES WHERE YOU ARE. "72/141" tells a
+      facilitator nothing. This prints the part, the position inside it, and
+      the position overall.
+
+   3. A JUMP BAR. `g` opens a filter box: type a few letters of any slide
+      title and press Enter.
+ * ------------------------------------------------------------------ */
+(function () {
+  var depthOn = new URLSearchParams(location.search).get("depth") !== "0";
+
+  function deepdives() {
+    return Array.prototype.slice.call(
+      document.querySelectorAll("section.deepdive"));
+  }
+
+  function applyDepth() {
+    var ready = window.Reveal && Reveal.isReady && Reveal.isReady();
+    /* Where were we? If the toggle hides the slide currently on screen, the
+       room must land somewhere sensible rather than on a blank. */
+    var here = ready ? Reveal.getCurrentSlide() : null;
+
+    deepdives().forEach(function (s) {
+      if (depthOn) s.removeAttribute("data-visibility");
+      else s.setAttribute("data-visibility", "hidden");
+    });
+    document.body.classList.toggle("depth-off", !depthOn);
+
+    if (ready) {
+      Reveal.sync();
+      if (here && here.getAttribute("data-visibility") === "hidden") {
+        /* Walk forward from the hidden slide to the first survivor, which is
+           the slide the run was going to let out onto anyway. */
+        var all = Array.prototype.slice.call(
+          document.querySelectorAll(".reveal .slides section"));
+        var i = all.indexOf(here), target = null;
+        for (var k = i + 1; k < all.length && !target; k++) {
+          if (!all[k].querySelector("section") &&
+              all[k].getAttribute("data-visibility") !== "hidden") target = all[k];
+        }
+        if (target) location.hash = "/" + target.id;
+      } else if (here) {
+        var ix = Reveal.getIndices(here);
+        Reveal.slide(ix.h, ix.v);
+      }
+    }
+    updateReadout();
+  }
+
+  /* A toast, because a toggle with no feedback is a toggle you press twice. */
+  function flash(msg) {
+    var el = document.getElementById("nav-toast");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "nav-toast";
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.classList.add("on");
+    clearTimeout(el._t);
+    el._t = setTimeout(function () { el.classList.remove("on"); }, 1400);
+  }
+
+  /* ---- position readout ---------------------------------------------- */
+
+  /* The deck's horizontal stacks are the four parts plus the front matter.
+     A stack's name is the h1 on its title slide; the front matter has none. */
+  function stackName(h) {
+    var stacks = document.querySelectorAll(".reveal .slides > section");
+    var st = stacks[h];
+    if (!st) return "";
+    var t = st.querySelector("section.level1 h1, h1");
+    if (!t) return "Opening";
+    return t.textContent.replace(/\s*[–-].*$/, "").trim();
+  }
+
+  function visibleSlides() {
+    return Array.prototype.slice.call(
+      document.querySelectorAll(".reveal .slides section"))
+      .filter(function (s) {
+        return !s.querySelector("section") &&
+               s.getAttribute("data-visibility") !== "hidden" &&
+               s.getAttribute("data-visibility") !== "uncounted";
+      });
+  }
+
+  function updateReadout() {
+    if (!window.Reveal || !Reveal.isReady || !Reveal.isReady()) return;
+    var el = document.getElementById("nav-readout");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "nav-readout";
+      document.querySelector(".reveal").appendChild(el);
+    }
+    var i = Reveal.getIndices();
+    var cur = Reveal.getCurrentSlide();
+    var all = visibleSlides();
+    var overall = all.indexOf(cur) + 1;
+
+    /* Position inside this part, counting only what is currently visible. */
+    var stacks = document.querySelectorAll(".reveal .slides > section");
+    var st = stacks[i.h];
+    var inPart = st ? Array.prototype.slice.call(
+      st.querySelectorAll("section")).filter(function (s) {
+        return s.getAttribute("data-visibility") !== "hidden";
+      }) : [];
+    var vPos = inPart.indexOf(cur) + 1;
+
+    var name = stackName(i.h);
+    el.innerHTML =
+      '<span class="np">' + name + "</span>" +
+      (inPart.length ? '<span class="nv">' + vPos + "/" + inPart.length + "</span>" : "") +
+      '<span class="nt">' + (overall > 0 ? overall : "?") + "/" + all.length + "</span>" +
+      (depthOn ? "" : '<span class="nd">lean</span>');
+  }
+
+  /* ---- jump bar ------------------------------------------------------- */
+
+  function slideTitle(s) {
+    var h = s.querySelector("h1, h2, h3");
+    return h ? h.textContent.replace(/\s*·\s*optional depth\s*$/i, "").trim()
+             : (s.id || "(untitled)");
+  }
+
+  function openJump() {
+    var box = document.getElementById("nav-jump");
+    if (box) { box.remove(); return; }
+    box = document.createElement("div");
+    box.id = "nav-jump";
+    box.innerHTML = '<input type="text" placeholder="type part of a slide title, then Enter">' +
+                    '<ul></ul>';
+    document.body.appendChild(box);
+    var input = box.querySelector("input"), list = box.querySelector("ul");
+    var items = visibleSlides().map(function (s, n) {
+      return { s: s, n: n + 1, t: slideTitle(s), part: "" };
+    });
+    function render(q) {
+      var hits = items.filter(function (it) {
+        return !q || it.t.toLowerCase().indexOf(q.toLowerCase()) > -1;
+      }).slice(0, 12);
+      list.innerHTML = hits.map(function (it, k) {
+        return '<li data-id="' + it.s.id + '"' + (k === 0 ? ' class="sel"' : "") +
+               '><b>' + it.n + "</b> " + it.t + "</li>";
+      }).join("");
+    }
+    render("");
+    input.addEventListener("input", function () { render(input.value); });
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        var sel = list.querySelector("li");
+        if (sel) { location.hash = "/" + sel.getAttribute("data-id"); }
+        box.remove(); e.preventDefault(); e.stopPropagation();
+      } else if (e.key === "Escape") { box.remove(); }
+      e.stopPropagation();
+    });
+    list.addEventListener("click", function (e) {
+      var li = e.target.closest("li");
+      if (li) { location.hash = "/" + li.getAttribute("data-id"); box.remove(); }
+    });
+    input.focus();
+  }
+
+  /* ---- wiring --------------------------------------------------------- */
+
+  function typing() {
+    var a = document.activeElement;
+    return a && /^(INPUT|TEXTAREA)$/.test(a.tagName);
+  }
+
+  /* Part-to-part jumps on their own keys rather than on the arrows.
+     reveal's 'vertical' navigation mode would put this on the right arrow,
+     but a presentation clicker sends right arrow, and a clicker that skips a
+     whole part mid-sentence is not a feature. So the forward keys stay
+     strictly linear and the part jump gets its own bracket keys. */
+  function jumpPart(delta) {
+    var i = Reveal.getIndices();
+    var stacks = document.querySelectorAll(".reveal .slides > section");
+    var h = Math.min(Math.max(i.h + delta, 0), stacks.length - 1);
+    if (h === i.h) return;
+    Reveal.slide(h, 0);
+    flash(stackName(h));
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (e.ctrlKey || e.altKey || e.metaKey || typing()) return;
+    if (e.key === "d") {
+      depthOn = !depthOn;
+      applyDepth();
+      flash(depthOn ? "optional depth: shown" : "optional depth: hidden");
+    } else if (e.key === "g") {
+      openJump();
+      e.preventDefault();
+    } else if (e.key === "]") {
+      jumpPart(1);
+    } else if (e.key === "[") {
+      jumpPart(-1);
+    }
+  });
+
+  function boot() {
+    if (!window.Reveal || !Reveal.isReady || !Reveal.isReady()) {
+      return setTimeout(boot, 60);
+    }
+    applyDepth();
+    Reveal.on("slidechanged", updateReadout);
+    updateReadout();
+  }
+  document.addEventListener("DOMContentLoaded", boot);
+  boot();
+})();
+</script>
