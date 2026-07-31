@@ -1,21 +1,25 @@
 <script>
 /* ------------------------------------------------------------------ *
-   Navigating a 141-slide deck from the front of a room.
+   Navigating a 146-slide deck from the front of a room.
 
-   Three things live here, none of which reveal.js gives you by default.
+   Four things live here, none of which reveal.js gives you by default.
 
-   1. OPTIONAL DEPTH IS A SWITCH, NOT A LABEL. The three tutorial runs are
-      marked `.deepdive` in the source. `?depth=0` in the address opens the
-      lean deck; the `d` key toggles them live, mid-delivery. Hidden slides
-      leave the deck entirely - they are skipped by every navigation key and
-      drop out of the slide count, so the position readout stays truthful.
+   1. OPTIONAL DEPTH IS A SWITCH, NOT A LABEL. The tutorial runs are marked
+      `.deepdive` in the source. `?depth=0` in the address opens the lean
+      deck; the `d` key toggles them live, mid-delivery. Hidden slides leave
+      the deck entirely - they are skipped by every navigation key and drop
+      out of the slide count, so the position readout stays truthful.
 
-   2. A POSITION READOUT THAT NAMES WHERE YOU ARE. "72/141" tells a
-      facilitator nothing. This prints the part, the position inside it, and
-      the position overall.
+   2. A POSITION READOUT THAT NAMES WHERE YOU ARE. "72/146" tells a
+      facilitator nothing. This prints the part, the position inside it, the
+      position overall, and a badge saying which version of the deck is on
+      the projector - extended, lean, or extended-and-inside-an-optional-run.
 
    3. A JUMP BAR. `g` opens a filter box: type a few letters of any slide
       title and press Enter.
+
+   4. PART JUMPS ON `[` AND `]`, deliberately not on the arrow keys - see the
+      navigation-mode comment in _metadata.yml for why.
  * ------------------------------------------------------------------ */
 (function () {
   var depthOn = new URLSearchParams(location.search).get("depth") !== "0";
@@ -175,8 +179,7 @@
 
   function slideTitle(s) {
     var h = s.querySelector("h1, h2, h3");
-    return h ? h.textContent.replace(/\s*·\s*optional depth\s*$/i, "").trim()
-             : (s.id || "(untitled)");
+    return h ? h.textContent.trim() : (s.id || "(untitled)");
   }
 
   function openJump() {
