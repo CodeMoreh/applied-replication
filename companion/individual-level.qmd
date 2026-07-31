@@ -57,7 +57,7 @@ A country-year panel cannot separate them, because it contains no people. Indivi
 
 The Eurobarometer microdata behind the case are GESIS-licensed and cannot be redistributed, so this page cannot ship the real respondents. What it ships instead is a **synthetic twin**: `EUframes_person_full.csv`, `r format(nrow(twin), big.mark = ",")` simulated respondents across the real 270 country-years, carrying every variable OA's published regressions use. No real respondent appears in it. [The simulation module](simulation.qmd) explains how it is built; the short version is that a respondent's characteristics come from a correlation structure estimated on the real file, and their answers from a model of the survey instrument conditional on those characteristics.
 
-The reason to trust a number from it is not that it was carefully built. It is that the same model was fitted to the real respondents and to the twin, and the two coefficient vectors were compared.
+What licenses a number from it is the validation rather than the care in construction: the same model was fitted to the real respondents and to the twin, and the two coefficient vectors were compared.
 
 ```{r}
 #| label: tbl-validation
@@ -121,7 +121,7 @@ tibble(
 
 So the compositional path accounts for roughly `r sprintf("%.0f%%", 100 * b_ind * grad_w / b_ctx)` of the country-level association. An effect several times the size, spread over a group that barely grows, moves the average hardly at all.
 
-One honesty note about that figure. It is computed from the twin's own coefficients, and the unemployed contrast is the twin's weakest: it comes back at `r sprintf("%.4f", b_ind)` against `r sprintf("%.4f", valid$real[valid$outcome == "cosmo" & valid$term == "sesunemployed"])` on the real respondents, the largest single discrepancy in the validation table. Using the real value the compositional share is `r sprintf("%.0f%%", 100 * valid$real[valid$outcome == "cosmo" & valid$term == "sesunemployed"] * grad_w / valid$real[valid$outcome == "cosmo" & valid$term == "munemp"])` rather than `r sprintf("%.0f%%", 100 * b_ind * grad_w / b_ctx)`. Both are small; the conclusion does not turn on which you use, and it is worth seeing a case where the twin is visibly imperfect and the argument survives anyway.
+One caution about that figure. It is computed from the twin's own coefficients, and the unemployed contrast is the twin's weakest: it comes back at `r sprintf("%.4f", b_ind)` against `r sprintf("%.4f", valid$real[valid$outcome == "cosmo" & valid$term == "sesunemployed"])` on the real respondents, the largest single discrepancy in the validation table. Using the real value the compositional share is `r sprintf("%.0f%%", 100 * valid$real[valid$outcome == "cosmo" & valid$term == "sesunemployed"] * grad_w / valid$real[valid$outcome == "cosmo" & valid$term == "munemp"])` rather than `r sprintf("%.0f%%", 100 * b_ind * grad_w / b_ctx)`. Both are small; the conclusion does not turn on which you use, and it is worth seeing a case where the twin is visibly imperfect and the argument survives anyway.
 
 This is the calculation to demand whenever an aggregate association is explained by 'it must be the people who changed'. It is rarely done, and it usually does not survive being done. Note also what it takes: an individual-level effect, *and* a prevalence gradient. The second is the part that gets assumed, and it is measurable.
 
@@ -143,7 +143,7 @@ tibble(
   mutate(estimate = signif(estimate, 3))
 ```
 
-The individual-level estimate is about half again as large, and the reason is in the last column. OA's design carries country and country-wave random intercepts but **no year effects**. Nothing in it removes a shock that hit every country at once, and 2009 was exactly that: unemployment rose everywhere and EU framing moved everywhere, for reasons that include but are not limited to unemployment. The two-way fixed-effects design removes it; hers does not, so its estimate carries some of it.
+The individual-level estimate is about half again as large, and the reason is in the last column. OA's design carries country and country-wave random intercepts but **no year effects**. Nothing in it removes a shock that hit every country at once, and 2009 was exactly that: unemployment rose everywhere and EU framing moved everywhere, for reasons that include but are not limited to unemployment. The two-way fixed-effects design removes it; OA's does not, so its estimate carries some of it.
 
 Neither is wrong. They are answers to different questions, which is the workshop's own argument arriving one level down – and it is worth noticing that the difference here is larger than most of the forks on the specification menu.
 
@@ -161,11 +161,11 @@ tibble(design = c("country-year panel", "individual"),
   mutate(across(where(is.numeric), \(x) signif(x, 3)))
 ```
 
-On the panel it is inert. At individual level it is clearly moving. An effect that exists or does not depending on which defensible design you chose is the strongest single argument for declaring the design before looking.
+On the panel it is inert. At individual level it is clearly moving. An effect that exists or does not depending on which defensible design you chose is a strong argument for declaring the design before looking.
 
 ## 6. What the levels do to the evidence {#sec-levels}
 
-The point of a multilevel model here is not the coefficient. It is the standard error, and what the model is willing to count as information.
+The multilevel structure matters here for the standard error, and for what the model is willing to count as information.
 
 ```{r}
 #| label: tbl-df
@@ -230,7 +230,7 @@ Stated plainly, because a synthetic dataset that is trusted for the wrong things
 
 Fit the model of [section 3](#sec-anchor) again with `ses` removed, and watch what happens to `munemp`. It should barely move, and the reason is [section 4](#sec-composition): the compositional path is a few per cent of the total, so deleting the variable that carries it changes little.
 
-Then do the same with `mgrowth` removed, and with the country-year random intercept removed. One of those three matters far more than the others, and finding out which – on data whose answer you can check – is worth more than being told.
+Then do the same with `mgrowth` removed, and with the country-year random intercept removed. One of those three matters far more than the others; find out which, on data whose answer you can check.
 :::
 
 ## Sources {#sec-sources}

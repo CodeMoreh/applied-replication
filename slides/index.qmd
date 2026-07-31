@@ -198,7 +198,7 @@ Work along in Positron (Route 1) or in the browser lab (Route 2) – solo or in 
 :::
 
 ::: notes
-Welcome – good to have you here. A full day, in four parts of ninety minutes. The first part is the ground floor: what we are doing when we do social science, why people say it is in crisis, what open research proposes to do about that, and – because none of it happens without software – the tools. The second part goes inside one published paper that I re-analysed myself, and asks the harder question of why five analysts of the same claim came back with five different answers. The third part is the coding-heavy one: you reproduce my submitted result, then work through the menu of choices you could have made instead. And the fourth reads what the room built, and asks how you settle on the one analysis you would actually publish.
+Welcome – good to have you here. A full day, in four parts of ninety minutes. The first part sets up everything else: what we are doing when we do social science, why people say it is in crisis, what open research proposes to do about that, and – because none of it happens without software – the tools. The second part goes inside one published paper that I re-analysed myself, and asks the harder question of why five analysts of the same claim came back with five different answers. The third part is the coding-heavy one: you reproduce my submitted result, then work through the menu of choices you could have made instead. And the fourth reads what the room built, and asks how you settle on the one analysis you would actually publish.
 :::
 
 ## Two kinds of aim {.smaller}
@@ -276,7 +276,7 @@ That handover is the whole enterprise. Everything today is about whether it work
 ::::
 
 ::: notes
-Start with the obvious question that nobody asks out loud. What are we actually doing? We are making claims about the world – claims that could turn out to be wrong, and that come with some statement of how we would find out. And crucially, a claim is not a private possession. You publish it so that other people can check it, use it, argue with it, and build on top of it. That handover is not an administrative afterthought; it is the entire enterprise. A finding nobody else can examine is not a contribution, it is an assertion. So when we ask today whether social science is in trouble, the question is really quite specific: does the handover work? Can someone else pick your finding up and do anything with it?
+Start with the obvious question that nobody asks out loud. What are we actually doing? We are making claims about the world – claims that could turn out to be wrong, and that come with some statement of how we would find out. And a claim is not a private possession. You publish it so that other people can check it, use it, argue with it, and build on top of it. That handover is the entire enterprise. A finding nobody else can examine is not a contribution, it is an assertion. So when we ask today whether social science is in trouble, the question is really quite specific: does the handover work? Can someone else pick your finding up and do anything with it?
 :::
 
 ## Three arguments that made people nervous {.smaller}
@@ -299,7 +299,7 @@ Three arguments, in order of how uncomfortable they are. Ioannidis in 2005 made 
 :::
 
 ::: {.fragment .small}
-Different fields, different designs, one uncomfortable conclusion: **the finding depends on the finder.**
+Different fields, different designs, and in both **the result turned on who ran the analysis.**
 :::
 
 ::: notes
@@ -501,7 +501,7 @@ It can still be built on a **selected sample**, a **mismeasured** construct, or 
 :::
 
 ::: {.fragment}
-Openness makes claims **checkable**. It does not make them **right**. The checking is still work, and someone still has to do it.
+Openness makes claims **checkable** rather than right, and the checking is still work someone has to do.
 :::
 ::::
 
@@ -559,7 +559,7 @@ Same four-cell map you have just learned – but now each box carries the actual
 ::: {.small}
 - **600 papers** sampled (62 journals, 2009–2018)
 - Ask the authors for data and code, then try to rerun the reported result
-- How often can we even get to the starting line?
+- How often is that even possible?
 :::
 
 ::: {.src}
@@ -570,7 +570,7 @@ Same four-cell map you have just learned – but now each box carries the actual
 First, reproducibility – the gentlest test of the three. The design in one breath: take six hundred papers, ask the authors for their data and code, and try to recompute the central reported result. Same data, same analysis: do you get the same number? Before we even ask how often that works, the first finding is about how rarely you can even start.
 :::
 
-## Most papers never reach the starting line
+## Most papers cannot be checked at all {#most-papers-never-reach-the-starting-line}
 
 ```{r}
 #| label: miske-waterfall
@@ -601,7 +601,7 @@ ggplot(mw, aes(stage, n, fill = stage)) +
 :::
 
 ::: notes
-Read it left to right. Six hundred papers sampled. Data were available for twenty-four per cent of them – for nearly three quarters there was neither data nor code. That leaves 143 papers you can actually assess. Of those, just over half reproduce precisely, and about three quarters at least approximately. Which sounds respectable – until you notice what happens if you count the papers nobody could check as failures: the overall rate falls to roughly eighteen per cent. The barrier is not arithmetic. It is access.
+Read it left to right. Six hundred papers sampled. Data were available for twenty-four per cent of them – for nearly three quarters there was neither data nor code. That leaves 143 papers you can actually assess. Of those, just over half reproduce precisely, and about three quarters at least approximately. Which sounds respectable – until you notice what happens if you count the papers nobody could check as failures: the overall rate falls to roughly eighteen per cent. The barrier is access to the data, not the arithmetic.
 :::
 
 ## Why some fields do better
@@ -623,7 +623,7 @@ Read it left to right. Six hundred papers sampled. Data were available for twent
 :::
 
 ::: notes
-And access follows policy. Where journals mandate data sharing, availability sits between about ninety and one hundred per cent; without a mandate, sixteen. Political science and economics built the habit early and are far ahead of the rest. The first quote is the paper's own conclusion – the biggest barrier was simply that the data were not there. The second quote deserves a beat of silence: "reproducibility success does not mean that the finding is correct." Reproducing a number tells you the computation was faithful. It does not tell you the claim about the world is true.
+And access follows policy. Where journals mandate data sharing, availability sits between about ninety and one hundred per cent; without a mandate, sixteen. Political science and economics built the habit early and are far ahead of the rest. The first quote is the paper's own conclusion – the biggest barrier was simply that the data were not there. The second quote is the one to remember: "reproducibility success does not mean that the finding is correct." Reproducing a number tells you the computation was faithful. It does not tell you the claim about the world is true.
 :::
 
 ## Robustness – Aczel et al. (Multi100)
@@ -676,7 +676,7 @@ So what do free, justifiable choices do to the same data? They move the answer �
 The third paper is the strictest test: not the same data analysed differently, but genuinely new data. Two hundred and seventy-four claims, each replicated to a preregistered, peer-reviewed protocol, often with the original authors consulted, and with a median statistical power of ninety-nine point six per cent. That last number matters: these studies were built so that a real effect would be very hard to miss. So whatever fails here is not failing for lack of trying.
 :::
 
-## Even success shrinks
+## Effect sizes halve even when claims replicate {#even-success-shrinks}
 
 ```{r}
 #| label: tyner-shrink
@@ -897,12 +897,12 @@ But because each of us submitted a document somebody else could **open and run**
 :::
 
 ::: {.fragment .fadeInUp}
-That is the whole case for the toolchain – and it is what you spend this afternoon doing.
+That is what the toolchain is for, and it is what you spend this afternoon doing.
 :::
 ::::
 
 ::: notes
-Two of the five worked in Stata, three in R – and within R, three different document formats: a plain script, an R Markdown file, a Quarto file. Now, the tempting reading of that column is the wrong one, so let me kill it straight away. The software did not cause the spread. There is no Stata answer and no R answer to this claim; every one of these models can be fitted in either. But here is what the column does tell you, and it is the entire case for caring about tooling. Because every one of us submitted a document that somebody else could open and run, it became possible afterwards to go and find out what actually did cause the spread. I have read all four of the others' code, line by line, and this afternoon you will work inside the same space they were working in. That is only possible because of what is in that column. So – the tools.
+Two of the five worked in Stata, three in R – and within R, three different document formats: a plain script, an R Markdown file, a Quarto file. Now, the tempting reading of that column is the wrong one, so let me kill it straight away. The software did not cause the spread. There is no Stata answer and no R answer to this claim; every one of these models can be fitted in either. But here is what the column does tell you, and it is why the tooling is worth caring about. Because every one of us submitted a document that somebody else could open and run, it became possible afterwards to go and find out what actually did cause the spread. I have read all four of the others' code, line by line, and this afternoon you will work inside the same space they were working in. That is only possible because of what is in that column. So – the tools.
 :::
 
 ## What open source buys you {.smaller}
@@ -915,7 +915,7 @@ Two of the five worked in Stata, three in R – and within R, three different do
 :::
 
 ::: {.fragment .small}
-The point is not free-as-in-beer. It is that **reproducibility has a price**, and a proprietary toolchain quietly puts that price on your reader.
+**Reproducibility has a price**, and a proprietary toolchain quietly puts that price on your reader.
 :::
 
 ::: notes
@@ -949,7 +949,7 @@ Ringed in orange: what today runs on. The rest is the map, so you know what you 
 :::
 
 ::: notes
-Here is the whole landscape on one slide, in three jobs rather than three brand families. First, something to analyse with – R, which is what we use, but Python and Julia are entirely reasonable homes for this work, and Stata and SPSS are still the default in a lot of departments. Second, somewhere to write it: Positron is what I will be driving today, RStudio is the one most of you will already know, VS Code does everything if you are willing to configure it, Jupyter is the notebook world. Third, the part people skip: publishing and sharing. Quarto turns text and code into a document; git records every version with a date; GitHub is where the repository lives so others can reach it; and OSF or Zenodo give the whole thing a permanent address with a DOI. Ringed in orange is what today runs on. The rest is the map.
+The whole set of tools fits on one slide once you sort it by job rather than by brand family. First, something to analyse with – R, which is what we use, but Python and Julia are entirely reasonable homes for this work, and Stata and SPSS are still the default in a lot of departments. Second, somewhere to write it: Positron is what I will be driving today, RStudio is the one most of you will already know, VS Code does everything if you are willing to configure it, Jupyter is the notebook world. Third, the part people skip: publishing and sharing. Quarto turns text and code into a document; git records every version with a date; GitHub is where the repository lives so others can reach it; and OSF or Zenodo give the whole thing a permanent address with a DOI. Ringed in orange is what today runs on. The rest is the map.
 :::
 
 ## Languages: what you are actually choosing {.smaller .deepdive}
@@ -990,7 +990,7 @@ Positron and RStudio are both from Posit; both are free, and RStudio is open sou
 :::
 
 ::: notes
-The editor is genuinely the least consequential choice here, so I will be quick. Positron is Posit's newer environment, built on VS Code, treating R and Python as equals – it is what I will be driving today. RStudio is still excellent and still supported, and if it is what you know, there is no reason to move. VS Code will do anything once you have configured it. Jupyter is notebook-first and Python-first. Neovim is for people who never want to touch a mouse. What matters is the trap in the second box, and it applies to every notebook-style tool including Quarto's interactive mode: you can run cells out of order, which means the output on your screen may be output that no clean run would ever produce. Restart the session and run everything, top to bottom, before you believe a number. That is a reproducibility habit, not a fussiness.
+The editor is genuinely the least consequential choice here, so I will be quick. Positron is Posit's newer environment, built on VS Code, treating R and Python as equals – it is what I will be driving today. RStudio is still excellent and still supported, and if it is what you know, there is no reason to move. VS Code will do anything once you have configured it. Jupyter is notebook-first and Python-first. Neovim is for people who never want to touch a mouse. What matters is the trap in the second box, and it applies to every notebook-style tool including Quarto's interactive mode: you can run cells out of order, which means the output on your screen may be output that no clean run would ever produce. Restart the session and run everything, top to bottom, before you believe a number.
 :::
 
 ## Plain text is the format that survives {.smaller}
@@ -1007,10 +1007,10 @@ Every one of these is a **plain text file**. You can open it in anything, diff i
 :::
 
 ::: notes
-This is the slide I would keep if I could keep only one from this segment. Four file types, in increasing order of what they hold. A dot-R file is code with comments. A markdown file is prose with no code. An R Markdown file is prose and R together, rendered into one document. And a Quarto file is the same idea, except the code can be R or Python or Julia. What they have in common is the thing that matters: every one is a plain text file. You can open it in any editor, see exactly what changed between two versions, email it, and still read it in twenty years. Compare that with a Word document holding numbers you pasted in from somewhere. It looks the same on the page, and it has no idea which number came from which line of code. That gap is where errors live.
+This is the slide I would keep if I could keep only one from this segment. Four file types, in increasing order of what they hold. A dot-R file is code with comments. A markdown file is prose with no code. An R Markdown file is prose and R together, rendered into one document. And a Quarto file is the same idea, except the code can be R or Python or Julia. What they have in common is the thing that matters: every one is a plain text file. You can open it in any editor, see exactly what changed between two versions, email it, and still read it in twenty years. Compare that with a Word document holding numbers you pasted in from somewhere. It looks the same on the page, and it has no idea which number came from which line of code. That gap is why a number you have since recomputed can still be sitting in the paper.
 :::
 
-## How a document becomes a document
+## What happens when you render {#how-a-document-becomes-a-document}
 
 ![](pics/tools/render-pipeline.png){fig-align="center" width="72%"}
 
@@ -1069,7 +1069,7 @@ We use **none of it today** – deliberately. There is a companion module on the
 Version control is the tool I have deliberately kept out of today, so let me at least name it properly. Git is a program that runs on your machine: every time you tell it to, it records a complete dated snapshot of your project, and it never forgets one. GitHub is a website that hosts those snapshots so other people can reach them – and it is worth knowing that GitHub is not the only one, there is GitLab, there is Codeberg, and your university may run its own. What does that give you that a folder full of final-version-three-really-final does not? Every past state recoverable exactly, a written reason attached to every change, a public timestamped trail of when you knew what – which, notice, is a preregistration mechanism in itself – and a way for two people to work on one file without one silently overwriting the other. There is a companion module on the site.
 :::
 
-## Where data and code go to live {.smaller}
+## Where data and code are archived {#where-data-and-code-go-to-live .smaller}
 
 ::: {.toolgrid style="--cols: 4"}
 <div class="tool ours"><img src="pics/tools/osf.png" alt="OSF"><span class="name">OSF</span><span class="what">Projects, files, and registrations. Free, and where our case's trail lives.</span></div>
@@ -1273,11 +1273,11 @@ Two models, one paper, and the claim's support depends on which one you read. Th
 :::
 
 ::: {.fragment .small}
-Notice what this means for today: the sixth analyst's problem – *which defensible specification do I report?* – was **already live inside the original study**, before any of us arrived.
+For today, that matters because the sixth analyst's problem – *which defensible specification do I report?* – was **already live inside the original study**, before any of us arrived.
 :::
 
 ::: notes
-And here is something worth pausing on, because it is easy to miss and it reframes the whole exercise. Look at what happens inside OA's own paper. Model one gives the anchor result: minus point zero zero three four, t of minus four, comfortably significant. Model two, which adds further controls, takes that same coefficient, more than halves it, and loses significance. Two models, one paper, and whether the claim is supported depends on which of them you read. To be fair to OA, the paper reports both – which is more than a great many papers do. But notice what it means for us. The problem you will face this afternoon, as the sixth analyst – which of several defensible specifications do I report, and on what grounds? – was already live inside the original study, before any re-analyst was anywhere near it.
+This next point is easy to miss, and it reframes the whole exercise. Look at what happens inside OA's own paper. Model one gives the anchor result: minus point zero zero three four, t of minus four, comfortably significant. Model two, which adds further controls, takes that same coefficient, more than halves it, and loses significance. Two models, one paper, and whether the claim is supported depends on which of them you read. To be fair to OA, the paper reports both – which is more than a great many papers do. But notice what it means for us. The problem you will face this afternoon, as the sixth analyst – which of several defensible specifications do I report, and on what grounds? – was already live inside the original study, before any re-analyst was anywhere near it.
 :::
 
 ## What we work on instead {.smaller}
@@ -1310,7 +1310,7 @@ The aggregate answers the **contextual** question directly: does a country's fra
 :::
 
 ::: notes
-Now, a practical matter with a conceptual sting in it. OA's data is Eurobarometer microdata under GESIS licence, which I am not permitted to redistribute – and, as you will see in a moment, that constraint is exactly what wrecked the first reproduction attempt on this paper. So what you get today is an aggregate I built from it and am allowed to share: two hundred and seventy country-years, one row each, with the framing scales averaged within each cell. It ships with both routes and it fits in milliseconds. The conceptual sting is on the fragment. The aggregate answers the contextual question directly – does a country's framing move when its unemployment moves. What it cannot answer is the compositional one: whether the same people are framing differently, or the mix of people has changed. If that interests you, there is a companion module on the site that takes it up on simulated individual data.
+Now, a practical matter with a conceptual point behind it. OA's data is Eurobarometer microdata under GESIS licence, which I am not permitted to redistribute – and, as you will see in a moment, that constraint is exactly what wrecked the first reproduction attempt on this paper. So what you get today is an aggregate I built from it and am allowed to share: two hundred and seventy country-years, one row each, with the framing scales averaged within each cell. It ships with both routes and it fits in milliseconds. The conceptual point is on the fragment. The aggregate answers the contextual question directly – does a country's framing move when its unemployment moves. What it cannot answer is the compositional one: whether the same people are framing differently, or the mix of people has changed. If that interests you, there is a companion module on the site that takes it up on simulated individual data.
 :::
 ## Reproducibility: two attempts, two failures
 
@@ -1426,13 +1426,13 @@ Free-phase records: the public Multi100 dataset (osf.io/q5h2c) – categorical v
 :::
 
 ::: notes
-Here is the layer underneath, and it is the sharpest illustration I have of this morning's point. Multi100 ran in two phases, and this table is the first one – months before the constrained task, complete freedom. Look at what freedom produced. GDP per capita for one analyst, GDP growth for another, a whole battery of GDP measures at three levels for a third – and three of the five of us never touched the unemployment rate at all. Different outcomes too: a mean, a sum, a share, three separate shares. Five different questions, in other words. And every single one of us recorded the same verdict: evidence for the claim. Then the constrained task arrived, manufactured one common question, and the five comparable answers ran from minus point zero zero six to minus point four five. Conclusions agreed in words while the numbers disagreed by two orders of magnitude. Now, that is five people on one paper. What happens when it is twenty-nine teams?
+This is the layer underneath, and it is the sharpest illustration I have of this morning's point. Multi100 ran in two phases, and this table is the first one – months before the constrained task, complete freedom. Look at what freedom produced. GDP per capita for one analyst, GDP growth for another, a whole battery of GDP measures at three levels for a third – and three of the five of us never touched the unemployment rate at all. Different outcomes too: a mean, a sum, a share, three separate shares. Five different questions, in other words. And every single one of us recorded the same verdict: evidence for the claim. Then the constrained task arrived, manufactured one common question, and the five comparable answers ran from minus point zero zero six to minus point four five. Conclusions agreed in words while the numbers disagreed by two orders of magnitude. Now, that is five people on one paper. What happens when it is twenty-nine teams?
 :::
 
 ## Two studies to set beside our five {.smaller}
 
 ::: {.small}
-Our own case has just shown us the pattern in miniature. It was described first, and at far greater scale, somewhere else – and the two studies that did it are the ones the rest of this part rests on.
+Our own case has just shown us the pattern in miniature. It was described first, and at far greater scale, in the two studies the rest of this part rests on.
 :::
 
 :::: {.fragment}
@@ -1478,7 +1478,7 @@ The first establishes that careful people disagree. The second explains **why** 
 :::
 
 ::: notes
-Before we go further into our own case, I want to put two studies beside it – and one of them you have already met. Silberzahn and colleagues, the red-card study from this morning: twenty-nine teams, one dataset, one question, twenty intervals excluding one and nine not. There are all twenty-nine again, flattened onto a single line so you can see the shape rather than read the table. That is the study that establishes careful people disagree. The second one is new, and it is the hinge of this part. Auspurg and Brüderl, twenty twenty-one, went back through all twenty-nine of those pipelines and asked something the original had not thought to ask: what was each team actually trying to measure? So one study shows the disagreement, and the other explains it. Let me take the second one properly.
+Before we go further into our own case, I want to put two studies beside it – and one of them you have already met. Silberzahn and colleagues, the red-card study from this morning: twenty-nine teams, one dataset, one question, twenty intervals excluding one and nine not. There are all twenty-nine again, flattened onto a single line so you can see the shape rather than read the table. That is the study that establishes careful people disagree. The second one is new, and the rest of this part depends on it. Auspurg and Brüderl, twenty twenty-one, went back through all twenty-nine of those pipelines and asked something the original had not thought to ask: what was each team actually trying to measure? So one study shows the disagreement, and the other explains it. Let me take the second one properly.
 :::
 
 ## They were not answering the same question
@@ -1501,7 +1501,7 @@ The dispersion was largely a **question**-multiverse, not an analysis-multiverse
 :::
 
 ::: notes
-And here is what they found, which is the hinge of this morning: the teams were not answering one question. They found four. Some estimated the plain descriptive association. Some went after discrimination proper – the effect net of everything that legitimately explains red cards. Some built models tuned to explain variance. And some were frankly exploring. Of course the answers differed – they were answers to different questions. That reframes the crisis quite a bit: much of what looks like analytical instability is unstated disagreement about *what is being estimated*.
+And what they found is that the teams were not answering one question. They found four. Some estimated the plain descriptive association. Some went after discrimination proper – the effect net of everything that legitimately explains red cards. Some built models tuned to explain variance. And some were frankly exploring. Of course the answers differed – they were answers to different questions. That reframes the crisis quite a bit: much of what looks like analytical instability is unstated disagreement about *what is being estimated*.
 :::
 
 
@@ -1551,11 +1551,11 @@ ggplot(contrast, aes(or, grp, colour = grp)) +
 :::
 
 ::: notes
-And here is the optimistic half of the red-card story. Auspurg and Brüderl fixed one estimand – discrimination, properly defined – used a causal graph to derive every model specification consistent with it, four hundred and eighty-six of them, and ran the lot. Look what happens to the spread: standard deviation point four five in the crowd, point zero six with the question fixed. Same caveat as before – these strips are sketches from the published summary figures. The recipe we take from them is the workshop's recipe: a precise question, assumptions drawn out explicitly, then a whole multiverse rather than one path, then sensitivity analysis. And notice where the spread in the top row actually comes from – a tight cluster and two outliers, which is why the standard deviation is four times what the cluster alone would give you. Fix the question and even those go. [advance]
+This is the optimistic half of the red-card story. Auspurg and Brüderl fixed one estimand – discrimination, properly defined – used a causal graph to derive every model specification consistent with it, four hundred and eighty-six of them, and ran the lot. Look what happens to the spread: standard deviation point four five in the crowd, point zero six with the question fixed. Same caveat as before – these strips are sketches from the published summary figures. The recipe we take from them is the workshop's recipe: a precise question, assumptions drawn out explicitly, then a whole multiverse rather than one path, then sensitivity analysis. And notice where the spread in the top row actually comes from – a tight cluster and two outliers, which is why the standard deviation is four times what the cluster alone would give you. Fix the question and even those go. [advance]
 :::
 
 
-## The crisis has a crisis of its own {.smaller}
+## Has credibility been credibly destroyed? {#the-crisis-has-a-crisis-of-its-own .smaller}
 
 :::: {.none}
 Auspurg and Brüderl's title asks it directly: *has the credibility of the social sciences been credibly destroyed?*
@@ -1569,7 +1569,7 @@ It is evidence that **the question was under-specified** – an ordinary, fixabl
 :::
 
 ::: {.fragment .fadeInUp}
-So this literature is not a verdict on social science. It is a **diagnosis of vague research questions**.
+So this literature reads as a **diagnosis of vague research questions** rather than a verdict on social science.
 :::
 
 ::: {.fragment .fadeInUp}
@@ -1582,7 +1582,7 @@ More optimistic – and more demanding, because it hands the problem to whoever 
 :::
 
 ::: notes
-Now, this diagnosis has a consequence that goes well beyond the red-card study, and Auspurg and Brüderl put it in their title: has the credibility of the social sciences been credibly destroyed? Follow the logic. If the twenty-nine teams were in fact answering four different questions, then their disagreement is not evidence that data analysis is unreliable. It is evidence that the question they were handed was under-specified – and that is an ordinary, fixable defect of research design, not a crisis of method. Read that way, the whole many-analyst literature stops being a verdict on the field and becomes a diagnosis of vague research questions. I find that a considerably more optimistic reading. It is also a more demanding one, because it takes the problem away from statistics, where you could hope a better estimator would save you, and puts it back on the person writing the question. That person is you.
+Now, this diagnosis has a consequence that goes well beyond the red-card study, and Auspurg and Brüderl put it in their title: has the credibility of the social sciences been credibly destroyed? Follow the logic. If the twenty-nine teams were in fact answering four different questions, then their disagreement is not evidence that data analysis is unreliable. It is evidence that the question they were handed was under-specified – and that is an ordinary, fixable defect of research design, not a crisis of method. Read that way, the whole many-analyst literature stops being a verdict on the field and becomes a diagnosis of vague research questions. I find that a considerably more optimistic reading. It is also a more demanding one, because it takes the problem away from statistics, where you could hope a better estimator would save you, and puts it back on whoever writes the question. Today that is you.
 :::
 ## What is your estimand?
 
@@ -1747,7 +1747,7 @@ The data look identical in all four. Only an assumption about *how the data aros
 :::
 
 ::: notes
-Here is a strong correlation – r of about nought point six. Before you reach for a model, sit with an uncomfortable fact: this single number is consistent with at least four different stories. Maybe X really does cause Y, and the slope is the effect. Maybe a common cause is inflating it. Maybe we are quietly looking at a selected sample, and the association is an artefact of who got in. Maybe Y causes X, or it is simply chance. The data cannot choose between these – the scatter looks identical in every case. Only a claim about how the data were generated can. That claim is what a DAG writes down, and it is why we draw one before we fit anything.
+Here is a strong correlation – r of about nought point six. Before you reach for a model, consider that this single number is consistent with at least four different stories. Maybe X really does cause Y, and the slope is the effect. Maybe a common cause is inflating it. Maybe we are quietly looking at a selected sample, and the association is an artefact of who got in. Maybe Y causes X, or it is simply chance. The data cannot choose between these – the scatter looks identical in every case. Only a claim about how the data were generated can. That claim is what a DAG writes down, and it is why we draw one before we fit anything.
 :::
 
 ## Reading a DAG: open and closed paths {.smaller}
@@ -1807,7 +1807,7 @@ Association flows along **every open path**, not only along the causal arrow. A 
 A DAG is read through its paths. Association does not only travel down the causal arrow – it flows along every open path between X and Y. So the job is to work out which paths are open and shut the ones you do not want. Two rules do all the work. A path through a fork or a chain is open, and you close it by adjusting the variable in the middle – that is the red back-door fork on the left. A path through a collider is the opposite: shut by default, and you open it by adjusting. The back-door criterion just packages this: close every path that sneaks into X from behind, leave the causal X-to-Y path alone. The set that does that – and only that set – is what you are allowed to read as causal.
 :::
 
-## Which effect do you even want? {.smaller}
+## Total effect or direct effect {#which-effect-do-you-even-want .smaller}
 
 :::: {.columns}
 ::: {.column width="55%"}
@@ -1858,7 +1858,7 @@ ggplot2::ggplot(td,
 Now the question the estimand discussion was circling. Suppose M sits between your predictor and outcome. The total effect is the green arrow plus the amber route through M. The direct effect is just the green arrow. These are different numbers and different questions – and which one you get depends entirely on whether you put M in the model. Drop a mediator in as just another 'control' and you have silently switched to the direct effect without telling anyone, including yourself. This is why 'control for everything' is bad advice. And it has a famous corollary – the Table 2 fallacy: when you print a regression table, usually only one coefficient has a clean causal reading. The control variables' coefficients are not little causal effects of their own.
 :::
 
-## Spurious by design: selection & feedback {.smaller}
+## Selection and feedback {#spurious-by-design-selection-feedback .smaller}
 
 ```{r}
 #| label: selection-panel
@@ -1927,7 +1927,7 @@ patchwork::wrap_plots(p_sel, p_clp, nrow = 1)
 :::
 
 ::: notes
-Two last ways a relationship can be spurious, both of which live in our case. The first is selection, or collider bias. If you condition on – or merely sample on – something that both your variables cause, you manufacture a correlation out of nothing. A lot of the early COVID risk-factor findings were exactly this: conclusions drawn from people who had been tested, which is a selected group. The second is reverse causation and feedback. Our data are a panel, and in a panel today's outcome can feed tomorrow's predictor. Two-way fixed effects – which is the model we are about to draw – soak up stable differences between countries and shocks common to a year. They do not, on their own, fix a time-varying confounder or a feedback loop. Keep that in mind when we build the graph for our own paper.
+Two last ways a relationship can be spurious, and both of them apply to our case. The first is selection, or collider bias. If you condition on – or merely sample on – something that both your variables cause, you manufacture a correlation out of nothing. A lot of the early COVID risk-factor findings were exactly this: conclusions drawn from people who had been tested, which is a selected group. The second is reverse causation and feedback. Our data are a panel, and in a panel today's outcome can feed tomorrow's predictor. Two-way fixed effects – which is the model we are about to draw – soak up stable differences between countries and shocks common to a year. They do not, on their own, fix a time-varying confounder or a feedback loop. Keep that in mind when we build the graph for our own paper.
 :::
 
 ## *Revenons à nos moutons*
@@ -1970,10 +1970,10 @@ Because the graph does three jobs that survive the loss of identification:
 :::
 
 ::: notes
-Let me be blunt about where we stand. This is an observational panel of twenty-seven countries. Nobody assigned unemployment to anyone. The variables plausibly feed back into each other over time, and the whole decade is shot through with shocks that hit everybody at once. Nothing in that design licenses the sentence "unemployment causes a shift in EU framing". So why are we about to spend half an hour on causal graphs? Because the graph does three jobs that survive perfectly well without identification. It says which association you are actually after – the total effect, say, rather than whatever the software happens to return. It tells you which variables belong in your model, and just as usefully which do not. And it puts your assumptions on paper where a reader can disagree with a specific arrow. That last one is the real prize: an argument about an arrow is a productive argument, and an argument about a coefficient usually is not.
+Let me be blunt about where we stand. This is an observational panel of twenty-seven countries. Nobody assigned unemployment to anyone. The variables plausibly feed back into each other over time, and the whole decade is shot through with shocks that hit everybody at once. Nothing in that design licenses the sentence "unemployment causes a shift in EU framing". So why are we about to spend half an hour on causal graphs? Because the graph does three jobs that survive perfectly well without identification. It says which association you are actually after – the total effect, say, rather than whatever the software happens to return. It tells you which variables belong in your model, and just as usefully which do not. And it puts your assumptions on paper where a reader can disagree with a specific arrow. The third job is the one that pays: an argument about an arrow is productive in a way that an argument about a coefficient usually is not.
 :::
 
-## Say it in public, or it does not count {.smaller}
+## Publishing the estimand and the graph {#say-it-in-public-or-it-does-not-count .smaller}
 
 ::: {.small}
 The graph and the estimand are only worth anything if they are **written down where someone else can read them**:
@@ -1984,15 +1984,15 @@ The graph and the estimand are only worth anything if they are **written down wh
 :::
 
 ::: {.fragment .small}
-This is the thread that ties the day together. In Part 4 you write exactly that down – the estimand, the graph-based justification, the one specification, and the rule for what would count as support – and you do it **before** you see a result.
+In Part 4 you write exactly that down – the estimand, the graph-based justification, the one specification, and the rule for what would count as support – and you do it **before** you see a result.
 :::
 
 ::: {.fragment .small}
-The technical name for that is preregistration. What it really is: refusing to let the result choose the question.
+The technical name for that is preregistration, and what it does is stop the result from choosing the question.
 :::
 
 ::: notes
-And one more step, which is where the day is heading. A graph you drew and did not publish is worth almost nothing. It has to be written down where someone else can read it – in the paper, not in your head. It has to be written before the model runs, not reconstructed afterwards once you know which way the coefficient went, because a graph drawn after the fact will very reliably justify the result you already have. And the limitations have to be named by you, not discovered by a reviewer. That is the thread running through the rest of today. In part four you will write exactly that down: your estimand, your graph-based justification, the one specification you commit to, and your rule for what would count as support – and you will do it before you see a result. The technical name for it is preregistration. What it actually is, is refusing to let the result choose the question.
+And one more step, which is where the day is heading. A graph you drew and did not publish is worth almost nothing. It has to be written down where someone else can read it – in the paper, not in your head. It has to be written before the model runs, not reconstructed afterwards once you know which way the coefficient went, because a graph drawn after the fact will very reliably justify the result you already have. And the limitations have to be named by you, not discovered by a reviewer. That requirement runs through the rest of today. In part four you will write exactly that down: your estimand, your graph-based justification, the one specification you commit to, and your rule for what would count as support – and you will do it before you see a result. The technical name for it is preregistration; part four is where you do it for real.
 :::
 ## The EU-frames DAG, half built
 
@@ -2100,7 +2100,7 @@ dagify(
 ::::
 
 ::: notes
-And here is the graph you will finish yourselves. The solid part is what we are committing to: unemployment to framing is the path of interest, and country and year are the two confounder pairs – stable national traits on one side, EU-wide shocks in a given year on the other. Run `adjustmentSets()` on this graph and it answers: country and year. Which is precisely what a two-way fixed-effects model absorbs – the graph and the baseline model are the same claim, written in two languages. The three pale nodes are yours to wire up, and they are genuine decisions. Is GDP growth a time-varying confounder that fixed effects cannot reach – a slump that raises unemployment and sours sentiment in the same year? Is the bailout a mediator, in which case you leave it alone if you want the total effect? Multi100 told us to disregard politicisation – was that defensible? The code beside the picture is the same graph written as R formulas, one arrow to a line, so wiring a node up is uncommenting the line you believe and running it again to see what the adjustment set has become. Whatever you decide here becomes your model in the next task – that is the point.
+And this is the graph you will finish yourselves. The solid part is what we are committing to: unemployment to framing is the path of interest, and country and year are the two confounder pairs – stable national traits on one side, EU-wide shocks in a given year on the other. Run `adjustmentSets()` on this graph and it answers: country and year. Which is precisely what a two-way fixed-effects model absorbs – the graph and the baseline model are the same claim, written in two languages. The three pale nodes are yours to wire up, and they are genuine decisions. Is GDP growth a time-varying confounder that fixed effects cannot reach – a slump that raises unemployment and sours sentiment in the same year? Is the bailout a mediator, in which case you leave it alone if you want the total effect? Multi100 told us to disregard politicisation – was that defensible? The code beside the picture is the same graph written as R formulas, one arrow to a line, so wiring a node up is uncommenting the line you believe and running it again to see what the adjustment set has become. Whatever you decide here becomes your model in the next task.
 :::
 
 
@@ -2346,7 +2346,7 @@ Whatever you decide here becomes the model you defend in Part 3, and the justifi
 :::
 
 ::: notes
-Your turn, and this is the piece that people tell me afterwards changed how they work. Three things, in either route. First, look at the data – twenty-seven small panels, and find the countries that move sharply; that is not decoration, it is the variation your model will use. Second, write the estimand in words using the template on the page: the unit-specific quantity, the population you want it over, and how you are averaging. Write it for this claim specifically – the whole value is in being forced to be precise. Third, the graph. Take the hash off the arrows you actually believe, rerun, and watch what adjustmentSets gives back. If you add growth as a confounder it will demand something the two-way model cannot deliver, and that is a real finding about the design, not a bug in your code. Then those two sentences for your notes. Twenty minutes. Shout in chat if you get stuck.
+Your turn, and this is the piece that people tell me afterwards changed how they work. Three things, in either route. First, look at the data – twenty-seven small panels, and find the countries that move sharply, because that is the variation your model will use. Second, write the estimand in words using the template on the page: the unit-specific quantity, the population you want it over, and how you are averaging. Write it for this claim specifically – the whole value is in being forced to be precise. Third, the graph. Take the hash off the arrows you actually believe, rerun, and watch what adjustmentSets gives back. If you add growth as a confounder it will demand something the two-way model cannot deliver, and that is a real finding about the design, not a bug in your code. Then those two sentences for your notes. Twenty minutes. Shout in chat if you get stuck.
 :::
 ## Lunch {.darkslide background-color="rgba(0,0,0,0)"}
 
@@ -2366,7 +2366,7 @@ Part 3 · 90 minutes
 :::
 
 ::: notes
-Welcome back – and if you are just rejoining, the catch-up card in the chat has everything you missed. This is the coding-heavy part of the day. This morning was concepts; now we find out what those concepts cost in practice. You reproduce my submitted result, exactly, from my own code. Then we open the menu of choices I could have made instead – and there are more of them than you would guess – go through what each one actually does to the model, and then you spend the last stretch working the menu yourself. This is the part where you stop reading about analytical flexibility and start feeling it.
+Welcome back – and if you are just rejoining, the catch-up card in the chat has everything you missed. This is the coding-heavy part of the day. This morning was concepts; now we find out what those concepts cost in practice. You reproduce my submitted result, exactly, from my own code. Then we open the menu of choices I could have made instead – and there are more of them than you would guess – go through what each one actually does to the model, and then you spend the last stretch working the menu yourself. By the end of it you will have a feel for which of those choices actually move the answer.
 :::
 
 ## Task 2, in the analysts' own words {.smaller}
@@ -2400,7 +2400,7 @@ None of these is wrong. Each one is a **decision**, made for you, that a differe
 :::
 
 ::: notes
-Now unpack those three instructions, because each carries an assumption. 'The cosmopolitan dimension' takes for granted that the five items – peace, democracy, freedom of movement, cultural diversity, a stronger voice in the world – form one scale, and that averaging them is the right summary. A sum would be defensible. So would a share, or a factor score. 'The unemployment rate' assumes the claim is carried by unemployment, but the paper's own abstract says 'poor economic performances', which just as clearly names GDP growth – and in Task 1, three of the five of us used a GDP measure rather than unemployment. And 'disregard contextual variables' strips out the country-level controls, which buys you comparability across analysts and gives up any defence against a confounder that varies over time. None of these is wrong. Each is a decision, made for you, that another study could reasonably have made differently.
+Now take those three instructions apart, because each carries an assumption. 'The cosmopolitan dimension' takes for granted that the five items – peace, democracy, freedom of movement, cultural diversity, a stronger voice in the world – form one scale, and that averaging them is the right summary. A sum would be defensible. So would a share, or a factor score. 'The unemployment rate' assumes the claim is carried by unemployment, but the paper's own abstract says 'poor economic performances', which just as clearly names GDP growth – and in Task 1, three of the five of us used a GDP measure rather than unemployment. And 'disregard contextual variables' strips out the country-level controls, which buys you comparability across analysts and gives up any defence against a confounder that varies over time. None of these is wrong. Each is a decision, made for you, that another study could reasonably have made differently.
 :::
 
 ## The panel you will work on {.smaller}
@@ -2424,7 +2424,7 @@ Now unpack those three instructions, because each carries an assumption. 'The co
 :::
 
 ::: notes
-And here is the file itself, which everything from now on works from. Two hundred and seventy rows, one per country-year, twenty-seven countries over ten years. Country and year identify the cell. Mcosmo is the mean cosmopolitan framing in that cell, on a nought-to-one scale, and the other framing scales sit beside it. Unemployment and growth are the national macro indicators. And then n underscore cy, which counts how many survey respondents are behind each cell – and that is the interesting column, because those counts differ a great deal between cells. A country-year built from two thousand respondents and one built from five hundred are not equally precise, which is exactly why whether to weight by n is a live choice on the menu you are about to meet. One file, one object, all afternoon.
+And here is the file itself, which everything from now on works from. Two hundred and seventy rows, one per country-year, twenty-seven countries over ten years. Country and year identify the cell. Mcosmo is the mean cosmopolitan framing in that cell, on a nought-to-one scale, and the other framing scales sit beside it. Unemployment and growth are the national macro indicators. And then n underscore cy, which counts how many survey respondents are behind each cell – and that is the interesting column, because those counts differ a great deal between cells. A country-year built from two thousand respondents and one built from five hundred are not equally precise, which is exactly why whether to weight by n is a live choice on the menu you are about to meet. That is the only file you will need all afternoon.
 :::
 ## You are Analyst no. 6
 
@@ -2503,7 +2503,7 @@ Two were on the board in the red-card study already: its 29 teams split across *
 :::
 
 ::: notes
-Here is the menu, and it is the spine of the rest of the day. Eight axes, and every option on it is a choice a competent analyst could defend in print. Which framing scale is your outcome. Whether you model a bounded nought-to-one scale with a linear model or with something built for proportions. Whether the claim is carried by unemployment or by GDP growth, or both. Whether you take the rate raw or logged. Whether the other macro measure goes in beside it. Which of four ways you handle the fact that observations are grouped in countries and in years. Which countries and which years you keep. And whether you weight by how many people are behind each cell. The menu page has copy-paste code for every one of these, so nobody is writing R from a blank line.
+Here is the menu, and everything left in the day runs off it. Eight axes, and every option on it is a choice a competent analyst could defend in print. Which framing scale is your outcome. Whether you model a bounded nought-to-one scale with a linear model or with something built for proportions. Whether the claim is carried by unemployment or by GDP growth, or both. Whether you take the rate raw or logged. Whether the other macro measure goes in beside it. Which of four ways you handle the fact that observations are grouped in countries and in years. Which countries and which years you keep. And whether you weight by how many people are behind each cell. The menu page has copy-paste code for every one of these, so nobody is writing R from a blank line.
 :::
 
 ## What Task 2 left open {.smaller}
@@ -2684,7 +2684,7 @@ Which is why the grid holds no separate centred rows. If a robustness check vari
 :::
 
 ::: notes
-Predictor form. Raw unemployment asks what a one-point rise in the rate does. Logged unemployment asks what a proportional rise does, which is a substantively different claim: it says the step from four per cent to five matters more than the step from twenty to twenty-one, and for something like unemployment that is quite plausible. Those two are genuinely different models and they can give different answers. But now the warning, and it is the single most useful thing on this slide. Centring and standardising are not. Subtracting a mean, or dividing by a standard deviation, is an affine change of scale: it moves the coefficient and its standard error by exactly the same factor, so the t, the partial r and the p-value are untouched. That is why our grid contains no separate centred rows at all. If you see a robustness check that varies only the centring, it is not a robustness check – it is the same analysis written differently.
+Predictor form. Raw unemployment asks what a one-point rise in the rate does. Logged unemployment asks what a proportional rise does, which is a substantively different claim: it says the step from four per cent to five matters more than the step from twenty to twenty-one, and for something like unemployment that is quite plausible. Those two are genuinely different models and they can give different answers. But now the warning, which is the part of this slide worth remembering. Centring and standardising are not. Subtracting a mean, or dividing by a standard deviation, is an affine change of scale: it moves the coefficient and its standard error by exactly the same factor, so the t, the partial r and the p-value are untouched. That is why our grid contains no separate centred rows at all. If you see a robustness check that varies only the centring, it is not a robustness check – it is the same analysis written differently.
 :::
 
 ## Four ways to handle countries and years {.smaller .deepdive}
@@ -2707,7 +2707,7 @@ And it shows: of the 41 wrong-sign specifications in the cosmopolitan universe, 
 :::
 
 ::: notes
-Four estimators, and the crucial thing is that they do not answer the same question. Pooled with clustered standard errors compares countries with each other and with themselves at once, and assumes there is nothing systematically different about countries that you have not measured – which for twenty-seven European states is a strong assumption. Country fixed effects compare each country only with itself over time, which means every stable national difference drops out. Two-way fixed effects do the same and additionally soak up anything that hit all of Europe in a given year. Random effects blend the two comparisons, weighting by precision, and assume the country effects are uncorrelated with your predictor. Read the fragment carefully, because this is the substantive point: pooled asks whether high-unemployment countries frame the EU differently, and fixed effects ask whether a country frames it differently when its own rate rises. Different questions. And it shows – thirty-three of the forty-one wrong-sign specifications are pooled.
+Four estimators, and the thing to hold on to is that they do not answer the same question. Pooled with clustered standard errors compares countries with each other and with themselves at once, and assumes there is nothing systematically different about countries that you have not measured – which for twenty-seven European states is a strong assumption. Country fixed effects compare each country only with itself over time, which means every stable national difference drops out. Two-way fixed effects do the same and additionally soak up anything that hit all of Europe in a given year. Random effects blend the two comparisons, weighting by precision, and assume the country effects are uncorrelated with your predictor. Read the fragment carefully, because this is the substantive point: pooled asks whether high-unemployment countries frame the EU differently, and fixed effects ask whether a country frames it differently when its own rate rises. Different questions. And it shows – thirty-three of the forty-one wrong-sign specifications are pooled.
 :::
 
 ## What fixed effects actually buy you {.smaller .deepdive}
@@ -2733,11 +2733,11 @@ Four estimators, and the crucial thing is that they do not answer the same quest
 ::::
 
 ::: {.fragment .small}
-This is the same statement as the DAG you drew before lunch. `adjustmentSets()` on the committed graph returns country and year – exactly what two-way fixed effects absorb. **The graph and the baseline model are one claim in two languages.**
+This is the same statement as the DAG you drew before lunch. `adjustmentSets()` on the committed graph returns country and year – exactly what two-way fixed effects absorb. **The graph and the baseline model make the same claim.**
 :::
 
 ::: notes
-Worth being precise about what fixed effects buy, because they are often treated as a general-purpose cure. They absorb anything stable about a country across the decade – institutions, history, size, whatever the country already thought about the EU in 2004. And they absorb anything common to a year across all countries: the crisis itself, a treaty, a Europe-wide media cycle. What they do not touch is anything that varies within a country over time, which is precisely where the interesting confounders live – a national bailout programme, a change of government, a domestic scandal. They do nothing about reverse causation, where today's framing moves tomorrow's unemployment. And nothing about measurement error or selection. And here is the pleasing part on the fragment: run adjustmentSets on the graph you built before lunch and it returns country and year. The graph and the baseline model are the same claim written in two languages.
+Worth being precise about what fixed effects buy, because they are often treated as a general-purpose cure. They absorb anything stable about a country across the decade – institutions, history, size, whatever the country already thought about the EU in 2004. And they absorb anything common to a year across all countries: the crisis itself, a treaty, a Europe-wide media cycle. What they do not touch is anything that varies within a country over time, which is precisely where the interesting confounders are – a national bailout programme, a change of government, a domestic scandal. They do nothing about reverse causation, where today's framing moves tomorrow's unemployment. And nothing about measurement error or selection. Then the fragment: run adjustmentSets on the graph you built before lunch and it returns country and year. The graph and the baseline model are making the same claim.
 :::
 
 ## Copredictor: control, or second exposure? {.smaller .deepdive}
@@ -2755,7 +2755,7 @@ Same line of code, three different estimands. And remember the **Table 2 fallacy
 :::
 
 ::: notes
-The copredictor axis looks like the most innocuous choice on the menu and is quietly the most treacherous. If you put GDP growth into the model beside unemployment, you have made a choice, and you should be able to say which one. You might mean it as a confounder: a slump raises unemployment and sours sentiment in the same year, so adjusting for growth closes a back-door path that your fixed effects cannot reach, because it varies within country over time. Or you might mean it as a rival exposure – growth is another measure of the same poor economic performance, and you are now asking which of them carries the claim. Or, if unemployment works partly through growth, growth is a mediator and adjusting for it removes part of the very effect you set out to measure. Same line of code, three different estimands. And do not forget the Table 2 fallacy: the growth coefficient in that model is not automatically the causal effect of growth.
+The copredictor axis looks like the most innocuous choice on the menu, and it is the one that most often goes wrong. If you put GDP growth into the model beside unemployment, you have made a choice, and you should be able to say which one. You might mean it as a confounder: a slump raises unemployment and sours sentiment in the same year, so adjusting for growth closes a back-door path that your fixed effects cannot reach, because it varies within country over time. Or you might mean it as a rival exposure – growth is another measure of the same poor economic performance, and you are now asking which of them carries the claim. Or, if unemployment works partly through growth, growth is a mediator and adjusting for it removes part of the very effect you set out to measure. Same line of code, three different estimands. And do not forget the Table 2 fallacy: the growth coefficient in that model is not automatically the causal effect of growth.
 :::
 
 ## Sample: which countries, which years {.smaller .deepdive}
@@ -2893,7 +2893,7 @@ Part 4 · 90 minutes
 :::
 
 ::: notes
-Last part, and the one the whole day has been building towards. You spent the end of Part 3 trying specifications and watching the estimate move. Now we give that activity its proper name, learn to read it as a picture, and then confront the question it raises and does not answer – which of all those defensible analyses should you actually publish? That question turns out to have a serious literature and a live argument behind it, and by the end of this part you will be able to take a side in it. And then you do the thing: you settle on one analysis, declare it before you run it, and put it on the board.
+Last part, and the one the whole day has been building towards. You spent the end of Part 3 trying specifications and watching the estimate move. Now we give that activity its proper name, learn to read it as a picture, and then confront the question it raises and does not answer – which of all those defensible analyses should you actually publish? That question turns out to have a serious literature and a live argument behind it, and by the end of this part you will be able to take a side in it. And then you settle on one analysis, declare it before you run it, and put it on the board.
 :::
 
 ## You just built a small multiverse {.smaller}
@@ -3007,7 +3007,7 @@ Today's grid is a **curated 840**, chosen against both filters. That curation is
 :::
 
 ::: notes
-Now the most important slide in this run, because it is where multiverse analysis is most often done badly. A multiverse is not every analysis you could run. Two filters have to be applied before a specification is allowed in. The first is justifiability: could you defend this specification to a reviewer, in writing, before seeing what it gives? The second is that it has to estimate the same quantity you said you were after. Drop the first filter and you generate a cloud of nonsense, and since nonsense specifications produce scattered answers, any finding on earth looks fragile. Drop the second and you are averaging over answers to different questions, which is the red-card mistake reproduced at scale. Today's grid is a curated eight hundred and forty, chosen against both filters. And notice that the curation is itself an analytical decision – it is the first thing a critic should attack.
+This is where multiverse analysis is most often done badly, so it is worth slowing down. A multiverse is not every analysis you could run. Two filters have to be applied before a specification is allowed in. The first is justifiability: could you defend this specification to a reviewer, in writing, before seeing what it gives? The second is that it has to estimate the same quantity you said you were after. Drop the first filter and you generate a cloud of nonsense, and since nonsense specifications produce scattered answers, any finding on earth looks fragile. Drop the second and you are averaging over answers to different questions, which is the red-card mistake reproduced at scale. Today's grid is a curated eight hundred and forty, chosen against both filters. And notice that the curation is itself an analytical decision – it is the first thing a critic should attack.
 :::
 
 ## Enumerate, or curate? {.smaller .deepdive}
@@ -3041,7 +3041,7 @@ There is no way out of this. Either way, **the set is a claim**, and it belongs 
 So how do you build the set? Two strategies, and both have a real cost. Enumerate: cross every option on every axis mechanically. It is complete, it is reproducible, and nobody can accuse you of hand-picking. The risk is that the set fills up with specifications nobody would defend, and once it does, the spread stops meaning anything – of course the answer varies, you included analyses that are wrong. Or curate: include only the specifications you would actually defend in print. That fixes the first problem and creates a second, because now you are choosing the set, and a sceptic can reasonably ask whether you chose it to produce the picture you wanted. There is no way out of this dilemma, and I do not think you should pretend there is. Either way the set is a claim, it belongs in the paper next to the curve, and ideally it is declared before the curve is drawn.
 :::
 
-## The arithmetic gets away from you {.smaller .deepdive}
+## Multiplying the menu out {#the-arithmetic-gets-away-from-you .smaller .deepdive}
 
 ::: {.small}
 Our menu, multiplied out:
@@ -3057,7 +3057,7 @@ Two consequences. **Compute stops being free**, so somebody must decide what is 
 :::
 
 ::: notes
-And here is what happens when you multiply the menu out. Six outcomes, two predictor forms, three copredictor settings, four estimators, five samples, two weightings – minus the combinations that are not defined, like random effects with weights – and you land on eight hundred and forty distinct analyses. Add the outcome family axis and it doubles to one thousand six hundred and eighty. Add GDP growth as an alternative claim carrier and it is two and a half thousand. And if you also opened the unit of analysis, person level or aggregate, the menu arithmetic runs past five thousand. Two consequences follow. First, compute stops being free, so somebody has to decide what is worth running, and that decision is not neutral. Second, and more practically, you cannot look at two and a half thousand numbers. You need a picture, and you need a way of asking which axis is actually doing the work.
+Now multiply the menu out. Six outcomes, two predictor forms, three copredictor settings, four estimators, five samples, two weightings – minus the combinations that are not defined, like random effects with weights – and you land on eight hundred and forty distinct analyses. Add the outcome family axis and it doubles to one thousand six hundred and eighty. Add GDP growth as an alternative claim carrier and it is two and a half thousand. And if you also opened the unit of analysis, person level or aggregate, the menu arithmetic runs past five thousand. Two consequences follow. First, compute stops being free, so somebody has to decide what is worth running, and that decision is not neutral. Second, and more practically, you cannot look at two and a half thousand numbers. You need a picture, and you need a way of asking which axis is actually doing the work.
 :::
 
 ## What is a multiverse *for*? {.smaller .deepdive}
@@ -3100,7 +3100,7 @@ On this claim, the answer surprises almost everybody – which is why you are go
 :::
 
 ::: notes
-Here is the analysis that only becomes possible once you have hundreds of estimates and a record of which choices produced each one. You can turn the grid itself into a dataset – one row per analysis, the eight axes as factors, the estimate as the outcome – and decompose the variance across axes. How much of the spread does each fork account for? I think that is the most useful thing a multiverse produces, and it is much more useful than the curve itself, because it tells you where to spend your argument. An axis that moves nothing does not need defending in your paper; you can say so in a sentence and move on. An axis that moves everything needs a paragraph of justification, and probably a sensitivity analysis. On this claim the answer surprises nearly everybody, which is why in a moment I am going to make you bet on it before I show you.
+This analysis only becomes possible once you have hundreds of estimates and a record of which choices produced each one. You can turn the grid itself into a dataset – one row per analysis, the eight axes as factors, the estimate as the outcome – and decompose the variance across axes. How much of the spread does each fork account for? I think that is the most useful thing a multiverse produces, and it is much more useful than the curve itself, because it tells you where to spend your argument. An axis that moves nothing does not need defending in your paper; you can say so in a sentence and move on. An axis that moves everything needs a paragraph of justification, and probably a sensitivity analysis. On this claim the answer surprises nearly everybody, which is why in a moment I am going to make you bet on it before I show you.
 :::
 
 ## Reading a specification curve {.smaller .deepdive}
@@ -3206,7 +3206,7 @@ Type your guess – hold it – send on "go".
 Before I show you the answer, commit to a guess – you have just spent a day making these choices, so you have instincts now. Of the six menu axes, which one moves the estimates most across the whole grid? Estimator is the popular pick – fixed versus random effects is the methods seminar's favourite fight. Copredictors is another – everyone worries about growth. Type your answer, hold it, and send on go. [go; scan the chat.] Interesting spread. Most rooms bet on estimator or copredictors. Let's see.
 :::
 
-## The outcome fork carries half of everything
+## The outcome fork carries half the variance {#the-outcome-fork-carries-half-of-everything}
 
 ```{r}
 #| label: fork-importance
@@ -3247,7 +3247,7 @@ Computed over the committed data/spec_grid.csv; imported as data/fork_importance
 :::
 
 ::: notes
-The outcome fork carries essentially half of all the variation in the grid – forty-nine point seven per cent. And now look at the bottom of the chart: estimator, predictor form, copredictor and weights – the axes we argue about in seminars – together account for under two per cent. The residual block is interactions, combinations that matter beyond any single axis. One caveat, stated plainly: this decomposition is computed on the grid as estimated, before claim-alignment, so part of the outcome fork's share is the polarity split itself – positive framings falling, negative framings rising. That split is real variation in what the specifications estimate; the aligned chart removes it from the display, not from the decomposition. So the day's empirical lesson stands: *what you measure* dwarfs *how you model it*. The fixed-versus-random-effects debate, the to-weight-or-not debate – on this claim, they barely move the needle. Deciding what 'EU framing' means moves it half the distance all by itself. Whoever guessed "outcome" in the chat: take the point.
+The outcome fork carries essentially half of all the variation in the grid – forty-nine point seven per cent. And now look at the bottom of the chart: estimator, predictor form, copredictor and weights – the axes we argue about in seminars – together account for under two per cent. The residual block is interactions, combinations that matter beyond any single axis. One caveat, stated plainly: this decomposition is computed on the grid as estimated, before claim-alignment, so part of the outcome fork's share is the polarity split itself – positive framings falling, negative framings rising. That split is real variation in what the specifications estimate; the aligned chart removes it from the display, not from the decomposition. So the day's empirical lesson stands: *what you measure* dwarfs *how you model it*. The fixed-versus-random-effects debate, the to-weight-or-not debate – on this claim, they barely move the estimate. Deciding what 'EU framing' means moves it half the distance all by itself. Whoever guessed "outcome" in the chat: take the point.
 :::
 
 ## The unit of analysis does the work
@@ -3285,10 +3285,10 @@ ggplot(an_placed,
 :::
 
 ::: notes
-Now put the five published analysts inside the same grid – for each one, the share of all eight hundred and forty claim-aligned specifications that come out more negative than their value. And look who sits at the ends. KEVF1, the most strongly claim-supporting of the five at around the sixteenth percentile, and PRL47, the closest to the null at around the sixty-eighth – those two, at the opposite extremes, are the two analysts who worked at *person level*, on the third of a million respondents, rather than on aggregates. The three aggregate pipelines sit between them; my own constrained baseline lands almost exactly at the grid's median. It is not Stata versus R, and it is not the estimator: it is the unit of analysis and the outcome metric, decided before any model is fitted, that scatter five competent people across half the curve. Which is the fork-importance chart again, wearing faces.
+Now put the five published analysts inside the same grid – for each one, the share of all eight hundred and forty claim-aligned specifications that come out more negative than their value. And look who sits at the ends. KEVF1, the most strongly claim-supporting of the five at around the sixteenth percentile, and PRL47, the closest to the null at around the sixty-eighth – those two, at the opposite extremes, are the two analysts who worked at *person level*, on the third of a million respondents, rather than on aggregates. The three aggregate pipelines sit between them; my own constrained baseline lands almost exactly at the grid's median. It is not Stata versus R, and it is not the estimator: it is the unit of analysis and the outcome metric, decided before any model is fitted, that scatter five competent people across half the curve. Which is the fork-importance chart again, this time with names attached.
 :::
 
-## The sign flips are patterned, not random
+## Where the sign flips concentrate {#the-sign-flips-are-patterned-not-random}
 
 ```{r}
 #| label: sign-flips
@@ -3329,7 +3329,7 @@ p_est + p_smp
 :::
 
 ::: notes
-One more way to read the grid: where do the sign flips live? Take only the cosmopolitan-outcome specifications – the claim predicts a negative coefficient, so a positive estimate is a flip – and cross-tab the flips by axis. They are not scattered randomly. The estimator that absorbs no between-country differences at all – the pooled model with clustered errors – hosts thirty-three of the forty-one, and the flips also lean heavily towards the samples that exclude the bailout countries. In other words, when this claim flips sign, it flips for identifiable, diagnosable reasons: remove the between-country comparison, or remove the crisis countries, and the association goes. A specification curve is not just a spread to gawp at – it has anatomy, and you can dissect it.
+One more way to read the grid: where do the sign flips live? Take only the cosmopolitan-outcome specifications – the claim predicts a negative coefficient, so a positive estimate is a flip – and cross-tab the flips by axis. They are not scattered randomly. The estimator that absorbs no between-country differences at all – the pooled model with clustered errors – hosts thirty-three of the forty-one, and the flips also lean heavily towards the samples that exclude the bailout countries. In other words, when this claim flips sign, it flips for identifiable, diagnosable reasons: remove the between-country comparison, or remove the crisis countries, and the association goes. A specification curve is more than a spread to gawp at. Take it apart and you can name the choices that produce the extremes.
 :::
 
 ## Find your own percentile {.smaller}
@@ -3405,10 +3405,10 @@ Vote-counting across dependent specifications has no null distribution. You cann
 ::::
 
 ::: notes
-Here is the trap the percentages set. Sixty-three point nine per cent of our specifications are significant. It is very tempting to read that as evidence strength: "most tests pass, so the claim holds". But all eight hundred and forty specifications interrogate the same two hundred and seventy country-years. They share the data, so they share the noise: if sampling luck pushed a handful of country-years the claim's way, it pushed hundreds of specifications the same way at once. The percentage significant is a description of the curve, not a test of the claim. To test the claim at curve level you need to know what the whole curve would look like if there were nothing to find – and that requires building the nothing.
+The percentages set a trap. Sixty-three point nine per cent of our specifications are significant. It is very tempting to read that as evidence strength: "most tests pass, so the claim holds". But all eight hundred and forty specifications interrogate the same two hundred and seventy country-years. They share the data, so they share the noise: if sampling luck pushed a handful of country-years the claim's way, it pushed hundreds of specifications the same way at once. The percentage significant is a description of the curve, not a test of the claim. To test the claim at curve level you need to know what the whole curve would look like if there were nothing to find, and that null has to be constructed.
 :::
 
-## Building the nothing: the permutation design
+## The permutation design {#building-the-nothing-the-permutation-design}
 
 ::: {.small}
 - Break the one link the claim needs: **shuffle each country's unemployment series in time** (jointly with growth), keeping everything else intact
@@ -3421,7 +3421,7 @@ The design is worked through in your inference reading; permutation inference af
 :::
 
 ::: notes
-The nothing is built like this. The claim says a country's unemployment moves its EU framing over time. So take each country and shuffle its unemployment series in time – together with growth, so the macro side stays internally coherent – while leaving the framing data untouched. In a shuffled world the alignment between unemployment and framing is broken by construction: whatever curve you get is what pure chance produces on these exact data with these exact 840 specifications. Do that five hundred times, refit the entire grid each time, and you have five hundred ghost curves to stand ours against. If our curve sits in the far tail of those ghosts, the curve as a whole is evidence. If it sits comfortably among them – the description stands, but the inference does not.
+The null is built like this. The claim says a country's unemployment moves its EU framing over time. So take each country and shuffle its unemployment series in time – together with growth, so the macro side stays internally coherent – while leaving the framing data untouched. In a shuffled world the alignment between unemployment and framing is broken by construction: whatever curve you get is what pure chance produces on these exact data with these exact 840 specifications. Do that five hundred times, refit the entire grid each time, and you have five hundred ghost curves to stand ours against. If our curve sits in the far tail of those ghosts, the curve as a whole is evidence. If it sits comfortably among them – the description stands, but the inference does not.
 :::
 
 ## How to read a curve-level test {.smaller}
@@ -3444,7 +3444,7 @@ Two literacy points and then you argue. First: with five hundred draws, the smal
 
 :::: {.none}
 ::: {.fragment .fadeInUp}
-Everything descriptive survives: the **49.7%** outcome fork, the analysts' placement, the sign-flip anatomy, **your dot**.
+Everything descriptive survives: the **49.7%** outcome fork, the analysts' placement, the sign-flip pattern, **your dot**.
 :::
 
 ::: {.fragment .fadeInUp}
@@ -3457,7 +3457,7 @@ Careful reporting says which of the two layers a claim lives in.
 ::::
 
 ::: notes
-So that nothing feels deflated: notice how much of today needs no permutation at all. That the outcome fork carries half the variance – description, stands. That the two person-level analysts bracket the range – stands. That the sign flips concentrate in the pooled estimator and the non-bailout samples – stands. The correction arc, your preregistered dot, the whole anatomy of the curve – all of it stands. The single sentence that has to wait is "this curve as a whole is unlikely if there is no effect". Keeping those two layers apart in your own writing – saying which one your claim lives in – puts you ahead of most published specification curves. That is inference literacy, and you now have it.
+So that nothing feels deflated: notice how much of today needs no permutation at all. That the outcome fork carries half the variance – description, stands. That the two person-level analysts bracket the range – stands. That the sign flips concentrate in the pooled estimator and the non-bailout samples – stands. Your preregistered dot, the whole structure of the curve – all of it stands. The single sentence that has to wait is "this curve as a whole is unlikely if there is no effect". Keeping those two layers apart in your own writing – saying which one your claim belongs to – is what inference literacy means in practice, and it puts you ahead of most published specification curves.
 :::
 
 ## The multiverse has its critics {.smaller}
@@ -3499,7 +3499,7 @@ Take it back to the red cards. Twenty-nine teams modelled one count of red cards
 And now the strongest objection to everything I have just taught you, and I want to give it its full force rather than a straw version. Lakens and colleagues argue that a research question, once fully specified, implies a quantity to be estimated. That quantity, together with your design and the assumptions you are prepared to make, implies one analysis that estimates it. Not a family, one. From which it follows that a spread of results is not evidence of legitimate analytical diversity at all. It is evidence that most of those specifications are simply wrong – they estimate something other than what you said you wanted. And on that reading, publishing a wide specification curve is closer to an admission that you never specified your question than to a robustness check. That is an uncomfortable argument and I think it is largely right.
 :::
 
-## How would you know? {.smaller}
+## Which analysis, and how you would know {#how-would-you-know .smaller}
 
 :::: {.none}
 ::: {.fragment}
@@ -3573,7 +3573,7 @@ So where does preregistration fit? It settles a specific and limited set of thin
 This afternoon you reproduced my constrained result, and then you explored – several specifications, tried in whatever order took your interest, in order to find out what they do. That was exactly the right way to learn them, and I want to be clear that there was nothing improper about it. Now comes the other half. You commit to one specification, declared in writing before it runs, with a reason your causal graph can carry. And notice what the difference between the two activities is, because it is not the code – the code is identical. The difference is that one of them can be chosen because of the result it gave, and the other one cannot. That is the whole distinction, and almost no published paper tells you which of the two it is reporting.
 :::
 
-## Every reanalysis leaves a public trail
+## Archiving and registering a reanalysis {#every-reanalysis-leaves-a-public-trail}
 
 :::: {.none}
 ::: {.fragment .fadeInUp}
@@ -3624,7 +3624,7 @@ Each of these does a different job. The first is the official archive: the Multi
 :::
 
 ::: notes
-Three minutes, everyone: open the dossier and find the replication component – the one that took the same claim to new Eurobarometer data, three hundred and fifty-two thousand person-years. Read what it found for the unemployment coefficient and paste the b into chat. [wait] There it is: plus zero point zero zero two, p of point zero four six. Positive. The sign flipped, on a third of a million observations, and it scraped under the significance bar from the wrong side. Hold that number while you fill in your declaration in a few minutes – when careful, well-powered re-runs can flip a sign, the only shield your one analysis has is that you pinned it down before you saw the answer.
+Three minutes, everyone: open the dossier and find the replication component – the one that took the same claim to new Eurobarometer data, three hundred and fifty-two thousand person-years. Read what it found for the unemployment coefficient and paste the b into chat. [wait] There it is: plus zero point zero zero two, p of point zero four six. Positive. The sign flipped, on a third of a million observations, and it scraped under the significance bar from the wrong side. Hold that number while you fill in your declaration in a few minutes – when careful, well-powered re-runs can flip a sign, the only protection your one analysis has is that you pinned it down before you saw the answer.
 :::
 
 ## The study you are inside was preregistered
@@ -3640,7 +3640,7 @@ Three minutes, everyone: open the dossier and find the replication component –
 :::
 
 ::: notes
-And here is the scale version of the same discipline. Multi100 – the study you have been an analyst inside all day – was itself preregistered. One hundred claims, five or more analysts each, complete analytical freedom. The part that had to be pinned down in advance was the judging: what counts as 'the same conclusion', how close is 'close' for an effect size. Those rules went up on OSF before a single analyst's result came back, which is why the seventy-four per cent and thirty-four per cent you met this morning mean something – nobody could move the goalposts after seeing where the balls landed. [Confirm the registered-protocol wording against osf.io/7snkz before delivery – say what the registration actually fixed, not a paraphrase.]
+The same discipline applies at scale. Multi100 – the study you have been an analyst inside all day – was itself preregistered. One hundred claims, five or more analysts each, complete analytical freedom. The part that had to be pinned down in advance was the judging: what counts as 'the same conclusion', how close is 'close' for an effect size. Those rules went up on OSF before a single analyst's result came back, which is why the seventy-four per cent and thirty-four per cent you met this morning mean something – nobody could move the goalposts once the results were in. [Confirm the registered-protocol wording against osf.io/7snkz before delivery – say what the registration actually fixed, not a paraphrase.]
 :::
 
 ## Two templates, one choice
@@ -3669,7 +3669,7 @@ Two templates on the table, and we use one of them. Today it is the AsPredicted 
 | Q8 Anything else? | your DAG-grounded justification |
 
 ::: notes
-And here is why the block will take you eight minutes and not forty: you have already done all the thinking. Watch the mapping. The claim sentence you typed in chat before lunch – that is question two. Your outcome axis is the dependent variable, question three. The five axes you are holding at baseline are your conditions. Your sample axis is the exclusion rule. The sample size is fixed by the panel – two hundred and seventy, nobody gets to choose. And the one question AsPredicted fumbles for us, question one, you answer the grown-up way: the data exist, I hold them, and here is what I already know – including that the baseline lands at minus three point eight zero four. The six-axis menu drops straight into the eight boxes. All that is left is to write it down.
+The block will take you eight minutes rather than forty, because you have already done all the thinking. Watch the mapping. The claim sentence you typed in chat before lunch – that is question two. Your outcome axis is the dependent variable, question three. The five axes you are holding at baseline are your conditions. Your sample axis is the exclusion rule. The sample size is fixed by the panel – two hundred and seventy, nobody gets to choose. And the one question AsPredicted fumbles for us, question one, you answer directly: the data exist, I hold them, and here is what I already know – including that the baseline lands at minus three point eight zero four. The six-axis menu drops straight into the eight boxes. All that is left is to write it down.
 :::
 
 ## THE PREREGISTRATION MOMENT
@@ -3686,7 +3686,7 @@ Nobody runs a model until the room is declared.
 :::
 
 ::: notes
-This is the moment the day is named after, and we do it together, synchronously, because it takes a ritual to make a norm. Open Task 5. Fill in the five fields: the claim, the data-in-hand statement, your one specification across the eight axes, the one-sentence justification your graph gives you, and the rule – written now, before any result – for what would support the claim and what would undermine it. Route 1: render the report; the rendered file with its timestamp is your record, exactly like a real registration's frozen snapshot. Route 2: save the completed block into your script. Then type "declared" in chat, and wait. [count them in aloud: "eight declared… twelve…"] Nobody runs anything until the room is in. And if you now want to declare the same specification you already explored before the break – that is allowed, and you should say so in the block. Declaring something you have already seen is not preregistration, and being able to tell the difference is the point.
+This is the moment the day is named after, and we do it synchronously, because a thing the whole room does at once sticks in a way an instruction does not. Open Task 5. Fill in the five fields: the claim, the data-in-hand statement, your one specification across the eight axes, the one-sentence justification your graph gives you, and the rule – written now, before any result – for what would support the claim and what would undermine it. Route 1: render the report; the rendered file with its timestamp is your record, exactly like a real registration's frozen snapshot. Route 2: save the completed block into your script. Then type "declared" in chat, and wait. [count them in aloud: "eight declared… twelve…"] Nobody runs anything until the room is in. And if you now want to declare the same specification you already explored before the break – that is allowed, and you should say so in the block. Declaring something you have already seen is not preregistration, and being able to tell the difference is the point.
 :::
 
 ## Run it – then watch the chart {.smaller}
@@ -3706,7 +3706,7 @@ Stuck? Chat "STUCK" · reload and rerun · second browser · follow my screen ·
 :::
 
 ::: notes
-Go. Run the specification you declared, just that one, and when the numbers are in front of you call report underscore result: it prints a link with your values already filled in, one click and you have submitted. Your dot joins the chart as a declared result, and it lands beside the exploratory dots the room put up before the break. Watch the two waves together, because there is something worth seeing. If the declared cloud sits systematically to one side of the exploratory cloud, that tells you something about what people chose to commit to once they had seen the alternatives, and it is worth a conversation. If anything misbehaves: type STUCK in chat and work down the ladder on the cheatsheet. And if your machine is truly finished for the day, the menu page shows you how to read your specification's numbers straight off the published grid. Everybody lands a dot. No exceptions.
+Go. Run the specification you declared, just that one, and when the numbers are in front of you call report underscore result: it prints a link with your values already filled in, one click and you have submitted. Your dot joins the chart as a declared result, and it lands beside the exploratory dots the room put up before the break. Watch the two waves together, because there is something worth seeing. If the declared cloud sits systematically to one side of the exploratory cloud, that tells you something about what people chose to commit to once they had seen the alternatives, and it is worth a conversation. If anything misbehaves: type STUCK in chat and work down the ladder on the cheatsheet. And if your machine is truly finished for the day, the menu page shows you how to read your specification's numbers straight off the published grid. Everybody lands a dot, no exceptions.
 :::
 
 ## Two sentences worth keeping
@@ -3725,7 +3725,7 @@ A blueprint: precise question → causal reasoning (DAG) → multiverse → sens
 :::
 
 ::: notes
-Two sentences to take away. From the Multi100 paper: single-path analyses should not simply be assumed robust. And notice what preregistration did and did not do for you today – it protected your choice from being opportunistic, but it gave your declared dot no special status inside the curve. You lived both halves: the declaration made your one path defensible, and the grid showed it was still just one path among 840. That pairing – declare your path, then show the space it sits in – is the whole method. From Auspurg and Brüderl, the constructive recipe we followed: precise question, explicit assumptions, multiverse, sensitivity. And keep the two robustness standards apart in your own writing: same *conclusion* – seventy-four per cent in Multi100 – and same *number* – thirty-four. When you claim robustness, say which one you mean.
+Two sentences to take away. From the Multi100 paper: single-path analyses should not simply be assumed robust. And notice what preregistration did and did not do for you today – it protected your choice from being opportunistic, but it gave your declared dot no special status inside the curve. You lived both halves: the declaration made your one path defensible, and the grid showed it was still just one path among 840. Declare your path, then show the space it sits in – the two moves go together. From Auspurg and Brüderl, the constructive recipe we followed: precise question, explicit assumptions, multiverse, sensitivity. And keep the two robustness standards apart in your own writing: same *conclusion* – seventy-four per cent in Multi100 – and same *number* – thirty-four. When you claim robustness, say which one you mean.
 :::
 
 ## A single analytical path is a choice
@@ -3737,10 +3737,6 @@ There is no privileged single analytical path – only justifiable ones, explore
 
 ::: {.fragment .fadeInUp}
 You made one justifiable choice today – transparently, with a reason, inside a multiverse.
-:::
-
-::: {.fragment .fadeInUp}
-This is a skill.
 :::
 
 ::: {.fragment .fadeInUp}

@@ -8,11 +8,11 @@ This is the first module of the [companion curriculum](index.qmd), and it is wri
 
 One practical note before we start, the same one the other companion modules make. Every command below is **shown, not run for you**. R is a language you learn by typing into it and watching what comes back, so the way to use this page is to try each snippet yourself, either in the workshop's zero-install [browser lab](../exercise/browser-lab.qmd) or in your own copy of R. Nothing on this page executes when it renders.
 
-## 1. R is the engine, Positron the workbench {#sec-what}
+## 1. R the language, Positron the editor {#sec-what}
 
-**R** is a programming language built for working with data: reading it in, reshaping it, fitting statistical models, and drawing figures. It is free, open source, and the common language of quantitative social science, which is why the workshop's analysis is written in it. R is the engine – the thing that actually does the calculation – and on its own it is just a program that reads instructions and returns answers.
+**R** is a programming language built for working with data: reading it in, reshaping it, fitting statistical models, and drawing figures. It is free, open source, and the common language of quantitative social science, which is why the workshop's analysis is written in it. R is the thing that does the calculation, and on its own it is just a program that reads instructions and returns answers.
 
-**Positron** is the editor you drive R from. An editor (the general term is an integrated development environment, or IDE) is the workbench around the engine: a window with your files on one side, a place to write and run code, and panels that show results, figures and the objects you have created. Positron is free, made by the company behind R's most-used tools, and it is the editor the workshop demonstrates on the shared screen. Newcomers often conflate the two, so the relationship is worth stating plainly. You install R once, so the language is present on your machine. You install Positron once, as the place you work, and when you first open it Positron finds the R you installed and connects to it. R does the computing; Positron is where you sit while it happens.
+**Positron** is the editor you drive R from. An editor (the general term is an integrated development environment, or IDE) is the working environment around R: a window with your files on one side, a place to write and run code, and panels that show results, figures and the objects you have created. Positron is free, made by the company behind R's most-used tools, and it is the editor the workshop demonstrates on the shared screen. Newcomers often conflate the two, so the relationship is worth stating plainly. You install R once, so the language is present on your machine. You install Positron once, as the place you work, and when you first open it Positron finds the R you installed and connects to it. R does the computing; Positron is where you sit while it happens.
 
 You do not strictly need Positron to use R – R has its own bare console, and other editors exist – but a modern editor makes everything easier to see and to keep, so the workshop settles on Positron and this module assumes it. The [setup page](../setup.qmd) walks through installing both.
 
@@ -28,9 +28,9 @@ There are three surfaces you type R into, and knowing which is for what saves a 
 
 The **console** is the interactive prompt. You type one line, press Enter, and R answers immediately. It is where you try things out, check a value, or run a quick calculation. Its weakness is that the moment you close the session, everything you typed there is gone, and there is no record of how you reached a result.
 
-A **script** is a plain text file, with the extension `.R`, that holds a sequence of commands you want to keep. Instead of typing into the console and losing it, you write the commands in the script and run them from there – all at once, or line by line. A script is a record: it runs the same way tomorrow and on someone else's machine, and it shows exactly how a result was produced. The rule the workshop follows is simple. Try things in the console, but the moment something matters, move it into a script.
+A **script** is a plain text file, with the extension `.R`, that holds a sequence of commands you want to keep. Instead of typing into the console and losing it, you write the commands in the script and run them from there – all at once, or line by line. A script is a record: it runs the same way tomorrow and on someone else's machine, and it shows exactly how a result was produced. The rule the workshop follows: try things in the console, but the moment something matters, move it into a script.
 
-A **Quarto document**, with the extension `.qmd`, is a script and a written report woven together in one file. It holds ordinary prose (the sentences you are reading now are written this way) interleaved with 'chunks' of R code. Render the document and R runs every chunk, dropping its results – tables, figures, numbers – into the finished report at exactly the point they belong. This is the unit of work the workshop is built around, because it keeps the analysis and the writing that explains it in a single file that cannot drift apart. Your workshop report is a Quarto document, and rendering it is how your preregistration block gets a timestamp.
+A **Quarto document**, with the extension `.qmd`, is a script and a written report in one file. It holds ordinary prose (the sentences you are reading now are written this way) interleaved with 'chunks' of R code. Render the document and R runs every chunk, dropping its results – tables, figures, numbers – into the finished report at exactly the point they belong. This is the unit of work the workshop is built around, because it keeps the analysis and the writing that explains it in a single file that cannot drift apart. Your workshop report is a Quarto document, and rendering it is how your preregistration block gets a timestamp.
 
 ## 3. Name a value, build a table {#sec-objects}
 
@@ -87,7 +87,7 @@ install.packages("readr")   # step 1: download it to your machine – once, ever
 library(readr)              # step 2: load it into the session – once, each session
 ```
 
-`install.packages()` fetches the package from CRAN and stores it in your machine's package library. You run it once and never again, until you want an update. `library()` takes an installed package and attaches it to the running session so its functions are available by name, and it belongs at the top of every script that needs it. The analogy that sticks: installing is buying the book, `library()` is taking it off the shelf. Confuse the two and you meet R's most common error messages. `there is no package called 'readr'` means step 1 never happened on this machine, while `could not find function "read_csv"` usually means step 2 is missing from the current session.
+`install.packages()` fetches the package from CRAN and stores it in your machine's package library. You run it once and never again, until you want an update. `library()` takes an installed package and attaches it to the running session so its functions are available by name, and it belongs at the top of every script that needs it. Installing is buying the book; `library()` is taking it off the shelf. Confuse the two and you meet R's most common error messages. `there is no package called 'readr'` means step 1 never happened on this machine, while `could not find function "read_csv"` usually means step 2 is missing from the current session.
 
 Two habits around packages are worth adopting from the start. First, put every `library()` call at the top of the script, together. The block then doubles as a plain statement of what the script depends on, and anyone opening the file sees at a glance what they need installed, which is a small but real piece of reproducibility. Second, know the `::` form: `readr::read_csv()` calls a function through its package name without attaching anything, and you will meet it in code that wants the provenance of every function to be visible on the line that uses it.
 
@@ -115,7 +115,7 @@ nrow(euframes)      # 270 country-years
 names(euframes)     # the column names
 ```
 
-Note the path: `"data/EUframes_cy.csv"` is written relative to the project folder, not as `C:/Users/yourname/Desktop/...`. A relative path works on any machine that has the project; an absolute path breaks the moment the work moves. Opening your workspace as a project and letting that be the anchor for every path is one of the plainest reproducibility habits there is.
+Note the path: `"data/EUframes_cy.csv"` is written relative to the project folder, not as `C:/Users/yourname/Desktop/...`. A relative path works on any machine that has the project; an absolute path breaks the moment the work moves. Opening your workspace as a project and writing every path relative to it is one of the plainest reproducibility habits there is.
 
 Two functions tell you what you just read without printing the whole thing:
 
@@ -223,7 +223,7 @@ euframes |>
   )
 ```
 
-Read the chain aloud and it is almost English: take the panel, add a crisis flag, group by bailout status, and for each group report the count and two averages. That readability is a reproducibility feature, not just a comfort – code a reviewer can read is code a reviewer can check – and it is why the workshop's own scripts are built from these verbs.
+Read the chain aloud and it is almost English: take the panel, add a crisis flag, group by bailout status, and for each group report the count and two averages. Readability of that kind is a reproducibility feature: a reviewer who can read the code can check it, which is why the workshop's own scripts are built from these verbs.
 
 **easystats** is the third dialect, and the one this module most wants you to know exists, because the workshop's facilitator uses and recommends it. It is likewise a family of packages under one installable name, `easystats` [@LudeckeEtAl2022EasystatsFrameworkEasy], but its centre of gravity is different: where the tidyverse is at its best preparing data *before* a model, easystats is built for everything that happens *after* one. It has a data-preparation member too – `datawizard`, whose verbs deliberately mirror dplyr's –
 
@@ -235,7 +235,7 @@ euframes |>
   data_select(c("country", "year", "unemp", "mcosmo"))
 ```
 
-– but its real contribution begins once a model exists, and that is the subject of the next section. The three dialects are not rivals to choose between so much as layers to grow through: base R is always underneath, the tidyverse gives data work its grammar, and easystats gives the modelling stage a grammar of its own.
+– but its real contribution begins once a model exists, and that is the subject of the next section. The three dialects are layers rather than rivals: base R is always underneath, the tidyverse gives data work its grammar, and easystats gives the modelling stage a grammar of its own.
 
 ::: {.callout-tip}
 ## Try it
@@ -243,11 +243,11 @@ euframes |>
 Write a chain on `euframes` that keeps only Greece (`filter(country == "Greece")`), selects `year`, `unemp` and `mcosmo`, and prints the result. Then extend it with `summarise()` to report Greece's mean unemployment across the whole period. You have now filtered, selected and summarised in one pipeline – the core loop of everyday data work. If you are curious, redo the first step in base R and in `datawizard`, and notice you can already read all three.
 :::
 
-## 8. One grammar, every figure {#sec-ggplot}
+## 8. The grammar of graphics {#sec-ggplot}
 
-Section 7 put the tidyverse on stage as a family and named two of its members. **ggplot2** is the third, and it is the one that draws [@WickhamEtAl2019WelcomeTidyverse]. Every figure the workshop shows you is built with it – the slides, the live class chart on the results page, the small country panels in the browser lab – so reading ggplot2 code is not a side skill here. It is how you satisfy yourself that a figure shows what its caption says it shows.
+Section 7 introduced the tidyverse as a family and named two of its members. **ggplot2** is the third, and it is the one that draws [@WickhamEtAl2019WelcomeTidyverse]. Every figure the workshop shows you is built with it – the slides, the live class chart on the results page, the small country panels in the browser lab – so reading ggplot2 code is how you satisfy yourself that a figure shows what its caption says it shows.
 
-The name abbreviates 'the grammar of graphics', and the word grammar is meant literally. Rather than offer one function per chart type, ggplot2 splits a figure into parts that recombine freely: the data, the mapping from columns to visual properties, the geometric shapes drawn, the scales that decide what those shapes look like, the panels the plot is divided into, and last the labels and the styling. A scatterplot and a bar chart are then not two commands to remember but two fillings of the same slots. Learn the slots once and the figures on this site become legible, including the ones you have not met yet.
+The name abbreviates 'the grammar of graphics', and the word grammar is meant literally. Rather than offer one function per chart type, ggplot2 splits a figure into parts that recombine freely: the data, the mapping from columns to visual properties, the geometric shapes drawn, the scales that decide what those shapes look like, the panels the plot is divided into, and last the labels and the styling. A scatterplot and a bar chart are then two fillings of the same slots rather than two commands to remember. Learn the slots once and the figures on this site become legible, including the ones you have not met yet.
 
 ### The three parts you cannot omit
 
@@ -280,7 +280,7 @@ ggplot(euframes, aes(x = unemp, y = mcosmo)) +
 
 `alpha` controls opacity, running from 0 for invisible to 1 for solid, and setting it below 1 is the standard remedy for a scatterplot where points pile up on one another. The constant `"#0e3b6a"` is a hex colour code, the dark blue the workshop's own figures use.
 
-The `factor()` wrapped around `bailout` is not decoration, and it is exactly the kind of detail that quietly produces the wrong figure. `bailout` is stored as 0 and 1 in numeric form, so `colour = bailout` hands ggplot2 a number and it responds sensibly, with a continuous colour gradient and a legend running smoothly from 0.00 to 1.00. What you wanted was two categories in two colours, and `factor(bailout)` is how you say so. The same trap waits on `year`, which is also numeric – map it raw for a gradient across the decade, wrap it in `factor()` for ten discrete groups.
+The `factor()` wrapped around `bailout` is exactly the kind of detail that quietly produces the wrong figure when it is left out. `bailout` is stored as 0 and 1 in numeric form, so `colour = bailout` hands ggplot2 a number and it responds sensibly, with a continuous colour gradient and a legend running smoothly from 0.00 to 1.00. What you wanted was two categories in two colours, and `factor(bailout)` is how you say so. The same trap waits on `year`, which is also numeric – map it raw for a gradient across the decade, wrap it in `factor()` for ten discrete groups.
 
 ### Layers stack, and the order shows
 
@@ -416,7 +416,7 @@ Where two figures belong side by side, the **patchwork** package composes whole 
 ::: {.callout-tip}
 ## Try it
 
-Build a chain that keeps the crisis years, groups by `year`, and reports the mean of `mcosmo` and the mean of `mneg` per year, then pipe it into a plot with two `geom_line()` layers in different colours. You will find yourself wanting a legend and not getting one, because both colours were set rather than mapped. That frustration is the doorway to reshaping data into long form, which the [next module](stats-methods.qmd) takes up.
+Build a chain that keeps the crisis years, groups by `year`, and reports the mean of `mcosmo` and the mean of `mneg` per year, then pipe it into a plot with two `geom_line()` layers in different colours. You will find yourself wanting a legend and not getting one, because both colours were set rather than mapped. That frustration is what leads to reshaping data into long form, which the [next module](stats-methods.qmd) takes up.
 :::
 
 ## 9. Reading the class chart {#sec-speccurve}
@@ -470,7 +470,7 @@ ggplot(curve, aes(x = rank, y = r_ca)) +
 
 Nothing in that block is new. There is a reference line, a layer of small points coloured by a mapped logical column, a second point layer drawn from a *different* data frame, a manual colour scale, a zoom, labels and a theme. `data = baseline_row` inside the geom overrides the frame given to `ggplot()`, and that is how a single row gets picked out and emphasised. `annotate()` is the one function you have not met, and it adds a mark that comes from no column at all: you supply the coordinates and the text yourself, which is why its position is read off `baseline_row` rather than mapped.
 
-Now read what it draws. Every point below the grey line is an analysis supporting the claim, and 68.7% of the 840 are; 63.9% reach conventional significance. The aligned correlations run from −0.70 to +0.24, so the universe contains both firm support and results pointing the other way. The red point is the specification actually submitted to the Multi100 project, the one whose t-statistic of −3.804 the workshop reproduces in its first block, and it sits at rank 418 with 49.6% of the universe more negative than it – almost exactly the middle. That placement is the finding worth carrying away. The submitted analysis was neither an outlier nor a cherry-pick, and it was also not the answer, because the same defensible menu, worked through in good faith by any competent analyst, would have supported a great many other numbers.
+Now read what it draws. Every point below the grey line is an analysis supporting the claim, and 68.7% of the 840 are; 63.9% reach conventional significance. The aligned correlations run from −0.70 to +0.24, so the universe contains both firm support and results pointing the other way. The red point is the specification actually submitted to the Multi100 project, the one whose t-statistic of −3.804 the workshop reproduces in Part 3, and it sits at rank 418 with 49.6% of the universe more negative than it – almost exactly the middle. The submitted analysis was neither an outlier nor a cherry-pick, and it was also not the answer, because the same defensible menu, worked through in good faith by any competent analyst, would have supported a great many other numbers.
 
 ::: {.callout-tip}
 ## Try it
@@ -512,17 +512,17 @@ estimate_means(m2, by = "bailout")            # expected framing with and withou
 estimate_contrasts(m2, contrast = "bailout")  # the difference between those two expectations
 ```
 
-An expected outcome under each condition, a slope, a contrast between scenarios: each is a quantity you can state in words before touching the software. (Under the bonnet these functions drive the `marginaleffects` package, whose job Stata users will recognise from `margins`.) That habit – say what you want to estimate first, then derive the analysis that estimates it – is precisely what the workshop drills in its estimand-and-DAG block and again at the preregistration moment, where you commit to a target quantity before running anything. The tools and the discipline reinforce each other. Learning R here is not separate from learning the workshop's ideas, because the coding, the statistics, the conceptual work of naming estimands and the reproducibility habits are one connected practice.
+An expected outcome under each condition, a slope, a contrast between scenarios: each is a quantity you can state in words before touching the software. (Under the bonnet these functions drive the `marginaleffects` package, whose job Stata users will recognise from `margins`.) That habit – say what you want to estimate first, then derive the analysis that estimates it – is precisely what the workshop drills in Part 2, with the estimand and the graph, and again at the preregistration moment, where you commit to a target quantity before running anything. The tools and the discipline reinforce each other: the coding, the statistics, the conceptual work of naming estimands and the reproducibility habits are one connected practice.
 
-## 11. Two routes, one loop {#sec-materials}
+## 11. The two routes into the day {#sec-materials}
 
-Everything above is preparation for the two ways of taking part in the day, and each gives your new R a real home.
+Everything above is preparation for the two ways of taking part in the day.
 
 **The Positron workspace (Route 1).** If you install R and Positron, you download a single zip file, a ready-made project folder holding the data, a set of short `R/` scripts, and a report skeleton called `index.qmd`. That report skeleton is your first real script. It is a Quarto document you open, read, and fill in as the day goes, running its chunks and rendering it to a finished report. The smaller scripts around it do one job each – `R/check_setup.R` confirms your installation works, `R/get_data.R` fetches the data, `R/report_result.R` submits your result – and reading them is a gentle way to see the vocabulary of this module used in earnest. The [setup page](../setup.qmd) has the download and the step-by-step.
 
 **The browser lab (Route 2).** If you would rather install nothing, the [browser lab](../exercise/browser-lab.qmd) runs the whole exercise inside a web tab, with a full copy of R that starts up on its own. It is the zero-install place to try everything on this page, and it reaches identical numbers to the Positron route. Many people work through this module in the browser lab first, then decide whether to install the full workspace.
 
-Whichever route you take, the sequence is the same one you have just practised in miniature: read the data, reshape it with a few verbs, draw it to see what you are dealing with, then fit a model and read what it says. The rest of the workshop is that loop, made careful.
+Whichever route you take, the sequence is the same one you have just practised in miniature: read the data, reshape it with a few verbs, draw it to see what you are dealing with, then fit a model and read what it says. The rest of the workshop repeats that sequence, with more care taken over each step.
 
 ## Sources and further study {#sec-sources}
 

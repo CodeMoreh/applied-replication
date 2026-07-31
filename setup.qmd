@@ -11,7 +11,7 @@ There are two ways to take part, and you only need to prepare for the one you ch
 
 ### Route 1 – R and Positron (recommended)
 
-You install two free programs once, then download a ready-made workspace and open it. This is the fuller experience. You work in the same kind of editor a researcher uses, and you keep the workspace afterwards. Allow yourself a little time before the day, depending on what you already have installed.
+You install two free programs once, then download a ready-made workspace and open it. This is the fuller experience: you work in the same kind of editor a researcher uses, and you keep the workspace afterwards. Allow yourself a little time before the day, depending on what you already have installed.
 
 **Step 1 – Install R.** R is the language the analysis is written in. Download it from [cran.r-project.org](https://cran.r-project.org/) and run the installer for your system (Windows `.exe`, macOS `.pkg`, or your Linux package manager). Accept the defaults.
 
@@ -23,7 +23,7 @@ You install two free programs once, then download a ready-made workspace and ope
 
 Save it somewhere you will find again, such as your Desktop or Documents folder, then unzip it. You now have a folder containing the analysis code, the data and a report to fill in. There is no account to create and nothing to sign into.
 
-**Step 4 – Open the folder in Positron.** In Positron, choose **File → Open Folder** and pick the folder you just unzipped. The files appear in a panel on the left. Everything you need for the day lives in this one folder.
+**Step 4 – Open the folder in Positron.** In Positron, choose **File → Open Folder** and pick the folder you just unzipped. The files appear in a panel on the left. Everything you need for the day is in this one folder.
 
 **Step 5 – Check that it works.** In the folder, open `R/check_setup.R` and run it – in Positron, click **Run**, or type `source("R/check_setup.R")` in the console at the bottom. The script prints a short OK or FAIL report covering your R version, the packages the workshop uses and access to the data. If any package is missing it offers to install it for you, so say yes. Fix any FAIL before the day. If you get stuck, come along anyway and use Route 2.
 
@@ -65,7 +65,7 @@ The workshop runs online. You will get the most out of it with a little room to 
 
 ## Read ahead if you like
 
-None of these is required, and everything is taught on the day. If you would like to arrive with some context, these are worth the time. One line each on why:
+None of these is required, and everything is taught on the day. If you would like to arrive with some context, these are worth the time, with one line each on why.
 
 | Reading | Why it is worth the time |
 |---|---|

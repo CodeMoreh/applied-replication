@@ -559,7 +559,7 @@ Five arrows are drawn. `unemployment -> framing` is the path of interest. Above 
 
 You build the graph yourself in the cells below, in ordinary R. `dagify()` takes one formula per arrow, written the way you write a model, so `framing ~ unemployment` is the arrow that runs *into* `framing`. Read the tilde as 'is caused by' rather than 'is regressed on' and the direction comes out right every time. Because each arrow is a line of R rather than a fragment of a string, an arrow you are unsure about can sit there commented out, and adopting it means deleting a `#`.
 
-Drawing the graph in your browser needs `ggdag`, which this page does not preload. It brings `igraph`, `ggraph` and four further dependencies with it: roughly 23 MB of download, and a noticeable pause on a slow connection. Run the cell if you want the plot. Everything else in Task 4 works without it, because the figure above is the same graph. If the install fails, the cell falls back to `dagitty` on its own – about 3 MB with its own dependencies, an eighth of the download, and enough to answer the adjustment-set question.
+Drawing the graph in your browser needs `ggdag`, which this page does not preload. It brings `igraph`, `ggraph` and four further dependencies with it: roughly 23 MB of download, and a noticeable pause on a slow connection. Run the cell if you want the plot. Everything else in Task 2 works without it, because the figure above is the same graph. If the install fails, the cell falls back to `dagitty` on its own – about 3 MB with its own dependencies, an eighth of the download, and enough to answer the adjustment-set question.
 
 ```{webr}
 #| autorun: false
@@ -661,7 +661,7 @@ mcosmo ~ unemp_c   with fixed effects for country and year
 
 where `unemp_c` is the unemployment rate centred on its grand mean. The target is **t = −3.804** (df = 233, N = 270) – the value on record for analyst C6HJR in the Multi100 dataset.
 
-The cell below is an exercise. Replace the blanks (`______`) with the missing code, then press "Run Code". Stuck? Open the hint. Want to check your answer? Open the solution.
+The cell below is an exercise. Replace the blanks (`______`) with the missing code, then press "Run Code". If you get stuck, open the hints below; the solution has the full code.
 
 ```{webr}
 #| setup: true
@@ -722,9 +722,9 @@ You should get `estimate ≈ −0.00347`, `std.error ≈ 0.00091`, `statistic �
 ::::
 
 ::: {.callout-note collapse="true"}
-## Everyone gets the same number. So why did five analysts disagree?
+## Everyone gets the same number, and the five analysts still disagreed
 
-You reproduced the recorded value exactly, and so did everyone else in the room – because everyone ran the same code on the same file. Reproducibility is the cheap R.
+You reproduced the recorded value exactly, and so did everyone else in the room, because everyone ran the same code on the same file – which is why reproducibility is the cheap R.
 
 The five Multi100 analysts each wrote their own code for the same claim, and came back with five different answers, one of them not significant. Their pipelines are competent, well-organised work, so the spread is not a quality problem. It is what happens when a claim stated in words leaves several genuinely defensible quantities on the table, and different analysts estimate different ones without noticing they have chosen.
 
@@ -737,7 +737,7 @@ Task 2 named the quantity you are after and drew the graph your adjustment set f
 
 This task is **exploration, and it is meant to be**. You are going to try several specifications, see what each one does, and get a feel for which choices move the estimate and which barely touch it. Nothing here is a commitment; that comes in Task 5.
 
-`try_spec()` takes one argument per axis of the [specification menu](spec-menu.qmd), and every argument already carries the baseline you just reproduced. So changing one thing is literally changing one argument, and everything you do not name stays at baseline.
+`try_spec()` takes one argument per axis of the [specification menu](spec-menu.qmd), and every argument already carries the baseline you just reproduced. So changing one thing means changing one argument, and everything you do not name stays at baseline.
 
 ```{webr}
 #| autorun: false
@@ -756,7 +756,7 @@ try_spec(sample    = "no_bailout")  # drop the assistance-programme countries
 try_spec(weights   = "n_cy")        # weight cells by how many people are in them
 ```
 
-Then go your own way. The full set of arguments, with the baseline as the default for each:
+Then try your own combinations. The full set of arguments, with the baseline as the default for each:
 
 ```{webr}
 #| autorun: false
@@ -791,7 +791,7 @@ submit_exploration()
 
 Because that is what it is, and the label costs nothing. You chose this specification after seeing what several of them do, so it cannot carry the guarantee that a declared choice carries – it might have been chosen *because* of its result, and neither you nor anyone else can now rule that out.
 
-Almost no published paper tells you which of its analyses were explored and which were planned. Today's chart does, because the room submits twice: once here, and once in Task 5 after declaring. Watching the two clouds side by side is the point.
+Almost no published paper tells you which of its analyses were explored and which were planned. Today's chart does, because the room submits twice: once here, and once in Task 5 after declaring, so the two clouds can be compared side by side.
 :::
 
 ------------------------------------------------------------------------
@@ -878,7 +878,7 @@ report_result()
 
 If the form will not open on your machine, read the printed numbers to the facilitator and your dot still lands.
 
-**A second declared specification?** Edit the preregistration cell, rerun `prereg()`, rebuild, rerun. The mechanics allow it, and the label does not change – so be clear with yourself about what the second one is. Your first declaration was made without knowing its result. Anything after it was not, which puts it back in the same category as Task 4. Saying which is which, out loud, is the entire discipline the day is about.
+**A second declared specification?** Edit the preregistration cell, rerun `prereg()`, rebuild, rerun. The mechanics allow it, and the label does not change – so be clear with yourself about what the second one is. Your first declaration was made without knowing its result. Anything after it was not, which puts it back in the same category as Task 4, and you should say so when you report it.
 
 ------------------------------------------------------------------------
 

@@ -3,7 +3,7 @@ title: "Exercise Overview"
 subtitle: "You are analyst no. 6"
 ---
 
-This page is the map of the whole exercise. Your work happens either in the [Browser lab](browser-lab.qmd) (Route 2) or in the Positron workspace you downloaded (Route 1). The two routes are identical in what they let you do. Come back here whenever you want the big picture.
+This page sets out the whole exercise. Your work happens either in the [Browser lab](browser-lab.qmd) (Route 2) or in the Positron workspace you downloaded (Route 1). The two routes are identical in what they let you do. Come back here whenever you want the overview again.
 
 ---
 
@@ -17,7 +17,7 @@ The anchor result – the specific number the Task 2 constraints pointed to – 
 
 > **Unemployment → cosmopolitan EU framing: b = −0.0034, t = −4.03, p < .001** (Table 3, Model 1)
 
-This comes from a three-level random-intercept model using pooled Eurobarometer data (16 waves, 2004–2013, 27 EU countries). Your first job is to get as close to this result as possible using a transparent, reproducible pipeline. Your second job is to deviate from it – deliberately, with a written justification – and see where that takes you.
+This comes from a three-level random-intercept model using pooled Eurobarometer data (16 waves, 2004–2013, 27 EU countries). Your first job is to get as close to this result as possible using a transparent, reproducible pipeline. Your second job is to deviate from it – deliberately, with a written justification – and see what that does to the estimate.
 
 ---
 
@@ -33,7 +33,7 @@ Before you begin, here is what the five Multi100 analysts found when they reanal
 | KQXUE | Stata | t = −7.17 | 270 | −0.419 |
 | PRL47 | Stata | z = −3.59 | 394,575 | −0.006 |
 
-All five reported a negative effect (same direction as the original). The partial r ranges from −0.006 to −0.452: a factor of 75. Five competent analysts, one claim, widely different estimates. The multiverse debrief in Part 4 explains most of that gap. For now, notice it exists.
+All five reported a negative effect (same direction as the original). The partial r ranges from −0.006 to −0.452, a factor of 75, so five competent analysts working on one claim arrived at widely different estimates. The multiverse debrief in Part 4 explains most of that gap; for now it is enough to know that the gap is there.
 
 ---
 
@@ -63,7 +63,7 @@ Third, complete the **causal graph**. Take the `#` off the arrows you are willin
 
 **Task 3 – Reproduce the recorded result (~20 minutes).** Fit the constrained two-way fixed-effects model – `mcosmo ~ unemp_c`, with country and year fixed effects – and confirm you get **t = −3.804** (df = 233, N = 270). This is the reproduction step, and −3.804 is the value on record for analyst C6HJR: the same data and the same code give the same number. *Route 1:* run the model in your working script. *Route 2:* fill the gaps in the exercise cell; there are two hints and a full solution, and using them is not cheating.
 
-That reproduced number sits inside a larger verdict. The same paper was put through all three Rs in the SCORE dossier ([osf.io/h7432](https://osf.io/h7432/)): the push-button reproduction failed, the source-data reproduction was recorded as 'not reproduced', and a preregistered replication on fresh data (N = 352,114) flipped sign, with b = +0.002 and p = .046. One paper, three different verdicts.
+Your reproduction is one check among several, and the paper fares differently on the others. It was put through all three Rs in the SCORE dossier ([osf.io/h7432](https://osf.io/h7432/)): the push-button reproduction failed, the source-data reproduction was recorded as 'not reproduced', and a preregistered replication on fresh data (N = 352,114) flipped sign, with b = +0.002 and p = .046. One paper, three different verdicts.
 
 **Task 4 – Work the menu (~20 minutes).** This task is **exploration, and it is meant to be**. Try several specifications from the [specification menu](spec-menu.qmd), see what each one does, and get a feel for which choices move the estimate and which barely touch it. `try_spec()` takes one argument per axis and every argument already carries the baseline you just reproduced, so changing one thing means changing one argument. `my_experiments()` prints everything you have tried, side by side – the small multiverse you have just built. Then pick the one you would defend if you had to, and `submit_exploration()` puts it on the live [Multiverse](../results.qmd) chart as an **exploratory** result, drawn as an open circle.
 
@@ -79,7 +79,7 @@ The part opens by reading what the room built: the class chart laid over the ful
 
 Render that block (Route 1) or copy it into your notes (Route 2) so it is written down before you see the result. Then translate the declaration into model syntax yourself – `build_model()` accepts only code that matches what you declared – run it, and `report_result()` prints a one-click, pre-filled form link. Your dot joins the chart as a **declared** result, drawn as a filled circle beside the open exploratory ones.
 
-The difference between Task 4 and Task 5 is not the code, which is identical. It is that one of them can have been chosen because of its result and the other cannot. Watching the two clouds side by side is the point of submitting twice.
+Task 4 and Task 5 run identical code. What separates them is that an exploratory specification can have been chosen because of its result and a declared one cannot, and seeing the two clouds side by side is why you submit twice.
 
 ---
 
@@ -91,7 +91,7 @@ Your result is valid for the multiverse chart if it:
 - is submitted to the class-results form via the `report_result()` link (so it lands on the live [Multiverse](../results.qmd) chart), and
 - has a written justification for the choice you made (2 sentences is enough).
 
-The justification is the key part. The lesson from Auspurg & Brüderl (2021) is that a multiverse without stated reasons is just noise. With stated reasons, it becomes evidence.
+The justification is what the whole exercise turns on. Auspurg & Brüderl (2021) argue that a multiverse of unjustified specifications shows dispersion and nothing more; the stated reasons are what let it count as evidence.
 
 ---
 
@@ -102,7 +102,7 @@ The justification is the key part. The lesson from Auspurg & Brüderl (2021) is 
 - [Reading a specification curve](reading-inference.qmd) – the companion reading for Part 4: what a large set of results can and cannot establish.
 - [Cheatsheet](cheatsheet.qmd) – the one-page card to keep open on the day, with the in-room links and what to do if something stalls.
 
-Two of the seven [companion modules](../companion/index.qmd) take the skills the day sets aside further, at your own pace:
+Two of the eight [companion modules](../companion/index.qmd) take the skills the day sets aside further, at your own pace:
 
 - [Git and GitHub for reproducible research](../companion/git-github.qmd) – version control and publishing your report, the part lifted out of the core day.
 - [Reproducibility repositories](../companion/repositories.qmd) – archives, OSF, and preregistration templates in more depth.

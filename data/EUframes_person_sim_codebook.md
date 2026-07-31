@@ -90,11 +90,11 @@ $$
 
 with the individual terms centred on the population marginals, so that a
 representative sample comes close to the panel's cell values and the deliberate
-age distortion is what moves them furthest. Close, not exact. Weighting the
-twin's respondents back to the population age distribution, and averaging over
-the 270 cells, the positive composite lands within a hundredth of a per cent of
-the panel's mean, the negative composite 1.8% below it, and the four dimensions
-between 0.5% and 2.4% away.
+age distortion is what moves them furthest. The match is close rather than
+exact. Weighting the twin's respondents back to the population age
+distribution, and averaging over the 270 cells, the positive composite lands
+within a hundredth of a per cent of the panel's mean, the negative composite
+1.8% below it, and the four dimensions between 0.5% and 2.4% away.
 
 Two mechanisms produce that gap, in roughly one-to-three proportion. The
 smaller is a covariance. Within a cell, education raises both the propensity to

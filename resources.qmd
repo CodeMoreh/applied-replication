@@ -108,7 +108,7 @@ The target article [@Teney2016DoesEUEconomic] was put through all three SCORE ac
 | `6zqct` | Analyst's maintained fork (workshop fetch target) – carries the working materials and today's data | <https://osf.io/6zqct/> |
 | `8rtwe` | Official Multi100 archival record for analyst C6HJR | <https://osf.io/8rtwe/> |
 
-Three Rs, three different verdicts on one paper: reproduction failed (twice, differently); robustness held in sign but spanned two orders of magnitude in effect size; replication returned a sign flip. This is the glossary's point that the three indicators are near-uncorrelated – made concrete by a single case built entirely from public artefacts.
+Three Rs, three different verdicts on one paper: reproduction failed (twice, differently); robustness held in sign but spanned two orders of magnitude in effect size; replication returned a sign flip. This is the glossary's point that the three indicators are near-uncorrelated, made concrete by a single case built entirely from public artefacts.
 
 ------------------------------------------------------------------------
 
