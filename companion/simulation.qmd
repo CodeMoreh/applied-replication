@@ -13,44 +13,46 @@ library(readr)
 library(purrr)
 library(ggplot2)
 library(lmerTest)
-set.seed(20260727)
+set.seed(20260731)
 
-sim     <- read_csv("../data/EUframes_person_sim.csv", show_col_types = FALSE)
-panel   <- read_csv("../data/EUframes_cy.csv", show_col_types = FALSE)
-cal     <- read_csv("_model-outputs/sim_calibration.csv", show_col_types = FALSE)
-pcoef   <- read_csv("_model-outputs/sim_calibration_person.csv",
-                    show_col_types = FALSE)
-planted <- read_csv("_model-outputs/sim_planted.csv", show_col_types = FALSE)
-sweep   <- read_csv("_model-outputs/sim_recovery_sweep.csv",
-                    show_col_types = FALSE)
-cget    <- function(nm) cal$value[cal$parameter == nm]
+sim   <- read_csv("../data/EUframes_person_full.csv", show_col_types = FALSE)
+panel <- read_csv("../data/EUframes_cy.csv", show_col_types = FALSE)
+sweep <- read_csv("_model-outputs/sim_recovery_joint.csv", show_col_types = FALSE)
+valid <- read_csv("_model-outputs/twin_validation.csv", show_col_types = FALSE)
+marg  <- read_csv("_model-outputs/joint_marginals.csv", show_col_types = FALSE)
+corr  <- read_csv("_model-outputs/joint_corr.csv", show_col_types = FALSE)
+bcoef <- read_csv("_model-outputs/item_probit_coef.csv", show_col_types = FALSE)
 
 DIMS <- c("cosmo", "util", "comm", "lib")
 
-# The mentioning rate the twin's logit construction has to respect, and what a
-# linear education effect of the calibrated size would be worth at that rate.
-panel <- panel |> mutate(mention = mcosmo + mutil + mcomm + mlib)
-GRAD_LOGIT  <- pcoef$value[pcoef$outcome == "mention_logit" &
-                             pcoef$term == "edu4e20plus"]
-GRAD_LINEAR <- mean(panel$mention) * (1 - mean(panel$mention)) * GRAD_LOGIT
-
-# The population age the recipe centres on, and which the weight restores.
-AGE_MEAN <- cget("age_mean"); AGE_SD <- cget("age_sd")
-AGE_MIN  <- cget("age_min");  AGE_MAX <- cget("age_max")
-AGE_REF <- AGE_MEAN + AGE_SD *
-  (dnorm((AGE_MIN - AGE_MEAN) / AGE_SD) - dnorm((AGE_MAX - AGE_MEAN) / AGE_SD)) /
-  (pnorm(AGE_MAX, AGE_MEAN, AGE_SD) - pnorm(AGE_MIN, AGE_MEAN, AGE_SD))
-
-sim <- sim |>
-  mutate(age10 = (age - 48) / 10,
-         edu4 = factor(edu4, levels = c("le15", "e16_19", "e20plus", "studying")))
-
-# The specification the twin is built to reproduce – the day's anchor plus a
-# growth co-predictor.
+# The specification the twin reproduces at cell level: the day's anchor with a
+# growth co-predictor, one step along the co-predictor fork.
 anchor <- \(y) as.formula(
   paste0(y, " ~ unemp + growth + factor(year) + factor(cntry)"))
 
-# Dispersion measures used by the null-world and design sections, derived here
+# What the recipe plants at cell level is the panel's own coefficient, because
+# the generator solves each country-year's item thresholds until its expected
+# dimension means ARE the panel's. Computed here rather than read from a file,
+# so it cannot go stale against the panel it comes from.
+planted <- map(c(DIMS, "pos", "neg"), \(v) {
+  cf <- coef(lm(anchor(paste0("m", v)), data = panel))
+  tibble(outcome = v, planted_unemp = cf[["unemp"]],
+         planted_growth = cf[["growth"]])
+}) |> list_rbind()
+
+sim <- sim |>
+  mutate(edu3 = factor(edu3, levels = c("low", "mid", "high")),
+         ses = factor(ses, levels = c("manual", "self_employed", "manager",
+                                      "white_collar", "house_person",
+                                      "unemployed", "retired", "student")),
+         urban = factor(urban, levels = c("large_town", "rural", "small_town")))
+
+sim_cells <- sim |>
+  summarise(across(c(all_of(DIMS), pos, neg), mean),
+            unemp = first(unemp), growth = first(growth),
+            .by = c(cntry, year))
+
+# Dispersion measures the null-world and design sections need, derived here
 # rather than pasted so that regenerating the twin cannot leave them stale.
 m_cells   <- lmer(mcosmo ~ unemp + (1 | cntry), data = panel)
 SD_CNTRY  <- as.data.frame(VarCorr(m_cells))$sdcor[1]
@@ -59,41 +61,54 @@ SD_PERSON <- sim |>
   summarise(v = var(cosmo), .by = c(cntry, year)) |>
   summarise(sd = sqrt(mean(v))) |> pull(sd)
 MEAN_COSMO <- mean(sim$cosmo)
-
 B_COSMO <- planted$planted_unemp[planted$outcome == "cosmo"]
+
+# The population age the selection tilt moves away from and w1 restores.
+AGE_REF <- mean(marg$value[marg$variable == "age" & marg$kind == "quantile"])
 ```
 
 This is the simulation module of the [companion curriculum](index.qmd), and it is optional. Every other quantitative page on this site analyses data that came from the world. This module works the other way round. It analyses data that came from a recipe we wrote ourselves, so that for once the answer is known before any model runs. That inversion – fake-data simulation – is one of the core habits of modern applied statistics. *Regression and Other Stories* uses it constantly, on the argument that fitting models to data whose coefficients you planted yourself is how you learn what your models can and cannot recover [@GelmanEtAl2020RegressionOtherStories]; the same habit anchors classroom practice [@GelmanVehtari2024ActiveStatisticsStories] and the workflow literature, where experimentation on simulated data is a named pillar of serious model-building [@GelmanEtAl2026BayesianWorkflow].
 
-The module teaches from a dataset built for the purpose. `EUframes_person_sim.csv` is a simulated person-level companion to the EU-frames case – `r format(nrow(sim), big.mark = ",")` synthetic respondents across the real 270 country-year cells, with the real macro variables attached. It carries the original analysis rather than a cut-down version of it: all four framing dimensions and both composites, each with its own response to unemployment and to growth, plus the individual controls the original author (OA) used. Its [codebook](../data/EUframes_person_sim_codebook.md) states the construction in full, and two facts about it govern everything below.
+The module teaches from a dataset built for the purpose. `EUframes_person_full.csv` is a simulated person-level companion to the EU-frames case – `r format(nrow(sim), big.mark = ",")` synthetic respondents across the real 270 country-year cells, with the real macro variables attached. It carries the original analysis rather than a cut-down version of it: all four framing dimensions and both composites, plus every individual variable the original author (OA) used – sex, age, education as both years and bands, an eight-category occupational position, urbanisation, and left-right self-placement.
 
-First, **no Eurobarometer respondent appears in it**. The raw microdata behind the case are GESIS-licensed and cannot be redistributed in any form, including as samples or extracts – [the repositories module](repositories.qmd#sec-gesis) explains that regime – so a person-level dataset this site can legitimately ship has to be synthetic. What the licensed file supplied, read once and locally, is a set of summaries: the demographic marginals, how a respondent's own age, sex and education move their framing, and how much individuals differ within a country-year. Those are aggregate statistics of the kind published appendices carry, and they are committed as `_model-outputs/sim_calibration*.csv`.
+First, **no Eurobarometer respondent appears in it**. The raw microdata behind the case are GESIS-licensed and cannot be redistributed in any form, including as samples or extracts – [the repositories module](repositories.qmd#sec-gesis) explains that regime – so a person-level dataset this site can legitimately ship has to be synthetic. What the licensed file supplied, read once and locally, is a set of summaries: marginal distributions, a correlation matrix, and the coefficients of a model of the survey instrument. Those are aggregate statistics of the kind published appendices carry, and they are committed as `_model-outputs/joint_*.csv` and `_model-outputs/item_*.csv`.
 
 Second – and this is the pedagogical point rather than a limitation – **the recipe is known**. A data-generating process is the explicit rule by which every value was produced. Real data never comes with its rule attached; simulated data is nothing but the rule, which is what makes it a laboratory.
 
 ## 1. The recipe, stated in full {#sec-dgp}
 
-The generator is `_model-outputs/simulate_person_twin.R`, a committed script worth reading – it is the data-generating process made executable. Its central move is to simulate the *instrument* rather than the four scores. In the real survey a respondent hears a list of thirteen things the EU might mean and names those that apply. Their dimension scores are the shares of their mentions falling to each dimension. The simulation does the same: decide whether the respondent mentions anything, then divide their mentions.
+The generator is `_model-outputs/simulate_person_joint.R`, a committed script worth reading, and it works in two stages that answer two different questions: who is in the sample, and what they say.
 
-The expected composition for person $i$ in country $c$ and year $t$ has two layers. The cell layer comes from the public panel, fitted under the anchor specification with GDP growth added as a co-predictor, one step along the day's co-predictor fork:
+**Stage one: who.** A respondent's characteristics are one draw from a latent multivariate normal whose correlation matrix was estimated on the real respondents. Each observed variable is a monotone transform of one coordinate of that draw: sex and employment status by a threshold, urbanisation by cutpoints, age, education and left-right through their quantile functions. Any marginal distribution you like can be reproduced this way, and every pairwise association comes with it.
+
+That second half is the point. An earlier version of this twin drew age, sex and education independently, which is the natural thing to do and is wrong: in the real respondents, age correlates with being unemployed at `r sprintf("%.2f", corr$r[(corr$var1 == "age" & corr$var2 == "unemployed") | (corr$var2 == "age" & corr$var1 == "unemployed")][1])` and with education at `r sprintf("%.2f", corr$r[(corr$var1 == "age" & corr$var2 == "edu") | (corr$var2 == "age" & corr$var1 == "edu")][1])`. A regression coefficient is a partial association, so it depends on how the variables covary; get that wrong and the coefficients come out wrong however carefully each variable's own effect was set.
+
+**Stage two: what they say.** In the real survey a respondent hears a list of things the EU might mean and names those that apply, and their dimension scores are the shares of their mentions falling to each dimension. The generator simulates that instrument rather than the four scores. Each of the thirteen items has a latent propensity
 
 $$
-a_j + b_j\,\text{unemp}_{ct} + c_j\,\text{growth}_{ct} + \text{year}_{jt} + u_{jc} + u_{jct},
+z_{ij} = \alpha_{j(ct)} + \mathbf{x}_i^{\top}\boldsymbol\beta_j + \varepsilon_{ij},
+\qquad \text{item } j \text{ mentioned when } z_{ij} > 0,
 $$
 
-and to it are added the shifts a respondent's own age, sex and education produce, calibrated from the real respondents and centred on the population marginals.
+with $\mathbf{x}_i$ the respondent's characteristics, $\alpha_{j(ct)}$ a shift for their country-year, and the thirteen residuals correlated with one another. That is a **multivariate probit**, and its three parts do three jobs: $\boldsymbol\beta$ carries who says what, the correlated residuals carry the fact that people who name one thing tend to name its neighbour, and $\alpha$ carries the country-year.
 
-Look at what the subscript $j$ is doing there. **Every dimension has its own coefficients.** Nothing is derived from a privileged dimension with the others absorbing the remainder – which would impose the false claim that utilitarian, communitarian and libertarian framings have no independent relationship with the economy. The four shares still sum to one, but that comes free: because they sum to one in the data, coefficients estimated the same way on all four sum to zero automatically. Nothing has to be held passive for the constraint to hold.
+Simulating the instrument rather than the scores is what gives the shares their exact zeros and ones, makes them sum to one automatically, and lets every dimension respond on its own terms.
 
-Two further construction details are worth knowing. Mentioning anything at all is modelled on the logit scale, because the linear alternative does not fit under the ceiling. About `r sprintf("%.0f", 100 * mean(panel$mention))` per cent of respondents mention something, and the calibrated education contrast is worth about `r sprintf("%.1f", 100 * GRAD_LINEAR)` percentage points at that rate, which carries graduates past a probability of one in `r sprintf("%.0f", 100 * mean(panel$mention + GRAD_LINEAR > 1))` per cent of the 270 cells. That share is what the public panel shows; computed on the licensed respondent file, where the contrast is not flattened into a single average rate, it is higher still. Read from the other end, the same arithmetic drives the `r sprintf("%.0f", 100 * (1 - mean(panel$mention)))` per cent probability of mentioning nothing below zero – the classic linear-probability failure, met here in a setting where you can watch it.
+```{r}
+#| label: coef-sizes
+bcoef |> slice_max(abs(estimate), n = 6) |>
+  mutate(estimate = signif(estimate, 3))
+```
 
-The country and cell deviations are drawn fresh, then residualised against the full design including year, because growth is dominated by common shocks: 2009 collapsed everywhere at once, so a draw made orthogonal to raw growth can still correlate with it once year is absorbed.
+Occupation dominates that list, which is why the twin carries it. An earlier version left occupation out of the answer stage entirely – respondents had an occupation, but it had no bearing on what they said – and the result reproduced the macro slopes while getting two thirds of the model's coefficients wrong. [Section 2](#sec-recover) is where that was found.
+
+**The country-year shift is solved, not set.** A dimension score is a *share* of a respondent's own mentions, so raising the cosmopolitan items lowers every other dimension even with its own items untouched. There is no formula for the shift that produces a given set of cell means, so for each of the 270 country-years the generator solves four shifts by Newton iteration against a fixed reference sample, until the expected dimension means are the panel's own to within 1e-4.
 
 ```{r}
 #| label: glimpse
 sim |>
   slice_sample(n = 6) |>
-  select(cntry, year, w1, age, female, edu4, cosmo, util, comm, lib, unemp) |>
+  select(cntry, year, age, edu3, ses, urban, cosmo, util, comm, lib, unemp) |>
   arrange(cntry, year)
 ```
 
@@ -111,21 +126,16 @@ identities <- sim |>
 identities
 ```
 
-Among respondents who mention anything, `r sprintf("%.0f%%", 100 * identities[["share exactly 0"]])` score exactly zero on cosmopolitan framing and `r sprintf("%.0f%%", 100 * identities[["share exactly 1"]])` score exactly one – the latter because someone who mentions one item and finds it cosmopolitan, or two and finds both, scores 1 by construction. This is faithful to the real instrument, and it is the concrete reason beta regression, which needs the outcome strictly inside the unit interval, cannot be used at person level while it can be used on country-year means. The [statistical methods module](stats-methods.qmd#sec-glm) states that constraint; here you can verify it.
+Among respondents who mention anything, `r sprintf("%.0f%%", 100 * identities[["share exactly 0"]])` score exactly zero on cosmopolitan framing and `r sprintf("%.0f%%", 100 * identities[["share exactly 1"]])` score exactly one – the latter because someone who mentions one item and finds it cosmopolitan scores 1 by construction. This is faithful to the real instrument, and it is the concrete reason beta regression, which needs the outcome strictly inside the unit interval, cannot be used at person level while it can be used on country-year means. The [statistical methods module](stats-methods.qmd#sec-glm) states that constraint; here you can verify it.
 
 ## 2. Simulate, fit, recover {#sec-recover}
 
-The first thing to do with data whose recipe you know is to ask a model to find what the recipe planted. Each dimension's planted coefficient is the one the **real panel** yields under the same specification, so a model fitted to the twin should land where the same model fitted to the real data lands.
+The first thing to do with data whose recipe you know is to ask a model to find what the recipe planted. There are two such questions here, and they are worth keeping apart.
 
-Each macro slope plants exactly one number, and `sim_planted.csv` records it. That is a design decision worth stating, because it was not always so. An earlier version of the twin gave respondents an authored `unemployed` indicator and set its prevalence to a fixed multiple of the country's unemployment rate, which opened a second route from the macro rate to the cell mean and split every planted unemployment coefficient into two – one for a model that held the indicator fixed, one for a model that did not. The indicator is gone. A national unemployment rate is a property of a labour market and being out of work is a property of a person; wiring the second to the first smuggles in a mechanism the case never claimed, and no such variable was ever calibrated from the real respondents. [Section 4](#sec-composition) works through what that decision costs and what it buys.
+At **cell level** the planted value is the panel's own coefficient, because the generator solves each country-year until its expected dimension means are the panel's. So a model fitted to the twin's cell means should land where the same model fitted to the real panel lands.
 
 ```{r}
 #| label: recover
-sim_cells <- sim |>
-  summarise(across(c(all_of(DIMS), pos, neg), mean),
-            unemp = first(unemp), growth = first(growth),
-            .by = c(cntry, year))
-
 map(planted$outcome, \(v) {
   cf <- coef(lm(anchor(v), data = sim_cells))
   tibble(outcome = v, sim_unemp = cf[["unemp"]], sim_growth = cf[["growth"]])
@@ -136,15 +146,15 @@ map(planted$outcome, \(v) {
   mutate(across(where(is.numeric), \(x) signif(x, 3)))
 ```
 
-Read the substance first, before the arithmetic. Rising unemployment pushes framing away from **both** cosmopolitan and utilitarian terms and towards communitarian ones, while libertarian framing barely moves. Growth works differently again, lifting utilitarian framing most of all – which makes sense, since the utilitarian dimension is built from the economic-prosperity and social-protection items. That pattern is not an artefact of the simulation. It is what the real panel says, carried into the twin so that a participant analysing simulated respondents meets the same structure a participant analysing the real ones would.
+Read the substance before the arithmetic. Rising unemployment pushes framing away from **both** cosmopolitan and utilitarian terms and towards communitarian ones. Growth works differently again, lifting utilitarian framing most – which makes sense, since that dimension is built from the economic-prosperity and social-protection items. That pattern is not an artefact of the simulation. It is what the real panel says, carried into the twin.
 
-Now the arithmetic. The simulated coefficients sit near the planted values but not on them, and the reason is worth dwelling on: each of the twin's cell means is an average over a tenth of the real respondents, so it is noisier than the panel's own. A cell-level slope here carries a standard error near a third of the anchor's size. That is a property of the design, not a defect, and it is the sort of thing single-dataset analysis can never show you. Repeated draws can.
+Now the arithmetic. The simulated coefficients sit near the planted values but not on them, and the reason is worth dwelling on: each of the twin's cell means is an average over a tenth of the real respondents, so it is noisier than the panel's. That is a property of the design, not a defect, and it is the sort of thing single-dataset analysis can never show you. Repeated draws can.
 
 ```{r}
 #| label: fig-sweep
 #| fig-width: 8
 #| fig-height: 3.6
-#| fig-cap: "Twenty independent draws from the same recipe, each refitted with the anchor specification. Red marks show the planted coefficient."
+#| fig-cap: "Independent draws from the same recipe, each refitted with the anchor specification. Red marks show the planted coefficient. The unemployment slopes sit consistently outside their marks, which is the bias the text discusses."
 ggplot(sweep, aes(sim_unemp, outcome)) +
   geom_point(alpha = 0.45, colour = "#00205b", size = 1.6) +
   geom_point(data = planted, aes(planted_unemp, outcome),
@@ -155,8 +165,6 @@ ggplot(sweep, aes(sim_unemp, outcome)) +
 
 ```{r}
 #| label: sweep-summary
-# Both slopes for all six outcomes: twelve quantities, each read against its
-# own planted value.
 planted_long <- planted |>
   select(outcome, sim_unemp = planted_unemp, sim_growth = planted_growth) |>
   pivot_longer(-outcome, names_to = "slope", values_to = "planted")
@@ -169,30 +177,46 @@ sweep_summary <- sweep |>
   left_join(planted_long, by = c("outcome", "slope")) |>
   mutate(gap_in_ses = (mean_estimate - planted) / (sd_estimate / sqrt(draws)))
 
-# A single draw's nominal standard error, for comparison with the spread of
-# the twenty.
-SE_ONE   <- sqrt(diag(vcov(lm(anchor("cosmo"), data = sim_cells))))[["unemp"]]
-SD_SWEEP <- sd(sweep$sim_unemp[sweep$outcome == "cosmo"])
-
 sweep_summary |>
   arrange(slope, outcome) |>
   mutate(across(where(is.numeric), \(x) signif(x, 3)))
 ```
 
-Across draws the estimates centre on the planted values. The last column is the test: it expresses each remaining gap as a multiple of the standard error of the twenty-draw mean. All `r nrow(sweep_summary)` fall inside two standard errors, and the largest is `r sprintf("%.1f", max(abs(sweep_summary$gap_in_ses)))`. Twenty draws are not enough to rule out a bias smaller than the noise – nothing here shows the recipe is exactly unbiased, only that it is unbiased to the precision twenty draws can see – but there is no residual to explain, which is the state a generator should be in.
+The last column is the test: each remaining gap as a multiple of the standard error of the mean across draws. `r sum(abs(sweep_summary$gap_in_ses) < 2)` of the `r nrow(sweep_summary)` fall inside two standard errors, and the ones outside are not scattered. Every unemployment slope misses in the same direction, with the twin's estimate larger in magnitude than the planted value by `r sprintf("%.0f", 100 * (median(abs(sweep_summary$mean_estimate[sweep_summary$slope == "sim_unemp"]) / abs(sweep_summary$planted[sweep_summary$slope == "sim_unemp"])) - 1))` per cent at the median. The median rather than the mean, because libertarian framing's planted slope is nearly zero and any absolute error there is an enormous proportion of it – an average would report a number driven entirely by the one quantity that carries no signal.
 
-Getting there took a design change worth recording, because it is the kind of mistake fake data is uniquely good at exposing. The earlier `unemployed` indicator put a systematic offset into every unemployment slope, and the sweep found it: the largest deviation then ran to 2.8 standard errors, which is more than twenty draws should produce by chance. The tempting response is to record the offset as a second estimand and let readers pick a column. The better response, and the one taken here, is to notice that the offset came from an authored mechanism nobody had asked for and remove the mechanism. A simulation study is a laboratory for the recipe as much as for the models fitted to it.
+That is a real bias in the generator, and it is worth showing rather than tidying away, because of how it had to be found. **No single draw reveals it.** Fit the anchor to the committed twin and regress its cell means against the panel's, and the unemployment coefficient on the difference comes back at *t* = −0.12 – nothing at all. One draw's sampling noise is the same size as the bias, so a sweep of this size is what separates it from zero.
 
-Two things about the sweep are worth noticing before leaving it. The spread of the twenty estimates is narrower than the standard error any one of them reports – `r sprintf("%.5f", SD_SWEEP)` against `r sprintf("%.5f", SE_ONE)` on the cosmopolitan dimension – because the generator residualises every country and cell deviation against the full design, so those components contribute nothing to the fitted slope while still inflating the residual variance an ordinary standard error is built from. And any *one* draw can still sit a good distance off. The committed file is one such draw, and it was kept rather than reseeded: rerolling until the estimate looked good would be the simulation-study version of the very practice this workshop is about, and that temptation has a literature of its own [@PawelEtAl2024PitfallsPotentialsSimulation].
+Its source is a stated limitation of the construction rather than a mistake in it. The generator gives each country-year four numbers, one shift per dimension, where the real data has thirteen, one rate per item. A dimension-level shift captures as little as 37 per cent of some items' cell-to-cell variation, and what is lost shows up as a mentioning rate about 1.6 points below the panel's and as this amplification.
+
+The obvious repair does not work, which is worth knowing before anyone attempts it. Giving each cell its own thirteen item rates makes the marginals exact – mentions per respondent land within 0.05 per cent of target – and makes the model comparison of the next section **worse**, from 39 coefficients agreeing to 32. In the real data a cell's item rates reflect its context and the mix of people in it together; the twin draws its people from pooled marginals, so forcing the real rates onto a different mix pushes the difference into the country-year term, and it re-emerges as distorted covariate coefficients. Fixing it properly would mean reproducing each cell's demographic composition as well, which is a much larger undertaking than the gain justifies.
+
+So the honest summary is: unbiased for the individual-level model it was validated against, and biased by about a sixth for cell-level unemployment slopes, with the reason understood and the cost of removing it judged too high.
+
+At **individual level** the planted values are not the panel's. They are whatever the real respondents give under the same model, so finding out whether the twin reproduces them means fitting that model on both files. That comparison is the twin's licence to be used at all, and it lives in `_model-outputs/twin_validation.csv`:
+
+```{r}
+#| label: validation-summary
+valid |>
+  summarise(coefficients = n(),
+            `within 1 SE` = sum(abs(z) < 1),
+            `within 2 SE` = sum(abs(z) < 2),
+            largest = round(max(abs(z)), 2))
+```
+
+`r sum(abs(valid$z) < 2)` of `r nrow(valid)` agree within two standard errors of the difference. [The individual-level page](individual-level.qmd) works through what those coefficients say.
+
+That validation is also how two real failures in this generator were found, and neither was visible any other way. The first version left occupation out of the answer stage, so a model containing occupation and education split the association between them differently from the real data – two thirds of the coefficients wrong, while every marginal, every cell mean and every correlation checked out. The second carried education as a straight line through a relationship the published model reads in three bands, and returned about half of each band contrast.
+
+The lesson generalises past this dataset. A simulated dataset can pass every check you think to write and still fail the analysis you built it for. The only test that finds that is running the analysis on both.
 
 ::: {.callout-tip}
 ## Try it
 
-Open the generator and change `SIM_FRACTION` from `0.10` to `0.40`. That is the only lever on how many respondents each cell gets, and it is the cleanest one-parameter experiment in the file: nothing about the recipe's coefficients changes, only how precisely a cell mean can be measured.
+Open the generator and change `SIM_FRACTION` from `0.10` to `0.40`. It is the only lever on how many respondents each cell gets, and nothing about the recipe's coefficients changes – only how precisely a cell mean can be measured.
 
-Do not judge the result on one rerun. A single draw shows you one estimate, and one estimate cannot tell you whether the spread has narrowed. Sweep instead: ten seeds at `0.10` and ten at `0.40`, with `$SIM_SEED` naming the draw and `$SIM_SWEEP` collecting the estimates into two separate files. Then compare the standard deviation of each set of ten. Quadrupling the cell sizes should roughly halve it, which is the square-root law meeting you as an experimental result rather than a formula. That is a designed simulation study in miniature – one parameter moved, everything else held – and it is exactly how a power analysis is built.
+Do not judge the result on one rerun: a single draw gives one estimate, and one estimate cannot tell you whether the spread has narrowed. Sweep instead – ten seeds at each setting, with `$SIM_SEED` naming the draw and `$SIM_SWEEP` collecting the estimates – then compare the standard deviation of each set of ten. Quadrupling the cell sizes should roughly halve it, which is the square-root law arriving as an experimental result rather than a formula. That is a designed simulation study in miniature, and it is how a power analysis is built.
 
-Two practical warnings. Point `$SIM_OUT` at a scratch directory unless you mean to overwrite the committed twin, and note that at `0.40` the file is four times the size. The generator also writes `companion/_model-outputs/sim_planted.csv` to that hard-coded path on every run whatever `$SIM_OUT` says – its contents do not depend on the seed or on `SIM_FRACTION`, so an experiment run in place leaves it unchanged in substance, but check `git status` before committing.
+Point `$SIM_OUT` at a scratch directory unless you mean to overwrite the committed twin, and note that at `0.40` the file is four times the size.
 :::
 
 ## 3. Six outcomes, one instrument {#sec-outcomes}
@@ -213,70 +237,33 @@ The magnitudes also span a wide range, so an analyst choosing `util` and one cho
 
 ## 4. Composition or context? {#sec-composition}
 
-A country-year's unemployment rate could move EU framing in two different ways. It might be that unemployed *people* frame the EU differently, so a high-unemployment cell simply contains more of them and its mean shifts with the mix – a **compositional** effect. Or it might be that living through high unemployment changes how everyone in the country frames the EU, whatever their own situation – a **contextual** effect. The distinction matters because the two carry different implications and often different policies, and it is one of the oldest problems in multilevel analysis.
+A country-year's unemployment rate could move EU framing in two ways. It might be that unemployed *people* frame the EU differently, so a high-unemployment cell holds more of them and its mean shifts with the mix – a **compositional** effect. Or living through high unemployment might change how everyone frames the EU, whatever their own situation – a **contextual** effect.
 
-The country-year panel cannot separate them at all, because it contains no individuals: 270 means, and no way to ask who is inside each one. That is the limitation a person-level dataset is supposed to lift. So it is worth being exact about what this twin can and cannot do here, because the answer is instructive.
+The country-year panel cannot separate them, because it contains no individuals. This twin can, because it carries a calibrated occupational structure: being unemployed has its own estimated effect on what a respondent says, and the share of a cell's respondents who are unemployed rises with the national rate by a measured amount.
 
-**This twin plants context only.** Its respondents' characteristics are drawn from fixed population marginals, so a high-unemployment cell contains the same mix of ages, sexes and education levels as a low-unemployment one. There is no compositional path to find, and a model that goes looking for one will correctly find nothing.
+Both halves matter, and the second is the one that gets assumed. A large individual effect spread over a group that barely grows moves an average hardly at all, and the arithmetic showing this is worth more than either coefficient alone. [The individual-level page](individual-level.qmd#sec-composition) does that calculation on this twin, and finds the compositional path accounts for a few per cent of the country-level association.
 
-That was a deliberate choice, and an earlier version of the twin chose otherwise. It gave every respondent an authored `unemployed` indicator whose prevalence was set to a fixed multiple of their country's unemployment rate, precisely so that this section would have a compositional path to display. Two things were wrong with it. The first is that no such variable was ever calibrated: the licensed file supplied age, sex and education effects, and nothing about employment status, so the indicator's prevalence and its effect were both invented. The second is deeper. A country's unemployment rate and a person's employment status are different constructs measured at different levels, and the case's claim is about the first. Tying the second to the first by a made-up constant does not model a compositional path so much as assert one, and it then leaks into every macro coefficient the twin plants – which is exactly what the recovery sweep in [section 2](#sec-recover) detected.
+What belongs here is the methodological point rather than the answer. An earlier version of this twin **manufactured** the compositional channel: it gave respondents an invented unemployment indicator whose prevalence was a fixed multiple of the national rate, precisely so this section would have something to display. Two things were wrong with that. Nothing about it was measured – the prevalence rule and the effect were both chosen. And it fused two constructs that live at different levels, a labour market's unemployment rate and a person's employment status, which quietly asserted a mechanism the case never claimed and leaked into every macro coefficient the twin planted.
 
-What survives, and is worth more than the exhibit that was removed, is the arithmetic. Suppose being unemployed did lower a person's cosmopolitan score by 0.04 – about ten times the cell-level coefficient per unit, so a large individual effect by the standards of this instrument.
+The general rule it illustrates is worth more than the exhibit it replaced. **A simulation can only demonstrate what was put into it.** If the mechanism on display is one you wrote down yourself, the demonstration establishes that your code works, not that the world does. Simulated data is for checking whether an estimator recovers an answer, never for supplying one.
 
-```{r}
-#| label: composition-arithmetic
-# What a compositional path would be worth, given an individual effect and a
-# prevalence gradient. Neither number is in the twin; both are the kind of
-# figure a reader can look up for a real dataset, which is the point.
-b_individual <- -0.04    # effect on a person's own cosmopolitan share
-d_prevalence <- 0.006    # extra unemployed respondents per point of unemployment
+## 5. Do the individual effects survive? {#sec-individual}
 
-tibble(
-  quantity = c("individual effect of being unemployed",
-               "extra unemployed share per point of unemployment",
-               "implied compositional contribution to the cell slope",
-               "planted cell slope, cosmopolitan (all of it contextual)",
-               "compositional share of the total"),
-  value = c(b_individual, d_prevalence, b_individual * d_prevalence, B_COSMO,
-            b_individual * d_prevalence / (B_COSMO + b_individual * d_prevalence))
-) |>
-  mutate(value = signif(value, 3))
-```
-
-A one-point rise in a country's unemployment rate adds well under one percentage point to the share of respondents who are themselves unemployed. Multiply a large individual effect by that small a gradient and the compositional contribution comes to a few per cent of the cell-level slope. Context dominates composition not because anyone decided it should, but because of the arithmetic: an individual-level mechanism has to move a *lot* of people to shift an aggregate mean. That is the calculation a reader needs whenever a paper explains an aggregate association with 'it must be the people', and it is usually not done.
-
-Doing it properly on real data means measuring the prevalence gradient rather than assuming it, and it is a good use of a licensed microdata file. What a simulated twin is for is checking that your estimator recovers the answer once you have it – not supplying the answer.
-
-## 5. The demographics are not decoration {#sec-individual}
-
-Age, sex and education carry into the twin the effects they have in the real respondents, which is what lets it support OA's own model rather than a simplified one. Education is the largest effect in the file.
+Age, sex, education, occupation and urbanisation all carry into the twin the effects they have in the real respondents, which is what lets it support the published model rather than a simplified one. Whether they arrive intact is a question with a checkable answer.
 
 ```{r}
 #| label: individual
-# The calibrated coefficients are effects on the composition among people who
-# mention something, so the fit has to be restricted to them. Run on all rows
-# the education contrast comes back about a quarter larger, because education
-# drives whether a respondent mentions anything as well.
-m_ind <- lm(cosmo ~ age10 + female + edu4 + factor(cntry) + factor(year),
-            data = filter(sim, cosmo + util + comm + lib > 0))
-ind <- parameters::model_parameters(m_ind, keep = "^(age10|female|edu4)")
-
-recovery <- pcoef |>
-  filter(outcome == "cosmo") |>
-  select(term, calibrated = value) |>
-  left_join(ind |> as_tibble() |> select(term = Parameter, recovered = Coefficient,
-                                         se = SE),
-            by = "term") |>
-  mutate(across(where(is.numeric), \(x) signif(x, 4)))
-
-# Three significant figures round the smaller contrasts to a point where a
-# fraction-of-a-standard-error agreement reads as a mismatch.
-old_sigfig <- options(pillar.sigfig = 4)
-print(recovery)
-options(old_sigfig)
+valid |>
+  filter(outcome == "cosmo",
+         !term %in% c("(Intercept)", "munemp", "mgrowth")) |>
+  select(term, real, twin, z) |>
+  mutate(across(where(is.numeric), \(x) signif(x, 3))) |>
+  arrange(desc(abs(real)))
 ```
 
-Graduates sit about 0.12 higher on cosmopolitan framing than those who left school by 15, and the twin returns that. Notice how much more precisely these individual-level coefficients are recovered than the macro ones two sections ago: there are forty thousand respondents carrying information about education and only 270 cells carrying information about unemployment. The same dataset is richly informative about one question and thin on the other, which is the design lesson [section 9](#sec-design) makes explicit.
+Education is the largest individual effect in the file: graduates sit about `r sprintf("%.2f", valid$real[valid$outcome == "cosmo" & valid$term == "edu3high"])` higher on cosmopolitan framing than those who left school by fifteen, and the twin returns `r sprintf("%.2f", valid$twin[valid$outcome == "cosmo" & valid$term == "edu3high"])`. The `z` column reads each gap against the standard error of the difference, so a value inside two means the twin reproduces that coefficient as well as a second sample of its size would.
+
+Notice how much more precisely these individual coefficients are pinned down than the macro ones two sections ago. Forty thousand respondents carry information about education; 270 cells carry information about unemployment. The same dataset is richly informative about one question and thin on the other, which is the design lesson [section 9](#sec-design) makes explicit.
 
 ::: {.callout-tip}
 ## Try it
@@ -350,11 +337,11 @@ The distortion here is constant across cells, so it shifts levels without touchi
 ::: {.callout-tip}
 ## Try it
 
-In the generator, set `SIM_DISTORT_SLOPE` to 0.01. The youth over-selection then grows with a cell's unemployment rate, from about two and a half years of achieved age shift in the calmest labour markets to eight and a half in the most stressed, and because age moves framing in the recipe the distortion now bends the macro slope itself rather than only the levels.
+In the generator, set `SIM_DISTORT_SLOPE` to 0.01. The youth over-selection then grows with a cell's unemployment rate rather than sitting at one strength everywhere, and because age is correlated with framing in the estimated structure, the distortion now bends the macro slope itself instead of only shifting levels. That is the case where weighting stops being cosmetic.
 
-One rerun will not show you that. Across draws the unweighted estimate carries the larger bias, but the separation within any single draw is small next to that draw's own sampling variation, so one comparison is an unreliable demonstration and can as easily show the weighted estimate sitting further away. Run eight or ten seeds, keep each `$SIM_OUT` file, and fit the anchor to every one of them weighted and unweighted. `$SIM_SWEEP` will not do this job for you, because it records the unweighted estimates only.
+One rerun will not show you that. Across draws the unweighted estimate carries the larger bias, but within any single draw the separation is small next to that draw's own sampling variation, so one comparison is an unreliable demonstration and can as easily show the weighted estimate sitting further away. Run eight or ten seeds, keep each `$SIM_OUT` file, and fit the anchor to every one of them weighted and unweighted. `$SIM_SWEEP` will not do this job for you, because it records the unweighted estimates only.
 
-Two things to expect. The weighted estimate does not land exactly on the planted value either, since `w1` inverts the selection factor exactly only for an untruncated age distribution, and ages are truncated at 15 and 98, which delivers about three quarters of the intended shift at the top of the range. And much above 0.03 the tilt turns negative in low-unemployment countries, over-selecting the old there instead, which muddies the lesson.
+Two things to expect. The weighted estimate will not land exactly on the planted value either: `w1` is the reciprocal of the selection probability, which reverses the distortion in expectation rather than in any one sample. And a distortion that varies across cells changes what the per-cell threshold solve was calibrated against, so the twin's cell means drift slightly from the panel's – visible in the generator's own diagnostic, and a reminder that a generator's parts are not independent of one another.
 :::
 
 ## 8. Building the nothing {#sec-null}

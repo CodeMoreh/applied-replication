@@ -1,0 +1,26 @@
+model,kind,term,value,se,statistic,df
+two_level,fixed,(Intercept),0.547383,0.0122167,44.806,27.0506
+two_level,fixed,unemp,-0.00478945,1.9534e-4,-24.5186,391197
+two_level,random,cntry: (Intercept),0.0627767,NA,NA,NA
+two_level,random,Residual: NA,0.369698,NA,NA,NA
+two_level,n,respondents,416698,NA,NA,NA
+two_level,n,cells,270,NA,NA,NA
+two_level,n,countries,27,NA,NA,NA
+three_level,fixed,(Intercept),0.552614,0.0139259,39.6824,44.4082
+three_level,fixed,unemp,-0.00523658,8.02118e-4,-6.52844,253.055
+three_level,random,cy: (Intercept),0.0385329,NA,NA,NA
+three_level,random,cntry: (Intercept),0.0613104,NA,NA,NA
+three_level,random,Residual: NA,0.368061,NA,NA,NA
+three_level,n,respondents,416698,NA,NA,NA
+three_level,n,cells,270,NA,NA,NA
+three_level,n,countries,27,NA,NA,NA
+slopes,fixed,(Intercept),0.553737,0.0155411,35.6306,20.2063
+slopes,fixed,unemp,-0.00571366,0.00168189,-3.39715,18.87
+slopes,random,cy: (Intercept),0.0346447,NA,NA,NA
+slopes,random,cntry: (Intercept),0.0642502,NA,NA,NA
+slopes,random,cntry: unemp,0.00608308,NA,NA,NA
+slopes,random,cntry: (Intercept) ~ unemp,-0.435079,NA,NA,NA
+slopes,random,Residual: NA,0.368061,NA,NA,NA
+slopes,n,respondents,416698,NA,NA,NA
+slopes,n,cells,270,NA,NA,NA
+slopes,n,countries,27,NA,NA,NA

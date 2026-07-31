@@ -61,8 +61,24 @@ fit_anchor <- function(d, y, cluster = "cy") {
 }
 
 real <- prep(readRDS("_planning_data/person_level_full.rds"))
-twin <- prep(read_csv(Sys.getenv("TWIN_FILE", "data/EUframes_person_full.csv"),
-                      show_col_types = FALSE))
+TWIN_DEFAULT <- "data/EUframes_person_full.csv"
+twin_file <- Sys.getenv("TWIN_FILE", TWIN_DEFAULT)
+twin <- prep(read_csv(twin_file, show_col_types = FALSE))
+
+# The committed comparison table describes the committed twin, and only that.
+# Pointing $TWIN_FILE at a candidate build and letting it write to the canonical
+# path leaves the site publishing one dataset's numbers under another's
+# description - which happened once, and was caught by a git diff rather than by
+# anything here. A non-default input writes beside the canonical file instead.
+out_file <- if (identical(twin_file, TWIN_DEFAULT)) {
+  "companion/_model-outputs/twin_validation.csv"
+} else {
+  f <- file.path("companion/_model-outputs",
+                 paste0("twin_validation_", tools::file_path_sans_ext(basename(twin_file)), ".csv"))
+  cat("NOTE: non-default twin, writing to", f, "and leaving the canonical table alone
+")
+  f
+}
 
 cat("real:", nrow(real), "respondents | twin:", nrow(twin), "\n\n")
 
@@ -85,8 +101,7 @@ comp <- r_fit |>
   mutate(gap = twin - real, gap_in_se = gap / real_se,
          z = gap / sqrt(real_se^2 + twin_se^2))
 
-write_csv(comp |> mutate(across(where(is.numeric), \(x) signif(x, 6))),
-          "companion/_model-outputs/twin_validation.csv")
+write_csv(comp |> mutate(across(where(is.numeric), \(x) signif(x, 6))), out_file)
 
 cat("\n--- the macro slopes, which are what the case is about ---\n")
 print(comp |> filter(term %in% c("munemp", "mgrowth")) |>

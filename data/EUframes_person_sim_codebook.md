@@ -1,5 +1,17 @@
 # Codebook: `EUframes_person_sim.csv`
 
+> **Superseded.** This file documents the first person-level twin, which
+> calibrated one coefficient per variable per dimension and applied the shifts
+> additively. That construction fixes a set of conditional means and nothing
+> else, so a regression run on it recovers the coefficients that went in while
+> anything depending on how the variables covary comes out wrong. It also drew
+> the demographics independently of one another, which they are not.
+>
+> It is replaced by [`EUframes_person_full.csv`](EUframes_person_full_codebook.md),
+> built from the joint distribution and validated coefficient by coefficient
+> against the real respondents. Nothing on the site reads the file this
+> codebook describes. Both are kept for now so the comparison is available.
+
 **This file is simulated.** No Eurobarometer respondent appears in it, and
 nothing in it should be used for substantive inference about EU framing. It
 exists for teaching: a person-level dataset built to carry the EU-frames

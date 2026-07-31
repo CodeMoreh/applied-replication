@@ -7,7 +7,7 @@ The companion curriculum is a set of seven self-contained modules that sit along
 
 **Nothing here is required for the workshop.** The day runs in full without any of it, in either of its two routes, with nothing to install and no account to create. Treat the curriculum as optional depth: preparation on one side of the day, next steps on the other.
 
-## Seven modules, each standing alone
+## Eight modules, each standing alone
 
 | Module | Level | What it covers | When to read it |
 |---|---|---|---|
@@ -16,6 +16,7 @@ The companion curriculum is a set of seven self-contained modules that sit along
 | [Draw the arrows you believe](dags.qmd) | Intermediate | What a causal graph is and what drawing one commits you to; confounders, mediators and colliders, each fitted rather than only described; building graphs from R formulas with `dagify()`; the EU-frames graph, whose adjustment set turns out to be exactly what two-way fixed effects absorb; what fixed effects cannot fix; stating an estimand for your own research and drawing its graph. | Either side of the day |
 | [The multiverse: origins, uses, and critics](multiverse.qmd) | Intermediate | Where multiverse thinking came from; the three purposes a multiverse can serve and why they pull apart; the 2025–26 critical debate (Auspurg; Rohrer, Hullman and Gelman; Lakens and colleagues) read against this workshop's own grid; how to read a curve without over-reading it. | After the day |
 | [Simulation as a method](simulation.qmd) | Intermediate | Data with a known recipe: a simulated person-level twin built to carry the original analysis, every framing dimension with its own response; parameter recovery and the sampling distribution of a level-2 estimate; composition against context; recovering individual effects; weights that actually matter; the degrees-of-freedom story run live; a null multiverse; a lineup; design precision by simulation. | After the day |
+| [One claim, two levels](individual-level.qmd) | Advanced | The same claim fitted where its author fitted it, on a synthetic person-level dataset validated coefficient by coefficient against the real respondents: individual circumstance against national context, why a large individual effect can explain almost none of an aggregate association, what declaring a level does to the evidence, and what a synthetic dataset should not be asked to do. | After the day |
 | [Reproducibility repositories](repositories.qmd) | Foundation to advanced | The GESIS licensed archive; the OSF nodes behind the case; what registration and forking mean; preregistration templates, feeding into Block 3. | After the day (the preregistration part also works before) |
 | [Git and GitHub for reproducible research](git-github.qmd) | Advanced | Version control from first principles; git on your own machine; putting a repository online; what belongs in git and what never does; taking your own reanalysis further. | After the day |
 
@@ -27,6 +28,7 @@ If you are new to all of this and want a route through, take the modules in this
 2. **Either side of the day: [The statistical methods behind the workshop](stats-methods.qmd).** The first five sections, aggregation through the estimator tour, make good preparation. The multilevel, weighting, Bayesian and effect-size sections land better once you have seen the class multiverse, so they reward a second read afterwards.
 3. **Either side of the day: [Draw the arrows you believe](dags.qmd).** The workshop introduces causal graphs in about thirty minutes and asks you to finish one in Task 4. Reading this beforehand turns that task into a decision you already know how to make; reading it afterwards is the more thorough option, because the models it fits are the ones you will have just seen scatter across the class chart.
 4. **After the day: [The multiverse module](multiverse.qmd), then [Simulation as a method](simulation.qmd).** The first gives the ideas behind what you just did, and the arguments now running against them. The second gives you a laboratory, a person-level dataset whose recipe is known in advance, on which you can test what your models actually recover.
-5. **After the day: [Reproducibility repositories](repositories.qmd) and [Git and GitHub](git-github.qmd).** Once you have a report of your own, these two turn it into something you can archive, version and share – the natural next steps beyond the workshop's own scope.
+5. **After the day: [One claim, two levels](individual-level.qmd).** Optional and self-contained. The workshop works at the country-year level throughout; this fits the same claim at the individual level, where the composition-against-context question can actually be answered rather than only posed.
+6. **After the day: [Reproducibility repositories](repositories.qmd) and [Git and GitHub](git-github.qmd).** Once you have a report of your own, these two turn it into something you can archive, version and share – the natural next steps beyond the workshop's own scope.
 
 Read as much or as little as suits you. The workshop stands on its own; the curriculum is here for when you want to go further.

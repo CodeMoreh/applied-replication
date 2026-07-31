@@ -58,6 +58,8 @@ website:
             text: "The multiverse: concept & critics"
           - href: companion/simulation.qmd
             text: "Simulation as a method"
+          - href: companion/individual-level.qmd
+            text: "One claim, two levels"
           - href: companion/repositories.qmd
             text: "Repositories & preregistration"
           - href: companion/git-github.qmd
