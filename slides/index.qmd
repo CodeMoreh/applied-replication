@@ -97,6 +97,20 @@ spec_grid <- readr::read_csv("../data/spec_grid.csv", show_col_types = FALSE) |>
   dplyr::mutate(r_ca = ifelse(positive_outcome, r, -r))
 analysts5 <- readr::read_csv("../data/analysts5.csv", show_col_types = FALSE)
 
+# The 29 teams of Silberzahn et al. (2018), published values, read here because
+# two slides in different parts draw them: the full forest in Part 1 and the
+# one-row reminder strip in Part 2. Codebook: data/silberzahn29_codebook.md.
+silberzahn29 <- readr::read_csv("../data/silberzahn29.csv", show_col_types = FALSE) |>
+  dplyr::mutate(distribution = factor(distribution,
+                  levels = c("Linear", "Logistic", "Poisson", "Other")))
+
+# Teams described their own methods and capitalised them 29 different ways;
+# the published table title-cases them, and the forest slide follows suit.
+tidy_approach <- function(x) {
+  stringr::str_replace_all(stringr::str_to_title(x),
+                           "\\b(And|A|For|With|Using|The|Of)\\b", tolower)
+}
+
 # Shared multiverse base layer. Built ONCE so the two consecutive multiverse
 # slides ("The class multiverse" and "Where your result lands") are the
 # SAME chart with an overlay, not two charts. The second slide calls spec_base()
@@ -412,8 +426,89 @@ Openness makes claims **checkable**. It does not make them **right**. The checki
 ::::
 
 ::: notes
-Here is the qualification that the enthusiasm usually skips. A completely open, perfectly reproducible pipeline can still be answering the wrong question. It can still rest on a selected sample, or a construct that does not measure what its name says, or an assumption nobody can test. The sentence on the slide is from one of the papers we are about to meet, and it deserves a beat of silence: reproducibility success does not mean the finding is correct. All openness does – and this is still a great deal – is make claims checkable. It does not make them right. Somebody still has to do the checking, and that turns out to be the interesting part, because when people do the checking at scale you get the three studies we look at next.
+Here is the qualification that the enthusiasm usually skips. A completely open, perfectly reproducible pipeline can still be answering the wrong question. It can still rest on a selected sample, or a construct that does not measure what its name says, or an assumption nobody can test. The sentence on the slide is from one of the papers we are about to meet, and it deserves a beat of silence: reproducibility success does not mean the finding is correct. All openness does – and this is still a great deal – is make claims checkable. It does not make them right. Somebody still has to do the checking, and that turns out to be the interesting part. So who has done it, and what happened?
 :::
+
+## Twenty-nine teams, one question {.smaller}
+
+::: {.small}
+**The question.** Are football referees more likely to give red cards to dark-skinned players than to light-skinned ones?
+
+**The data.** One dataset, sent to everyone: 2,053 players in the top divisions of England, Germany, France and Spain, the 3,147 referees they played under, and **146,028 player–referee pairs**. Skin tone rated from profile photographs by two coders who did not know the research question.
+
+**The design.** Twenty-nine teams analysed it independently. They reviewed each other's approaches *before* anyone had seen a result, revised, and only then compared answers.
+:::
+
+::: {.fragment .small}
+This is the first many-analysts study. Every one since is a variation on it – including the one you are inside today.
+:::
+
+::: {.src}
+@SilberzahnEtAl2018ManyAnalystsOne
+:::
+
+::: notes
+So let me show you the study that started all of this, because everything after it, including our own day, is a variation on its design. Silberzahn and colleagues, twenty eighteen. The question is deliberately concrete: are football referees more likely to give red cards to dark-skinned players than to light-skinned ones? The data went to everyone identically – two thousand and fifty-three players in the top divisions of England, Germany, France and Spain, the three thousand referees they had played under, and a hundred and forty-six thousand player-referee pairs, with skin tone rated from profile photographs by two coders who were not told the research question. And then the part that makes it a study rather than a survey: twenty-nine teams analysed it independently, reviewed each other's approaches before anybody had seen a single result, revised, and only then compared answers. Nobody could tune their method to get a number they liked, because nobody knew what number anyone was getting.
+:::
+
+## All twenty-nine, side by side
+
+```{r}
+#| label: silberzahn-forest
+#| fig-width: 9.6
+#| fig-height: 5.0
+# The paper's Figure 3, rebuilt from the authors' published values rather than
+# reproduced as an image: every team, every interval, grouped by the response
+# distribution it assumed. Colour is ours - the original is monochrome - and
+# marks whether the interval excludes 1. Teams 21 and 27 have intervals running
+# to 11.5 and 78.7; the published figure truncates both and asterisks them, and
+# so does this.
+CLIP <- 3.2
+szf <- silberzahn29 |>
+  mutate(hi_draw = pmin(or_hi, CLIP),
+         lab = paste0(team, ". ", tidy_approach(approach))) |>
+  arrange(distribution, or) |>
+  mutate(lab = factor(lab, levels = rev(lab)))
+
+ggplot(szf, aes(or, lab, colour = significant)) +
+  geom_vline(xintercept = 1, linetype = "longdash", colour = grey_mid) +
+  geom_errorbarh(aes(xmin = or_lo, xmax = hi_draw), height = 0, linewidth = 0.55) +
+  geom_point(size = 2.4) +
+  geom_text(data = filter(szf, or_hi > CLIP), aes(x = CLIP + 0.04, label = "*"),
+            size = 5, vjust = 0.75, show.legend = FALSE) +
+  scale_colour_manual(values = c(`TRUE` = ncl_blue, `FALSE` = d_red),
+                      breaks = c("TRUE", "FALSE"), name = NULL,
+                      labels = c("interval excludes 1", "interval includes 1")) +
+  scale_x_continuous(breaks = c(0.5, 1, 1.5, 2, 2.5, 3),
+                     expand = expansion(mult = c(0.01, 0.03))) +
+  coord_cartesian(xlim = c(0.42, CLIP + 0.1)) +
+  facet_grid(distribution ~ ., scales = "free_y", space = "free_y", switch = "y") +
+  labs(x = "odds ratio", y = NULL,
+       caption = paste("Above 1: dark-skinned players red-carded more often.",
+                       "* interval runs past the edge (teams 21 and 27).")) +
+  theme_slide(11) +
+  theme(plot.caption = element_text(hjust = 1, colour = "grey45", size = 9,
+                                    margin = margin(t = 4)),
+        legend.position = "top", legend.justification = "right",
+        legend.margin = margin(0, 0, -6, 0),
+        legend.text = element_text(size = 10, colour = "grey25"),
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_line(colour = "grey92"),
+        strip.placement = "outside",
+        strip.text.y.left = element_text(angle = 0, face = "bold",
+                                         colour = ncl_blue, hjust = 1),
+        axis.text.y = element_text(colour = "grey25", hjust = 0, size = 8.5),
+        panel.spacing.y = unit(0.45, "lines"))
+```
+
+::: {.src}
+@SilberzahnEtAl2018ManyAnalystsOne, Figure 3, rebuilt from the published values at osf.io/gvm2z.
+:::
+
+::: notes
+And here is what came back. Read it as a list of twenty-nine analyses of one dataset. The odds ratios run from nought point eight nine to two point nine three – the low end says dark-skinned players were red-carded slightly *less* often – and the median is one point three one. Twenty of the twenty-nine intervals exclude one; nine do not. So about two thirds found an effect and a third did not, on identical data. [pause] Now look at the left column, because that is where the day's real subject is. The teams are grouped by the response distribution they assumed – linear, logistic, Poisson, and two that fit none of the three. That is not a detail of implementation. It is a decision each team made, defensibly, before touching the data, and it is the same kind of decision you will be making after lunch. Hold on to that grouping; we come back to it twice.
+:::
+
 ## What is SCORE?
 
 ::: {.small}
@@ -1340,9 +1435,35 @@ Here is the layer underneath, and it is the sharpest illustration I have of this
 Our own case has just shown us the pattern in miniature. It was described first, and at far greater scale, somewhere else – and the two studies that did it are the ones the rest of this part rests on.
 :::
 
-::: {.fragment .small}
-**Silberzahn and colleagues (2018)** gave twenty-nine research teams one dataset and one question, and published what came back. This is the study that opened the many-analysts literature.
+:::: {.fragment}
+::: {.small}
+**Silberzahn and colleagues (2018)** – the red-card study from this morning. Twenty-nine teams, one dataset, one question. Twenty of the twenty-nine intervals excluded 1; nine did not.
 :::
+
+```{r}
+#| label: silberzahn-strip
+#| fig-width: 9
+#| fig-height: 1.5
+# The same 29 published estimates as the Part 1 forest, flattened onto one row
+# as a reminder rather than a fresh argument. Hollow rings so the cluster
+# between 1.2 and 1.5 stays countable where filled dots would merge.
+ggplot(silberzahn29, aes(or, y = 1, colour = significant)) +
+  geom_vline(xintercept = 1, linetype = "longdash", colour = grey_mid) +
+  geom_point(shape = 21, size = 5.5, stroke = 1.3, fill = NA) +
+  scale_colour_manual(values = c(`TRUE` = ncl_blue, `FALSE` = d_red),
+                      breaks = c("TRUE", "FALSE"), name = NULL,
+                      labels = c("significant", "not significant")) +
+  scale_x_continuous(breaks = c(1, 1.5, 2, 2.5, 3)) +
+  coord_cartesian(xlim = c(0.8, 3.05), ylim = c(0.94, 1.06)) +
+  labs(x = "odds ratio, 29 teams", y = NULL) +
+  theme_slide(13) +
+  theme(legend.position = "right", legend.key.spacing.y = unit(2, "pt"),
+        legend.text = element_text(size = 10, colour = "grey25"),
+        axis.text.y = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_line(colour = "grey92"))
+```
+::::
 
 ::: {.fragment .small}
 **Auspurg and Brüderl (2021)** went back through all twenty-nine of those analyses and asked a question the original had not: what was each team actually trying to measure?
@@ -1357,46 +1478,7 @@ The first establishes that careful people disagree. The second explains **why** 
 :::
 
 ::: notes
-Before we go further into our own case, I want to put two other studies beside it, because they are where this pattern was first described and they supply the vocabulary for the rest of the day. Both are about the same twenty-nine analyses. The first, Silberzahn and colleagues in twenty eighteen, is the study that opened this whole literature: twenty-nine teams, one dataset, one question, and they published everything that came back. The second, Auspurg and Brüderl in twenty twenty-one, is a reanalysis – they went back through all twenty-nine pipelines and asked something the original had not thought to ask, which is what each team was actually trying to measure. So the first study establishes that careful people disagree. The second explains why they disagree. And that second answer is the hinge of this part. Let me take them in order.
-:::
-
-## The red-card study: 29 teams, one dataset
-
-```{r}
-#| label: redcard-strip
-#| fig-width: 9
-#| fig-height: 3.4
-# Silberzahn et al. (2018): 29 teams, odds ratios 0.89-2.93, median 1.31.
-# Illustrative dot strip rendered from the published summary stats (median +
-# range) – CLEARLY a display sketch, not the raw 29 estimates.
-set.seed(42)
-rc <- tibble::tibble(
-  team = 1:29,
-  or = c(0.89, 2.93,
-         qnorm(seq(0.05, 0.95, length.out = 27),
-               mean = 1.31, sd = 0.45))
-)
-ggplot(rc, aes(or, y = 1)) +
-  geom_vline(xintercept = 1, colour = grey_mid, linewidth = 0.4) +
-  geom_jitter(height = 0.25, width = 0, size = 4, alpha = 0.7,
-              colour = ncl_blue) +
-  annotate("point", x = 1.31, y = 1, colour = d_red, size = 6) +
-  annotate("text", x = 1.31, y = 1.45, label = "median 1.31",
-           colour = d_red, fontface = "bold", size = 5) +
-  scale_x_continuous(limits = c(0.7, 3.1)) +
-  labs(x = "odds ratio: are dark-skinned players more often red-carded?",
-       y = NULL) +
-  theme_slide(15) +
-  theme(axis.text.y = element_blank(),
-        panel.grid.major.y = element_blank())
-```
-
-::: {.src}
-@SilberzahnEtAl2018ManyAnalystsOne. Display sketch from published median (1.31) + range (0.89–2.93).
-:::
-
-::: notes
-This is the study that started the whole many-analysts conversation. Twenty-nine teams, identical data, one question on paper: are dark-skinned footballers more likely to be red-carded than light-skinned ones? The odds ratios came back ranging from point eight nine – that is, below one – to nearly three. Median one point three one. About two thirds of the teams found a significant effect; a third did not. Same data, same question, twenty-nine answers. One caveat about the figure: the dots are a sketch drawn from the published median and range, not the teams' actual estimates – it is the spread that carries the message.
+Before we go further into our own case, I want to put two studies beside it – and one of them you have already met. Silberzahn and colleagues, the red-card study from this morning: twenty-nine teams, one dataset, one question, twenty intervals excluding one and nine not. There are all twenty-nine again, flattened onto a single line so you can see the shape rather than read the table. That is the study that establishes careful people disagree. The second one is new, and it is the hinge of this part. Auspurg and Brüderl, twenty twenty-one, went back through all twenty-nine of those pipelines and asked something the original had not thought to ask: what was each team actually trying to measure? So one study shows the disagreement, and the other explains it. Let me take the second one properly.
 :::
 
 ## They were not answering the same question
@@ -1414,7 +1496,7 @@ Auspurg & Brüderl re-read the 29 analyses and found **four** different estimand
 :::
 
 ::: notes
-Why so scattered? Auspurg and Brüderl went back through all twenty-nine pipelines, and their diagnosis is the hinge of this morning: the teams were not answering one question. They found four. Some estimated the plain descriptive association. Some went after discrimination proper – the effect net of everything that legitimately explains red cards. Some built models tuned to explain variance. And some were frankly exploring. Of course the answers differed – they were answers to different questions. That reframes the crisis quite a bit: much of what looks like analytical instability is unstated disagreement about *what is being estimated*.
+And here is what they found, which is the hinge of this morning: the teams were not answering one question. They found four. Some estimated the plain descriptive association. Some went after discrimination proper – the effect net of everything that legitimately explains red cards. Some built models tuned to explain variance. And some were frankly exploring. Of course the answers differed – they were answers to different questions. That reframes the crisis quite a bit: much of what looks like analytical instability is unstated disagreement about *what is being estimated*.
 :::
 
 
@@ -2391,6 +2473,10 @@ Look at what just happened. Thirty people, thirty machines, one number, agreeing
 Eight axes. Copy-paste code for every option is on the specification menu page.
 :::
 
+::: {.fragment .small}
+Two were on the board in the red-card study already: its 29 teams split across **four response distributions** (outcome family) and **four ways of handling non-independence** (estimator).
+:::
+
 ::: notes
 Here is the menu, and it is the spine of the rest of the day. Eight axes, and every option on it is a choice a competent analyst could defend in print. Which framing scale is your outcome. Whether you model a bounded nought-to-one scale with a linear model or with something built for proportions. Whether the claim is carried by unemployment or by GDP growth, or both. Whether you take the rate raw or logged. Whether the other macro measure goes in beside it. Which of four ways you handle the fact that observations are grouped in countries and in years. Which countries and which years you keep. And whether you weight by how many people are behind each cell. The menu page has copy-paste code for every one of these, so nobody is writing R from a blank line.
 :::
@@ -2705,6 +2791,10 @@ Now every specification in the room, and all 840 in the grid, sit on one axis. `
 
 ::: {.fragment .small}
 The cost is worth naming: standardising makes numbers **comparable**, not **equivalent**. It cannot rescue two analyses that estimate different quantities – it can only put them side by side.
+:::
+
+::: {.fragment .small}
+Silberzahn's teams hit the same wall: four of the twenty-nine reported a correlation or a standardised difference rather than an odds ratio. The authors converted everything to one scale and reported the **median**. That is a different answer to the same problem – a median is one number, a curve is a distribution – and which you want depends on what you mean to say next.
 :::
 
 ::: notes
@@ -3354,6 +3444,10 @@ Lakens and colleagues push back hard, and the argument deserves to be taken seri
 - That quantity, together with the design and the assumptions you are willing to make, implies **one analysis** that estimates it
 - So a spread of results is not evidence of legitimate diversity. It is evidence that **most of those specifications are wrong** – they estimate something else
 - On this reading, showing a wide curve is closer to an admission than to a robustness check
+:::
+
+::: {.fragment .small}
+Take it back to the red cards. Twenty-nine teams modelled one count of red cards as **linear, logistic or Poisson**. Those are claims about how the outcome was generated, and they cannot all be right – so on this argument the spread is not diversity, it is mostly error.
 :::
 
 ::: {.src}

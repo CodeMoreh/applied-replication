@@ -1,0 +1,30 @@
+team,approach,distribution,clustering,or,or_lo,or_hi,significant
+10,Multilevel regression and logistic regression,Linear,random,1.029446952,1.010942279,1.05210336,TRUE
+1,"Ordinary least squares with robust standard errors, logistic regression",Linear,clustered,1.179,0.952,1.405,FALSE
+4,Spearman correlation,Linear,none,1.205083989,1.204537667,1.205630558,TRUE
+14,Weighted least squares regression with referee fixed-effects and clustered standard errors,Linear,clustered,1.21445,0.97011,1.45677,FALSE
+11,Multiple linear regression,Linear,none,1.252211416,1.052098122,1.490387063,TRUE
+6,Linear Probability Model,Linear,clustered,1.283,0.771,2.133,FALSE
+17,Bayesian logistic regression,Logistic,random,0.956,0.771,1.184,FALSE
+15,Hierarchical log-linear modeling,Logistic,random,1.016,0.999,1.033,FALSE
+18,Hierarchical Bayes model,Logistic,random,1.101,0.983,1.265,FALSE
+31,Logistic regression,Logistic,clustered,1.1226,0.881,1.4304,FALSE
+30,Clustered robust binomial logistic regression,Logistic,clustered,1.28,1.04,1.57,TRUE
+3,Multilevel Binomial Logistic Regression using bayesian inference,Logistic,random,1.31,1.09,1.57,TRUE
+23,Mixed model logistic regression,Logistic,random,1.31,1.1,1.56,TRUE
+2,"Linear probability model, logistic regression",Logistic,clustered,1.341,1.1,1.63,TRUE
+5,Generalized linear mixed models,Logistic,random,1.38,1.1,1.75,TRUE
+24,Multilevel logistic regression,Logistic,random,1.38,1.11,1.72,TRUE
+28,Mixed effects logistic regression,Logistic,random,1.382,1.12,1.705,TRUE
+32,Generalized linear models for binary data,Logistic,clustered,1.39,1.1,1.75,TRUE
+8,Negative binomial regression with a log link analysis,Logistic,none,1.391,1.174,1.648,TRUE
+25,Multilevel logistic binomial regression,Logistic,random,1.42,1.19,1.71,TRUE
+9,Generalized linear mixed effects models with a logit link function,Logistic,random,1.48,1.2,1.84,TRUE
+7,Dirichlet process Bayesian clustering,Other,none,1.71,1.7,1.72,TRUE
+21,Tobit regression,Other,clustered,2.880746982,1.026309331,11.47234667,TRUE
+12,Zero-inflated Poisson regression,Poisson,fixed,0.8878,0.4941,1.595,FALSE
+26,Three-level hierarchical generalized linear modeling with Poisson sampling,Poisson,random,1.3,1.08,1.56,TRUE
+16,Hierarchical Poisson Regression,Poisson,random,1.32,1.06,1.63,TRUE
+20,Cross-classified multilevel negative binomial model,Poisson,random,1.4,1.15,1.71,TRUE
+13,Poisson Multi-level modeling,Poisson,random,1.41,1.13,1.75,TRUE
+27,Poisson regression,Poisson,none,2.931,0.1085,78.6596,FALSE
