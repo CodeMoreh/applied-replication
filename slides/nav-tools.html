@@ -29,33 +29,63 @@
       document.querySelectorAll("section.deepdive"));
   }
 
+  /* Hiding a slide means taking it OUT OF THE DOM, not flagging it.
+     `data-visibility="hidden"` looks like the right mechanism and is not:
+     reveal acts on it once, in its own setup pass, by deleting the node. Set
+     the attribute afterwards and reveal ignores it - the slide stays in the
+     deck, every key still walks into it, and only the labels change. So the
+     nodes come out here, each leaving a comment behind to mark its place, and
+     go back into that exact slot when the runs are switched on again. */
+  var stash = [];
+
+  function hideRuns() {
+    if (stash.length) return;
+    deepdives().forEach(function (s) {
+      var mark = document.createComment("deepdive");
+      s.parentNode.insertBefore(mark, s);
+      s.parentNode.removeChild(s);
+      stash.push({ node: s, mark: mark });
+    });
+  }
+
+  function showRuns() {
+    stash.forEach(function (it) {
+      it.mark.parentNode.replaceChild(it.node, it.mark);
+    });
+    stash = [];
+  }
+
+  /* The first non-optional slide after this one - which is where the run was
+     going to let out anyway. Read BEFORE the nodes are removed, or there is
+     nothing left to walk. */
+  function nextSurvivor(from) {
+    var all = Array.prototype.slice.call(
+      document.querySelectorAll(".reveal .slides section"))
+      .filter(function (s) { return !s.querySelector("section"); });
+    for (var k = all.indexOf(from) + 1; k > 0 && k < all.length; k++) {
+      if (!all[k].classList.contains("deepdive")) return all[k];
+    }
+    return null;
+  }
+
   function applyDepth() {
     var ready = window.Reveal && Reveal.isReady && Reveal.isReady();
-    /* Where were we? If the toggle hides the slide currently on screen, the
-       room must land somewhere sensible rather than on a blank. */
     var here = ready ? Reveal.getCurrentSlide() : null;
+    var landing = (!depthOn && here && here.classList.contains("deepdive"))
+      ? nextSurvivor(here) : null;
 
-    deepdives().forEach(function (s) {
-      if (depthOn) s.removeAttribute("data-visibility");
-      else s.setAttribute("data-visibility", "hidden");
-    });
+    if (depthOn) showRuns(); else hideRuns();
     document.body.classList.toggle("depth-off", !depthOn);
 
     if (ready) {
       Reveal.sync();
-      if (here && here.getAttribute("data-visibility") === "hidden") {
-        /* Walk forward from the hidden slide to the first survivor, which is
-           the slide the run was going to let out onto anyway. */
-        var all = Array.prototype.slice.call(
-          document.querySelectorAll(".reveal .slides section"));
-        var i = all.indexOf(here), target = null;
-        for (var k = i + 1; k < all.length && !target; k++) {
-          if (!all[k].querySelector("section") &&
-              all[k].getAttribute("data-visibility") !== "hidden") target = all[k];
-        }
-        if (target) location.hash = "/" + target.id;
-      } else if (here) {
-        var ix = Reveal.getIndices(here);
+      /* Move by index rather than by hash. A hash change is asynchronous, and
+         reveal goes on reporting the slide that was just detached until it
+         lands - which is long enough for the readout to describe a slide that
+         no longer exists. */
+      var go = landing || (here && here.isConnected ? here : null);
+      if (go) {
+        var ix = Reveal.getIndices(go);
         Reveal.slide(ix.h, ix.v);
       }
     }
@@ -86,15 +116,21 @@
     if (!st) return "";
     var t = st.querySelector("section.level1 h1, h1");
     if (!t) return "Opening";
+    /* "PART 3 – What you can actually do" reads as "PART 3" in the corner.
+       This file is UTF-8 and the character class below holds a real en-dash:
+       edit it with something that knows that, or the dash comes back as
+       mojibake and every part shows its full title. */
     return t.textContent.replace(/\s*[–-].*$/, "").trim();
   }
 
+  /* Every slide reveal will actually stop on and count. The References slide
+     is marked uncounted, so it is navigable but outside the total - which is
+     why the position can legitimately come back empty. */
   function visibleSlides() {
     return Array.prototype.slice.call(
       document.querySelectorAll(".reveal .slides section"))
       .filter(function (s) {
         return !s.querySelector("section") &&
-               s.getAttribute("data-visibility") !== "hidden" &&
                s.getAttribute("data-visibility") !== "uncounted";
       });
   }
@@ -142,12 +178,12 @@
     var all = visibleSlides();
     var overall = all.indexOf(cur) + 1;
 
-    /* Position inside this part, counting only what is currently visible. */
+    /* Position inside this part, on the same counting rule as the total. */
     var stacks = document.querySelectorAll(".reveal .slides > section");
     var st = stacks[i.h];
     var inPart = st ? Array.prototype.slice.call(
       st.querySelectorAll("section")).filter(function (s) {
-        return s.getAttribute("data-visibility") !== "hidden";
+        return s.getAttribute("data-visibility") !== "uncounted";
       }) : [];
     var vPos = inPart.indexOf(cur) + 1;
 
@@ -164,11 +200,13 @@
       mode = "extended";
     }
 
+    /* An uncounted slide has no position, so it shows the totals alone rather
+       than a fabricated one. */
     el.innerHTML =
       '<div class="nr-pos">' +
         '<span class="np">' + stackName(i.h) + "</span>" +
-        (inPart.length ? '<span class="nv">' + vPos + "/" + inPart.length + "</span>" : "") +
-        '<span class="nt">' + (overall > 0 ? overall : "?") + "/" + all.length + "</span>" +
+        (vPos > 0 ? '<span class="nv">' + vPos + "/" + inPart.length + "</span>" : "") +
+        '<span class="nt">' + (overall > 0 ? overall : "–") + "/" + all.length + "</span>" +
       "</div>" +
       '<div class="nr-mode">' +
         '<span class="badge ' + mode + '">' + mode + "</span>" + runTxt +
@@ -261,6 +299,7 @@
     if (!window.Reveal || !Reveal.isReady || !Reveal.isReady()) {
       return setTimeout(boot, 60);
     }
+    optionalRuns();   /* capture the run structure while every slide is still present */
     applyDepth();
     Reveal.on("slidechanged", updateReadout);
     updateReadout();
