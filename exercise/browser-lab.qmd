@@ -46,10 +46,11 @@ euframes <- read.csv("data/EUframes_cy.csv")
 #| include: false
 #| autorun: true
 # Lab machinery – the pre-computed specification universe and the helper
-# functions the preregistration flow uses. Participants interact with
-# prereg(), build_model(), run_spec() and report_result(); the results these
-# print come from the committed grid of 2,520 pre-computed specifications,
-# so no heavy model fitting happens in the browser.
+# functions the exercise flow uses. Participants interact with try_spec(),
+# my_experiments(), submit_exploration(), prereg(), build_model(),
+# run_spec() and report_result(); every result they print comes from the
+# committed grid of 2,520 pre-computed specifications, so no heavy model
+# fitting happens in the browser.
 .grid <- read.csv("data/spec_grid_full.csv")
 .neg_framings <- c("mcomm", "mlib", "mneg")
 
@@ -70,6 +71,35 @@ euframes <- read.csv("data/EUframes_cy.csv")
   re         = "random effects",
   pooled_cl  = "pooled OLS, clustered by country")[[e]]
 
+# Menu validation, shared by both routes into the grid: the exploratory
+# try_spec(), which takes its choices as arguments, and the declared flow,
+# which reads them from the participant's preregistration cell. Keeping one
+# validator means an error message a participant learns in Task 4 is the same
+# message they meet in Task 5.
+.validate <- function(ch, as_args = FALSE) {
+  for (k in names(.menu)) {
+    v <- ch[[k]]
+    # try_spec() names its arguments `outcome`, `estimator` and so on; the
+    # preregistration cell names the same choices `my_outcome`, `my_estimator`.
+    # Report back whichever name the participant actually typed.
+    shown <- if (as_args) sub("^my_", "", k) else k
+    if (!is.character(v) || length(v) != 1 || !v %in% .menu[[k]])
+      stop(sprintf("%s = \"%s\" is not on the menu. Options: %s.",
+                   shown, paste(v, collapse = ","),
+                   paste(.menu[[k]], collapse = " | ")), call. = FALSE)
+  }
+  if (ch$my_estimator == "re" && ch$my_weights == "n_cy")
+    stop("The random-effects estimator is never fitted with weights (the menu excludes re + n_cy). Use weights = \"none\" or pick another estimator.",
+         call. = FALSE)
+  if (ch$my_predictor == "growth" && ch$my_pred_form == "log")
+    stop("GDP growth enters raw only – it takes negative values, so the log is undefined. Use pred_form = \"raw\".",
+         call. = FALSE)
+  if (ch$my_predictor == ch$my_copredictor)
+    stop(sprintf("%s is already your claim-carrying predictor; the copredictor must be \"none\" or the other measure.",
+                 ch$my_predictor), call. = FALSE)
+  ch
+}
+
 .check_choices <- function() {
   need <- names(.menu)
   missing <- need[!vapply(need, exists, logical(1))]
@@ -82,23 +112,7 @@ euframes <- read.csv("data/EUframes_cy.csv")
          call. = FALSE)
   ch <- lapply(need, function(k) get(k))
   names(ch) <- need
-  for (k in need) {
-    v <- ch[[k]]
-    if (!is.character(v) || length(v) != 1 || !v %in% .menu[[k]])
-      stop(sprintf("%s = \"%s\" is not on the menu. Options: %s.",
-                   k, paste(v, collapse = ","),
-                   paste(.menu[[k]], collapse = " | ")), call. = FALSE)
-  }
-  if (ch$my_estimator == "re" && ch$my_weights == "n_cy")
-    stop("The random-effects estimator is never fitted with weights (the menu excludes re + n_cy). Set my_weights <- \"none\" or pick another estimator.",
-         call. = FALSE)
-  if (ch$my_predictor == "growth" && ch$my_pred_form == "log")
-    stop("GDP growth enters raw only – it takes negative values, so the log is undefined. Set my_pred_form <- \"raw\".",
-         call. = FALSE)
-  if (ch$my_predictor == ch$my_copredictor)
-    stop(sprintf("%s is already your claim-carrying predictor; my_copredictor must be \"none\" or the other measure.",
-                 ch$my_predictor), call. = FALSE)
-  ch
+  .validate(ch)
 }
 
 .lookup <- function(ch) {
@@ -127,6 +141,130 @@ euframes <- read.csv("data/EUframes_cy.csv")
          if (ch$my_copredictor != "none") paste0(" + ", ch$my_copredictor) else "",
          " | ", ch$my_estimator, " | ", ch$my_sample,
          " | w:", ch$my_weights, " | ", ch$my_family)
+}
+
+# Where a result sits in the canonical 840. Reported by both the exploratory
+# and the declared paths so the two are read on the same scale.
+.placement <- function(aligned_r) {
+  canon <- .grid[.grid$family == "gaussian" & .grid$predictor == "unemp", ]
+  canon_rca <- canon$r * ifelse(canon$positive_outcome, 1, -1)
+  100 * mean(canon_rca < aligned_r)
+}
+
+# One pre-filled Google Form link, used by both submission paths. `phase`
+# rides on the free-text spec field rather than in a field of its own: the
+# form schema, the Worker and the sheet are working infrastructure and are
+# not worth disturbing for a label. results.qmd reads the prefix back off
+# the same field.
+.submit_link <- function(ch, hit, phase) {
+  fl <- .flip(ch, hit)
+  b <- fl * hit$estimate; tv <- fl * hit$statistic; r <- fl * hit$r
+  spec_label <- paste0(phase, ": ", .spec_line(ch))
+
+  FORM_ID <- "1FAIpQLSezoAEOnZUfP4pkfN28_XtEBwSyc2RLsXB-h8RPSegF7_t76A"
+  field <- c(spec = "entry.832496914", b = "entry.1656311800", se = "entry.1337458262",
+             t = "entry.1940779437", df = "entry.1682711955", n = "entry.1586392724",
+             r = "entry.1660273001")
+  value <- c(spec = spec_label, b = sprintf("%.5f", b),
+             se = sprintf("%.5f", hit$se), t = sprintf("%.3f", tv),
+             df = as.character(hit$df), n = as.character(hit$n),
+             r = sprintf("%.3f", r))
+  query <- paste(vapply(names(field), function(k)
+    paste0(field[[k]], "=", utils::URLencode(value[[k]], reserved = TRUE)),
+    character(1)), collapse = "&")
+  list(url = sprintf("https://docs.google.com/forms/d/e/%s/viewform?usp=pp_url&%s",
+                     FORM_ID, query),
+       label = spec_label, b = b, t = tv, r = r, se = hit$se,
+       df = hit$df, n = hit$n,
+       stat_lab = if (ch$my_family == "beta") "z" else "t")
+}
+
+.print_submission <- function(s, lead) {
+  cat(lead, "\n\n")
+  cat("  spec:", s$label, "\n")
+  cat(sprintf("  b = %.5f | se = %.5f | %s = %.3f | df = %d | n = %d | r = %.3f\n\n",
+              s$b, s$se, s$stat_lab, s$t, s$df, s$n, s$r))
+  cat("Click the link below (or copy the URL) – the form opens with every\n")
+  cat("field pre-filled; just press Send.\n\n")
+  cat(s$url, "\n")
+  htmltools::browsable(htmltools::tags$p(
+    htmltools::tags$a(href = s$url, target = "_blank", rel = "noopener",
+                      "Open the pre-filled submission form")))
+}
+
+# The exploratory log. Every try_spec() call appends a row, so a participant
+# who has tried five specifications can print the five side by side and see
+# the small multiverse they just built.
+.tried <- new.env(parent = emptyenv())
+.tried$log <- NULL
+.tried$last <- NULL
+
+try_spec <- function(outcome     = "mcosmo",
+                     family      = "gaussian",
+                     predictor   = "unemp",
+                     pred_form   = "raw",
+                     copredictor = "none",
+                     estimator   = "fe_twoway",
+                     sample      = "all",
+                     weights     = "none") {
+  ch <- .validate(list(my_outcome = outcome, my_family = family,
+                       my_predictor = predictor, my_pred_form = pred_form,
+                       my_copredictor = copredictor, my_estimator = estimator,
+                       my_sample = sample, my_weights = weights), as_args = TRUE)
+  hit <- .lookup(ch)
+  fl <- .flip(ch, hit)
+  aligned_r <- fl * hit$r
+  p <- 2 * pt(-abs(hit$statistic), hit$df)
+  stat_lab <- if (family == "beta") "z" else "t"
+
+  cat(.spec_line(ch), "\n")
+  cat(sprintf("  b = %.5f   se = %.5f   %s = %.3f on %d df   p %s\n",
+              fl * hit$estimate, hit$se, stat_lab, fl * hit$statistic, hit$df,
+              if (p < 0.001) "< 0.001" else sprintf("= %.3f", p)))
+  cat(sprintf("  claim-aligned partial r = %.3f   (below zero supports the claim)\n",
+              aligned_r))
+  cat(sprintf("  %.1f%% of the canonical 840 support the claim more strongly\n",
+              .placement(aligned_r)))
+
+  row <- data.frame(outcome = outcome, family = family, predictor = predictor,
+                    pred_form = pred_form, copredictor = copredictor,
+                    estimator = estimator, sample = sample, weights = weights,
+                    b = fl * hit$estimate, t = fl * hit$statistic,
+                    r_aligned = aligned_r,
+                    sig = p < 0.05, stringsAsFactors = FALSE)
+  .tried$log <- rbind(.tried$log, row)
+  .tried$last <- list(ch = ch, hit = hit)
+  invisible(row)
+}
+
+my_experiments <- function() {
+  if (is.null(.tried$log)) {
+    cat("Nothing tried yet – call try_spec() at least once.\n")
+    return(invisible(NULL))
+  }
+  d <- .tried$log
+  # Only the axes that actually varied are worth printing; the constant ones
+  # are the baseline and repeating them across every row hides the contrast.
+  varied <- names(d)[1:8][vapply(d[1:8], function(x) length(unique(x)) > 1,
+                                 logical(1))]
+  show <- d[, c(varied, "b", "t", "r_aligned", "sig"), drop = FALSE]
+  show$b <- signif(show$b, 3); show$t <- round(show$t, 2)
+  show$r_aligned <- round(show$r_aligned, 3)
+  cat("Specifications you have tried (", nrow(d), "):\n\n", sep = "")
+  print(show, row.names = FALSE)
+  cat("\nSpread of claim-aligned r: ",
+      sprintf("%.3f to %.3f", min(d$r_aligned), max(d$r_aligned)),
+      "  |  significant: ", sum(d$sig), " of ", nrow(d), "\n", sep = "")
+  invisible(show)
+}
+
+submit_exploration <- function() {
+  if (is.null(.tried$last))
+    stop("Nothing to submit – call try_spec() first, ending with the specification you want on the chart.",
+         call. = FALSE)
+  s <- .submit_link(.tried$last$ch, .tried$last$hit, "explore")
+  .print_submission(s,
+    "Your exploratory submission (claim-aligned, the last specification you tried):")
 }
 
 prereg <- function() {
@@ -220,49 +358,42 @@ run_spec <- function(spec) {
 report_result <- function() {
   ch <- .check_choices()
   hit <- .lookup(ch)
-  fl <- .flip(ch, hit)
-  # the class chart lives on the claim-aligned scale, so the submission is
-  # always aligned, whatever claim_align displays above
-  b <- fl * hit$estimate; tv <- fl * hit$statistic; r <- fl * hit$r
-  spec_label <- .spec_line(ch)
-
-  FORM_ID <- "1FAIpQLSezoAEOnZUfP4pkfN28_XtEBwSyc2RLsXB-h8RPSegF7_t76A"
-  field <- c(spec = "entry.832496914", b = "entry.1656311800", se = "entry.1337458262",
-             t = "entry.1940779437", df = "entry.1682711955", n = "entry.1586392724",
-             r = "entry.1660273001")
-  value <- c(spec = spec_label, b = sprintf("%.5f", b),
-             se = sprintf("%.5f", hit$se), t = sprintf("%.3f", tv),
-             df = as.character(hit$df), n = as.character(hit$n),
-             r = sprintf("%.3f", r))
-  query <- paste(vapply(names(field), function(k)
-    paste0(field[[k]], "=", utils::URLencode(value[[k]], reserved = TRUE)),
-    character(1)), collapse = "&")
-  url <- sprintf("https://docs.google.com/forms/d/e/%s/viewform?usp=pp_url&%s",
-                 FORM_ID, query)
-
-  cat("Your submission (claim-aligned, straight from your preregistration):\n\n")
-  cat("  spec:", spec_label, "\n")
-  cat(sprintf("  b = %.5f | se = %.5f | %s = %.3f | df = %d | n = %d | r = %.3f\n\n",
-              b, hit$se, if (ch$my_family == "beta") "z" else "t", tv,
-              hit$df, hit$n, r))
-  cat("Click the link below (or copy the URL) – the form opens with every\n")
-  cat("field pre-filled; just press Send.\n\n")
-  cat(url, "\n")
-  htmltools::browsable(htmltools::tags$p(
-    htmltools::tags$a(href = url, target = "_blank", rel = "noopener",
-                      "Open the pre-filled submission form")))
+  # The class chart lives on the claim-aligned scale, so a submission is
+  # always aligned, whatever claim_align displays in the cells above.
+  s <- .submit_link(ch, hit, "declared")
+  .print_submission(s,
+    "Your declared submission (claim-aligned, straight from your preregistration):")
 }
 ```
 
 Five analysts reanalysed a claim from the EU-frames case [@Teney2016DoesEUEconomic] for the Multi100 project [@AczelEtAl2026InvestigatingAnalyticalRobustness]; you are analyst no. 6. Read the full task description, the claim, and the five-analyst table of findings on the [Exercise overview](index.qmd) page (the [workshop slides](../slides/index.qmd) discuss the broader context of the project).
 
-This page is the whole exercise, runnable in the browser: seven tasks that take you from vocabulary to a dot on the live class chart.
+This page is the whole exercise, runnable in the browser: five tasks that take you from a setup check to two dots on the live class chart – one explored, one declared.
 
 ------------------------------------------------------------------------
 
-## Task 1 – Three R's, and one impostor {#task-1-concepts-warm-up-while-the-engine-loads}
+## Task 1 – Get yourself running {#task-1-setup}
 
-**Fix the vocabulary before you touch any data.** This is the warm-up while the engine loads. Three of the four scenarios below are doing one of our three R's – reproducibility, robustness, replicability. The fourth is doing something else entirely. Read all four, then label each one in the code cell.
+Nothing conceptual here: the job is to reach the point where a line of R runs and the data are in front of you. Press **Run Code** on the cell below. If it prints the three lines it should, you are set up and everything else on this page will work.
+
+```{webr}
+#| autorun: false
+# The setup check. It uses only what the page preloads, so if this runs, the
+# rest of the lab runs.
+cat("R is alive in your browser. R version:", R.version.string, "\n")
+cat("The panel is loaded:", nrow(euframes), "rows,",
+    dplyr::n_distinct(euframes$cntry), "countries,",
+    dplyr::n_distinct(euframes$year), "years\n")
+cat("fixest is available:", requireNamespace("fixest", quietly = TRUE), "\n")
+```
+
+You should see **270 rows**, **27 countries** and **10 years**, and `TRUE` on the last line. If any of that is missing, reload the page and wait for the engine to finish downloading before pressing Run Code again. If it still fails, say **STUCK** in the chat.
+
+------------------------------------------------------------------------
+
+## Warm-up – three R's, and one impostor {#task-1-concepts-warm-up-while-the-engine-loads}
+
+**Fix the vocabulary before you touch any data.** Three of the four scenarios below are doing one of our three R's – reproducibility, robustness, replicability. The fourth is doing something else entirely. Read all four, then label each one in the code cell.
 
 ***Scenario 1:*** A reviewer reruns the authors' Stata `.do` file on the authors' data and gets a *different* coefficient from the one printed in the paper. This is an example of \_\_\_\_\_\_, even though what they *tried* to do failed.
 
@@ -304,7 +435,7 @@ cat("
 
 ------------------------------------------------------------------------
 
-## Task 2 – Look before you model {#task-2-get-the-data-and-look-at-it}
+## Task 2 – Meet the panel {#task-2-get-the-data-and-look-at-it}
 
 The **EU-frames dataset** (`EUframes_cy.csv`) is already loaded for you as `euframes`. It is the country-year panel behind the whole exercise. The copy this page loads is byte-identical to the one published in the analyst's fork on OSF (osf.io/6zqct – "Multi100 \| Teney_EurSocioRev_2016 \| Analyst_C6HJR", main folder), and the official Multi100 archival record sits at osf.io/8rtwe. Route 1 participants download the same file into their Positron workspace; in the browser it is pre-loaded, so you start straight on the analysis.
 
@@ -344,91 +475,7 @@ ggplot(euframes, aes(x = year, y = mcosmo)) +
 
 Most countries drift gently; a few move sharply around the 2009 crisis. That variation – within a country, over time – is exactly what the fixed-effects model in Task 3 uses.
 
-------------------------------------------------------------------------
-
-## Task 3 – Reproduce the recorded result
-
-This is the **reproducibility** check. Fit the two-way fixed-effects model the Multi100 Task-2 constraints point to:
-
-```
-mcosmo ~ unemp_c   with fixed effects for country and year
-```
-
-where `unemp_c` is the unemployment rate centred on its grand mean. The target is **t = −3.804** (df = 233, N = 270) – the value on record for analyst C6HJR in the Multi100 dataset.
-
-The cell below is an exercise. Replace the blanks (`______`) with the missing code, then press "Run Code". Stuck? Open the hint. Want to check your answer? Open the solution.
-
-```{webr}
-#| setup: true
-#| exercise: reproduce
-euframes <- read.csv("data/EUframes_cy.csv")
-```
-
-```{webr}
-#| exercise: reproduce
-# 1. centre the unemployment rate on its grand mean
-euframes$unemp_c <- euframes$unemp - ______
-
-# 2. fit two-way fixed effects with fixest::feols
-#    the part after the | adds the fixed effects
-m1 <- feols(mcosmo ~ unemp_c | ______, data = euframes)
-
-broom::tidy(m1)
-```
-
-:::: {.hint exercise="reproduce"}
-::: {.callout-note collapse="false"}
-## Hint 1 – centring
-
-To centre a variable on its grand mean, subtract the mean of the whole column:
-
-``` r
-euframes$unemp_c <- euframes$unemp - mean(euframes$unemp)
-```
-
-With fixed effects present this does not change the t-statistic, but it is the transformation the constrained specification asks for, so do it explicitly.
-:::
-::::
-
-:::: {.hint exercise="reproduce"}
-::: {.callout-note collapse="false"}
-## Hint 2 – the fixed-effects syntax
-
-In `fixest::feols`, the bar `|` separates the regression from the fixed effects. To add country and year fixed effects, list them after the bar separated by `+`:
-
-``` r
-feols(mcosmo ~ unemp_c | cntry + year, data = euframes)
-```
-:::
-::::
-
-:::: {.solution exercise="reproduce"}
-::: {.callout-tip collapse="false"}
-## Fully worked solution
-
-``` r
-euframes$unemp_c <- euframes$unemp - mean(euframes$unemp)
-m1 <- feols(mcosmo ~ unemp_c | cntry + year, data = euframes)
-broom::tidy(m1)
-```
-
-You should get `estimate ≈ −0.00347`, `std.error ≈ 0.00091`, `statistic ≈ −3.80` – the recorded value reproduces from the published data and the published model. `feols` reports IID standard errors by default when two fixed-effect dimensions are present, which is why it matches the `plm` value to three decimals.
-:::
-::::
-
-::: {.callout-note collapse="true"}
-## Everyone gets the same number. So why did five analysts disagree?
-
-You reproduced the recorded value exactly, and so did everyone else in the room – because everyone ran the same code on the same file. Reproducibility is the cheap R.
-
-The five Multi100 analysts each wrote their own code for the same claim, and came back with five different answers, one of them not significant. Their pipelines are competent, well-organised work, so the spread is not a quality problem. It is what happens when a claim stated in words leaves several genuinely defensible quantities on the table, and different analysts estimate different ones without noticing they have chosen.
-
-That is what Task 4 addresses. Naming the quantity you are after – the estimand – and drawing the causal graph your adjustment set follows from is how you make the choice visible instead of accidental.
-:::
-
-------------------------------------------------------------------------
-
-## Task 4 – Name the estimand, draw the graph {#task-4-estimand-and-dag}
+## Task 2, continued – name the estimand, draw the graph {#task-4-estimand-and-dag}
 
 Before fitting anything, say what you are trying to estimate, in words. A template you can adapt:
 
@@ -602,6 +649,153 @@ if (requireNamespace("ggdag", quietly = TRUE)) {
 Write two sentences for your own notes. What do two-way fixed effects adjust for, and what can they **not** fix? (Hint: anything time-varying within a country that you have not measured.)
 
 ------------------------------------------------------------------------
+------------------------------------------------------------------------
+
+## Task 3 – Reproduce the recorded result
+
+This is the **reproducibility** check. Fit the two-way fixed-effects model the Multi100 Task-2 constraints point to:
+
+```
+mcosmo ~ unemp_c   with fixed effects for country and year
+```
+
+where `unemp_c` is the unemployment rate centred on its grand mean. The target is **t = −3.804** (df = 233, N = 270) – the value on record for analyst C6HJR in the Multi100 dataset.
+
+The cell below is an exercise. Replace the blanks (`______`) with the missing code, then press "Run Code". Stuck? Open the hint. Want to check your answer? Open the solution.
+
+```{webr}
+#| setup: true
+#| exercise: reproduce
+euframes <- read.csv("data/EUframes_cy.csv")
+```
+
+```{webr}
+#| exercise: reproduce
+# 1. centre the unemployment rate on its grand mean
+euframes$unemp_c <- euframes$unemp - ______
+
+# 2. fit two-way fixed effects with fixest::feols
+#    the part after the | adds the fixed effects
+m1 <- feols(mcosmo ~ unemp_c | ______, data = euframes)
+
+broom::tidy(m1)
+```
+
+:::: {.hint exercise="reproduce"}
+::: {.callout-note collapse="false"}
+## Hint 1 – centring
+
+To centre a variable on its grand mean, subtract the mean of the whole column:
+
+``` r
+euframes$unemp_c <- euframes$unemp - mean(euframes$unemp)
+```
+
+With fixed effects present this does not change the t-statistic, but it is the transformation the constrained specification asks for, so do it explicitly.
+:::
+::::
+
+:::: {.hint exercise="reproduce"}
+::: {.callout-note collapse="false"}
+## Hint 2 – the fixed-effects syntax
+
+In `fixest::feols`, the bar `|` separates the regression from the fixed effects. To add country and year fixed effects, list them after the bar separated by `+`:
+
+``` r
+feols(mcosmo ~ unemp_c | cntry + year, data = euframes)
+```
+:::
+::::
+
+:::: {.solution exercise="reproduce"}
+::: {.callout-tip collapse="false"}
+## Fully worked solution
+
+``` r
+euframes$unemp_c <- euframes$unemp - mean(euframes$unemp)
+m1 <- feols(mcosmo ~ unemp_c | cntry + year, data = euframes)
+broom::tidy(m1)
+```
+
+You should get `estimate ≈ −0.00347`, `std.error ≈ 0.00091`, `statistic ≈ −3.80` – the recorded value reproduces from the published data and the published model. `feols` reports IID standard errors by default when two fixed-effect dimensions are present, which is why it matches the `plm` value to three decimals.
+:::
+::::
+
+::: {.callout-note collapse="true"}
+## Everyone gets the same number. So why did five analysts disagree?
+
+You reproduced the recorded value exactly, and so did everyone else in the room – because everyone ran the same code on the same file. Reproducibility is the cheap R.
+
+The five Multi100 analysts each wrote their own code for the same claim, and came back with five different answers, one of them not significant. Their pipelines are competent, well-organised work, so the spread is not a quality problem. It is what happens when a claim stated in words leaves several genuinely defensible quantities on the table, and different analysts estimate different ones without noticing they have chosen.
+
+Task 2 named the quantity you are after and drew the graph your adjustment set follows from. Task 4 now shows you how far the answer moves when the other choices move.
+:::
+
+------------------------------------------------------------------------
+
+## Task 4 – Work the menu {#task-4-explore}
+
+This task is **exploration, and it is meant to be**. You are going to try several specifications, see what each one does, and get a feel for which choices move the estimate and which barely touch it. Nothing here is a commitment; that comes in Task 5.
+
+`try_spec()` takes one argument per axis of the [specification menu](spec-menu.qmd), and every argument already carries the baseline you just reproduced. So changing one thing is literally changing one argument, and everything you do not name stays at baseline.
+
+```{webr}
+#| autorun: false
+# The baseline, with nothing changed - this is the specification you
+# reproduced in Task 3.
+try_spec()
+```
+
+Now change one axis at a time. Each of the four calls below moves exactly one thing; run them, and watch which ones matter.
+
+```{webr}
+#| autorun: false
+try_spec(outcome   = "mpos")        # the composite of all positive framings
+try_spec(estimator = "pooled_cl")   # no country comparison absorbed at all
+try_spec(sample    = "no_bailout")  # drop the assistance-programme countries
+try_spec(weights   = "n_cy")        # weight cells by how many people are in them
+```
+
+Then go your own way. The full set of arguments, with the baseline as the default for each:
+
+```{webr}
+#| autorun: false
+try_spec(
+  outcome     = "mcosmo",     # mcosmo | mutil | mpos | mcomm | mlib | mneg
+  family      = "gaussian",   # gaussian | beta
+  predictor   = "unemp",      # unemp | growth
+  pred_form   = "raw",        # raw | log   (growth: raw only)
+  copredictor = "none",       # none | growth | unemp
+  estimator   = "fe_twoway",  # fe_twoway | fe_country | re | pooled_cl
+  sample      = "all",        # all | y2004_2008 | y2009_2013 | no_bailout | no_GR_ES
+  weights     = "none"        # none | n_cy   (re is never weighted)
+)
+```
+
+Everything you try is logged. Print the log to see the small multiverse you have just built – only the axes you actually varied are shown, so the contrast is readable:
+
+```{webr}
+#| autorun: false
+my_experiments()
+```
+
+When you have tried three or four, decide which one you would defend if you had to, run it once more so it is the most recent, and submit it. It lands on the live [Multiverse]({{< var live-results-url >}}) chart as an **exploratory** result:
+
+```{webr}
+#| autorun: false
+submit_exploration()
+```
+
+::: {.callout-note collapse="true"}
+## Why label it 'exploratory'?
+
+Because that is what it is, and the label costs nothing. You chose this specification after seeing what several of them do, so it cannot carry the guarantee that a declared choice carries – it might have been chosen *because* of its result, and neither you nor anyone else can now rule that out.
+
+Almost no published paper tells you which of its analyses were explored and which were planned. Today's chart does, because the room submits twice: once here, and once in Task 5 after declaring. Watching the two clouds side by side is the point.
+:::
+
+------------------------------------------------------------------------
+
 
 ## Task 5 – Commit before you look {#task-5-my-preregistration}
 
@@ -651,7 +845,7 @@ An optional mirror form logs preregistrations for the room, and the link is shar
 
 ------------------------------------------------------------------------
 
-## Task 6 – Build and run your specification
+## Task 5, continued – build, run and report {#task-5-build-run-report}
 
 This is the **robustness** check, and it is the part your classmates cannot copy from you: together the room samples the multiverse of defensible analyses. You have declared your specification. Now translate it into model syntax yourself, filling the three gaps – the outcome, the right-hand side, and the estimator code – exactly as you preregistered them. `build_model()` knows your declaration and accepts nothing else, and its error messages tell you what is off. Write the log form as `log(unemp)`, and add any co-predictor with `+`.
 
@@ -675,13 +869,7 @@ run_spec(my_model)
 
 Read the output like an analyst: the coefficient and its claim-aligned partial *r* (below zero supports the claim), and your placement – what share of the canonical 840-specification grid supports the claim more strongly than your choice does. The five Multi100 analysts run from about the 16th percentile (the most strongly claim-supporting) to about the 68th (near the null), and your dot is about to join theirs.
 
-**A second specification?** Edit the preregistration cell, rerun `prereg()`, rebuild, rerun. The mechanics allow it. The label changes, though: your *first* declaration was a preregistration, and everything after it is exploration. Saying which is which, out loud, is the entire discipline the day is about.
-
-------------------------------------------------------------------------
-
-## Task 7 – Report to the class chart
-
-Your result travels to the room from your preregistered choices – there is nothing to fill in and nothing to transcribe. The cell prints your submission line and a pre-filled form link. Click it and press **Send**. Your dot appears as an open circle on the live [Multiverse]({{< var live-results-url >}}) chart within seconds.
+Now send it to the room. There is nothing to fill in and nothing to transcribe – the result travels from your declaration. The cell prints your submission line and a pre-filled form link; click it and press **Send**. Your dot joins the live [Multiverse]({{< var live-results-url >}}) chart within seconds, this time labelled **declared** rather than exploratory.
 
 ```{webr}
 #| autorun: false
@@ -689,6 +877,8 @@ report_result()
 ```
 
 If the form will not open on your machine, read the printed numbers to the facilitator and your dot still lands.
+
+**A second declared specification?** Edit the preregistration cell, rerun `prereg()`, rebuild, rerun. The mechanics allow it, and the label does not change – so be clear with yourself about what the second one is. Your first declaration was made without knowing its result. Anything after it was not, which puts it back in the same category as Task 4. Saying which is which, out loud, is the entire discipline the day is about.
 
 ------------------------------------------------------------------------
 

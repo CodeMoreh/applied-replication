@@ -66,14 +66,14 @@ You need no git, no GitHub account, no OSF account and no sign-ups for either ro
 
 Two breaks and a lunch sit between the blocks. The callout above gives the clock times for the next delivery, and the lengths below hold whenever the course runs.
 
-| Block | Length | Focus |
+| Part | Length | Focus |
 |---|---|---|
-| Block 1 – "One paper, three verdicts" | 90 minutes | The three Rs (reproducibility, robustness, replicability) and the EU-frames case, ending with a first hands-on run of the constrained model. |
+| Part 1 – "Why any of this, and with what tools" | 90 minutes | What social science is for and why people say it is in crisis; what open research proposes; the three Rs (reproducibility, robustness, replicability) and the evidence on each; and the computational toolchain that makes any of it checkable. |
 | Break | | |
-| Block 2 – "The question underneath" | 90 minutes | Why analysts who look like they disagree are often answering different questions. Estimands, causal graphs, and the case's own DAG, which you finish yourself. |
+| Part 2 – "The question underneath" | 90 minutes | The EU-frames paper in full, and why analysts who look like they disagree are often answering different questions. Estimands, causal graphs, and the case's own DAG, which you finish yourself. |
 | Lunch | | |
-| Block 3 – "Preregister like an analyst" | 90 minutes | Completing a causal graph, choosing one analytical deviation from a specification menu, preregistering it, then running and submitting your own result. |
+| Part 3 – "What you can actually do" | 90 minutes | Reproducing the published result exactly, then working through the specification menu: what each analytical choice does, and what happens to the estimate when you change one. |
 | Break | | |
-| Block 4 – "Reading the multiverse" | 90 minutes | Reading the class's results against the full specification curve and the five published analysts, with an introduction to inference across a multiverse of results. |
+| Part 4 – "Reading the multiverse, choosing one path" | 90 minutes | Reading the class's results against the full specification curve and the five published analysts; what a curve can and cannot establish; and settling on the one analysis you would defend, declared before you run it. |
 
 ---

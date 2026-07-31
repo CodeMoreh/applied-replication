@@ -33,47 +33,53 @@ Before you begin, here is what the five Multi100 analysts found when they reanal
 | KQXUE | Stata | t = −7.17 | 270 | −0.419 |
 | PRL47 | Stata | z = −3.59 | 394,575 | −0.006 |
 
-All five reported a negative effect (same direction as the original). The partial r ranges from −0.006 to −0.452: a factor of 75. Five competent analysts, one claim, widely different estimates. The multiverse debrief in Block 4 explains most of that gap. For now, notice it exists.
+All five reported a negative effect (same direction as the original). The partial r ranges from −0.006 to −0.452: a factor of 75. Five competent analysts, one claim, widely different estimates. The multiverse debrief in Part 4 explains most of that gap. For now, notice it exists.
 
 ---
 
 ## The day, task by task
 
-The exercise runs as seven numbered tasks across four 90-minute blocks. For every hands-on task there is a route note – what to do in the Positron workspace (Route 1) and in the browser lab (Route 2). The two reach identical numbers.
+The exercise runs as five numbered tasks across four 90-minute parts. For every task there is a route note – what to do in the Positron workspace (Route 1) and in the browser lab (Route 2). The two reach identical numbers.
 
-### Block 1 – One paper, three verdicts
+### Part 1 – Why any of this, and with what tools
 
-**Task 1 – Concepts (~5 minutes).** Write three one-sentence definitions – reproducibility, robustness, replicability – and say which one this exercise is. This settles the vocabulary the rest of the day leans on. *Route 1:* fill in the definition blocks at the top of your report. *Route 2:* label the four scenarios on the [Browser lab](browser-lab.qmd) page.
+**Task 1 – Get yourself running (~10 minutes, and the break if you need it).** The only aim is to reach the point where a line of R runs and the data are in front of you. There is no prize for finishing early, and getting this right now saves an hour of misery later. *Route 1:* open the workspace folder in Positron, let the packages install, and render the report skeleton once – if it renders, everything works; if it does not, `source("R/check_setup.R")` names what is missing. *Route 2:* wait for the engine to finish downloading, then run the setup-check cell and confirm the panel has 270 rows. The vocabulary warm-up on the same page – three R's and one impostor – is there to fill the waiting.
 
-**Task 2 – Meet the data (~5 minutes).** The **EU-frames dataset** (`EUframes_cy.csv`) is the country-year panel behind the whole exercise: 270 country-years, unemployment and GDP growth alongside several EU-framing measures. It is the file published in the analyst's OSF fork (`osf.io/6zqct`, main folder), and fetching data from a named public repository rather than a file someone emailed you is itself part of reproducible practice. (The official Multi100 archival record for this analyst sits at `osf.io/8rtwe`.) *Route 1:* run `R/get_data.R`, which fetches `EUframes_cy.csv` from the fork and falls back to a copy hosted on this site. *Route 2:* the panel is already loaded as `euframes`; run the exploration chunks.
-
-**Task 3 – Reproduce the recorded result (~10 minutes).** Fit the constrained two-way fixed-effects model – `mcosmo ~ unemp_c`, with country and year fixed effects – on the EU-frames panel, and confirm you get **t = −3.804** (df = 233, N = 270). This is the reproduction step, and −3.804 is the value on record for analyst C6HJR: the same data and the same code give the same number. *Route 1:* run the model in your working script (it uses `plm`, the estimator the published analyst used). *Route 2:* run the model chunk (it uses `fixest::feols`, which is faster in the browser); the two agree to three decimals.
-
-That reproduced number sits inside a larger verdict. The same paper was put through all three Rs in the SCORE dossier ([osf.io/h7432](https://osf.io/h7432/)): the push-button reproduction failed, the source-data reproduction was recorded as 'not reproduced', and a preregistered replication on fresh data (N = 352,114) flipped sign, with b = +0.002 and p = .046. One paper, three different verdicts – reproduction, robustness, replicability. Block 1 closes there. The rest of the day builds the robustness verdict, one specification at a time.
+If Route 1 will not cooperate, do not fight it. Switch to Route 2 and carry on; nothing in the day depends on which one you use.
 
 ---
 
-### Block 2 – The question underneath
+### Part 2 – The question underneath
 
-**Why five analysts got five answers (no task).** Everyone in the room reproduced the same number in Task 3, because everyone ran the same code on the same file. Reproducibility is the cheap R. The five Multi100 analysts each wrote their own code and came back with five different answers, and none of them was careless – their pipelines are competent, well-organised work. Block 2 is about what was actually happening instead, and the answer is that they were not asking quite the same question. The block opens on the study that made this famous – Silberzahn and colleagues' 29 teams working one dataset, returning odds ratios from 0.89 to 2.93 – and then builds the two tools that let you say precisely which question is yours. The first is the **estimand**: the quantity you are after, stated in words before any model exists. The second is the **causal graph**, which turns your assumptions about what causes what into a picture you can read an adjustment set off. Both are working tools, and Task 4 has you use both on this claim.
+**Task 2 – Meet the panel, name the estimand, draw the graph (~20 minutes).** Three pieces, in order. First, look at the data: the **EU-frames dataset** (`EUframes_cy.csv`) is the country-year panel behind the whole exercise – 270 country-years, unemployment and GDP growth alongside several EU-framing measures, published in the analyst's OSF fork (`osf.io/6zqct`, main folder; the official Multi100 archival record is at `osf.io/8rtwe`). Run the small-multiples figure and find the countries that move sharply around 2009, because that within-country variation is exactly what the model will use.
 
-**Task 4 – Estimand and DAG (~15 minutes).** With the numbers settled, the block turns to the question underneath them: what exactly is the claim trying to measure? You meet the idea of an *estimand* – the precise quantity a study is after – and write it in words, then complete a causal graph (a DAG) for the claim, add the edges you are willing to defend, and read off the adjustment set it implies. Write two sentences for your notes: what do two-way fixed effects adjust for, and what can they not fix? This is what turns a control set from a habit into a decision you can justify, and it feeds the justification you preregister next. *Route 1:* draft the estimand and edit the DAG starter in your report, where every arrow is an ordinary R formula and adopting one means deleting a `#`. *Route 2:* Task 4 on the [Browser lab](browser-lab.qmd) walks the estimand template, then has you write the same graph with `dagify()` and read the adjustment set off it. The [causal-graphs companion module](../companion/dags.qmd) works the same material through slowly if you want it, fitting the models the graphs imply on the case's own data.
+Second, write the **estimand** in words: the unit-specific quantity, the target population, the aggregation. The template gives you the shape; the value is in being forced to be precise about this claim in particular.
 
----
-
-### Block 3 – Preregister like an analyst
-
-**Task 5 – Preregister your specification (~15 minutes).** Pick ONE analysis from the [specification menu](spec-menu.qmd), making one choice on each of its axes: outcome, outcome family, predictor, predictor form, copredictor, estimator, sample, weights. Before you run anything, complete the preregistration block. It is a shortened but real preregistration template, and it asks what you are testing, what you already know about the data, your one specification, why those controls (grounded in your Task 4 DAG), and the rule you will judge the result by. `claim_align <- TRUE` is the day's convention and is applied for you: negative framings are reverse-coded and GDP growth's claim-expected sign is flipped, so 'supports the claim' reads as a negative sign for everyone. Render that block (Route 1) or copy it into your notes (Route 2) so it is written down before you see the result. That record is your preregistration, the primary record for the day, and it commits you to the specification. An optional mirror form may log preregistrations for the room, and the link is shared in the session. *Route 1:* the template block is in your report skeleton. *Route 2:* the block is on the [Browser lab](browser-lab.qmd) page.
-
-**Task 6 – Build and run your specification (~15 minutes).** This is the **robustness** check, and the part your classmates cannot copy from you: together the room samples the multiverse of defensible analyses. Translate your declared specification into model syntax. The builder knows your declaration and accepts only code that matches it, then computes the specification and shows you its claim-aligned coefficient, its partial r (below zero supports the claim), and where your choice sits against the canonical 840-specification grid. The five Multi100 analysts run from about the 16th percentile (the most strongly claim-supporting) to about the 68th (near the null); your dot is about to join theirs. *Route 1:* fit the model live in your working script. *Route 2:* the browser reads the pre-computed grid, so no heavy estimation runs in the tab. Finished early? Edit the preregistration, rerun, and submit a second, exploratory dot – but say which is which out loud: your first declaration was a preregistration, everything after it is exploration.
-
-**Task 7 – Report to the class chart (~5 minutes).** Your result travels to the room from your preregistered choices – nothing to fill in, nothing to transcribe. `report_result()` takes no arguments: it builds your submission from the preregistration and prints a one-click, pre-filled form link. Open it and press Send, and your dot lands on the live [Multiverse](../results.qmd) chart within seconds. If the form will not open, read the printed numbers to the facilitator and your dot still lands. *Both routes:* the helper and the form link are identical.
+Third, complete the **causal graph**. Take the `#` off the arrows you are willing to defend, re-run `adjustmentSets()`, and watch what the graph now demands. Then two sentences for your notes: what do two-way fixed effects adjust for, and what can they not fix? *Route 1:* edit `R/dag_starter.R`, where every arrow is an ordinary R formula and adopting one means deleting a `#`. *Route 2:* the same graph with `dagify()` in the browser lab. The [causal-graphs companion module](../companion/dags.qmd) works the material through slowly if you want it.
 
 ---
 
-### Block 4 – Reading the multiverse
+### Part 3 – What you can actually do
 
-There is no new task to submit here. The block is about making sense of what the class produced. You will see the class chart laid over the full 840-specification curve and the five published analysts, learn which analytical choice moves estimates the most (a preview of the fork-importance result), and find **your own percentile** – the share of the 840 specifications more negative than the estimate you submitted. The block then turns to reading a specification curve as evidence: why a large set of results together is not the same as a large set of independent tests, and what a formal test across the curve can and cannot establish. The [reading on the specification curve](reading-inference.qmd) is the companion for this part. You leave with the workspace as a keepable artefact and pointers to take it further.
+**Task 3 – Reproduce the recorded result (~20 minutes).** Fit the constrained two-way fixed-effects model – `mcosmo ~ unemp_c`, with country and year fixed effects – and confirm you get **t = −3.804** (df = 233, N = 270). This is the reproduction step, and −3.804 is the value on record for analyst C6HJR: the same data and the same code give the same number. *Route 1:* run the model in your working script. *Route 2:* fill the gaps in the exercise cell; there are two hints and a full solution, and using them is not cheating.
+
+That reproduced number sits inside a larger verdict. The same paper was put through all three Rs in the SCORE dossier ([osf.io/h7432](https://osf.io/h7432/)): the push-button reproduction failed, the source-data reproduction was recorded as 'not reproduced', and a preregistered replication on fresh data (N = 352,114) flipped sign, with b = +0.002 and p = .046. One paper, three different verdicts.
+
+**Task 4 – Work the menu (~20 minutes).** This task is **exploration, and it is meant to be**. Try several specifications from the [specification menu](spec-menu.qmd), see what each one does, and get a feel for which choices move the estimate and which barely touch it. `try_spec()` takes one argument per axis and every argument already carries the baseline you just reproduced, so changing one thing means changing one argument. `my_experiments()` prints everything you have tried, side by side – the small multiverse you have just built. Then pick the one you would defend if you had to, and `submit_exploration()` puts it on the live [Multiverse](../results.qmd) chart as an **exploratory** result, drawn as an open circle.
+
+Nothing here commits you to anything. You are allowed to look, change your mind and try again – which is exactly why the label matters.
+
+---
+
+### Part 4 – Reading the multiverse, choosing one path
+
+The part opens by reading what the room built: the class chart laid over the full 840-specification curve and the five published analysts, which analytical choice moves estimates most, the anatomy of the sign flips, and **your own percentile** – the share of the 840 specifications more negative than the estimate you submitted. It then turns to what a curve can and cannot establish, and to the argument that once a question is fully specified there is only one correct analysis. The [reading on the specification curve](reading-inference.qmd) is the companion for this part.
+
+**Task 5 – Declare one specification, run it, report it (~25 minutes).** Now you commit. Pick ONE analysis from the menu, one choice on each of the eight axes, and complete the preregistration block **before you run anything**. It is a shortened but real preregistration template: what you are testing, what you already know about the data, your one specification, why those controls (grounded in your Task 2 graph), and the rule you will judge the result by. `claim_align <- TRUE` is the day's convention and is applied for you: negative framings are reverse-coded and GDP growth's claim-expected sign is flipped, so 'supports the claim' reads as a negative sign for everyone.
+
+Render that block (Route 1) or copy it into your notes (Route 2) so it is written down before you see the result. Then translate the declaration into model syntax yourself – `build_model()` accepts only code that matches what you declared – run it, and `report_result()` prints a one-click, pre-filled form link. Your dot joins the chart as a **declared** result, drawn as a filled circle beside the open exploratory ones.
+
+The difference between Task 4 and Task 5 is not the code, which is identical. It is that one of them can have been chosen because of its result and the other cannot. Watching the two clouds side by side is the point of submitting twice.
 
 ---
 
@@ -93,7 +99,7 @@ The justification is the key part. The lesson from Auspurg & Brüderl (2021) is 
 
 - [Browser lab](browser-lab.qmd) – Route 2: the whole exercise in a browser tab, nothing installed.
 - [Specification menu](spec-menu.qmd) – the eight axes you choose one option from, with a worked example.
-- [Reading a specification curve](reading-inference.qmd) – the companion reading for Block 4: what a large set of results can and cannot establish.
+- [Reading a specification curve](reading-inference.qmd) – the companion reading for Part 4: what a large set of results can and cannot establish.
 - [Cheatsheet](cheatsheet.qmd) – the one-page card to keep open on the day, with the in-room links and what to do if something stalls.
 
 Two of the seven [companion modules](../companion/index.qmd) take the skills the day sets aside further, at your own pace:

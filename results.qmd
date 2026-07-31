@@ -352,7 +352,9 @@ if (file.exists(family_file)) {
 
 ## Where the room lands {#class-results}
 
-This chart is **live**, and it speaks the same visual language as the chart above. The full universe of 2,520 pre-computed specifications forms the muted backdrop: the gaussian curve in grey, its beta twin in green-grey, triangles carrying unemployment and squares GDP growth, each family ranked within itself. The analysts and OA sit on the gaussian curve as name-tagged triangles, and the room's own submissions overlay them as open black circles, numbered in arrival order and placed where each result's claim-aligned partial *r* falls on the curve. Hover a circle for the specification it declared. Press **Run Code** to pull the latest submissions.
+This chart is **live**, and it speaks the same visual language as the chart above. The full universe of 2,520 pre-computed specifications forms the muted backdrop: the gaussian curve in grey, its beta twin in green-grey, triangles carrying unemployment and squares GDP growth, each family ranked within itself. The analysts and OA sit on the gaussian curve as name-tagged triangles, and the room's own submissions overlay them as black circles, numbered in arrival order and placed where each result's claim-aligned partial *r* falls on the curve.
+
+The room submits twice, and the two waves are drawn differently. An **open** circle is an *explored* specification – tried while working through the menu, chosen after its result was visible. A **filled** circle is a *declared* one – written down before it ran. Hover any circle for the specification behind it. Press **Run Code** to pull the latest submissions.
 
 The R engine downloads into your browser the first time (10–30 seconds); the button changes from a spinner to *Run Code* when it is ready.
 
@@ -497,26 +499,38 @@ refresh_multiverse <- function() {
   if (!is.null(cls) && nrow(cls) > 0) {
     cls$rank <- findInterval(cls$r, gauss_r)
     cls$n_lab <- paste0("#", seq_len(nrow(cls)))
+    # The room submits twice: an exploratory result while working the menu, and
+    # a declared one after preregistering. Which is which rides on a prefix in
+    # the free-text spec field, so the collection pipeline never had to change.
+    # Rows with no prefix are pre-2026-07-31 submissions, all of them declared.
+    cls$phase <- if ("spec" %in% names(cls)) {
+      ifelse(grepl("^explore:", cls$spec), "explored", "declared")
+    } else "declared"
+    cls$spec_txt <- if ("spec" %in% names(cls))
+      sub("^(explore|declared): ", "", cls$spec) else ""
     cls$tip <- paste0(
-      "<b>submission ", cls$n_lab, "</b>",
+      "<b>submission ", cls$n_lab, " (", cls$phase, ")</b>",
       "<br/><b>claim-aligned r = ", sprintf("%.3f", cls$r), "</b>",
       if (all(c("t", "df") %in% names(cls)))
         ifelse(is.na(cls$t) | is.na(cls$df), "",
                paste0("<br/>t = ", cls$t, " on ", cls$df, " df")) else "",
-      if ("spec" %in% names(cls))
-        ifelse(is.na(cls$spec) | !nzchar(cls$spec), "",
-               paste0("<br/>", cls$spec)) else ""
+      ifelse(is.na(cls$spec_txt) | !nzchar(cls$spec_txt), "",
+             paste0("<br/>", cls$spec_txt))
     )
+    # Open circle for a specification that was explored, filled for one that
+    # was declared before its result was seen. The distinction is the whole
+    # point of the two-wave design, so it has to be visible without a hover.
+    cls$shape <- ifelse(cls$phase == "declared", 19, 1)
     if (have_ggiraph) {
       p <- p + geom_point_interactive(
         data = cls, aes(x = rank, y = r, tooltip = tip, data_id = n_lab),
-        shape = 1, size = 3, colour = "black", stroke = 0.8,
+        shape = cls$shape, size = 3, colour = "black", stroke = 0.8,
         inherit.aes = FALSE
       )
     } else {
       p <- p + geom_point(data = cls, aes(x = rank, y = r),
-                          shape = 1, size = 3, colour = "black", stroke = 0.8,
-                          inherit.aes = FALSE)
+                          shape = cls$shape, size = 3, colour = "black",
+                          stroke = 0.8, inherit.aes = FALSE)
     }
     # submissions landing on the same specification stack their number tags
     # vertically instead of overprinting

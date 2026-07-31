@@ -1005,3 +1005,109 @@ span.src {
     padding: 0.3em 0.5em;
   }
 }
+
+/* ------------------------------------------------------------------ *
+   Tool wall
+   A grid of software tiles used across Part 1's tools segment. A tile
+   holds either a logo image or a typographic badge, and the chrome is
+   identical either way, so a row mixing the two still reads as one
+   designed set rather than as a gap where a logo should be. Set the
+   badge colour per tile with `--tint`. `.toolgrid` takes a column count
+   through `--cols` (default 5); the fixed tile height is what keeps a
+   long wall from growing past the bottom of the slide.
+ * ------------------------------------------------------------------ */
+.toolgrid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 5), 1fr);
+  gap: 0.55em 0.7em;
+  width: 92%;
+  margin-inline: auto;
+  font-size: 0.52em;
+}
+
+.toolgrid .tool {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.35em;
+  padding: 0.55em 0.3em 0.5em;
+  background: #fff;
+  border-radius: 0.35em;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.11);
+}
+
+.toolgrid .tool > img {
+  height: 3.1em;
+  width: auto;
+  max-width: 90%;
+  object-fit: contain;
+  display: block;
+  margin: 0;
+}
+
+/* The typographic stand-in, same footprint as a logo. */
+.toolgrid .tool > .badge {
+  height: 3.1em;
+  width: 3.1em;
+  border-radius: 0.5em;
+  background: var(--tint, #{$ncl-blue});
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.15em;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1;
+}
+
+.toolgrid .tool > .name {
+  font-weight: 700;
+  color: $ncl-blue;
+  text-align: center;
+  line-height: 1.05;
+}
+
+.toolgrid .tool > .what {
+  color: $dark-grey;
+  text-align: center;
+  line-height: 1.05;
+  font-size: 0.86em;
+}
+
+/* A tile the day actually uses, as against one merely worth knowing. */
+.toolgrid .tool.ours {
+  box-shadow: 0 0 0 2px $orange, 1px 1px 4px rgba(0, 0, 0, 0.11);
+}
+
+/* Group heading inside a wall that is organised by kind. */
+.toolgrid .grouphead {
+  grid-column: 1 / -1;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $dark-grey;
+  border-bottom: 1px solid #d7dbe0;
+  padding-bottom: 0.15em;
+  margin-top: 0.25em;
+}
+
+.toolgrid .grouphead:first-child { margin-top: 0; }
+
+/* Optional-depth slides: the tutorial runs that may be walked or skipped on
+   the day depending on the room. The marker rides INLINE on the heading
+   rather than in an absolutely-positioned pseudo-element: reveal keeps
+   adjacent slides in the DOM, and an absolute badge anchors to the deck
+   container, so every optional slide in the DOM stacked its badge in the
+   same corner and the top one was clipped by the viewport. */
+.deepdive h2::after {
+  content: " · optional depth";
+  font-size: 0.34em;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #b6bcc3;
+  white-space: nowrap;
+  vertical-align: 0.35em;
+}

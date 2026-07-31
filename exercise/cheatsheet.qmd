@@ -28,14 +28,22 @@ format:
 
 ---
 
-## Get your dot on the chart (Route 2) {#getting-your-dot-on-the-chart-route-2}
+## Get your dots on the chart {#getting-your-dot-on-the-chart-route-2}
 
-Four cells, run in order, each reading the one before it:
+You submit twice, and the two are different in kind. Both routes use the same function names.
 
-1. **Preregister.** Make one choice on every axis in the preregistration cell (`claim_align <- TRUE` is already set for you), then run it. That declaration is your commitment – copy the whole cell into your notes.
-2. **`build_model(...)`** – write your specification as a formula. It accepts only code that matches your preregistration and tells you what is off when it does not.
-3. **`run_spec(my_model)`** – computes your specification and shows the coefficient, its claim-aligned partial *r* (below zero supports the claim), and your placement against the canonical 840-spec grid.
-4. **`report_result()`** – no arguments. It builds your submission from the preregistration and prints a clickable, pre-filled form link; open it and press **Send**, and your dot lands on the live chart.
+**Task 4 – the exploratory dot (open circle).** Nothing is committed here.
+
+1. **`try_spec(...)`** – one argument per axis, every one defaulting to the baseline you reproduced. `try_spec(estimator = "pooled_cl")` changes one thing and leaves the rest alone.
+2. **`my_experiments()`** – prints everything you have tried so far, side by side, with only the axes that actually varied.
+3. **`submit_exploration()`** – sends the most recent try to the chart, labelled as exploration. Open the printed link and press **Send**.
+
+**Task 5 – the declared dot (filled circle).** Now the choice binds.
+
+4. **Preregister.** Make one choice on every axis in the preregistration cell (`claim_align <- TRUE` is already set for you), then run `prereg()`. That declaration is your commitment – copy the whole cell into your notes.
+5. **`build_model(...)`** – write your specification as a formula. It accepts only code that matches your preregistration and tells you what is off when it does not.
+6. **`run_spec(my_model)`** – computes your specification and shows the coefficient, its claim-aligned partial *r* (below zero supports the claim), and your placement against the canonical 840-spec grid.
+7. **`report_result()`** – no arguments. It builds your submission from the preregistration and prints a clickable, pre-filled form link; open it and press **Send**.
 
 If any of that stalls, work the ladder below.
 
