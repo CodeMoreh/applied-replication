@@ -395,13 +395,13 @@ You should see **270 rows**, **27 countries** and **10 years**, and `TRUE` on th
 
 **Fix the vocabulary before you touch any data.** Three of the four scenarios below are doing one of our three R's – reproducibility, robustness, replicability. The fourth is doing something else entirely. Read all four, then label each one in the code cell.
 
-***Scenario 1:*** This is an example of \_\_\_\_\_\_.
+***Scenario 1:*** A reviewer reruns the authors' Stata .do file on the authors' data and gets a *different* coefficient from the one printed in the paper. This is an example of \_\_\_\_\_\_ even though what they *tried* to do failed.
 
-***Scenario 2:*** Is this a case of \_\_\_\_\_\_ or \_\_\_\_\_\_?
+***Scenario 2:*** The analyst uses the authors' submitted replication dataset, but they re-implement the model in R instead of Stata and centre the predictor. Is this a case of  \_\_\_\_\_\_ or \_\_\_\_\_\_?
 
-***Scenario 3:*** Their conclusion is that the original analysis has failed to \_\_\_\_\_\_.
+***Scenario 3:*** A preregistered team tests the identical hypothesis on a *separate, much larger* dataset chosen to be theoretically equivalent, and gets results that contradict the original. Their conclusion is that the original analysis has failed to \_\_\_\_\_\_.
 
-***Scenario 4:*** The authors' original findings prove \_\_\_\_\_\_.
+***Scenario 4:*** Instead of the survey data used by the original authors, another researcher tests the same underlying idea on social-media texts using a machine-learning classifier method that the original never used. To their surprise, the authors' original findings turn out to be \_\_\_\_\_\_, and the researcher concludes that they provide a reliable middle-range theory of the phenomenon they investigate
 
 The engine should be ready by now. 
 Fill in the gaps in the code cell below and run it to print your answers back and confirm that R is alive in your browser.
@@ -411,13 +411,10 @@ Fill in the gaps in the code cell below and run it to print your answers back an
 #| code-overflow: wrap
 
 cat("
-  Scenario 1: A reviewer reruns the authors' Stata .do file on the authors' data and gets a *different* coefficient from the one printed in the paper. This is an example of ______ even though what they *tried* to do failed.
-
-  Scenario 2: The analyst uses the authors' submitted replication dataset, but they re-implement the model in R instead of Stata and centre the predictor. Is this a case of ______ or ______?
-
-  Scenario 3: A preregistered team tests the identical hypothesis on a *separate, much larger* dataset chosen to be theoretically equivalent, and gets results that contradict the original. Their conclusion is that the original analysis has failed to ______.
-
-  Scenario 4: Instead of the survey data used by the original authors, another researcher tests the same underlying idea on social-media texts using a machine-learning classifier method that the original never used. To their surprise, the authors' original findings prove ______, and the researcher concludes that they provide a reliable middle-range theory of the phenomenon they investigate.
+Scenario 1: This is an example of ______.
+Scenario 2: Is this a case of ______ or ______?
+Scenario 3: The original analysis has failed to ______.
+Scenario 4: The authors' original findings are ______.
 ")
 
 ```
