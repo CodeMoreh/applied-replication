@@ -370,7 +370,7 @@ Five analysts reanalysed a claim from the EU-frames case [@Teney2016DoesEUEconom
 
 This page is the whole exercise, runnable in the browser: five tasks that take you from a setup check to two dots on the live class chart – one explored, one declared.
 
-------------------------------------------------------------------------
+
 
 ## Task 1 – Get yourself running {#task-1-setup}
 
@@ -389,21 +389,22 @@ cat("fixest is available:", requireNamespace("fixest", quietly = TRUE), "\n")
 
 You should see **270 rows**, **27 countries** and **10 years**, and `TRUE` on the last line. If any of that is missing, reload the page and wait for the engine to finish downloading before pressing Run Code again. If it still fails, say **STUCK** in the chat.
 
-------------------------------------------------------------------------
+
 
 ## Warm-up – three R's, and one impostor {#task-1-concepts-warm-up-while-the-engine-loads}
 
 **Fix the vocabulary before you touch any data.** Three of the four scenarios below are doing one of our three R's – reproducibility, robustness, replicability. The fourth is doing something else entirely. Read all four, then label each one in the code cell.
 
-***Scenario 1:*** A reviewer reruns the authors' Stata `.do` file on the authors' data and gets a *different* coefficient from the one printed in the paper. This is an example of \_\_\_\_\_\_, even though what they *tried* to do failed.
+***Scenario 1:*** This is an example of \_\_\_\_\_\_.
 
-***Scenario 2:*** The analyst uses the authors' submitted replication dataset, but they re-implement the model in R instead of Stata and centre the predictor. Is this a case of \_\_\_\_\_\_ or \_\_\_\_\_\_?
+***Scenario 2:*** Is this a case of \_\_\_\_\_\_ or \_\_\_\_\_\_?
 
-***Scenario 3:*** A preregistered team tests the identical hypothesis on a *separate, much larger* dataset chosen to be theoretically equivalent, and gets results that contradict the original. Their conclusion is that the original analysis has failed to \_\_\_\_\_\_.
+***Scenario 3:*** Their conclusion is that the original analysis has failed to \_\_\_\_\_\_.
 
-***Scenario 4:*** Instead of the survey data used by the original authors, another researcher tests the same underlying idea on social-media texts using a machine-learning classifier method that the original never used. To their surprise, the authors' original findings prove \_\_\_\_\_\_ and the researcher concludes that they provide a reliable middle-range theory of the phenomenon they investigate.
+***Scenario 4:*** The authors' original findings prove \_\_\_\_\_\_.
 
-The engine should be ready by now. Fill in the gaps in the same text in the code cell below and run it – that prints your answers back and confirms that R is alive in your browser.
+The engine should be ready by now. 
+Fill in the gaps in the code cell below and run it to print your answers back and confirm that R is alive in your browser.
 
 ```{webr}
 #| exercise: vocab
@@ -433,7 +434,7 @@ cat("
 ::::
 
 
-------------------------------------------------------------------------
+
 
 ## Task 2 – Meet the panel {#task-2-get-the-data-and-look-at-it}
 
@@ -559,33 +560,159 @@ Five arrows are drawn. `unemployment -> framing` is the path of interest. Above 
 
 You build the graph yourself in the cells below, in ordinary R. `dagify()` takes one formula per arrow, written the way you write a model, so `framing ~ unemployment` is the arrow that runs *into* `framing`. Read the tilde as 'is caused by' rather than 'is regressed on' and the direction comes out right every time. Because each arrow is a line of R rather than a fragment of a string, an arrow you are unsure about can sit there commented out, and adopting it means deleting a `#`.
 
-Drawing the graph in your browser needs `ggdag`, which this page does not preload. It brings `igraph`, `ggraph` and four further dependencies with it: roughly 23 MB of download, and a noticeable pause on a slow connection. Run the cell if you want the plot. Everything else in Task 2 works without it, because the figure above is the same graph. If the install fails, the cell falls back to `dagitty` on its own – about 3 MB with its own dependencies, an eighth of the download, and enough to answer the adjustment-set question.
+`dagify()` and `adjustmentSets()` are ready in this page already, so you can go straight to the next cell. The optional cell below adds the *picture*: it installs `ggdag`, which brings `igraph`, `ggraph` and four further dependencies with it – roughly 23 MB of download, and a noticeable pause on a slow connection. Run it if you want the plot; skip it and everything else in Task 2 still works, because the figure above is the same graph.
+
+```{webr}
+#| include: false
+#| autorun: true
+# Graph machinery for Task 2. The adjustment-set question is answered here in
+# base R rather than by dagitty, because dagitty reaches its graph algorithms
+# through a JavaScript engine that a browser only exposes to a page served with
+# cross-origin isolation headers (COOP and COEP). Without them the call fails
+# with a JavaScript type error rather than an R error, so the browser lab
+# cannot depend on it. These functions agree with dagitty's `adjustmentSets()`
+# on every arrow combination this task offers and on 378 random test graphs.
+
+.dag_has_edge <- function(dag, a, b) any(dag$edges$from == a & dag$edges$to == b)
+
+# A node counts as one of its own descendants, which is what the collider rule
+# below needs.
+.dag_descendants <- function(dag, v) {
+  seen <- v
+  frontier <- v
+  while (length(frontier)) {
+    kids <- setdiff(dag$edges$to[dag$edges$from %in% frontier], seen)
+    seen <- c(seen, kids)
+    frontier <- kids
+  }
+  seen
+}
+
+# Every simple path between two nodes, ignoring arrow direction. The recursion
+# is safe only because a teaching graph is tiny.
+.dag_paths <- function(dag, from, to) {
+  out <- list()
+  neighbours <- function(v) unique(c(dag$edges$to[dag$edges$from == v],
+                                     dag$edges$from[dag$edges$to == v]))
+  walk <- function(path) {
+    v <- path[length(path)]
+    if (v == to) {
+      out[[length(out) + 1L]] <<- path
+      return(invisible(NULL))
+    }
+    for (w in setdiff(neighbours(v), path)) walk(c(path, w))
+  }
+  walk(from)
+  out
+}
+
+# A path is blocked by the set z if any node along it is either a non-collider
+# inside z, or a collider with no descendant in z.
+.dag_path_blocked <- function(dag, path, z) {
+  if (length(path) < 3L) return(FALSE)
+  for (i in seq(2L, length(path) - 1L)) {
+    node <- path[i]
+    collider <- .dag_has_edge(dag, path[i - 1L], node) &&
+                .dag_has_edge(dag, path[i + 1L], node)
+    if (collider) {
+      if (!any(.dag_descendants(dag, node) %in% z)) return(TRUE)
+    } else if (node %in% z) {
+      return(TRUE)
+    }
+  }
+  FALSE
+}
+
+.dagify_builtin <- function(..., exposure = NULL, outcome = NULL,
+                            coords = NULL) {
+  parts <- lapply(list(...), function(f) {
+    child <- all.vars(f[[2]])
+    parent <- all.vars(f[[3]])
+    data.frame(from = parent, to = rep(child, length(parent)))
+  })
+  e <- do.call(rbind, parts)
+  structure(list(edges = e, exposure = exposure, outcome = outcome,
+                 nodes = unique(c(e$from, e$to))),
+            class = "simple_dag")
+}
+
+# The backdoor criterion, brute-forced over subsets of the eligible variables:
+# smallest sets first, and a set is skipped once it contains a set already
+# found, which leaves only the minimal ones.
+.adjustment_sets_builtin <- function(x, exposure = x$exposure,
+                                     outcome = x$outcome, ...) {
+  backdoor <- Filter(function(p) .dag_has_edge(x, p[2L], exposure),
+                     .dag_paths(x, exposure, outcome))
+  candidates <- setdiff(x$nodes, c(outcome, .dag_descendants(x, exposure)))
+  found <- list()
+  for (k in seq(0L, length(candidates))) {
+    subsets <- if (k == 0L) list(character(0)) else
+      utils::combn(candidates, k, simplify = FALSE)
+    for (z in subsets) {
+      if (any(vapply(found, function(f) all(f %in% z), logical(1)))) next
+      if (all(vapply(backdoor, function(p) .dag_path_blocked(x, p, z),
+                     logical(1)))) {
+        found[[length(found) + 1L]] <- sort(z)
+      }
+    }
+  }
+  structure(found, class = "simple_dag_sets")
+}
+
+print.simple_dag_sets <- function(x, ...) {
+  if (!length(x)) {
+    cat("(no set of these variables closes every backdoor path)\n")
+  } else {
+    for (z in x) {
+      cat(if (length(z)) paste0("{ ", paste(z, collapse = ", "), " }") else "{}",
+          "\n", sep = "")
+    }
+  }
+  invisible(x)
+}
+
+# Registered rather than left in the session: these cells do not evaluate in
+# the global environment, so plain S3 dispatch would not find the method.
+registerS3method("print", "simple_dag_sets", print.simple_dag_sets)
+
+dagify <- .dagify_builtin
+adjustmentSets <- .adjustment_sets_builtin
+dag_engine <- "built-in"
+
+# Whether dagitty could work here at all. Its JavaScript bridge needs
+# SharedArrayBuffer, which a browser grants only to a cross-origin-isolated
+# page, and the failure is a JavaScript error that tryCatch() cannot catch – so
+# the question has to be asked before anything calls dagitty.
+.dagitty_possible <- function() {
+  isTRUE(tryCatch(
+    as.numeric(webr::eval_js(
+      "typeof SharedArrayBuffer === 'undefined' ? 0 : 1")) == 1,
+    error = function(e) FALSE))
+}
+```
 
 ```{webr}
 #| autorun: false
-have_ggdag <- tryCatch({
-  webr::install("ggdag", quiet = TRUE)
-  library(ggdag)
-  TRUE
-}, error = function(e) FALSE)
-
-if (have_ggdag) {
-  cat("ggdag is loaded: dagify() and the plot are both available.\n")
+# Optional: install ggdag so the graph can be drawn. The check comes first,
+# because ggdag draws through dagitty and there is no point downloading 23 MB
+# that this browser cannot use.
+if (!.dagitty_possible()) {
+  cat("This page is not served with the headers dagitty's graph engine needs,\nso there is no plot here – the figure above is the same graph.\nEverything else in Task 2 works: the adjustment set uses this page's own graph code.\n")
 } else {
-  webr::install("dagitty", quiet = TRUE)
-  library(dagitty)
-  # The light path. dagify() belongs to ggdag, so this stand-in turns the same
-  # formulas into the graph dagitty expects and the next cell reads
-  # identically either way. Only the plot is unavailable.
-  dagify <- function(..., exposure = NULL, outcome = NULL, coords = NULL) {
-    arrows <- vapply(list(...), \(f)
-      paste(paste(all.vars(f[[3]]), "->", all.vars(f[[2]])), collapse = "\n"),
-      character(1))
-    dagitty::dagitty(paste0(
-      "dag {\n", exposure, " [exposure]\n", outcome, " [outcome]\n",
-      paste(arrows, collapse = "\n"), "\n}"))
+  have_ggdag <- tryCatch({
+    webr::install("ggdag", quiet = TRUE)
+    suppressPackageStartupMessages(library(ggdag))
+    TRUE
+  }, error = function(e) FALSE)
+
+  if (have_ggdag) {
+    dagify <- ggdag::dagify
+    adjustmentSets <- dagitty::adjustmentSets
+    dag_engine <- "dagitty"
+    cat("ggdag is loaded: the graph, the adjustment set and the plot all work.\n")
+  } else {
+    cat("ggdag did not install. The adjustment set still works – it uses this page's own graph code.\nUse the figure above for the picture.\n")
   }
-  cat("ggdag did not install; running on dagitty alone.\nThe adjustment set still works – use the figure above for the picture.\n")
 }
 ```
 
@@ -626,7 +753,7 @@ my_dag <- dagify(
     y = c(unemployment = 0, framing = 0, country = 1.4, year = 1.4,
           growth = -1.0, bailout = -1.2, politicisation = -0.95)))
 
-dagitty::adjustmentSets(my_dag)
+adjustmentSets(my_dag)
 ```
 
 With the five committed arrows the minimal adjustment set is `{ country, year }` – exactly what a two-way fixed-effects model absorbs. Country fixed effects adjust for `country` and year fixed effects adjust for `year`, so the model you fitted in Task 3 and the graph you just wrote are one identification claim in two languages.
@@ -637,19 +764,17 @@ Now uncomment the growth pair and run the cell again. The set becomes `{ country
 #| autorun: false
 #| fig-width: 8
 #| fig-height: 4
-# Needs the ggdag install; on the light path the figure at the top of this
-# task stands in.
-if (requireNamespace("ggdag", quietly = TRUE)) {
+# Drawing needs both the ggdag install and dagitty's own engine; where either
+# is missing the figure at the top of this task stands in.
+if (identical(dag_engine, "dagitty")) {
   print(ggdag::ggdag_classic(my_dag, size = 4) + ggdag::theme_dag())
 } else {
-  cat("ggdag is not installed – scroll up to the reference figure instead.\n")
+  cat("No plot here – scroll up to the reference figure, which is this same graph.\n")
 }
 ```
 
 Write two sentences for your own notes. What do two-way fixed effects adjust for, and what can they **not** fix? (Hint: anything time-varying within a country that you have not measured.)
 
-------------------------------------------------------------------------
-------------------------------------------------------------------------
 
 ## Task 3 – Reproduce the recorded result
 
@@ -731,8 +856,6 @@ The five Multi100 analysts each wrote their own code for the same claim, and cam
 Task 2 named the quantity you are after and drew the graph your adjustment set follows from. Task 4 now shows you how far the answer moves when the other choices move.
 :::
 
-------------------------------------------------------------------------
-
 ## Task 4 – Work the menu {#task-4-explore}
 
 This task is **exploration, and it is meant to be**. You are going to try several specifications, see what each one does, and get a feel for which choices move the estimate and which barely touch it. Nothing here is a commitment; that comes in Task 5.
@@ -787,15 +910,10 @@ submit_exploration()
 ```
 
 ::: {.callout-note collapse="true"}
-## Why label it 'exploratory'?
+## Why 'exploratory'?
 
-Because that is what it is, and the label costs nothing. You chose this specification after seeing what several of them do, so it cannot carry the guarantee that a declared choice carries – it might have been chosen *because* of its result, and neither you nor anyone else can now rule that out.
-
-Almost no published paper tells you which of its analyses were explored and which were planned. Today's chart does, because the room submits twice: once here, and once in Task 5 after declaring, so the two clouds can be compared side by side.
+Because you chose this specification after seeing what several specifications do, so it cannot carry the guarantee that a declared choice carries – no one can rule out that it might have been chosen *because* of its result. This is something we almost never know in case of published papers, unless their analysis had been pre-registered and departures from the pre-registration documented. In this workshop exploration is a natural step, but you'll also practice pre-registering your chosen analysis; you will submit twice: once here, and once in Task 5.
 :::
-
-------------------------------------------------------------------------
-
 
 ## Task 5 – Commit before you look {#task-5-my-preregistration}
 
@@ -843,7 +961,7 @@ prereg()   # checks every choice against the menu and records the declaration
 
 An optional mirror form logs preregistrations for the room, and the link is shared in the session. It is not required. The cell above, copied into your notes, is your preregistration record.
 
-------------------------------------------------------------------------
+
 
 ## Task 5, continued – build, run and report {#task-5-build-run-report}
 
@@ -880,7 +998,7 @@ If the form will not open on your machine, read the printed numbers to the facil
 
 **A second declared specification?** Edit the preregistration cell, rerun `prereg()`, rebuild, rerun. The mechanics allow it, and the label does not change – so be clear with yourself about what the second one is. Your first declaration was made without knowing its result. Anything after it was not, which puts it back in the same category as Task 4, and you should say so when you report it.
 
-------------------------------------------------------------------------
+
 
 ## Taking it home
 
