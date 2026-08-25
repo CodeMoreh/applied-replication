@@ -60,7 +60,7 @@ Route 2 runs R inside your browser tab, and browsers occasionally baulk. Work do
 
 ::: {.callout-note}
 ## Facilitator rescue – the by-hand grid lookup
-Last resort, facilitator-side, if a participant's cells will not run at all: every menu specification is a row in `data/spec_grid_full.csv` (a beta-family row reports `z` in place of `t`). Set the eight axes to their declared choice and read off `b`, `se`, `t`/`z`, `df`, `n` and `r`. Then apply the claim-alignment flips the lab applies automatically, reversing the sign of `b`, `t`/`z` and `r` for a negative framing (`mcomm`, `mlib`, `mneg`), and again for a GDP-growth predictor. Enter those into the [form]({{< var results-form-url >}}); the dot lands without anything being fitted.
+Last resort, facilitator-side, if a participant's cells will not run at all: every menu specification is a row in `data/spec_grid_full.csv` (a beta-family row reports `z` in place of `t`). Set the eight axes to their declared choice and read off `b`, `se`, `t`/`z`, `df`, `n` and `r`. Then apply the claim-alignment flips that the lab applies automatically, reversing the sign of `b`, `t`/`z` and `r` for a negative framing (`mcomm`, `mlib`, `mneg`), and again for a GDP-growth predictor. Enter those into the [form]({{< var results-form-url >}}); the dot lands without anything being fitted.
 :::
 
 ---
@@ -71,7 +71,7 @@ Last resort, facilitator-side, if a participant's cells will not run at all: eve
 |---|---|
 | A package will not load, or `feols` / `plm` is "not found" | Run the checker again – `source("R/check_setup.R")` – and let it install what is missing; or install by hand, e.g. `install.packages("fixest")`. |
 | The `renv` / `pak` restore stalls or half-finishes | Restart R (Session menu), then run the restore again; a second pass usually completes what the first left. |
-| "Permission denied" while installing a package | Let R use a personal library it can write to – accept Positron's offer to create a user library, then reinstall. |
+| "Permission denied" while installing a package | Let R use a personal library it can write to – accept the offer from Positron to create a user library, then reinstall. |
 | A data file is "not found" | Check you opened the unzipped **folder** in Positron (File → Open Folder), not a single file – the paths in the code are relative to that folder. |
 | Everything is stuck | Switch to Route 2: open the [browser lab](browser-lab.qmd) and carry on there. You lose nothing required. |
 

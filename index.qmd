@@ -7,10 +7,10 @@ execute:
 ---
 
 <!-- Not frozen: the next-delivery include below reads _variables.yml at
-render time. Under freeze, Quarto would key the cache on this page's source
-alone and ignore edits to _variables.yml, so flipping delivery.active would
-silently have no effect. The chunk is trivially cheap, so re-executing it on
-every render costs nothing. -->
+render time. Under freeze, Quarto would key the cache on the source of
+this page alone and ignore edits to _variables.yml, so flipping
+delivery.active would silently have no effect. The chunk is trivially
+cheap, so re-executing it on every render costs nothing. -->
 
 {{< include _includes/next-delivery.qmd >}}
 
@@ -22,7 +22,7 @@ These skills are taught through an applied 'replication' exercise. Participants 
 
 1. **Reproduce a published analyst's result.** Run the submitted Multi100 analysis code on the original re-analysis data and find the exact coefficient it produced.
 2. **See why five analysts got five different answers.** When you run the same code, you should get the same results; but there are different analysis options to choose from, and the five analysts each made different choices. Working through different analysis options involves engaging with and choosing between various statistical methods.
-3. **State an _estimand_ and draw a causal graph.** Often, variation in methods and therefore results is driven by having an imprecise understanding of the *quantity* the study is trying to estimate. That quantity is the *estimand*. Thinking about estimands is, first of all, a conceptual matter, as is thinking about the real-life relationships between the variables in your dataset. Causal graphs, or directed acyclic graphs or DAGs, are a useful way to visualise these relationships and decide what variables to adjust for.
+3. **State an _estimand_ and draw a causal graph.** Often, variation in methods and therefore results is driven by having an imprecise understanding of the *quantity* that the study is trying to estimate. That quantity is the *estimand*. Thinking about estimands is, first of all, a conceptual matter, as is thinking about the real-life relationships between the variables in your dataset. Causal graphs, or directed acyclic graphs or DAGs, are a useful way to visualise these relationships and decide what variables to adjust for.
 4. **Preregister one specification.** Pick one defensible analysis from a menu of choices, then write down what you expect in a shortened version of a real preregistration template, before you run anything.
 5. **Run it and watch the class multiverse grow.** Submit your result and see it land on a live chart, next to your classmates' and the five published analysts'.
 6. **Read a specification curve.** Work out what a thousand-plus results together can, and cannot, tell you.
@@ -51,7 +51,7 @@ Open the [Browser lab](exercise/browser-lab.qmd) page and everything runs inside
 
 ## Four parts, ninety minutes each {#four-blocks-ninety-minutes-each}
 
-Two breaks and a lunch sit between the parts. The callout above gives the clock times for the next delivery, and the lengths below hold whenever the course runs.
+Two breaks and a lunch sit between the parts. When a delivery is scheduled, the callout at the top of the page gives its clock times; the lengths below hold whenever the course runs.
 
 | Part | Length | Focus |
 |---|---|---|

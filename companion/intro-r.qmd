@@ -4,15 +4,15 @@ subtitle: "Foundation – for arriving with no R at all"
 bibliography: [../references.bib, ../references-new.bib]
 ---
 
-This is the first module of the [companion curriculum](index.qmd), and it is written for the person who arrives with no R at all: a student, a professional from another field, or anyone curious about how the workshop's analysis is actually built. It does not assume you have programmed before. By the end you will know what R is, what the editor around it does, how to store and reshape data, how to draw figures from it and read the ones the workshop shows you, how R's package system and its main dialects fit together, and where the workshop's own materials pick up from here.
+This is the first module of the [companion curriculum](index.qmd), and it is written for the person who arrives with no R at all: a student, a professional from another field, or anyone curious about how the workshop's analysis is actually built. It does not assume you have programmed before. By the end you will know what R is, what the editor around it does, how to store and reshape data, how to draw figures from it and read the ones that the workshop shows you, how R's package system and its main dialects fit together, and where the workshop's own materials pick up from here.
 
-One practical note before we start, the same one the other companion modules make. Every command below is **shown, not run for you**. R is a language you learn by typing into it and watching what comes back, so the way to use this page is to try each snippet yourself, either in the workshop's zero-install [browser lab](../exercise/browser-lab.qmd) or in your own copy of R. Nothing on this page executes when it renders.
+One practical note before we start, the same one that the other companion modules make. Every command below is **shown, not run for you**. R is a language you learn by typing into it and watching what comes back, so the way to use this page is to try each snippet yourself, either in the workshop's zero-install [browser lab](../exercise/browser-lab.qmd) or in your own copy of R. Nothing on this page executes when it renders.
 
 ## 1. R the language, Positron the editor {#sec-what}
 
 **R** is a programming language built for working with data: reading it in, reshaping it, fitting statistical models, and drawing figures. It is free, open source, and the common language of quantitative social science, which is why the workshop's analysis is written in it. R is the thing that does the calculation, and on its own it is just a program that reads instructions and returns answers.
 
-**Positron** is the editor you drive R from. An editor (the general term is an integrated development environment, or IDE) is the working environment around R: a window with your files on one side, a place to write and run code, and panels that show results, figures and the objects you have created. Positron is free, made by the company behind R's most-used tools, and it is the editor the workshop demonstrates on the shared screen. Newcomers often conflate the two, so the relationship is worth stating plainly. You install R once, so the language is present on your machine. You install Positron once, as the place you work, and when you first open it Positron finds the R you installed and connects to it. R does the computing; Positron is where you sit while it happens.
+**Positron** is the editor you drive R from. An editor (the general term is an integrated development environment, or IDE) is the working environment around R: a window with your files on one side, a place to write and run code, and panels that show results, figures and the objects you have created. Positron is free, made by the company behind R's most-used tools, and it is the editor that the workshop demonstrates on the shared screen. Newcomers often conflate the two, so the relationship is worth stating plainly. You install R once, so the language is present on your machine. You install Positron once, as the place you work, and when you first open it Positron finds the R you installed and connects to it. R does the computing; Positron is where you sit while it happens.
 
 You do not strictly need Positron to use R – R has its own bare console, and other editors exist – but a modern editor makes everything easier to see and to keep, so the workshop settles on Positron and this module assumes it. The [setup page](../setup.qmd) walks through installing both.
 
@@ -28,9 +28,9 @@ There are three surfaces you type R into, and knowing which is for what saves a 
 
 The **console** is the interactive prompt. You type one line, press Enter, and R answers immediately. It is where you try things out, check a value, or run a quick calculation. Its weakness is that the moment you close the session, everything you typed there is gone, and there is no record of how you reached a result.
 
-A **script** is a plain text file, with the extension `.R`, that holds a sequence of commands you want to keep. Instead of typing into the console and losing it, you write the commands in the script and run them from there – all at once, or line by line. A script is a record: it runs the same way tomorrow and on someone else's machine, and it shows exactly how a result was produced. The rule the workshop follows: try things in the console, but the moment something matters, move it into a script.
+A **script** is a plain text file, with the extension `.R`, that holds a sequence of commands you want to keep. Instead of typing into the console and losing it, you write the commands in the script and run them from there – all at once, or line by line. A script is a record: it runs the same way tomorrow and on someone else's machine, and it shows exactly how a result was produced. The rule that the workshop follows: try things in the console, but the moment something matters, move it into a script.
 
-A **Quarto document**, with the extension `.qmd`, is a script and a written report in one file. It holds ordinary prose (the sentences you are reading now are written this way) interleaved with 'chunks' of R code. Render the document and R runs every chunk, dropping its results – tables, figures, numbers – into the finished report at exactly the point they belong. This is the unit of work the workshop is built around, because it keeps the analysis and the writing that explains it in a single file that cannot drift apart. Your workshop report is a Quarto document, and rendering it is how your preregistration block gets a timestamp.
+A **Quarto document**, with the extension `.qmd`, is a script and a written report in one file. It holds ordinary prose (the sentences you are reading now are written this way) interleaved with 'chunks' of R code. Render the document and R runs every chunk, dropping its results – tables, figures, numbers – into the finished report at exactly the point they belong. This is the unit of work that the workshop is built around, because it keeps the analysis and the writing that explains it in a single file that cannot drift apart. Your workshop report is a Quarto document, and rendering it is how your preregistration block gets a timestamp.
 
 ## 3. Name a value, build a table {#sec-objects}
 
@@ -44,7 +44,7 @@ in_crisis         <- TRUE       # a logical value: TRUE or FALSE
 unemployment_rate               # typing the name prints the value back
 ```
 
-Most data is not a single value but a column of them. A **vector** is an ordered run of values of one type, built with `c()` (for 'combine'). Arithmetic and summary functions work on the whole vector at once, which is why R rarely needs the loops other languages reach for.
+Most data is not a single value but a column of them. A **vector** is an ordered run of values of one type, built with `c()` (for 'combine'). Arithmetic and summary functions work on the whole vector at once, which is why R rarely needs the loops that other languages reach for.
 
 ```r
 unemp <- c(5.8, 5.6, 4.9, 4.1, 5.8)   # unemployment across five years
@@ -91,7 +91,7 @@ library(readr)              # step 2: load it into the session – once, each se
 
 Two habits around packages are worth adopting from the start. First, put every `library()` call at the top of the script, together. The block then doubles as a plain statement of what the script depends on, and anyone opening the file sees at a glance what they need installed, which is a small but real piece of reproducibility. Second, know the `::` form: `readr::read_csv()` calls a function through its package name without attaching anything, and you will meet it in code that wants the provenance of every function to be visible on the line that uses it.
 
-The workshop's own workspace applies all of this for you: its `R/check_setup.R` script checks the eleven packages the exercise needs and, if any are missing, prints the ready-made line that installs them.
+The workshop's own workspace applies all of this for you: its `R/check_setup.R` script checks the eleven packages that the exercise needs and, if any are missing, prints the ready-made line that installs them.
 
 ::: {.callout-tip}
 ## Try it
@@ -101,9 +101,9 @@ Run `library(fakepackagename)` and read the error carefully, then run `library(r
 
 ## 5. Every format lands as a data frame {#sec-reading}
 
-You will rarely type data by hand. Most data arrives as a **CSV** – a 'comma-separated values' file, a plain text table where each line is a row and commas divide the columns. The workshop ships its data this way precisely because a CSV is readable, diff-able text rather than an opaque binary blob. The file that matters most here is `EUframes_cy.csv`, the country-year panel every specification in the workshop is built on.
+You will rarely type data by hand. Most data arrives as a **CSV** – a 'comma-separated values' file, a plain text table where each line is a row and commas divide the columns. The workshop ships its data this way precisely because a CSV is readable, diff-able text rather than an opaque binary blob. The file that matters most here is `EUframes_cy.csv`, the country-year panel that every specification in the workshop is built on.
 
-R reads a CSV into a data frame in one call. Base R has `read.csv()`; the `readr` package's `read_csv()` is a little faster and reports the column types it inferred, and it is the one the workshop uses.
+R reads a CSV into a data frame in one call. Base R has `read.csv()`; `read_csv()` from the `readr` package is a little faster and reports the column types it inferred, and it is the one that the workshop uses.
 
 ```r
 library(readr)
@@ -115,7 +115,7 @@ nrow(euframes)      # 270 country-years
 names(euframes)     # the column names
 ```
 
-Note the path: `"data/EUframes_cy.csv"` is written relative to the project folder, not as `C:/Users/yourname/Desktop/...`. A relative path works on any machine that has the project; an absolute path breaks the moment the work moves. Opening your workspace as a project and writing every path relative to it is one of the plainest reproducibility habits there is.
+Note the path: `"data/EUframes_cy.csv"` is written relative to the project folder, not as `C:/Users/yourname/Desktop/...`. A relative path works on any machine that has the project; an absolute path breaks the moment that the work moves. Opening your workspace as a project and writing every path relative to it is one of the plainest reproducibility habits there is.
 
 Two functions tell you what you just read without printing the whole thing:
 
@@ -132,7 +132,7 @@ Read `data/analysts5.csv` into an object called `analysts` with `read_csv()`, th
 
 ### Real data rarely arrives as a CSV
 
-The workshop's own raw material is the plainest example. The Eurobarometer surveys behind the panel are distributed by the GESIS data archive as **Stata** (`.dta`) and **SPSS** (`.sav`) files, because those are the packages much of survey research historically ran on. R reads both through the `haven` package, one function per format (the file names below are illustrative – none of these files ship with the workshop):
+The workshop's own raw material is the plainest example. The Eurobarometer surveys behind the panel are distributed by the GESIS data archive as **Stata** (`.dta`) and **SPSS** (`.sav`) files, because those are the packages that much of survey research historically ran on. R reads both through the `haven` package, one function per format (the file names below are illustrative – none of these files ship with the workshop):
 
 ```r
 library(haven)
@@ -165,7 +165,7 @@ library(arrow)
 panel <- read_parquet("EUframes_cy.parquet")   # read_feather() for Feather
 ```
 
-Whatever the source format, the landing object is the same data frame, and everything downstream – the verbs of the next sections, the models of the next module – proceeds identically. Every `read_` function here also has a `write_` counterpart (`write_csv()`, `write_dta()`, `write_parquet()`, and the `writexl` package's `write_xlsx()`), so R also serves as the converter between all of these formats. The workshop still ships CSV by choice. At 270 rows the efficiency of the binary formats buys nothing, and plain text is worth more: you can open it in anything, diff it, read it in an email.
+Whatever the source format, the landing object is the same data frame, and everything downstream – the verbs of the next sections, the models of the next module – proceeds identically. Every `read_` function here also has a `write_` counterpart (`write_csv()`, `write_dta()`, `write_parquet()`, and `write_xlsx()` from the `writexl` package), so R also serves as the converter between all of these formats. The workshop still ships CSV by choice. At 270 rows the efficiency of the binary formats buys nothing, and plain text is worth more: you can open it in anything, diff it, read it in an email.
 
 ## 6. Read the pipe left to right {#sec-pipe}
 
@@ -225,7 +225,7 @@ euframes |>
 
 Read the chain aloud and it is almost English: take the panel, add a crisis flag, group by bailout status, and for each group report the count and two averages. Readability of that kind is a reproducibility feature: a reviewer who can read the code can check it, which is why the workshop's own scripts are built from these verbs.
 
-**easystats** is the third dialect, and the one this module most wants you to know exists, because the workshop's facilitator uses and recommends it. It is likewise a family of packages under one installable name, `easystats` [@LudeckeEtAl2022EasystatsFrameworkEasy], but its centre of gravity is different: where the tidyverse is at its best preparing data *before* a model, easystats is built for everything that happens *after* one. It has a data-preparation member too – `datawizard`, whose verbs deliberately mirror dplyr's –
+**easystats** is the third dialect, and the one that this module most wants you to know exists, because the workshop's facilitator uses and recommends it. It is likewise a family of packages under one installable name, `easystats` [@LudeckeEtAl2022EasystatsFrameworkEasy], but its centre of gravity is different: where the tidyverse is at its best preparing data *before* a model, easystats is built for everything that happens *after* one. It has a data-preparation member too – `datawizard`, whose verbs deliberately mirror those of dplyr –
 
 ```r
 library(datawizard)
@@ -245,9 +245,9 @@ Write a chain on `euframes` that keeps only Greece (`filter(country == "Greece")
 
 ## 8. The grammar of graphics {#sec-ggplot}
 
-Section 7 introduced the tidyverse as a family and named two of its members. **ggplot2** is the third, and it is the one that draws [@WickhamEtAl2019WelcomeTidyverse]. Every figure the workshop shows you is built with it – the slides, the live class chart on the results page, the small country panels in the browser lab – so reading ggplot2 code is how you satisfy yourself that a figure shows what its caption says it shows.
+Section 7 introduced the tidyverse as a family and named two of its members. **ggplot2** is the third, and it is the one that draws [@WickhamEtAl2019WelcomeTidyverse]. Every figure that the workshop shows you is built with it – the slides, the live class chart on the results page, the small country panels in the browser lab – so reading ggplot2 code is how you satisfy yourself that a figure shows what its caption says it shows.
 
-The name abbreviates 'the grammar of graphics', and the word grammar is meant literally. Rather than offer one function per chart type, ggplot2 splits a figure into parts that recombine freely: the data, the mapping from columns to visual properties, the geometric shapes drawn, the scales that decide what those shapes look like, the panels the plot is divided into, and last the labels and the styling. A scatterplot and a bar chart are then two fillings of the same slots rather than two commands to remember. Learn the slots once and the figures on this site become legible, including the ones you have not met yet.
+The name abbreviates 'the grammar of graphics', and the word grammar is meant literally. Rather than offer one function per chart type, ggplot2 splits a figure into parts that recombine freely: the data, the mapping from columns to visual properties, the geometric shapes drawn, the scales that decide what those shapes look like, the panels that the plot is divided into, and last the labels and the styling. A scatterplot and a bar chart are then two fillings of the same slots rather than two commands to remember. Learn the slots once and the figures on this site become legible, including the ones you have not met yet.
 
 ### The three parts you cannot omit
 
@@ -262,7 +262,7 @@ ggplot(euframes, aes(x = unemp, y = mcosmo)) +
 
 Three things happen there. `ggplot()` receives the data frame and declares which columns drive the picture. `aes()` is the **aesthetic mapping**, and it states that the unemployment rate governs horizontal position while the cosmopolitan-framing score governs vertical position. `geom_point()` adds a **geom**, a layer of geometric shapes, drawing one point per row – 270 points for 270 country-years. Axis ranges, tick marks, gridlines and the panel background are all inferred from the data, which is why this bare version is already a readable figure.
 
-One wart is worth clearing immediately. Layers are joined with `+`, never with the pipe `|>` of section 6. The reason is chronology rather than design, since ggplot2 settled on `+` years before R had a native pipe. The practical consequence is that a long chain changes operator exactly once, at the point where it stops reshaping data and starts drawing, and typing `|>` where `+` belongs is among the commonest first-week errors in R.
+Layers are joined with `+`, never with the pipe `|>` of section 6. The reason is chronology rather than design, since ggplot2 settled on `+` years before R had a native pipe. The practical consequence is that a long chain changes operator exactly once, at the point where it stops reshaping data and starts drawing, and typing `|>` where `+` belongs is among the commonest first-week errors in R.
 
 ### Mapped inside `aes()`, set outside it
 
@@ -278,7 +278,7 @@ ggplot(euframes, aes(x = unemp, y = mcosmo)) +
   geom_point(colour = "#0e3b6a", alpha = 0.5)
 ```
 
-`alpha` controls opacity, running from 0 for invisible to 1 for solid, and setting it below 1 is the standard remedy for a scatterplot where points pile up on one another. The constant `"#0e3b6a"` is a hex colour code, the dark blue the workshop's own figures use.
+`alpha` controls opacity, running from 0 for invisible to 1 for solid, and setting it below 1 is the standard remedy for a scatterplot where points pile up on one another. The constant `"#0e3b6a"` is a hex colour code, the dark blue that the workshop's own figures use.
 
 The `factor()` wrapped around `bailout` is exactly the kind of detail that quietly produces the wrong figure when it is left out. `bailout` is stored as 0 and 1 in numeric form, so `colour = bailout` hands ggplot2 a number and it responds sensibly, with a continuous colour gradient and a legend running smoothly from 0.00 to 1.00. What you wanted was two categories in two colours, and `factor(bailout)` is how you say so. The same trap waits on `year`, which is also numeric – map it raw for a gradient across the decade, wrap it in `factor()` for ten discrete groups.
 
@@ -292,7 +292,7 @@ ggplot(euframes, aes(x = unemp, y = mcosmo)) +
   geom_smooth(method = "lm", colour = "#0e3b6a", fill = "#0e3b6a", alpha = 0.15)
 ```
 
-Grey points go down first and the trend line lands on top of them. `geom_smooth()` fits a line through the cloud and draws it with a band showing the uncertainty around it, and `method = "lm"` asks for a straight line from the same least-squares machinery the next module fits models with. R answers with the message `` `geom_smooth()` using formula = 'y ~ x' ``, which is information rather than a complaint, telling you which relationship it fitted. Reference layers behave the same way: `geom_hline(yintercept = 0)` rules a horizontal line at zero, and section 9 uses one to split a figure into results that support a claim and results that do not.
+Grey points go down first and the trend line lands on top of them. `geom_smooth()` fits a line through the cloud and draws it with a band showing the uncertainty around it, and `method = "lm"` asks for a straight line from the same least-squares machinery that the next module fits models with. R answers with the message `` `geom_smooth()` using formula = 'y ~ x' ``, which is information rather than a complaint, telling you which relationship it fitted. Reference layers behave the same way: `geom_hline(yintercept = 0)` rules a horizontal line at zero, and section 9 uses one to split a figure into results that support a claim and results that do not.
 
 One trap in layer arguments is worth memorising, because a great many figures would warn without it. Line thickness is `linewidth`, whereas point size and type size are `size`.
 
@@ -302,7 +302,7 @@ geom_point(size = 0.7)       # the area of a plotted point
 geom_text(size = 3.5)        # the height of a piece of type
 ```
 
-Passing `size` to a line geom still works, but R answers "Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0. Please use `linewidth` instead." The reason the two names survive side by side is that `size` on a point means an area and on text a height, neither of which is a line thickness.
+Passing `size` to a line geom still works, but R answers "Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0. Please use `linewidth` instead." The reason that the two names survive side by side is that `size` on a point means an area and on text a height, neither of which is a line thickness.
 
 ### Scales decide what the mapping looks like
 
@@ -319,7 +319,7 @@ ggplot(euframes, aes(x = unemp, y = mcosmo, colour = factor(bailout))) +
   scale_x_continuous(breaks = seq(0, 30, by = 5))
 ```
 
-`scale_colour_manual()` names a colour for each level of the variable. Giving `values` and `labels` as *named* vectors, with `"0" = …` rather than a bare pair, means the assignment cannot silently reverse itself if the data ever arrives in a different order, and that small precaution has saved more than one published figure. The colours the workshop uses throughout are `#0e3b6a` (dark blue), `#E69F00` (orange), `#009E73` (green), `#a10000` (dark red) and `#848c94` (mid grey), with `#c7ccd2` reserved as the muted grey for results that are not statistically significant. The orange and green belong to a palette built to stay distinguishable under the commonest forms of colour vision deficiency, which is why the deck never rests an argument on a red-green contrast alone.
+`scale_colour_manual()` names a colour for each level of the variable. Giving `values` and `labels` as *named* vectors, with `"0" = …` rather than a bare pair, means the assignment cannot silently reverse itself if the data ever arrives in a different order, and that small precaution has saved more than one published figure. The colours that the workshop uses throughout are `#0e3b6a` (dark blue), `#E69F00` (orange), `#009E73` (green), `#a10000` (dark red) and `#848c94` (mid grey), with `#c7ccd2` reserved as the muted grey for results that are not statistically significant. The orange and green belong to a palette built to stay distinguishable under the commonest forms of colour vision deficiency, which is why the deck never rests an argument on a red-green contrast alone.
 
 Position scales carry the same override logic, and one of their arguments catches people out. `scale_x_continuous(breaks = …)` decides where the tick marks fall, but the sibling argument `limits` **removes** every row outside the range before any statistic is computed, so a smoother is refitted on whatever survived.
 
@@ -346,7 +346,7 @@ ggplot(euframes, aes(x = year, y = mcosmo)) +
   scale_x_continuous(breaks = c(2004, 2008, 2013))
 ```
 
-Twenty-seven small panels appear, one per country code, each carrying that country's cosmopolitan-framing series across the decade. The browser lab draws this figure early in the exercise for a good reason: it puts the crisis years in view before any model is fitted, and it makes plain how differently the countries move. The `~ cntry` is a formula, the same one-sided syntax section 10's `lm()` call uses, and `ncol` fixes the shape of the grid. Where two grouping variables matter, `facet_grid(rows = vars(a), cols = vars(b))` crosses them into a matrix of panels.
+Twenty-seven small panels appear, one per country code, each carrying that country's cosmopolitan-framing series across the decade. The browser lab draws this figure early in the exercise: it puts the crisis years in view before any model is fitted, and it makes plain how differently the countries move. The `~ cntry` is a formula, the same one-sided syntax that the `lm()` call in section 10 uses, and `ncol` fixes the shape of the grid. Where two grouping variables matter, `facet_grid(rows = vars(a), cols = vars(b))` crosses them into a matrix of panels.
 
 ### Labels first, theme last
 
@@ -394,7 +394,7 @@ Draw the scatterplot of `unemp` against `mcosmo`, then change one thing at a tim
 
 ### The pipe hands over to the plot
 
-Reshaping and drawing are usually one movement, and dplyr feeds ggplot2 directly. The chain runs on `|>` while it is still working on data and switches to `+` at the moment `ggplot()` appears.
+Reshaping and drawing are usually one movement, and dplyr feeds ggplot2 directly. The chain runs on `|>` while it is still working on data and switches to `+` at the moment that `ggplot()` appears.
 
 ```r
 library(dplyr)
@@ -421,7 +421,7 @@ Build a chain that keeps the crisis years, groups by `year`, and reports the mea
 
 ## 9. Reading the class chart {#sec-speccurve}
 
-The workshop's central figure is a **specification curve**, and you now have every part needed to build one yourself. The idea behind it is the day's whole argument compressed into a picture. A hypothesis about a dataset admits many defensible analyses rather than one, and if you fit all of them and line the results up in order, you can see the range of answers the data supports instead of the single answer one analyst happened to report.
+The workshop's central figure is a **specification curve**, and you now have every part needed to build one yourself. The idea behind it is the day's whole argument compressed into a picture. A hypothesis about a dataset admits many defensible analyses rather than one, and if you fit all of them and line the results up in order, you can see the range of answers that the data supports instead of the single answer that one analyst happened to report.
 
 `data/spec_grid.csv` holds that universe for the EU-frames case: 840 rows, one per defensible analysis, each carrying the partial correlation it produced, whether that result reached statistical significance, and the ingredients that distinguish it from its neighbours. Reading it needs one preparatory step, and the step is conceptual rather than technical.
 
@@ -480,7 +480,7 @@ Rebuild the curve, then colour the points by `outcome` instead of by `sig`, drop
 
 ## 10. Name the quantity, then estimate it {#sec-easystats}
 
-This section looks one step ahead. Fitting models is the next module's subject, and everything there is read through base R's `summary()` printout. Nothing that follows is needed for the workshop's tasks. It is here because it completes the map of the dialects, and because it connects R's tooling to the workshop's central discipline.
+Fitting models is the next module's subject, and everything there is read through base R's `summary()` printout. Nothing that follows is needed for the workshop's tasks. It is here because it completes the map of the dialects, and because it connects R's tooling to the workshop's central discipline.
 
 Suppose the model exists, a plain linear model of cosmopolitan framing on unemployment and growth. The [next module](stats-methods.qmd) reads exactly this kind of output line by line.
 
@@ -499,7 +499,7 @@ check_model(m)         # the assumption dashboard: residual plots, normality, in
 report(m)              # the model written out in publishable sentences
 ```
 
-`model_parameters()` returns the coefficients as data you can work with rather than text to squint at [@LudeckeEtAl2020ExtractingComputingExploring]; `check_model()` turns the diagnostic checks most people skip into one picture [@LudeckeEtAl2021PerformanceRPackage]; and `report()` writes the results paragraph itself, with the numbers drawn live from the object. The prose then cannot drift from the model, which is the guarantee a rendered Quarto document gives and a copy-pasted number never does.
+`model_parameters()` returns the coefficients as data you can work with rather than text to squint at [@LudeckeEtAl2020ExtractingComputingExploring]; `check_model()` turns the diagnostic checks that most people skip into one picture [@LudeckeEtAl2021PerformanceRPackage]; and `report()` writes the results paragraph itself, with the numbers drawn live from the object. The prose then cannot drift from the model, which is the guarantee that a rendered Quarto document gives and a copy-pasted number never does.
 
 One member of the family, `modelbased`, connects straight to the workshop's own discipline [@MakowskiEtAl2025ModelbasedRPackage]. A coefficient table answers whatever question the model's parameterisation happens to pose. These functions make you *name the quantity you want* – the **estimand** – and then compute exactly that from the model:
 
@@ -526,15 +526,15 @@ Whichever route you take, the sequence is the same one you have just practised i
 
 ## Sources and further study {#sec-sources}
 
-This module is written fresh for the workshop rather than adapted from an existing lesson, so there is no borrowed text to attribute. It teaches only the slice of R the workshop's own materials use, in the order the day needs it, plus the map of dialects that puts those materials in context.
+This module is written fresh for the workshop rather than adapted from an existing lesson, so there is no borrowed text to attribute. It teaches only the slice of R that the workshop's own materials use, in the order that the day needs it, plus the map of dialects that puts those materials in context.
 
 If you want a fuller, self-paced grounding in R after this, these open resources are worth the time, and all are recommended here as further reading rather than adapted from:
 
 - **The Carpentries, "R for Reproducible Scientific Analysis" and "Programming with R".** <https://swcarpentry.github.io/r-novice-gapminder/> and <https://swcarpentry.github.io/r-novice-inflammation/>. Both are licensed **CC BY 4.0** and are the standard hands-on introductions to R for researchers, covering the same objects-vectors-data-frames foundation in far more depth than this page attempts.
-- **The Turing Way, "Guide for Reproducible Research".** <https://book.the-turing-way.org/>. Licensed **CC BY 4.0**. Not an R tutorial as such, but the best short statement of why the habits this module gestures at – scripts over console history, relative paths, one file for analysis and report – are worth building from the first day.
+- **The Turing Way, "Guide for Reproducible Research".** <https://book.the-turing-way.org/>. Licensed **CC BY 4.0**. Not an R tutorial as such, but the best short statement of why the habits that this module gestures at – scripts over console history, relative paths, one file for analysis and report – are worth building from the first day.
 - **The package documentation sites**, which for the packages of sections 5 to 10 are genuinely readable introductions rather than reference dumps: [tidyverse.org](https://www.tidyverse.org/) (with the free book *R for Data Science* at [r4ds.hadley.nz](https://r4ds.hadley.nz/)), [ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/), [easystats.github.io/easystats](https://easystats.github.io/easystats/), [haven.tidyverse.org](https://haven.tidyverse.org/), [readxl.tidyverse.org](https://readxl.tidyverse.org/), and the arrow R package site at [arrow.apache.org/docs/r](https://arrow.apache.org/docs/r/).
 
-When you are ready for your first statistical model, the next module, [the statistical methods behind the workshop](stats-methods.qmd), starts exactly where this page leaves off: with a single `lm()` on the panel you have just learned to read and reshape, and everything the case then demands of it.
+When you are ready for your first statistical model, the next module, [the statistical methods behind the workshop](stats-methods.qmd), starts exactly where this page leaves off: with a single `lm()` on the panel you have just learned to read and reshape, and everything that the case then demands of it.
 
 ## References
 

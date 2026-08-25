@@ -6,7 +6,7 @@ Country-year panel built for the workshop "Applied Replication for Data Skills" 
 
 Individual-level data: 16 Eurobarometer waves (EB 61.0, 62.0, 63.4, 64.2, 65.2, 67.2, 69.2, 70.1, 72.4, 73.4, 74.2, 75.3, 76.3, 77.3, 78.1, 79.3), GESIS scientific-use files, as analysed in Teney (2016, *European Sociological Review* 32(5): 619–633) and in the Multi100 reanalysis of that paper (analyst C6HJR, https://osf.io/8rtwe/). The raw microdata are **not redistributable** – obtain them from GESIS (https://search.gesis.org/) under their usage terms. This file contains only derived country-year aggregates.
 
-The four framing scales follow Teney (2016: 623): for each respondent, the number of mentioned items belonging to a dimension divided by the respondent's total number of mentioned items (13 items; the 'Euro' item is excluded, following the original paper's footnote 1). Respondents who mention no items score 0, matching the convention in the published replication script. Scales are then averaged within country-year.
+The four framing scales follow Teney (2016: 623): for each respondent, the number of mentioned items belonging to a dimension divided by the respondent's total number of mentioned items (13 items; the 'Euro' item is excluded, following footnote 1 of the original paper). Respondents who mention no items score 0, matching the convention in the published replication script. Scales are then averaged within country-year.
 
 Dimension item assignment (questionnaire item → dimension):
 
@@ -17,7 +17,7 @@ Dimension item assignment (questionnaire item → dimension):
 | Communitarian (negative, non-materialist) | Unemployment; Loss of cultural identity; More crime; Not enough control at external borders |
 | Libertarian (negative, materialist) | Bureaucracy; Waste of money |
 
-**Provenance note.** This panel was rebuilt independently from the raw GESIS files, using the sixteen-wave inventory above. The as-submitted Multi100 artefact (`rep_data.csv`) is preserved unchanged alongside it, under the column names the original submission used.
+**Provenance note.** This panel was rebuilt independently from the raw GESIS files, using the sixteen-wave inventory above. The as-submitted Multi100 artefact (`rep_data.csv`) is preserved unchanged alongside it, under the column names that the original submission used.
 
 ## Variables
 

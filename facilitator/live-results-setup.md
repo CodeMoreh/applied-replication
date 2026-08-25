@@ -38,7 +38,7 @@ Why the Worker exists: a browser will only read a remote file if that file is se
 
 1.  Go to <https://forms.google.com> → blank form. Title it e.g. "Class results – Applied replication".
 
-2.  Add **seven Short-answer questions**, titled **exactly** as below (lowercase, no extra words – these become the Sheet column names the chart reads):
+2.  Add **seven Short-answer questions**, titled **exactly** as below (lowercase, no extra words – these become the Sheet column names that the chart reads):
 
     | Question title | Type         | Notes                                         |
     |------------------|------------------|------------------------------------|
@@ -48,13 +48,13 @@ Why the Worker exists: a browser will only read a remote file if that file is se
     | `t`            | Short answer | t statistic                                   |
     | `df`           | Short answer | residual degrees of freedom                   |
     | `n`            | Short answer | observations                                  |
-    | `r`            | Short answer | partial correlation (the one the chart plots) |
+    | `r`            | Short answer | partial correlation (the one that the chart plots) |
 
     Short titles look terse, but that is fine: participants never type into the form – `report_result()` pre-fills every box and they just press Send. The only hard requirement is that the question for the partial correlation is titled **`r`**, because the chart reads a column called `r`.
 
 ### 2.2 Make it anonymous (no Google login)
 
-In the form's **Settings** tab:
+In the **Settings** tab of the form:
 
 - **Responses → Collect email addresses → Do not collect.**
 - **Responses → Limit to 1 response → OFF.** ← this is the setting that otherwise forces a Google sign-in. With it off, anyone can submit with no account. (Trade-off: a person could submit twice. Harmless for a workshop.)
@@ -73,7 +73,7 @@ In the form's **Settings** tab:
 
 ### 2.4 Get the pre-fill field codes and the Form ID
 
-`report_result()` builds a pre-filled link, which needs the internal `entry.NNN` code for each question plus the form's published ID.
+`report_result()` builds a pre-filled link, which needs the internal `entry.NNN` code for each question plus the published ID of the form.
 
 1.  In the form editor, **⋮ (top-right) → Get pre-filled link**.
 
@@ -93,7 +93,7 @@ In the form's **Settings** tab:
 
       **ACTUAL**: 1FAIpQLSezoAEOnZUfP4pkfN28_XtEBwSyc2RLsXB-h8RPSegF7_t76A
 
-    - the **seven `entry.NNN` codes**, in the order your questions appear. Match each to its field by the order you added them (spec, b, se, t, df, n, r). If unsure, fill the dummy values `spec`,`b`,`se`,`t`,`df`,`n`,`r` instead of `1` so each code is followed by a recognisable value.
+    - the **seven `entry.NNN` codes**, in the order in which your questions appear. Match each to its field by the order you added them (spec, b, se, t, df, n, r). If unsure, fill the dummy values `spec`,`b`,`se`,`t`,`df`,`n`,`r` instead of `1` so each code is followed by a recognisable value.
 
       **ACTUAL**:
 
@@ -143,7 +143,7 @@ wrangler deploy
 
   [**ACTUAL: IT DOES DOWNLOAD A CSV FILE WITH THE EXPECTED HEADERS, BUT IT DOES NOT OPEN IT IN THE BROWSER ON MY MACHINE**]{.underline}
 
-- Test it the way the page will, **from the deploy origin**. Open <https://codemoreh.github.io/applied-replication/results.html>, open the browser DevTools console (F12), and run:
+- Test it as the page will, **from the deploy origin**. Open <https://codemoreh.github.io/applied-replication/results.html>, open the browser DevTools console (F12), and run:
 
   ``` js
   fetch("https://class-results.YOUR-SUBDOMAIN.workers.dev")
@@ -158,7 +158,7 @@ wrangler deploy
 
 ## 4. Step 3 – wire the IDs into the repo
 
-Four edits. Two carry a literal `PASTE_…` marker in the code (items 1 and 2); item 3 (the template repo) has no marker because that file lives in a different repo and is structured differently – replace its "section 4" as shown below; item 4 is a value in `_variables.yml`.
+Four edits. Two carry a literal `PASTE_…` marker in the code (items 1 and 2). Item 3 (the template repo) has no marker because that file lives in a different repo and is structured differently – replace its "section 4" as shown below. Item 4 is a value in `_variables.yml`.
 
 1.  **`results.qmd`** – in the `live-multiverse` cell, set:
 
@@ -175,7 +175,7 @@ Four edits. Two carry a literal `PASTE_…` marker in the code (items 1 and 2); 
                r = "entry.777777")
     ```
 
-3.  **The template repo** (`CodeMoreh/replication-lab`, the separate repo participants copy) – make the **same** edit to the `report_result()` helper in its `R/spec_tools.R` so Route 1 participants get working links too. (That file is gitignored from this repo; edit it in its own checkout.)
+3.  **The template repo** (`CodeMoreh/replication-lab`, the separate repo that participants copy) – make the **same** edit to the `report_result()` helper in its `R/spec_tools.R` so Route 1 participants get working links too. (That file is gitignored from this repo; edit it in its own checkout.)
 
     [**ACTUAL: I CAN'T LOCATE THAT !!!**]{.underline}
 
@@ -207,14 +207,14 @@ git push
 
 The chart reads a column literally named **`r`** (case/space-tolerant). The other columns are carried for the record but only `r` positions the dot.
 
-- Live path: the Worker serves the Sheet's header row as CSV headers, which come from your Form question titles – so titling the question `r` (step 2.1) is what makes this work.
+- Live path: the Worker serves the header row of the Sheet as CSV headers, which come from your Form question titles – so titling the question `r` (step 2.1) is what makes this work.
 - Archive path (section 7): the committed `data/class_results.csv` must also have a column named `r`.
 
 ------------------------------------------------------------------------
 
-## 6. The morning of (16 June) – re-test, do not assume
+## 6. The morning of the delivery – re-test, do not assume {#the-morning-of-16-june-re-test-do-not-assume}
 
-Google's anonymous-form and sharing behaviour has changed before, so verify on the day, not just the night before.
+Google has changed its anonymous-form and sharing behaviour before, so verify on the day, not just the night before.
 
 - [ ] **Anonymous submit:** open the public form link in an **incognito window with no Google account** and submit one test row. Confirm it is accepted without a login prompt.
 - [ ] **Sheet got it:** the test row appears in "Form Responses 1".
@@ -223,11 +223,11 @@ Google's anonymous-form and sharing behaviour has changed before, so verify on t
 - [ ] **Clear test rows** from the Sheet so the room starts clean (delete the test data rows; keep the header row).
 - [ ] Confirm room wifi allows outbound HTTPS to `docs.google.com` and `*.workers.dev` (already in the night-before checklist in `guide.qmd`).
 
-If the morning test fails, you still have two fallbacks (section 8) and the deck's static "The class multiverse" slide always works.
+If the morning test fails, you still have two fallbacks (section 8) and the static "The class multiverse" slide in the deck always works.
 
 ------------------------------------------------------------------------
 
-## 7. Running it live (the 12:15 debrief)
+## 7. Running it live (the class-results debrief) {#running-it-live-the-1215-debrief}
 
 1.  Project the live Multiverse page.
 2.  As results arrive, press **Run Code** on the Class-results chart to pull the latest dots. Press it again every minute or so – each press re-fetches (the URL is cache-busted, so you always get the freshest rows).

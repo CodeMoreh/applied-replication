@@ -6,13 +6,13 @@ bibliography: references.bib
 
 ## Four words that are not synonyms {#glossary}
 
-The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms. They are not interchangeable, and the day turns on the difference: a finding can survive every robustness check and still be one nobody can recompute from the original data, or reproduce cleanly and still fail on new data. The 'in this workshop' column says where each concept appears in the session.
+The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms. They are not interchangeable, and the day depends on the difference: a finding can survive every robustness check and still be one that nobody can recompute from the original data, or reproduce cleanly and still fail on new data. The 'in this workshop' column says where each concept appears in the session.
 
 | Term | Definition | In this workshop |
 |------------------------|------------------------|------------------------|
 | **Reproducibility** | Same question · same data · same analysis → same result | Tested by the SCORE programme [@AlipourfardEtAl2021SystematizingConfidenceOpen]; the result reported by the original author (OA) was not reproducible [@MiskeEtAl2026InvestigatingReproducibilitySocial] |
-| **Robustness** | Same question · same data · justifiable alternative analysis → stable result | Multi100's design [@AczelEtAl2026InvestigatingAnalyticalRobustness]; the five-analyst table; Task 6 |
-| **Replicability** | Same question · independent new data → same result | Tyner et al. [@TynerEtAl2026InvestigatingReplicabilitySocial]; discussed in Talk I |
+| **Robustness** | Same question · same data · justifiable alternative analysis → stable result | The Multi100 design [@AczelEtAl2026InvestigatingAnalyticalRobustness]; the five-analyst table; the specification work in Part 3 |
+| **Replicability** | Same question · independent new data → same result | Tyner et al. [@TynerEtAl2026InvestigatingReplicabilitySocial]; discussed in Part 1 |
 | **Repeatability** | Umbrella term covering all three above | Used in the Nosek et al. glossary as the overarching category |
 
 ------------------------------------------------------------------------
@@ -29,7 +29,7 @@ The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms.
 
 ### Vocabulary
 
-- @NosekEtAl2025BriefGlossaryTerms – Nosek et al. (2025). A brief glossary of terms about repeatability: replicability, robustness, and reproducibility. *MetaArXiv*. 4 pages; essential pre-reading. <https://doi.org/10.31222/osf.io/mqfp4_v1>
+- @NosekEtAl2025BriefGlossaryTerms – Nosek et al. (2025). A brief glossary of terms about repeatability: replicability, robustness, and reproducibility. *MetaArXiv*. 4 pages; read this one before the day. <https://doi.org/10.31222/osf.io/mqfp4_v1>
 
 - @NosekErrington2020WhatReplication – Nosek & Errington (2020). What is replication? *PLOS Biology*, 18(3), e3000691. <https://doi.org/10.1371/journal.pbio.3000691>
 
@@ -43,17 +43,17 @@ The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms.
 
 ### Preregistration
 
-These three are the pre-session reading list for the preregistration block, and all are open access. None is required, because everything is taught on the day, but they let you arrive with the ideas already in hand.
+These three are the pre-session reading list for the preregistration segment of the day, and all are open access. None is required, because everything is taught on the day, but they let you arrive with the ideas already in hand.
 
-- Nosek, Ebersole, DeHaven & Mellor (2018). The preregistration revolution. *PNAS*, 115(11), 2600–2606. <https://doi.org/10.1073/pnas.1708274114> – a short primer on the idea the block turns on: predicting a result versus explaining one after the fact, and the case, like ours, where the data already exist.
+- Nosek, Ebersole, DeHaven & Mellor (2018). The preregistration revolution. *PNAS*, 115(11), 2600–2606. <https://doi.org/10.1073/pnas.1708274114> – a short primer on the idea on which preregistration depends: predicting a result versus explaining one after the fact, and the case, like ours, where the data already exist.
 
 - The AsPredicted eight-question form – the short template you complete in the session, listed on OSF as the "Preregistration Template from AsPredicted.org". Live form: <https://aspredicted.org>; OSF listing: <https://help.osf.io/article/158-create-a-preregistration>.
 
-- van den Akker, Weston, Campbell, et al. (2021). Preregistration of secondary data analysis: A template and tutorial. *Meta-Psychology*, 5, 2625. <https://doi.org/10.15626/MP.2020.2625> – the fuller template built for exactly our situation, reanalysing data that already exist; the tool a full version of today's exercise would use.
+- van den Akker, Weston, Campbell, et al. (2021). Preregistration of secondary data analysis: A template and tutorial. *Meta-Psychology*, 5, 2625. <https://doi.org/10.15626/MP.2020.2625> – the fuller template built for exactly our situation, reanalysing data that already exist; the tool that a full version of today's exercise would use.
 
 ### Reading the multiverse
 
-- [Reading a specification curve: what it can and cannot say](exercise/reading-inference.qmd) – this workshop's own reading for the final block: why a large set of results is not a large set of independent tests, and what a single test across the whole curve can and cannot establish.
+- [Reading a specification curve: what it can and cannot say](exercise/reading-inference.qmd) – this workshop's own reading for the final part of the day: why a large set of results is not a large set of independent tests, and what a single test across the whole curve can and cannot establish.
 
 ### The case study paper
 
@@ -67,15 +67,16 @@ These three are the pre-session reading list for the preregistration block, and 
 
 ## Companion curriculum
 
-Seven optional self-study modules sit around the one-day workshop – see the [curriculum overview](companion/index.qmd) for the suggested reading order.
+Eight optional self-study modules sit around the one-day workshop – see the [curriculum overview](companion/index.qmd) for the suggested reading order.
 
 - [Getting started with R](companion/intro-r.qmd) – for participants arriving with no R at all; best read before the day.
 - [The statistical methods behind the workshop](companion/stats-methods.qmd) – every model fitted on the case's own data with real outputs read line by line, from a first `lm()` through fixed and random effects to multilevel, weighted, Bayesian and ordered-beta models, ending with meta-analysis and the common effect-size axis.
 - [Draw the arrows you believe](companion/dags.qmd) – causal graphs written as R formulas with `dagify()`: confounders, mediators and colliders fitted rather than only described, the EU-frames graph whose adjustment set is what two-way fixed effects absorb, and what fixed effects cannot fix.
 - [The multiverse: origins, uses, and critics](companion/multiverse.qmd) – where specification-curve thinking came from, the three purposes a multiverse can serve, and the 2025–26 critical debate read against this workshop's own grid.
 - [Simulation as a method](companion/simulation.qmd) – a simulated person-level twin with a known recipe, built to carry the original analysis: parameter recovery, composition against context, recovering individual effects, weights that matter, the degrees-of-freedom story run live, a null multiverse, a lineup, and design precision by simulation.
+- [One claim, two levels](companion/individual-level.qmd) – the published specification fitted at the individual level on a validated simulated twin, with the real-data values beside it: individual circumstance against national context, and what declaring a level of analysis does to the evidence.
 - [Reproducibility repositories](companion/repositories.qmd) – research-data archives, the OSF nodes behind this case, and preregistration templates in more depth.
-- [Git and GitHub for reproducible research](companion/git-github.qmd) – version control and publishing your own report, the part lifted out of the core day so it can be learned on its own terms.
+- [Git and GitHub for reproducible research](companion/git-github.qmd) – version control and publishing your own report, the hands-on practice kept out of the core day so it can be learned on its own terms.
 
 ------------------------------------------------------------------------
 
@@ -102,19 +103,19 @@ The target article [@Teney2016DoesEUEconomic] was put through all three SCORE ac
 | `cf8en` | **Author-provided code** – two Stata do-files (`eb_all.do`, `eb_ml_ESR.do`) supplied on request; data cannot be shared under GESIS terms (statement file `gxk9r`) | Code available; data restricted |
 | `8fwrt` | Power analysis for the replication | – |
 | `ezhcs` | **Push-button reproduction** (with author code) | **Failed** – file names in the code did not match the files available for download; 18 files referenced, 16 listed on the website |
-| `4rjbf` | **Source-data reproduction** | **'Not reproduced'** – original effect size could not be extracted or re-calculated |
+| `4rjbf` | **Source-data reproduction** | **"Not reproduced"** – original effect size could not be extracted or re-calculated |
 | `gr8u6` | **Multi100 robustness** – 5 independent reanalysts | All 5 coefficients negative (claim-consistent direction); partial r from −0.006 to −0.452 |
 | `zt5y2` | **Secondary-data replication** (Eurobarometer + Eurostat, different waves; preregistered; N = 352,114 person-year obs.) | **Not replicated – sign flip**: positive coefficient (b = 0.002, t = 2.004, p = 0.046) in both Analysis One and Analysis Two |
 | `6zqct` | Analyst's maintained fork (workshop fetch target) – carries the working materials and today's data | <https://osf.io/6zqct/> |
 | `8rtwe` | Official Multi100 archival record for analyst C6HJR | <https://osf.io/8rtwe/> |
 
-Three Rs, three different verdicts on one paper: reproduction failed (twice, differently); robustness held in sign but spanned two orders of magnitude in effect size; replication returned a sign flip. This is the glossary's point that the three indicators are near-uncorrelated, made concrete by a single case built entirely from public artefacts.
+Three Rs, three different verdicts on one paper: reproduction failed (twice, differently); robustness held in sign but spanned two orders of magnitude in effect size; replication returned a sign flip. The glossary states that the three indicators are near-uncorrelated. A single case built entirely from public artefacts makes that concrete.
 
 ------------------------------------------------------------------------
 
 ## If you are at Newcastle University
 
-The workshop is open to anyone, so support of the kind below exists wherever you are: your own institution's library and its research-software or research-data team are the places to ask. As one worked example, participants based at Newcastle University can draw on the following.
+The workshop is open to anyone, so support of the kind below exists wherever you are: the library at your own institution and its research-software or research-data team are the places to ask. As one worked example, participants based at Newcastle University can draw on the following.
 
 | Resource | URL |
 |------------------------------------|------------------------------------|

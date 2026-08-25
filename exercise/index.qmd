@@ -13,7 +13,7 @@ Five independent analysts reanalysed a claim made by the original author (OA) as
 
 > "…poor economic performances … decrease positive dimensions of EU framing" (Teney 2016, p. 619)
 
-The anchor result – the specific number the Task 2 constraints pointed to – is:
+The anchor result – the specific number that the Task 2 constraints pointed to – is:
 
 > **Unemployment → cosmopolitan EU framing: b = −0.0034, t = −4.03, p < .001** (Table 3, Model 1)
 
@@ -63,19 +63,19 @@ Third, complete the **causal graph**. Take the `#` off the arrows you are willin
 
 **Task 3 – Reproduce the recorded result (~20 minutes).** Fit the constrained two-way fixed-effects model – `mcosmo ~ unemp_c`, with country and year fixed effects – and confirm you get **t = −3.804** (df = 233, N = 270). This is the reproduction step, and −3.804 is the value on record for analyst C6HJR: the same data and the same code give the same number. *Route 1:* run the model in your working script. *Route 2:* fill the gaps in the exercise cell; there are two hints and a full solution, and using them is not cheating.
 
-Your reproduction is one check among several, and the paper fares differently on the others. It was put through all three Rs in the SCORE dossier ([osf.io/h7432](https://osf.io/h7432/)): the push-button reproduction failed, the source-data reproduction was recorded as 'not reproduced', and a preregistered replication on fresh data (N = 352,114) flipped sign, with b = +0.002 and p = .046. One paper, three different verdicts.
+Your reproduction is one check among several, and the paper fares differently on the others. It was put through all three Rs in the SCORE dossier ([osf.io/h7432](https://osf.io/h7432/)): the push-button reproduction failed, the source-data reproduction was recorded as "not reproduced", and a preregistered replication on fresh data (N = 352,114) flipped sign, with b = +0.002 and p = .046.
 
 **Task 4 – Work the menu (~20 minutes).** This task is **exploration, and it is meant to be**. Try several specifications from the [specification menu](spec-menu.qmd), see what each one does, and get a feel for which choices move the estimate and which barely touch it. `try_spec()` takes one argument per axis and every argument already carries the baseline you just reproduced, so changing one thing means changing one argument. `my_experiments()` prints everything you have tried, side by side – the small multiverse you have just built. Then pick the one you would defend if you had to, and `submit_exploration()` puts it on the live [Multiverse](../results.qmd) chart as an **exploratory** result, drawn as an open circle.
 
-Nothing here commits you to anything. You are allowed to look, change your mind and try again – which is exactly why the label matters.
+Nothing here commits you to anything. You are allowed to look, change your mind and try again – which is why the label matters.
 
 ---
 
 ### Part 4 – Reading the multiverse, choosing one path
 
-The part opens by reading what the room built: the class chart laid over the full 840-specification curve and the five published analysts, which analytical choice moves estimates most, the anatomy of the sign flips, and **your own percentile** – the share of the 840 specifications more negative than the estimate you submitted. It then turns to what a curve can and cannot establish, and to the argument that once a question is fully specified there is only one correct analysis. The [reading on the specification curve](reading-inference.qmd) is the companion for this part.
+The part opens by reading what the room built: the class chart laid over the full 840-specification curve and the five published analysts, which analytical choice moves estimates most, where the sign flips come from, and **your own percentile** – the share of the 840 specifications more negative than the estimate you submitted. It then turns to what a curve can and cannot establish, and to the argument that once a question is fully specified there is only one correct analysis. The [reading on the specification curve](reading-inference.qmd) is the companion for this part.
 
-**Task 5 – Declare one specification, run it, report it (~25 minutes).** Now you commit. Pick ONE analysis from the menu, one choice on each of the eight axes, and complete the preregistration block **before you run anything**. It is a shortened but real preregistration template: what you are testing, what you already know about the data, your one specification, why those controls (grounded in your Task 2 graph), and the rule you will judge the result by. `claim_align <- TRUE` is the day's convention and is applied for you: negative framings are reverse-coded and GDP growth's claim-expected sign is flipped, so 'supports the claim' reads as a negative sign for everyone.
+**Task 5 – Declare one specification, run it, report it (~25 minutes).** Now you commit. Pick ONE analysis from the menu, one choice on each of the eight axes, and complete the preregistration block **before you run anything**. It is a shortened but real preregistration template: what you are testing, what you already know about the data, your one specification, why those controls (grounded in your Task 2 graph), and the rule you will judge the result by. `claim_align <- TRUE` is the day's convention and is applied for you: negative framings are reverse-coded and the claim-expected sign of GDP growth is flipped, so 'supports the claim' reads as a negative sign for everyone.
 
 Render that block (Route 1) or copy it into your notes (Route 2) so it is written down before you see the result. Then translate the declaration into model syntax yourself – `build_model()` accepts only code that matches what you declared – run it, and `report_result()` prints a one-click, pre-filled form link. Your dot joins the chart as a **declared** result, drawn as a filled circle beside the open exploratory ones.
 
@@ -91,7 +91,7 @@ Your result is valid for the multiverse chart if it:
 - is submitted to the class-results form via the `report_result()` link (so it lands on the live [Multiverse](../results.qmd) chart), and
 - has a written justification for the choice you made (2 sentences is enough).
 
-The justification is what the whole exercise turns on. Auspurg & Brüderl (2021) argue that a multiverse of unjustified specifications shows dispersion and nothing more; the stated reasons are what let it count as evidence.
+The justification is what the whole exercise depends on. Auspurg & Brüderl (2021) argue that a multiverse of unjustified specifications shows dispersion and nothing more; the stated reasons are what let it count as evidence.
 
 ---
 
@@ -102,7 +102,7 @@ The justification is what the whole exercise turns on. Auspurg & Brüderl (2021)
 - [Reading a specification curve](reading-inference.qmd) – the companion reading for Part 4: what a large set of results can and cannot establish.
 - [Cheatsheet](cheatsheet.qmd) – the one-page card to keep open on the day, with the in-room links and what to do if something stalls.
 
-Two of the eight [companion modules](../companion/index.qmd) take the skills the day sets aside further, at your own pace:
+Two of the eight [companion modules](../companion/index.qmd) pick up the skills that the day sets aside and take them further, at your own pace:
 
 - [Git and GitHub for reproducible research](../companion/git-github.qmd) – version control and publishing your report, the part lifted out of the core day.
 - [Reproducibility repositories](../companion/repositories.qmd) – archives, OSF, and preregistration templates in more depth.

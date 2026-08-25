@@ -7,13 +7,13 @@
 #   2. The delivery block – set delivery.active to 'true' to switch the
 #      next-delivery callout on the landing page on; set it back to 'false'
 #      for the evergreen (no-date) site. Nothing else needs touching.
-#   3. The last-delivery block – feeds the "last delivered at ..." wording
-#      that the evergreen site shows instead of a fixed date/venue table.
+#   3. The last-delivery block – a record of the most recent delivery, kept
+#      for the organiser and for the README. No page renders it.
 
 # --- Evergreen variables --------------------------------------------------
 workshop:
   name: "Applied Replication for Data Skills"
-  format: "one full day – four 90-minute blocks"
+  format: "one full day – four 90-minute parts"
   organiser: "Chris Moreh"
   # Add a public contact address here if you want one shown on the site.
   contact: ""
@@ -35,7 +35,7 @@ results-form-url: "https://forms.gle/MWhimagFDmGtprAPA"
 # Set active to 'true' to schedule a delivery; fill in the fields below.
 # Set active back to 'false' to return the site to its evergreen state.
 delivery:
-  active: 'true'
+  active: 'false'
   date: "Monday 3 August 2026, 10:00–18:00 EEST"
   venue: "Online"
   event: "Făgăraș Summer School"
@@ -44,7 +44,8 @@ delivery:
   note: "Four 90-minute sessions – 10:00–11:30, 12:00–13:30, 14:30–16:00, 16:30–18:00, Romanian time (EEST, UTC+3). Nothing to install unless you want to: pick either route on the [Setup](setup.qmd) page."
 
 # --- Last delivery ---------------------------------------------------------
-# Feeds the evergreen "Last delivered at ..." line on the landing page.
+# A record of the most recent delivery, kept for the organiser and for the
+# README. No page renders it.
 last-delivery:
-  event: "Open Research Conference, Newcastle University"
-  date: "16 June 2026"
+  event: "Făgăraș Summer School (online)"
+  date: "3 August 2026"

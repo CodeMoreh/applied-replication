@@ -9,7 +9,7 @@
 >
 > It is replaced by [`EUframes_person_full.csv`](EUframes_person_full_codebook.md),
 > built from the joint distribution and validated coefficient by coefficient
-> against the real respondents. Nothing on the site reads the file this
+> against the real respondents. Nothing on the site reads the file that this
 > codebook describes. Both are kept for now so the comparison is available.
 
 **This file is simulated.** No Eurobarometer respondent appears in it, and
@@ -37,15 +37,15 @@ respondent answers, and all four are named below.
 ## Estimated, calibrated, authored
 
 **Estimated from the public panel** (`EUframes_cy.csv`, committed, so anyone
-can re-derive these): each dimension's intercept, unemployment slope, growth
-slope and year effects; the share of respondents who mention anything and its
-own response to the same predictors; and the spread of country and country-year
-deviations. The generator refits these every time it runs.
+can re-derive these): the intercept, unemployment slope, growth slope and year
+effects of each dimension; the share of respondents who mention anything and
+its own response to the same predictors; and the spread of country and
+country-year deviations. The generator refits these every time it runs.
 
 **Calibrated from the licensed person-level file** by
 `companion/_model-outputs/calibrate_sim_params.R`, which writes only summaries
-– marginal distributions and regression coefficients, the kind of quantity a
-published appendix table carries. These are the age, sex and education
+– marginal distributions and regression coefficients, the kind of quantity
+that a published appendix table carries. These are the age, sex and education
 marginals; how each of those characteristics moves a respondent's framing
 composition and their propensity to mention anything at all; and the
 individual-level dispersion behind the Dirichlet concentration. The raw
@@ -60,10 +60,11 @@ them changes what a respondent answers; every individual-level effect in the
 file is calibrated. What they govern is who ends up in the sample and how many
 of them there are. They are the fieldwork selection tilt that gives `w1`
 something to correct, at 0.15 per decade below the mean age; the switch that
-makes that tilt grow with a cell's unemployment, zero by default; the cell size
-as a fraction of the real respondent count, 0.10; and the mean mention count
-`lambda_k` = 2.4 in `sim_calibration.csv`, which the recorded shares cannot
-identify and which the Dirichlet concentration absorbs whatever value it takes.
+makes that tilt grow with the unemployment rate in a cell, zero by default; the
+cell size as a fraction of the real respondent count, 0.10; and the mean
+mention count `lambda_k` = 2.4 in `sim_calibration.csv`, which the recorded
+shares cannot identify and which the Dirichlet concentration absorbs whatever
+value it takes.
 
 **A respondent's own employment status is deliberately not in the file.**
 Eurobarometer records occupation, so an indicator could in principle have been
@@ -89,12 +90,12 @@ $$
 $$
 
 with the individual terms centred on the population marginals, so that a
-representative sample comes close to the panel's cell values and the deliberate
-age distortion is what moves them furthest. The match is close rather than
-exact. Weighting the twin's respondents back to the population age
-distribution, and averaging over the 270 cells, the positive composite lands
-within a hundredth of a per cent of the panel's mean, the negative composite
-1.8% below it, and the four dimensions between 0.5% and 2.4% away.
+representative sample comes close to the cell values in the panel and the
+deliberate age distortion is what moves them furthest. The match is close
+rather than exact. Weighting the respondents in the twin back to the population
+age distribution, and averaging over the 270 cells, the positive composite
+lands within a hundredth of a per cent of the mean in the panel, the negative
+composite 1.8% below it, and the four dimensions between 0.5% and 2.4% away.
 
 Two mechanisms produce that gap, in roughly one-to-three proportion. The
 smaller is a covariance. Within a cell, education raises both the propensity to
@@ -103,16 +104,16 @@ one, so the mean of the product of mentioning and composition is not the
 product of their means. On the communitarian dimension the expected conditional
 share is 0.2032 and the expected observed share 0.1881, where independence
 would give 0.1893; the panel's own mean is 0.1931, so the covariance accounts
-for 0.0012 of a total gap of 0.0051. The larger mechanism is that the twin's
-overall mentioning rate falls short of the panel's, 0.933 against 0.939, for
-the reasons two paragraphs down.
+for 0.0012 of a total gap of 0.0051. The larger mechanism is that the overall
+mentioning rate in the twin falls short of the rate in the panel, 0.933 against
+0.939, for the reasons two paragraphs down.
 
 Mentioning is modelled on the logit scale because it is the ceiling that binds
 and not the floor. The modelled quantity is the probability of mentioning
 something, which runs near 94%, and the calibrated education contrast of +1.11
 on the logit works out as a marginal effect of about +0.064 at that rate. A
 linear effect of that size puts graduates at 1.003 at the average rate and past
-a probability of 1 in the majority of the panel's cells – equivalently, it
+a probability of 1 in the majority of the cells in the panel – equivalently, it
 drives the probability of mentioning nothing below zero. The composition is
 modelled linearly, where the parts are large enough for that to be safe.
 
@@ -140,8 +141,8 @@ countries, and are residualised against the full cell-level design – year
 included, because growth is dominated by common shocks and a draw orthogonal to
 raw growth can still correlate with it once year is absorbed. The projection is
 exact in the metric it is carried out in. Regressed on that design, the
-committed draw's cosmopolitan deviation has an unemployment slope of −2e-18,
-which is zero to machine precision.
+cosmopolitan deviation in the committed draw has an unemployment slope of
+−2e-18, which is zero to machine precision.
 
 Weight the cells by their simulated size, or fit at person level, and a
 residual reappears. Here it is −3.2e-04 on the conditional-share scale, which
@@ -154,14 +155,14 @@ redraws further from zero.
 
 ## What the recipe plants
 
-Each dimension's planted coefficient is the one the **real panel** yields under
-the same specification, recorded in `companion/_model-outputs/sim_planted.csv`.
-A model fitted to the twin should therefore land where the same model fitted to
-the real data lands.
+The planted coefficient for each dimension is the one that the **real panel**
+yields under the same specification, recorded in
+`companion/_model-outputs/sim_planted.csv`. A model fitted to the twin should
+therefore land where the same model fitted to the real data lands.
 
 Each macro slope plants exactly one number. The only route from a country's
 unemployment rate to a respondent's answer runs through the cell recipe, and
-the generator's tuning loop sees that route in full, so there is no second
+the tuning loop in the generator sees that route in full, so there is no second
 quantity for a reader to choose between. Growth is the same.
 
 | Outcome | Unemployment | GDP growth |
@@ -173,19 +174,18 @@ quantity for a reader to choose between. Growth is the same.
 | `pos` | −0.004239 | +0.001672 |
 | `neg` | +0.005340 | −0.001624 |
 
-The substantive pattern is worth reading before modelling anything: rising
-unemployment pushes framing away from *both* cosmopolitan and utilitarian
-terms and towards communitarian ones, while libertarian framing barely moves.
-Growth works differently again, lifting utilitarian framing most. Because the
-dimensions share one instrument, an analyst who picks `util` and one who picks
-`cosmo` are estimating genuinely different quantities, which is a large part of
-why the outcome fork carries so much specification variance in the real
-multiverse.
+Rising unemployment pushes framing away from *both* cosmopolitan and
+utilitarian terms and towards communitarian ones, while libertarian framing
+barely moves. Growth works differently again, lifting utilitarian framing most.
+Because the dimensions share one instrument, an analyst who picks `util` and
+one who picks `cosmo` are estimating genuinely different quantities, which is a
+large part of why the outcome fork carries so much specification variance in
+the real multiverse.
 
 Every individual-level effect in the file is calibrated rather than authored,
-and they sit in `sim_calibration_person.csv`. The largest is education, which moves
-graduates about 0.12 towards cosmopolitan framing and 0.11 away from
-communitarian, relative to those who left school by 15.
+and all of them sit in `sim_calibration_person.csv`. The largest is education,
+which moves graduates about 0.12 towards cosmopolitan framing and 0.11 away
+from communitarian, relative to those who left school by 15.
 
 Every quantity in that calibration file is an effect on the composition among
 respondents who mention something. The shares are undefined for anyone who
@@ -198,21 +198,20 @@ on all rows.
 
 Across the 20 independent draws recorded in
 `companion/_model-outputs/sim_recovery_sweep.csv` the twin recovers the planted
-values. The average of the 20 sits within 0.41 of a single draw's standard
+values. The average of the 20 sits within 0.41 of a single-draw standard
 deviation of the planted value on all twelve quantities. Measured instead
 against the precision of that 20-draw average, every one of the twelve falls
 inside two standard errors and the largest discrepancy is 1.8, which is what a
 set of twelve should look like when there is nothing systematic in it. Twenty
 draws cannot rule out a bias smaller than the noise, so this establishes that
-the twin is unbiased to the precision twenty draws can see, not that it is
-exactly unbiased.
+the twin is unbiased to the precision that twenty draws can see, not that it
+is exactly unbiased.
 
-That statement is stronger than it was. An earlier version of the generator
-authored an `unemployed` indicator whose prevalence tracked the country's
-unemployment rate, and the same sweep put its largest discrepancy at 2.8
-standard errors – too large for twelve quantities to produce by chance. The
-indicator was the source, and removing it removed the residual rather than
-relabelling it.
+An earlier version of the generator authored an `unemployed` indicator whose
+prevalence tracked the country's unemployment rate, and the same sweep put its
+largest discrepancy at 2.8 standard errors – too large for twelve quantities
+to produce by chance. The indicator was the source, and removing it removed
+the residual rather than relabelling it.
 
 A **single** draw lands on none of these values, and cannot: each cell mean is
 an average over a tenth of the real respondents, so a cell-level slope carries a
@@ -224,37 +223,37 @@ rather than hiding it.
 
 `w1` is a genuine weight, not decoration. The sample is drawn with a fieldwork
 distortion – younger respondents over-selected by a factor of exp(0.15 ×
-decades below the mean age), which pulls the achieved mean age down from the
-population's 49.3 to about 45.4 – and `w1` is the exact reciprocal of that
+decades below the mean age), which pulls the achieved mean age down from 49.3
+in the population to about 45.4 – and `w1` is the exact reciprocal of that
 selection factor, normalised to mean 1 within each country-year. Strictly it is
 an inverse-probability-of-selection weight, since it undoes a selection rule
 known exactly; the real Eurobarometer nation weight is a post-stratification
 weight, reaching a similar place by aligning the achieved sample to known
-population margins. Weighting recovers the population age, 49.4 against the
-population's 49.3, and the positive composite to within a hundredth of a per
+population margins. Weighting recovers the population age, 49.4 against 49.3
+in the population, and the positive composite to within a hundredth of a per
 cent. The other five shares land between half a per cent and two and a half per
-cent away rather than exactly on their values, for the reasons the recipe
+cent away rather than exactly on their values, for the reasons that the recipe
 section gives. Leaving the weight out biases all of them, because age genuinely
 affects framing.
 
 One row of `sim_calibration.csv` describes the real weight rather than this
 one. `w1_sd_log` = 0.325 is the log spread of the Eurobarometer nation weight,
-and the generator never reads it. The twin's weight is the exact reciprocal of
-an authored age tilt, so its own spread – 0.239 in the committed draw – is
-fixed by that tilt and the age distribution together, and could match a real
-post-stratification weight's dispersion only by coincidence.
+and the generator never reads it. The weight in the twin is the exact
+reciprocal of an authored age tilt, so its own spread – 0.239 in the committed
+draw – is fixed by that tilt and the age distribution together, and could match
+the dispersion of a real post-stratification weight only by coincidence.
 
 Because the distortion depends on age alone, `w1` is a deterministic function
 of `age` within a cell, so adjusting for age does the same work as weighting.
 That equivalence is specific to this construction – a real weight corrects
-margins a model may not contain – but it is worth knowing before drawing
+margins that a model may not contain – but it is worth knowing before drawing
 general conclusions from the comparison.
 
 The distortion is constant across cells by default, so it shifts levels without
 biasing the macro slopes. Set `SIM_DISTORT_SLOPE` above zero in the generator
-and it grows with a cell's unemployment, at which point the slopes themselves
-are biased unless the weight is used. Values up to about 0.03 keep the tilt
-positive everywhere; 0.01 is a good setting to try.
+and it grows with the unemployment rate in a cell, at which point the slopes
+themselves are biased unless the weight is used. Values up to about 0.03 keep
+the tilt positive everywhere; 0.01 is a good setting to try.
 
 ## Variables
 
@@ -275,8 +274,8 @@ The six share columns are stored rounded to six decimals, so the compositional
 identities hold to a tolerance rather than exactly: test them with
 `abs(cosmo + util + comm + lib - 1) < 5e-6`, not with `==`. The single identity
 that survives exact comparison is `pos + neg == 1` for mentioners, because that
-rounding is symmetric – and it is the identity the workshop's claim-alignment
-convention actually rests on.
+rounding is symmetric – and it is the identity on which the workshop's
+claim-alignment convention actually rests.
 
 The shares are ratios of small integers, so exact 0 and exact 1 are common
 rather than rare. Of all respondents, about 23% score exactly 0 on `cosmo` and
@@ -310,11 +309,12 @@ Eurobarometer microdata are present at any point.
 On the GESIS terms, the position is a reading rather than a settled fact, and
 it is worth stating as one. The licensed respondent file was read once, by
 `calibrate_sim_params.R`, to estimate the marginal summaries and coefficients
-listed above. Those are aggregate statistics of the kind the usage regulations
-describe as "summarizing representations of the data typical to scientific
-works and presentations", so releasing them is provided for. The regulations
-are then silent on synthetic derivatives: no clause addresses whether a
-generated file containing none of the original records falls inside or outside
-"the provided data". Read on the ordinary meaning of that phrase, it falls
-outside, which is why this file is released under CC BY. Anyone redistributing
-it should carry this paragraph with it rather than the conclusion alone.
+listed above. Those are aggregate statistics of the kind that the usage
+regulations describe as "summarizing representations of the data typical to
+scientific works and presentations", so releasing them is provided for. The
+regulations are then silent on synthetic derivatives: no clause addresses
+whether a generated file containing none of the original records falls inside
+or outside "the provided data". Read on the ordinary meaning of that phrase, it
+falls outside, which is why this file is released under CC BY. Anyone
+redistributing it should carry this paragraph with it rather than the
+conclusion alone.

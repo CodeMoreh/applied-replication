@@ -11,9 +11,9 @@ There are two ways to take part, and you only need to prepare for the one you ch
 
 ### Route 1 – R and Positron (recommended)
 
-You install two free programs once, then download a ready-made workspace and open it. This is the fuller experience: you work in the same kind of editor a researcher uses, and you keep the workspace afterwards. Allow yourself a little time before the day, depending on what you already have installed.
+You install two free programs once, then download a ready-made workspace and open it. This is the fuller experience: you work in the same kind of editor that a researcher uses, and you keep the workspace afterwards. Allow yourself a little time before the day, depending on what you already have installed.
 
-**Step 1 – Install R.** R is the language the analysis is written in. Download it from [cran.r-project.org](https://cran.r-project.org/) and run the installer for your system (Windows `.exe`, macOS `.pkg`, or your Linux package manager). Accept the defaults.
+**Step 1 – Install R.** R is the language that the analysis is written in. Download it from [cran.r-project.org](https://cran.r-project.org/) and run the installer for your system (Windows `.exe`, macOS `.pkg`, or your Linux package manager). Accept the defaults.
 
 **Step 2 – Install Positron.** Positron is the editor you will work in – it is where you open files, run code and read results. Download it from [positron.posit.co](https://positron.posit.co) and install it (Windows: run the installer; macOS: open the `.dmg` and drag Positron to Applications; Linux: use the download for your system). When you first open Positron it will find the R you installed in step 1 on its own.
 
@@ -25,7 +25,7 @@ Save it somewhere you will find again, such as your Desktop or Documents folder,
 
 **Step 4 – Open the folder in Positron.** In Positron, choose **File → Open Folder** and pick the folder you just unzipped. The files appear in a panel on the left. Everything you need for the day is in this one folder.
 
-**Step 5 – Check that it works.** In the folder, open `R/check_setup.R` and run it – in Positron, click **Run**, or type `source("R/check_setup.R")` in the console at the bottom. The script prints a short OK or FAIL report covering your R version, the packages the workshop uses and access to the data. If any package is missing it offers to install it for you, so say yes. Fix any FAIL before the day. If you get stuck, come along anyway and use Route 2.
+**Step 5 – Check that it works.** In the folder, open `R/check_setup.R` and run it – in Positron, click **Run**, or type `source("R/check_setup.R")` in the console at the bottom. The script prints a short OK or FAIL report covering your R version, the packages that the workshop uses and access to the data. If any package is missing it offers to install it for you, so say yes. Fix any FAIL before the day. If you get stuck, come along anyway and use Route 2.
 
 ::: {.callout-note}
 The workshop uses a set of standard R packages, for tidying data, fitting models, drawing causal graphs and making tables. You do not need to install these by hand – the check script in step 5 sorts them out. All are free and come from CRAN, R's official package archive.
@@ -56,7 +56,7 @@ The day is deliberately free of accounts and sign-ups. In particular, you do **n
 
 ## Give yourself two screens
 
-The workshop runs online. You will get the most out of it with a little room to work:
+When the workshop runs online, you will get the most out of it with a little room to work:
 
 - **Two surfaces help.** Join the video call on one screen (or one device), and keep a second window or a second device free for your own work – Positron for Route 1, or the browser lab for Route 2. That way you can follow the shared screen and do the hands-on tasks side by side, without one covering the other.
 - **The links arrive with your joining instructions.** The call link, and any session-specific links, come to you with the joining details. You do not need to hunt for anything in advance beyond the setup on this page.
@@ -69,7 +69,7 @@ None of these is required, and everything is taught on the day. If you would lik
 
 | Reading | Why it is worth the time |
 |---|---|
-| [Nosek et al. (2018) – The preregistration revolution](https://doi.org/10.1073/pnas.1708274114) | A short, readable primer on the one idea Block 3 turns on: the difference between predicting a result and explaining one after the fact. It speaks directly to the case where the data already exist, which is ours. |
+| [Nosek et al. (2018) – The preregistration revolution](https://doi.org/10.1073/pnas.1708274114) | A short, readable primer on the one idea on which preregistration depends: the difference between predicting a result and explaining one after the fact. It speaks directly to the case where the data already exist, which is ours. |
 | The [AsPredicted](https://aspredicted.org) eight-question form | The exact template you will fill in during the session. Skim the eight questions once so the form feels familiar rather than a cold start. |
-| [van den Akker et al. (2021) – Preregistration of secondary data analysis](https://doi.org/10.15626/MP.2020.2625) | The fuller preregistration template built for exactly our situation – reanalysing data that already exist. Optional, but it is the grown-up tool for the job you do on the day. |
-| [Reading a specification curve](exercise/reading-inference.qmd) | The workshop's own reading for the final block: what a large set of results together can and cannot establish, and why thousands of estimates are not thousands of tests. |
+| [van den Akker et al. (2021) – Preregistration of secondary data analysis](https://doi.org/10.15626/MP.2020.2625) | The fuller preregistration template built for exactly our situation – reanalysing data that already exist. Optional, but it is the more thorough tool for the job you do on the day. |
+| [Reading a specification curve](exercise/reading-inference.qmd) | The workshop's own reading for the final part of the day: what a large set of results together can and cannot establish, and why thousands of estimates are not thousands of tests. |
