@@ -1,0 +1,163 @@
+---
+title: "The semester track"
+subtitle: "For a taught methods module or a doctoral training programme · ten sessions across a term, nine of roughly two to four hours of work and one a full workshop day"
+---
+
+This track spreads the course over a term, for a group that meets weekly and can pair a piece of exposition with time at a keyboard each week. Ten sessions carry the nine modules of the [companion curriculum](../companion/index.qmd) and the workshop itself, which sits at session 9 as the practical core of the term. A participant who finishes the ten sessions has reproduced a published result from the data behind it, stated an estimand and drawn the causal graph that goes with it, fitted the same claim under several estimators, declared one specification in writing before running it, and put the whole thing in a version-controlled repository that another person can open and re-render.
+
+The track teaches nothing of its own. Every row below links a page that already exists on this site, and each figure in the Timing column is the whole of the work that the row asks for, the part done together in the room and the reading and practice done around it. Across the nine sessions other than the workshop day, the total runs from a little under two hours to a little under four, so a group that meets for two hours a week will do some of the work between meetings. Treat the figures as a starting point and stretch or compress them to fit the timetable you actually have.
+
+---
+
+## Session 1 – The case, and the three Rs {#session-1}
+
+The term opens on the case that every later session works on, and on the vocabulary problem that gives the course its name. Reproducibility, robustness and replicability are three different operations, and the paper at the centre of the course was put through all three with three different verdicts.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Course overview](../index.qmd) | Read what the exercise is, what the six steps of it are, and which of the two routes into R your group will use. | 15 minutes |
+| [Resources – four words that are not synonyms](../resources.qmd#glossary) | Learn the difference between reproducibility, robustness and replicability, then read the SCORE dossier table further down the same page: one paper, three activities, three outcomes. | 40 minutes |
+| [Exercise overview](../exercise/index.qmd) | Read the claim as it was put to the analysts, the anchor result published by the original author (OA), and the table of what five independent analysts found when they reanalysed it. | 45 minutes |
+
+**By the end of the session** each participant has written one paragraph stating the claim in their own words and naming what the reproduction, the robustness reanalysis and the replication each returned on this paper.
+
+---
+
+## Session 2 – Getting started with R {#session-2}
+
+Nothing later works without this, so the term gives it a session of its own rather than assuming it. Participants who already write R can skip to session 3, but the grammar-of-graphics part is worth their time because the class chart is read with it in session 9.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Setup](../setup.qmd) | Install R and Positron and run the check script, or confirm that the browser lab loads on the machine you will be using. Both routes reach the same numbers. | 45 minutes |
+| [Getting started with R](../companion/intro-r.qmd) | Sections 1 to 7: the console and the script, objects and data frames, reading a CSV, the pipe, and one task written three ways. | 90 minutes |
+| [Getting started with R](../companion/intro-r.qmd#sec-ggplot) | Sections 8 and 9: the grammar of graphics, built up until the workshop's own class chart can be read layer by layer. | 60 minutes |
+
+**By the end of the session** each participant has a working R installation or a browser lab that loads, and a short script that reads `EUframes_cy.csv`, confirms its 270 country-years and draws one figure from it.
+
+---
+
+## Session 3 – Quarto and the reproducible document {#session-3}
+
+Every page on this site is a Quarto document, and so is the report that participants fill in on the workshop day. The module shows what a `.qmd` file is, what rendering actually does to it, and how code, prose, figures and citations live in one file rather than in four.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Quarto and reproducible documents](../companion/quarto.qmd) | The `.qmd` file and the render step, the YAML header, code chunks and the options that matter, and figures and tables with cross-references. | 90 minutes |
+| [Quarto and reproducible documents](../companion/quarto.qmd) | The citation and bibliography sections, worked on the `references.bib` file that this site itself uses, then the closing note on publishing a document. | 45 minutes |
+
+**By the end of the session** each participant has one rendered document of their own carrying a figure produced by code, a table, a cross-reference to each, and a citation resolved from a bibliography file.
+
+---
+
+## Session 4 – From country-years to a model {#session-4}
+
+The claim is about countries in years, and the data arrive as respondents, so the first thing the module does is explain what aggregation to the country-year buys and what it costs. The rest of the session fits the same claim four ways and reads each output line by line.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [The statistical methods behind the workshop](../companion/stats-methods.qmd#sec-aggregation) | Section 1: why the predictor lives at the country-year, and what a cell mean is a mean of. | 20 minutes |
+| [The statistical methods behind the workshop](../companion/stats-methods.qmd#sec-ols) | Sections 2 and 3: a first linear model read output by output, then what cluster-robust standard errors repair and what they leave alone. | 60 minutes |
+| [The statistical methods behind the workshop](../companion/stats-methods.qmd#sec-fe) | Sections 4 and 5: two-way fixed effects, random effects, and why a within-country comparison and a between-country comparison are answers to different questions. | 60 minutes |
+
+**By the end of the session** each participant has one rendered document holding the same claim fitted under four estimators, with a sentence under each fit naming what that estimator assumes.
+
+---
+
+## Session 5 – Estimands, and the arrows you believe {#session-5}
+
+Analysts who look as though they disagree are often answering different questions, so this session asks what quantity the claim is about before it asks how to estimate it. The module builds each causal shape by fitting it rather than only describing it, which is what makes the collider section land.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Draw the arrows you believe](../companion/dags.qmd) | Sections 1 to 3: an arrow as a claim you are making, the three shapes a path can take, and what conditioning on a collider does to an estimate. | 60 minutes |
+| [Draw the arrows you believe](../companion/dags.qmd#sec-case) | Sections 4 to 6: the EU-frames graph written as R formulas, the adjustment set that follows from it, and what fixed effects cannot fix. | 60 minutes |
+| [Draw the arrows you believe](../companion/dags.qmd#sec-yours) | Section 9: state an estimand for a question of your own and draw the graph that goes with it. | 45 minutes |
+
+**By the end of the session** each participant has an estimand written in three parts – the unit-specific quantity, the target population and the aggregation – and a graph whose adjustment set they derived rather than assumed.
+
+---
+
+## Session 6 – One claim, two levels {#session-6}
+
+The workshop works at the country-year level throughout, and this session is where the individual level gets its hearing. The module fits the published specification where its author fitted it, on a synthetic person-level dataset validated coefficient by coefficient against the real respondents, and puts the real values beside the synthetic ones.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [One claim, two levels](../companion/individual-level.qmd) | Sections 1 to 4: why the level of analysis matters, how the synthetic dataset was validated, the anchor fitted at the level it was estimated at, and why a large individual effect can explain almost none of an aggregate association. | 90 minutes |
+| [One claim, two levels](../companion/individual-level.qmd#sec-designs) | Sections 5 to 7: where the two designs disagree on the same claim, what declaring a level does to the evidence, and what a synthetic dataset should not be asked to do. | 60 minutes |
+
+**By the end of the session** each participant has a note comparing the two designs on one claim, and a short paragraph on the questions the synthetic data cannot be used to answer.
+
+---
+
+## Session 7 – Data with a known recipe {#session-7}
+
+A simulated dataset is the one place where the true answer is known in advance, which makes it the instrument for asking what a method recovers. Two of the module sections do the work that the term needs most: a null world, and a design tested before it is run.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Simulation as a method](../companion/simulation.qmd) | Sections 1 and 2: the recipe stated in full, then simulate, fit, and see how close the estimate lands to the value that was written into the data. | 90 minutes |
+| [Simulation as a method](../companion/simulation.qmd#sec-null) | Sections 8 and 9: a world with no effect in it at all, and testing whether a design could detect the effect you are looking for before you go looking. | 60 minutes |
+
+**By the end of the session** each participant has a recovery check on a parameter whose true value they set themselves, and a null world showing what their estimator returns when there is nothing there to find.
+
+---
+
+## Session 8 – Where the materials live, and what you write down first {#session-8}
+
+The week before the workshop is spent on the two things that make the day's final task possible: knowing where a case's materials sit and what a licence lets travel, and having a specification chosen and justified in writing.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Reproducibility repositories](../companion/repositories.qmd) | Sections 1 and 2: what a data licence lets you redistribute, and the three OSF nodes that hold the trail behind this case. | 45 minutes |
+| [Reproducibility repositories](../companion/repositories.qmd#sec-registration) | Sections 3 and 4: what archives, forks and registrations each do differently, and the preregistration templates written for reanalysing data that already exist. | 45 minutes |
+| [Specification menu](../exercise/spec-menu.qmd) and the [preregistration block](../exercise/browser-lab.qmd#task-5-my-preregistration) | Read the eight axes and the claim-alignment convention, then pick the one specification you intend to run on the day. Fill in the preregistration block with those choices and the two sentences that defend them, dated in this session rather than on the day. | 45 minutes |
+
+**By the end of the session** each participant has a completed preregistration block for one specification, written and dated before the workshop rather than during it.
+
+---
+
+## Session 9 – The workshop day {#session-9}
+
+The day runs as the [one-day track](one-day.qmd) sets it out, in four ninety-minute Parts holding the five tasks, with one difference. The preregistration moment in Part 4, which that track keeps whatever else goes, is a read-back rather than a first writing: each participant opens the block completed and dated in session 8, reads it against the menu once more, re-dates it, and then goes on to build the model, run it and report the result.
+
+The workshop lands here rather than in week 1 because its five tasks ask for decisions, and a term is the one format that can prepare them. By session 9 the room already has R and a document to write in, has fitted the estimators that the menu offers and knows what each one assumes, has an estimand and a graph, and has a specification declared in writing. The ninety-minute Parts can therefore go on the choosing itself. The class chart gains from the same arrangement: when everyone arrives with a specification they can already defend, the dots that land on it are justified analyses, and one session afterwards is enough to read the curve that the room produced.
+
+If the timetable cannot release a whole day, run Parts 1 and 2 in the session-9 slot and Parts 3 and 4 in the session-10 slot, and give the closing session an eleventh week.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [The one-day track](one-day.qmd) | Follow it as written. It is the format that the course was built for and the one that the slide deck follows. | a full day |
+| [Slides](../slides/index.qmd) | The deck that the day runs on. Drop the optional-depth R tutorial in Part 2, which session 2 has already covered, and the methodological tutorial in Part 3, whose estimator material session 4 has fitted at length. Keep the multiverse tutorial in Part 4, because the module behind it is session 10, a week after the workshop. | throughout |
+| [Exercise overview](../exercise/index.qmd) and the [Browser lab](../exercise/browser-lab.qmd) | Tasks 1 to 5: get yourself running; meet the panel, name the estimand, draw the graph; reproduce the recorded result; work the menu; then declare, run and report. | throughout |
+| [The Multiverse](../results.qmd) | Keep the page open from Part 3 onwards. Each participant lands on it twice, as an open circle while exploring and a filled one once declared. | throughout |
+
+**By the end of the session** each participant has reproduced the value on record for analyst C6HJR, **t = −3.804** on the 270-country-year panel; has an exploratory dot and a declared dot on the class chart; and has a report carrying the preregistration written in session 8, now with its result underneath it.
+
+---
+
+## Session 10 – Reading the curve, and putting the work where it can be found {#session-10}
+
+The closing session does two jobs. First, what the room built in session 9 gets read properly: the conversion that puts every estimator and every outcome scale on one axis, then what a specification curve establishes, what it cannot, and which of the arguments now running against multiverse analysis apply to the grid they just sampled. Second, the report becomes something another person can find, open and re-render.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [The statistical methods behind the workshop](../companion/stats-methods.qmd#sec-onescale) | Section 10: putting results from different estimators and different outcome scales on one axis, which is the conversion that the class chart runs on. | 30 minutes |
+| [The multiverse: origins, uses, and critics](../companion/multiverse.qmd) | Where the idea came from, the three purposes a multiverse can serve and why they pull apart, and the critical positions of 2025–26 read against this course's own grid. | 60 minutes |
+| [Reading a specification curve](../exercise/reading-inference.qmd) | Why 840 estimates are not 840 independent tests, what a permutation design would supply, and what stands without one. | 45 minutes |
+| [Git and GitHub for reproducible research](../companion/git-github.qmd) | Version control from first principles, a repository of your own, and what belongs in git and what must never be committed. | 90 minutes |
+
+**By the end of the session** each participant has their report in a version-controlled repository with a licence-aware `.gitignore`, and a closing paragraph stating what the curve they helped build does and does not establish about the claim.
+
+---
+
+## Adapting this track {#adapting}
+
+**What a participant has built.** By session 10 each person holds one rendered report containing a stated estimand and its causal graph, a reproduction of a published result, a preregistration written before the analysis ran, a declared specification with its two-sentence justification, and the result that came back – all of it in a repository that another person can clone and re-render. That artefact is the natural thing for a course to be assessed on, and how it is weighted, marked or moderated is a matter for the programme that runs the track rather than for this site.
+
+**What compresses.** Sessions 6 and 7 carry the extension material, so a nine-week term drops one of them and folds the null-world section of the simulation module into session 10. Session 4 can be trimmed to sections 1 to 3 of the statistical-methods module, with fixed and random effects met on the workshop day instead. Sections 6 to 9 of that same module are optional depth for the term rather than part of any session, covering multilevel models and where the degrees of freedom come from, survey weights, the same model stated as a posterior, and a bounded outcome fitted with beta regression. A group with time to spare takes them after session 4, and nothing later in the term depends on them. Session 10 carries the most material of any session that is not the workshop day, so the conversion in section 10 of the statistical-methods module is the natural piece to set as reading before it meets. Session 3 shortens for a group that already writes Quarto, and session 2 for a group that already writes R, but do not drop both: the grammar-of-graphics part of the R module is what makes the class chart readable in session 9.
+
+**What must not be cut.** The reproduction in Task 3 and the declaration in Task 5 are the two ends of the whole exercise, and a day that skips either leaves the other without a point. The estimand and the graph in session 5 are what stop the specification menu reading as a list of arbitrary switches. And the preregistration has to be written before the analysis runs, in session 8 or on the day itself, because a specification chosen after its result is visible is exploration by definition and the class chart draws it differently.
+
+**The other three tracks.** [The one-day track](one-day.qmd) is the delivered format and sits inside this one at session 9. [The three-day track](three-days.qmd) gives the tools a day and the methods a day either side of the workshop, and is the closest thing to this track for a group that cannot meet weekly. [The self-study track](self-study.qmd) orders the same material for someone working alone.

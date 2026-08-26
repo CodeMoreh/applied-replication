@@ -11,7 +11,12 @@
 # with the details of the next delivery. When it is "false" – the evergreen default
 # – this chunk emits nothing, so the page reads as an undated, standing
 # workshop. Activation is therefore a one-line edit in _variables.yml and needs
-# no change to any page.
+# no change to any page. A delivery that names one of the four tracks in
+# delivery.track also gets a line linking that track's page.
+#
+# Base R only, and no dependency beyond yaml. The page that includes this chunk,
+# index.qmd, is the only one rendered with freeze: false, so the chunk executes in
+# CI, where the workflow installs knitr, rmarkdown and yaml and nothing else.
 
 find_variables_file <- function() {
   candidates <- c("_variables.yml", "../_variables.yml", "../../_variables.yml")
@@ -40,12 +45,26 @@ if (!is.na(vars_path) && requireNamespace("yaml", quietly = TRUE)) {
       vals[!is.na(vals)]
     }
 
+    # The four tracks, keyed by the slug that names each one's page under
+    # tracks/. Anything else in delivery.track – a typo, a retired name, an
+    # empty string – matches nothing here, so no line is printed and no link
+    # is written to a page that does not exist. The link is relative to the
+    # including page, and index.qmd at the site root is the only one; an
+    # include from a subdirectory would need a ../ in front of tracks/.
+    track_labels <- c(
+      "one-day"    = "one-day track",
+      "three-days" = "three-day track",
+      "semester"   = "semester track",
+      "self-study" = "self-study track"
+    )
+
     date <- field(delivery[["date"]])
     venue <- field(delivery[["venue"]])
     event <- field(delivery[["event"]])
     mode <- field(delivery[["mode"]])
     reg_url <- field(delivery[["registration_url"]])
     note <- field(delivery[["note"]])
+    track <- tolower(trimws(field(delivery[["track"]])))
 
     out <- c("", '::: {.callout-tip title="Next delivery" appearance="default"}')
 
@@ -54,6 +73,12 @@ if (!is.na(vars_path) && requireNamespace("yaml", quietly = TRUE)) {
     if (!is.na(event)) out <- c(out, "", paste0("Event: ", event))
     if (!is.na(mode)) out <- c(out, "", paste0("Mode: ", mode))
     if (!is.na(note)) out <- c(out, "", note)
+    if (track %in% names(track_labels)) {
+      out <- c(out, "", paste0(
+        "This delivery follows the [", track_labels[[track]],
+        "](tracks/", track, ".qmd)."
+      ))
+    }
     if (!is.na(reg_url)) {
       out <- c(out, "", paste0("[Register or express interest](", reg_url, ")"))
     }

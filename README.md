@@ -1,6 +1,6 @@
 # Applied Replication for Data Skills
 
-A hands-on, one-day workshop in applied replication for data skills. Facilitator: [Chris Moreh](https://chrismoreh.com). This repository holds the workshop website, the reveal.js slide deck and a zero-install browser lab. Most recently delivered online at the Făgăraș Summer School, 3 August 2026.
+A hands-on course in applied replication for data skills, deliverable from one day to a semester, with a one-day workshop at its centre. Facilitator: [Chris Moreh](https://chrismoreh.com). This repository holds the workshop website, the reveal.js slide deck and a zero-install browser lab. Most recently delivered online at the Făgăraș Summer School, 3 August 2026.
 
 Workshop participants will complete a guided robustness reanalysis of one of the same articles reanalysed by the facilitator as part of a large replication exercise recently published in *Nature* (Aczel et al., 2026) in a special section bringing together two other papers from the same multi-year meta-project (*Systematizing Confidence in Open Research and Evidence* (SCORE) – Alipourfard et al., 2021). Participants will import data directly from an OSF repository and reproduce a constrained model, then choose one analytical deviation, make a reasoned argument for their choices supported by a Directed Acyclic Graph (DAG), preregister that choice in a shortened but real preregistration template completed before anything is run, and submit the result to a live class specification curve.
 
@@ -28,12 +28,13 @@ Both routes submit results through the same one-click `report_result()` link, wh
 |------------------------|-----------------------------------------------|
 | `index.qmd` | Home: welcome, overview, route selection, schedule |
 | `setup.qmd` | Pre-workshop preparation: the two routes, what you do not need, optional readings |
+| `tracks/` | Four tracks through the same material: one day, three days, a semester, self-study |
 | `slides/index.qmd` | The reveal.js deck |
 | `exercise/index.qmd` | Full task description: the claim, the five analysts, Tasks 1–5 |
 | `exercise/browser-lab.qmd` | Runnable Route 2 version of Tasks 1–5 (webR / quarto-live) |
 | `exercise/spec-menu.qmd` | Specification menu for the chosen deviation (eight analytical axes) |
 | `exercise/cheatsheet.qmd` | Wallet card: URLs, the four cells that land a dot, fallbacks |
-| `companion/` | Eight optional self-study modules around the day |
+| `companion/` | Nine self-study modules in three strands, carrying most of the teaching in the course |
 | `results.qmd` | Multiverse: specification curve chart and five-analyst comparison |
 | `resources.qmd` | Readings, estimand theory, case-study references, tool docs |
 | `data/` | Committed workshop datasets and codebooks (see below) |

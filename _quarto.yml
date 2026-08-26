@@ -7,6 +7,7 @@ project:
   render:
     - "*.qmd"
     - "data/*.md"
+    - "tracks/*.qmd"
     - "exercise/*.qmd"
     - "companion/*.qmd"
     - "slides/*.qmd"
@@ -30,6 +31,18 @@ website:
         text: Home
       - href: setup.qmd
         text: Setup
+      # The four delivery tracks. Each page is an ordered playlist over pages
+      # that already exist, so nothing here duplicates teaching material.
+      - text: Tracks
+        menu:
+          - href: tracks/one-day.qmd
+            text: "One day"
+          - href: tracks/three-days.qmd
+            text: "Three days"
+          - href: tracks/semester.qmd
+            text: "Semester"
+          - href: tracks/self-study.qmd
+            text: "Self-study"
       - href: slides/index.qmd
         text: Slides
       - text: Exercise
@@ -44,14 +57,29 @@ website:
             text: Cheatsheet
       - href: results.qmd
         text: Multiverse
+      # Grouped by the three strands of the curriculum – computational tools,
+      # reproducibility and collaboration, statistical methods – with the
+      # "---" entries drawing the dividers between them.
       - text: Companion
         menu:
           - href: companion/index.qmd
             text: "Curriculum overview"
+          - text: "---"
+          - text: "Computational tools"
           - href: companion/intro-r.qmd
             text: "Getting started with R"
+          - href: companion/quarto.qmd
+            text: "Quarto and reproducible documents"
+          - text: "---"
+          - text: "Reproducibility and collaboration"
+          - href: companion/repositories.qmd
+            text: "Repositories & preregistration"
+          - href: companion/git-github.qmd
+            text: "Git & GitHub"
+          - text: "---"
+          - text: "Statistical methods"
           - href: companion/stats-methods.qmd
-            text: "Statistical methods"
+            text: "The statistical methods behind the workshop"
           - href: companion/dags.qmd
             text: "Causal graphs & adjustment sets"
           - href: companion/multiverse.qmd
@@ -60,10 +88,6 @@ website:
             text: "Simulation as a method"
           - href: companion/individual-level.qmd
             text: "One claim, two levels"
-          - href: companion/repositories.qmd
-            text: "Repositories & preregistration"
-          - href: companion/git-github.qmd
-            text: "Git & GitHub"
       - href: resources.qmd
         text: Resources
 

@@ -1,0 +1,136 @@
+---
+title: "The self-study track"
+subtitle: "For someone working alone · the nine companion modules and the exercise, about twenty-eight hours at whatever pace suits"
+---
+
+This track is for someone working through the course without a facilitator, a cohort or a fixed clock. It orders the nine modules of the [companion curriculum](../companion/index.qmd) and the exercise itself into a route that holds together when nobody is standing at the front, and it can be spread over as many weeks as you like. Someone who finishes it has reproduced a published result from the data behind it, stated an estimand and drawn the causal graph that goes with it, declared one specification in writing before running it, put the result on the class chart, and archived the whole thing in a version-controlled repository.
+
+The track teaches nothing of its own. Every row below links a page that already exists on this site, and the hours are rough estimates for a first pass rather than a schedule. Two things work differently when you are alone, and both are named where they arise: the exercise has no facilitator to rescue a stalled machine, and the class chart has no class on it, though neither of those stops you finishing the course.
+
+---
+
+## Stage 1 – What the case is, and what you are aiming at {#stage-1}
+
+Read the shape of the whole thing before starting on any of it, because every module afterwards works on one claim from one paper and the modules make more sense once you know which claim.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Course overview](../index.qmd) | Read the six things the exercise asks you to do, and the two routes into R. | 15 minutes |
+| [Exercise overview](../exercise/index.qmd) | Read the claim as it was put to the analysts, the anchor result published by the original author (OA), and the table of what five independent analysts found when they reanalysed it. Their partial correlations run from −0.006 to −0.452, and working out why is most of the course. | 30 minutes |
+| [Resources – four words that are not synonyms](../resources.qmd#glossary) | Learn the difference between reproducibility, robustness and replicability, then read the SCORE dossier table further down the same page. | 30 minutes |
+| [Slides](../slides/index.qmd) | Optional, and best skimmed rather than read. The deck is the taught version of the same material, and it shows how the four Parts fit together. | 20 minutes |
+
+**By the end of the stage** you know which claim the rest of the course works on, what the reproduction, the robustness reanalysis and the replication each returned on this paper, and which of the two routes into R you will be using.
+
+---
+
+## Stage 2 – A language, and a document to write in {#stage-2}
+
+Both modules here are foundations, and both can be skipped by anyone who already has them. If you write R but have never written Quarto, do the second and not the first; the reverse is unusual but works the same way.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Setup](../setup.qmd) | Pick a route. Route 1 installs R and Positron, gives you a workspace to keep, and is the route that is recommended elsewhere on the site; Route 2 runs everything in a browser tab with nothing installed. Working alone, Route 2 is the safer start all the same, because there is no one to rescue a failed installation. | 30 minutes |
+| [Getting started with R](../companion/intro-r.qmd) | All eleven sections: the console and the script, objects and data frames, reading a CSV, the pipe, three dialects for one task, the grammar of graphics, and the class chart read layer by layer. Do the "Try it" boxes rather than reading past them. | 3 hours |
+| [Quarto and reproducible documents](../companion/quarto.qmd) | What a `.qmd` file is and what rendering does to it, the YAML header, chunk options, figures and tables with cross-references, and citations resolved from a bibliography file. The page is shown rather than run, so type its examples into a document of your own as you go. | 2 hours |
+
+**By the end of the stage** you have a route that runs on your own machine and one rendered document of your own carrying a figure made by code, a cross-reference to it and a citation resolved from a bibliography file.
+
+---
+
+## Stage 3 – The models that the claim is argued with {#stage-3}
+
+This module fits every model that the exercise will later offer you, on the case's own data, and reads the outputs line by line, so by the end the specification menu is a set of choices you understand rather than a list of codes. It is the longest module on the site, and the one that most repays a slow pass.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [The statistical methods behind the workshop](../companion/stats-methods.qmd) | Sections 1 to 5: why the predictor lives at the country-year, a first linear model, cluster-robust standard errors, two-way fixed effects, and the difference between a within-country and a between-country comparison. | 2 hours |
+| [The statistical methods behind the workshop](../companion/stats-methods.qmd#sec-multilevel) | Sections 6 to 9: multilevel models and where the degrees of freedom come from, survey weights, the same model stated as a posterior, and a bounded outcome fitted with beta regression. | 90 minutes |
+| [The statistical methods behind the workshop](../companion/stats-methods.qmd#sec-onescale) | Section 10: putting results from different estimators and different outcome scales on one axis, which is the conversion that the class chart runs on. | 30 minutes |
+
+**By the end of the stage** you can read the output of every model that the exercise will offer you, and you know how estimates from different estimators and different outcome scales are put on one axis.
+
+---
+
+## Stage 4 – The question underneath the models {#stage-4}
+
+Analysts who look as though they disagree are often answering different questions, and the module makes that concrete by fitting each causal shape rather than only describing it. Section 9 asks you to state an estimand for a question of your own, which is worth doing properly even though nobody will read it.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Draw the arrows you believe](../companion/dags.qmd) | Sections 1 to 3: an arrow as a claim you are making, the three shapes a path can take, and what conditioning on a collider does to an estimate. | 60 minutes |
+| [Draw the arrows you believe](../companion/dags.qmd#sec-case) | Sections 4 to 8: the EU-frames graph written as R formulas, the adjustment set that follows from it, what fixed effects cannot fix, and why the data will not draw the graph for you. | 90 minutes |
+| [Draw the arrows you believe](../companion/dags.qmd#sec-yours) | Section 9: state an estimand for a question of your own, in three parts, and draw its graph. | 45 minutes |
+
+**By the end of the stage** you have an estimand for a question of your own written in three parts, a graph that goes with it, and an adjustment set that you derived rather than assumed.
+
+---
+
+## Stage 5 – Do the exercise {#stage-5}
+
+The five tasks were written to be worked through in a room, and they hold up alone with one adjustment: nothing is timed, so take the reproduction in Task 3 as slowly as it needs. The browser lab carries the whole exercise in one page. The reproduction in Task 3 has two hints and a fully worked solution behind collapsible callouts, and the three gaps in Task 5 share one hint, which gives the syntax for the baseline declaration.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Exercise overview](../exercise/index.qmd) | Re-read the task-by-task section now that the modules are behind you. It is the map for the rows below. | 20 minutes |
+| [Browser lab](../exercise/browser-lab.qmd) | Tasks 1 to 3: run the setup check and confirm the panel has 270 rows; meet the panel, write the estimand and finish the causal graph; then fit the constrained model and land **t = −3.804**, the value on record for analyst C6HJR. | 90 minutes |
+| [Specification menu](../exercise/spec-menu.qmd) | Read the eight axes and the claim-alignment convention before you touch Task 4, so that 'supports the claim' means the same thing on every axis. | 30 minutes |
+| [Browser lab – Task 4](../exercise/browser-lab.qmd#task-4-explore) | Try three or four specifications with `try_spec()`, print them side by side with `my_experiments()`, then decide which one you would defend, run it once more so it is the most recent call, and submit it with `submit_exploration()` – the function sends the last specification you tried, not one you pick out of the log. | 45 minutes |
+| [Browser lab – Task 5](../exercise/browser-lab.qmd#task-5-my-preregistration) | Complete the preregistration block and run `prereg()` **before** writing any model code. Then translate the declaration into syntax yourself, run it, and submit with `report_result()`. | 45 minutes |
+| [Cheatsheet](../exercise/cheatsheet.qmd) | Keep it open while you work. The four-rung ladder for a stalled browser lab is the part that matters alone; the rescue and in-room sections assume a facilitator you do not have. | as needed |
+
+**The class chart, when there is no class.** Submitting works exactly as it does in a taught session. Both `submit_exploration()` and `report_result()` print a pre-filled form link, and pressing Send puts your dot on the [Multiverse](../results.qmd) page. What is missing is the comparison that the day is built around, which is a roomful of dots landing on one chart within a few minutes of each other. The upper chart on that page is pre-computed and always complete, holding all 2,520 specifications with the five Multi100 analysts and OA's own published anchor tagged on the curve. The live chart at the foot of the page fetches whatever submissions have arrived and redraws when you press *Run Code*, and between deliveries there may be very few of them, or none at all. So read the comparisons you can actually make. Your placement in the canonical 840-specification grid, which `run_spec()` prints beside your coefficient, sits against the five analysts, who run from about the 16th percentile to about the 68th. And `my_experiments()` prints the small multiverse you built yourself, which is what a room supplies in miniature.
+
+**By the end of the stage** you have reproduced **t = −3.804** yourself, and you hold a preregistration written before the analysis ran and two dots of your own on the [Multiverse](../results.qmd) page, one exploratory and one declared.
+
+---
+
+## Stage 6 – Read the curve you just joined {#stage-6}
+
+Having a dot on a curve and knowing what the curve establishes are two different things, and the second one is what this stage is for. Both pages are short, and both are more useful after Task 5 than before it.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [The multiverse: origins, uses, and critics](../companion/multiverse.qmd) | Where the idea came from, the three purposes a multiverse can serve and why they pull apart, and the critical positions of 2025–26 read against this course's own grid. | 60 minutes |
+| [The multiverse: 'There is only one correct analysis'](../companion/multiverse.qmd#sec-lakens) | Section 4 deserves its own sitting. Grant the argument for a moment and ask what would follow for the specification you just declared. | 30 minutes |
+| [Reading a specification curve](../exercise/reading-inference.qmd) | Why 840 estimates are not 840 independent tests, what a permutation design would supply, and what stands without one. | 45 minutes |
+
+**By the end of the stage** you can say what the curve you joined establishes about the claim, what it does not, and what would have to be run for it to establish more.
+
+---
+
+## Stage 7 – Two extensions worth the time {#stage-7}
+
+Neither is needed for anything earlier, and both answer a question that the exercise raises without settling. The first asks what your methods recover when the true answer is known in advance; the second fits the same claim at the individual level, where the country-year design of the exercise cannot go.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Simulation as a method](../companion/simulation.qmd) | Sections 1 and 2 for the recipe and a recovery check, then sections 8 and 9 for a world with no effect in it and for testing a design before you run it. The middle sections repay a second visit later. | 2 hours 30 minutes |
+| [One claim, two levels](../companion/individual-level.qmd) | All seven sections: the published specification fitted where its author fitted it, on a synthetic person-level dataset validated coefficient by coefficient against the real respondents, with the real values printed beside the synthetic ones. Section 7 says what the dataset must not be asked to do, which is the part to read before reusing the synthetic data for anything of your own. | 2 hours |
+
+**By the end of the stage** you have a recovery check on a parameter whose true value you set yourself, a world with no effect in it at all, and the same claim fitted at the individual level beside the aggregate one.
+
+---
+
+## Stage 8 – Put the work where it can be found {#stage-8}
+
+Working alone makes this stage more useful rather than less, because a repository is how work reaches someone who was not there when it was done. The git module is the practice that the taught day deliberately leaves out.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Reproducibility repositories](../companion/repositories.qmd) | What a data licence lets you redistribute, the three OSF nodes behind this case, how archives, forks and registrations differ, and the preregistration templates written for reanalysing data that already exist. | 90 minutes |
+| [Git and GitHub for reproducible research](../companion/git-github.qmd) | Version control from first principles, a repository on your own machine, putting it online, and what belongs in git and what must never be committed. | 2 hours |
+
+**By the end of the stage** you have the whole of your work in a version-controlled repository that another person can clone and re-render, with the licensed material kept out of it.
+
+---
+
+## Adapting this track {#adapting}
+
+**What compresses.** Stage 2 disappears for anyone who already writes R and Quarto, and stage 3 shortens to sections 1 to 5 if you have fitted panel models before. Stage 7 is the extension material and can be left for a second pass, or dropped entirely. Nothing later depends on it.
+
+**What must not be cut.** Do Task 3 before Task 4, so that the specification you explore departs from a number you have reproduced yourself rather than from one you read. Write the preregistration block in Task 5 before you write any model code, even though nobody is watching and the browser will not stop you doing it the other way round: a specification chosen after its result is visible belongs in Task 4, and the chart draws the two differently for exactly that reason. And read stage 6 before deciding what your own result proved.
+
+**What you lose alone, and what replaces it.** Two moments in the taught day depend on there being other people in it. One is a room of people all landing the same t, which is what makes reproduction concrete rather than a definition. The other is the same room landing different results from one claim and seeing how far apart they fall. The first is replaced well enough by the reproduction itself, which either matches −3.804 or does not. For the second, the pre-computed curve on the [Multiverse](../results.qmd) page is a larger version of the same picture with the five analysts marked on it, and `my_experiments()` gives you a small one of your own making.
+
+**The other three tracks.** [The one-day track](one-day.qmd) is the format that the course was built for and the one that the deck follows. [The three-day track](three-days.qmd) puts a tools day before the workshop and a methods day after it. [The semester track](semester.qmd) spreads the same nine modules over ten sessions with the workshop day inside the term.

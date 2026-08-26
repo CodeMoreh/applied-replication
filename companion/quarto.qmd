@@ -1,0 +1,339 @@
+---
+title: "Quarto and reproducible documents"
+subtitle: "Foundation – the file that holds the analysis and the writing about it"
+engine: markdown
+bibliography: ../references.bib
+---
+
+This is the Quarto module of the [companion curriculum](index.qmd), and it is optional. It is written for someone who has worked through [getting started with R](intro-r.qmd), or who already writes a little R, and who has never written a Quarto document. Section 2 of that module named the three surfaces you type R into and described the third one – a Quarto document, holding prose and code in a single file – in a paragraph, without saying how to write one. This page says how. By the end you will know what sits inside a `.qmd` file, what rendering does to it, how the header decides what kind of document comes out, how a handful of options control what your reader sees, how figures and tables acquire captions and numbers, how citations arrive from a bibliography file, and how a folder of documents becomes a project with settings held in common.
+
+Every block below is **shown, not run for you**, the same practical note that the other companion modules make. There is a second half to it here. The R module could send you to the zero-install [browser lab](../exercise/browser-lab.qmd) to try each snippet, and this one cannot: the lab runs R inside a browser tab but it does not render documents, so the exercises on this page assume the Route 1 workspace described on the [setup page](../setup.qmd), with R and an editor on your own machine. That page installs R and Positron. The exercises below also need the Quarto command-line tool, so if `R/check_setup.R` reports a FAIL on its Quarto line, install Quarto from <https://quarto.org> and reopen your terminal. Reading the page without any of that installed still works, and everything it describes is visible in files you can open.
+
+The examples are this site's own files rather than invented ones. The report you fill in during the workshop, the slide deck, the browser lab, the landing page and this page are all `.qmd` files in one repository, so every claim below can be checked against the file that it came from. That includes the page you are reading, which is an unusual Quarto document in one respect that [section 3](#sec-chunks) explains.
+
+## 1. The source file and the document it makes {#sec-what}
+
+A `.qmd` file is plain text, editable in anything, and it holds three kinds of content.
+
+The **YAML header** comes first, fenced above and below by a line of three hyphens. It is metadata: the title, the author, and above all the output format. The **prose** is Markdown, the lightweight convention in which `##` opens a second-level heading and `**text**` sets text in bold. The **code chunks** are blocks of R (or Python, or Julia) that are executed while the document is being built, with their results placed into the finished document at the point where the chunk sits.
+
+Here is a complete document with all three, short enough to read in one go:
+
+````markdown
+---
+title: "A first report"
+format: html
+---
+
+## What the panel looks like
+
+The workshop panel holds one row per country-year.
+
+```{r}
+library(readr)
+euframes <- read_csv("data/EUframes_cy.csv")
+nrow(euframes)
+```
+````
+
+**Rendering** is what turns that file into a document, and two programs do it in sequence. First `knitr` walks the file, hands each chunk to R, and collects whatever comes back – printed values, warnings, tables, figures – writing out a plain Markdown file with those results pasted in place of the code that produced them. Then Pandoc, a document converter, takes that Markdown and produces the finished artefact: an HTML page, a PDF, a Word file, a set of slides. The order has a consequence that catches everyone once. Your code runs before any typesetting happens, so an error in a chunk halts the render and no output appears at all, not even the pages before the error. Quarto names the offending chunk when it stops, which is the first reason to give every chunk a label.
+
+Three commands cover ordinary use. `quarto render index.qmd` builds one file. `quarto render` builds every file in a project. `quarto preview` builds the document, opens it in your browser, and rebuilds it every time you save, which is how most people work. The workspace README puts `quarto preview` at step 5 of getting started, and the setup check in that workspace, `R/check_setup.R`, tests for Quarto on your PATH and points you at <https://quarto.org> if it is missing.
+
+The workshop workspace ships the same analysis twice, which makes the argument for the document format better than any description does. `working_script.R` is Tasks 2 to 5 as a plain R script you step through in the console: it loads the panel, reproduces the recorded result, tries several specifications, and reports one. `index.qmd` is the same work as a report, with the reasoning written around the code and the numbers appearing inside the sentences that discuss them. The script is quicker to poke at. The report is the thing you can hand to somebody, and its numbers cannot go stale, because they are recomputed from the data every time the file is rendered.
+
+One rule follows from all of this: never edit the rendered output. The `.html` file is disposable and is rebuilt from the source on demand, so the `.qmd` is the artefact you keep, version and share.
+
+::: {.callout-tip}
+## Try it
+
+Download the workshop workspace from the [setup page](../setup.qmd) and open the folder in your editor. Open `index.qmd`, and in the terminal run `quarto preview`. The report opens in a browser with every chunk executed. Now change one word of the prose and save; the preview reloads by itself. Then look inside the `_site` folder that has appeared in the workspace, open the `index.html` you find there, notice that you could edit it, and resolve never to do so.
+:::
+
+## 2. The header decides the output {#sec-yaml}
+
+The header of the workshop report skeleton is the one to learn from, because it uses most of the keys you will ever need and nothing you will not:
+
+```yaml
+---
+title: "Testing the robustness of a published claim: the EU-frames case"
+author: "Pair: [names]"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: false
+    df-print: paged
+execute:
+  message: false
+  warning: false
+knitr:
+  opts_chunk:
+    fig-width: 8
+    fig-height: 5
+---
+```
+
+Take it key by key. `title` and `author` print at the top of the finished document. `date: today` is a Quarto keyword that fills in the date at render time, so a report rendered next month carries next month's date without anybody remembering to change it. Everything under `format:` configures the HTML output specifically. `toc: true` builds a table of contents from the headings and `toc-depth: 2` keeps it to the first two heading levels, leaving every deeper subsection out of it; `code-fold: false` shows code blocks open, where the alternative would put each one behind a click-to-expand control; and `df-print: paged` renders data frames as a small paged table instead of a wall of console text. The `execute:` block sets options for every chunk in the document at once, here suppressing the package start-up messages and the warnings that would otherwise clutter a report meant for a reader. The `knitr:` block hands options straight to knitr through its own `opts_chunk` mechanism, here fixing every figure at eight inches by five unless a chunk asks for something else.
+
+`format:` is the one key that changes what kind of document comes out, and the same source can serve several. Every page on this site is `html`. The slide deck is `revealjs`, configured in `slides/_metadata.yml` rather than in the deck itself, for reasons that [section 7](#sec-project) comes to. The browser lab and the Multiverse page are `live-html`, a format that an extension adds, which is what lets R run inside the reader's own browser tab. Adding `pdf` or `docx` under `format:` gives you those as well, from the same file, with no change to a line of the content.
+
+YAML is fussy in a small number of ways, and a malformed header is the most common reason a document that worked yesterday will not build today. Indentation is by spaces, never tabs, and two spaces per level is the convention. Every entry is `key: value` with a space after the colon. A string that contains a colon has to be quoted, which is why the title above sits inside quotation marks. Booleans are lower-case `true` and `false`. If a render fails with a message about the YAML, read the header before you read anything else.
+
+::: {.callout-tip}
+## Try it
+
+In the workspace report, change `toc-depth: 2` to `3` and re-render, watching the table of contents grow. Then set `code-fold: true` and look again: most chunks now sit behind a small "Code" control, but the setup chunk at the top still shows nothing at all. Work out why from its options before reading the next section, which gives the answer.
+:::
+
+## 3. Code chunks and their options {#sec-chunks}
+
+A chunk opens with three backticks and the engine name in braces, holds its options as comment lines beginning `#|`, then the code, then a closing fence of three backticks. The option lines are YAML again, so the same rules about colons and spaces apply. This is the plainest chunk in the workshop report, which counts the countries, years and rows in the panel:
+
+````markdown
+```{r}
+#| label: count-data
+# How many countries, how many years, how big is the panel?
+euframes |>
+  summarise(
+    countries = n_distinct(cntry),
+    years     = n_distinct(year),
+    rows      = n()
+  )
+```
+````
+
+It runs, its code is shown, and its result – 27 countries, 10 years, 270 rows – appears underneath. That is the default behaviour, and the options exist to depart from it. Six of them cover almost everything:
+
+| Option | What it does |
+|---|---|
+| `label` | Names the chunk. Required for cross-references, and Quarto prints it when a chunk fails. |
+| `eval: false` | The code is shown but not run. |
+| `echo: false` | The code runs and its results appear; the code itself is hidden. |
+| `output: false` | The code runs and is shown; its results are hidden. |
+| `include: false` | The code runs; neither the code nor its results appear anywhere. |
+| `message: false`, `warning: false` | Hide the messages and warnings that R emits while the chunk runs. |
+
+The distinction between `echo`, `output` and `include` is the one that takes a moment. `echo` governs the code, `output` governs the results, and `include` is the switch that turns both off while still running the chunk. The workshop report uses `include: false` for exactly the job it was made for – its setup chunk loads six packages, sets a figure theme and reads the panel, work that has to happen before anything else and that no reader wants to see. That is also the answer to the exercise above: a chunk that is not included cannot be folded, because it is not in the document at all.
+
+`eval: false` is the opposite case, a chunk printed as an instruction to the reader and never executed. The report uses it for the optional step that fetches the data from the Open Science Framework:
+
+````markdown
+```{r}
+#| label: get-data
+#| eval: false
+# Optional: confirm data/EUframes_cy.csv from OSF (uses the local copy offline).
+source("R/get_data.R")
+```
+````
+
+The reader sees what to run and the render does not go to the network, which is what makes the report build offline.
+
+Two further options earn their place. `results: asis` tells Quarto that what the chunk prints is Markdown to be interpreted rather than console text to be shown in a grey box; the toggle that puts the next-delivery notice on the landing page of this site is built that way, printing a callout as text and having Quarto render it. And `fig-width` and `fig-height`, set on a single chunk, override whatever the header established for the document as a whole.
+
+### Options can be set in four places
+
+The same options can be written on a chunk, in the document header under `execute:`, in a `_metadata.yml` file that governs a whole directory, or in the project configuration. The nearest setting wins. All four levels are in use across this project. The chunks quoted above carry their own options. The workshop report suppresses messages and warnings for the whole document. The shared settings for the slide deck, in `slides/_metadata.yml`, set `echo: false`, so no slide ever displays the code behind its figure. And the site configuration sets `freeze: auto`, which [section 7](#sec-project) explains.
+
+### A number inside a sentence
+
+Code is not confined to chunks. An expression written between backticks and prefixed with `r` is evaluated during the render and its value dropped into the sentence. The causal-graphs module uses this twice. One sentence describes the bailout column of the panel as marking a certain number of country-years, where the number is written as `` `r sum(euframes$bailout)` `` and counted from the data at render time. Another reports how many country-years a restricted model was fitted on by writing `` `r nobs(m_dropped)` `` rather than copying a figure out of the console.
+
+The habit is worth adopting for anything numeric that you would otherwise type by hand. A pasted number is correct on the day it is pasted and silently wrong from the first moment that the data, the sample or the model changes underneath it. An inline expression cannot fall out of step with the analysis, because there is no separate copy of it to fall out of step.
+
+### Showing a chunk without running it
+
+This page is full of chunks that are displayed rather than executed, and getting that to work takes one piece of knowledge that nothing else here requires. Pandoc closes a fenced block only on a fence at least as long as the one that opened it, so wrapping a three-backtick chunk in a **four**-backtick fence is enough to make Pandoc treat the inner block as literal text. It is not enough for knitr. Knitr scans the file line by line for a line that opens with backticks followed by `{r}`, and it does not track whether that line sits inside a longer fence, so it finds the inner chunk and runs it anyway. On a page like this one, where the displayed code refers to objects that do not exist, the render then fails.
+
+There are two ways out, and which one you want depends on the page.
+
+If the page has no live code at all, declare `engine: markdown` in the header. Quarto then skips the execution stage entirely, Pandoc handles the fences correctly, and a four-backtick fence displays whatever is inside it. That is what this page does, and it has two side benefits: the page renders without R installed, and it never enters the cache that [section 7](#sec-project) describes.
+
+If the page does run code and you also want to display some, double the braces. A fence written as ```` ```{{{r}}} ```` does not match the pattern that knitr looks for, so the block is left alone; one layer of braces is then removed on the way out, and your reader sees ```` ```{r} ````:
+
+`````markdown
+````markdown
+```{{{r}}}
+#| label: fig-demo
+mean(1:10)
+```
+````
+`````
+
+The fence lengths in that example are the same trick applied twice over, five backticks around four around three, because the block being displayed is itself a displayed block. The doubling rule extends to Quarto's own shortcodes, which [section 5](#sec-prose) comes to.
+
+::: {.callout-tip}
+## Try it
+
+In the workspace report, add `#| echo: false` to the chunk labelled `count-data` and re-render. The three numbers are still there and the code that produced them is gone – which is what a chunk option is for, and also a small lesson in what a reader of a published report is usually not shown. Then swap it for `#| eval: false` and re-render again: the code is back and the numbers have vanished. Finally, break the chunk on purpose by misspelling `summarise`, and read the error message, noticing that it names the label.
+:::
+
+## 4. Captions, labels and cross-references {#sec-crossref}
+
+A figure produced by a chunk becomes a numbered, captioned, referenceable figure once two conditions are met. The chunk has to carry a `fig-cap`, and its label has to begin with `fig-`. The workshop report draws the small-multiples figure of the outcome over time that way, and its caption points at a figure in the paper behind the case, whose author is referred to throughout this site as the original author, or OA:
+
+````markdown
+```{r}
+#| label: fig-cosmo-trend
+#| fig-cap: "Mean cosmopolitan EU framing over time, by country – an echo of OA's Figure 1."
+#| fig-width: 9
+#| fig-height: 6
+ggplot(euframes, aes(x = year, y = mcosmo)) +
+  geom_line(colour = "grey55") +
+  geom_point(size = 0.7) +
+  facet_wrap(~ cntry, ncol = 6) +
+  scale_x_continuous(breaks = c(2004, 2008, 2013)) +
+  labs(x = NULL, y = "Mean cosmopolitan framing (0–1)")
+```
+````
+
+The two size options override the eight-by-five default that the header set, because twenty-seven panels need more room than a single scatterplot does. Tables work identically with a `tbl-cap` and a label beginning `tbl-`; the same report captions its coefficient table "The constrained model on EUframes_cy.csv." and gives it a `tbl-` label, so it is numbered and referenceable in the same way.
+
+The point of the prefix is that Quarto numbers the item and lets you point at it from the prose. Write `@fig-cosmo-trend` in a sentence and the rendered text reads "Figure 1", as a link that scrolls the reader to it. Both labels are already in place in the report skeleton and nothing yet refers to them, so adding the reference is a one-word edit that shows the whole mechanism working.
+
+Sections can be cross-referenced in the same way, with an id beginning `sec-` attached to the heading in braces, but numbered section references need `number-sections: true` in the header. The pages of this site are not numbered, so they use those same ids as plain anchor links instead: the R module writes `[section 3](#sec-objects)` to point within itself, and the causal-graphs module writes the `[ggplot2 section of the R module](intro-r.qmd#sec-ggplot)` to point across pages. Both forms are ordinary Markdown links, and the second is worth noticing because a link to a heading in another file is exactly as cheap as a link to one in your own.
+
+A figure that comes from a file rather than from code uses Markdown image syntax, `![A caption](path/to/image.png){#fig-example}`, and it is numbered and referenceable in the same way. This site deliberately does not do that. Every figure in the deck and in the companion modules is generated by a chunk from a committed data file, so the figure can be edited, corrected and re-rendered when the data change, and so that no published figure from anyone else's paper is reproduced as a screenshot.
+
+::: {.callout-tip}
+## Try it
+
+In the workspace report, find the sentence above the figure chunk and rewrite it so that it refers to `@fig-cosmo-trend`. Re-render and check that the caption now begins "Figure 1" and that your reference links to it. Then change the label of that chunk to `trend-figure`, dropping the prefix, and re-render once more. The caption survives, the number disappears, and your cross-reference prints as `?fig-cosmo-trend`, which is how Quarto reports a reference it cannot resolve.
+:::
+
+## 5. The prose is Markdown {#sec-prose}
+
+The writing between the chunks is Markdown, with a few Quarto additions. Headings are lines beginning with one to six `#` characters. Emphasis is `*italic*` and `**bold**`. Lists are lines beginning with `-`, or with `1.` where the items should be numbered. A link is `[the visible text](the-target)`, and a link between pages of a Quarto site points at the **source** file rather than the rendered one: this page links to the R module as `[getting started with R](intro-r.qmd)`, and Quarto rewrites the target to `intro-r.html` when it builds. Writing `.qmd` targets means that a link keeps working if the output format changes, and that Quarto can warn you when a target does not exist.
+
+The Quarto addition you will use most is the **fenced div**, a block of content wrapped between two lines of three colons, with a class in braces on the opening line. It is a general mechanism for marking a region of a document as being of a particular kind, and callouts are the instance you meet everywhere. This is the Task 3 box of the workshop report, shortened here to its first and last sentences:
+
+````markdown
+::: {.callout-note title="Task 3 – Reproduce the recorded result"}
+This is the **reproducibility** check. The target is **t = −3.804**.
+:::
+````
+
+Five callout classes ship with Quarto – `note`, `tip`, `important`, `caution` and `warning` – each with its own colour and icon. The five tasks of the workshop report are `.callout-note` boxes with a `title` attribute, the "Try it" boxes on this page and its neighbours are `.callout-tip`, and the note that maps the preregistration block onto a real preregistration form is `.callout-important`. Adding `collapse="true"` starts a callout closed, with a control that the reader can click to open it, which the report uses for a long aside that would otherwise interrupt the flow of a task.
+
+Divs nest, and when they do the outer one takes more colons than the inner: four outside, three inside. Forgetting that is a reliable way to produce a document in which one box has swallowed the rest of the page.
+
+Two **shortcodes** appear across this site, each written as a name inside doubled braces and angle brackets. `{{{< var name >}}}` inserts a value from `_variables.yml`, the single file that holds site-wide facts, so the address of the workshop template repository is written once there and referred to everywhere else as `{{{< var template-repo >}}}` – on the setup page, in the git module, and anywhere else it is needed. `{{{< include path >}}}` pastes another file into this one before rendering, which is how the landing page picks up the next-delivery notice from `_includes/next-delivery.qmd` and how the browser lab picks up the machinery of the live-coding extension. Both exist for the same reason. A fact or a block of markup that lives in one place cannot drift out of agreement with itself.
+
+Writing about a shortcode rather than using one needs the same brace-doubling as [section 3](#sec-chunks) described for chunks, and it catches you the first time. Every shortcode in the paragraph above is written in the source of this page with three braces on each side, because Quarto strips one layer and would otherwise have executed them: the sentence would then have printed the repository address where it meant to show you the markup.
+
+## 6. Citations come from a .bib file {#sec-citations}
+
+Add a `bibliography:` key to the header, pointing at a BibTeX file, and citations start working. The causal-graphs module writes `bibliography: ../references.bib`; the R module gives a list of two files, because this project keeps a second file for entries not yet imported into the reference library of the facilitator. Both forms are ordinary YAML.
+
+A BibTeX file is a plain-text database with one record per work. This is the record for the paper behind the workshop case, trimmed of the fields that do not matter here:
+
+```bibtex
+@article{Teney2016DoesEUEconomic,
+  title = {Does the {{EU Economic Crisis Undermine Subjective Europeanization}}?
+           {{Assessing}} the {{Dynamics}} of {{Citizens}}' {{EU Framing}}
+           between 2004 and 2013},
+  author = {Teney, C{\'e}line},
+  year = 2016,
+  journal = {European Sociological Review},
+  volume = {32},
+  number = {5},
+  pages = {619--633},
+  doi = {10.1093/esr/jcw008}
+}
+```
+
+The word immediately after the opening brace is the **citekey**, the name you cite the work by. Almost nobody types these records by hand. A reference manager such as Zotero holds the library and exports the file, keys and all, so the practical workflow is to save a paper into the manager once and cite it from every document afterwards.
+
+Four citation forms cover ordinary writing:
+
+| You write | It renders as |
+|---|---|
+| `[@Teney2016DoesEUEconomic]` | a parenthetical citation, author and year in brackets |
+| `@Teney2016DoesEUEconomic` | an in-text citation, with only the year bracketed |
+| `[@Teney2016DoesEUEconomic, p. 619]` | a parenthetical citation with a page locator |
+| `[@Teney2016DoesEUEconomic; @LundbergEtAl2021WhatYourEstimand]` | two works in one set of brackets |
+
+The reference list is assembled from whatever you actually cited, and it goes at the end of the document unless you say otherwise. Putting `::: {#refs}` somewhere puts the list exactly there, which is why the R module and the statistical-methods module end with a `## References` heading and an empty div underneath it. This page ends the same way, and the two entries you will find there were produced by live citations of the two works named in the table above [@Teney2016DoesEUEconomic; @LundbergEtAl2021WhatYourEstimand].
+
+Formatting is controlled by a citation style file. No `csl:` key is set anywhere in this project, so every page renders in the default that Pandoc supplies, the Chicago author-date style. Pointing `csl:` at a style file downloaded from the CSL repository that Zotero hosts switches the whole document to APA, or to the house style of a particular journal, without touching a single citation.
+
+One trap is worth knowing, because it is silent. A bare `@Key` at the very start of a block is also the syntax by which Pandoc writes an example list, and Pandoc reads it that way in preference: the citation disappears and a list number takes its place, with no warning. The slide deck of this workshop runs into that, because its pinned source footers are written to open with a bare citekey so that the author's name renders outside the brackets. The fix is in `slides/_metadata.yml`, which turns the reader extension off with `from: markdown-example_lists`. The same file sets `link-citations: true`, which makes every rendered citation a link to its entry in the list.
+
+::: {.callout-tip}
+## Try it
+
+The workspace report lists its four references by hand at the bottom of the file, as ordinary prose. Convert it: make a `references.bib` beside the report, put those four works into it as BibTeX records exported from a reference manager, add `bibliography: references.bib` to the header, replace the hand-typed list with `## References` and an empty `::: {#refs}` div, and cite each work at the point in the report where it is discussed. Re-render, and check that all four still appear and that none of them appears twice.
+:::
+
+## 7. One document, then a project {#sec-project}
+
+A single `.qmd` renders on its own. Put a `_quarto.yml` file beside it and the folder becomes a **project**: a set of documents that share settings, render together, and can be published as one thing. The site you are reading is a project of type `website`, and the parts of its configuration that matter here are these:
+
+```yaml
+project:
+  type: website
+  output-dir: _site
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+execute:
+  freeze: auto
+```
+
+Between those blocks, left out above, sit the list of files to render and the navigation bar, which is where the menus at the top of this page are defined. The `format:` block sets the defaults for every page at once, so no individual page has to ask for a table of contents or name the visual theme. The workspace you download for the workshop is a much smaller project of the same kind: its configuration names the project type and the title of the site, sets `freeze: auto`, and adds `code-tools: true` so that a reader of the rendered report can open the source behind any chunk.
+
+Settings can also be attached to a single directory by putting a `_metadata.yml` inside it, and every `.qmd` in that folder inherits them. The slide deck is built this way. Its own header holds two keys, a title and `format: revealjs`, while the theme, the title-slide partial, the bibliography, the background image and several dozen presentation options all sit in `slides/_metadata.yml` beside it, along with `echo: false`, which is why no slide displays the code behind its figure. Four levels are therefore available, and the nearest one wins: an option on a chunk beats the document header, which beats the directory file, which beats the project configuration.
+
+The last setting in that excerpt is the one with the largest practical consequence. `freeze: auto` tells Quarto to re-execute a chunk only when the code of that chunk has changed, storing the results in a folder called `_freeze/`. This project commits that folder to version control, and the payoff shows in the workflow that publishes the site. It installs Quarto, then installs exactly three R packages – knitr, rmarkdown and yaml – and renders. Everything else comes out of the cache, so a build machine never needs the modelling packages that the pages were written with. One page is deliberately exempt. The landing page runs with `freeze: false` so that the next-delivery notice re-reads `_variables.yml` on every build, and those three packages are installed for that page alone.
+
+This page contributes nothing to any of that, because it declares `engine: markdown` and has no chunks to freeze.
+
+::: {.callout-tip}
+## Try it
+
+Open `slides/_metadata.yml` in the repository behind this site – the "GitHub repo" link at the foot of every page – and read it from the top, working out what each block does before you reach the `execute:` block at the bottom. Then open `_quarto.yml` and find the two places where a setting is made once for every page of the site. Reading a project configuration is a skill of its own, and these two files are short enough to take in whole.
+:::
+
+## 8. Publishing the document {#sec-publish}
+
+Rendering a project writes the finished site to the folder that `output-dir` names, here `_site`. Rendering a single document writes the output beside the source. Either way the result is a set of ordinary files, and publishing means putting them somewhere that other people can reach.
+
+Three routes are common. You can render locally and commit the output, which is the simplest and which suits a small document that changes rarely. You can run `quarto publish gh-pages`, a single command that creates a branch for the rendered output and pushes to it. Or you can have a build machine do the work on every change, which is what this site does: its workflow file checks out the repository, installs Quarto and R, renders, and deploys the contents of `_site`. The workshop template repository carries a workflow of its own that is deliberately different. It installs R together with the packages that its own file names, and it re-runs the chunks, so a participant who edits the report and pushes it sees their own numbers on the published page instead of the ones that shipped.
+
+A document meant to be emailed wants a different setting. `embed-resources: true` inlines every image, stylesheet and script into the HTML file itself, giving one self-contained file that works with no folder of assets beside it. The deck of this workshop sets it to `false`, because it is built as part of a site where those assets are served anyway.
+
+Rendering to PDF is a header change, `format: pdf`, plus a typesetting engine. If you have no LaTeX installation, `quarto install tinytex` fetches a small one that Quarto manages itself.
+
+Everything on this page stops at the edge of version control, and that is where the next module begins. Publishing a rendered document is worth little if the source that produced it has no recorded history, and a `.qmd` project is unusually well suited to being versioned, because its inputs are plain text that can be compared line by line. The [git and GitHub module](git-github.qmd) takes it from there, including what belongs in a repository and what must never enter one. For where a finished analysis should be deposited so that it can be cited and found, the [repositories module](repositories.qmd) covers the archives and their conventions.
+
+::: {.callout-tip}
+## Try it
+
+Add `docx` under the `format:` key of the workspace report, so that both `html` and `docx` are listed, and run `quarto render`. Two documents appear. Open the Word file and look at what survived the change of format and what did not – the table of contents, the figure, the code blocks, the callout boxes – then decide which format you would give a supervisor and which you would give a co-author who wants to leave comments.
+:::
+
+## Sources and further study {#sec-sources}
+
+This module is written fresh for the workshop rather than adapted from an existing lesson, so there is no borrowed text to attribute. It teaches the slice of Quarto that this site and the workshop workspace actually use, illustrated from the files themselves, and it stops well short of the full feature set.
+
+The official documentation is the reference to keep open beside your own document, and these are the pages worth bookmarking first:
+
+- **The Quarto guide**, <https://quarto.org/docs/guide/>, is the front door to everything else, organised by what you are trying to make.
+- **Markdown Basics**, <https://quarto.org/docs/authoring/markdown-basics.html>, is the complete prose syntax: headings, emphasis, lists, links, tables, footnotes, divs and spans.
+- **Execution Options**, <https://quarto.org/docs/computations/execution-options.html>, covers the chunk options of [section 3](#sec-chunks) in full, and **Code Cells: Knitr**, <https://quarto.org/docs/reference/cells/cells-knitr.html>, is the exhaustive list for R chunks specifically.
+- **Cross References**, <https://quarto.org/docs/authoring/cross-references.html>, and **Callout Blocks**, <https://quarto.org/docs/authoring/callouts.html>, document the two features of [sections 4](#sec-crossref) and [5](#sec-prose) beyond what is used here.
+- **Citations**, <https://quarto.org/docs/authoring/citations.html>, covers bibliographies, citation syntax and style files.
+- **Quarto Projects**, <https://quarto.org/docs/projects/quarto-projects.html>, and **Managing Execution**, <https://quarto.org/docs/projects/code-execution.html>, explain project configuration and the freeze mechanism of [section 7](#sec-project).
+- **GitHub Pages**, <https://quarto.org/docs/publishing/github-pages.html>, sets out the three publishing routes of [section 8](#sec-publish) with worked examples of each.
+
+Within this curriculum, the natural neighbours are [getting started with R](intro-r.qmd), which this module assumes, and the [git and GitHub module](git-github.qmd), which takes the reproducible document into version control. Every other page of the site is also a worked example: open any of them in the repository and you are reading the source of something you have already seen rendered.
+
+## References
+
+::: {#refs}
+:::

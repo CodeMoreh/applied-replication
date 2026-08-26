@@ -67,9 +67,10 @@ These three are the pre-session reading list for the preregistration segment of 
 
 ## Companion curriculum
 
-Eight optional self-study modules sit around the one-day workshop – see the [curriculum overview](companion/index.qmd) for the suggested reading order.
+Nine modules carry most of the teaching in this course, from a first line of R through to a reanalysis you can version and archive. The workshop at the centre is compressed by design, so it works the single hands-on case and leaves the skills that surround it to the modules; each of them stands on its own and can be taken without the others. The [curriculum overview](companion/index.qmd) sets out the three strands that the modules group into, and a suggested reading order.
 
 - [Getting started with R](companion/intro-r.qmd) – for participants arriving with no R at all; best read before the day.
+- [Quarto and reproducible documents](companion/quarto.qmd) – the medium in which every page of this site is written: what a `.qmd` file is and what rendering does to it, the YAML header and the chunk options that matter, figures, tables and cross-references, citations drawn from a bibliography, and publishing the finished document, all of it worked through on files you can open in this project rather than on a toy example.
 - [The statistical methods behind the workshop](companion/stats-methods.qmd) – every model fitted on the case's own data with real outputs read line by line, from a first `lm()` through fixed and random effects to multilevel, weighted, Bayesian and ordered-beta models, ending with meta-analysis and the common effect-size axis.
 - [Draw the arrows you believe](companion/dags.qmd) – causal graphs written as R formulas with `dagify()`: confounders, mediators and colliders fitted rather than only described, the EU-frames graph whose adjustment set is what two-way fixed effects absorb, and what fixed effects cannot fix.
 - [The multiverse: origins, uses, and critics](companion/multiverse.qmd) – where specification-curve thinking came from, the three purposes a multiverse can serve, and the 2025–26 critical debate read against this workshop's own grid.

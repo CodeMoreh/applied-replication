@@ -13,7 +13,11 @@
 # --- Evergreen variables --------------------------------------------------
 workshop:
   name: "Applied Replication for Data Skills"
-  format: "one full day – four 90-minute parts"
+  # The scale at which the course is deliverable, rather than the length of any
+  # one delivery: the four track pages under tracks/ are what this string refers
+  # to. It is rendered inside the landing page subtitle, so keep any replacement
+  # short.
+  format: "one day to a semester"
   organiser: "Chris Moreh"
   # Add a public contact address here if you want one shown on the site.
   contact: ""
@@ -36,6 +40,11 @@ results-form-url: "https://forms.gle/MWhimagFDmGtprAPA"
 # Set active back to 'false' to return the site to its evergreen state.
 delivery:
   active: 'false'
+  # Which of the four tracks this delivery follows, named by its page under
+  # tracks/. Valid values: one-day, three-days, semester, self-study – i.e.
+  # tracks/one-day.qmd and so on. An empty value prints no track line in the
+  # callout, and so does a value that matches none of the four.
+  track: ""
   date: "Monday 3 August 2026, 10:00–18:00 EEST"
   venue: "Online"
   event: "Făgăraș Summer School"

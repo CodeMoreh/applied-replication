@@ -91,7 +91,7 @@ library(readr)              # step 2: load it into the session – once, each se
 
 Two habits around packages are worth adopting from the start. First, put every `library()` call at the top of the script, together. The block then doubles as a plain statement of what the script depends on, and anyone opening the file sees at a glance what they need installed, which is a small but real piece of reproducibility. Second, know the `::` form: `readr::read_csv()` calls a function through its package name without attaching anything, and you will meet it in code that wants the provenance of every function to be visible on the line that uses it.
 
-The workshop's own workspace applies all of this for you: its `R/check_setup.R` script checks the eleven packages that the exercise needs and, if any are missing, prints the ready-made line that installs them.
+The workshop's own workspace applies all of this for you: its `R/check_setup.R` script checks every package that the exercise needs and, if any are missing, prints the ready-made line that installs them.
 
 ::: {.callout-tip}
 ## Try it

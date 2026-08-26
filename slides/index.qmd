@@ -3786,7 +3786,7 @@ If the day had one sentence, it is this one. There is no privileged single analy
 ::: {.small}
 - **Yours now**: a preregistered, rendered report · an estimand and a causal graph you wrote yourself · two dots on the class curve, one explored and one declared
 - **Read**: the three *Nature* 2026 papers [@MiskeEtAl2026InvestigatingReproducibilitySocial; @AczelEtAl2026InvestigatingAnalyticalRobustness; @TynerEtAl2026InvestigatingReplicabilitySocial] · the glossary [@NosekEtAl2025BriefGlossaryTerms] · @AuspurgBruderl2021HasCredibilitySocial · @LundbergEtAl2021WhatYourEstimand · @LakensEtAl2026ThereOnlyOne · @Teney2016DoesEUEconomic
-- **Explore**: the eight companion modules (intro to R · the statistics behind today · causal graphs · the multiverse debate · simulation · one claim at two levels · repositories & preregistration · git & GitHub) · the Multi100 data · `fixest` & `ggdag` docs
+- **Explore**: the nine companion modules (intro to R · Quarto documents · the statistics behind today · causal graphs · the multiverse debate · simulation · one claim at two levels · repositories & preregistration · git & GitHub) · the Multi100 data · `fixest` & `ggdag` docs
 - **Keep going locally**: the research-software and open-research teams at your university · a ReproducibiliTea journal club near you
 - Everything is on the workshop site, and everything is open – fork any of it
 :::
