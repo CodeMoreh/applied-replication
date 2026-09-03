@@ -40,7 +40,7 @@ suppressPackageStartupMessages({
   library(betareg); library(glmmTMB); library(sandwich); library(lmtest)
 })
 
-root <- "d:/GitHub/courses/2026_OR_NCL"
+root <- "D:/ACADEMIC/TEACHING/2026_OR_NCL"
 panel <- read_csv(file.path(root, "data/EUframes_cy.csv"), show_col_types = FALSE)
 gauss <- read_csv(file.path(root, "data/spec_grid.csv"), show_col_types = FALSE)
 

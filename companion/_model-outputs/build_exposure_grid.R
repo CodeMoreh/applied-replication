@@ -33,7 +33,7 @@ suppressPackageStartupMessages({
 
 ADD_Z_FORM <- FALSE   # TRUE adds z-standardised growth twins (identical t/r)
 
-root <- "d:/GitHub/courses/2026_OR_NCL"
+root <- "D:/ACADEMIC/TEACHING/2026_OR_NCL"
 panel <- read_csv(file.path(root, "data/EUframes_cy.csv"), show_col_types = FALSE)
 fam   <- read_csv(file.path(root, "data/spec_grid_family.csv"), show_col_types = FALSE)
 

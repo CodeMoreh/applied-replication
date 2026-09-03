@@ -7,7 +7,7 @@
 #                for teaching – NOT the registered Phase-2 analyses of the
 #                companion Replication Research project, which remain
 #                uncomputed until its OSF registration is filed.
-# Reads        : D:/GitHub/papers/26-RR-teney-multiverse/data_private/person_level.rds
+# Reads        : D:/ACADEMIC/PUBLICATIONS/ARTICLES/2026_RR-teney-multiverse/data_private/person_level.rds
 #                (GESIS-licensed person-level rebuild, 416,698 respondents –
 #                exists only on the facilitator's machine, never in any repo)
 #                data/EUframes_cy.csv (committed country-year aggregates)
@@ -32,11 +32,11 @@ suppressPackageStartupMessages({
 })
 
 options(width = 88)
-outdir <- "d:/GitHub/courses/2026_OR_NCL/companion/_model-outputs"
+outdir <- "D:/ACADEMIC/TEACHING/2026_OR_NCL/companion/_model-outputs"
 
-person <- readRDS("D:/GitHub/papers/26-RR-teney-multiverse/data_private/person_level.rds") |>
+person <- readRDS("D:/ACADEMIC/PUBLICATIONS/ARTICLES/2026_RR-teney-multiverse/data_private/person_level.rds") |>
   as.data.frame()
-euframes <- read_csv("d:/GitHub/courses/2026_OR_NCL/data/EUframes_cy.csv",
+euframes <- read_csv("D:/ACADEMIC/TEACHING/2026_OR_NCL/data/EUframes_cy.csv",
                   show_col_types = FALSE)
 
 save_out <- function(lines, file) writeLines(lines, file.path(outdir, file))
@@ -96,7 +96,7 @@ m_brm <- brm(mcosmo ~ unemp + (1 | cntry) + (1 | year), data = euframes,
              seed = 2026, refresh = 0, silent = 2)
 save_out(capture.output(print(summary(m_brm), digits = 4)), "brms_panel.txt")
 save_out(capture.output(print(prior_summary(m_brm))), "brms_priors.txt")
-saveRDS(m_brm, "d:/GitHub/courses/2026_OR_NCL/_planning_data/brms_panel.rds")
+saveRDS(m_brm, "D:/ACADEMIC/TEACHING/2026_OR_NCL/_planning_data/brms_panel.rds")
 cat("brms   b_unemp =", round(fixef(m_brm)["unemp", "Estimate"], 5), "\n")
 
 # --- 9. Bayesian ordered beta regression (ordbetareg wraps brms) -------------
@@ -110,7 +110,7 @@ m_ord <- ordbetareg(cosmo ~ unemp + (1 | cntry), data = person_sub,
                     chains = 4, cores = 4, iter = 2000, seed = 2026,
                     refresh = 0, silent = 2)
 save_out(capture.output(print(summary(m_ord), digits = 4)), "ordbetareg_sub.txt")
-saveRDS(m_ord, "d:/GitHub/courses/2026_OR_NCL/_planning_data/ordbetareg_sub.rds")
+saveRDS(m_ord, "D:/ACADEMIC/TEACHING/2026_OR_NCL/_planning_data/ordbetareg_sub.rds")
 cat("ordbetareg b_unemp =",
     round(fixef(m_ord)["unemp", "Estimate"], 5), "\n")
 
