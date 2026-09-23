@@ -1,0 +1,12 @@
+---
+title: "Session 6 – The individual level"
+---
+The course works at the country-year level throughout, and this session is where the individual level gets its hearing. The module fits the published specification where its author fitted it, on a synthetic person-level dataset validated coefficient by coefficient against the real respondents, and puts the real values beside the synthetic ones.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [The individual level](../../companion/individual-level.qmd) | Sections 1 to 4: why the level of analysis matters, how the synthetic dataset was validated, OA's published model fitted at the level it was estimated at, and why a large individual effect can explain almost none of an aggregate association. | 90 minutes |
+| [The individual level](../../companion/individual-level.qmd#sec-designs) | Sections 5 to 7: where the two designs disagree on the same claim, what declaring a level does to the evidence, and what a synthetic dataset should not be asked to do. | 60 minutes |
+| [Building the analysis file](../../companion/data-management.qmd) | For a group that downloaded the sixteen Eurobarometer files in the setup week: run the first workspace script, read its report, and work through the second, which rebuilds the course panel from the respondents and builds the panel by education band. | 60 minutes |
+
+**By the end of the session** you have a note comparing the two designs on one claim, and a short paragraph on the questions the synthetic data cannot be used to answer.

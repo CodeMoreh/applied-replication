@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Missing answers – Applied Replication for Data Skills</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.js"></script>
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/animate.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/magic.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo light-content">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Applied Replication for Data Skills</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../tracks/one-day.html">
+ <span class="dropdown-text">One day</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/three-days.html">
+ <span class="dropdown-text">Three days</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/semester.html">
+ <span class="dropdown-text">Semester</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/self-study.html">
+ <span class="dropdown-text">Self-study</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../slides/index.html"> 
+<span class="menu-text">Slides</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-exercise">    
+        <li>
+    <a class="dropdown-item" href="../exercise/index.html">
+ <span class="dropdown-text">Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/browser-lab.html">
+ <span class="dropdown-text">Browser lab</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/spec-menu.html">
+ <span class="dropdown-text">Specification menu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/estimand-dial.html">
+ <span class="dropdown-text">Estimand choices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/cheatsheet.html">
+ <span class="dropdown-text">Cheatsheet</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../results.html"> 
+<span class="menu-text">Multiverse</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-companion" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Companion</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-companion">    
+        <li>
+    <a class="dropdown-item" href="../companion/index.html">
+ <span class="dropdown-text">Curriculum overview</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Computational tools</li>
+        <li>
+    <a class="dropdown-item" href="../companion/intro-r.html">
+ <span class="dropdown-text">Getting started with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/quarto.html">
+ <span class="dropdown-text">Quarto and reproducible documents</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Reproducibility and collaboration</li>
+        <li>
+    <a class="dropdown-item" href="../companion/repositories.html">
+ <span class="dropdown-text">Repositories &amp; preregistration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/git-github.html">
+ <span class="dropdown-text">Git &amp; GitHub</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistical methods</li>
+        <li>
+    <a class="dropdown-item" href="../companion/stats-methods.html">
+ <span class="dropdown-text">The statistical methods behind the course</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/dags.html">
+ <span class="dropdown-text">Causal graphs &amp; adjustment sets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/multiverse.html">
+ <span class="dropdown-text">The multiverse and its critics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/weighting.html">
+ <span class="dropdown-text">Weights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/missingness.html">
+ <span class="dropdown-text">Missing answers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/measurement.html">
+ <span class="dropdown-text">The items behind the scales</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/simulation.html">
+ <span class="dropdown-text">Simulation as a method</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/individual-level.html">
+ <span class="dropdown-text">The individual level</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-missing-answers" id="toc-the-missing-answers" class="nav-link active" data-scroll-target="#the-missing-answers">The missing answers</a></li>
+  <li><a href="#the-three-missingness-mechanisms" id="toc-the-three-missingness-mechanisms" class="nav-link" data-scroll-target="#the-three-missingness-mechanisms">The three missingness mechanisms</a></li>
+  <li><a href="#three-levels" id="toc-three-levels" class="nav-link" data-scroll-target="#three-levels">Three levels</a></li>
+  <li><a href="#the-conventions" id="toc-the-conventions" class="nav-link" data-scroll-target="#the-conventions">The conventions</a></li>
+  <li><a href="#multiple-imputation" id="toc-multiple-imputation" class="nav-link" data-scroll-target="#multiple-imputation">Multiple imputation</a></li>
+  <li><a href="#dont-know-as-an-answer" id="toc-dont-know-as-an-answer" class="nav-link" data-scroll-target="#dont-know-as-an-answer">“Don’t know” as an answer</a></li>
+  <li><a href="#sensitivity-to-the-assumption" id="toc-sensitivity-to-the-assumption" class="nav-link" data-scroll-target="#sensitivity-to-the-assumption">Sensitivity to the assumption</a></li>
+  <li><a href="#what-to-take-away" id="toc-what-to-take-away" class="nav-link" data-scroll-target="#what-to-take-away">What to take away</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Missing answers</h1>
+<p class="subtitle lead">The respondents who mentioned nothing, and the conventions for them</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The <a href="../exercise/spec-menu.html">specification menu</a> carries an axis called <strong>no-opinion handling</strong> with four settings, and this module is the argument for why it is there. The short version is that 26,325 of the 416,698 respondents in the EU-frames data, 6.3%, answered the question “What does the EU mean to you personally?” by mentioning none of the thirteen things on the list, so that on every framing scale their score is zero divided by zero. The original paper and its five reanalyses resolved that in two different ways without saying so, and the people concerned are not a random slice of the sample.</p>
+<section id="the-missing-answers" class="level2">
+<h2 class="anchored" data-anchor-id="the-missing-answers">The missing answers</h2>
+<p>The framing scales are built from a multiple-mention battery: a respondent ticks any of thirteen items, and the cosmopolitan scale is the share of their ticks that fall on the five cosmopolitan items. A respondent who ticks nothing has no share. The survey records two further codes for that person, “other (spontaneous)” and “don’t know”, and the 26,325 split three ways: 13,736 said they did not know, 3,642 gave an answer that was not on the list, and 8,947 have no tick of any kind. Those are three different people. Someone who says the EU means something the list did not anticipate has an opinion; someone who says they do not know may have none, or may have one they would rather not state; a blank row is a refusal, an interviewer’s omission, or a coding gap, and the file does not say which.</p>
+<p>The original author’s Stata code divides each cluster count by the total of mentions and has no rule for a zero total. Stata returns a missing value for 0/0, and the mixed model drops a missing outcome, so those respondents left her analysis without a line of code saying so: her reported level-1 N of 390,373 is exactly the number of respondents who mentioned at least one item. The Multi100 reanalysis that produced the recorded t of −3.804 coded the same respondents 0 on every scale, and the course panel inherits that convention. One analyst, PRL47, built both versions and reported the zero one. So the published coefficient and its best-known reanalysis differ in what they assume about 6.3% of the sample, and neither states the assumption.</p>
+<p>Whether that matters depends on who the silent respondents are, and here the answer is unambiguous. They are older, more often women, and they live in country-years with higher unemployment. Across the 270 cells the no-opinion rate correlates at 0.24 with the unemployment rate and at −0.25 with the cosmopolitan scale. The rate also differs sharply between countries: it runs at 16.0% in ES and 14.9% in GB against 1.9% in CY. Scoring the silent as zero therefore pulls the framing scale down most where unemployment is highest, which is the direction the claim predicts. Part of the association is a coding rule.</p>
+</section>
+<section id="the-three-missingness-mechanisms" class="level2">
+<h2 class="anchored" data-anchor-id="the-three-missingness-mechanisms">The three missingness mechanisms</h2>
+<p>The vocabulary for thinking about this comes from <span class="citation" data-cites="Rubin1976InferenceMissingData">Rubin (<a href="#ref-Rubin1976InferenceMissingData" role="doc-biblioref">1976</a>)</span> and is set out accessibly by <span class="citation" data-cites="Dong2013Principled">Dong and Peng (<a href="#ref-Dong2013Principled" role="doc-biblioref">2013</a>)</span>. Data are <strong>missing completely at random</strong> when the probability that a value is missing depends on nothing in the data at all, so the observed cases are a random sample of the complete ones; dropping them costs precision and nothing else. Data are <strong>missing at random</strong> when that probability depends on things that were observed but not, once those are accounted for, on the missing value itself: for students who scored alike on a pre-test, in the example Dong and Peng use, whether the post-test is missing is a coin toss. Data are <strong>missing not at random</strong> when the probability depends on the missing value even after the observed data are allowed for, as when high earners are the ones who decline to state their income. The labels describe the mechanism that produced the gaps, not their size, and the practical consequence is asymmetric: the first two can be handled with methods that use only the observed data, while the third requires the analyst to say how the missing values differ from the observed ones, which the data cannot reveal.</p>
+<p>Mapped onto the case, the silent respondents are plainly not missing completely at random, since their age, sex and location predict their silence. Missing at random given age, sex, education and the country-year cell is the working assumption that every imputation below rests on. It is not testable from the observed data alone, a point <span class="citation" data-cites="Dong2013Principled">Dong and Peng (<a href="#ref-Dong2013Principled" role="doc-biblioref">2013</a>)</span> make against the habit of reading a t-test on observed covariates as a test of it; what can be done is to make it more plausible by conditioning on everything that predicts silence, and then to ask how far the conclusion moves if it is wrong. That last step is the sensitivity band at the end of this module. A “don’t know” about what the EU means is a fair candidate for missing not at random, because the people least engaged with the EU are the people least likely to have a framing of it, and disengagement is not in the data.</p>
+</section>
+<section id="three-levels" class="level2">
+<h2 class="anchored" data-anchor-id="three-levels">Three levels</h2>
+<p>Item non-response on the outcome battery is the case this module works, but the same structure recurs at two other levels of this analysis, and the <a href="../companion/weighting.html">weighting module</a> covers the other two. Inside a country, some people are harder to reach or more likely to refuse the whole interview, which is unit non-response, and the Eurobarometer W1 design weight is the standard correction for the imbalance it leaves. Above the country, one reanalyst’s Eurostat table had no United Kingdom row and nothing before 2009 for any country but France, so half the country-year cells were missing from that analysis before a single respondent was considered. Nonresponse rates on their own predict little about the bias that results <span class="citation" data-cites="Groves2006Nonresponse Groves2008Impact Hendra2018Rethinking">(<a href="#ref-Groves2006Nonresponse" role="doc-biblioref">Groves 2006</a>; <a href="#ref-Groves2008Impact" role="doc-biblioref">Groves and Peytcheva 2008</a>; <a href="#ref-Hendra2018Rethinking" role="doc-biblioref">Hendra and Hill 2018</a>)</span>; what matters is whether the missing units differ from the observed ones on the quantity of interest, which is the same question at every level.</p>
+</section>
+<section id="the-conventions" class="level2">
+<h2 class="anchored" data-anchor-id="the-conventions">The conventions</h2>
+<p>Three deterministic rules are on the menu, and each is a statement about what the silent respondents mean. <strong>Zero</strong> treats them as people with no framing of any kind, which is the reanalysis convention. <strong>Drop</strong> treats them as people who did not answer the question, which is what the original author’s code did. <strong>Split</strong> takes the three codes at their word: “don’t know” and blank are dropped as non-response, and “other” is kept at zero on the reasoning that an answer off the list is still an answer that contains no cosmopolitan content. The rules change the cell means before any model is fitted: the average cosmopolitan cell mean is 0.507 under zero and 0.540 under drop.</p>
+<p>The rules also change the question. Under zero the estimand is the average framing among everyone interviewed, with silence counted as no framing; under drop it is the average framing among people who have a framing at all. Those are different populations, and by the test the <a href="../exercise/spec-menu.html#what-each-decision-commits-you-to">specification menu</a> applies, that makes the no-opinion rule an estimand decision dressed as a measurement one. It is classed with measurement on the menu because that is where the decision is made in practice, at the moment the outcome column is built, and a participant meeting it there should know that it reaches further.</p>
+<p>Across the whole grid the rule moves the claim-direction share and the significant share by a few points and the median correlation by a few hundredths:</p>
+<div class="cell">
+<div id="tbl-noop-levels" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-noop-levels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1
+</figcaption>
+<div aria-describedby="tbl-noop-levels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<!-- preamble start -->
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_hvni7e4g6ljq0kq4017t = TinyTable.createTableFunctions("tinytable_hvni7e4g6ljq0kq4017t");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '5', j: 2 }, { i: '5', j: 3 }, { i: '5', j: 4 }, { i: '5', j: 5 } ], css_id: 'tinytable_css_e3jnqxu8lml6sjddciwl',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '1', j: 4 }, { i: '2', j: 4 }, { i: '3', j: 4 }, { i: '4', j: 4 }, { i: '1', j: 5 }, { i: '2', j: 5 }, { i: '3', j: 5 }, { i: '4', j: 5 } ], css_id: 'tinytable_css_50962z5bis9svmnmoo42',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 }, { i: '0', j: 5 } ], css_id: 'tinytable_css_m8wywy6fobf5ifoamr5q',}, 
+          { positions: [ { i: '5', j: 1 } ], css_id: 'tinytable_css_tqzappf0krdwe2nikzxo',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 } ], css_id: 'tinytable_css_43u4pp8ugnt4szxv7bq4',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_4udqygm2yi4qbfma3f0b',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_hvni7e4g6ljq0kq4017t.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_hvni7e4g6ljq0kq4017t td.tinytable_css_e3jnqxu8lml6sjddciwl, #tinytable_hvni7e4g6ljq0kq4017t th.tinytable_css_e3jnqxu8lml6sjddciwl {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: right; font-size: 0.8em }
+    #tinytable_hvni7e4g6ljq0kq4017t td.tinytable_css_50962z5bis9svmnmoo42, #tinytable_hvni7e4g6ljq0kq4017t th.tinytable_css_50962z5bis9svmnmoo42 { text-align: right; font-size: 0.8em }
+    #tinytable_hvni7e4g6ljq0kq4017t td.tinytable_css_m8wywy6fobf5ifoamr5q, #tinytable_hvni7e4g6ljq0kq4017t th.tinytable_css_m8wywy6fobf5ifoamr5q {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: right; font-size: 0.8em }
+    #tinytable_hvni7e4g6ljq0kq4017t td.tinytable_css_tqzappf0krdwe2nikzxo, #tinytable_hvni7e4g6ljq0kq4017t th.tinytable_css_tqzappf0krdwe2nikzxo {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; font-size: 0.8em }
+    #tinytable_hvni7e4g6ljq0kq4017t td.tinytable_css_43u4pp8ugnt4szxv7bq4, #tinytable_hvni7e4g6ljq0kq4017t th.tinytable_css_43u4pp8ugnt4szxv7bq4 { font-size: 0.8em }
+    #tinytable_hvni7e4g6ljq0kq4017t td.tinytable_css_4udqygm2yi4qbfma3f0b, #tinytable_hvni7e4g6ljq0kq4017t th.tinytable_css_4udqygm2yi4qbfma3f0b {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; font-size: 0.8em }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_hvni7e4g6ljq0kq4017t" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">No-opinion rule</th>
+                <th scope="col" data-row="0" data-col="2">Specifications</th>
+                <th scope="col" data-row="0" data-col="3">Point the claim's way</th>
+                <th scope="col" data-row="0" data-col="4">Significant</th>
+                <th scope="col" data-row="0" data-col="5">Median aligned r</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">zero</td>
+                  <td data-row="1" data-col="2">144,768</td>
+                  <td data-row="1" data-col="3">68.8%</td>
+                  <td data-row="1" data-col="4">57.2%</td>
+                  <td data-row="1" data-col="5">−0.121</td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1">drop</td>
+                  <td data-row="2" data-col="2">144,768</td>
+                  <td data-row="2" data-col="3">69.4%</td>
+                  <td data-row="2" data-col="4">58.4%</td>
+                  <td data-row="2" data-col="5">−0.129</td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">split</td>
+                  <td data-row="3" data-col="2">144,768</td>
+                  <td data-row="3" data-col="3">69.2%</td>
+                  <td data-row="3" data-col="4">58.4%</td>
+                  <td data-row="3" data-col="5">−0.128</td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="1">imputed (mice)</td>
+                  <td data-row="4" data-col="2">1,560</td>
+                  <td data-row="4" data-col="3">66.2%</td>
+                  <td data-row="4" data-col="4">61.3%</td>
+                  <td data-row="4" data-col="5">−0.171</td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="1">imputed (Amelia)</td>
+                  <td data-row="5" data-col="2">1,560</td>
+                  <td data-row="5" data-col="3">66.0%</td>
+                  <td data-row="5" data-col="4">61.4%</td>
+                  <td data-row="5" data-col="5">−0.176</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>: The no-opinion rule across every specification in which it varies. The two imputation rows are fitted at the canonical measurement settings only. {#tbl-noop-levels}</p>
+<p>The published specification shows what those averages conceal. Under the five rules the coefficient on unemployment for cosmopolitan framing, with two-way fixed effects on all 270 cells, is:</p>
+<div class="cell">
+<div id="tbl-noop-spec" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-noop-spec-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2
+</figcaption>
+<div aria-describedby="tbl-noop-spec-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<!-- preamble start -->
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_vix9ihdvaydj9t2rfnop = TinyTable.createTableFunctions("tinytable_vix9ihdvaydj9t2rfnop");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '6', j: 2 }, { i: '6', j: 3 }, { i: '6', j: 4 }, { i: '6', j: 5 }, { i: '6', j: 6 } ], css_id: 'tinytable_css_98h5y9buieu5kz8u6mz5',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '1', j: 4 }, { i: '2', j: 4 }, { i: '3', j: 4 }, { i: '4', j: 4 }, { i: '5', j: 4 }, { i: '1', j: 5 }, { i: '2', j: 5 }, { i: '3', j: 5 }, { i: '4', j: 5 }, { i: '5', j: 5 }, { i: '1', j: 6 }, { i: '2', j: 6 }, { i: '3', j: 6 }, { i: '4', j: 6 }, { i: '5', j: 6 } ], css_id: 'tinytable_css_rf31e0fmm0u94gx7kjhw',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 }, { i: '0', j: 5 }, { i: '0', j: 6 } ], css_id: 'tinytable_css_bwwryn1uy2z60fbo2ki4',}, 
+          { positions: [ { i: '6', j: 1 } ], css_id: 'tinytable_css_we9m0usi9wg1v7zsc2yy',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 } ], css_id: 'tinytable_css_6edxqocr5262i3p910w1',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_ftut2qejbo2ma1zvyqnz',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_vix9ihdvaydj9t2rfnop.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_vix9ihdvaydj9t2rfnop td.tinytable_css_98h5y9buieu5kz8u6mz5, #tinytable_vix9ihdvaydj9t2rfnop th.tinytable_css_98h5y9buieu5kz8u6mz5 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: right; font-size: 0.8em }
+    #tinytable_vix9ihdvaydj9t2rfnop td.tinytable_css_rf31e0fmm0u94gx7kjhw, #tinytable_vix9ihdvaydj9t2rfnop th.tinytable_css_rf31e0fmm0u94gx7kjhw { text-align: right; font-size: 0.8em }
+    #tinytable_vix9ihdvaydj9t2rfnop td.tinytable_css_bwwryn1uy2z60fbo2ki4, #tinytable_vix9ihdvaydj9t2rfnop th.tinytable_css_bwwryn1uy2z60fbo2ki4 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: right; font-size: 0.8em }
+    #tinytable_vix9ihdvaydj9t2rfnop td.tinytable_css_we9m0usi9wg1v7zsc2yy, #tinytable_vix9ihdvaydj9t2rfnop th.tinytable_css_we9m0usi9wg1v7zsc2yy {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; font-size: 0.8em }
+    #tinytable_vix9ihdvaydj9t2rfnop td.tinytable_css_6edxqocr5262i3p910w1, #tinytable_vix9ihdvaydj9t2rfnop th.tinytable_css_6edxqocr5262i3p910w1 { font-size: 0.8em }
+    #tinytable_vix9ihdvaydj9t2rfnop td.tinytable_css_ftut2qejbo2ma1zvyqnz, #tinytable_vix9ihdvaydj9t2rfnop th.tinytable_css_ftut2qejbo2ma1zvyqnz {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; font-size: 0.8em }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_vix9ihdvaydj9t2rfnop" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">Rule</th>
+                <th scope="col" data-row="0" data-col="2">b</th>
+                <th scope="col" data-row="0" data-col="3">t</th>
+                <th scope="col" data-row="0" data-col="4">df</th>
+                <th scope="col" data-row="0" data-col="5">p</th>
+                <th scope="col" data-row="0" data-col="6">aligned r</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">zero (Multi100)</td>
+                  <td data-row="1" data-col="2">−0.00347</td>
+                  <td data-row="1" data-col="3">−3.80</td>
+                  <td data-row="1" data-col="4">233</td>
+                  <td data-row="1" data-col="5">0.00018</td>
+                  <td data-row="1" data-col="6">−0.242</td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1">zero (Multi100)</td>
+                  <td data-row="2" data-col="2">−0.014</td>
+                  <td data-row="2" data-col="3">−4.08</td>
+                  <td data-row="2" data-col="4">232</td>
+                  <td data-row="2" data-col="5">6.3e−05</td>
+                  <td data-row="2" data-col="6">−0.258</td>
+                </tr>
+                <tr>
+                  <td data-row="3" data-col="1">drop (original paper)</td>
+                  <td data-row="3" data-col="2">−0.00466</td>
+                  <td data-row="3" data-col="3">−5.01</td>
+                  <td data-row="3" data-col="4">233</td>
+                  <td data-row="3" data-col="5">1.1e−06</td>
+                  <td data-row="3" data-col="6">−0.312</td>
+                </tr>
+                <tr>
+                  <td data-row="4" data-col="1">split</td>
+                  <td data-row="4" data-col="2">−0.00457</td>
+                  <td data-row="4" data-col="3">−4.94</td>
+                  <td data-row="4" data-col="4">233</td>
+                  <td data-row="4" data-col="5">1.5e−06</td>
+                  <td data-row="4" data-col="6">−0.308</td>
+                </tr>
+                <tr>
+                  <td data-row="5" data-col="1">imputed, mice</td>
+                  <td data-row="5" data-col="2">−0.0041</td>
+                  <td data-row="5" data-col="3">−4.69</td>
+                  <td data-row="5" data-col="4">228</td>
+                  <td data-row="5" data-col="5">4.7e−06</td>
+                  <td data-row="5" data-col="6">−0.297</td>
+                </tr>
+                <tr>
+                  <td data-row="6" data-col="1">imputed, Amelia</td>
+                  <td data-row="6" data-col="2">−0.00412</td>
+                  <td data-row="6" data-col="3">−4.73</td>
+                  <td data-row="6" data-col="4">228</td>
+                  <td data-row="6" data-col="5">4e−06</td>
+                  <td data-row="6" data-col="6">−0.299</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>: The published Multi100 specification of analyst C6HJR under each treatment of the respondents who mentioned nothing. {#tbl-noop-spec}</p>
+</section>
+<section id="multiple-imputation" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-imputation">Multiple imputation</h2>
+<p>Imputation replaces a rule with a model. Instead of deciding what the silent would have said, it estimates a distribution for each missing score from the respondent’s observed characteristics and draws from it, and it does so several times over so that the uncertainty of the guess is carried into the final standard error rather than hidden in a single filled-in number. <span class="citation" data-cites="Dong2013Principled">Dong and Peng (<a href="#ref-Dong2013Principled" role="doc-biblioref">2013</a>)</span> describe the three steps: fill the gaps m times to produce m complete datasets, analyse each with the model you would have run anyway, and combine the m results with the rules <span class="citation" data-cites="Rubin1987Imputation">Rubin (<a href="#ref-Rubin1987Imputation" role="doc-biblioref">1987</a>)</span> gave, under which the pooled estimate is the mean of the m estimates and its variance is the mean within-imputation variance plus the between-imputation variance inflated by a factor of 1 + 1/m. The between-imputation part is the price of not knowing, and a single imputation, which sets it to zero, understates every standard error it touches. How many imputations are enough depends on how much information is missing; <span class="citation" data-cites="Graham2007Many">Graham et al. (<a href="#ref-Graham2007Many" role="doc-biblioref">2007</a>)</span> show that the once-standard three to five are too few when the fraction of missing information is not small, and the course uses ten. The imputation model should carry every variable in the analysis model and anything else that predicts either the missing values or their missingness <span class="citation" data-cites="CollinsEtAl2001ComparisonInclusiveRestrictive Schafer2002View">(<a href="#ref-CollinsEtAl2001ComparisonInclusiveRestrictive" role="doc-biblioref">Collins et al. 2001</a>; <a href="#ref-Schafer2002View" role="doc-biblioref">Schafer and Graham 2002</a>)</span>, and it should not be <em>less</em> general than the analysis model, a condition <span class="citation" data-cites="Meng1994Imputation">Meng (<a href="#ref-Meng1994Imputation" role="doc-biblioref">1994</a>)</span> named congeniality and which is easy to violate here, since the imputation happens at respondent level and the analysis at cell level.</p>
+<p>Two engines are run on the case, because they come from different traditions and the course should show both. <strong>mice</strong> <span class="citation" data-cites="Buuren2011Mice">(<a href="#ref-Buuren2011Mice" role="doc-biblioref">Buuren and Groothuis-Oudshoorn 2011</a>)</span> imputes one variable at a time conditional on the others, cycling until the imputations settle, and the version used here draws each missing share from respondents with similar predicted values, which keeps every imputed score inside the range a bounded scale can take <span class="citation" data-cites="White2010Imputation">(<a href="#ref-White2010Imputation" role="doc-biblioref">White et al. 2010</a>)</span>. <strong>Amelia</strong> <span class="citation" data-cites="HonakerEtAl2011AmeliaIIProgram KingEtAl2001AnalyzingIncompletePolitical">(<a href="#ref-HonakerEtAl2011AmeliaIIProgram" role="doc-biblioref">Honaker et al. 2011</a>; <a href="#ref-KingEtAl2001AnalyzingIncompletePolitical" role="doc-biblioref">King et al. 2001</a>)</span> fits one multivariate normal model to all the variables at once by expectation maximisation with bootstrapping, the approach Gary King’s group developed for time-series cross-section data of exactly this shape <span class="citation" data-cites="HonakerKing2010WhatMissingValues">(<a href="#ref-HonakerKing2010WhatMissingValues" role="doc-biblioref">Honaker and King 2010</a>)</span>, and draws from that model; its draws can fall outside the unit interval and are clipped. Both condition on age, sex, education and the country and year of interview. Each of the ten completed respondent files is aggregated to country-year means and every one of the 1,560 estimand cells of the menu is fitted on each, then pooled.</p>
+<div class="cell">
+<div id="tbl-mi" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-mi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3
+</figcaption>
+<div aria-describedby="tbl-mi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<!-- preamble start -->
+
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
+    <script>
+      // Create table-specific functions using external factory
+      const tableFns_klps0rpu0vgz03s7sfja = TinyTable.createTableFunctions("tinytable_klps0rpu0vgz03s7sfja");
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: '2', j: 2 }, { i: '2', j: 3 }, { i: '2', j: 4 }, { i: '2', j: 5 } ], css_id: 'tinytable_css_bk89k39x3piso3vlh8dm',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '1', j: 3 }, { i: '1', j: 4 }, { i: '1', j: 5 } ], css_id: 'tinytable_css_v6y6jen1mj95p0mlm8s4',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 }, { i: '0', j: 5 } ], css_id: 'tinytable_css_m29n2pyvwlu9l4m8p0gq',}, 
+          { positions: [ { i: '2', j: 1 } ], css_id: 'tinytable_css_ww1y6lybakcfyw7jm7jn',}, 
+          { positions: [ { i: '1', j: 1 } ], css_id: 'tinytable_css_rogdqna166a1kevfbzwh',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_gpbp2jz6ujv7f8wx3d8f',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  tableFns_klps0rpu0vgz03s7sfja.styleCell(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
+    <style>
+    /* tinytable css entries after */
+    #tinytable_klps0rpu0vgz03s7sfja td.tinytable_css_bk89k39x3piso3vlh8dm, #tinytable_klps0rpu0vgz03s7sfja th.tinytable_css_bk89k39x3piso3vlh8dm {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: right; font-size: 0.8em }
+    #tinytable_klps0rpu0vgz03s7sfja td.tinytable_css_v6y6jen1mj95p0mlm8s4, #tinytable_klps0rpu0vgz03s7sfja th.tinytable_css_v6y6jen1mj95p0mlm8s4 { text-align: right; font-size: 0.8em }
+    #tinytable_klps0rpu0vgz03s7sfja td.tinytable_css_m29n2pyvwlu9l4m8p0gq, #tinytable_klps0rpu0vgz03s7sfja th.tinytable_css_m29n2pyvwlu9l4m8p0gq {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: right; font-size: 0.8em }
+    #tinytable_klps0rpu0vgz03s7sfja td.tinytable_css_ww1y6lybakcfyw7jm7jn, #tinytable_klps0rpu0vgz03s7sfja th.tinytable_css_ww1y6lybakcfyw7jm7jn {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; font-size: 0.8em }
+    #tinytable_klps0rpu0vgz03s7sfja td.tinytable_css_rogdqna166a1kevfbzwh, #tinytable_klps0rpu0vgz03s7sfja th.tinytable_css_rogdqna166a1kevfbzwh { font-size: 0.8em }
+    #tinytable_klps0rpu0vgz03s7sfja td.tinytable_css_gpbp2jz6ujv7f8wx3d8f, #tinytable_klps0rpu0vgz03s7sfja th.tinytable_css_gpbp2jz6ujv7f8wx3d8f {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; font-size: 0.8em }
+    </style>
+    <div class="container">
+      <table class="tinytable" id="tinytable_klps0rpu0vgz03s7sfja" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        
+        <thead>
+              <tr>
+                <th scope="col" data-row="0" data-col="1">Engine</th>
+                <th scope="col" data-row="0" data-col="2">b</th>
+                <th scope="col" data-row="0" data-col="3">t</th>
+                <th scope="col" data-row="0" data-col="4">df</th>
+                <th scope="col" data-row="0" data-col="5">Fraction of missing information</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td data-row="1" data-col="1">mice, predictive mean matching</td>
+                  <td data-row="1" data-col="2">−0.0041</td>
+                  <td data-row="1" data-col="3">−4.69</td>
+                  <td data-row="1" data-col="4">228</td>
+                  <td data-row="1" data-col="5">0.014</td>
+                </tr>
+                <tr>
+                  <td data-row="2" data-col="1">Amelia, EM with bootstrapping</td>
+                  <td data-row="2" data-col="2">−0.00412</td>
+                  <td data-row="2" data-col="3">−4.73</td>
+                  <td data-row="2" data-col="4">228</td>
+                  <td data-row="2" data-col="5">0.012</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>: The published specification under multiple imputation, pooled over ten imputations by Rubin’s rules. The fraction of missing information is the share of the coefficient’s uncertainty that is due to the silent respondents. {#tbl-mi}</p>
+<p>The two engines land close to one another and close to the drop rule, which is what should happen when the imputation model conditions on the same things that distinguish the silent from the rest: under missing at random, filling the gaps from people who look like them is a more careful version of leaving them out. The gap between the imputed rows and the zero row is the part of the published result that the zero convention supplied. That is a result about this case; <span class="citation" data-cites="Lall2016Imputation">Lall (<a href="#ref-Lall2016Imputation" role="doc-biblioref">2016</a>)</span> reanalysed thirty studies in comparative and international political economy with multiple imputation in place of listwise deletion and found that the main results of fourteen of them disappeared, because in that literature the missing cases were the poorer and less democratic countries and the analyses had been run, by default, on the rest. Where the missing are different from the observed on the thing being studied, the method of handling them is part of the finding.</p>
+</section>
+<section id="dont-know-as-an-answer" class="level2">
+<h2 class="anchored" data-anchor-id="dont-know-as-an-answer">“Don’t know” as an answer</h2>
+<p>Survey methodologists have argued for fifty years about whether a “don’t know” is missing data or a response. <span class="citation" data-cites="Francis1975Know">Francis and Busch (<a href="#ref-Francis1975Know" role="doc-biblioref">1975</a>)</span> reviewed the early evidence; <span class="citation" data-cites="Krosnick2001Impact">Krosnick et al. (<a href="#ref-Krosnick2001Impact" role="doc-biblioref">2001</a>)</span> showed experimentally that offering an explicit no-opinion option does not, in general, improve the quality of the answers that remain, because many who take it could have answered; and <span class="citation" data-cites="Luskin2011Know">Luskin and Bullock (<a href="#ref-Luskin2011Know" role="doc-biblioref">2011</a>)</span> found the reverse for factual knowledge, where “don’t know” mostly does mean not knowing. <span class="citation" data-cites="Kuha2018Effect">Kuha et al. (<a href="#ref-Kuha2018Effect" role="doc-biblioref">2018</a>)</span> distinguish three ways of asking, encouraging a “don’t know”, accepting one neutrally, and probing it with a follow-up, and show on European Social Survey data that probing halves the rate but changes the measurement properties of the answers it extracts, so that the survey has traded an error of omission for an error of commission; the ESS itself does not probe. Who says “don’t know” is not random either: <span class="citation" data-cites="Laurison2015WillingnessStateOpinion">Laurison (<a href="#ref-Laurison2015WillingnessStateOpinion" role="doc-biblioref">2015</a>)</span> finds the willingness to state an opinion patterned by class and education, which makes non-response on attitude items a form of inequality in whose views reach the data.</p>
+<p>For the case that literature cuts two ways. It supports treating a “don’t know” about the EU as non-response rather than as zero framing, which is the split rule and the imputation option. It also warns that a group defined by not answering is not exchangeable with the group that did, so the missing-at-random assumption behind imputation is exactly where a critic would press. The battery’s own “other” code is the small piece of good news: 3,642 people volunteered a meaning the list did not offer, and those answers are opinions, not gaps.</p>
+</section>
+<section id="sensitivity-to-the-assumption" class="level2">
+<h2 class="anchored" data-anchor-id="sensitivity-to-the-assumption">Sensitivity to the assumption</h2>
+<p>Nothing in the observed data can distinguish missing at random from missing not at random; <span class="citation" data-cites="Molenberghs2008Missingness">Molenberghs et al. (<a href="#ref-Molenberghs2008Missingness" role="doc-biblioref">2008</a>)</span> prove that for any model of the latter there is a model of the former that fits the observed data equally well. The response is not to choose one but to show what the conclusion depends on. The device here is a sensitivity band. Suppose every silent respondent would have scored what the answering respondents in their cell scored, plus some amount δ that is the same for all of them. Then each cell mean is the answered mean plus δ times the share of the cell that was silent, and the published specification can be refitted for any δ. Two values are already familiar: δ = 0 is the drop rule, and δ equal to minus the answered mean, about −0.53 here, is the zero rule.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-delta" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-delta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="missingness_files/figure-html/fig-delta-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-delta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The unemployment coefficient on cosmopolitan framing, two-way fixed effects, when every silent respondent is assigned the answered mean of their cell plus δ. Zero on the horizontal axis is the drop rule; the dashed line marks the δ that reproduces the zero rule.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The band makes the zero convention legible as what it is: the assumption that everyone who stayed silent would have scored the lowest value the scale allows, which is the most extreme missing-not-at-random assumption available, and the one that moves the result furthest in the claim’s direction. Whether any conclusion changes across the band is a fact about the case, read off the figure, and it is the fact that should accompany a result on these data. Reporting the missing-data treatment, the assumption it makes and the sensitivity of the result to that assumption is what <span class="citation" data-cites="Lee2021Framework">Lee et al. (<a href="#ref-Lee2021Framework" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="Sterne2009Imputation">Sterne et al. (<a href="#ref-Sterne2009Imputation" role="doc-biblioref">2009</a>)</span> ask for in observational research, and the proportion of missing data is not, on its own, the thing to report <span class="citation" data-cites="MadleyDowd2019Proportion">(<a href="#ref-MadleyDowd2019Proportion" role="doc-biblioref">Madley-Dowd et al. 2019</a>)</span>.</p>
+</section>
+<section id="what-to-take-away" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-take-away">What to take away</h2>
+<ul>
+<li>A respondent who mentioned nothing is one of three people, and the survey says which. Look for the codes before choosing a rule.</li>
+<li>The original paper and its reanalyses differ in this rule and neither states it; the recorded coefficient rests on the convention that the silent have zero framing.</li>
+<li>Zero, drop and split are not robustness variants of one estimate. They change whose framing the average describes.</li>
+<li>Imputation replaces a rule with a model and carries the uncertainty into the result; it assumes missingness at random given what it conditions on, and that assumption is where a critic will press.</li>
+<li>Show the band. A result that survives the range of defensible assumptions about the silent is a different kind of result from one that depends on the zero convention.</li>
+</ul>
+</section>
+<section id="exercise" class="level2">
+<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
+<ol type="1">
+<li>From <code>teney_panel_weights.csv</code>, plot the no-opinion rate against the unemployment rate across the 270 cells and describe the pattern in one sentence. Which mechanism does it rule out?</li>
+<li>Look up the shard for your preregistered estimand cell in <code>data/grid/</code> and compare its five no-opinion rows. Which rule is the zero rule closest to, and which furthest from?</li>
+<li>Rewrite the estimand sentence for the zero rule and for the drop rule. Which word changes?</li>
+</ol>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Buuren2011Mice" class="csl-entry" role="listitem">
+Buuren, Stef van, and Karin Groothuis-Oudshoorn. 2011. <span>“&lt;B&gt;mice&lt;/b&gt;: Multivariate Imputation by Chained Equations in&lt;i&gt;r&lt;/i&gt;.”</span> <em>Journal of Statistical Software</em> 45 (3). <a href="https://doi.org/10.18637/jss.v045.i03">https://doi.org/10.18637/jss.v045.i03</a>.
+</div>
+<div id="ref-CollinsEtAl2001ComparisonInclusiveRestrictive" class="csl-entry" role="listitem">
+Collins, L. M., J. L. Schafer, and C. M. Kam. 2001. <span>“A Comparison of Inclusive and Restrictive Strategies in Modern Missing Data Procedures.”</span> <em>Psychological Methods</em> 6: 330–51.
+</div>
+<div id="ref-Dong2013Principled" class="csl-entry" role="listitem">
+Dong, Yiran, and Chao-Ying Joanne Peng. 2013. <span>“Principled Missing Data Methods for Researchers.”</span> <em>SpringerPlus</em> 2 (1). <a href="https://doi.org/10.1186/2193-1801-2-222">https://doi.org/10.1186/2193-1801-2-222</a>.
+</div>
+<div id="ref-Francis1975Know" class="csl-entry" role="listitem">
+Francis, Joe D., and Lawrence Busch. 1975. <span>“What We Now Know about <span>‘i Don’t Knows’</span>.”</span> <em>Public Opinion Quarterly</em> 39 (2): 207. <a href="https://doi.org/10.1086/268217">https://doi.org/10.1086/268217</a>.
+</div>
+<div id="ref-Graham2007Many" class="csl-entry" role="listitem">
+Graham, John W., Allison E. Olchowski, and Tamika D. Gilreath. 2007. <span>“How Many Imputations Are Really Needed? Some Practical Clarifications of Multiple Imputation Theory.”</span> <em>Prevention Science</em> 8 (3): 206–13. <a href="https://doi.org/10.1007/s11121-007-0070-9">https://doi.org/10.1007/s11121-007-0070-9</a>.
+</div>
+<div id="ref-Groves2008Impact" class="csl-entry" role="listitem">
+Groves, R. M., and E. Peytcheva. 2008. <span>“The Impact of Nonresponse Rates on Nonresponse Bias: A Meta-Analysis.”</span> <em>Public Opinion Quarterly</em> 72 (2): 167–89. <a href="https://doi.org/10.1093/poq/nfn011">https://doi.org/10.1093/poq/nfn011</a>.
+</div>
+<div id="ref-Groves2006Nonresponse" class="csl-entry" role="listitem">
+Groves, Robert M. 2006. <span>“Nonresponse Rates and Nonresponse Bias in Household Surveys.”</span> <em>Public Opinion Quarterly</em> 70 (5): 646–75. <a href="https://doi.org/10.1093/poq/nfl033">https://doi.org/10.1093/poq/nfl033</a>.
+</div>
+<div id="ref-Hendra2018Rethinking" class="csl-entry" role="listitem">
+Hendra, Richard, and Aaron Hill. 2018. <span>“Rethinking Response Rates: New Evidence of Little Relationship Between Survey Response Rates and Nonresponse Bias.”</span> <em>Evaluation Review</em> 43 (5): 307–30. <a href="https://doi.org/10.1177/0193841x18807719">https://doi.org/10.1177/0193841x18807719</a>.
+</div>
+<div id="ref-HonakerKing2010WhatMissingValues" class="csl-entry" role="listitem">
+Honaker, J., and G. King. 2010. <span>“What to <span>Do</span> about <span>Missing Values</span> in <span>Time-Series Cross-Section Data</span>.”</span> <em>American Journal of Political Science</em> 54 (2): 561–81. <a href="https://doi.org/DOI 10.1111/j.1540-5907.2010.00447.x">https://doi.org/DOI 10.1111/j.1540-5907.2010.00447.x</a>.
+</div>
+<div id="ref-HonakerEtAl2011AmeliaIIProgram" class="csl-entry" role="listitem">
+Honaker, J., G. King, and M. Blackwell. 2011. <span>“Amelia <span>II</span>: <span>A Program</span> for <span>Missing Data</span>.”</span> <em>Journal of Statistical Software</em> 45 (7): 1–47.
+</div>
+<div id="ref-KingEtAl2001AnalyzingIncompletePolitical" class="csl-entry" role="listitem">
+King, Gary, James Honaker, Anne Joseph, and Kenneth Scheve. 2001. <span>“Analyzing <span>Incomplete Political Science Data</span>: <span>An Alternative Algorithm</span> for <span>Multiple Imputation</span>.”</span> <em>American Political Science Review</em> 95 (1): 49–69. <a href="https://doi.org/10.1017/S0003055401000235">https://doi.org/10.1017/S0003055401000235</a>.
+</div>
+<div id="ref-Krosnick2001Impact" class="csl-entry" role="listitem">
+Krosnick, Jon A., Allyson L. Holbrook, Matthew K. Berent, et al. 2001. <span>“The Impact of <span>‘No Opinion’</span> Response Options on Data Quality.”</span> <em>Public Opinion Quarterly</em> 66 (3): 371–403. <a href="https://doi.org/10.1086/341394">https://doi.org/10.1086/341394</a>.
+</div>
+<div id="ref-Kuha2018Effect" class="csl-entry" role="listitem">
+Kuha, Jouni, Sarah Butt, Myrsini Katsikatsou, and Chris J. Skinner. 2018. <span>“The Effect of Probing <span>‘Don’t Know’</span> Responses on Measurement Quality and Nonresponse in Surveys.”</span> <em>Journal of the American Statistical Association</em> 113 (521): 26–40. <a href="https://doi.org/10.1080/01621459.2017.1323640">https://doi.org/10.1080/01621459.2017.1323640</a>.
+</div>
+<div id="ref-Lall2016Imputation" class="csl-entry" role="listitem">
+Lall, Ranjit. 2016. <span>“How Multiple Imputation Makes a Difference.”</span> <em>Political Analysis</em> 24 (4): 414–33. <a href="https://doi.org/10.1093/pan/mpw020">https://doi.org/10.1093/pan/mpw020</a>.
+</div>
+<div id="ref-Laurison2015WillingnessStateOpinion" class="csl-entry" role="listitem">
+Laurison, Daniel. 2015. <span>“The <span>Willingness</span> to <span>State</span> an <span>Opinion</span>: <span>Inequality</span>, <span>Don</span>’t <span>Know Responses</span>, and <span>Political Participation</span>.”</span> <em>Sociological Forum</em> 30 (4): 925–48. <a href="https://www.jstor.org/stable/24878707">https://www.jstor.org/stable/24878707</a>.
+</div>
+<div id="ref-Lee2021Framework" class="csl-entry" role="listitem">
+Lee, Katherine J., Kate M. Tilling, Rosie P. Cornish, et al. 2021. <span>“Framework for the Treatment and Reporting of Missing Data in Observational Studies: The Treatment and Reporting of Missing Data in Observational Studies Framework.”</span> <em>Journal of Clinical Epidemiology</em> 134: 79–88. <a href="https://doi.org/10.1016/j.jclinepi.2021.01.008">https://doi.org/10.1016/j.jclinepi.2021.01.008</a>.
+</div>
+<div id="ref-Luskin2011Know" class="csl-entry" role="listitem">
+Luskin, Robert C., and John G. Bullock. 2011. <span>“<span>‘Don’t Know’</span> Means <span>‘Don’t Know’</span>: DK Responses and the Public’s Level of Political Knowledge.”</span> <em>The Journal of Politics</em> 73 (2): 547–57. <a href="https://doi.org/10.1017/s0022381611000132">https://doi.org/10.1017/s0022381611000132</a>.
+</div>
+<div id="ref-MadleyDowd2019Proportion" class="csl-entry" role="listitem">
+Madley-Dowd, Paul, Rachael Hughes, Kate Tilling, and Jon Heron. 2019. <span>“The Proportion of Missing Data Should Not Be Used to Guide Decisions on Multiple Imputation.”</span> <em>Journal of Clinical Epidemiology</em> 110: 63–73. <a href="https://doi.org/10.1016/j.jclinepi.2019.02.016">https://doi.org/10.1016/j.jclinepi.2019.02.016</a>.
+</div>
+<div id="ref-Meng1994Imputation" class="csl-entry" role="listitem">
+Meng, Xiao-Li. 1994. <span>“Multiple-Imputation Inferences with Uncongenial Sources of Input.”</span> <em>Statistical Science</em> 9 (4). <a href="https://doi.org/10.1214/ss/1177010269">https://doi.org/10.1214/ss/1177010269</a>.
+</div>
+<div id="ref-Molenberghs2008Missingness" class="csl-entry" role="listitem">
+Molenberghs, Geert, Caroline Beunckens, Cristina Sotto, and Michael G. Kenward. 2008. <span>“Every Missingness Not at Random Model Has a Missingness at Random Counterpart with Equal Fit.”</span> <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em> 70 (2): 371–88. <a href="https://doi.org/10.1111/j.1467-9868.2007.00640.x">https://doi.org/10.1111/j.1467-9868.2007.00640.x</a>.
+</div>
+<div id="ref-Rubin1976InferenceMissingData" class="csl-entry" role="listitem">
+Rubin, Donald B. 1976. <span>“Inference and <span>Missing Data</span>.”</span> <em>Biometrika</em> 63 (3): 581–92. <a href="https://doi.org/10.2307/2335739">https://doi.org/10.2307/2335739</a>.
+</div>
+<div id="ref-Rubin1987Imputation" class="csl-entry" role="listitem">
+Rubin, Donald B. 1987. <em>Multiple Imputation for Nonresponse in Surveys</em>. In <em>Wiley Series in Probability and Statistics</em>. Wiley. <a href="https://doi.org/10.1002/9780470316696">https://doi.org/10.1002/9780470316696</a>.
+</div>
+<div id="ref-Schafer2002View" class="csl-entry" role="listitem">
+Schafer, Joseph L., and John W. Graham. 2002. <span>“Missing Data: Our View of the State of the Art.”</span> <em>Psychological Methods</em> 7 (2): 147–77. <a href="https://doi.org/10.1037/1082-989x.7.2.147">https://doi.org/10.1037/1082-989x.7.2.147</a>.
+</div>
+<div id="ref-Sterne2009Imputation" class="csl-entry" role="listitem">
+Sterne, J. A C, I. R White, J. B Carlin, et al. 2009. <span>“Multiple Imputation for Missing Data in Epidemiological and Clinical Research: Potential and Pitfalls.”</span> <em>BMJ</em> 338 (jun29 1): b2393–93. <a href="https://doi.org/10.1136/bmj.b2393">https://doi.org/10.1136/bmj.b2393</a>.
+</div>
+<div id="ref-White2010Imputation" class="csl-entry" role="listitem">
+White, Ian R., Patrick Royston, and Angela M. Wood. 2010. <span>“Multiple Imputation Using Chained Equations: Issues and Guidance for Practice.”</span> <em>Statistics in Medicine</em> 30 (4): 377–99. <a href="https://doi.org/10.1002/sim.4067">https://doi.org/10.1002/sim.4067</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/codemoreh\.github\.io\/applied-replication\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="https://github.com/CodeMoreh/applied-replication">GitHub repo</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

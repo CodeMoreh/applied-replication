@@ -1,0 +1,82 @@
+---
+title: "Running the tracks"
+subtitle: "Facilitator notes on the six delivery formats, their decks, and what each one may drop"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    theme: cosmo
+---
+
+::: {.callout-note}
+**This page is for the facilitator.** It renders as part of the site but sits outside the navbar, so nothing on the site points at it. The track pages under `tracks/` are participant-facing and carry no instructor guidance; this page holds what was taken out of them, together with the notes on the variant decks. The [facilitator guide](guide.qmd) is the run sheet for the one-day replication format and is unchanged by any of this.
+:::
+
+## The six formats and their decks
+
+Every format is an ordered route through pages that already exist on the site, with a docked sidebar of its own (`_sidebar.yml`) and a slides page embedding the deck it runs on. The decks are assembled from one pool of slides: `slides/index.qmd` is the full deck, and the variants under `slides/` include the same segment files (`slides/_segments/`) in a different order, with their own agenda, aims and part-divider slides.
+
+| Format | Pages | Deck | Optional runs in the main flow |
+|---|---|---|---|
+| One day – open science and replication | `tracks/one-day-replication/` | `slides/one-day-replication.qmd`, the delivered deck as it stands | none; all four runs sit on the `d` toggle |
+| One day – social data science tools | `tracks/one-day-tools/` | `slides/one-day-tools.qmd` | the tools slides and the R tutorial |
+| One day – an introduction to the statistical methods | `tracks/one-day-methods/` | `slides/one-day-methods.qmd` | the methodological tutorial and the multiverse tutorial |
+| Three days | `tracks/three-days/` | `slides/three-days.qmd`, three day dividers, the workshop on day 2 in three parts | all four |
+| Semester | `tracks/semester/` | `slides/index.qmd`, the full deck | all four |
+| Self-study | `tracks/self-study/` | `slides/index.qmd`, the full deck | all four |
+
+**How the runs are switched.** Every slide of an optional run carries `.deepdive` and a `run` attribute in the segment files: `tools` (five slides in the Part 1 tools segment), `r` (the ten-slide R tutorial), `methods` (the twelve-slide methodological tutorial) and `multiverse` (the eight-slide multiverse tutorial). A deck lists the runs it carries in its main flow under `core-runs:` in its YAML, and `slides/core-runs.lua` strips the `.deepdive` mark from those headings, so `nav-tools.html` neither hides them on the `d` key nor badges them as optional. A run that is not listed behaves as it always has: optional, hidden in lean mode, with the escape-hatch link on its first slide.
+
+**Why no segment is included twice in one deck.** The segment files carry R chunks with labels, and knitr refuses a duplicate label, so each deck includes each segment at most once. That is why the three-day deck's day 2 has no methodological or multiverse tutorial: both move to day 3, where they are core. It is also why the two focused one-day decks each leave whole segments out rather than repeating a slide in two places.
+
+**Rebuilding a deck.** Edit the segment files for content, or the variant `.qmd` for order and framing, and render the deck on its own: `quarto render slides/one-day-tools.qmd`. The project render fails at its final move step on this machine, so decks are rendered one at a time.
+
+## The one-day replication format
+
+This is the format the [facilitator guide](guide.qmd) runs, and its compression ladder and never-cut list are there. In short: take time from a tutorial before you take it from a task, because the tasks are what the following part reads. Seven things stay in whatever else goes: the five-analyst forest with its software column, the estimand exercise in Part 2, the half-built graph and its adjustment set, the reproduction and the count that follows it, the Task 4 submission, the preregistration moment in Part 4, and the reveal of which fork carries the variation.
+
+A two-minute stretch sits between the five-analyst forest and the tools segment in Part 1, and another between the estimands run and the graphs in Part 2; neither is on the participant pages.
+
+## The tools-focused day
+
+The deck reorders the pool so that the toolchain gets Part 2 to itself and the R tutorial runs inside the day. What has moved, and what it costs:
+
+- **Part 1** carries the credibility talk, SCORE, Multi100 and the open-source slide, then the "what we use today" pair and Task 1. It is ten minutes lighter on talk than the replication day, and the setup task still runs into the break.
+- **Part 2** is the tools segment in full (all five optional slides in the main flow) followed by the ten-slide R tutorial, worked live in the workspace. The tutorial is the compressible part if Part 1 overran; the plain-text and render-pipeline slides are not.
+- **Part 3** is the paper, Lundberg's three steps, the DAG crash course and our own claim, then Task 2, the constrained-task slides and the Task 3 reproduction. The estimands run (the red-card strip, the four football estimands, the collapse of the spread) is not in this deck, and the DAG course should drop to confounder, mediator and paths if the reproduction is at risk. The reproduction waterfall stays.
+- **Part 4** is the menu, Task 4, the class-chart debrief, the critics and what preregistration settles, then the archiving segment (three addresses, the registered protocol, the two templates and the eight questions) before the declaration. The fork-importance reveal, the percentile beat and the inference literacy segment are not in this deck; if the room wants them, `g` reaches any slide in the full deck.
+
+The joining instructions for this format should ask people to do section 6 of the IDE module before the day, so that Part 2 is spent on what the tools are for rather than on whether they start.
+
+## The methods-focused day
+
+The deck keeps the DAG crash course, the methodological tutorial and the multiverse tutorial in the main flow and drops the tools segment, SCORE and the archiving segment.
+
+- **Part 1** is the credibility talk, the vocabulary slides (matrix, credibility is not truth, the quiz pair, open research), Multi100 from the inside and the "what we use today" pair, then Task 1. SCORE's three studies are not in this deck; the five-analyst forest still is, and it still sets up the day.
+- **Part 2** runs the paper, the estimands run, Lundberg, the DAG course in full and our own claim, with the R tutorial left optional. If the room is behind at the graph, take time from the paper's robustness-question slide, not from the estimand waterfall.
+- **Part 3** is the constrained task, the reproduction, the menu and the methodological tutorial in full, then Task 4. The tutorial is the point of the day; the compressible slides are the copredictor and weights slides.
+- **Part 4** opens with the multiverse tutorial in full, then the class chart, the bet and the fork-importance reveal, the percentile, the inference literacy segment with its discussion beat, the critics and preregistration, and the declaration. The archiving segment is not in this deck, so the mapping table for the AsPredicted questions is not on screen: put the [specification menu's preregistration section](../exercise/spec-menu.qmd) in the chat before Task 5.
+
+The joining instructions for this format should ask people to read sections 1 to 3 of the statistical-methods module and fit one model before the day.
+
+## Three days
+
+Day 1 is the part that compresses. A cohort that already writes R and renders documents keeps the setup check and the toolchain talk and runs the course over two days; a cohort that writes R but has never met Quarto keeps session 4 alone. Day 3 compresses by moving reading out of the room rather than by cutting topics: the later sections of the statistical-methods module, from the weights section onward, work well as reading between sessions.
+
+Day 2 does not compress. It is the one-day replication format minus what day 1 carried, and its never-cut list holds in full. In the three-day deck the workshop runs as three parts across the four sessions: the claim and its estimand across sessions 1 and 2, reproduction and exploration in session 3, multiverse and preregistration in session 4, with the tutorials moved to day 3.
+
+A group whose data are individual respondents can put [The individual level](../companion/individual-level.qmd) in place of the simulation half of session 4 on day 3. A group that will publish code together should give the git module a session of its own rather than the half-hour it shares with the repositories module.
+
+## Semester
+
+**What a participant has built.** By session 10 each person holds one rendered report containing a stated estimand and its causal graph, a reproduction of a published result, a preregistration written before the analysis ran, a declared specification with its two-sentence justification, and the result that came back, all of it in a repository that another person can clone and re-render. That artefact is the natural thing for a course to be assessed on; how it is weighted, marked or moderated is a matter for the programme that runs the track.
+
+**What compresses.** Sessions 6 and 7 carry the extension material, so a nine-week term drops one of them and folds the null-world section of the simulation module into session 10. Session 4 can be trimmed to sections 1 to 3 of the statistical-methods module, with fixed and random effects met on the workshop day instead. Sections 6 to 9 of that module are optional depth for the term rather than part of any session. Session 10 carries the most material of any session that is not the workshop day, so the conversion in section 10 of the statistical-methods module is the natural piece to set as reading before it meets. Session 3 shortens for a group that already writes Quarto, and session 2 for a group that already writes R, but do not drop both: the grammar-of-graphics part of the R module is what makes the class chart readable in session 9.
+
+**What must not be cut.** The reproduction in Task 3 and the declaration in Task 5 are the two ends of the whole exercise. The estimand and the graph in session 5 are what stop the specification menu reading as a list of arbitrary switches. And the preregistration has to be written before the analysis runs, in session 8 or on the day itself.
+
+**The deck on the day.** Session 9 runs on the full deck. Press `d` at the start to switch the optional runs off, then switch the multiverse tutorial back on when Part 4 reaches it (the escape-hatch link on its first slide, or `d` again), because the module behind it is session 10.
+
+## Self-study
+
+The self-study pages already carry their own compression notes, written to the participant, because nobody else is there to hold them. What the facilitator can still do for a self-study cohort is keep the live results pipeline running between deliveries, so that a dot submitted alone lands on the Multiverse page and the archived cohorts stay visible beside it (`facilitator/live-results-setup.md`).

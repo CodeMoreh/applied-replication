@@ -1,0 +1,24 @@
+engine,quantity,value
+mice_pmm,imputed respondents,26325
+mice_pmm,iterations,5
+mice_pmm,mean imputed cosmo,0.5731003746912579
+amelia_emb,mean imputed cosmo,0.5085056223699865
+mice_pmm,mean imputed util,0.08546694277548979
+amelia_emb,mean imputed util,0.14855664089332365
+mice_pmm,mean imputed comm,0.19018006423248587
+amelia_emb,mean imputed comm,0.26013898893235887
+mice_pmm,mean imputed lib,0.15140680687888666
+amelia_emb,mean imputed lib,0.19909387036428433
+mice_pmm,mean imputed pos,0.6585673174667477
+amelia_emb,mean imputed pos,0.6364581997260492
+mice_pmm,mean imputed neg,0.34158687111137254
+amelia_emb,mean imputed neg,0.451214208895146
+observed,mean observed cosmo,0.5337546213250988
+observed,mean observed util,0.10558856432136601
+observed,mean observed comm,0.20770935643704766
+observed,mean observed lib,0.15294745791648753
+observed,mean observed pos,0.6393431856464649
+observed,mean observed neg,0.36065681435353514
+mice_pmm,"mean four-part sum, imputed rows",1.0001541885781202
+amelia_emb,"mean four-part sum, imputed rows",1.1162951225599533
+amelia_emb,clipped draws share,0.24119183285849952

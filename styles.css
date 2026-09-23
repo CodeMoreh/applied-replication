@@ -54,3 +54,12 @@ table.schedule {
 .navbar-nav .nav-link:hover {
   color: #e0c080 !important;
 }
+
+/* Embedded slide decks on the track slides pages */
+iframe.slide-deck {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid #d0d7de;
+  border-radius: 4px;
+  background: #16202C;
+}

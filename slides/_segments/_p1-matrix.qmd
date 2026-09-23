@@ -1,0 +1,75 @@
+## The data $\times$ analysis matrix
+
+```{r}
+#| label: matrix
+#| fig-width: 12
+#| fig-height: 7
+repeatability_matrix()
+```
+
+::: {.src}
+@AlipourfardEtAl2021SystematizingConfidenceOpen; @NosekEtAl2025BriefGlossaryTerms
+:::
+
+::: notes
+Here is the whole framework on one slide, and if you take a single thing home today, make it this grid. The question stays the same throughout; what varies is the data and the analysis. Same data, same analysis – reproducibility: if I rerun your recipe, do I get your number? Same data but a different, justifiable analysis – robustness: does your finding survive my defensible choices? New data, same question – replicability. The fourth cell, new data and new analysis, is really generalisation, and we set it aside today. Sit with this for a moment – everything that follows this morning hangs off it.
+:::
+
+## Credibility is not truth
+
+::: {.scaled style="--fs: 0.9; --lh: 1.15"}
+**Repeatability** is used when referring to reproducibility, robustness, and replicability as a constellation of concepts intended to assess whether answers to scientific questions are unchanged when different steps of the research process are repeated.
+
+**Credibility** and **trustworthiness** refer to the confidence one can have in research findings. Because scientific knowledge claims are tentative, they are *not* synonymous with truth.
+
+For example, credibility is advanced by addressing potential competing interests in the conducting and reporting of research, by taking existing knowledge into account, by using methods that have been validated, by controlling for biases in the research context, by pursuing precise and reliable evidence, and by calibrating the strength of the claims to the uncertainty of the evidence.
+:::
+
+::: {.src}
+@NosekEtAl2025BriefGlossaryTerms
+:::
+
+::: notes
+The glossary is worth reading slowly, because it separates two things we routinely run together. Repeatability is the umbrella: reproducibility, robustness and replicability as a family, all asking whether the answer survives repeating some step of the process. Credibility and trustworthiness are about how much confidence a finding deserves – and note the sentence in the middle. Because scientific claims are tentative, credibility is not the same as truth. A credible finding can be wrong. What credibility is built from is the list at the bottom: declared interests, validated methods, precise evidence, and claims calibrated to the uncertainty behind them. That last one is the one we will keep coming back to.
+:::
+
+## Quick check: credibility in the wild {.questionslide transition="fade-in none-out"}
+
+::: {.none}
+You submit your paper and replication package. It goes out to reviewers.
+
+- 'Reviewer 1' wants to ensure that your results are [reproducible]{.fragment .bounceIn}, so she sources your R script to run the entire analysis. You're in luck – she hasn't yet updated her `dplyr`, so the code runs.
+- 'Reviewer 2' is very eager. He's unconvinced by your modelling choices, so he fits your data to another function to check if your findings are truly [robust]{.fragment .bounceIn}. You're in luck again – he recovers your point estimate to a reasonable precision, although the confidence intervals have widened.
+- 'Reviewer 3' takes a special interest because he's just working on a similar paper on data they published recently. Do your results [replicate]{.fragment .bounceIn} when your methods are applied to that state-of-the-art dataset?
+:::
+
+## Quick check: credibility in the wild {.questionslide transition="none-in fade-out"}
+
+::: {.none}
+You submit your paper and replication package. It goes out to reviewers.
+
+'Reviewer 2' just doesn't want to let go...
+
+- He tried a few alternative analyses of your data, including a fancy new regression method that he just released as an R package. His method gives results that are generally aligned to yours, but for the method to work, it would require a larger dataset; would your results really [generalise]{.fragment .bounceIn} to this new dataset published by 'Reviewer 3' that he just read about, if applying his new fancy method to it?
+:::
+
+## Open research: the practices {.smaller}
+
+::: {.small}
+| Practice | What it makes possible |
+|---|---|
+| **Open data** | Someone else can re-analyse your evidence |
+| **Open code** | Someone else can rerun your exact analysis |
+| **Open materials** | Someone else can run your study again |
+| **Open access** | Someone else can read the claim in the first place |
+| **Preregistration** | A dated record of the plan, before the results exist |
+| **Registered reports** | Peer review of the plan, with publication decided before results |
+:::
+
+::: {.fragment .small}
+Each one removes a specific obstacle. None of them is a general-purpose guarantee. The programme, set out at length: [@MunafoEtAl2017ManifestoReproducibleScience]
+:::
+
+::: notes
+So what does open research actually propose? Not a philosophy – a list of practices, and each one removes a specific, identifiable obstacle. Open data means someone else can re-analyse your evidence rather than taking your word for it. Open code means they can rerun your exact analysis. Open materials means they can run the study again in a new sample. Open access means they can read the thing at all, which sounds trivial until you try to get a paper from outside a wealthy university. Preregistration produces a dated record of the plan before the results exist. And registered reports go further: the plan is peer-reviewed and the publication decision is made before anyone sees a result, which removes the incentive to find something. Each removes one obstacle. None is a general guarantee, and I want to be clear about that before we get enthusiastic.
+:::

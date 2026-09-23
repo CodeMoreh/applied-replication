@@ -1,0 +1,147 @@
+---
+title: "Applied replication for data skills"
+subtitle: "One day – social data science tools"
+format: revealjs
+# Optional runs that this deck carries in its main flow (core-runs.lua
+# strips their .deepdive mark); the others stay on the d toggle.
+core-runs: [tools, r]
+---
+
+{{< include _segments/_setup.qmd >}}
+## {#today .darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.todaymeta}
+A full-day workshop · four parts · the tools in the foreground
+:::
+
+:::: {.todaybox}
+::: {.nonincremental}
+1. Credibility, and why it is a software problem – the crisis, the evidence, and five analysts who all shipped runnable code
+2. The toolchain – languages, editors, plain text, the render pipeline, packages, and a first session in R
+3. One claim in your hands – the paper, its estimand and its graph, then the reproduction to the third decimal
+4. Explore, declare, publish – the menu, a preregistered analysis, and where the work goes to live
+:::
+::::
+
+::: {.todaytake}
+You leave with: a working reproducible workspace · a reproduced result · a rendered report with a preregistration block · the map of the toolchain and where your own practice sits on it
+:::
+
+::: {.todaymeta}
+Work along in your IDE, or on the browser lab page – solo or in pairs
+:::
+
+::: notes
+Welcome. A full day in four parts of ninety minutes, and this version of it keeps the tools in the foreground. The first part is the why: what a claim is for, why people say social science is in trouble, and the evidence – ending on five analysts of one claim who disagreed but whose work could be checked because every one of them shipped a readable, runnable document. The second part is the toolchain proper, walked slowly rather than in eighteen minutes, and a first session in R. The third part puts one published claim in your hands and has you reproduce a recorded result exactly. The fourth is where you explore, declare one analysis before running it, and learn where a finished piece of work is archived and registered so that someone else can find it.
+:::
+
+## Two kinds of aim {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {.small}
+**What I want you to understand**
+
+- What reproducibility, robustness and replicability each mean, and why they come apart
+- Why plain text, a render step and a version history are what make an analysis checkable
+- What an IDE, a document format and a package layer each do, and what none of them can do
+- Why five analysts of one claim disagreed, and what made that disagreement diagnosable
+- What preregistration settles, and what archiving and registering a reanalysis adds
+:::
+:::
+::: {.column width="50%"}
+::: {.small}
+**What I want you to be able to do**
+
+- Set up and drive a reproducible workspace in the IDE of your choice
+- Read a data frame, a pipe, a model formula and a rendered document, and write each of them
+- Reproduce a published result to the third decimal from someone else's materials
+- Vary a specification deliberately and report what changed
+- Declare an analysis before you run it, render the report that carries it, and know where it would be deposited
+:::
+:::
+::::
+
+::: notes
+Two columns again, because the day has two kinds of aim. The left-hand column is conceptual, and today most of it is about what the tools are for rather than which one to pick: why plain text survives, why a render step matters, why a version history is a scientific instrument and not an administrative one. The right-hand column is what you will have done with your own hands by the end: a workspace you can drive, a result you reproduced, a report you rendered, and a declaration you wrote before the analysis ran.
+:::
+
+{{< include _segments/_opening-noaims.qmd >}}
+# PART 1 – Credibility as a software problem {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Part 1 · 90 minutes
+:::
+
+::: notes
+Part one. We start with what science is for and why anyone thinks it is in trouble, then the evidence from the three big reproducibility studies, and we end inside the one I took part in – five analysts of the same claim. Keep an eye on the labels of that last chart: every one of those five shipped a document that could be run, and that is the bridge into the toolchain after the break.
+:::
+
+{{< include _segments/_p1-credibility.qmd >}}
+{{< include _segments/_p1-matrix.qmd >}}
+{{< include _segments/_p1-score.qmd >}}
+{{< include _segments/_p1-multi100.qmd >}}
+{{< include _segments/_p1-opensource.qmd >}}
+{{< include _segments/_p1-today-tools.qmd >}}
+{{< include _segments/_p1-handson1.qmd >}}
+{{< include _segments/_break1.qmd >}}
+# PART 2 – The toolchain {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Part 2 · 90 minutes
+:::
+
+::: notes
+Part two is the toolchain, and today we take it slowly. First the map – something to analyse with, somewhere to write it, and the part people skip, publishing and sharing. Then each layer in turn: languages and editors, plain text and what rendering does, the package layer, version control, archives and licences. And then a first session in R, in the workspace you opened before the break, because the rest of the day is written in it.
+:::
+
+{{< include _segments/_p1-tools.qmd >}}
+{{< include _segments/_p2-rtutorial.qmd >}}
+## Lunch {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+An hour – the return time is in the chat · lunchtime browsing, if you like: the exercise overview
+:::
+
+::: notes
+Lunch – a full hour. When we come back the tools go into the background and one published claim comes to the front: the paper, its estimand and its graph, and then the reproduction.
+:::
+
+# PART 3 – One claim in your hands {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Part 3 · 90 minutes
+:::
+
+::: notes
+Part three. The paper we spend the day inside, in full; what the claim is an estimate of, and the graph that says what has to be held constant; then you become analyst number six and reproduce the value on record to the third decimal. The estimand and the graph are what stop the afternoon's choices from being arbitrary, so we do not skip them even on a tools day.
+:::
+
+{{< include _segments/_p2-paper.qmd >}}
+{{< include _segments/_p2-lundberg.qmd >}}
+{{< include _segments/_p2-dags.qmd >}}
+{{< include _segments/_p2-ourclaim.qmd >}}
+{{< include _segments/_p2-handson2.qmd >}}
+{{< include _segments/_p3-task2.qmd >}}
+{{< include _segments/_p3-handson3.qmd >}}
+{{< include _segments/_p3-onenumber.qmd >}}
+{{< include _segments/_break2.qmd >}}
+# PART 4 – Explore, declare, publish {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Part 4 · 90 minutes
+:::
+
+::: notes
+Part four. The menu of choices you could have made instead, and a run of exploration with your dot landing on the class chart; then the one analysis you would defend, declared before it runs; and then the part that most courses leave out – where the finished work goes: the archive, the fork, the registration, and what a version history and a licence each contribute to someone being able to find and re-run what you did.
+:::
+
+{{< include _segments/_p3-menu.qmd >}}
+{{< include _segments/_p3-handson4.qmd >}}
+{{< include _segments/_p4-built.qmd >}}
+{{< include _segments/_p4-classchart.qmd >}}
+{{< include _segments/_p4-critics-prereg.qmd >}}
+{{< include _segments/_p4-archiving.qmd >}}
+{{< include _segments/_p4-moment.qmd >}}
+{{< include _segments/_p4-close.qmd >}}
+{{< include _segments/_references.qmd >}}

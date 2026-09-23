@@ -1,0 +1,15 @@
+## Hands-on 3: reproduce the recorded result {.smaller}
+
+::: {.small}
+- **Task 3** in your workspace or in the browser lab – the constrained specification: outcome `mcosmo`, unemployment centred, country and year fixed effects
+- One dataset, one object: `EUframes_cy.csv`, loaded as `euframes`
+- The cell has gaps to fill; there are two hints and a full solution if you want them
+:::
+
+::: {.fragment}
+Target: **t = −3.804** – the value on record for analyst C6HJR. When you have it, type your t in chat and hold it until I say "go".
+:::
+
+::: notes
+Now you work. Open the working script in your workspace and go to Task three, or the browser lab, same task number. It is a fill-the-gaps cell rather than a blank page: centre the unemployment rate on its grand mean, then fit the two-way fixed-effects model with fixest. There are two hints if you want them and a fully worked solution underneath, and using either is not cheating – the point of this task is the number at the end, not the typing. You should land on t equals minus three point eight zero four, which is what Multi100 has on record for me. When you have it, type the t into chat but do not send – when I say "go", everyone sends at once. Twenty minutes. [Wait for the wall of identical numbers.]
+:::

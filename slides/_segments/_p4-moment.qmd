@@ -1,0 +1,36 @@
+## THE PREREGISTRATION MOMENT
+
+::: {.none}
+1. Open the preregistration block in your report
+2. Complete fields 1–5 – claim · data-in-hand · your one specification · DAG sentence · support/undermine rule
+3. **Render**, or on the browser lab page save the completed block into your script
+4. Type **"declared"** in chat – then wait for the room
+:::
+
+::: {.fragment}
+Nobody runs a model until the room is declared.
+:::
+
+::: notes
+This is the moment that the day is named after, and we do it synchronously, because a thing that the whole room does at once sticks in a way that an instruction does not. Open Task 5. Fill in the five fields: the claim, the data-in-hand statement, your one specification across the eight axes, the one-sentence justification that your graph gives you, and the rule – written now, before any result – for what would support the claim and what would undermine it. Render the report; the rendered file with its timestamp is your record, exactly like the frozen snapshot of a real registration. On the browser lab page, save the completed block into your script. Then type "declared" in chat, and wait. [count them in aloud: "eight declared… twelve…"] Nobody runs anything until the room is in. And if you now want to declare the same specification you already explored before the break – that is allowed, and you should say so in the block. Declaring something you have already seen is not preregistration, and being able to tell the difference is the point.
+:::
+
+## Run it – then watch the chart {.smaller}
+
+::: {.small}
+- **Task 5** – run your declared specification, and only that one
+- `report_result()` prints a one-click link with your numbers already in it – click, submit
+- Your dot joins the **Multiverse** page as a *declared* result, beside the exploratory ones from before the break
+:::
+
+::: {.fragment .small}
+Watch what the two waves look like together. If the declared cloud sits systematically to one side of the exploratory cloud, that is worth a conversation.
+:::
+
+::: {.fragment .small}
+Stuck? Chat "STUCK" · reload and rerun · second browser · follow my screen · last resort: the grid lookup on the menu page gives you your numbers by hand
+:::
+
+::: notes
+Go. Run the specification you declared, just that one, and when the numbers are in front of you call report underscore result: it prints a link with your values already filled in, one click and you have submitted. Your dot joins the chart as a declared result, and it lands beside the exploratory dots that the room put up before the break. Watch the two waves together, because there is something worth seeing. If the declared cloud sits systematically to one side of the exploratory cloud, that tells you something about what people chose to commit to once they had seen the alternatives, and it is worth a conversation. If anything misbehaves: type STUCK in chat and work down the ladder on the cheatsheet. And if your machine is truly finished for the day, the menu page shows you how to read the numbers for your specification straight off the published grid. Everybody lands a dot, no exceptions.
+:::

@@ -1,0 +1,217 @@
+---
+title: "Binary outcomes"
+subtitle: "Intermediate – one item of the battery as the outcome: logit, probit, and what a coefficient is worth"
+bibliography: [../references.bib, ../references-new.bib]
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(dplyr)
+library(tidyr)
+library(readr)
+library(ggplot2)
+library(tinytable)
+
+prev  <- read_csv("_model-outputs/items_glm_prevalence.csv", show_col_types = FALSE)
+coefs <- read_csv("_model-outputs/items_glm_coefficients.csv", show_col_types = FALSE)
+ame   <- read_csv("_model-outputs/items_glm_ame.csv", show_col_types = FALSE)
+inter <- read_csv("_model-outputs/items_glm_interaction.csv", show_col_types = FALSE)
+rnd_file <- "_model-outputs/items_glm_random.csv"
+rnd <- if (file.exists(rnd_file)) read_csv(rnd_file, show_col_types = FALSE) else NULL
+
+pct <- \(x, d = 1) sprintf(paste0("%.", d, "f%%"), 100 * x)
+num <- \(x, d = 3) gsub("-", "−", formatC(x, digits = d, format = "f"), fixed = TRUE)
+big <- \(x) format(x, big.mark = ",")
+pv  <- \(it, by, grp) prev$share[prev$item == it & prev$by == by & prev$group == grp]
+co  <- \(it, link, term, what = "estimate", vc = "conventional")
+  coefs[[what]][coefs$item == it & coefs$link == link & coefs$term == term & coefs$vcov == vc]
+am  <- \(it, link, contrast) ame$estimate[ame$item == it & ame$link == link & ame$contrast == contrast]
+n_resp <- prev$n[prev$item == "it9" & prev$by == "year"] |> sum()
+```
+
+This module of the [companion curriculum](index.qmd) fits the simplest generalised linear model there is, a model for a yes-or-no outcome, on the simplest outcome the course has: one item of the question that asks what the European Union means to the respondent personally. Every framing scale on the specification menu is built from thirteen such items, so an item is the rung of the data ladder below every scale, and a model for one item is the building block under everything the [statistics module](stats-methods.qmd) fits to the scales and the [items module](measurement.qmd) says about how they hang together. Two items carry the page: "Unemployment", the answer that shares its content with the predictor of the whole case, and "Peace", the most-named positive answer.
+
+Everything here was fitted on the real respondents, the `r big(n_resp)` people in the file that the workspace's build script produces from the sixteen GESIS surveys, and written out as the aggregate tables that the page reads; the [respondent codebook](../data/eb_respondents_codebook.md) describes the variables. The script that fitted them, `companion/_model-outputs/fit_items_glm.R`, runs on that file, so anyone who has built it can refit every model on this page. The module assumes the [R module](intro-r.qmd) and section 2 of the statistics module, the first linear model; nothing else.
+
+## 1. A yes-or-no outcome {#sec-outcome}
+
+A respondent either named "Unemployment" as something the EU means to them or did not. The outcome is 0 or 1, and what a model can say about it is the probability of a 1: for a respondent of a given kind, how likely is it that unemployment is among the things the EU means to them, and how does that likelihood differ between kinds of respondent and between country-years.
+
+A linear model can be fitted to a 0/1 outcome, and often is: the linear probability model. Its coefficients are differences in probability, which is the easiest scale to read, and with a large sample and probabilities away from the edges it does little harm. It has two well-known faults. Its predicted probabilities can fall below 0 or above 1, because a straight line has no floor or ceiling; and its errors cannot have constant variance, because a 0/1 variable with probability *p* has variance *p*(1 − *p*), which changes with *p*. The generalised linear model repairs both by modelling not the probability but a transformation of it that runs over the whole real line, and letting the estimator know that the outcome is binary. The two transformations in common use are the logit, the log of the odds *p*/(1 − *p*), and the probit, the point on a standard normal distribution below which a share *p* of the area lies. A coefficient in a logit model is a difference in log-odds; in a probit model, a difference in standard-normal units. Neither is a probability, and section 5 is about getting back to one.
+
+## 2. Who names unemployment, and when {#sec-prevalence}
+
+The two items differ in level and in who names them. "Peace" is named by about `r pct(mean(prev$share[prev$item == "it1" & prev$by == "year"]))` of respondents across the ten years and "Unemployment" by about `r pct(mean(prev$share[prev$item == "it9" & prev$by == "year"]))`, and both move with the education of the respondent, in opposite directions.
+
+```{r}
+#| label: tbl-prev-edu
+#| tbl-cap: "Share of respondents naming each item, by education band. Bands are the published ones, from the age at which full-time education finished."
+prev |>
+  filter(by == "education") |>
+  mutate(group = factor(group, c("low", "mid", "high"))) |>
+  arrange(item, group) |>
+  transmute(Item = label, Education = as.character(group), `Named by` = pct(share), Respondents = big(n)) |>
+  tt()
+```
+
+The low-educated name unemployment almost twice as often as the high-educated, `r pct(pv("it9", "education", "low"))` against `r pct(pv("it9", "education", "high"))`, and the high-educated name peace more often than the low-educated, `r pct(pv("it1", "education", "high"))` against `r pct(pv("it1", "education", "low"))`. Those two differences are the raw material of the paper's second hypothesis, that the high-educated frame the EU more positively and less negatively, before any model has been fitted.
+
+```{r}
+#| label: fig-prev-year
+#| fig-width: 7
+#| fig-height: 3.2
+#| fig-cap: "Share of respondents naming each item, by fieldwork year, across the twenty-seven member states."
+prev |>
+  filter(by == "year") |>
+  mutate(year = as.integer(group)) |>
+  ggplot(aes(year, share, colour = label)) +
+  geom_line(linewidth = 0.9) +
+  geom_point(size = 1.8) +
+  scale_colour_manual(values = c(Peace = "#0e3b6a", Unemployment = "#96131b"), name = NULL) +
+  scale_x_continuous(breaks = 2004:2013) +
+  scale_y_continuous(labels = \(x) paste0(100 * x, "%"), limits = c(0, NA)) +
+  labs(x = NULL, y = "named by") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "top", panel.grid.minor = element_blank())
+```
+
+Over time the two items move as the decade did. "Unemployment" falls from `r pct(pv("it9", "year", "2004"))` in 2004 to `r pct(pv("it9", "year", "2008"))` in 2008, the last year before the crisis reached the labour market, and climbs back to `r pct(pv("it9", "year", "2013"))` by 2013. "Peace" declines from `r pct(pv("it1", "year", "2004"))` to `r pct(pv("it1", "year", "2011"))` in 2011. That the item which names the predictor of the case tracks the predictor so visibly is one reason the specification menu offers an item set without it.
+
+## 3. Logit and probit, side by side {#sec-links}
+
+The same right-hand side under both links: the three education bands, age, sex, the eight occupational groups and the three types of community, which is the respondent-level part of the published models. The coefficients are on different scales and the table shows them next to each other.
+
+```{r}
+#| label: tbl-links
+#| tbl-cap: "Logit and probit coefficients for naming 'Unemployment', conventional standard errors, selected terms. The reference categories are the lowest education band, men, manual workers and large towns. The last column is the logit coefficient over the probit coefficient."
+coefs |>
+  filter(item == "it9", vcov == "conventional",
+         term %in% c("edu3mid", "edu3high", "age_c", "female", "sesunemployed", "sesstudent", "sesretired")) |>
+  select(term, link, estimate, se) |>
+  pivot_wider(names_from = link, values_from = c(estimate, se)) |>
+  mutate(term = recode(term, edu3mid = "education: mid", edu3high = "education: high", age_c = "age (years, centred)",
+                       female = "female", sesunemployed = "unemployed", sesstudent = "student", sesretired = "retired"),
+         ratio = estimate_logit / estimate_probit) |>
+  transmute(Term = term, `Logit b` = num(estimate_logit), `(SE)` = num(se_logit),
+            `Probit b` = num(estimate_probit), `(SE) ` = num(se_probit), `Logit / probit` = num(ratio, 2)) |>
+  tt()
+```
+
+Two things are visible at once. The two links order and sign every coefficient identically, and each logit coefficient is about 1.6 to 1.8 times its probit twin, which is the known ratio between the scales of the logistic and the normal distributions: the choice of link changes the yardstick and not the finding. The other is the sizes. Being in the highest education band rather than the lowest lowers the log-odds of naming unemployment by `r num(abs(co("it9", "logit", "edu3high")))`, which is an odds ratio of `r num(exp(co("it9", "logit", "edu3high")), 2)`: the odds of naming it are about half. Being unemployed oneself raises the log-odds by `r num(co("it9", "logit", "sesunemployed"))`, an odds ratio of `r num(exp(co("it9", "logit", "sesunemployed")), 2)`; being a student lowers them by more than being unemployed raises them. Odds ratios are the conventional way of reporting a logit, and they are exact and portable. They are also hard to picture, because a doubling of small odds and a doubling of large odds are very different changes in probability, which is why the next section converts them.
+
+## 4. The cluster {#sec-cluster}
+
+The standard errors in the table above assume that the `r big(n_resp)` respondents are independent draws. They are not: they sit in 270 country-years, and respondents in the same country-year share a survey, a moment and a labour market. The [statistics module](stats-methods.qmd#sec-pooled) makes the same point for the panel; here it is made for a binary outcome, by refitting the logit with standard errors clustered by country-year.
+
+```{r}
+#| label: tbl-cluster
+#| tbl-cap: "The logit for 'Unemployment' under conventional and cluster-robust standard errors (clusters are country-years). The coefficients are identical; only the standard errors and the z statistics move."
+coefs |>
+  filter(item == "it9", link == "logit",
+         term %in% c("edu3mid", "edu3high", "age_c", "female", "sesunemployed")) |>
+  select(term, vcov, estimate, se, z) |>
+  mutate(term = recode(term, edu3mid = "education: mid", edu3high = "education: high", age_c = "age (years, centred)",
+                       female = "female", sesunemployed = "unemployed"),
+         vcov = if_else(vcov == "conventional", "conventional", "clustered")) |>
+  pivot_wider(names_from = vcov, values_from = c(se, z)) |>
+  transmute(Term = term, b = num(estimate), `SE, conventional` = num(se_conventional), `z` = num(z_conventional, 1),
+            `SE, clustered` = num(se_clustered), `z ` = num(z_clustered, 1)) |>
+  tt()
+```
+
+The standard error of the high-education coefficient nearly triples once the clustering is admitted, and its z statistic falls from `r num(co("it9", "logit", "edu3high", "z"), 1)` to `r num(co("it9", "logit", "edu3high", "z", "clustered by country-year"), 1)`. Nothing here stops being significant, because the education gap is large and consistent across cells, but the conventional errors were overstating the precision by a factor that a predictor varying only at the cell level would turn into a real mistake. Section 6 shows that predictor. The other answer to the cluster is to model it, with a random intercept for the country-year, and section 7 does that.
+
+## 5. From coefficients to probabilities {#sec-ame}
+
+A coefficient on the link scale answers "by how much does the log-odds change"; the question a reader has is "by how many percentage points does the probability change". The average marginal effect answers it: for every respondent, the change in predicted probability that the model implies for a change in one variable, averaged over the respondents as they are.
+
+```{r}
+#| label: tbl-ame
+#| tbl-cap: "Average marginal effects on the probability of naming each item, from the logit and from the probit, averaged over a random fifty thousand respondents; standard errors clustered by country-year. Education contrasts are against the lowest band."
+ame |>
+  mutate(term = case_when(contrast == "high - low" ~ "education: high vs low",
+                          contrast == "mid - low"  ~ "education: mid vs low",
+                          term == "female"         ~ "female vs male",
+                          TRUE                     ~ "age, per year"),
+         item = if_else(item == "it9", "Unemployment", "Peace")) |>
+  select(item, term, link, estimate, se) |>
+  pivot_wider(names_from = link, values_from = c(estimate, se)) |>
+  transmute(Item = item, Term = term,
+            `Logit, points` = num(100 * estimate_logit, 2), `(SE)` = num(100 * se_logit, 2),
+            `Probit, points` = num(100 * estimate_probit, 2), `(SE) ` = num(100 * se_probit, 2)) |>
+  tt()
+```
+
+The two links now agree to the second decimal, which is the practical resolution of the logit-or-probit question: on the probability scale they say the same thing. And the numbers are the ones the prevalence table already showed, adjusted for age, sex, occupation and community: a high-educated respondent is `r num(100 * abs(am("it9", "logit", "high - low")), 1)` percentage points less likely to name unemployment than a low-educated one of the same age, sex, occupation and community, and `r num(100 * am("it1", "logit", "high - low"), 1)` points more likely to name peace. Reporting a binary model this way, in points of probability with the model's own uncertainty, is what the [quantitative writing register](../resources.qmd) of the course asks for, because it is what a reader can weigh.
+
+## 6. The national unemployment rate on a single item {#sec-macro}
+
+The case's predictor is the unemployment rate of the country in the year, and it can be put on an item as it is put on a scale. Two ways to do it are shown, and they disagree in the way that the panel models of the statistics module disagree. Pooled, with errors clustered by country-year, the coefficient compares countries with one another. With country and year fixed effects it compares each country with itself over time, net of what all countries share in a year.
+
+```{r}
+#| label: tbl-macro
+#| tbl-cap: "The centred national unemployment rate on the log-odds of naming each item, with the respondent characteristics of section 3, pooled and with country and year fixed effects; standard errors clustered by country-year."
+inter |>
+  filter(term == "unemp_c") |>
+  mutate(item = if_else(item == "it9", "Unemployment", "Peace")) |>
+  transmute(Item = item, Model = model, b = num(estimate, 4), SE = num(se, 4), z = num(z, 2), p = signif(p, 2)) |>
+  tt()
+```
+
+For "Unemployment" the pooled comparison finds almost nothing, `r num(inter$estimate[inter$item == "it9" & inter$term == "unemp_c" & grepl("pooled", inter$model)], 3)` on the log-odds per point of unemployment; the within-country comparison finds `r num(inter$estimate[inter$item == "it9" & inter$term == "unemp_c" & grepl("fixed", inter$model)], 3)`, about a six per cent rise in the odds of naming unemployment for every point the national rate rises above its own average. Countries with high unemployment do not name unemployment more than countries with low unemployment; years of rising unemployment name it more than years of falling unemployment within the same country. That is the between-and-within distinction of [section 5 of the statistics module](stats-methods.qmd#sec-re), on one item and a binary outcome. For "Peace" the sign is negative under both designs and smaller within countries, which is the pattern the scales built from these items inherit.
+
+## 7. The education gap and the rate together {#sec-interaction}
+
+The paper's second hypothesis says that the high-educated respond to unemployment more strongly than the low-educated, and the [individual-level module](individual-level.qmd#sec-claim2) tests it on the scales. On a single item the test is a product term, education band times the unemployment rate, and the table gives it under both designs.
+
+```{r}
+#| label: tbl-interaction
+#| tbl-cap: "Education × unemployment on the log-odds of naming each item, pooled and with fixed effects. The interaction terms are the difference between the band's unemployment slope and the lowest band's."
+inter |>
+  filter(grepl(":", term)) |>
+  mutate(item = if_else(item == "it9", "Unemployment", "Peace"),
+         term = if_else(grepl("high", term), "high × unemployment", "mid × unemployment")) |>
+  transmute(Item = item, Model = model, Term = term, b = num(estimate, 4), SE = num(se, 4), z = num(z, 2), p = signif(p, 2)) |>
+  tt()
+```
+
+On these two items the interaction is not there: no product term reaches conventional significance under either design, and the fixed-effects estimates sit at zero. The education gap in naming unemployment is large and stable; it does not widen or narrow as the national rate moves. That is one item. The hypothesis is about the scales, which sum items with different prevalences and different movements, and the individual-level module reports what happens there, under the paper's own design and under fixed effects, and under both rules for the respondents who named nothing. The lesson for the ladder is that a result on a scale is a sum of results on items that need not each carry it, which is the reason for looking one rung down before believing a coefficient one rung up.
+
+## 8. A random intercept for the cluster {#sec-random}
+
+The other treatment of the cluster is to give each country-year, and each country, its own intercept, drawn from a distribution whose spread the model estimates: the multilevel logit, which is the binary-outcome form of the models in [section 6 of the statistics module](stats-methods.qmd#sec-multilevel). It is fitted here with glmmTMB, which took about twenty-five minutes on the four hundred thousand rows with the full covariate set; the older lme4 routine takes several times as long on the same model.
+
+```{r}
+#| label: tbl-random
+#| echo: false
+#| tbl-cap: "Multilevel logit for 'Unemployment': respondents in country-years in countries, with the respondent characteristics and the education × unemployment interaction. Fixed effects, selected terms, and the standard deviations of the two random intercepts."
+if (is.null(rnd)) {
+  cat("The random-intercept fit had not finished when this page was rendered; rerun fit_items_glm.R and re-render.")
+} else {
+  rnd |>
+    filter(part == "random" | term %in% c("unemp_c", "edu3mid", "edu3high", "unemp_c:edu3mid", "unemp_c:edu3high", "sesunemployed")) |>
+    mutate(term = recode(term, unemp_c = "unemployment (centred)", edu3mid = "education: mid", edu3high = "education: high",
+                         `unemp_c:edu3mid` = "mid × unemployment", `unemp_c:edu3high` = "high × unemployment",
+                         sesunemployed = "unemployed")) |>
+    transmute(Part = part, Term = term, Estimate = num(estimate, 4),
+              SE = if_else(is.na(se), "", num(se, 4)), z = if_else(is.na(z), "", num(z, 2))) |>
+    tt()
+}
+```
+
+The variance components say how much of the variation in naming unemployment sits between countries and between country-years once the respondent characteristics are in the model; the fixed effects say the same thing as section 6 with the cluster modelled rather than corrected for. Which of the two treatments to prefer is the question the statistics module's multilevel section takes up, and the answer does not change with the link.
+
+## 9. Where this leads {#sec-next}
+
+A scale is a sum or a share of items like these, and the [data management module](data-management.qmd#sec-scoring) builds the three scoring rules from them. Once summed, the outcome is bounded and lumpy rather than binary, and the statistics module's [bounded-outcomes section](stats-methods.qmd#sec-glm) fits the second member of the same family, the beta regression, to it. The two pages are the same idea at two rungs: a link that keeps predictions inside the range the outcome can take, and a conversion back to the scale a reader can weigh.
+
+::: {.callout-tip}
+## Try it
+
+If you have built the respondent file, open `companion/_model-outputs/fit_items_glm.R` and change the two items to "Waste of money" (`it11`) and "Freedom to travel" (`it5`). Rerun it and read the education contrasts in section 3 and the within-country unemployment slope in section 6. Then replace the logit in one of the fits with a linear probability model, `feols()` instead of `feglm()`, and set its coefficient for the high-education band beside the average marginal effect of section 5. They should be close, and the reasons they are not identical are the two faults of section 1.
+:::
+
+## Sources {#sec-sources}
+
+The models were fitted with the fixest package for the pooled and fixed-effects logits and probits, the marginaleffects package for the average marginal effects, and glmmTMB for the random-intercept logit, on the respondent file described in the [respondent codebook](../data/eb_respondents_codebook.md); the script is `companion/_model-outputs/fit_items_glm.R`. The respondent characteristics follow the published coding of the original paper [@Teney2016DoesEUEconomic]. The ratio between logit and probit coefficients and the conversion to average marginal effects are textbook material; the quantitative-methods references on the [resources page](../resources.qmd) cover both.

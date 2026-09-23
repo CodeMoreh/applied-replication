@@ -20,7 +20,7 @@ The main aim of the course is to introduce technical skills for modern empirical
 
 These skills are taught through an applied 'replication' exercise. Participants reproduce one of the reanalyses that made up the Multi100 project, whose results appeared in *Nature* [@AczelEtAl2026InvestigatingAnalyticalRobustness]. The reanalysis focuses on selected results from a *European Sociological Review* article by @Teney2016DoesEUEconomic, testing the statistical robustness of a claim made by the original author (OA).
 
-@Teney2016DoesEUEconomic explored how the European Union (EU) was framed across 27 member states, and the selected claim from the paper is that "…poor economic performances … decrease positive dimensions of EU framing" [@Teney2016DoesEUEconomic, p. 619]. This claim has been tested by five analysts for the Multi100 project, and in this workshop you will be testing their results. You will:
+@Teney2016DoesEUEconomic explored how the European Union (EU) was framed across 27 member states, and the selected claim from the paper is that "…poor economic performances … decrease positive dimensions of EU framing" [@Teney2016DoesEUEconomic, p. 619]. This claim has been tested by five analysts for the Multi100 project, and in this course you will be testing their results. You will:
 
 1. **Reproduce a published analyst's result.** Run the submitted Multi100 analysis code on the original re-analysis data and find the exact coefficient it produced.
 2. **See why five analysts got five different answers.** When you run the same code, you should get the same results; but there are different analysis options to choose from, and the five analysts each made different choices. Working through different analysis options involves engaging with and choosing between various statistical methods.
@@ -33,40 +33,30 @@ The exercise is a miniature version of Multi100 itself: same claim, many analyst
 
 ---
 
-## Four ways to run this course
+## The tracks
 
 | Track | Who it is for |
 |---|---|
-| [The one-day track](tracks/one-day.qmd) | A group with a day and a facilitator. Four 90-minute parts with breaks between them – the format for which the course was built, and the one that the slide deck follows. |
-| [The three-day track](tracks/three-days.qmd) | A group that wants the tools underneath the exercise and the methods behind it. A tools day, then the workshop day unchanged, then a methods day. |
-| [The semester track](tracks/semester.qmd) | A taught module or a research-training programme that runs across a term. Ten sessions, with the workshop day sitting inside the term as its practical core rather than as its opening. |
-| [The self-study track](tracks/self-study.qmd) | A reader working alone, at their own pace. The companion modules and the browser lab ordered into a route that needs neither a facilitator nor a cohort. |
+| [One day – open science and replication](tracks/one-day-replication/index.qmd) | A group with a day and a facilitator, and the reproducibility of published research as the reason for meeting. Four 90-minute parts with breaks between them – the format for which the course was built. |
+| [One day – social data science tools](tracks/one-day-tools/index.qmd) | The same day with the toolchain in the foreground: the IDE, the document format, packages, version control and where finished work is archived, with a first session in R inside the day. |
+| [One day – the statistical methods](tracks/one-day-methods/index.qmd) | The same day with the statistics in the foreground: the causal graph in full, every axis of the specification menu shown doing something to an estimate, and the multiverse read properly. |
+| [Three days](tracks/three-days/index.qmd) | A group that wants the tools underneath the exercise and the methods behind it. A tools day, then the workshop, then a methods day. |
+| [Semester](tracks/semester/index.qmd) | A taught module or a research-training programme that runs across a term. Ten sessions, with the workshop day sitting inside the term as its practical core rather than as its opening. |
+| [Self-study](tracks/self-study/index.qmd) | A reader working alone, at their own pace. The companion modules and the exercise ordered into a route that needs neither a facilitator nor a cohort. |
 
-Each track is an ordered route through pages that this site already holds. What changes between them is the pace, and how much of the surrounding material comes with the workshop. A scheduled delivery can name one of these four tracks, and when it does, the callout at the top of this page links to that track.
-
----
-
-## Two options to run analyses {#two-routes-one-destination}
-
-The exercise is the same in every track, and there are two ways to run its code.
-
-::: {.callout-tip}
-### Route 1 – R and Positron (recommended)
-
-Install R and the Positron editor once, before the day, then download a ready-made workspace – a single zip file holding the analysis code, the data and a report to fill in. There is nothing to configure and no account to create, so you open the folder and start working. This is the closest to how the analysis is really done, and the workspace is yours to keep afterwards.
-
-The [Setup](setup.qmd) page walks you through the installation in plain steps.
-:::
-
-::: {.callout-note}
-### Route 2 – Browser lab (nothing to install)
-
-Open the [Browser lab](exercise/browser-lab.qmd) page and everything runs inside the tab, on a version of R that lives in your web browser. Nothing to install, no account, and it works on a borrowed or locked-down machine. The page takes ten to thirty seconds to start up the first time, so read the task while it loads.
-:::
+Each track is an ordered route through pages that this site already holds, with a sidebar of its own and the slide deck it runs on embedded at the end of it. What changes between them is the pace, the balance, and how much of the surrounding material comes with the workshop. A scheduled delivery can name one of these six tracks, and when it does, the callout at the top of this page links to that track.
 
 ---
 
-## Four parts, ninety minutes each {#four-blocks-ninety-minutes-each}
+## Running the analyses {#two-routes-one-destination}
+
+The exercise is the same in every track, and it is worked in R. Install R and an IDE (Positron, RStudio, VS Code, etc.) once, before the day, then download a ready-made workspace – a single zip file holding the analysis code, the data and a report to fill in. There is nothing to configure and no account to create, so you open the folder and start working, and the workspace is yours to keep afterwards. The [Setup](setup.qmd) page walks you through the installation in plain steps.
+
+The [Browser lab](exercise/browser-lab.qmd) page holds the same exercise and the same data on a version of R that runs inside a browser tab, with nothing installed. It is the page on which the facilitator demonstrates on a shared screen, the place to try R and the data before you have installed anything, and the fallback if a machine gives up on the day, and anyone can use it whether or not they are taking the course.
+
+---
+
+## The workshop day {#four-blocks-ninety-minutes-each}
 
 The workshop keeps this shape wherever it sits, whether it fills a day of its own or forms the practical core of a longer delivery. Two breaks and a lunch sit between the parts. When a delivery is scheduled, the callout at the top of this page gives its clock times.
 

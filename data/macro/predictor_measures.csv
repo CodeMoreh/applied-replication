@@ -1,0 +1,1750 @@
+measure,predictor,source,cntry,year,value
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,AT,2004,2.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,AT,2005,2.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,AT,2006,3.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,AT,2007,3.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,AT,2008,1.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,AT,2009,-3.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,AT,2010,1.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,AT,2011,2.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,AT,2012,0.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,AT,2013,-0.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BE,2004,3.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BE,2005,2.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BE,2006,2.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BE,2007,3.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BE,2008,0.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BE,2009,-1.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BE,2010,2.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BE,2011,1.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BE,2012,0.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BE,2013,0.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BG,2004,6.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BG,2005,7.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BG,2006,6.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BG,2007,6.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BG,2008,6.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BG,2009,-3.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BG,2010,1.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BG,2011,2.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BG,2012,0.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,BG,2013,-0.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CY,2004,5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CY,2005,4.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CY,2006,4.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CY,2007,5.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CY,2008,3.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CY,2009,-2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CY,2010,2.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CY,2011,0.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CY,2012,-3.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CY,2013,-6.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CZ,2004,4.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CZ,2005,6.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CZ,2006,6.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CZ,2007,5.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CZ,2008,2.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CZ,2009,-4.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CZ,2010,2.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CZ,2011,1.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CZ,2012,-0.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,CZ,2013,0
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DE,2004,1.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DE,2005,0.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DE,2006,3.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DE,2007,2.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DE,2008,0.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DE,2009,-5.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DE,2010,4.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DE,2011,3.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DE,2012,0.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DE,2013,0.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DK,2004,2.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DK,2005,2.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DK,2006,3.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DK,2007,1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DK,2008,-0.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DK,2009,-5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DK,2010,1.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DK,2011,1.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DK,2012,0
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,DK,2013,1.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,EE,2004,6.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,EE,2005,9.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,EE,2006,9.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,EE,2007,7.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,EE,2008,-5.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,EE,2009,-14.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,EE,2010,2.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,EE,2011,7.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,EE,2012,3.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,EE,2013,1.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,ES,2004,3.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,ES,2005,3.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,ES,2006,4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,ES,2007,3.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,ES,2008,0.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,ES,2009,-3.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,ES,2010,0.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,ES,2011,-0.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,ES,2012,-2.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,ES,2013,-1.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FI,2004,4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FI,2005,2.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FI,2006,4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FI,2007,5.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FI,2008,0.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FI,2009,-8.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FI,2010,3.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FI,2011,2.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FI,2012,-1.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FI,2013,-1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FR,2004,2.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FR,2005,1.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FR,2006,2.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FR,2007,2.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FR,2008,0.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FR,2009,-2.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FR,2010,2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FR,2011,2.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FR,2012,0.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,FR,2013,0.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,GR,2004,5.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,GR,2005,1.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,GR,2006,6.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,GR,2007,3.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,GR,2008,0.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,GR,2009,-4.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,GR,2010,-5.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,GR,2011,-9.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,GR,2012,-8.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,GR,2013,-2.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,HU,2004,5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,HU,2005,4.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,HU,2006,3.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,HU,2007,0.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,HU,2008,1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,HU,2009,-6.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,HU,2010,1.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,HU,2011,1.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,HU,2012,-1.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,HU,2013,2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IE,2004,6.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IE,2005,5.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IE,2006,5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IE,2007,5.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IE,2008,-4.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IE,2009,-5.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IE,2010,1.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IE,2011,1.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IE,2012,-0.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IE,2013,2.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IT,2004,1.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IT,2005,0.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IT,2006,1.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IT,2007,1.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IT,2008,-1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IT,2009,-5.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IT,2010,1.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IT,2011,0.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IT,2012,-3.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,IT,2013,-1.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LT,2004,6.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LT,2005,7.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LT,2006,7.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LT,2007,11.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LT,2008,2.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LT,2009,-14.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LT,2010,0.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LT,2011,6.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LT,2012,4.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LT,2013,4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LU,2004,4.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LU,2005,2.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LU,2006,6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LU,2007,8.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LU,2008,-0.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LU,2009,-3.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LU,2010,3.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LU,2011,1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LU,2012,1.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LU,2013,3.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LV,2004,8.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LV,2005,11.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LV,2006,12.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LV,2007,10.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LV,2008,-3.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LV,2009,-16
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LV,2010,-3.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LV,2011,3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LV,2012,7.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,LV,2013,2.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,MT,2004,0.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,MT,2005,2.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,MT,2006,2.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,MT,2007,5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,MT,2008,4.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,MT,2009,-1.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,MT,2010,6.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,MT,2011,1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,MT,2012,4.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,MT,2013,6.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,NL,2004,2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,NL,2005,2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,NL,2006,3.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,NL,2007,3.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,NL,2008,2.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,NL,2009,-3.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,NL,2010,1.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,NL,2011,1.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,NL,2012,-1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,NL,2013,0
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PL,2004,5.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PL,2005,3.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PL,2006,6.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PL,2007,6.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PL,2008,4.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PL,2009,2.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PL,2010,3.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PL,2011,5.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PL,2012,1.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PL,2013,0.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PT,2004,1.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PT,2005,0.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PT,2006,1.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PT,2007,2.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PT,2008,0.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PT,2009,-3.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PT,2010,1.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PT,2011,-1.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PT,2012,-4.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,PT,2013,-1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,RO,2004,10.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,RO,2005,4.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,RO,2006,8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,RO,2007,7.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,RO,2008,9.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,RO,2009,-5.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,RO,2010,-3.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,RO,2011,4.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,RO,2012,1.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,RO,2013,0.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SE,2004,4.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SE,2005,2.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SE,2006,4.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SE,2007,3.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SE,2008,-0.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SE,2009,-4.3
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SE,2010,5.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SE,2011,3.2
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SE,2012,-0.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SE,2013,1.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SI,2004,4.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SI,2005,3.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SI,2006,5.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SI,2007,7.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SI,2008,3.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SI,2009,-7.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SI,2010,1.1
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SI,2011,0.7
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SI,2012,-2.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SI,2013,-0.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SK,2004,5.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SK,2005,6.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SK,2006,8.9
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SK,2007,10.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SK,2008,5.4
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SK,2009,-5.5
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SK,2010,6.8
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SK,2011,2.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SK,2012,1.6
+es_growth,growth,Eurostat nama_10_gdp B1GQ CLV_PCH_PRE,SK,2013,0.7
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,AT,2004,2.735120222
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,AT,2005,2.2440653250000002
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,AT,2006,3.454041836
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,AT,2007,3.727415301
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,AT,2008,1.460423676
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,AT,2009,-3.764578178
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,AT,2010,1.837093677
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,AT,2011,2.922797284
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,AT,2012,0.680445577
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,AT,2013,0.025504712
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BE,2004,3.571204343
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BE,2005,2.321737054
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BE,2006,2.552349944
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BE,2007,3.676881136
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BE,2008,0.446928735
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BE,2009,-2.020743062
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BE,2010,2.864292708
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BE,2011,1.694513899
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BE,2012,0.739217283
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BE,2013,0.459242193
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BG,2004,6.510426379
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BG,2005,7.056347526
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BG,2006,6.802589382
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BG,2007,6.591380837
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BG,2008,6.116017964
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BG,2009,-3.271854279
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BG,2010,1.541801443
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BG,2011,2.10120575
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BG,2012,0.754930386
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,BG,2013,-0.560493966
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CY,2004,5.026343926
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CY,2005,4.853003838
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CY,2006,4.713828666
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CY,2007,5.098068453
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CY,2008,3.646811991
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CY,2009,-2.015262359
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CY,2010,2.014695707
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CY,2011,0.401437941
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CY,2012,-3.446822086
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CY,2013,-6.553078255
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CZ,2004,4.814261001
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CZ,2005,6.60161753
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CZ,2006,6.766932681
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CZ,2007,5.570338859
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CZ,2008,2.686411951
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CZ,2009,-4.657331092
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CZ,2010,2.434902159
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CZ,2011,1.760359624
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CZ,2012,-0.785004299
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,CZ,2013,-0.045903674
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DE,2004,1.175088132
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DE,2005,0.731707164
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DE,2006,3.816441913
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DE,2007,2.976455131
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DE,2008,0.959879134
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DE,2009,-5.693836336
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DE,2010,4.179882499
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DE,2011,3.925192705
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DE,2012,0.418497594
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DE,2013,0.437591303
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DK,2004,2.668219267
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DK,2005,2.336641308
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DK,2006,3.913007978
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DK,2007,0.909238928
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DK,2008,-0.512016745
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DK,2009,-4.90654773
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DK,2010,1.870991147
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DK,2011,1.336777767
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DK,2012,0.226499792
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,DK,2013,0.933340972
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,EE,2004,6.804007771
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,EE,2005,9.526426972
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,EE,2006,9.76558337
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,EE,2007,7.57914052
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,EE,2008,-5.132000958
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,EE,2009,-14.62905503
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,EE,2010,2.444265118
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,EE,2011,7.263084581
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,EE,2012,3.228200494
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,EE,2013,1.458428636
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,ES,2004,3.122795242
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,ES,2005,3.652032674
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,ES,2006,4.102727115
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,ES,2007,3.604687971
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,ES,2008,0.887145182
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,ES,2009,-3.763231927
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,ES,2010,0.163010231
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,ES,2011,-0.814373455
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,ES,2012,-2.959441302
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,ES,2013,-1.435394259
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FI,2004,3.99209129
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FI,2005,2.779850556
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FI,2006,4.027409658
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FI,2007,5.299336507
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FI,2008,0.783995061
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FI,2009,-8.074447432
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FI,2010,3.185958654
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FI,2011,2.547664838
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FI,2012,-1.397545728
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FI,2013,-0.901696316
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FR,2004,2.829752929
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FR,2005,1.66321998
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FR,2006,2.449323601
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FR,2007,2.424736243
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FR,2008,0.25494596
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FR,2009,-2.873313828
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FR,2010,1.949437623
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FR,2011,2.192700633
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FR,2012,0.313134751
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,FR,2013,0.576326675
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GB,2004,2.355629762
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GB,2005,2.59328001
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GB,2006,2.584104677
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GB,2007,2.269486875
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GB,2008,-0.239638085
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GB,2009,-4.247356266
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GB,2010,2.131438198
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GB,2011,1.457563391
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GB,2012,1.469887521
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GB,2013,1.890018342
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GR,2004,5.060992902
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GR,2005,0.59914188
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GR,2006,5.652433708
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GR,2007,3.273746933
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GR,2008,-0.335172558
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GR,2009,-4.300733458
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GR,2010,-5.478627432
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GR,2011,-10.14931483
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GR,2012,-7.086696786
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,GR,2013,-2.515997222
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,HU,2004,5.000448324
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,HU,2005,4.295278477
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,HU,2006,3.947769723
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,HU,2007,0.276980757
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,HU,2008,1.006464779
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,HU,2009,-6.595474129
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,HU,2010,1.083118668
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,HU,2011,1.860155072
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,HU,2012,-1.257749507
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,HU,2013,1.806363928
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IE,2004,6.785872817
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IE,2005,5.73621145
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IE,2006,4.980502016
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IE,2007,5.30546835
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IE,2008,-4.486599314
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IE,2009,-5.100471121
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IE,2010,1.755080743
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IE,2011,1.068526654
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IE,2012,-0.052354785
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IE,2013,1.267014661
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IT,2004,1.423594158
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IT,2005,0.817848974
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IT,2006,1.790639681
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IT,2007,1.48707298
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IT,2008,-0.962012841
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IT,2009,-5.280937208
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IT,2010,1.713295839
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IT,2011,0.707333347
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IT,2012,-2.980905768
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,IT,2013,-1.841065451
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LT,2004,6.569490118
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LT,2005,7.732367604
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LT,2006,7.414121335
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LT,2007,11.10748014
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LT,2008,2.614423033
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LT,2009,-14.83860837
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LT,2010,1.651240653
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LT,2011,6.03900816
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LT,2012,3.843864749
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LT,2013,3.550072843
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LU,2004,4.231891307
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LU,2005,2.482874748
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LU,2006,6.016715044
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LU,2007,8.098667607
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LU,2008,-0.300176194
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LU,2009,-3.238954027
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LU,2010,3.760413593
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LU,2011,1.044298695
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LU,2012,1.64990203
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LU,2013,3.171790499
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LV,2004,8.281972087
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LV,2005,10.71522829
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LV,2006,11.96520396
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LV,2007,9.943002121
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LV,2008,-3.242799942
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LV,2009,-14.24828338
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LV,2010,-4.470941885
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LV,2011,2.564422968
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LV,2012,7.037317185
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,LV,2013,2.010744815
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,MT,2004,0.140268127
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,MT,2005,3.383593576
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,MT,2006,2.510142345
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,MT,2007,4.7747056
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,MT,2008,3.826359416
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,MT,2009,-1.133873468
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,MT,2010,5.543639385
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,MT,2011,0.467050856
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,MT,2012,4.117707299
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,MT,2013,5.473355695
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,NL,2004,1.984945714
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,NL,2005,2.050876108
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,NL,2006,3.460988954
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,NL,2007,3.772842521
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,NL,2008,2.170324851
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,NL,2009,-3.666883937
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,NL,2010,1.342739336
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,NL,2011,1.551189312
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,NL,2012,-1.030353991
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,NL,2013,-0.130175288
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PL,2004,4.982825593
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PL,2005,3.506849729
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PL,2006,6.131138073
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PL,2007,7.061543459
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PL,2008,4.19996859
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PL,2009,2.832178037
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PL,2010,3.740521281
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PL,2011,4.757635638
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PL,2012,1.324896305
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PL,2013,1.125763386
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PT,2004,1.788735682
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PT,2005,0.781848216
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PT,2006,1.625034176
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PT,2007,2.506579646
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PT,2008,0.319247925
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PT,2009,-3.12207942
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PT,2010,1.737625476
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PT,2011,-1.696164781
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PT,2012,-4.057293608
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,PT,2013,-0.922644675
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,RO,2004,10.42811302
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,RO,2005,4.668148051
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,RO,2006,8.028811076
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,RO,2007,7.233807744
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,RO,2008,9.307467171
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,RO,2009,-5.517394408
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,RO,2010,-3.90123628
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,RO,2011,1.906067707
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,RO,2012,2.040665131
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,RO,2013,3.770962304
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SE,2004,4.336856154
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SE,2005,2.85880324
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SE,2006,4.662773552
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SE,2007,3.439221776
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SE,2008,-0.450559257
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SE,2009,-4.339790575
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SE,2010,5.952107008
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SE,2011,3.195333235
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SE,2012,-0.588304569
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SE,2013,1.187775716
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SI,2004,4.359192778
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SI,2005,3.797972642
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SI,2006,5.746396901
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SI,2007,6.980160755
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SI,2008,3.509841517
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SI,2009,-7.548437791
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SI,2010,1.343748472
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SI,2011,0.861327733
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SI,2012,-2.639438757
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SI,2013,-1.029282772
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SK,2004,5.278879546
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SK,2005,6.623462407
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SK,2006,8.49317632
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SK,2007,10.83202895
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SK,2008,5.574887267
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SK,2009,-5.455533722
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SK,2010,6.293285967
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SK,2011,2.637398428
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SK,2012,1.358226806
+wb_growth,growth,World Bank NY.GDP.MKTP.KD.ZG,SK,2013,0.654765294
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,AT,2004,5.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,AT,2005,5.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,AT,2006,5.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,AT,2007,4.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,AT,2008,4.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,AT,2009,5.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,AT,2010,4.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,AT,2011,4.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,AT,2012,4.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,AT,2013,5.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BE,2004,8.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BE,2005,8.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BE,2006,8.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BE,2007,7.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BE,2008,7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BE,2009,7.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BE,2010,8.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BE,2011,7.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BE,2012,7.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BE,2013,8.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BG,2004,12.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BG,2005,10.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BG,2006,9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BG,2007,6.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BG,2008,5.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BG,2009,6.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BG,2010,10.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BG,2011,11.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BG,2012,12.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,BG,2013,13
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CY,2004,4.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CY,2005,5.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CY,2006,4.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CY,2007,3.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CY,2008,3.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CY,2009,5.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CY,2010,6.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CY,2011,7.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CY,2012,11.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CY,2013,15.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CZ,2004,8.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CZ,2005,7.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CZ,2006,7.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CZ,2007,5.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CZ,2008,4.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CZ,2009,6.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CZ,2010,7.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CZ,2011,6.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CZ,2012,7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,CZ,2013,7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DE,2004,10.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DE,2005,11.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DE,2006,10.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DE,2007,8.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DE,2008,7.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DE,2009,7.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DE,2010,7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DE,2011,5.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DE,2012,5.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DE,2013,5.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DK,2004,5.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DK,2005,4.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DK,2006,3.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DK,2007,3.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DK,2008,3.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DK,2009,6.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DK,2010,7.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DK,2011,7.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DK,2012,7.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,DK,2013,7.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,EE,2004,10.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,EE,2005,8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,EE,2006,5.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,EE,2007,4.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,EE,2008,5.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,EE,2009,13.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,EE,2010,16.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,EE,2011,12.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,EE,2012,10
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,EE,2013,8.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,ES,2004,11
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,ES,2005,9.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,ES,2006,8.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,ES,2007,8.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,ES,2008,11.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,ES,2009,17.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,ES,2010,19.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,ES,2011,21.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,ES,2012,24.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,ES,2013,26.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FI,2004,8.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FI,2005,8.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FI,2006,7.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FI,2007,6.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FI,2008,6.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FI,2009,8.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FI,2010,8.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FI,2011,7.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FI,2012,7.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FI,2013,8.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FR,2004,8.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FR,2005,8.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FR,2006,8.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FR,2007,8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FR,2008,7.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FR,2009,9.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FR,2010,9.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FR,2011,9.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FR,2012,9.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,FR,2013,10.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GB,2004,4.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GB,2005,4.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GB,2006,5.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GB,2007,5.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GB,2008,5.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GB,2009,7.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GB,2010,7.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GB,2011,8.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GB,2012,7.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GB,2013,7.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GR,2004,10.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GR,2005,10
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GR,2006,9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GR,2007,8.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GR,2008,7.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GR,2009,9.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GR,2010,12.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GR,2011,17.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GR,2012,24.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,GR,2013,27.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,HU,2004,6.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,HU,2005,7.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,HU,2006,7.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,HU,2007,7.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,HU,2008,7.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,HU,2009,10
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,HU,2010,11.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,HU,2011,11
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,HU,2012,11
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,HU,2013,10.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IE,2004,4.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IE,2005,4.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IE,2006,4.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IE,2007,5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IE,2008,6.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IE,2009,12.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IE,2010,14.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IE,2011,15.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IE,2012,15.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IE,2013,13.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IT,2004,8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IT,2005,7.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IT,2006,6.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IT,2007,6.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IT,2008,6.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IT,2009,7.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IT,2010,8.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IT,2011,8.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IT,2012,10.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,IT,2013,12.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LT,2004,10.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LT,2005,8.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LT,2006,5.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LT,2007,4.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LT,2008,5.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LT,2009,13.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LT,2010,17.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LT,2011,15.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LT,2012,13.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LT,2013,11.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LU,2004,5.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LU,2005,4.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LU,2006,4.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LU,2007,4.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LU,2008,5.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LU,2009,5.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LU,2010,4.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LU,2011,4.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LU,2012,5.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LU,2013,5.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LV,2004,11.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LV,2005,10
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LV,2006,7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LV,2007,6.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LV,2008,7.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LV,2009,17.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LV,2010,19.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LV,2011,16.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LV,2012,15
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,LV,2013,11.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,MT,2004,7.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,MT,2005,6.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,MT,2006,6.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,MT,2007,6.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,MT,2008,6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,MT,2009,6.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,MT,2010,6.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,MT,2011,6.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,MT,2012,6.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,MT,2013,6.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,NL,2004,4.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,NL,2005,5.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,NL,2006,5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,NL,2007,4.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,NL,2008,3.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,NL,2009,4.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,NL,2010,5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,NL,2011,5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,NL,2012,5.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,NL,2013,7.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PL,2004,19
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PL,2005,17.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PL,2006,13.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PL,2007,9.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PL,2008,7.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PL,2009,8.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PL,2010,9.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PL,2011,9.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PL,2012,10.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PL,2013,10.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PT,2004,6.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PT,2005,7.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PT,2006,7.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PT,2007,8.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PT,2008,7.7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PT,2009,9.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PT,2010,11
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PT,2011,12.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PT,2012,15.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,PT,2013,16.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,RO,2004,8.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,RO,2005,7.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,RO,2006,7.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,RO,2007,6.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,RO,2008,5.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,RO,2009,6.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,RO,2010,7
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,RO,2011,7.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,RO,2012,6.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,RO,2013,7.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SE,2004,6.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SE,2005,7.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SE,2006,7.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SE,2007,6.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SE,2008,6.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SE,2009,8.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SE,2010,8.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SE,2011,7.8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SE,2012,8
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SE,2013,8.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SI,2004,6.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SI,2005,6.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SI,2006,6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SI,2007,4.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SI,2008,4.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SI,2009,5.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SI,2010,7.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SI,2011,8.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SI,2012,8.9
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SI,2013,10.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SK,2004,18.2
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SK,2005,16.3
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SK,2006,13.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SK,2007,11.1
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SK,2008,9.5
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SK,2009,12
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SK,2010,14.4
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SK,2011,13.6
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SK,2012,14
+es_1574_act,unemp,une_rt_a_h Y15-74 PC_ACT T,SK,2013,14.2
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,AT,2009,5.7
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,AT,2010,5.2
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,AT,2011,4.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,AT,2012,5.2
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,AT,2013,5.7
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,BE,2009,8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,BE,2010,8.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,BE,2011,7.2
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,BE,2012,7.6
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,BE,2013,8.6
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,BG,2009,7.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,BG,2010,11.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,BG,2011,12.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,BG,2012,13.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,BG,2013,13.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,CY,2009,5.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,CY,2010,6.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,CY,2011,7.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,CY,2012,11.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,CY,2013,15.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,CZ,2009,6.7
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,CZ,2010,7.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,CZ,2011,6.7
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,CZ,2012,7
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,CZ,2013,7
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,DE,2009,7.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,DE,2010,6.6
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,DE,2011,5.5
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,DE,2012,5.1
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,DE,2013,4.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,DK,2009,6.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,DK,2010,7.7
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,DK,2011,7.8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,DK,2012,7.8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,DK,2013,7.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,EE,2009,13.5
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,EE,2010,16.6
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,EE,2011,12.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,EE,2012,9.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,EE,2013,8.6
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,ES,2009,17.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,ES,2010,19.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,ES,2011,21.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,ES,2012,24.8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,ES,2013,26.1
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FI,2009,8.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FI,2010,8.6
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FI,2011,8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FI,2012,7.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FI,2013,8.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FR,2004,8.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FR,2005,8.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FR,2006,8.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FR,2007,8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FR,2008,7.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FR,2009,9.1
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FR,2010,9.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FR,2011,9.2
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FR,2012,9.8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,FR,2013,10.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,GR,2009,9.8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,GR,2010,12.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,GR,2011,18.1
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,GR,2012,24.8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,GR,2013,27.8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,HU,2009,9.7
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,HU,2010,10.8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,HU,2011,10.7
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,HU,2012,10.7
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,HU,2013,9.8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,IE,2009,12.6
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,IE,2010,14.6
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,IE,2011,15.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,IE,2012,15.5
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,IE,2013,13.8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,IT,2009,7.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,IT,2010,8.5
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,IT,2011,8.5
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,IT,2012,10.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,IT,2013,12.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LT,2009,13.8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LT,2010,17.8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LT,2011,15.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LT,2012,13.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LT,2013,11.8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LU,2009,5.1
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LU,2010,4.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LU,2011,4.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LU,2012,5.1
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LU,2013,5.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LV,2009,17.7
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LV,2010,19.7
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LV,2011,16.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LV,2012,15.1
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,LV,2013,11.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,MT,2009,6.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,MT,2010,6.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,MT,2011,6.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,MT,2012,6.2
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,MT,2013,6.1
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,NL,2009,5.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,NL,2010,6.1
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,NL,2011,6
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,NL,2012,6.8
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,NL,2013,8.2
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,PL,2009,8.5
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,PL,2010,10
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,PL,2011,10
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,PL,2012,10.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,PL,2013,10.6
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,PT,2009,11.2
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,PT,2010,12.6
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,PT,2011,13.5
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,PT,2012,16.6
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,PT,2013,17.2
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,RO,2009,8.4
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,RO,2010,9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,RO,2011,9.1
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,RO,2012,8.7
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,RO,2013,9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SE,2005,7.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SE,2006,7.2
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SE,2007,6.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SE,2008,6.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SE,2009,8.5
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SE,2010,8.7
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SE,2011,7.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SE,2012,8.1
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SE,2013,8.1
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SI,2009,5.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SI,2010,7.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SI,2011,8.2
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SI,2012,8.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SI,2013,10.1
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SK,2009,12
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SK,2010,14.3
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SK,2011,13.5
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SK,2012,13.9
+es_1574_tips,unemp,tipsun20 Y15-74 PC_ACT T,SK,2013,14.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,AT,2004,3.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,AT,2005,3.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,AT,2006,3.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,AT,2007,3.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,AT,2008,2.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,AT,2009,3.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,AT,2010,3.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,AT,2011,3.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,AT,2012,3.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,AT,2013,4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BE,2004,5.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BE,2005,5.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BE,2006,5.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BE,2007,5.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BE,2008,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BE,2009,5.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BE,2010,5.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BE,2011,5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BE,2012,5.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BE,2013,6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BG,2004,8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BG,2005,6.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BG,2006,6.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BG,2007,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BG,2008,4.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BG,2009,4.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BG,2010,7.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BG,2011,7.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BG,2012,8.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,BG,2013,9.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CY,2004,3.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CY,2005,4.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CY,2006,3.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CY,2007,3.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CY,2008,2.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CY,2009,4.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CY,2010,5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CY,2011,6.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CY,2012,9.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CY,2013,12.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CZ,2004,6.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CZ,2005,5.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CZ,2006,5.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CZ,2007,3.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CZ,2008,3.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CZ,2009,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CZ,2010,5.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CZ,2011,5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CZ,2012,5.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,CZ,2013,5.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DE,2004,8.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DE,2005,8.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DE,2006,8.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DE,2007,6.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DE,2008,6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DE,2009,6.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DE,2010,5.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DE,2011,4.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DE,2012,4.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DE,2013,4.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DK,2004,4.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DK,2005,3.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DK,2006,2.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DK,2007,2.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DK,2008,2.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DK,2009,4.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DK,2010,5.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DK,2011,5.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DK,2012,5.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,DK,2013,5.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,EE,2004,7.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,EE,2005,6.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,EE,2006,4.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,EE,2007,3.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,EE,2008,4.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,EE,2009,10.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,EE,2010,13.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,EE,2011,9.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,EE,2012,8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,EE,2013,6.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,ES,2004,7.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,ES,2005,6.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,ES,2006,6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,ES,2007,5.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,ES,2008,8.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,ES,2009,13.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,ES,2010,15
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,ES,2011,16.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,ES,2012,19.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,ES,2013,20.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FI,2004,6.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FI,2005,6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FI,2006,5.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FI,2007,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FI,2008,4.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FI,2009,5.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FI,2010,6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FI,2011,5.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FI,2012,5.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FI,2013,5.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FR,2004,6.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FR,2005,6.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FR,2006,6.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FR,2007,5.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FR,2008,5.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FR,2009,6.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FR,2010,6.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FR,2011,6.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FR,2012,7.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,FR,2013,7.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GB,2004,3.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GB,2005,3.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GB,2006,3.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GB,2007,3.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GB,2008,3.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GB,2009,5.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GB,2010,5.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GB,2011,5.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GB,2012,5.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GB,2013,5.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GR,2004,7.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GR,2005,7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GR,2006,6.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GR,2007,6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GR,2008,5.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GR,2009,6.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GR,2010,9.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GR,2011,12.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GR,2012,17.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,GR,2013,19.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,HU,2004,3.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,HU,2005,4.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,HU,2006,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,HU,2007,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,HU,2008,5.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,HU,2009,6.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,HU,2010,7.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,HU,2011,7.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,HU,2012,7.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,HU,2013,7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IE,2004,3.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IE,2005,3.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IE,2006,3.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IE,2007,3.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IE,2008,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IE,2009,9.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IE,2010,10.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IE,2011,11.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IE,2012,11.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IE,2013,10.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IT,2004,5.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IT,2005,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IT,2006,4.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IT,2007,3.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IT,2008,4.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IT,2009,5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IT,2010,5.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IT,2011,5.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IT,2012,7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,IT,2013,8.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LT,2004,8.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LT,2005,6.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LT,2006,4.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LT,2007,3.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LT,2008,4.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LT,2009,10.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LT,2010,13.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LT,2011,12.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LT,2012,10.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LT,2013,9.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LU,2004,3.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LU,2005,3.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LU,2006,3.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LU,2007,2.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LU,2008,3.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LU,2009,3.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LU,2010,3.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LU,2011,3.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LU,2012,3.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LU,2013,4.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LV,2004,8.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LV,2005,7.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LV,2006,5.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LV,2007,4.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LV,2008,6.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LV,2009,13.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LV,2010,15.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LV,2011,12.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LV,2012,11.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,LV,2013,9.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,MT,2004,3.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,MT,2005,3.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,MT,2006,3.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,MT,2007,3.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,MT,2008,3.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,MT,2009,3.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,MT,2010,3.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,MT,2011,3.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,MT,2012,3.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,MT,2013,3.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,NL,2004,3.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,NL,2005,4.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,NL,2006,3.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,NL,2007,2.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,NL,2008,2.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,NL,2009,3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,NL,2010,3.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,NL,2011,3.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,NL,2012,4.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,NL,2013,5.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PL,2004,13.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PL,2005,12.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PL,2006,9.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PL,2007,6.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PL,2008,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PL,2009,5.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PL,2010,6.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PL,2011,6.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PL,2012,7.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PL,2013,7.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PT,2004,5.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PT,2005,6.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PT,2006,6.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PT,2007,6.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PT,2008,6.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PT,2009,7.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PT,2010,8.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PT,2011,10.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PT,2012,12.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,PT,2013,13
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,RO,2004,5.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,RO,2005,4.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,RO,2006,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,RO,2007,4.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,RO,2008,3.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,RO,2009,4.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,RO,2010,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,RO,2011,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,RO,2012,4.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,RO,2013,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SE,2004,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SE,2005,5.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SE,2006,5.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SE,2007,4.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SE,2008,4.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SE,2009,6.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SE,2010,6.4
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SE,2011,5.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SE,2012,6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SE,2013,6.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SI,2004,4.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SI,2005,4.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SI,2006,4.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SI,2007,3.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SI,2008,3.3
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SI,2009,4.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SI,2010,5.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SI,2011,6.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SI,2012,6.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SI,2013,7.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SK,2004,13.6
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SK,2005,12
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SK,2006,9.7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SK,2007,8.1
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SK,2008,7
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SK,2009,8.8
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SK,2010,10.5
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SK,2011,9.9
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SK,2012,10.2
+es_2064_pop,unemp,une_rt_a_h Y20-64 PC_POP T,SK,2013,10.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,AT,2004,4.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,AT,2005,4.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,AT,2006,4.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,AT,2007,4.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,AT,2008,3.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,AT,2009,4.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,AT,2010,4.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,AT,2011,3.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,AT,2012,4.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,AT,2013,4.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BE,2004,6.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BE,2005,7.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BE,2006,7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BE,2007,6.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BE,2008,5.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BE,2009,6.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BE,2010,7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BE,2011,6.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BE,2012,6.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BE,2013,7.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BG,2004,10.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BG,2005,9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BG,2006,8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BG,2007,6.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BG,2008,5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BG,2009,6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BG,2010,9.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BG,2011,10.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BG,2012,11.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,BG,2013,11.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CY,2004,3.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CY,2005,4.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CY,2006,4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CY,2007,3.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CY,2008,3.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CY,2009,4.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CY,2010,5.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CY,2011,6.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CY,2012,10.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CY,2013,13.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CZ,2004,7.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CZ,2005,6.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CZ,2006,6.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CZ,2007,4.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CZ,2008,4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CZ,2009,5.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CZ,2010,6.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CZ,2011,5.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CZ,2012,6.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,CZ,2013,6.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DE,2004,10.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DE,2005,10.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DE,2006,9.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DE,2007,8.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DE,2008,7.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DE,2009,7.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DE,2010,6.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DE,2011,5.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DE,2012,5.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DE,2013,5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DK,2004,4.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DK,2005,4.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DK,2006,3.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DK,2007,3.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DK,2008,2.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DK,2009,5.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DK,2010,6.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DK,2011,6.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DK,2012,6.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,DK,2013,6.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,EE,2004,8.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,EE,2005,7.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,EE,2006,5.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,EE,2007,4.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,EE,2008,4.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,EE,2009,12.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,EE,2010,15.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,EE,2011,11.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,EE,2012,9.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,EE,2013,7.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,ES,2004,9.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,ES,2005,7.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,ES,2006,7.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,ES,2007,7.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,ES,2008,9.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,ES,2009,15.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,ES,2010,17.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,ES,2011,19.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,ES,2012,22.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,ES,2013,23.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FI,2004,7.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FI,2005,6.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FI,2006,6.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FI,2007,5.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FI,2008,5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FI,2009,6.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FI,2010,6.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FI,2011,6.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FI,2012,6.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FI,2013,6.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FR,2004,7.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FR,2005,7.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FR,2006,7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FR,2007,6.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FR,2008,5.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FR,2009,7.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FR,2010,7.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FR,2011,7.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FR,2012,7.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,FR,2013,8.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GB,2004,3.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GB,2005,3.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GB,2006,3.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GB,2007,3.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GB,2008,4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GB,2009,5.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GB,2010,5.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GB,2011,5.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GB,2012,5.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GB,2013,5.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GR,2004,8.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GR,2005,8.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GR,2006,7.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GR,2007,7.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GR,2008,6.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GR,2009,8.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GR,2010,11.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GR,2011,16.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GR,2012,22.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,GR,2013,25.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,HU,2004,5.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,HU,2005,6.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,HU,2006,6.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,HU,2007,6.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,HU,2008,6.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,HU,2009,8.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,HU,2010,10.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,HU,2011,10
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,HU,2012,9.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,HU,2013,8.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IE,2004,3.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IE,2005,3.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IE,2006,3.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IE,2007,4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IE,2008,5.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IE,2009,10.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IE,2010,12.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IE,2011,13.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IE,2012,13.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IE,2013,12.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IT,2004,6.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IT,2005,6.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IT,2006,5.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IT,2007,5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IT,2008,5.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IT,2009,6.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IT,2010,7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IT,2011,7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IT,2012,9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,IT,2013,10.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LT,2004,9.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LT,2005,7.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LT,2006,5.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LT,2007,3.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LT,2008,5.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LT,2009,12.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LT,2010,16.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LT,2011,14.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LT,2012,12.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LT,2013,11
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LU,2004,4.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LU,2005,3.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LU,2006,3.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LU,2007,3.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LU,2008,4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LU,2009,4.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LU,2010,3.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LU,2011,4.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LU,2012,4.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LU,2013,5.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LV,2004,10.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LV,2005,9.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LV,2006,6.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LV,2007,5.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LV,2008,7.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LV,2009,15.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LV,2010,17.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LV,2011,14.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LV,2012,13.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,LV,2013,11
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,MT,2004,4.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,MT,2005,4.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,MT,2006,4.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,MT,2007,4.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,MT,2008,4.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,MT,2009,5.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,MT,2010,5.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,MT,2011,5.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,MT,2012,4.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,MT,2013,5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,NL,2004,4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,NL,2005,4.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,NL,2006,4.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,NL,2007,3.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,NL,2008,2.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,NL,2009,3.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,NL,2010,3.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,NL,2011,4.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,NL,2012,4.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,NL,2013,6.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PL,2004,16.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PL,2005,15.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PL,2006,11.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PL,2007,8.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PL,2008,6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PL,2009,6.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PL,2010,8.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PL,2011,8.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PL,2012,8.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PL,2013,8.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PT,2004,5.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PT,2005,7.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PT,2006,7.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PT,2007,7.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PT,2008,7.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PT,2009,9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PT,2010,10.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PT,2011,11.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PT,2012,14.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,PT,2013,15.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,RO,2004,6.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,RO,2005,5.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,RO,2006,6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,RO,2007,5.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,RO,2008,4.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,RO,2009,5.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,RO,2010,5.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,RO,2011,5.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,RO,2012,5.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,RO,2013,6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SE,2004,5.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SE,2005,5.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SE,2006,5.1
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SE,2007,4.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SE,2008,4.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SE,2009,6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SE,2010,6.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SE,2011,5.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SE,2012,5.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SE,2013,5.9
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SI,2004,5.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SI,2005,5.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SI,2006,5.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SI,2007,4.3
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SI,2008,3.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SI,2009,5.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SI,2010,6.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SI,2011,7.6
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SI,2012,8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SI,2013,9.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SK,2004,16.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SK,2005,14.4
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SK,2006,11.7
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SK,2007,10
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SK,2008,8.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SK,2009,10.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SK,2010,12.5
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SK,2011,11.8
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SK,2012,12.2
+es_2564_lfs,unemp,lfsa_urgan Y25-64 PC T TOTAL,SK,2013,12.6
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,AT,2004,5.829999924
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,AT,2005,5.6300001140000004
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,AT,2006,5.239999771
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,AT,2007,4.860000134
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,AT,2008,4.1300001140000004
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,AT,2009,5.300000191
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,AT,2010,4.820000172
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,AT,2011,4.559999943
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,AT,2012,4.8699998859999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,AT,2013,5.340000153
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BE,2004,7.360000134
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BE,2005,8.43999958
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BE,2006,8.25
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BE,2007,7.4600000380000004
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BE,2008,6.980000019
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BE,2009,7.909999847
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BE,2010,8.289999962
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BE,2011,7.139999866
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BE,2012,7.5399999619999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BE,2013,8.430000305
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BG,2004,12.03999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BG,2005,10.07999992
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BG,2006,8.949999809
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BG,2007,6.8800001140000004
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BG,2008,5.610000134
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BG,2009,6.820000172
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BG,2010,10.27999973
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BG,2011,11.26000023
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BG,2012,12.27000046
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,BG,2013,12.93999958
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CY,2004,4.329999924
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CY,2005,5.300000191
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CY,2006,4.5399999619999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CY,2007,3.920000076
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CY,2008,3.6500000950000002
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CY,2009,5.360000134
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CY,2010,6.260000229
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CY,2011,7.860000134
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CY,2012,11.80000019
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CY,2013,15.86999989
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CZ,2004,8.210000038
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CZ,2005,7.929999828
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CZ,2006,7.150000095
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CZ,2007,5.320000172
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CZ,2008,4.389999866
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CZ,2009,6.659999847
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CZ,2010,7.28000021
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CZ,2011,6.7100000380000004
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CZ,2012,6.980000019
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,CZ,2013,6.949999809
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DE,2004,10.72999954
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DE,2005,11.17000008
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DE,2006,10.25
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DE,2007,8.659999847
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DE,2008,7.519999981
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DE,2009,7.739999771
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DE,2010,6.96999979
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DE,2011,5.820000172
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DE,2012,5.3800001140000004
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DE,2013,5.230000019
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DK,2004,5.199999809
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DK,2005,4.829999924
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DK,2006,3.9000000950000002
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DK,2007,3.799999952
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DK,2008,3.680000067
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DK,2009,6.409999847
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DK,2010,7.75
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DK,2011,7.769999981
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DK,2012,7.800000191
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,DK,2013,7.3800001140000004
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,EE,2004,10.25
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,EE,2005,8.029999733
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,EE,2006,5.909999847
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,EE,2007,4.590000153
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,EE,2008,5.449999809
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,EE,2009,13.55000019
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,EE,2010,16.70999908
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,EE,2011,12.32999992
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,EE,2012,10.02000046
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,EE,2013,8.630000114
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,ES,2004,11.09000015
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,ES,2005,9.149999619
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,ES,2006,8.449999809
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,ES,2007,8.229999542
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,ES,2008,11.25
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,ES,2009,17.86000061
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,ES,2010,19.86000061
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,ES,2011,21.38999939
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,ES,2012,24.79000092
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,ES,2013,26.09000015
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FI,2004,10.35999966
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FI,2005,8.380000114
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FI,2006,7.71999979
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FI,2007,6.849999905
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FI,2008,6.3699998859999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FI,2009,8.25
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FI,2010,8.390000343
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FI,2011,7.78000021
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FI,2012,7.690000057
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FI,2013,8.18999958
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FR,2004,8.909999847
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FR,2005,8.489999771
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FR,2006,8.449999809
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FR,2007,7.659999847
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FR,2008,7.059999943
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FR,2009,8.739999771
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FR,2010,8.869999886
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FR,2011,8.81000042
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FR,2012,9.399999619
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,FR,2013,9.9200000760000009
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GB,2004,4.590000153
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GB,2005,4.75
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GB,2006,5.349999905
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GB,2007,5.260000229
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GB,2008,5.6199998859999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GB,2009,7.5399999619999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GB,2010,7.7899999619999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GB,2011,8.039999962
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GB,2012,7.8800001140000004
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GB,2013,7.519999981
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GR,2004,10.31000042
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GR,2005,9.989999771
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GR,2006,9.010000229
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GR,2007,8.399999619
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GR,2008,7.760000229
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GR,2009,9.619999886
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GR,2010,12.71000004
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GR,2011,17.86000061
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GR,2012,24.44000053
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,GR,2013,27.46999931
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,HU,2004,5.829999924
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,HU,2005,7.190000057
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,HU,2006,7.489999771
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,HU,2007,7.409999847
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,HU,2008,7.820000172
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,HU,2009,10.02999973
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,HU,2010,11.17000008
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,HU,2011,11.02999973
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,HU,2012,11
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,HU,2013,10.18000031
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IE,2004,4.489999771
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IE,2005,4.340000153
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IE,2006,4.409999847
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IE,2007,4.980000019
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IE,2008,6.769999981
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IE,2009,12.60999966
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IE,2010,14.52999973
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IE,2011,15.350000380000001
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IE,2012,15.44999981
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IE,2013,13.72999954
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IT,2004,7.8699998859999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IT,2005,7.730000019
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IT,2006,6.78000021
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IT,2007,6.079999924
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IT,2008,6.71999979
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IT,2009,7.75
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IT,2010,8.359999657
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IT,2011,8.359999657
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IT,2012,10.649999619999999
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,IT,2013,12.149999619999999
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LT,2004,10.68000031
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LT,2005,8.319999695
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LT,2006,5.78000021
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LT,2007,4.25
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LT,2008,5.829999924
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LT,2009,13.78999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LT,2010,17.80999947
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LT,2011,15.39000034
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LT,2012,13.35999966
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LT,2013,11.77000046
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LU,2004,5.110000134
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LU,2005,4.489999771
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LU,2006,4.730000019
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LU,2007,4.070000172
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LU,2008,5.059999943
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LU,2009,5.1199998859999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LU,2010,4.360000134
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LU,2011,4.900000095
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LU,2012,5.139999866
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LU,2013,5.849999905
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LV,2004,11.71000004
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LV,2005,10.02999973
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LV,2006,7.03000021
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LV,2007,6.050000191
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LV,2008,7.739999771
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LV,2009,17.51000023
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LV,2010,19.47999954
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LV,2011,16.20999908
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LV,2012,15.05000019
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,LV,2013,11.86999989
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,MT,2004,7.320000172
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,MT,2005,6.920000076
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,MT,2006,6.800000191
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,MT,2007,6.46999979
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,MT,2008,5.980000019
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,MT,2009,6.889999866
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,MT,2010,6.849999905
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,MT,2011,6.3800001140000004
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,MT,2012,6.199999809
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,MT,2013,6.110000134
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,NL,2004,4.650000095
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,NL,2005,5.8699998859999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,NL,2006,5
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,NL,2007,4.150000095
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,NL,2008,3.6500000950000002
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,NL,2009,4.349999905
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,NL,2010,4.989999771
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,NL,2011,4.980000019
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,NL,2012,5.820000172
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,NL,2013,7.239999771
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PL,2004,19.06999969
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PL,2005,17.75
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PL,2006,13.84000015
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PL,2007,9.600000381
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PL,2008,7.1199998859999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PL,2009,8.1700000760000009
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PL,2010,9.640000343
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PL,2011,9.630000114
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PL,2012,10.09000015
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PL,2013,10.32999992
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PT,2004,6.320000172
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PT,2005,7.579999924
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PT,2006,7.650000095
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PT,2007,7.96999979
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PT,2008,7.550000191
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PT,2009,9.430000305
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PT,2010,10.77000046
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PT,2011,12.68000031
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PT,2012,15.52999973
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,PT,2013,16.19000053
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,RO,2004,7.71999979
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,RO,2005,7.170000076
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,RO,2006,7.269999981
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,RO,2007,6.409999847
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,RO,2008,5.7899999619999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,RO,2009,6.860000134
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,RO,2010,6.9600000380000004
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,RO,2011,7.179999828
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,RO,2012,6.7899999619999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,RO,2013,7.099999905
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SE,2004,6.690000057
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SE,2005,7.489999771
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SE,2006,7.070000172
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SE,2007,6.159999847
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SE,2008,6.230000019
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SE,2009,8.350000381
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SE,2010,8.609999657
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SE,2011,7.800000191
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SE,2012,7.980000019
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SE,2013,8.050000191
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SI,2004,6.010000229
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SI,2005,6.510000229
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SI,2006,5.949999809
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SI,2007,4.820000172
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SI,2008,4.3699998859999996
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SI,2009,5.860000134
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SI,2010,7.239999771
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SI,2011,8.1700000760000009
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SI,2012,8.840000153
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SI,2013,10.100000380000001
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SK,2004,18.60000038
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SK,2005,16.26000023
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SK,2006,13.36999989
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SK,2007,11.14000034
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SK,2008,9.510000229
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SK,2009,12.02999973
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SK,2010,14.38000011
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SK,2011,13.61999989
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SK,2012,13.96000004
+wb_nat,unemp,World Bank SL.UEM.TOTL.NE.ZS,SK,2013,14.22000027

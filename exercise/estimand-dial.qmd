@@ -1,0 +1,480 @@
+---
+title: "Estimand choices"
+format:
+  dashboard:
+    orientation: columns
+    scrolling: true
+bibliography: ../references.bib
+---
+
+```{r}
+#| include: false
+# The per-cell summary of the maximal grid: one row for each estimand cell that
+# the six Level 1 choices define, with the number of measurement and estimation
+# variants fitted inside it and where their claim-aligned partial correlations
+# sit. Written by the article repository's R/17 alongside the shards under
+# data/grid/, which this page fetches one at a time.
+cells <- read.csv("../data/grid/cells_summary.csv", stringsAsFactors = FALSE)
+ojs_define(cells_raw = cells)
+```
+
+<style>
+/* the three decision levels, colour-coded as on the specification menu */
+.lv { display:block; font-weight:600; font-size:0.78rem; letter-spacing:0.04em; text-transform:uppercase;
+      margin:0.9rem 0 0.35rem; padding-left:0.5rem; border-left:4px solid; }
+.lv1 { border-color:#0e3b6a; color:#0e3b6a; }
+.lv2 { border-color:#4a7a3f; color:#4a7a3f; }
+.lv3 { border-color:#7b6a8f; color:#7b6a8f; }
+.lv-note { font-size:0.74rem; color:#5b6b78; margin:0 0 0.4rem 0.5rem; line-height:1.3; }
+.sidebar form { margin-bottom:0.35rem; }
+.sidebar form label { font-size:0.8rem; }
+.estimand { font-family: Georgia, "Source Serif 4", serif; font-size:1.08rem; line-height:1.5; margin:0; }
+.estimand b { color:#0e3b6a; }
+.estimand .measured { color:#4a7a3f; }
+.readout { display:grid; grid-template-columns:repeat(2, 1fr); gap:0.4rem 1rem; margin:0 0 0.6rem; }
+.readout .k { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.04em; color:#5b6b78; }
+.readout .v { font-size:1.25rem; font-variant-numeric: tabular-nums; }
+.chip { display:inline-block; padding:0.25rem 0.7rem; border-radius:99px; font-size:0.82rem; font-weight:600; border:1px solid; margin-bottom:0.6rem; }
+.chip.for  { color:#0e3b6a; border-color:#0e3b6a; background:#0e3b6a12; }
+.chip.ns   { color:#5b6b78; border-color:#9aa8b3; background:#9aa8b31a; }
+.chip.against { color:#96131b; border-color:#96131b; background:#96131b12; }
+.small { font-size:0.82rem; color:#3c4a56; line-height:1.4; }
+.caption { font-size:0.8rem; color:#3c4a56; line-height:1.4; margin:0.5rem 0 0; max-width:100ch; }
+/* a plot fills the width of its card and keeps its proportions when the card is
+   expanded, but never grows past the width it was drawn at, so an ultrawide
+   screen gets white space rather than a chart with inch-high axis labels */
+.card-body svg[class^="plot-"] { width:100%; max-width:1100px; height:auto; }
+.card-body figure { margin:0; }
+.card-toolbar form label { font-size:0.8rem; }
+/* rows take the natural height of their content: the dashboard grid otherwise
+   hands every row an equal share of the column, which stretches the two short
+   cards at the top to the height of the tallest chart */
+.quarto-dashboard-content .bslib-grid[style*="grid-template-rows"] { grid-template-rows: none !important; grid-auto-rows: auto; }
+/* Two layouts from one source. Below 1400px the rows stack as written: the
+   statement and the readout side by side, the curve under them, the tabset
+   under that – the arrangement that suits a portrait screen. From 1400px the
+   row wrappers dissolve (display: contents) so the four cards become items of
+   the column grid, which is then laid out as two columns: the statement over
+   the readout on the left, the curve over the tabset on the right. The cards
+   are addressed by document order, so a new card changes the nth-child rules. */
+@media (min-width: 1400px) {
+  .quarto-dashboard-content .bslib-grid[style*="grid-template-rows"] {
+    grid-template-columns: minmax(400px, 2fr) minmax(0, 3fr) !important;
+    grid-template-rows: auto auto 1fr !important;
+    grid-template-areas: "statement answers" "spec answers" "spec tabset" !important;
+    align-items: start;
+    max-width: 1800px;
+  }
+  .quarto-dashboard-content .bslib-grid[style*="grid-template-rows"] > .flow.bslib-grid { display: contents !important; }
+  .quarto-dashboard-content .bslib-grid[style*="grid-template-rows"] > .flow.bslib-grid:nth-child(1) > .card:nth-child(1) { grid-area: statement; }
+  .quarto-dashboard-content .bslib-grid[style*="grid-template-rows"] > .flow.bslib-grid:nth-child(1) > .card:nth-child(2) { grid-area: spec; }
+  .quarto-dashboard-content .bslib-grid[style*="grid-template-rows"] > .flow.bslib-grid:nth-child(2) > .card { grid-area: answers; }
+  .quarto-dashboard-content .bslib-grid[style*="grid-template-rows"] > .card.tabset,
+  .quarto-dashboard-content .bslib-grid[style*="grid-template-rows"] > .flow.bslib-grid:nth-child(3) > .card { grid-area: tabset; }
+}
+</style>
+
+## {.sidebar width="340px"}
+
+<span class="lv lv1">Level 1 – Estimands</span>
+<p class="lv-note">Each of these rewrites the estimand statement. Two analysts who set them differently are answering different questions. The first four name the variables – the outcome twice, which frames and how they are scored – the next two say whom the question is about, the last says how they are compared.</p>
+
+```{ojs}
+//| echo: false
+outcome_input = Inputs.select(
+  new Map([
+    ["Cosmopolitan framing (mcosmo)", "mcosmo"],
+    ["Utilitarian framing (mutil)", "mutil"],
+    ["All positive framings (mpos)", "mpos"],
+    ["Communitarian framing (mcomm)", "mcomm"],
+    ["Libertarian framing (mlib)", "mlib"],
+    ["All negative framings (mneg)", "mneg"]
+  ]), {label: "Outcome", value: "mcosmo"})
+construction_input = Inputs.select(
+  new Map([["Share of the respondent's mentions", "share"], ["Count of the set's items", "count"], ["Count per item in the set", "rate"]]),
+  {label: "Scored as", value: "share"})
+predictor_input = Inputs.select(
+  new Map([["Unemployment rate", "unemp"], ["GDP growth", "growth"]]),
+  {label: "Predictor", value: "unemp"})
+copredictor_input = Inputs.select(
+  new Map([["Nothing", "none"], ["The other macro measure", "other"]]),
+  {label: "Adjusted for", value: "none"})
+sample_input = Inputs.select(
+  new Map([
+    ["All 270 country-years", "all"],
+    ["2004–2008 only", "y2004_2008"],
+    ["2009–2013 only", "y2009_2013"],
+    ["No assistance-programme countries", "no_bailout"],
+    ["Without Greece and Spain", "no_GR_ES"]
+  ]), {label: "Sample", value: "all"})
+weights_input = Inputs.select(
+  new Map([
+    ["None – each country-year once", "none"],
+    ["Respondents behind each cell", "n_cell"],
+    ["Effective sample size", "n_eff"],
+    ["Adult population", "pop"]
+  ]), {label: "Regression weight", value: "none"})
+estimator_input = Inputs.select(
+  new Map([
+    ["Two-way fixed effects", "fe_twoway"],
+    ["Country fixed effects", "fe_country"],
+    ["Random effects", "re"],
+    ["Pooled OLS", "pooled_cl"]
+  ]), {label: "Estimator", value: "fe_twoway"})
+```
+
+<span class="lv lv2">Level 2 – Measurement</span>
+<p class="lv-note">The same question, put to the data differently. The statement does not change; the answer may.</p>
+
+```{ojs}
+//| echo: false
+noop_input = Inputs.select(
+  new Map([
+    ["Scored zero", "zero"], ["Dropped", "drop"], ["Split across the scales", "split"],
+    ["Imputed (mice)", "mi_mice"], ["Imputed (Amelia)", "mi_amelia"]
+  ]), {label: "No-opinion respondents", value: "zero"})
+item_set_input = Inputs.select(
+  new Map([["All 13 items", "all"], ["Without the 'unemployment' item", "un"]]),
+  {label: "Items", value: "all"})
+cell_weight_input = Inputs.select(
+  new Map([["Cells as interviewed", "unweighted"], ["Design-weighted cells", "design"]]),
+  {label: "Cell means", value: "unweighted"})
+measure_input = Inputs.select(
+  predictor === "unemp"
+    ? new Map([
+        ["World Bank, national definition", "wb_nat"],
+        ["Eurostat 15–74, % of active", "es_1574_act"],
+        ["Eurostat 20–64, % of population", "es_2064_pop"],
+        ["Eurostat 25–64, labour force survey", "es_2564_lfs"],
+        ["Eurostat 15–74, headline table", "es_1574_tips"]
+      ])
+    : new Map([["World Bank growth", "wb_growth"], ["Eurostat growth", "es_growth"]]),
+  {label: "Published series"})
+```
+
+<span class="lv lv3">Level 3 – Estimation</span>
+<p class="lv-note">Neither the question nor the measures change; only the fitting does.</p>
+
+```{ojs}
+//| echo: false
+pred_form_input = Inputs.select(
+  new Map([["Raw", "raw"], ["Logged", "log"]]), {label: "Predictor form", value: "raw"})
+family_input = Inputs.select(
+  new Map([["Linear (gaussian)", "gaussian"], ["Beta, logit link", "beta"]]), {label: "Outcome family", value: "gaussian"})
+se_input = Inputs.select(
+  new Map([["Conventional", "conventional"], ["Clustered by country", "clustered"]]), {label: "Standard errors", value: "conventional"})
+```
+
+<p class="lv-note" style="margin-top:0.9rem">The choices open on C6HJR's published Multi100 specification. Nothing is fitted in the browser: every number is read from the pre-computed grid, one small file per question.</p>
+
+```{ojs}
+//| echo: false
+//| output: false
+// The values behind the choices and everything computed from them. This chunk
+// displays nothing: a named cell whose value is not a DOM node would otherwise
+// print as an inspector line ("outcome = 'mcosmo'") wherever the chunk sits.
+outcome = Generators.input(outcome_input)
+predictor = Generators.input(predictor_input)
+copredictor = Generators.input(copredictor_input)
+sample = Generators.input(sample_input)
+weights = Generators.input(weights_input)
+estimator = Generators.input(estimator_input)
+construction = Generators.input(construction_input)
+noop = Generators.input(noop_input)
+item_set = Generators.input(item_set_input)
+cell_weight = Generators.input(cell_weight_input)
+measure = Generators.input(measure_input)
+pred_form = Generators.input(pred_form_input)
+family = Generators.input(family_input)
+se = Generators.input(se_input)
+colourBy = Generators.input(colourBy_input)
+
+cells = transpose(cells_raw)
+cellKey = d => [d.outcome, d.predictor, d.copredictor, d.estimator, d.sample, d.reg_weight].join("__")
+cellId = [outcome, predictor, copredictor, estimator, sample, weights].join("__")
+cell = cells.find(d => cellKey(d) === cellId && d.construction === construction)
+// the questions the menu can ask: the per-item rate repeats its count for the
+// linear family, so it is not counted as a question of its own
+questions = cells.filter(d => d.construction !== "rate")
+
+// One shard per question, fetched when the Level 1 choices settle on it. The file
+// is gzipped; the browser inflates it unless the server already did.
+async function readCsvGz(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`The results file for this question could not be fetched (${url}).`);
+  const buf = await res.arrayBuffer();
+  const bytes = new Uint8Array(buf);
+  let text;
+  if (bytes[0] === 0x1f && bytes[1] === 0x8b) {
+    if (typeof DecompressionStream === "undefined")
+      throw new Error("This browser cannot inflate the results file; a current Chrome, Edge, Firefox or Safari can.");
+    const stream = new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));
+    text = await new Response(stream).text();
+  } else {
+    text = new TextDecoder().decode(buf);
+  }
+  // R writes logicals as TRUE/FALSE, which autoType leaves as strings; NA stays a string too
+  return d3.csvParse(text, d3.autoType).map(d => ({...d,
+    sig: d.sig === true || d.sig === "TRUE",
+    supports_claim: d.supports_claim === true || d.supports_claim === "TRUE"}));
+}
+
+shard = cell === undefined
+  ? []
+  // the file holds every scoring rule; the question is the rows under the chosen one
+  : (await readCsvGz(`../data/grid/${cellId}.csv.gz`)).filter(d => d.construction === construction && typeof d.r_ca === "number" && Number.isFinite(d.r_ca))
+
+within = ["construction", "noop", "item_set", "cell_weight", "measure", "pred_form", "family", "se"]
+// written as blocks with a return: Quarto's dashboard rewrite drops the
+// parentheses of an object-literal cell, which would turn it into a block of
+// bare statements with no value
+current = { return {construction, noop, item_set, cell_weight, measure, pred_form, family, se}; }
+hit = shard.find(d => within.every(k => String(d[k]) === String(current[k])))
+curve = shard.slice().sort((a, b) => d3.ascending(a.r_ca, b.r_ca)).map((d, i) => ({...d, rank: i + 1, isCurrent: d === hit}))
+
+axisLabel = {
+  return {construction: "Outcome built as", noop: "No-opinion respondents", item_set: "Items", cell_weight: "Cell means",
+          measure: "Published series", pred_form: "Predictor form", family: "Outcome family", se: "Standard errors"};
+}
+// a categorical palette written out, because the Plot build in the OJS runtime
+// does not know the newer named schemes
+palette = ["#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f", "#edc948", "#b07aa1", "#ff9da7", "#9c755f", "#bab0ac"]
+
+// the frames each set names, the items in each set (all 13 items, or without the
+// "unemployment" item, which leaves the communitarian set with three), and the
+// number words the statement uses for the per-item rate
+frameName = { return {mcosmo: "cosmopolitan", mutil: "utilitarian", mpos: "positive", mcomm: "communitarian", mlib: "libertarian", mneg: "negative"}; }
+kItems = { return {all: {mcosmo: 5, mutil: 2, mcomm: 4, mlib: 2, mpos: 7, mneg: 6}, un: {mcosmo: 5, mutil: 2, mcomm: 3, mlib: 2, mpos: 7, mneg: 5}}; }
+numWord = { return {2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven"}; }
+
+labels = {
+  return {
+  // the frame set names the frames and the scoring rule says what "more" means
+  outcome: Object.fromEntries(Object.entries(frameName).map(([k, nm]) => [k,
+    construction === "count" ? `the number of ${nm} frames people attach to the EU`
+    : construction === "rate" ? `the proportion of the ${numWord[kItems[item_set][k]]} ${nm} frames that people attach to the EU`
+    : `the share of ${nm} frames among the frames people attach to the EU`])),
+  predictor: {unemp: "the national unemployment rate", growth: "national GDP growth"},
+  units: {
+    all:        "the 270 country-years of the 27 member states surveyed between 2004 and 2013",
+    y2004_2008: "the country-years of 2004 to 2008, before the crisis",
+    y2009_2013: "the country-years of 2009 to 2013, during and after it",
+    no_bailout: "the country-years of the states that never entered an assistance programme",
+    no_GR_ES:   "the country-years of every state other than Greece and Spain"
+  },
+  comparison: {
+    fe_twoway:  "each country with itself over time, net of what all countries share in a given year",
+    fe_country: "each country with itself over time",
+    re:         "a blend of change within countries and differences between them, in proportion to how precisely each is measured",
+    pooled_cl:  "country-years with one another as one pool, so that differences between countries carry the comparison"
+  },
+  weighting: {
+    none:   "each country-year counting once",
+    n_cell: "each country-year counting in proportion to the respondents behind its average",
+    n_eff:  "each country-year counting in proportion to its effective sample size once the design weights are applied",
+    pop:    "each country counting in proportion to its adult population, so that the answer describes people rather than country-years"
+  },
+  measured: {
+    noop: {zero: "scoring respondents who named nothing as zero", drop: "leaving out respondents who named nothing",
+           split: "splitting the share of respondents who named nothing evenly across the scales",
+           mi_mice: "imputing the answers of respondents who named nothing (mice)",
+           mi_amelia: "imputing the answers of respondents who named nothing (Amelia)"},
+    item_set: {all: "from all 13 items", un: "from the 12 items other than 'unemployment'"},
+    cell_weight: {unweighted: "with cells averaged as interviewed", design: "with design-weighted cells"},
+    measure: {wb_nat: "the World Bank series", es_1574_act: "Eurostat's 15–74 rate as a share of the active population",
+              es_2064_pop: "Eurostat's 20–64 rate as a share of the population", es_2564_lfs: "Eurostat's 25–64 labour-force-survey rate",
+              es_1574_tips: "Eurostat's headline 15–74 table", wb_growth: "the World Bank growth series", es_growth: "Eurostat's growth series"}
+  }
+  };
+}
+adjustment = copredictor === "other"
+  ? (predictor === "unemp" ? ", holding GDP growth fixed" : ", holding the unemployment rate fixed")
+  : ""
+
+fmt = d3.format(".3f")
+problem = cell === undefined
+  ? "That pairing is not in the universe: the random-effects estimator is never fitted with regression weights. Set the weight to none or choose another estimator."
+  : hit === undefined
+    ? (family === "beta" && construction === "count" ? "A count of items is not a proportion, so it has no beta twin. Choose the per-item rate, which is the count divided by the number of items in the set, or the linear family."
+       : family === "beta" ? "The beta family was pre-computed only at the canonical measurement settings: the share or the per-item rate of all 13 items, no-opinion respondents scored zero, cells as interviewed, the World Bank series."
+       : noop.startsWith("mi_") ? "The imputed options were pre-computed only for the unemployment arm at the canonical settings: share of all 13 items, cells as interviewed, World Bank series, raw form, linear family."
+       : "That combination was not fitted.")
+    : null
+placement = hit === undefined ? NaN : d3.mean(questions, d => d.median_rca < hit.r_ca ? 1 : 0)
+verdict = hit === undefined ? null
+  : hit.supports_claim && hit.sig ? ["for", "supports the claim, p < .05"]
+  : hit.supports_claim ? ["ns", "claim's direction, not significant"]
+  : ["against", "against the claim's direction"]
+statLabel = family === "beta" ? "z" : "t"
+
+// The six Level 1 choices in the order the sidebar uses: the variables, then
+// whom the question is about, then how they are compared. The cluster colours
+// are those of the ring version of this page (dial-sketches.qmd).
+level1 = [
+  {key: "outcome", label: "Frames", cluster: "variables", levels: {mcosmo: "cosmopolitan", mutil: "utilitarian", mpos: "all positive", mcomm: "communitarian", mlib: "libertarian", mneg: "all negative"}},
+  {key: "construction", label: "Scored as", cluster: "variables", levels: {share: "share of mentions", count: "count of items", rate: "count per item"}},
+  {key: "predictor", label: "Predictor", cluster: "variables", levels: {unemp: "unemployment", growth: "GDP growth"}},
+  {key: "copredictor", label: "Adjusted for", cluster: "variables", levels: {none: "nothing", other: "the other measure"}},
+  {key: "sample", label: "Sample", cluster: "population", levels: {all: "all years", y2004_2008: "2004–2008", y2009_2013: "2009–2013", no_bailout: "no bailout states", no_GR_ES: "no GR, ES"}},
+  {key: "reg_weight", label: "Weight", cluster: "population", levels: {none: "none", n_cell: "respondents", n_eff: "effective n", pop: "population"}},
+  {key: "estimator", label: "Estimator", cluster: "method", levels: {fe_twoway: "two-way FE", fe_country: "country FE", re: "random effects", pooled_cl: "pooled OLS"}}
+]
+clusterColour = { return {variables: "#0e3b6a", population: "#0f6b6b", method: "#8c5a10"}; }
+now = { return {outcome, construction, predictor, copredictor, estimator, sample, reg_weight: weights}; }
+neighbours = level1.flatMap(a =>
+  Object.keys(a.levels).map(lv => {
+    const c = cells.find(d => level1.every(b => b.key === a.key ? d[b.key] === lv : d[b.key] === now[b.key]));
+    return {axis: a.label, cluster: a.cluster, row: `${a.label} · ${a.levels[lv]}`, median: c ? c.median_rca : null,
+            lo: c ? c.min_rca : null, hi: c ? c.max_rca : null, share_sig: c ? c.share_sig : null,
+            isCurrent: lv === now[a.key], exists: c !== undefined};
+  }))
+rows = neighbours.map(d => d.row)
+band = shard.length > 0 ? [d3.quantile(shard, 0.1, d => d.r_ca), d3.quantile(shard, 0.9, d => d.r_ca)] : null
+firstOfAxis = level1.map(a => neighbours.find(d => d.axis === a.label).row).slice(1)
+```
+
+## Column
+
+### Row {.flow}
+
+```{ojs}
+//| echo: false
+//| title: "The estimand statement"
+html`<p class="estimand">Among <b>${labels.units[sample]}</b>, the association between <b>${labels.predictor[predictor]}</b>
+  <span class="measured">(measured as ${labels.measured.measure[measure]})</span> and <b>${labels.outcome[outcome]}</b>
+  <span class="measured">(built ${labels.measured.item_set[item_set]}, ${labels.measured.noop[noop]}, ${labels.measured.cell_weight[cell_weight]})</span>,
+  comparing <b>${labels.comparison[estimator]}</b>${adjustment}, with <b>${labels.weighting[weights]}</b>.</p>
+<p class="small" style="margin-top:0.6rem">Blue is the question. Green is how it is measured: change a Level 2 choice and only the green words move. A Level 3 choice changes nothing in the statement.</p>`
+```
+
+```{ojs}
+//| echo: false
+//| title: "The chosen specification"
+problem !== null
+  ? html`<p class="small" style="color:#96131b">${problem}</p>`
+  : html`<span class="chip ${verdict[0]}">${verdict[1]}</span>
+<div class="readout">
+  <div><div class="k">Coefficient</div><div class="v">${d3.format(".5f")(hit.estimate)}</div></div>
+  <div><div class="k">${statLabel} on ${Math.round(hit.df)} df</div><div class="v">${fmt(hit.statistic)}</div></div>
+  <div><div class="k">p</div><div class="v">${hit.p < 0.001 ? "< 0.001" : fmt(hit.p)}</div></div>
+  <div><div class="k">aligned r</div><div class="v">${fmt(hit.r_ca)}</div></div>
+</div>
+<p class="small">Without changing the question, the answer can be moved from <b>${fmt(d3.min(shard, d => d.r_ca))}</b> to <b>${fmt(d3.max(shard, d => d.r_ca))}</b> by the Level 2 and Level 3 choices alone (median ${fmt(d3.median(shard, d => d.r_ca))}; ${Math.round(100 * d3.mean(shard, d => d.sig ? 1 : 0))}% of the ${shard.length} answers significant). Among the ${questions.length.toLocaleString()} questions the menu can ask, ${Math.round(100 * placement)}% have a median answer more claim-supporting than this one.</p>`
+```
+
+### Row {.flow}
+
+::: {.card title="The answers to this question"}
+
+::: {.card-toolbar}
+
+```{ojs}
+//| echo: false
+colourBy_input = Inputs.select(
+  new Map([
+    ["Significance only", "none"],
+    ["No-opinion respondents", "noop"],
+    ["Item set", "item_set"],
+    ["Cell means", "cell_weight"],
+    ["Published series", "measure"],
+    ["Predictor form", "pred_form"],
+    ["Outcome family", "family"],
+    ["Standard errors", "se"]
+  ]), {label: "Colour the dots by", value: "none"})
+```
+
+:::
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  height: 440,
+  width: 1100,
+  marginLeft: 52,
+  marginBottom: 40,
+  style: {fontSize: "12px"},
+  x: {label: `${curve.length} ways of answering this question, ranked from most to least claim-supporting →`, ticks: 5},
+  y: {label: "↑ Claim-aligned partial r (below zero supports the claim)", domain: [-0.75, 0.45], grid: true},
+  color: colourBy === "none" ? {legend: false} : {legend: true, label: axisLabel[colourBy], range: palette},
+  marks: [
+    Plot.ruleY([0], {stroke: "#5b6b78", strokeWidth: 1}),
+    cell === undefined ? null : Plot.ruleY([cell.median_rca], {stroke: "#0e3b6a", strokeDasharray: "3,3", strokeOpacity: 0.6}),
+    Plot.dot(curve, {x: "rank", y: "r_ca", r: 3.6, stroke: "none", fillOpacity: 0.55,
+                     fill: colourBy === "none" ? (d => d.sig ? "#0e3b6a" : "#b7c2cc") : colourBy,
+                     title: d => `${d.construction}, ${d.noop}, items: ${d.item_set}, cells: ${d.cell_weight}, ${d.measure}\n${d.pred_form}, ${d.family}, se: ${d.se}\nr_ca = ${d.r_ca.toFixed(3)}${d.sig ? " (p < .05)" : ""}`}),
+    Plot.dot(curve.filter(d => d.isCurrent), {x: "rank", y: "r_ca", r: 8, fill: "none", stroke: "#c77c00", strokeWidth: 2.5}),
+    Plot.text(curve.filter(d => d.isCurrent), {x: "rank", y: "r_ca", text: () => "chosen", dy: -16, fill: "#c77c00", fontWeight: 600})
+  ]
+})
+```
+
+<p class="caption">Each dot is one way of answering the question the Level 1 choices fix: one combination of the Level 2 and Level 3 options, read from the pre-computed grid. Dark blue dots are significant at the five per cent level, grey ones are not. The orange ring is the chosen specification, and the dashed line is the question's median answer. Hover over a dot for its options. The menu above the chart colours the dots by one Level 2 or Level 3 choice, to show which of its options sit where along the curve.</p>
+
+:::
+
+### Row {.tabset .flow}
+
+::: {.card title="One Level 1 choice at a time"}
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  height: 24 * rows.length + 70,
+  width: 1100,
+  marginLeft: 200,
+  marginBottom: 40,
+  style: {fontSize: "12px"},
+  x: {label: "Median claim-aligned partial r of the question (below zero supports the claim) →", domain: [-0.75, 0.45], grid: true},
+  y: {label: null, domain: rows},
+  marks: [
+    band ? Plot.rectX([{x1: band[0], x2: band[1]}], {x1: "x1", x2: "x2", fill: "#c77c00", fillOpacity: 0.12}) : null,
+    Plot.ruleX([0], {stroke: "#5b6b78"}),
+    Plot.ruleY(firstOfAxis, {stroke: "#d6dde5", strokeWidth: 1, dy: -12}),
+    Plot.dot(neighbours.filter(d => d.exists && !d.isCurrent), {x: "median", y: "row", r: 5.5, fill: d => clusterColour[d.cluster], fillOpacity: 0.85, stroke: "none",
+             title: d => `${d.row}\nmedian r_ca ${d.median.toFixed(3)}, range ${d.lo.toFixed(3)} to ${d.hi.toFixed(3)}, ${Math.round(100 * d.share_sig)}% significant`}),
+    Plot.dot(neighbours.filter(d => d.exists && d.isCurrent), {x: "median", y: "row", r: 7, fill: "#c77c00", stroke: "none",
+             title: d => `${d.row} (chosen)\nmedian r_ca ${d.median.toFixed(3)}`}),
+    Plot.text(neighbours.filter(d => !d.exists), {x: -0.74, y: "row", text: () => "not in the universe", textAnchor: "start", fill: "#9aa8b3", fontSize: 11})
+  ]
+})
+```
+
+<p class="caption">One row for every option of every Level 1 choice, grouped by choice in the order of the sidebar. The orange dots are the six options chosen now. Each other dot is what the question's median answer becomes if that one choice is switched to that option and the other five are left as they are: blue for the three choices that name the variables, teal for the two that say whom the question is about, bronze for the estimator. The shaded band is where the middle 80% of the current question's own answers lie, across every combination of the Level 2 and Level 3 options. A dot outside the band means that switching that one choice moves the answer further than all the measurement and arithmetic decisions together can. Hover over a dot for that question's range and its share of significant answers.</p>
+
+:::
+
+::: {.card title="All the questions"}
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  height: 340,
+  width: 1100,
+  marginBottom: 40,
+  style: {fontSize: "12px"},
+  x: {label: "Median claim-aligned partial r of each question the menu can ask →", domain: [-0.75, 0.45]},
+  y: {label: "↑ Questions", grid: true},
+  marks: [
+    Plot.rectY(questions, Plot.binX({y: "count"}, {x: "median_rca", fill: "#b9c9dc", thresholds: 40})),
+    Plot.ruleX([0], {stroke: "#5b6b78"}),
+    cell === undefined ? null : Plot.ruleX([cell.median_rca], {stroke: "#c77c00", strokeWidth: 2.5}),
+    Plot.frame({stroke: "#ddd"})
+  ]
+})
+```
+
+<p class="caption">Every question the seven Level 1 choices can ask, the per-item rate counted with the count it rescales, each summarised by the median of its answers, with the chosen question marked in orange. Below zero supports the claim on every scale, because negative framings are reverse-coded and the sign convention for growth is flipped.</p>
+
+:::
+
+::: {.card title="How to read this page"}
+
+<div class="small" style="max-width:75ch">
+<p><b>The statement</b> is the test the course uses. Change a Level 1 choice and the statement changes: a different question is being asked of the data, and two analysts who set it differently were not disagreeing about method. Change a Level 2 choice and only the "measured as" words change; change a Level 3 choice and nothing in the statement changes at all. The Level 1 choices are listed in three groups: the frame set, the scoring rule, the predictor and the adjustment set name the variables; the sample and the weight say whom the question is about; the estimator says how they are compared.</p>
+<p><b>The answers to this question</b> shows all the ways the pre-computed grid answered the question the Level 1 choices fix – every combination of the Level 2 and Level 3 options – ranked from most to least claim-supporting. Dark blue dots are significant at the five per cent level, grey ones are not, and the orange ring is the chosen specification. Colour the dots by one choice to find out which of its options sit where.</p>
+<p><b>One Level 1 choice at a time</b> shows what each alternative option of a Level 1 choice would do, holding the other five as they are: each dot is the median answer of that question, the orange dots are the chosen question, and the shaded band behind them is where the middle 80% of the current question's own answers lie. A dot outside the band means that switching that one choice moves the answer further than every Level 2 and Level 3 choice together.</p>
+<p><b>All the questions</b> places the current question among every question the menu can ask, each summarised by its median answer; the per-item rate is counted with the count it rescales.</p>
+<p>The <a href="spec-menu.qmd">specification menu</a> gives, for every choice, how much of the variation in results it carries and how often moving it alone crosses p = .05; the <a href="../companion/weighting.qmd">weighting</a> and <a href="../companion/missingness.qmd">missing-answers</a> pages take two of the Level 2 choices apart.</p>
+</div>
+
+:::

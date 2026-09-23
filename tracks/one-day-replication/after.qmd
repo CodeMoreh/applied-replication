@@ -1,0 +1,17 @@
+---
+title: "After the day"
+---
+A single day has room for the exercise and very little else. The [companion curriculum](../../companion/index.qmd) holds the material that the day can only point at, in eleven modules that each stand on their own, so take the one you need and leave the rest.
+
+| If you want | Read |
+|---|---|
+| The ideas behind what you just did, and the arguments now running against them | [The multiverse and its critics](../../companion/multiverse.qmd), then [Reading a specification curve](../../exercise/reading-inference.qmd) again with your own dot in mind |
+| Every model on the menu, output by output | [The statistical methods behind the course](../../companion/stats-methods.qmd) |
+| The graph work at a slower pace, and a graph for a question of your own | [Causal graphs](../../companion/dags.qmd) |
+| To archive and version the report you wrote | [Reproducibility repositories](../../companion/repositories.qmd), then [Git and GitHub](../../companion/git-github.qmd) |
+| To find the data for a project of your own, or to obtain the data behind this one | [Social science data sources](../../companion/data-sources.qmd) |
+| The measurement decisions the menu opened | [Weights](../../companion/weighting.qmd), [Missing answers](../../companion/missingness.qmd) and [The items behind the scales](../../companion/measurement.qmd) |
+| Data with a known recipe, to test what a method recovers | [Simulation as a method](../../companion/simulation.qmd) |
+| The same claim at the individual level | [The individual level](../../companion/individual-level.qmd) |
+
+The other formats of the course cover the same case at other lengths: the [tools-focused day](../one-day-tools/index.qmd) and the [methods-focused day](../one-day-methods/index.qmd) rebalance this one, the [three-day format](../three-days/index.qmd) adds a tools day before it and a methods day after, the [semester format](../semester/index.qmd) spreads it across a term, and the [self-study track](../self-study/index.qmd) drops the clock and the cohort.

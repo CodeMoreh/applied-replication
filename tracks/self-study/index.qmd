@@ -1,0 +1,20 @@
+---
+title: "Self-study"
+subtitle: "The eleven companion modules and the exercise, about thirty hours at whatever pace suits"
+aliases:
+  - /tracks/self-study.html
+---
+This track is for working through the course without a facilitator, a cohort or a fixed clock. It orders the eleven modules of the [companion curriculum](../../companion/index.qmd) and the exercise itself into a route that holds together when nobody is standing at the front, and it can be spread over as many weeks as you like. By the end you have reproduced a published result from the data behind it, stated an estimand and drawn the causal graph that goes with it, declared one specification in writing before running it, put the result on the class chart, and archived the whole thing in a version-controlled repository.
+
+Every stage links pages that already exist on this site, and the hours are rough estimates for a first pass rather than a schedule. Two things work differently when you are alone, and both are named where they arise: the exercise has no facilitator to rescue a stalled machine, and the class chart has no class on it, though neither of those stops you finishing the course.
+
+| | What happens |
+|---|---|
+| [Stage 1 – The case, and what you are aiming at](stage-1.qmd) | The claim, the three verdicts, and the shape of the whole thing. |
+| [Stage 2 – A language, an IDE, and a document to write in](stage-2.qmd) | R, the IDE and Quarto, for anyone who lacks them. |
+| [Stage 3 – The models the claim is argued with](stage-3.qmd) | Every model the exercise will offer you, and the measurement decisions behind the outcome. |
+| [Stage 4 – The question underneath the models](stage-4.qmd) | Estimands and causal graphs. |
+| [Stage 5 – The exercise](stage-5.qmd) | The five tasks, worked alone. |
+| [Stage 6 – Reading the curve you joined](stage-6.qmd) | What your dot's curve establishes and what it cannot. |
+| [Stage 7 – Two extensions](stage-7.qmd) | Simulation, and the individual level. |
+| [Stage 8 – Putting the work where it can be found](stage-8.qmd) | Repositories, git and GitHub. |

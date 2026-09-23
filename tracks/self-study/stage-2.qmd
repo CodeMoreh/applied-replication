@@ -1,0 +1,13 @@
+---
+title: "Stage 2 – A language, an IDE, and a document to write in"
+---
+All three modules here are foundations, and each can be skipped by anyone who already has it. If you write R but have never written Quarto, do the third and not the second; if you have used RStudio for years and are curious what has changed, the IDE module is the one to read.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Setup](../../setup.qmd) | Install R and an IDE (Positron, RStudio, VS Code, etc.) and download the workspace, which is yours to keep. Working alone, open the browser lab as well: it runs the same exercise in a tab with nothing installed, and it is the place to carry on if the installation fails and there is no one to rescue it. The [help page](../../help.qmd) is the other place: the problems others have met, with their fixes and prompts you can give an AI assistant. | 30 minutes |
+| [Positron, RStudio and VS Code](../../companion/ide.qmd) | Section 1, the section on the IDE you chose, and the six steps of section 6 in the workspace. | 45 minutes |
+| [Getting started with R](../../companion/intro-r.qmd) | All eleven sections: the console and the script, objects and data frames, reading a CSV, the pipe, three dialects for one task, the grammar of graphics, and the class chart read layer by layer. Do the "Try it" boxes rather than reading past them. | 3 hours |
+| [Quarto and reproducible documents](../../companion/quarto.qmd) | What a `.qmd` file is and what rendering does to it, the YAML header, chunk options, figures and tables with cross-references, and citations resolved from a bibliography file. The page is shown rather than run, so type its examples into a document of your own as you go. | 2 hours |
+
+**By the end of the stage** you have a workspace that runs on your own machine, in an IDE whose panes you know, and one rendered document of your own carrying a figure made by code, a cross-reference to it and a citation resolved from a bibliography file.

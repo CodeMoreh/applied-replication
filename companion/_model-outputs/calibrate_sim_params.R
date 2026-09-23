@@ -9,7 +9,7 @@
 #               regression coefficient, the kind of thing a published appendix
 #               table carries, and no respondent record is written anywhere.
 # Reads:        the licensed person-level file, held locally OUTSIDE this repo.
-#               Point $EUFRAMES_PERSON_FILE at it; it is never committed, and
+#               It is loaded through _load_respondents.R; it is never committed, and
 #               the generator does not need it.
 # Writes:       companion/_model-outputs/sim_calibration.csv
 #               companion/_model-outputs/sim_calibration_kdist.csv
@@ -24,11 +24,9 @@ library(readr)
 library(purrr)
 library(fixest)
 
-person_file <- Sys.getenv("EUFRAMES_PERSON_FILE")
-stopifnot("Set $EUFRAMES_PERSON_FILE to the local person-level file" =
-            nzchar(person_file) && file.exists(person_file))
+source("companion/_model-outputs/_load_respondents.R")
 
-person <- readRDS(person_file) |>
+person <- ind |>
   mutate(mention = as.integer(cosmo + util + comm + lib > 0.5),
          cell = paste(cntry, year, sep = "_"),
          age10 = (age - 48) / 10,

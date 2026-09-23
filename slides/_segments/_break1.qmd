@@ -1,0 +1,9 @@
+## Break {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+30 minutes – the exact return time is in the chat · keep setting up if you need to
+:::
+
+::: notes
+Break – thirty minutes, and the return time is in the chat. If your setup is not finished, use the break for it and flag me; I will stay on the call. When we come back we stop talking about infrastructure and start on the paper.
+:::

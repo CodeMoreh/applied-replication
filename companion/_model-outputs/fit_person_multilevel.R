@@ -13,7 +13,7 @@
 #               country-year, which does not; and a random slope, which asks
 #               whether the effect differs by country.
 #
-# Reads:        _planning_data/person_level_full.rds   (licensed, local only)
+# Reads:        the respondent file, through _load_respondents.R (licensed, local only)
 # Writes:       companion/_model-outputs/person_multilevel_real.csv
 #               Coefficients, variance components and degrees of freedom.
 #               Aggregate, and committed.
@@ -25,7 +25,8 @@ suppressPackageStartupMessages({
   library(dplyr); library(purrr); library(readr); library(lmerTest)
 })
 
-ind <- readRDS("_planning_data/person_level_full.rds") |>
+source("companion/_model-outputs/_load_respondents.R")
+ind <- ind |>
   mutate(cy = paste(cntry, year, sep = "_"))
 
 specs <- list(

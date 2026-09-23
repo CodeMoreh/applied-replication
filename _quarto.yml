@@ -7,7 +7,7 @@ project:
   render:
     - "*.qmd"
     - "data/*.md"
-    - "tracks/*.qmd"
+    - "tracks/**/*.qmd"
     - "exercise/*.qmd"
     - "companion/*.qmd"
     - "slides/*.qmd"
@@ -15,6 +15,11 @@ project:
     - "!_planning_data/**"
     - "!_template/**"
     - "facilitator/guide.qmd"   # rendered but not linked in the navbar
+    - "facilitator/tracks.qmd"  # likewise: notes on the six formats and their decks
+
+# The docked sidebars of the six delivery tracks live in their own file.
+metadata-files:
+  - _sidebar.yml
 
 website:
   title: "Applied Replication for Data Skills"
@@ -29,30 +34,39 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: setup.qmd
-        text: Setup
-      # The four delivery tracks. Each page is an ordered playlist over pages
-      # that already exist, so nothing here duplicates teaching material.
+      - text: Setup
+        menu:
+          - href: setup.qmd
+            text: "Install and check"
+          - href: help.qmd
+            text: "Setup help"
+      # The six delivery tracks. Each is a folder of participant-facing pages
+      # with a docked sidebar (_sidebar.yml) and a slides page embedding the
+      # deck that format runs on; the decks themselves are not in the navbar.
       - text: Tracks
         menu:
-          - href: tracks/one-day.qmd
-            text: "One day"
-          - href: tracks/three-days.qmd
+          - href: tracks/one-day-replication/index.qmd
+            text: "One day – open science and replication"
+          - href: tracks/one-day-tools/index.qmd
+            text: "One day – social data science tools"
+          - href: tracks/one-day-methods/index.qmd
+            text: "One day – the statistical methods"
+          - href: tracks/three-days/index.qmd
             text: "Three days"
-          - href: tracks/semester.qmd
+          - href: tracks/semester/index.qmd
             text: "Semester"
-          - href: tracks/self-study.qmd
+          - href: tracks/self-study/index.qmd
             text: "Self-study"
-      - href: slides/index.qmd
-        text: Slides
       - text: Exercise
         menu:
           - href: exercise/index.qmd
             text: Overview
           - href: exercise/browser-lab.qmd
-            text: "Browser lab (no install)"
+            text: "Browser lab"
           - href: exercise/spec-menu.qmd
             text: Specification menu
+          - href: exercise/estimand-dial.qmd
+            text: Estimand choices
           - href: exercise/cheatsheet.qmd
             text: Cheatsheet
       - href: results.qmd
@@ -68,26 +82,40 @@ website:
           - text: "Computational tools"
           - href: companion/intro-r.qmd
             text: "Getting started with R"
+          - href: companion/ide.qmd
+            text: "Positron, RStudio and VS Code"
           - href: companion/quarto.qmd
             text: "Quarto and reproducible documents"
           - text: "---"
-          - text: "Reproducibility and collaboration"
+          - text: "Data management and sharing"
+          - href: companion/data-sources.qmd
+            text: "Social science data sources"
+          - href: companion/data-management.qmd
+            text: "Building the analysis file"
           - href: companion/repositories.qmd
-            text: "Repositories & preregistration"
+            text: "Reproducibility repositories"
           - href: companion/git-github.qmd
             text: "Git & GitHub"
           - text: "---"
           - text: "Statistical methods"
+          - href: companion/measurement.qmd
+            text: "The items behind the scales"
+          - href: companion/binary-outcomes.qmd
+            text: "Binary outcomes"
+          - href: companion/weighting.qmd
+            text: "Weights"
+          - href: companion/missingness.qmd
+            text: "Missing answers"
           - href: companion/stats-methods.qmd
-            text: "The statistical methods behind the workshop"
+            text: "The statistical methods behind the course"
           - href: companion/dags.qmd
             text: "Causal graphs & adjustment sets"
-          - href: companion/multiverse.qmd
-            text: "The multiverse: concept & critics"
+          - href: companion/individual-level.qmd
+            text: "The individual level"
           - href: companion/simulation.qmd
             text: "Simulation as a method"
-          - href: companion/individual-level.qmd
-            text: "One claim, two levels"
+          - href: companion/multiverse.qmd
+            text: "The multiverse and its critics"
       - href: resources.qmd
         text: Resources
 

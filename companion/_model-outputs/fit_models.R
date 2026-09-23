@@ -7,7 +7,7 @@
 #                for teaching – NOT the registered Phase-2 analyses of the
 #                companion Replication Research project, which remain
 #                uncomputed until its OSF registration is filed.
-# Reads        : D:/ACADEMIC/PUBLICATIONS/ARTICLES/2026_RR-teney-multiverse/data_private/person_level.rds
+# Reads        : the respondent file, through _load_respondents.R
 #                (GESIS-licensed person-level rebuild, 416,698 respondents –
 #                exists only on the facilitator's machine, never in any repo)
 #                data/EUframes_cy.csv (committed country-year aggregates)
@@ -34,7 +34,9 @@ suppressPackageStartupMessages({
 options(width = 88)
 outdir <- "D:/ACADEMIC/TEACHING/2026_OR_NCL/companion/_model-outputs"
 
-person <- readRDS("D:/ACADEMIC/PUBLICATIONS/ARTICLES/2026_RR-teney-multiverse/data_private/person_level.rds") |>
+Sys.setenv(EB_COURSE_ROOT = "D:/ACADEMIC/TEACHING/2026_OR_NCL")
+source("D:/ACADEMIC/TEACHING/2026_OR_NCL/companion/_model-outputs/_load_respondents.R")
+person <- ind |>
   as.data.frame()
 euframes <- read_csv("D:/ACADEMIC/TEACHING/2026_OR_NCL/data/EUframes_cy.csv",
                   show_col_types = FALSE)
@@ -58,7 +60,7 @@ save_out(capture.output(summary(m_l2)), "lmer_2lvl.txt")
 cat("lmer2  b_unemp =", round(fixef(m_l2)["unemp"], 5), "\n")
 
 # --- 4. three-level random intercepts – respondents in country-years in
-#        countries (the structure used in the original author's (OA) anchor
+#        countries (the structure used in the original author's (OA) published
 #        model) --------------------------------------------------------------- #
 m_l3 <- lmer(cosmo ~ unemp + (1 | cntry) + (1 | cntry:year), data = person)
 save_out(capture.output(summary(m_l3)), "lmer_3lvl.txt")

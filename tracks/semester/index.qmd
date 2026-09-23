@@ -1,0 +1,23 @@
+---
+title: "Semester"
+subtitle: "Ten sessions across a term, nine of two to four hours of work and one a full workshop day"
+aliases:
+  - /tracks/semester.html
+---
+This format spreads the course over a term, for a group that meets weekly and can pair a piece of exposition with time at a keyboard each week. Ten sessions carry the eleven modules of the [companion curriculum](../../companion/index.qmd) and the workshop itself, which sits at session 9 as the practical core of the term. By the end of the ten sessions you have reproduced a published result from the data behind it, stated an estimand and drawn the causal graph that goes with it, fitted the same claim under several estimators, declared one specification in writing before running it, and put the whole thing in a version-controlled repository that another person can open and re-render.
+
+Every session links pages that already exist on this site, and each figure in a Timing column is the whole of the work that the row asks for, the part done together in the room and the reading and practice done around it. Across the nine sessions other than the workshop day the total runs from a little under two hours to a little under four, so a group that meets for two hours a week does some of the work between meetings.
+
+| | What happens |
+|---|---|
+| [Session 1 – The case, and the three Rs](session-1.qmd) | The claim, and the three verdicts the paper received. |
+| [Session 2 – Getting started with R](session-2.qmd) | R, the IDE, and a first script on the panel. |
+| [Session 3 – Quarto and the reproducible document](session-3.qmd) | The document you will fill in on the workshop day. |
+| [Session 4 – From country-years to a model](session-4.qmd) | The same claim fitted four ways, and the measurement decisions behind the outcome. |
+| [Session 5 – Estimands and causal graphs](session-5.qmd) | What quantity the claim is about, and the graph that says what to hold constant. |
+| [Session 6 – The individual level](session-6.qmd) | The same claim fitted where its author fitted it. |
+| [Session 7 – Data with a known recipe](session-7.qmd) | Simulation: what a method recovers when the answer is known. |
+| [Session 8 – Repositories and preregistration](session-8.qmd) | Where the materials live, and your specification declared a week early. |
+| [Session 9 – The workshop day](session-9.qmd) | The five tasks, with the declaration written in session 8 read back. |
+| [Session 10 – Reading the curve and publishing the work](session-10.qmd) | What the room's curve establishes, and the report put where it can be found. |
+

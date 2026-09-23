@@ -1,0 +1,20 @@
+---
+title: "Part 4 – Explore, declare, publish"
+---
+::: {.callout-note appearance="simple" icon=false}
+**Slides.** [Open the deck at this part](../../slides/one-day-tools.html#/part-4-explore-declare-publish){target="_blank"} in its own tab, or follow it on the [slides page](slides.qmd).
+:::
+
+Part 4 opens the menu of choices you could have made instead, has you explore it and put a dot on the class chart, then asks for the one analysis you would defend, declared before it runs. Its last stretch is the one that most courses leave out: where a finished reanalysis goes, and what a version history, a licence and a registration each add to someone else being able to find and re-run it.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Specification menu](../../exercise/spec-menu.qmd) and slides | The axes you choose from, the three levels they sort into, what the constrained task left open, the one-deviation rule and the claim-alignment convention. | 15 minutes |
+| Task 4 in the workspace or on the [Browser lab](../../exercise/browser-lab.qmd), then [Multiverse](../../results.qmd) | Call `try_spec()` three or four times, changing one argument at a time, print them with `my_experiments()`, then submit the one you would defend with `submit_exploration()`. Your dot lands on the chart as an open circle. | 20 minutes |
+| [Multiverse](../../results.qmd) and slides | What the room built: the class's exploratory dots against the full curve and the five analysts. | 12 minutes |
+| Slides | The critics of multiverse analysis, the argument that a fully specified question has one correct analysis, and what preregistration settles and what it leaves open. | 8 minutes |
+| Slides, archiving and registering, with [Reproducibility repositories](../../companion/repositories.qmd) and [Social science data sources](../../companion/data-sources.qmd) as the companions | The three addresses behind the case and their three jobs; the registered protocol that Multi100 itself filed; the two templates and the eight questions of the shorter one, with your answers already mapped. | 12 minutes |
+| The report skeleton in the workspace, or [Browser lab](../../exercise/browser-lab.qmd) Task 5 | Complete the preregistration block before you run anything, translate it into model syntax yourself, run it, render the report, and submit with `report_result()`. Your dot joins the chart as a filled circle. | 18 minutes |
+| Slides | Two sentences worth keeping, and what you take with you. | 5 minutes |
+
+**By the end of the part** you have an exploratory dot and a declared dot on the class chart, a rendered report carrying a preregistration block with its result underneath, and the addresses at which a reanalysis like yours is archived and registered.

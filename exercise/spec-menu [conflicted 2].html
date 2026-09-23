@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Specification Menu – Applied Replication for Data Skills</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.js"></script>
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/animate.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/magic.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo light-content">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Applied Replication for Data Skills</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../tracks/one-day.html">
+ <span class="dropdown-text">One day</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/three-days.html">
+ <span class="dropdown-text">Three days</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/semester.html">
+ <span class="dropdown-text">Semester</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/self-study.html">
+ <span class="dropdown-text">Self-study</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../slides/index.html"> 
+<span class="menu-text">Slides</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-exercise">    
+        <li>
+    <a class="dropdown-item" href="../exercise/index.html">
+ <span class="dropdown-text">Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/browser-lab.html">
+ <span class="dropdown-text">Browser lab</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/spec-menu.html">
+ <span class="dropdown-text">Specification menu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/estimand-dial.html">
+ <span class="dropdown-text">Estimand choices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/cheatsheet.html">
+ <span class="dropdown-text">Cheatsheet</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../results.html"> 
+<span class="menu-text">Multiverse</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-companion" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Companion</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-companion">    
+        <li>
+    <a class="dropdown-item" href="../companion/index.html">
+ <span class="dropdown-text">Curriculum overview</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Computational tools</li>
+        <li>
+    <a class="dropdown-item" href="../companion/intro-r.html">
+ <span class="dropdown-text">Getting started with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/quarto.html">
+ <span class="dropdown-text">Quarto and reproducible documents</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Reproducibility and collaboration</li>
+        <li>
+    <a class="dropdown-item" href="../companion/repositories.html">
+ <span class="dropdown-text">Repositories &amp; preregistration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/git-github.html">
+ <span class="dropdown-text">Git &amp; GitHub</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistical methods</li>
+        <li>
+    <a class="dropdown-item" href="../companion/stats-methods.html">
+ <span class="dropdown-text">The statistical methods behind the course</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/dags.html">
+ <span class="dropdown-text">Causal graphs &amp; adjustment sets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/multiverse.html">
+ <span class="dropdown-text">The multiverse and its critics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/weighting.html">
+ <span class="dropdown-text">Weights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/missingness.html">
+ <span class="dropdown-text">Missing answers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/measurement.html">
+ <span class="dropdown-text">The items behind the scales</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/simulation.html">
+ <span class="dropdown-text">Simulation as a method</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/individual-level.html">
+ <span class="dropdown-text">The individual level</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-estimand-sentence" id="toc-the-estimand-sentence" class="nav-link active" data-scroll-target="#the-estimand-sentence">The estimand sentence</a></li>
+  <li><a href="#level-estimand" id="toc-level-estimand" class="nav-link" data-scroll-target="#level-estimand">Level 1 – Estimands</a></li>
+  <li><a href="#level-measurement" id="toc-level-measurement" class="nav-link" data-scroll-target="#level-measurement">Level 2 – Measurement</a></li>
+  <li><a href="#level-estimation" id="toc-level-estimation" class="nav-link" data-scroll-target="#level-estimation">Level 3 – Estimation</a></li>
+  <li><a href="#admissibility" id="toc-admissibility" class="nav-link" data-scroll-target="#admissibility">Admissible combinations</a></li>
+  <li><a href="#the-pre-computed-universe" id="toc-the-pre-computed-universe" class="nav-link" data-scroll-target="#the-pre-computed-universe">The pre-computed universe</a></li>
+  <li><a href="#the-claim-alignment-step" id="toc-the-claim-alignment-step" class="nav-link" data-scroll-target="#the-claim-alignment-step">Claim alignment</a></li>
+  <li><a href="#worked-example" id="toc-worked-example" class="nav-link" data-scroll-target="#worked-example">Worked example</a></li>
+  <li><a href="#preregistering-your-choice" id="toc-preregistering-your-choice" class="nav-link" data-scroll-target="#preregistering-your-choice">Preregistration</a></li>
+  <li><a href="#the-source-of-the-numbers" id="toc-the-source-of-the-numbers" class="nav-link" data-scroll-target="#the-source-of-the-numbers">The source of the numbers</a></li>
+  <li><a href="#reporting-your-result" id="toc-reporting-your-result" class="nav-link" data-scroll-target="#reporting-your-result">Reporting a result</a></li>
+  <li><a href="#what-each-decision-commits-you-to" id="toc-what-each-decision-commits-you-to" class="nav-link" data-scroll-target="#what-each-decision-commits-you-to">Justifying each decision</a>
+  <ul class="collapse">
+  <li><a href="#the-sentence-first" id="toc-the-sentence-first" class="nav-link" data-scroll-target="#the-sentence-first">The sentence first</a></li>
+  <li><a href="#level-1-estimands" id="toc-level-1-estimands" class="nav-link" data-scroll-target="#level-1-estimands">Level 1 – Estimands</a></li>
+  <li><a href="#level-2-measurement" id="toc-level-2-measurement" class="nav-link" data-scroll-target="#level-2-measurement">Level 2 – Measurement</a></li>
+  <li><a href="#level-3-estimation" id="toc-level-3-estimation" class="nav-link" data-scroll-target="#level-3-estimation">Level 3 – Estimation</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Specification Menu</h1>
+<p class="subtitle lead">Fourteen decisions on three levels</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The specification menu defines the space of justifiable analyses you choose from. Every option on it is defensible, but you have to write the defence yourself, and the menu is arranged so that you know what kind of defence each choice needs.</p>
+<p>The menu mirrors the structure of Gelman’s ‘garden of forking paths’: at each decision point there is more than one reasonable choice, and choosing without reasons is what turns a multiverse into noise. The course runs the Multi100 sequence in reverse. Its analysts chose freely first and were standardised months later; you start from the standardised specification and recover the freedom one declared axis at a time.</p>
+<p>One thing distinguishes this menu from a list. The fourteen decisions are not fourteen of the same thing. Some change <strong>what you are estimating</strong>, so that two people who choose differently are answering different questions and their results are not rival estimates of one quantity. Some change <strong>how a named thing is measured</strong>, leaving the question alone. Some change <strong>neither</strong>, only how the fixed quantities are fitted and how sure the answer is. Run the decomposition over the pre-computed universe and the grouping is not presentational: taken one at a time, the estimand decisions carry 30.8% of the variance in the estimate between them, the measurement decisions 0.9%, and the estimation decisions 0.6%, with 67.7% in the interactions between axes – the estimator decides how much every other decision matters, so on a fully crossed grid that is where much of the variance has to sit. Attribute each interaction to the level of the decisions that produce it and the picture is cleaner: 85.0% of the variance lies between questions, 8.0% is added by measurement within a question, and 7.0% by the estimation. Choose level by level, and write your reasons at the level the choice belongs to.</p>
+<section id="the-estimand-sentence" class="level2">
+<h2 class="anchored" data-anchor-id="the-estimand-sentence">The estimand sentence</h2>
+<p>Write the sentence your analysis will complete:</p>
+<blockquote class="blockquote">
+<p>Among <strong>units</strong> in <strong>population</strong>, the association between <strong>poor economic performance</strong>, measured as <strong>X</strong>, and <strong>EU framing</strong>, measured as <strong>Y</strong>, comparing <strong>what with what</strong>.</p>
+</blockquote>
+<p>Move one decision and reread the sentence. If a bold slot other than the two “measured as” slots changes, you have made an estimand decision. If only a “measured as” slot changes, you have made a measurement decision. If nothing in the sentence changes, you have made an estimation decision. The completed sentence is your estimand <span class="citation" data-cites="LundbergEtAl2021WhatYourEstimand">(<a href="#ref-LundbergEtAl2021WhatYourEstimand" role="doc-biblioref">Lundberg et al. 2021</a>)</span>, and it is what a reader has to know before your coefficient means anything.</p>
+<p>The test sorts decisions relative to the sentence you wrote, not absolutely. Write the sentence finely enough to name the published series behind the unemployment rate and every decision on the menu rewrites it; write it as loosely as “the economy and EU framing” and none does. The sentence is written at the resolution of the claim, which names the constructs and the comparison and not the figures that stand for them. One decision sits on the boundary: whether a respondent’s answers enter as a share of their own mentions or as a count of the set’s items. Both are built from the same thirteen items, which is a reason to call the choice a matter of measurement; but a share and a count remain different quantities however well the items were measured, one the weight of a framing among the frames a person holds and the other its volume, and two people who differ on it would not accept each other’s number as an estimate of the same thing. That is the criterion the menu uses, it places the scoring rule at Level 1, and the closing section reports what the other placement would change.</p>
+</section>
+<section id="level-estimand" class="level2">
+<h2 class="anchored" data-anchor-id="level-estimand">Level 1 – Estimands</h2>
+<div id="tbl-level1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-level1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: The seven estimand decisions. Share of variance is the axis’s contribution to the claim-aligned partial correlation across the linear tier of the grid; “crosses” is the share of cells in which moving this axis alone, everything else held fixed, spans p = 0.05. The per-item rate is not a level of the decomposition: for the linear family it is the count divided by a constant, so it is not fitted separately.
+</figcaption>
+<div aria-describedby="tbl-level1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Decision</th>
+<th style="text-align: left;">Options (<code>code</code>)</th>
+<th style="text-align: left;">What it changes</th>
+<th style="text-align: right;">Share of variance</th>
+<th style="text-align: right;">Crosses p = .05</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Frame set</strong></td>
+<td style="text-align: left;">cosmopolitan <code>mcosmo</code> · utilitarian <code>mutil</code> · communitarian <code>mcomm</code> · libertarian <code>mlib</code> · positive composite <code>mpos</code> · negative composite <code>mneg</code></td>
+<td style="text-align: left;"><em>EU framing</em>: which meanings count as the outcome. The claim speaks of dimensions in the plural; Task 2 fixed the cosmopolitan scale and the claim does not. What the thirteen items say about the four scales is on <a href="../companion/measurement.html">The items behind the scales</a></td>
+<td style="text-align: right;">2.6%</td>
+<td style="text-align: right;">70%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Scoring rule</strong></td>
+<td style="text-align: left;">share of a respondent’s own mentions <code>share</code> · count of the set’s items mentioned <code>count</code> · count per item in the set <code>rate</code></td>
+<td style="text-align: left;"><em>EU framing</em>: what “more of it” means. The original paper and three analysts used the share, which is compositional, so mentioning anything else lowers it; two analysts used a count, which tracks how much a person says about the EU at all. The rate is the count divided by the number of items in the set: the same fit as the count for the linear family, and a proportion that the beta family can take</td>
+<td style="text-align: right;">0.1%</td>
+<td style="text-align: right;">28%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Claim-carrying predictor</strong></td>
+<td style="text-align: left;">unemployment <code>unemp</code> · GDP growth <code>growth</code></td>
+<td style="text-align: left;"><em>poor economic performance</em>. Task 2 fixed unemployment; three of the five analysts chose a GDP measure in Task 1</td>
+<td style="text-align: right;">0.4%</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Adjustment set</strong></td>
+<td style="text-align: left;">none <code>none</code> · the other macro measure <code>other</code></td>
+<td style="text-align: left;"><em>comparing what with what</em>: holding growth fixed asks a different question from not doing so. Confounder or second predictor is the causal-graph question</td>
+<td style="text-align: right;">0.1%</td>
+<td style="text-align: right;">8%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Sample</strong></td>
+<td style="text-align: left;">all 27 states 2004–2013 <code>all</code> · 2004–2008 <code>y2004_2008</code> · 2009–2013 <code>y2009_2013</code> · excluding bailout recipients <code>no_bailout</code> · excluding Greece and Spain <code>no_GR_ES</code></td>
+<td style="text-align: left;"><em>population</em>. Conventionally run as a robustness check; it changes which countries and years the claim is about</td>
+<td style="text-align: right;">5.0%</td>
+<td style="text-align: right;">69%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Whose average</strong></td>
+<td style="text-align: left;">none <code>none</code> · respondents interviewed <code>n_cell</code> · effective sample size <code>n_eff</code> · adult population <code>pop</code></td>
+<td style="text-align: left;"><em>units</em>. Unweighted, every country counts once; by population, every European counts once; by sample size or effective size, the weight is a precision argument that leaves the estimand alone. See <a href="../companion/weighting.html">Weights</a></td>
+<td style="text-align: right;">0.2%</td>
+<td style="text-align: right;">23%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Estimator</strong></td>
+<td style="text-align: left;">two-way fixed effects <code>fe_twoway</code> · country fixed effects <code>fe_country</code> · random effects <code>re</code> · pooled OLS <code>pooled_cl</code></td>
+<td style="text-align: left;"><em>comparing what with what</em>: a country with itself over time, or countries with one another</td>
+<td style="text-align: right;">22.5%</td>
+<td style="text-align: right;">71%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="level-measurement" class="level2">
+<h2 class="anchored" data-anchor-id="level-measurement">Level 2 – Measurement</h2>
+<p>The question holds. What changes is how a named construct becomes a column of numbers.</p>
+<div id="tbl-level2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-level2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: The four measurement decisions.
+</figcaption>
+<div aria-describedby="tbl-level2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Decision</th>
+<th style="text-align: left;">Options (<code>code</code>)</th>
+<th style="text-align: left;">What it changes</th>
+<th style="text-align: right;">Share of variance</th>
+<th style="text-align: right;">Crosses p = .05</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>No-opinion handling</strong></td>
+<td style="text-align: left;">score 0 <code>zero</code> · drop <code>drop</code> · drop “don’t know” and blank, keep “other” at 0 <code>split</code> · multiply impute <code>mi_mice</code>, <code>mi_amelia</code></td>
+<td style="text-align: left;">What a respondent who mentioned nothing means. The Multi100 reanalyses scored 0; the original author’s code dropped them. See <a href="../companion/missingness.html">Missing answers</a></td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">6%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Item set</strong></td>
+<td style="text-align: left;">all 13 items <code>all</code> · without the “unemployment” item <code>un</code></td>
+<td style="text-align: left;">The original author’s own sensitivity set: an outcome item that names unemployment shares content with an unemployment predictor</td>
+<td style="text-align: right;">0.8%</td>
+<td style="text-align: right;">13%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Cell weighting</strong></td>
+<td style="text-align: left;">as interviewed <code>unweighted</code> · Eurobarometer W1 design weight <code>design</code></td>
+<td style="text-align: left;">Whether the cell mean estimates the country’s population or its achieved sample</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">2%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Published series</strong></td>
+<td style="text-align: left;">unemployment: World Bank <code>wb_nat</code> · Eurostat 15–74 <code>es_1574_act</code> · Eurostat 20–64 as share of population <code>es_2064_pop</code> · labour force survey 25–64 <code>es_2564_lfs</code> · <code>tipsun20</code> <code>es_1574_tips</code> ; growth: World Bank <code>wb_growth</code> · Eurostat <code>es_growth</code></td>
+<td style="text-align: left;">Which figure stands for the construct. The five analysts merged five different ones. Two of the series remove country-years as well as changing values</td>
+<td style="text-align: right;">0.1%</td>
+<td style="text-align: right;">17%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="level-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="level-estimation">Level 3 – Estimation</h2>
+<p>The question and the measures hold. What changes is the statistical model fitted to them, and how sure the answer is said to be. Two of the three decisions are about the fit and can move the estimate; the third is about the inference and cannot.</p>
+<div id="tbl-level3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-level3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: The three estimation decisions: two about the fit, one about the inference.
+</figcaption>
+<div aria-describedby="tbl-level3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Decision</th>
+<th style="text-align: left;">Options (<code>code</code>)</th>
+<th style="text-align: left;">What it changes</th>
+<th style="text-align: right;">Share of variance</th>
+<th style="text-align: right;">Crosses p = .05</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Predictor form</strong></td>
+<td style="text-align: left;">raw <code>raw</code> · logged <code>log</code> (growth: raw only)</td>
+<td style="text-align: left;">The fit. Proportional against additive. Centring and standardising are not separate analyses: an affine change of scale cannot move t, r or p</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">6%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Outcome family</strong></td>
+<td style="text-align: left;">linear <code>gaussian</code> · logit-link beta <code>beta</code></td>
+<td style="text-align: left;">The fit. Whether the model respects the bounded support of the scale. Available for the share and the per-item rate at the canonical measurement settings; a count is not a proportion and has no beta twin</td>
+<td style="text-align: right;">see <a href="../companion/stats-methods.html">statistical methods</a></td>
+<td style="text-align: right;">–</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Standard errors</strong></td>
+<td style="text-align: left;">conventional <code>conventional</code> · clustered by country <code>clustered</code></td>
+<td style="text-align: left;">The inference only: the estimate is untouched and its standard error changes. One analyst reported both on the same fit: t = −6.7 against −3.4. Its share of the variance is nil by construction, so the crossing column is the one to read</td>
+<td style="text-align: right;">0.6%</td>
+<td style="text-align: right;">20%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="admissibility" class="level2">
+<h2 class="anchored" data-anchor-id="admissibility">Admissible combinations</h2>
+<p>The decisions are not fourteen free knobs. Some options exist only given an earlier choice, and the lab tells you when you have combined two that do not go together:</p>
+<ul>
+<li><strong>Outcome family ← scoring rule.</strong> The beta family needs a proportion strictly inside 0 and 1: the share and the per-item rate qualify, the count does not, and at the respondent level none of them would, because a quarter of respondents sit at exactly zero and a quarter at exactly one. The beta twins are fitted at the canonical measurement settings only (all 13 items, no-opinion respondents scored zero, cells as interviewed, the World Bank series).</li>
+<li><strong>Standard errors ← estimator.</strong> Clustering by country is close to mandatory under pooled OLS on a country panel, a judgement about serial correlation under fixed effects, and a guard on the variance components under random effects. Every pairing is on the menu; the justification differs.</li>
+<li><strong>Whose average ← estimator.</strong> Random effects is never fitted with regression weights, because frequency weights do not compose with the variance-component machinery it estimates.</li>
+<li><strong>Predictor form ← predictor.</strong> GDP growth takes negative values and enters raw only.</li>
+<li><strong>Imputed no-opinion options ← everything canonical.</strong> The two imputation engines were run for the unemployment arm at the canonical measurement and estimation settings only.</li>
+</ul>
+</section>
+<section id="the-pre-computed-universe" class="level2">
+<h2 class="anchored" data-anchor-id="the-pre-computed-universe">The pre-computed universe</h2>
+<p>Crossing every decision on the menu is not one computation. The linear family with both standard-error conventions is fitted in full, every combination of every axis, and that tier holds 461,760 fitted and imputed rows in 1,560 files. Multiple imputation is fitted for every estimand cell at the canonical measurement settings, with ten imputations pooled by Rubin’s rules, under two engines. The beta family is fitted for every estimand cell at the canonical measurement settings too, under the share and under the per-item rate. The two expensive axes are nested rather than crossed because the beta twins reproduce the linear results cell for cell in the part of the space where both were fitted, so nothing measurable is lost by not multiplying them through everything else. A further 224,640 rows are written out rather than fitted: the per-item rate under the linear family, which is the count rescaled by the number of items in the set.</p>
+<p>The grid is stored as one file per combination of the six Level 1 decisions other than the scoring rule, which selects rows within the file; with the scoring rule the menu asks 3,120 distinct questions, the rate counted with the count it rescales. Once you have settled the Level 1 decisions you have chosen a question, and its file holds every way of measuring and estimating within it: a few hundred rows that you can read as a table. That is the shape of the distinction the menu teaches. The question is fixed by seven decisions; the rest is what happens inside it.</p>
+<p>Two series come with a coverage cost that is recorded rather than hidden. The <code>tipsun20</code> table has no United Kingdom row and nothing before 2009 for any country but France, and the Eurostat growth series has no United Kingdom row, so the cells that cannot be fitted under them appear as empty rows. A source that removes half the panel is a lesson, and the <a href="../companion/weighting.html">weighting module</a> and the <a href="../companion/missingness.html">missing answers module</a> both draw on it.</p>
+<hr>
+</section>
+<section id="the-claim-alignment-step" class="level2">
+<h2 class="anchored" data-anchor-id="the-claim-alignment-step">Claim alignment</h2>
+<p>One convention applies across the room. The claim predicts a <strong>negative</strong> unemployment coefficient for the positive framings (<code>mcosmo</code>, <code>mutil</code>, <code>mpos</code>) and a <strong>positive</strong> one for the negative framings (<code>mcomm</code>, <code>mlib</code>, <code>mneg</code>). Plotted raw, the class chart would straddle zero by construction and read as noise. The convention is <strong>claim-alignment</strong>: a negative framing is reverse-coded before fitting,</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>mcomm_ca <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> d<span class="sc">$</span>mcomm   <span class="co"># claim-aligned communitarian framing</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>so that ‘supports the claim’ reads as a negative sign for every outcome, and the class chart is drawn on that scale. Reverse-coding a bounded scale flips the sign of the coefficient and leaves its magnitude, standard error, |t| and p-value untouched (exactly so for the beta family too, since logit(1 − μ) = −logit(μ)), so nothing about the evidence changes, only the direction convention it is stated in. It is nonetheless a real analytic decision, which is why it rides on the <code>claim_align</code> switch in your preregistration, set to <code>TRUE</code> as the convention and applied for you rather than buried in the fitting code. If your outcome is a positive framing, there is nothing to reverse-code.</p>
+<p>One further flip applies when your claim variable is GDP growth. The claim then predicts a <strong>positive</strong> coefficient on the positive framings, so claim-aligned reporting multiplies your b, t and r by −1 (the lab applies this for you). After both conventions, ‘supports the claim’ reads as a negative sign for every specification on the menu, whatever it measures.</p>
+<hr>
+</section>
+<section id="worked-example" class="level2">
+<h2 class="anchored" data-anchor-id="worked-example">Worked example</h2>
+<p><strong>Choice:</strong> frame set <code>mpos</code>, scoring rule <code>share</code>, predictor <code>unemp</code>, adjustment <code>none</code>, sample <code>all</code>, whose average <code>none</code>, estimator <code>fe_twoway</code>; no-opinion <code>drop</code>, item set <code>all</code>, cell weighting <code>unweighted</code>, series <code>wb_nat</code>; form <code>raw</code>, family <code>gaussian</code>, standard errors <code>conventional</code>.</p>
+<p><strong>Justification (two sentences per level):</strong> The “positive dimensions” wording in the claim maps more directly onto the composite <code>mpos</code> scale than onto <code>mcosmo</code> alone, scored as a share of each respondent’s own mentions because the claim is about how people frame the EU rather than how much they say about it, and the comparison the claim makes is a country with itself as its economy moves, which is what two-way fixed effects identify; nothing in the claim restricts the countries or the years, and the claim is about countries, so every cell counts once. Respondents who mentioned nothing are dropped, following the original paper’s handling rather than the reanalyses’ zero, because a person with no framing of the EU is not a person with zero positive framing; the World Bank series is retained because it is the one the panel was built on. The raw percentage is kept because a proportional effect has no warrant in the claim, and conventional standard errors are reported because the two-way design already absorbs the country-level dependence that clustering would guard against.</p>
+<p>This is the kind of justification that makes a specification defensible: it connects each choice to the wording of the claim or to a causal argument, at the level the choice belongs to, rather than to convenience or preference.</p>
+<hr>
+</section>
+<section id="preregistering-your-choice" class="level2">
+<h2 class="anchored" data-anchor-id="preregistering-your-choice">Preregistration</h2>
+<p>Commit to your specification <strong>before you run it</strong>. That is what stops you picking the path that happens to give the answer you want. You record the commitment by completing the preregistration block in your report <em>before</em> you add the model-fitting code, then running. It is a real template – the OSF “Preregistration Template from AsPredicted.org”, shortened to five fields – so the exercise mirrors what a registered secondary-data analysis actually does.</p>
+<ul>
+<li><strong>In the workspace:</strong> the report skeleton (<code>index.qmd</code>) carries the preregistration block in Task 5. Fill in your fourteen choices and their justification, and <strong>render the report before you run</strong>. The rendered block, timestamped in your report, is your record.</li>
+<li><strong>On the browser lab page:</strong> there is no render step, so complete the commented preregistration block and copy it into the plain-text file where you are saving your work. That is your commitment.</li>
+</ul>
+<p>An optional mirror form may be used to log preregistrations for the room, and the link is shared in the session. It is not required. The completed block in your report is your official preregistration.</p>
+</section>
+<section id="the-source-of-the-numbers" class="level2">
+<h2 class="anchored" data-anchor-id="the-source-of-the-numbers">The source of the numbers</h2>
+<p>Every specification on the menu already sits in the pre-computed universe, so the browser lab never fits a model live. Your Level 1 choices name an estimand cell: six of them name its file and the scoring rule selects within it. <code>run_spec()</code> fetches that file, finds the row your remaining choices select, and prints its <code>b</code>, <code>se</code>, <code>t</code> (or <code>z</code> for the beta family), <code>df</code> and claim-aligned partial <code>r</code>, and <code>report_result()</code> carries the same numbers to the class chart. The values arrive <strong>claim-aligned</strong>: for a negative framing the coefficient, statistic and <code>r</code> flip sign, and for a GDP-growth predictor they flip as well. If a machine will not run the cells at all, the facilitator can open the same file under <code>data/grid/</code> and read the row by hand.</p>
+<hr>
+</section>
+<section id="reporting-your-result" class="level2">
+<h2 class="anchored" data-anchor-id="reporting-your-result">Reporting a result</h2>
+<p>After running your model, submit your result to the class-results form. You do not fill it in by hand and you do not transcribe anything. <code>report_result()</code> takes no arguments: it reads your preregistered choices, builds the specification label itself with all fourteen decisions in it, and prints a one-click link with your numbers already in place, on the claim-aligned scale. Open it and press Send, and your result appears on the live <a href="https://codemoreh.github.io/applied-replication/results.html">Multiverse</a> chart.</p>
+<p>The helper standardises every submission to a <strong>partial correlation</strong>, <span class="math inline">\(r = t / \sqrt{t^2 + df}\)</span> – the same conversion that Multi100 used – so that models on different outcome scales and estimators all sit on one comparable axis.</p>
+<p>In the workspace the helper lives at <code>R/report_result.R</code>; on the <a href="../exercise/browser-lab.html">Browser lab</a> page it is already loaded:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/report_result.R"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">report_result</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This prints your submission link, ready to click.</p>
+<hr>
+</section>
+<section id="what-each-decision-commits-you-to" class="level2">
+<h2 class="anchored" data-anchor-id="what-each-decision-commits-you-to">Justifying each decision</h2>
+<section id="the-sentence-first" class="level3">
+<h3 class="anchored" data-anchor-id="the-sentence-first">The sentence first</h3>
+<p>Before defending any single choice, complete the estimand sentence above. The first slot is countries or Europeans, and your weighting decides it. The second is which member states and which years, and your sample decides it. The two “measured as” slots are your predictor and outcome constructs, and everything on Level 2 sits inside them; the outcome construct is itself two decisions, which meanings count and what “more” of them means, and both rewrite the sentence. The last slot is what your estimator compares. Move a Level 1 decision and the sentence changes; that is the whole reason for the levels.</p>
+</section>
+<section id="level-1-estimands" class="level3">
+<h3 class="anchored" data-anchor-id="level-1-estimands">Level 1 – Estimands</h3>
+<p><strong>Frame set.</strong> The four EU-frames dimensions are built from thirteen answer options, and <code>mpos</code> and <code>mneg</code> are composites of the positive and negative pairs. All are in <code>EUframes_cy.csv</code>, and the codebook carries the exact definitions. Under the share rule the four scales are shares of one instrument and are constrained to sum to one, so whatever raises one lowers the others: choosing between them is not a robustness check, it is a choice of what the claim is about. The data recover the two negative scales item for item and do not recover the split between the two positive ones, and they support the composites best of all; the evidence is on <a href="../companion/measurement.html">The items behind the scales</a>. The negative framings take the claim-alignment step above.</p>
+<p><strong>Scoring rule.</strong> A share of a person’s own mentions and a count of the set’s items are two different things to be “more cosmopolitan” about. The share is compositional: mention anything else and it falls. The count is absolute: across the country-year cells it tracks how many items respondents mention at all (a correlation of 0.85 with the mean number of items mentioned, against -0.09 for the share), and the two constructions of the cosmopolitan outcome correlate at only 0.42 across the cells. The per-item rate is the count divided by the number of items in the set, so that a two-item and a five-item scale are on one footing; for the linear family it changes nothing but the units of the coefficient, and it is the version of the count that the beta family can take. Say which of the three the claim is about.</p>
+<p><strong>Estimator choice.</strong> This axis carries 22.5% of the variance in the whole universe, and it does so because it decides which comparison you are making, not because some estimators fit better than others. Two-way fixed effects controls for time-constant country traits and year-specific EU-wide shocks, so it compares a country with itself. Country fixed effects removes country traits but leaves year shocks in the error. Random effects blends the within-country and between-country comparisons, and assumes the country-level heterogeneity is uncorrelated with the covariates. Pooled OLS ignores the panel structure and compares countries with one another. On this claim the pooled and the within-country specifications give answers of <strong>opposite sign</strong>, and no amount of robustness checking reconciles them, because they are answers to different questions.</p>
+<p><strong>Adjustment set.</strong> From the causal graph: is the other macro measure a confounder (a common cause of the predictor and of EU framing), a second predictor of interest, or a mediator on the path from the predictor to framing? Your answer determines whether including it is defensible for your estimand. See the <a href="../companion/dags.html">causal graphs module</a>.</p>
+<p><strong>Sample.</strong> Dropping Greece and Spain removes the two countries with unemployment rates far above the rest during the crisis. If the effect is driven mainly by them, the coefficient will shrink. This is conventionally called a sensitivity check, and it does not behave like one: it changes which countries the claim is about, so the sentence changes, so it is an estimand decision wearing a robustness label. The same goes for restricting to the crisis years or the pre-crisis years.</p>
+<p><strong>Whose average.</strong> Unweighted, every country-year is one observation and the coefficient describes the average country; Malta counts as much as Germany. Weighted by the number of respondents or by the effective sample size, the weight is a precision argument and the estimand does not move. Weighted by adult population, the coefficient describes the average European, which is a different quantity. The three arguments are separated, with the numbers, in <a href="../companion/weighting.html">Weights</a>.</p>
+</section>
+<section id="level-2-measurement" class="level3">
+<h3 class="anchored" data-anchor-id="level-2-measurement">Level 2 – Measurement</h3>
+<p><strong>No-opinion handling.</strong> This interlocks with the scoring rule, because under the share rule a respondent who mentioned nothing has no share at all and something has to be decided about 26,325 people, while under a count their count is a genuine zero. The zero, drop and split rules and the two imputation engines are set out in <a href="../companion/missingness.html">Missing answers</a>; the short version is that the rule changes who is in the population as well as how they are scored, so it reaches further than its place on this level suggests, and the data say it hardly matters, which is the reason to leave it here and say so.</p>
+<p><strong>Item set.</strong> The original author’s own code carries a second version of every scale without the item “unemployment”, because an outcome that counts “unemployment” among the meanings of the EU shares content with a predictor that is the unemployment rate. Under that set, a respondent whose only mention was “unemployment” has nothing left and joins the no-opinion group.</p>
+<p><strong>Cell weighting and published series.</strong> Both are cases where the measurement decision is nearly inert for the estimate and consequential for something else. The design weight changes the cell means by up to a few hundredths and the distribution by nothing measurable. Which unemployment series is merged changes the coefficient’s scale and hardly anything else, because the four full-coverage series correlate above 0.995 once country and year means are removed; what the fifth series changes is the sample, by having no rows for half the panel.</p>
+</section>
+<section id="level-3-estimation" class="level3">
+<h3 class="anchored" data-anchor-id="level-3-estimation">Level 3 – Estimation</h3>
+<p><strong>Predictor form.</strong> Log-transforming unemployment makes sense if you believe the effect is proportional rather than additive. Centring or standardising cannot change the t-statistic, because an affine change of scale leaves the test statistic exactly where it was. The justification here is technical rather than substantive, and that is the point of the level.</p>
+<p><strong>Outcome family.</strong> Beta regression is a defensible fork because the share-built and rate-built outcomes are bounded 0–1 proportions and the country-year cell means sit strictly inside the interval, so a logit-link beta model respects that support where a linear model does not. A count-built outcome is a number of items, not a proportion, and has no beta twin: choose the rate if you want the count’s construct under the beta family. Beta fits report a z statistic rather than a t; <code>report_result()</code> handles both, and the partial-correlation conversion is unchanged. The theory is in the <a href="../companion/stats-methods.html">statistical methods module</a>.</p>
+<p><strong>Standard errors.</strong> Clustering by country changes the standard error and nothing about the estimate, which makes it the one decision on the menu that is about inference rather than the answer. It is on the menu because one of the five analysts computed both on the same fit and the two disagreed by a factor of two, and because it shows that an estimation decision can decide whether a result is reportable while leaving the estimate exactly where it was: nil variance, and a threshold crossing in 20% of cells.</p>
+<p>A closing caution that cuts across all three levels. A decision can carry almost none of the variance in the distribution and still decide whether <em>your</em> result clears p = 0.05, because significance is a property of one cell and variance is a property of the whole space. In the pre-computed universe the predictor form carries 0.0% of the variance and crosses the threshold in 6% of cells. Pin the question on all seven Level 1 decisions and leave the other seven free, and 1,600 of the 3,120 questions still hold both a significant and a non-significant result among their 240 variants; count the scoring rule as a measurement decision instead, so that it too is free, and 1,121 of 1,560 cells do among 480 variants, which is the measure of how much that one placement decides. Pin only the outcome and the estimator, the two decisions every methods section states, and 24 of 24 blocks straddle the threshold. That is why you commit before you run.</p>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-LundbergEtAl2021WhatYourEstimand" class="csl-entry" role="listitem">
+Lundberg, Ian, Rebecca Johnson, and Brandon M. Stewart. 2021. <span>“What <span>Is Your Estimand</span>? <span>Defining</span> the <span>Target Quantity Connects Statistical Evidence</span> to <span>Theory</span>.”</span> <em>American Sociological Review</em> 86 (3): 532–65. <a href="https://doi.org/10.1177/00031224211004187">https://doi.org/10.1177/00031224211004187</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/codemoreh\.github\.io\/applied-replication\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="https://github.com/CodeMoreh/applied-replication">GitHub repo</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

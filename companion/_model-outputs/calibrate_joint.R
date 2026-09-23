@@ -23,7 +23,7 @@
 #               be exact. The remaining seven categories are drawn afterwards
 #               from a multinomial model conditional on the latent block.
 #
-# Reads:        _planning_data/person_level_full.rds   (licensed, local only)
+# Reads:        the respondent file, through _load_respondents.R (licensed, local only)
 # Writes:       companion/_model-outputs/joint_corr.csv
 #               companion/_model-outputs/joint_marginals.csv
 #               companion/_model-outputs/joint_ses_conditional.csv
@@ -41,7 +41,7 @@ suppressPackageStartupMessages({
 
 set.seed(20260730)
 
-ind <- readRDS("_planning_data/person_level_full.rds")
+source("companion/_model-outputs/_load_respondents.R")
 items <- paste0("it", c(1:7, 9:14))
 
 # Left-right is absent from the four 2013-and-earlier-numbered waves that use

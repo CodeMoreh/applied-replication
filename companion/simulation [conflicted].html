@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Simulation as a method – Applied Replication for Data Skills</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.js"></script>
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/animate.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/magic.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo light-content">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Applied Replication for Data Skills</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../tracks/one-day.html">
+ <span class="dropdown-text">One day</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/three-days.html">
+ <span class="dropdown-text">Three days</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/semester.html">
+ <span class="dropdown-text">Semester</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/self-study.html">
+ <span class="dropdown-text">Self-study</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../slides/index.html"> 
+<span class="menu-text">Slides</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-exercise">    
+        <li>
+    <a class="dropdown-item" href="../exercise/index.html">
+ <span class="dropdown-text">Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/browser-lab.html">
+ <span class="dropdown-text">Browser lab (no install)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/spec-menu.html">
+ <span class="dropdown-text">Specification menu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/estimand-dial.html">
+ <span class="dropdown-text">Estimand choices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/cheatsheet.html">
+ <span class="dropdown-text">Cheatsheet</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../results.html"> 
+<span class="menu-text">Multiverse</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-companion" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Companion</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-companion">    
+        <li>
+    <a class="dropdown-item" href="../companion/index.html">
+ <span class="dropdown-text">Curriculum overview</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Computational tools</li>
+        <li>
+    <a class="dropdown-item" href="../companion/intro-r.html">
+ <span class="dropdown-text">Getting started with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/quarto.html">
+ <span class="dropdown-text">Quarto and reproducible documents</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Reproducibility and collaboration</li>
+        <li>
+    <a class="dropdown-item" href="../companion/repositories.html">
+ <span class="dropdown-text">Repositories &amp; preregistration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/git-github.html">
+ <span class="dropdown-text">Git &amp; GitHub</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistical methods</li>
+        <li>
+    <a class="dropdown-item" href="../companion/stats-methods.html">
+ <span class="dropdown-text">The statistical methods behind the course</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/dags.html">
+ <span class="dropdown-text">Causal graphs &amp; adjustment sets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/multiverse.html">
+ <span class="dropdown-text">The multiverse: concept &amp; critics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/weighting.html">
+ <span class="dropdown-text">Weights: three decisions, one name</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/missingness.html">
+ <span class="dropdown-text">Missing answers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/measurement.html">
+ <span class="dropdown-text">Thirteen items, four scales</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/simulation.html">
+ <span class="dropdown-text">Simulation as a method</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/individual-level.html">
+ <span class="dropdown-text">One claim, two levels</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-dgp" id="toc-sec-dgp" class="nav-link active" data-scroll-target="#sec-dgp">1. The recipe</a></li>
+  <li><a href="#sec-recover" id="toc-sec-recover" class="nav-link" data-scroll-target="#sec-recover">2. Parameter recovery</a></li>
+  <li><a href="#sec-outcomes" id="toc-sec-outcomes" class="nav-link" data-scroll-target="#sec-outcomes">3. The six outcomes</a></li>
+  <li><a href="#sec-composition" id="toc-sec-composition" class="nav-link" data-scroll-target="#sec-composition">4. Composition against context</a></li>
+  <li><a href="#sec-individual" id="toc-sec-individual" class="nav-link" data-scroll-target="#sec-individual">5. Individual effects</a></li>
+  <li><a href="#sec-df" id="toc-sec-df" class="nav-link" data-scroll-target="#sec-df">6. Degrees of freedom</a></li>
+  <li><a href="#sec-weights" id="toc-sec-weights" class="nav-link" data-scroll-target="#sec-weights">7. Weights</a></li>
+  <li><a href="#sec-null" id="toc-sec-null" class="nav-link" data-scroll-target="#sec-null">8. A null world</a></li>
+  <li><a href="#sec-design" id="toc-sec-design" class="nav-link" data-scroll-target="#sec-design">9. Design checks</a></li>
+  <li><a href="#sec-further" id="toc-sec-further" class="nav-link" data-scroll-target="#sec-further">Further reading</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Simulation as a method</h1>
+<p class="subtitle lead">Synthetic data with a known recipe</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This is the simulation module of the <a href="../companion/index.html">companion curriculum</a>, and it is optional. Every other quantitative page on this site analyses data that came from the world; this module analyses data that came from a recipe we wrote ourselves, so that for once the answer is known before any model runs. That inversion, known as fake-data simulation, is a standard habit in applied statistics. <em>Regression and Other Stories</em> uses it constantly, on the argument that fitting models to data whose coefficients you planted yourself is how you learn what your models can and cannot recover <span class="citation" data-cites="GelmanEtAl2020RegressionOtherStories">(<a href="#ref-GelmanEtAl2020RegressionOtherStories" role="doc-biblioref">Gelman et al. 2020</a>)</span>; the same habit underpins classroom practice <span class="citation" data-cites="GelmanVehtari2024ActiveStatisticsStories">(<a href="#ref-GelmanVehtari2024ActiveStatisticsStories" role="doc-biblioref">Gelman and Vehtari 2024</a>)</span> and the workflow literature, where experimentation on simulated data is one of the named components of model-building <span class="citation" data-cites="GelmanEtAl2026BayesianWorkflow">(<a href="#ref-GelmanEtAl2026BayesianWorkflow" role="doc-biblioref">Gelman et al. 2026</a>)</span>.</p>
+<p>The module teaches from a dataset built for the purpose. <code>EUframes_person_full.csv</code> is a simulated person-level companion to the EU-frames case – 41,660 synthetic respondents across the real 270 country-year cells, with the real macro variables attached. It carries the original analysis rather than a cut-down version of it: all four framing dimensions and both composites, plus every individual variable that the original author (OA) used – sex, age, education as both years and bands, an eight-category occupational position, urbanisation, and left-right self-placement.</p>
+<p>First, <strong>no Eurobarometer respondent appears in it</strong>. The raw microdata behind the case are GESIS-licensed and cannot be redistributed in any form, including as samples or extracts – <a href="../companion/repositories.html#sec-gesis">the repositories module</a> explains that regime – so a person-level dataset that this site can legitimately ship has to be synthetic. What the licensed file supplied, read once and locally, is a set of summaries: marginal distributions, a correlation matrix, and the coefficients of a model of the survey instrument. Those are aggregate statistics of the kind that published appendices carry, and they are committed as <code>_model-outputs/joint_*.csv</code> and <code>_model-outputs/item_*.csv</code>.</p>
+<p>Second – and this is the pedagogical point rather than a limitation – <strong>the recipe is known</strong>. A data-generating process is the explicit rule by which every value was produced. Real data never comes with its rule attached, whereas simulated data is nothing but the rule, so any model fitted to it can be judged against an answer that is already known.</p>
+<section id="sec-dgp" class="level2">
+<h2 class="anchored" data-anchor-id="sec-dgp">1. The recipe</h2>
+<p>The generator is <code>_model-outputs/simulate_person_joint.R</code>, a committed script worth reading, and it works in two stages that answer two different questions: who is in the sample, and what they say.</p>
+<p><strong>Stage one: who.</strong> A respondent’s characteristics are one draw from a latent multivariate normal whose correlation matrix was estimated on the real respondents. Each observed variable is a monotone transform of one coordinate of that draw: sex and employment status by a threshold, urbanisation by cutpoints, age, education and left-right through their quantile functions. Any marginal distribution you like can be reproduced this way, and every pairwise association comes with it.</p>
+<p>The associations matter as much as the marginals. An earlier version of this twin drew age, sex and education independently, which is the natural thing to do and is wrong: in the real respondents, age correlates with being unemployed at -0.24 and with education at -0.14. A regression coefficient is a partial association, so it depends on how the variables covary; get that wrong and the coefficients come out wrong however carefully each variable’s own effect was set.</p>
+<p><strong>Stage two: what they say.</strong> In the real survey a respondent hears a list of things that the EU might mean and names those that apply, and their dimension scores are the shares of their mentions falling to each dimension. The generator simulates that instrument rather than the four scores. Each of the thirteen items has a latent propensity</p>
+<p><span class="math display">\[
+z_{ij} = \alpha_{j(ct)} + \mathbf{x}_i^{\top}\boldsymbol\beta_j + \varepsilon_{ij},
+\qquad \text{item } j \text{ mentioned when } z_{ij} &gt; 0,
+\]</span></p>
+<p>with <span class="math inline">\(\mathbf{x}_i\)</span> the respondent’s characteristics, <span class="math inline">\(\alpha_{j(ct)}\)</span> a shift for their country-year, and the thirteen residuals correlated with one another. That is a <strong>multivariate probit</strong>, and each of its three parts does a different job: <span class="math inline">\(\boldsymbol\beta\)</span> carries who says what, the correlated residuals carry the fact that people who name one thing tend to name its neighbour, and <span class="math inline">\(\alpha\)</span> carries the country-year.</p>
+<p>Simulating the instrument rather than the scores is what gives the shares their exact zeros and ones, makes them sum to one automatically, and lets every dimension respond on its own terms.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>bcoef <span class="sc">|&gt;</span> <span class="fu">slice_max</span>(<span class="fu">abs</span>(estimate), <span class="at">n =</span> <span class="dv">6</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">estimate =</span> <span class="fu">signif</span>(estimate, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  item  term       estimate
+  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;
+1 it6   edu3high      0.397
+2 it5   edu3high      0.321
+3 it7   edu3high      0.302
+4 it9   edu3high     -0.264
+5 it5   sesstudent    0.244
+6 it3   edu3high      0.241</code></pre>
+</div>
+</div>
+<p>Occupation dominates that list, which is why the twin carries it. An earlier version left occupation out of the answer stage entirely – respondents had an occupation, but it had no bearing on what they said – and the result reproduced the macro slopes while getting two thirds of the coefficients in the model wrong. <a href="#sec-recover">Section 2</a> is where that was found.</p>
+<p><strong>The country-year shift is solved, not set.</strong> A dimension score is a <em>share</em> of a respondent’s own mentions, so raising the cosmopolitan items lowers every other dimension even with its own items untouched. There is no formula for the shift that produces a given set of cell means, so for each of the 270 country-years the generator solves four shifts by Newton iteration against a fixed reference sample, until the expected dimension means match those in the panel to within 1e-4.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sim <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">6</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cntry, year, age, edu3, ses, urban, cosmo, util, comm, lib, unemp) <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(cntry, year)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 11
+  cntry  year   age edu3  ses          urban      cosmo  util  comm   lib unemp
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;        &lt;fct&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 AT     2008    46 mid   manager      rural        0     0       0     0  4.13
+2 BE     2005    45 low   retired      large_town   0.5   0.5     0     0  8.44
+3 IT     2004    30 mid   manager      small_town   1     0       0     0  7.87
+4 LT     2012    52 mid   unemployed   rural        0     0       0     0 13.4 
+5 LU     2010    53 low   white_collar large_town   0.6   0.4     0     0  4.36
+6 SI     2010    36 mid   manual       rural        0     0       0     1  7.24</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The share columns are stored rounded to six decimals, so four of them can</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># drift from their sum: the identities need a tolerance, not ==.</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>identities <span class="ot">&lt;-</span> sim <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cosmo <span class="sc">+</span> util <span class="sc">+</span> comm <span class="sc">+</span> lib <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">dimensions sum to 1</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">all</span>(<span class="fu">abs</span>(cosmo <span class="sc">+</span> util <span class="sc">+</span> comm <span class="sc">+</span> lib <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">&lt;</span> <span class="fl">5e-6</span>),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">pos + neg = 1</span><span class="st">`</span>       <span class="ot">=</span> <span class="fu">all</span>(<span class="fu">abs</span>(pos <span class="sc">+</span> neg <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">&lt;</span> <span class="fl">5e-6</span>),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">share exactly 0</span><span class="st">`</span>     <span class="ot">=</span> <span class="fu">mean</span>(cosmo <span class="sc">==</span> <span class="dv">0</span>),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">share exactly 1</span><span class="st">`</span>     <span class="ot">=</span> <span class="fu">mean</span>(cosmo <span class="sc">==</span> <span class="dv">1</span>))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>identities</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  `dimensions sum to 1` `pos + neg = 1` `share exactly 0` `share exactly 1`
+  &lt;lgl&gt;                 &lt;lgl&gt;                       &lt;dbl&gt;             &lt;dbl&gt;
+1 TRUE                  TRUE                        0.197             0.224</code></pre>
+</div>
+</div>
+<p>Among respondents who mention anything, 20% score exactly zero on cosmopolitan framing and 22% score exactly one – the latter because someone who mentions one item and finds it cosmopolitan scores 1 by construction. This is faithful to the real instrument, and it is the concrete reason that beta regression, which needs the outcome strictly inside the unit interval, cannot be used at person level while it can be used on country-year means. The <a href="../companion/stats-methods.html#sec-glm">statistical methods module</a> states that constraint; here you can verify it.</p>
+</section>
+<section id="sec-recover" class="level2">
+<h2 class="anchored" data-anchor-id="sec-recover">2. Parameter recovery</h2>
+<p>The first thing to do with data whose recipe you know is to ask a model to find what the recipe planted. There are two such questions here, and they need keeping apart.</p>
+<p>At <strong>cell level</strong> the planted value is the coefficient from the panel itself, because the generator solves each country-year until its expected dimension means match those in the panel. So a model fitted to the cell means of the twin should land where the same model fitted to the real panel lands.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(planted<span class="sc">$</span>outcome, \(v) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  cf <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(<span class="fu">c6hjr_spec</span>(v), <span class="at">data =</span> sim_cells))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">outcome =</span> v, <span class="at">sim_unemp =</span> cf[[<span class="st">"unemp"</span>]], <span class="at">sim_growth =</span> cf[[<span class="st">"growth"</span>]])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(planted, <span class="at">by =</span> <span class="st">"outcome"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(outcome, planted_unemp, sim_unemp, planted_growth, sim_growth) <span class="sc">|&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  outcome planted_unemp sim_unemp planted_growth sim_growth
+  &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;          &lt;dbl&gt;      &lt;dbl&gt;
+1 cosmo       -0.00356  -0.00412     -0.000242   -0.000899 
+2 util        -0.000678 -0.000186     0.00191     0.00169  
+3 comm         0.00524   0.00516     -0.00163    -0.00174  
+4 lib          0.000105  0.000485     0.00000514 -0.0000412
+5 pos         -0.00424  -0.00431      0.00167     0.000788 
+6 neg          0.00534   0.00564     -0.00162    -0.00179  </code></pre>
+</div>
+</div>
+<p>Read the substance before the arithmetic. Rising unemployment pushes framing away from <strong>both</strong> cosmopolitan and utilitarian terms and towards communitarian ones. Growth works differently again, lifting utilitarian framing most – which makes sense, since that dimension is built from the economic-prosperity and social-protection items. That pattern belongs to the real panel, carried into the twin rather than manufactured by the simulation.</p>
+<p>Now the arithmetic. The simulated coefficients sit near the planted values but not on them, and the reason lies in the construction: each cell mean in the twin is an average over a tenth of the real respondents, so it is noisier than the corresponding mean in the panel. That is a property of the design – not a defect – and a single dataset could never show it. Only repeated draws from the same recipe can.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sweep, <span class="fu">aes</span>(sim_unemp, outcome)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.45</span>, <span class="at">colour =</span> <span class="st">"#00205b"</span>, <span class="at">size =</span> <span class="fl">1.6</span>) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> planted, <span class="fu">aes</span>(planted_unemp, outcome),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#c8102e"</span>, <span class="at">shape =</span> <span class="dv">124</span>, <span class="at">size =</span> <span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"estimated unemployment slope"</span>, <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-sweep" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sweep-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simulation_files/figure-html/fig-sweep-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sweep-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Independent draws from the same recipe, each refitted with C6HJR’s published Multi100 specification. Red marks show the planted coefficient. The unemployment slopes sit consistently outside their marks, which is the bias that the text discusses.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>planted_long <span class="ot">&lt;-</span> planted <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(outcome, <span class="at">sim_unemp =</span> planted_unemp, <span class="at">sim_growth =</span> planted_growth) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>outcome, <span class="at">names_to =</span> <span class="st">"slope"</span>, <span class="at">values_to =</span> <span class="st">"planted"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>sweep_summary <span class="ot">&lt;-</span> sweep <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(sim_unemp, sim_growth), <span class="at">names_to =</span> <span class="st">"slope"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"estimate"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">draws =</span> <span class="fu">n</span>(), <span class="at">mean_estimate =</span> <span class="fu">mean</span>(estimate),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_estimate =</span> <span class="fu">sd</span>(estimate), <span class="at">.by =</span> <span class="fu">c</span>(outcome, slope)) <span class="sc">|&gt;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(planted_long, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"outcome"</span>, <span class="st">"slope"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gap_in_ses =</span> (mean_estimate <span class="sc">-</span> planted) <span class="sc">/</span> (sd_estimate <span class="sc">/</span> <span class="fu">sqrt</span>(draws)))</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>sweep_summary <span class="sc">|&gt;</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(slope, outcome) <span class="sc">|&gt;</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 7
+   outcome slope      draws mean_estimate sd_estimate     planted gap_in_ses
+   &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+ 1 comm    sim_growth    19     -0.00173     0.000753 -0.00163        -0.555
+ 2 cosmo   sim_growth    19      0.000154    0.00103  -0.000242        1.67 
+ 3 lib     sim_growth    19     -0.000184    0.000484  0.00000514     -1.7  
+ 4 neg     sim_growth    19     -0.00191     0.000987 -0.00162        -1.26 
+ 5 pos     sim_growth    19      0.00187     0.00115   0.00167         0.74 
+ 6 util    sim_growth    19      0.00171     0.000505  0.00191        -1.73 
+ 7 comm    sim_unemp     19      0.00599     0.000703  0.00524         4.68 
+ 8 cosmo   sim_unemp     19     -0.0042      0.00101  -0.00356        -2.74 
+ 9 lib     sim_unemp     19      0.00016     0.000632  0.000105        0.383
+10 neg     sim_unemp     19      0.00615     0.00101   0.00534         3.48 
+11 pos     sim_unemp     19     -0.00497     0.00115  -0.00424        -2.78 
+12 util    sim_unemp     19     -0.000772    0.000414 -0.000678       -0.983</code></pre>
+</div>
+</div>
+<p>The last column is the test: each remaining gap as a multiple of the standard error of the mean across draws. 8 of the 12 fall inside two standard errors, and the ones outside are not scattered. Every unemployment slope misses in the same direction, with the estimate from the twin larger in magnitude than the planted value by 16 per cent at the median. The median rather than the mean, because the planted slope of libertarian framing is nearly zero and any absolute error there is an enormous proportion of it – an average would report a number driven entirely by the one quantity with almost nothing in it to estimate.</p>
+<p>That is a real bias in the generator, and it is shown here because of how it had to be found. <strong>No single draw reveals it.</strong> Fit C6HJR’s published Multi100 specification to the committed twin and regress its cell means against those in the panel, and the unemployment coefficient on the difference comes back at <em>t</em> = −0.12 – nothing at all. One draw’s sampling noise is the same size as the bias, so a sweep of this size is what separates it from zero.</p>
+<p>Its source is a stated limitation of the construction rather than a mistake in it. The generator gives each country-year four numbers, one shift per dimension, where the real data has thirteen, one rate per item. A dimension-level shift captures as little as 37 per cent of the cell-to-cell variation in some items, and what is lost shows up twice over: as a mentioning rate about 1.6 points below the one in the panel, and as this amplification.</p>
+<p>The obvious repair does not work, and anyone tempted to try it should know that first. Giving each cell its own thirteen item rates makes the marginals exact – mentions per respondent land within 0.05 per cent of target – and makes the individual-level validation <strong>worse</strong>, from 39 coefficients agreeing to 32. In the real data a cell’s item rates reflect its context and the mix of people in it together; the twin draws its people from pooled marginals, so forcing the real rates onto a different mix pushes the difference into the country-year term, and it re-emerges as distorted covariate coefficients. Fixing it properly would mean reproducing each cell’s demographic composition as well, which is a much larger undertaking than the gain justifies.</p>
+<p>Where that leaves the twin: unbiased for the individual-level model it was validated against, and biased by about a sixth for cell-level unemployment slopes, with the reason understood and the cost of removing it judged too high.</p>
+<p>At <strong>individual level</strong> the planted values are not those of the panel. They are whatever the real respondents give under the same model, so finding out whether the twin reproduces them means fitting that model on both files. That comparison is what licenses the twin to be used at all, and it lives in <code>_model-outputs/twin_validation.csv</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>valid <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">coefficients =</span> <span class="fu">n</span>(),</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">within 1 SE</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z) <span class="sc">&lt;</span> <span class="dv">1</span>),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">`</span><span class="at">within 2 SE</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z) <span class="sc">&lt;</span> <span class="dv">2</span>),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">largest =</span> <span class="fu">round</span>(<span class="fu">max</span>(<span class="fu">abs</span>(z)), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  coefficients `within 1 SE` `within 2 SE` largest
+         &lt;int&gt;         &lt;int&gt;         &lt;int&gt;   &lt;dbl&gt;
+1           64            46            60    2.87</code></pre>
+</div>
+</div>
+<p>60 of 64 agree within two standard errors of the difference. <a href="../companion/individual-level.html">The individual-level page</a> works through what those coefficients say.</p>
+<p>That validation is also how two real failures in this generator were found, and neither was visible any other way. The first version left occupation out of the answer stage, so a model containing occupation and education split the association between them differently from the real data – two thirds of the coefficients wrong, while every marginal, every cell mean and every correlation checked out. The second carried education as a straight line through a relationship that the published model reads in three bands, and returned about half of each band contrast.</p>
+<p>Any simulated dataset can pass every check you think to write and still fail the analysis you built it for, and the only check that catches that is running the intended analysis on both files.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Open the generator and change <code>SIM_FRACTION</code> from <code>0.10</code> to <code>0.40</code>. It is the only lever on how many respondents each cell gets, and nothing about the recipe’s coefficients changes – only how precisely a cell mean can be measured.</p>
+<p>Do not judge the result on one rerun: a single draw gives one estimate, and one estimate cannot tell you whether the spread has narrowed. Sweep instead – ten seeds at each setting, with <code>$SIM_SEED</code> naming the draw and <code>$SIM_SWEEP</code> collecting the estimates – then compare the standard deviation of each set of ten. Quadrupling the cell sizes should roughly halve it, which is the square-root law arriving as an experimental result rather than a formula. That is a designed simulation study in miniature, and a power analysis is built the same way.</p>
+<p>Point <code>$SIM_OUT</code> at a scratch directory unless you mean to overwrite the committed twin, and note that at <code>0.40</code> the file is four times the size.</p>
+</div>
+</div>
+</section>
+<section id="sec-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="sec-outcomes">3. The six outcomes</h2>
+<p>On the grid as estimated, the choice of outcome – which framing scale you treat as ‘EU framing’ – moves results more than any other analytical decision. The twin lets you see part of why, because the dimensions are shares of one instrument and cannot move independently.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>planted <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(outcome, <span class="at">unemp =</span> planted_unemp, <span class="at">growth =</span> planted_growth) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ratio_to_cosmo =</span> unemp <span class="sc">/</span> unemp[outcome <span class="sc">==</span> <span class="st">"cosmo"</span>],</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>         <span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  outcome     unemp      growth ratio_to_cosmo
+  &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;          &lt;dbl&gt;
+1 cosmo   -0.00356  -0.000242           1     
+2 util    -0.000678  0.00191            0.191 
+3 comm     0.00524  -0.00163           -1.47  
+4 lib      0.000105  0.00000514        -0.0293
+5 pos     -0.00424   0.00167            1.19  
+6 neg      0.00534  -0.00162           -1.5   </code></pre>
+</div>
+</div>
+<p>On unemployment the signs fall exactly along the line that the day’s claim-alignment convention describes, both positive framings declining as unemployment rises and both negative ones gaining. Growth is what breaks the convention. There the cosmopolitan dimension moves with the communitarian one and utilitarian framing with the libertarian, so the split runs between whichever dimension is gaining and whichever are giving way, and which is which depends on the predictor. Libertarian framing is the weak case in that reading, since its growth coefficient is under one per cent of the communitarian one in size and what the two share is a sign rather than a magnitude. What claim alignment actually rests on is narrower and does hold exactly here: <code>pos</code> and <code>neg</code> partition the mentions, so <code>neg</code> = 1 − <code>pos</code> for every mentioner and reverse-coding the negative composite is exact arithmetic.</p>
+<p>The magnitudes also span a wide range, so an analyst choosing <code>util</code> and one choosing <code>comm</code> are estimating genuinely different quantities from one instrument. That is the structure of the panel itself rather than a simulation artefact, and it is a substantial part of why the outcome fork carries so much specification variance. <a href="../companion/multiverse.html#sec-auspurg">The multiverse module</a> takes that argument further, because it is precisely where Auspurg’s measurement-nonequivalence objection bites.</p>
+</section>
+<section id="sec-composition" class="level2">
+<h2 class="anchored" data-anchor-id="sec-composition">4. Composition against context</h2>
+<p>A country-year’s unemployment rate could move EU framing in two ways. It might be that unemployed <em>people</em> frame the EU differently, so a high-unemployment cell holds more of them and its mean shifts with the mix – a <strong>compositional</strong> effect. Or living through high unemployment might change how everyone frames the EU, whatever their own situation – a <strong>contextual</strong> effect.</p>
+<p>The country-year panel cannot separate them, because it contains no individuals. This twin can, because it carries a calibrated occupational structure: being unemployed has its own estimated effect on what a respondent says, and the share of the respondents in a cell who are unemployed rises with the national rate by a measured amount.</p>
+<p>Both halves matter, and the second is the one that gets assumed. A large individual effect spread over a group that barely grows moves an average hardly at all, and the arithmetic that puts the two together tells you more than either coefficient alone. <a href="../companion/individual-level.html#sec-composition">The individual-level page</a> does that calculation on this twin, and finds the compositional path accounts for a few per cent of the country-level association.</p>
+<p>What belongs here is the methodological point rather than the answer. An earlier version of this twin <strong>manufactured</strong> the compositional channel: it gave respondents an invented unemployment indicator whose prevalence was a fixed multiple of the national rate, precisely so this section would have something to display. Two things were wrong with that. Nothing about it was measured – the prevalence rule and the effect were both chosen. And it fused two constructs that live at different levels, a labour market’s unemployment rate and a person’s employment status, which quietly asserted a mechanism that the case never claimed and leaked into every macro coefficient that the twin planted.</p>
+<p>The general rule matters more than any particular exhibit of it. <strong>A simulation can only demonstrate what was put into it.</strong> If the mechanism on display is one you wrote down yourself, the demonstration establishes that your code works, not that the world does – which is why simulated data can be used to check whether an estimator recovers an answer, but never to supply one.</p>
+</section>
+<section id="sec-individual" class="level2">
+<h2 class="anchored" data-anchor-id="sec-individual">5. Individual effects</h2>
+<p>Age, sex, education, occupation and urbanisation all carry into the twin the effects they have in the real respondents, which is what lets it support the published model rather than a simplified one. Whether they arrive intact is a question with a checkable answer.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>valid <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(outcome <span class="sc">==</span> <span class="st">"cosmo"</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span>term <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"(Intercept)"</span>, <span class="st">"munemp"</span>, <span class="st">"mgrowth"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, real, twin, z) <span class="sc">|&gt;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="fu">abs</span>(real)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 13 × 4
+   term                 real      twin      z
+   &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+ 1 edu3high          0.117    0.102    -2.62 
+ 2 sesstudent        0.0916   0.086    -0.718
+ 3 sesmanager        0.0639   0.0599   -0.567
+ 4 edu3mid           0.0584   0.0462   -2.5  
+ 5 sesunemployed    -0.035   -0.0278    0.984
+ 6 seswhite_collar   0.0303   0.0232   -1.09 
+ 7 sesself_employed  0.0238   0.0218   -0.259
+ 8 urbanrural       -0.0192  -0.0186    0.111
+ 9 urbansmall_town  -0.0117  -0.0131   -0.321
+10 sesretired        0.00663  0.0145    1.13 
+11 seshouse_person  -0.00257  0.0121    1.93 
+12 female            0.00186  0.00932   1.97 
+13 mage             -0.0012  -0.000973  1.47 </code></pre>
+</div>
+</div>
+<p>Education is the largest individual effect in the file: graduates sit about 0.12 higher on cosmopolitan framing than those who left school by fifteen, and the twin returns 0.10. The <code>z</code> column reads each gap against the standard error of the difference, so a value inside two means the twin reproduces that coefficient as well as a second sample of its size would.</p>
+<p>Notice how much more precisely these individual coefficients are pinned down than the macro ones in <a href="#sec-recover">section 2</a>. Forty thousand respondents carry information about education; 270 cells carry information about unemployment. The same dataset is richly informative about one question and thin on the other, which is the design lesson that <a href="#sec-design">section 9</a> makes explicit.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Build your own placebo. Take any <em>person-level</em> variable in the file, shuffle it within country-year, and refit the model above with the shuffled version in place of the real one. Its coefficient should land near zero with an interval covering it, and if you repeat that twenty times about one run in twenty will not, which is the five-per-cent rule doing exactly what it advertises. It is far more instructive to meet a false positive where you are certain there is nothing to find than to read about one.</p>
+<p>The italics on <em>person-level</em> are doing real work. <code>unemp</code>, <code>growth</code> and <code>bailout</code> hold one value for a whole country-year, so shuffling them inside a cell puts every value back where it was and hands you the real coefficient with the real <em>p</em>-value, looking for all the world like a placebo that failed. That is not a quirk of the shuffle: a variable that does not vary within the unit you are permuting cannot be permuted there at all, which is the same aliasing that makes a null impossible to build at the level at which a macro predictor lives.</p>
+</div>
+</div>
+</section>
+<section id="sec-df" class="level2">
+<h2 class="anchored" data-anchor-id="sec-df">6. Degrees of freedom</h2>
+<p>The statistical methods module tells a story it can only display, because it rests on the licensed file: a naive analysis that ignores clustering reports an enormous <em>t</em> on hundreds of thousands of degrees of freedom, while the multilevel model reports a modest one on a couple of hundred – because the predictor varies only at the country-year level. On the twin you can run the contrast.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>m3     <span class="ot">&lt;-</span> <span class="fu">lmer</span>(cosmo <span class="sc">~</span> unemp <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> cntry) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> cntry<span class="sc">:</span>year), <span class="at">data =</span> sim)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>naive  <span class="ot">&lt;-</span> <span class="fu">lm</span>(cosmo <span class="sc">~</span> unemp, <span class="at">data =</span> sim)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>m3_par <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">model_parameters</span>(m3, <span class="at">ci_method =</span> <span class="st">"satterthwaite"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>df_tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="fu">c</span>(<span class="st">"naive OLS, clustering ignored"</span>, <span class="st">"three-level random intercepts"</span>),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="fu">c</span>(<span class="fu">coef</span>(naive)[[<span class="st">"unemp"</span>]], <span class="fu">fixef</span>(m3)[[<span class="st">"unemp"</span>]]),</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">se =</span> <span class="fu">c</span>(<span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(naive)))[[<span class="st">"unemp"</span>]],</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>         m3_par<span class="sc">$</span>SE[m3_par<span class="sc">$</span>Parameter <span class="sc">==</span> <span class="st">"unemp"</span>]),</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">t =</span> estimate <span class="sc">/</span> se,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">df =</span> <span class="fu">c</span>(<span class="fu">df.residual</span>(naive), m3_par<span class="sc">$</span>df_error[m3_par<span class="sc">$</span>Parameter <span class="sc">==</span> <span class="st">"unemp"</span>]))</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The two rows differ in the estimate as well as in the standard error, so it is</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># worth having the within-country slope to hand: it is the one that the</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># multilevel fit leans towards, while the naive fit blends it with the</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># between-country one.</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>cells_w <span class="ot">&lt;-</span> sim_cells <span class="sc">|&gt;</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(<span class="fu">count</span>(sim, cntry, year), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"cntry"</span>, <span class="st">"year"</span>))</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>B_WITHIN <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(cosmo <span class="sc">~</span> unemp <span class="sc">+</span> <span class="fu">factor</span>(cntry), <span class="at">data =</span> cells_w,</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>                    <span class="at">weights =</span> n))[[<span class="st">"unemp"</span>]]</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>df_tbl <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  model                          estimate       se     t    df
+  &lt;chr&gt;                             &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 naive OLS, clustering ignored -0.000555 0.000441 -1.26 41700
+2 three-level random intercepts -0.00564  0.00108  -5.24   251</code></pre>
+</div>
+</div>
+<p>The naive row claims forty thousand independent witnesses; the multilevel row counts the few hundred effective ones, because respondents inside a country-year share one unemployment value and largely echo their cell. Person-level sample sizes advertise precision that the design does not possess whenever the predictor lives at a higher level. The model that respects the structure pays for that respect in degrees of freedom, and here in the estimate too: the naive fit is a different weighted average of between-country and within-country variation, landing at -5.55^{-4} against the multilevel -0.00564, which sits near the within-country slope of -0.00549. Neither of the two is the planted coefficient, because both leave out the year effects that C6HJR’s published Multi100 specification carries. This is also why, in Part 1 of the workshop, two Multi100 analysts fitting person-level models to the same claim could reach such different strengths of evidence.</p>
+</section>
+<section id="sec-weights" class="level2">
+<h2 class="anchored" data-anchor-id="sec-weights">7. Weights</h2>
+<p>Survey weights are usually taught as a procedure. The interesting question is when they change anything, and simulated data can answer it because the distortion that the weight corrects can be built in deliberately. The sample here was drawn with a fieldwork distortion – younger respondents over-selected – and <code>w1</code> is the exact reciprocal of that selection factor, normalised to mean 1 within each country-year.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cell sizes are drawn in proportion to each cell's real n_cy, so a person-level</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mean over the respondents in the twin estimates the respondent-weighted value</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># in the panel. The average of the 270 cell means is a different quantity and</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># would make the weight look like it was doing harm.</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>POP_COSMO <span class="ot">&lt;-</span> <span class="fu">weighted.mean</span>(panel<span class="sc">$</span>mcosmo, panel<span class="sc">$</span>n_cy)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>ERR_UNW   <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim<span class="sc">$</span>cosmo) <span class="sc">-</span> POP_COSMO</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>ERR_WTD   <span class="ot">&lt;-</span> <span class="fu">weighted.mean</span>(sim<span class="sc">$</span>cosmo, sim<span class="sc">$</span>w1) <span class="sc">-</span> POP_COSMO</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">quantity =</span> <span class="fu">c</span>(<span class="st">"mean age"</span>, <span class="st">"mean cosmopolitan share"</span>),</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">unweighted =</span> <span class="fu">c</span>(<span class="fu">mean</span>(sim<span class="sc">$</span>age), <span class="fu">mean</span>(sim<span class="sc">$</span>cosmo)),</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">weighted =</span> <span class="fu">c</span>(<span class="fu">weighted.mean</span>(sim<span class="sc">$</span>age, sim<span class="sc">$</span>w1),</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>               <span class="fu">weighted.mean</span>(sim<span class="sc">$</span>cosmo, sim<span class="sc">$</span>w1)),</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">population =</span> <span class="fu">c</span>(AGE_REF, POP_COSMO)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">round</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  quantity                unweighted weighted population
+  &lt;chr&gt;                        &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+1 mean age                    43.1     48.1         48.0
+2 mean cosmopolitan share      0.479    0.471        0.5</code></pre>
+</div>
+</div>
+<p>The achieved sample is about four years too young, and weighting recovers the population age almost exactly. Because age genuinely affects framing in the recipe, that composition error propagates into the outcome: unweighted, the cosmopolitan share sits -0.021 above the population value, and weighting removes about -38 per cent of that. It re-balances who is counted, and it matters exactly to the extent that the mis-counted people differ on the thing being measured.</p>
+<p>The population column is itself a choice. A person-level mean over the respondents in the twin is aiming at the respondent-weighted value in the panel, not at the average of its 270 cell means, because cells enter the twin in proportion to how many real respondents they held. The two differ by 0.007, which is larger than the whole effect of the weight, so a table benchmarked against the wrong one would show weighting making the estimate worse. Choosing the estimand – the quantity that a statistic is actually estimating – decides which direction the lesson runs in.</p>
+<p>The distortion here is constant across cells, so it shifts levels without touching the relationship of interest – the common case, and the reason that analysts often find weighting changes their descriptive statistics more than their coefficients. It stops being the common case the moment the distortion varies with the predictor.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the generator, set <code>SIM_DISTORT_SLOPE</code> to 0.01. The youth over-selection then grows with a cell’s unemployment rate rather than sitting at one strength everywhere, and because age is correlated with framing in the estimated structure, the distortion now bends the macro slope itself instead of only shifting levels. That is the case where weighting stops being cosmetic.</p>
+<p>One rerun will not show you that. Across draws the unweighted estimate carries the larger bias, but within any single draw the separation is small next to that draw’s own sampling variation, so one comparison is an unreliable demonstration and can as easily show the weighted estimate sitting further away. Run eight or ten seeds, keep each <code>$SIM_OUT</code> file, and fit C6HJR’s published Multi100 specification to every one of them weighted and unweighted. <code>$SIM_SWEEP</code> will not do this job for you, because it records the unweighted estimates only.</p>
+<p>Two things to expect. The weighted estimate will not land exactly on the planted value either: <code>w1</code> is the reciprocal of the selection probability, which reverses the distortion in expectation rather than in any one sample. And a distortion that varies across cells changes what the per-cell threshold solve was calibrated against, so the cell means in the twin drift slightly from those in the panel – visible in the generator’s own diagnostic, and a reminder that a generator’s parts are not independent of one another.</p>
+</div>
+</div>
+</section>
+<section id="sec-null" class="level2">
+<h2 class="anchored" data-anchor-id="sec-null">8. A null world</h2>
+<p>The <a href="../exercise/reading-inference.html">inference reading</a> argues that to test a specification curve you must know what the curve would look like if there were nothing to find, and the test designed there builds that nothing by permutation. Simulation offers a more direct route: write the recipe with the effect removed.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One null world: the cell structure of the twin with the slope written out of</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the recipe, and a small menu of estimators fitted to it. Every estimate below</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># is of a quantity that is exactly zero.</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>simulate_null <span class="ot">&lt;-</span> <span class="cf">function</span>(seed) {</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(seed)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  cells <span class="ot">&lt;-</span> panel <span class="sc">|&gt;</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(cntry, year, n_cy, unemp) <span class="sc">|&gt;</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">n_sim =</span> <span class="fu">pmax</span>(<span class="dv">1</span>L, <span class="fu">as.integer</span>(<span class="fu">round</span>(n_cy <span class="sc">*</span> <span class="fl">0.10</span>))),</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">u_cy =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, SD_CY))</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  cells <span class="sc">|&gt;</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(cells <span class="sc">|&gt;</span> <span class="fu">distinct</span>(cntry) <span class="sc">|&gt;</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>                <span class="fu">mutate</span>(<span class="at">u_c =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, SD_CNTRY)), <span class="at">by =</span> <span class="st">"cntry"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">uncount</span>(n_sim) <span class="sc">|&gt;</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cosmo =</span> <span class="fu">pmin</span>(<span class="fu">pmax</span>(MEAN_COSMO <span class="sc">+</span> <span class="dv">0</span> <span class="sc">*</span> unemp <span class="sc">+</span> u_c <span class="sc">+</span> u_cy <span class="sc">+</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, SD_PERSON), <span class="dv">0</span>), <span class="dv">1</span>))</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>d_null <span class="ot">&lt;-</span> <span class="fu">simulate_null</span>(<span class="dv">2026</span>)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>null_fits <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">pooled      =</span> \(d) <span class="fu">lm</span>(cosmo <span class="sc">~</span> unemp, <span class="at">data =</span> d),</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">country_re  =</span> \(d) <span class="fu">lmer</span>(cosmo <span class="sc">~</span> unemp <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> cntry), <span class="at">data =</span> d),</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">three_level =</span> \(d) <span class="fu">lmer</span>(cosmo <span class="sc">~</span> unemp <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> cntry) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> cntry<span class="sc">:</span>year), <span class="at">data =</span> d),</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">cell_means  =</span> \(d) <span class="fu">lm</span>(mcosmo <span class="sc">~</span> unemp,</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> <span class="fu">summarise</span>(d, <span class="at">mcosmo =</span> <span class="fu">mean</span>(cosmo),</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">unemp =</span> <span class="fu">first</span>(unemp),</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">.by =</span> <span class="fu">c</span>(cntry, year)))</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">imap</span>(\(f, nm) {</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">model_parameters</span>(<span class="fu">f</span>(d_null))</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">estimator =</span> nm, <span class="at">estimate =</span> p<span class="sc">$</span>Coefficient[p<span class="sc">$</span>Parameter <span class="sc">==</span> <span class="st">"unemp"</span>],</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>           <span class="at">p_value =</span> p<span class="sc">$</span>p[p<span class="sc">$</span>Parameter <span class="sc">==</span> <span class="st">"unemp"</span>])</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>()</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>null_fits <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  estimator    estimate  p_value
+  &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt;
+1 pooled      -0.00132  0.000395
+2 country_re   0.00131  0.00914 
+3 three_level  0.00104  0.188   
+4 cell_means  -0.000988 0.249   </code></pre>
+</div>
+</div>
+<p>Every row estimates a quantity known to be zero, and on this seed 2 of the four reject it at the five per cent level. Rerun with a different seed (the function takes one for exactly that reason) and the two extremes hold. Over thirty draws the pooled row, which treats forty thousand echoing respondents as independent, rejects in about six draws in ten. The three-level row, which counts the units that actually carry information about unemployment, rejects rarely – blocks of thirty draws put it anywhere from none to one in ten – and is the closest of the four to the five per cent that a valid test should deliver. The two rows in between land between those extremes and move about from one block of seeds to the next.</p>
+<p>A miniature multiverse fitted to a null world shows what a full-scale permutation test constructs: the distribution of whole curves under nothing. It also disciplines how the percentages of the real curve should be read, a point that <a href="../companion/multiverse.html#sec-reading">the multiverse module</a> develops – some share of any universe will look supportive under a true zero, so a share alone, with no null to stand it against, is a description rather than a verdict.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>real_panel <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="dv">1</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, \(i) {</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> <span class="cf">if</span> (i <span class="sc">==</span> real_panel) sim_cells <span class="cf">else</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    sim_cells <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">unemp =</span> <span class="fu">sample</span>(unemp), <span class="at">.by =</span> cntry)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  d <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">panel =</span> i)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>() <span class="sc">|&gt;</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(unemp, cosmo)) <span class="sc">+</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">size =</span> <span class="fl">0.8</span>, <span class="at">colour =</span> <span class="st">"#00205b"</span>) <span class="sc">+</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">linewidth =</span> <span class="fl">0.6</span>, <span class="at">colour =</span> <span class="st">"#c8102e"</span>) <span class="sc">+</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>panel) <span class="sc">+</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"unemployment (%)"</span>, <span class="at">y =</span> <span class="st">"cell mean, simulated cosmopolitan share"</span>) <span class="sc">+</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-lineup" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simulation_files/figure-html/fig-lineup-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lineup-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: A lineup: nine cell-level scatters of mean simulated cosmopolitan framing against unemployment. Eight permute the unemployment series within country; one is the real structure of the twin. Pick the panel that looks like an effect before reading on.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Which panel is real?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Panel 8. If you picked it, you have informally rejected the null by eye – the logic of a permutation test, run on your visual system. If you could not, that is itself evidence about how strong a level-2 relationship of this size looks at this sample size.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-design" class="level2">
+<h2 class="anchored" data-anchor-id="sec-design">9. Design checks</h2>
+<p>Power analysis for multilevel designs rarely has clean formulas, and the standard advice is to simulate: generate data from the design you are contemplating and see how precisely it estimates the quantity you care about <span class="citation" data-cites="GelmanEtAl2020RegressionOtherStories DeBruineBarr2021UnderstandingMixedeffectsModels">(<a href="#ref-GelmanEtAl2020RegressionOtherStories" role="doc-biblioref">Gelman et al. 2020</a>; <a href="#ref-DeBruineBarr2021UnderstandingMixedeffectsModels" role="doc-biblioref">DeBruine and Barr 2021</a>)</span>. Precision on a level-2 slope is bought mainly with countries and years rather than with respondents, so the question to ask is what four times as many of each would buy.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>simulate_design <span class="ot">&lt;-</span> <span class="cf">function</span>(k, seed, <span class="at">per_cell =</span> <span class="dv">1</span>) {</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(seed)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  cells <span class="ot">&lt;-</span> panel <span class="sc">|&gt;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(cntry, year, n_cy, unemp) <span class="sc">|&gt;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">crossing</span>(<span class="at">clone =</span> <span class="fu">seq_len</span>(k)) <span class="sc">|&gt;</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cntry =</span> <span class="fu">paste0</span>(cntry, <span class="st">"_"</span>, clone),</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">n_sim =</span> <span class="fu">pmax</span>(<span class="dv">1</span>L, <span class="fu">as.integer</span>(<span class="fu">round</span>(n_cy <span class="sc">*</span> <span class="fl">0.10</span> <span class="sc">*</span> per_cell))),</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">u_cy =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, SD_CY))</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  cells <span class="sc">|&gt;</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(cells <span class="sc">|&gt;</span> <span class="fu">distinct</span>(cntry) <span class="sc">|&gt;</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>                <span class="fu">mutate</span>(<span class="at">u_c =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, SD_CNTRY)), <span class="at">by =</span> <span class="st">"cntry"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">uncount</span>(n_sim) <span class="sc">|&gt;</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cosmo =</span> <span class="fu">pmin</span>(<span class="fu">pmax</span>(MEAN_COSMO <span class="sc">+</span> B_COSMO <span class="sc">*</span> unemp <span class="sc">+</span> u_c <span class="sc">+</span> u_cy <span class="sc">+</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, SD_PERSON), <span class="dv">0</span>), <span class="dv">1</span>))</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="fu">c</span>(<span class="at">k =</span> <span class="dv">1</span>, <span class="at">per_cell =</span> <span class="dv">1</span>), <span class="fu">c</span>(<span class="at">k =</span> <span class="dv">1</span>, <span class="at">per_cell =</span> <span class="dv">4</span>), <span class="fu">c</span>(<span class="at">k =</span> <span class="dv">4</span>, <span class="at">per_cell =</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(d) {</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">lmer</span>(cosmo <span class="sc">~</span> unemp <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> cntry) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> cntry<span class="sc">:</span>year),</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> <span class="fu">simulate_design</span>(d[[<span class="st">"k"</span>]], <span class="at">seed =</span> <span class="dv">20260727</span> <span class="sc">+</span> d[[<span class="st">"k"</span>]],</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">per_cell =</span> d[[<span class="st">"per_cell"</span>]]))</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">model_parameters</span>(m, <span class="at">ci_method =</span> <span class="st">"satterthwaite"</span>)</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">countries =</span> <span class="dv">27</span> <span class="sc">*</span> d[[<span class="st">"k"</span>]], <span class="at">respondents =</span> <span class="fu">nobs</span>(m),</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">se =</span> p<span class="sc">$</span>SE[p<span class="sc">$</span>Parameter <span class="sc">==</span> <span class="st">"unemp"</span>],</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">df =</span> p<span class="sc">$</span>df_error[p<span class="sc">$</span>Parameter <span class="sc">==</span> <span class="st">"unemp"</span>])</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>() <span class="sc">|&gt;</span></span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  countries respondents       se    df
+      &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+1        27       41700 0.000895   256
+2        27      167000 0.000757   253
+3       108      167000 0.000409  1060</code></pre>
+</div>
+</div>
+<p>Read the three rows against each other. Quadrupling the respondents inside the existing country-year map does buy precision (people are not worthless), but it buys much less than quadrupling the countries, and it buys almost no degrees of freedom, because the number of units carrying independent information about unemployment has not changed. No feasible amount of extra survey data inside the existing 27 countries would do what 81 more countries would, and no choice on the specification menu can manufacture level-2 information that the design does not contain. That is why this literature argues within wide uncertainty bands, and simulation measures a design’s ceiling before anyone commits to it. A methodological literature exists on doing this properly – declaring aims, data-generating mechanisms, estimands, methods and performance measures rather than tinkering <span class="citation" data-cites="MorrisEtAl2019UsingSimulationStudies">(<a href="#ref-MorrisEtAl2019UsingSimulationStudies" role="doc-biblioref">Morris et al. 2019</a>)</span> – and it is the natural next reading.</p>
+</section>
+<section id="sec-further" class="level2">
+<h2 class="anchored" data-anchor-id="sec-further">Further reading</h2>
+<p>Four things to read next. For the habit itself, <em>Regression and Other Stories</em> is the core text, its fake-data simulations short, constant and cumulative <span class="citation" data-cites="GelmanEtAl2020RegressionOtherStories">(<a href="#ref-GelmanEtAl2020RegressionOtherStories" role="doc-biblioref">Gelman et al. 2020</a>)</span>, with <em>Active Statistics</em> packaging the same moves as classroom activities <span class="citation" data-cites="GelmanVehtari2024ActiveStatisticsStories">(<a href="#ref-GelmanVehtari2024ActiveStatisticsStories" role="doc-biblioref">Gelman and Vehtari 2024</a>)</span>. For multilevel structures specifically, DeBruine and Barr’s tutorial is sections 2 and 6 of this module done properly: it builds a mixed-effects simulation from nothing and recovers its parameters, on the argument that constructing the data is how you come to understand the model <span class="citation" data-cites="DeBruineBarr2021UnderstandingMixedeffectsModels">(<a href="#ref-DeBruineBarr2021UnderstandingMixedeffectsModels" role="doc-biblioref">DeBruine and Barr 2021</a>)</span>. For simulation inside a modelling workflow – prior and posterior predictive checking, calibration, experimentation on synthetic data before touching the real thing – the Bayesian workflow book is the current statement <span class="citation" data-cites="GelmanEtAl2026BayesianWorkflow">(<a href="#ref-GelmanEtAl2026BayesianWorkflow" role="doc-biblioref">Gelman et al. 2026</a>)</span>, and its habits transfer well beyond Bayesian settings. And for simulation as a research method in its own right, the design framework of <span class="citation" data-cites="MorrisEtAl2019UsingSimulationStudies">Morris et al. (<a href="#ref-MorrisEtAl2019UsingSimulationStudies" role="doc-biblioref">2019</a>)</span> supplies the vocabulary, the book-length treatment written for social scientists is <span class="citation" data-cites="CarseyHarden2014MonteCarloSimulation">Carsey and Harden (<a href="#ref-CarseyHarden2014MonteCarloSimulation" role="doc-biblioref">2014</a>)</span>, and an applied Monte Carlo study that this site already cites, on cross-lagged panel models, shows the genre working on a question adjacent to this case’s own estimator fork <span class="citation" data-cites="LeszczenskyWolbring2022HowDealReverse">(<a href="#ref-LeszczenskyWolbring2022HowDealReverse" role="doc-biblioref">Leszczensky and Wolbring 2022</a>)</span>.</p>
+<p>Simulation studies are analyses too, and they have researcher degrees of freedom of their own – conditions, performance measures, which results get reported – so a comparative study can be tuned until any method looks superior <span class="citation" data-cites="PawelEtAl2024PitfallsPotentialsSimulation">(<a href="#ref-PawelEtAl2024PitfallsPotentialsSimulation" role="doc-biblioref">Pawel et al. 2024</a>)</span>. The disciplines that this course keeps returning to, declared designs and justified choices, apply to simulated data exactly as they apply to real data. The generator, the calibration script, the codebook and this page’s chunks are all committed, so the first Try-it is the quickest place to begin: change what the recipe plants, rerun, and watch what your tools do when you already know the answer.</p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-CarseyHarden2014MonteCarloSimulation" class="csl-entry" role="listitem">
+Carsey, Thomas M., and Jeffrey J. Harden. 2014. <em>Monte <span>Carlo</span> Simulation and Resampling Methods for Social Science</em>. SAGE Publications. <a href="https://doi.org/10.4135/9781483319605">https://doi.org/10.4135/9781483319605</a>.
+</div>
+<div id="ref-DeBruineBarr2021UnderstandingMixedeffectsModels" class="csl-entry" role="listitem">
+DeBruine, Lisa M., and Dale J. Barr. 2021. <span>“Understanding Mixed-Effects Models Through Data Simulation.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 4 (1): 2515245920965119. <a href="https://doi.org/10.1177/2515245920965119">https://doi.org/10.1177/2515245920965119</a>.
+</div>
+<div id="ref-GelmanEtAl2020RegressionOtherStories" class="csl-entry" role="listitem">
+Gelman, Andrew, Jennifer Hill, and Aki Vehtari. 2020. <em>Regression and Other Stories</em>. Cambridge University Press. <a href="https://doi.org/10.1017/9781139161879">https://doi.org/10.1017/9781139161879</a>.
+</div>
+<div id="ref-GelmanVehtari2024ActiveStatisticsStories" class="csl-entry" role="listitem">
+Gelman, Andrew, and Aki Vehtari. 2024. <em>Active Statistics: Stories, Games, Problems, and Hands-on Demonstrations for Applied Regression and Causal Inference</em>. Cambridge University Press.
+</div>
+<div id="ref-GelmanEtAl2026BayesianWorkflow" class="csl-entry" role="listitem">
+Gelman, Andrew, Aki Vehtari, Richard McElreath, et al. 2026. <em>Bayesian Workflow</em>. First edition. CRC Press.
+</div>
+<div id="ref-LeszczenskyWolbring2022HowDealReverse" class="csl-entry" role="listitem">
+Leszczensky, Lars, and Tobias Wolbring. 2022. <span>“How to Deal with Reverse Causality Using Panel Data? <span>Recommendations</span> for Researchers Based on a Simulation Study.”</span> <em>Sociological Methods &amp; Research</em> 51 (2): 837–65. <a href="https://doi.org/10.1177/0049124119882473">https://doi.org/10.1177/0049124119882473</a>.
+</div>
+<div id="ref-MorrisEtAl2019UsingSimulationStudies" class="csl-entry" role="listitem">
+Morris, Tim P., Ian R. White, and Michael J. Crowther. 2019. <span>“Using Simulation Studies to Evaluate Statistical Methods.”</span> <em>Statistics in Medicine</em> 38 (11): 2074–102. <a href="https://doi.org/10.1002/sim.8086">https://doi.org/10.1002/sim.8086</a>.
+</div>
+<div id="ref-PawelEtAl2024PitfallsPotentialsSimulation" class="csl-entry" role="listitem">
+Pawel, Samuel, Lucas Kook, and Kelly Reeve. 2024. <span>“Pitfalls and Potentials in Simulation Studies: Questionable Research Practices in Comparative Simulation Studies Allow for Spurious Claims of Superiority of Any Method.”</span> <em>Biometrical Journal</em> 66 (1): e2200091. <a href="https://doi.org/10.1002/bimj.202200091">https://doi.org/10.1002/bimj.202200091</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/codemoreh\.github\.io\/applied-replication\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="https://github.com/CodeMoreh/applied-replication">GitHub repo</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,11 @@
+---
+title: "Session 3 – Quarto and the reproducible document"
+---
+Every page on this site is a Quarto document, and so is the report that you fill in on the workshop day. The module shows what a `.qmd` file is, what rendering actually does to it, and how code, prose, figures and citations live in one file rather than in four.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Quarto and reproducible documents](../../companion/quarto.qmd) | The `.qmd` file and the render step, the YAML header, code chunks and the options that matter, and figures and tables with cross-references. | 90 minutes |
+| [Quarto and reproducible documents](../../companion/quarto.qmd) | The citation and bibliography sections, worked on the `references.bib` file that this site itself uses, then the closing note on publishing a document. | 45 minutes |
+
+**By the end of the session** you have one rendered document of your own carrying a figure produced by code, a table, a cross-reference to each, and a citation resolved from a bibliography file.

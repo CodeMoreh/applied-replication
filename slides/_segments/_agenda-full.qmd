@@ -1,0 +1,26 @@
+## {#today .darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.todaymeta}
+A full-day workshop · four parts
+:::
+
+:::: {.todaybox}
+::: {.nonincremental}
+1. Why any of this, and with what tools – science, its crisis, and the toolchain
+2. The question underneath – one paper, five analysts, and what they were each asking
+3. What you can actually do – reproduce a published result, then work the menu
+4. Reading the multiverse – and choosing the one path you will defend
+:::
+::::
+
+::: {.todaytake}
+You leave with: a reproduced result · an estimand and a DAG of your own · a preregistered analysis · your dot on a live class multiverse
+:::
+
+::: {.todaymeta}
+Work along in your IDE, or on the browser lab page – solo or in pairs
+:::
+
+::: notes
+Welcome – good to have you here. A full day, in four parts of ninety minutes. The first part sets up everything else: what we are doing when we do social science, why people say it is in crisis, what open research proposes to do about that, and – because none of it happens without software – the tools. The second part goes inside one published paper that I re-analysed myself, and asks the harder question of why five analysts of the same claim came back with five different answers. The third part is the coding-heavy one: you reproduce my submitted result, then work through the menu of choices you could have made instead. And the fourth reads what the room built, and asks how you settle on the one analysis you would actually publish.
+:::

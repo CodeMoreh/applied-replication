@@ -1,4 +1,4 @@
-﻿# Shared metadata for the workshop revealjs deck.
+# Shared metadata for the workshop revealjs deck.
 # Adapted from _planning/example-slide-template/_metadata.yml: course-specific
 # keys (pdf-link-main, recap, course-logo, self-contained, output-location)
 # dropped; theme + title-slide partial repointed at ../style/ (relative to
@@ -100,6 +100,7 @@ revealjs-plugins:
 filters:
   - highlight-text
   - more-fragments
+  - core-runs.lua
   
 execute:
   echo: false

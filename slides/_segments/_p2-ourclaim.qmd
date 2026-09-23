@@ -1,0 +1,180 @@
+## *Revenons à nos moutons*
+
+::: {.claimcard}
+"The expected change in [unit quantity] among [target population] for a 1-percentage-point difference in unemployment, holding [assumptions] fixed."
+:::
+
+::: {.small}
+- Unit quantity – a *person's* cosmopolitan framing, or a *country-year* mean?
+- Target population – which countries, which years?
+:::
+
+::: {.fragment}
+**In chat, now:** your one-sentence estimand for the claim. Type it, hold it, send on "go".
+:::
+
+::: notes
+Now apply it to our paper – and this one is a chat exercise. Write the statement on the slide with the brackets filled in: your one-sentence estimand for the claim. Type it, hold it, send when I say go. [go; read three or four aloud.] Look at the spread in the chat – some of you wrote about a person's framing, some about a country-year average, some named different years. None of those are wrong; they are different questions, with different confounding stories, and the coefficient means something different in each. That spread, in a room that just watched the same slides, is the red-card diagnosis happening live. Keep your sentence – it goes into your preregistration this afternoon, and this afternoon you will also see what the unit choice did to the five published analysts.
+:::
+
+## We cannot identify a causal effect here {.smaller}
+
+::: {.small}
+Observational panel · 27 countries · no assignment mechanism · feedback between the variables · a decade of shared shocks.
+
+Nothing in this design licenses "unemployment **causes** a shift in EU framing".
+:::
+
+::: {.fragment .small}
+So why spend half an hour on causal graphs?
+:::
+
+::: {.fragment .small}
+Because the graph does three jobs that survive the loss of identification:
+
+- It says **which association** you are after – the total effect, not whatever the software returns
+- It tells you **which variables belong in the model**, and, just as usefully, which do not
+- It makes your assumptions **legible and arguable** – a reader can disagree with an arrow, and that is a productive disagreement
+:::
+
+::: notes
+Let me be blunt about where we stand. This is an observational panel of twenty-seven countries. Nobody assigned unemployment to anyone. The variables plausibly feed back into each other over time, and the whole decade is shot through with shocks that hit everybody at once. Nothing in that design licenses the sentence "unemployment causes a shift in EU framing". So why are we about to spend half an hour on causal graphs? Because the graph does three jobs that survive perfectly well without identification. It says which association you are actually after – the total effect, say, rather than whatever the software happens to return. It tells you which variables belong in your model, and just as usefully which do not. And it puts your assumptions on paper where a reader can disagree with a specific arrow. The third job is the one that pays: an argument about an arrow is productive in a way that an argument about a coefficient usually is not.
+:::
+
+## Publishing the estimand and the graph {#say-it-in-public-or-it-does-not-count .smaller}
+
+::: {.small}
+The graph and the estimand are only worth anything if they are **written down where someone else can read them**:
+
+- in the paper, not in your head
+- **before** the model runs, not reconstructed afterwards
+- with the **limitations named by you**, not discovered by a reviewer
+:::
+
+::: {.fragment .small}
+In Part 4 you write exactly that down – the estimand, the graph-based justification, the one specification, and the rule for what would count as support – and you do it **before** you see a result.
+:::
+
+::: {.fragment .small}
+The technical name for that is preregistration, and what it does is stop the result from choosing the question.
+:::
+
+::: notes
+And one more step, which is where the day is heading. A graph you drew and did not publish is worth almost nothing. It has to be written down where someone else can read it – in the paper, not in your head. It has to be written before the model runs, not reconstructed afterwards once you know which way the coefficient went, because a graph drawn after the fact will very reliably justify the result you already have. And the limitations have to be named by you, not discovered by a reviewer. That requirement runs through the rest of today. In part four you will write exactly that down: your estimand, your graph-based justification, the one specification you commit to, and your rule for what would count as support – and you will do it before you see a result. The technical name for it is preregistration; part four is where you do it for real.
+:::
+## The EU-frames DAG, half built
+
+:::: {.columns}
+::: {.column width="60%"}
+
+```{r}
+#| label: teney-dag
+#| fig-width: 10.5
+#| fig-height: 5.8
+# ggdag rendering of the starter DAG for Task 2. This reproduces the EXACT
+# graph in _template/R/dag_starter.R: the causal path of interest and the two
+# confounder pairs (country, year) are drawn SOLID; the three arguable nodes
+# (growth, bailout, politicisation) are present but UNCONNECTED – the edges
+# that participants decide whether to add in Task 2. That is what makes it
+# 'half built'. Nodes are coloured by ROLE (predictor orange, outcome navy,
+# candidates light grey), labels sit inside the nodes in white/dark, edges are
+# thick and gently curved.
+dag <- ggdag::dagify(
+  framing ~ unemployment,
+  framing ~ country + year,
+  unemployment ~ country + year,
+  exposure = "unemployment",
+  outcome  = "framing",
+  coords = list(
+    x = c(unemployment = 0, framing = 3, country = 1, year = 2),
+    y = c(unemployment = 0, framing = 0, country = 1.4, year = 1.4)))
+
+# dagify() has no way to hold a node with no edges, so the three candidates
+# join the picture at the tidy-data layer instead. 'growth' is nudged down off
+# the year -> unemployment crossing arrow; the other two are kept clear of the
+# committed edges.
+candidates <- tibble::tribble(
+  ~name,             ~x,    ~y,
+  "growth",           0.9, -1.0,
+  "bailout",          1.5, -1.2,
+  "politicisation",   3.0, -0.95)
+
+# Role lookup → drives node fill and label colour; short display labels keep
+# the longer names from overflowing the nodes (the underlying graph keeps the
+# full names, matching dag_starter.R).
+roles <- tibble::tibble(
+  name = c("unemployment", "framing", "country", "year",
+           "growth", "bailout", "politicisation"),
+  role = c("predictor", "outcome", "adjusted", "adjusted",
+           "candidate", "candidate", "candidate"),
+  disp = c("unemp.", "framing", "country", "year",
+           "growth", "bailout", "politic."))
+role_fill <- c(predictor = orange, outcome = ncl_blue,
+               adjusted = "#c7ccd2", candidate = "#dde2e7")
+# White labels read on the dark predictor/outcome fills; navy on the light greys.
+role_lab  <- c(predictor = "#FFFFFF", outcome = "#FFFFFF",
+               adjusted = ncl_blue, candidate = "#5d666e")
+
+dag_tidy <- ggdag::tidy_dagitty(dag)
+ggdag::update_dag_data(dag_tidy) <- ggdag::pull_dag_data(dag_tidy) |>
+  dplyr::bind_rows(candidates) |>
+  dplyr::left_join(roles, by = "name") |>
+  dplyr::mutate(role = factor(role,
+    levels = c("predictor", "outcome", "adjusted", "candidate")))
+
+ggplot2::ggplot(dag_tidy,
+    ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+  # geom_dag_edges_arc() takes `arrow`, not the `arrow_directed` of
+  # geom_dag_edges(); and the nodes are wide enough to paint over an arrowhead,
+  # so end_cap stops each edge short of the circle it points at.
+  ggdag::geom_dag_edges_arc(curvature = 0.18, edge_colour = grey_mid,
+                            edge_width = 1.1,
+                            end_cap = ggraph::circle(11, "mm"),
+                            arrow = grid::arrow(
+                              length = grid::unit(9, "pt"), type = "closed")) +
+  ggdag::geom_dag_point(ggplot2::aes(fill = role), shape = 21,
+                        size = 32, stroke = 0, colour = "white") +
+  ggdag::geom_dag_text(ggplot2::aes(label = disp, colour = role),
+                       size = 5.2, fontface = "bold") +
+  ggplot2::scale_fill_manual(values = role_fill, guide = "none") +
+  ggplot2::scale_colour_manual(values = role_lab, guide = "none") +
+  ggdag::theme_dag() +
+  ggplot2::expand_limits(x = c(-0.7, 3.7), y = c(-1.9, 2.1)) +
+  ggplot2::theme(plot.margin = ggplot2::margin(14, 14, 14, 14))
+```
+
+::: {.dagcode}
+The same graph in R. Every arrow is a formula, read outcome-first – so a `#` takes an arrow out and the code still runs:
+:::
+
+```r
+dagify(
+  framing ~ unemployment,
+  framing ~ country + year,
+  unemployment ~ country + year,
+  # framing ~ growth,        # uncomment the
+  # unemployment ~ growth,   # arrows you believe
+  exposure = "unemployment", outcome = "framing"
+) |> adjustmentSets()
+```
+:::
+
+::: {.column width="40%"}
+::: {.small}
+- Drawn: the path + two confounder pairs (**country, year → two-way FE**)
+- Floating, unwired: growth (confounder?) · bailout (mediator?) · politicisation (mediator?)
+- You add the edges you believe, then run `adjustmentSets()`
+:::
+:::
+::::
+
+::: notes
+And this is the graph you will finish yourselves. The solid part is what we are committing to: unemployment to framing is the path of interest, and country and year are the two confounder pairs – stable national traits on one side, EU-wide shocks in a given year on the other. Run `adjustmentSets()` on this graph and it answers: country and year. Which is precisely what a two-way fixed-effects model absorbs – the graph and the baseline model are the same claim, written in two languages. The three pale nodes are yours to wire up, and they are genuine decisions. Is GDP growth a time-varying confounder that fixed effects cannot reach – a slump that raises unemployment and sours sentiment in the same year? Is the bailout a mediator, in which case you leave it alone if you want the total effect? Multi100 told us to disregard politicisation – was that defensible? The code beside the picture is the same graph written as R formulas, one arrow to a line, so wiring a node up is uncommenting the line you believe and running it again to see what the adjustment set has become. Whatever you decide here becomes your model in the next task.
+:::
+
+
+<!-- DEEP DIVE START: R tutorial (10 slides). Optional depth – press d during
+     the talk, or load the deck with ?depth=0, and slides/nav-tools.html lifts
+     the whole run out of the DOM. The switch acts on the .deepdive class that
+     every slide in the run carries, so that class is the load-bearing part;
+     these markers are here for the reader. -->

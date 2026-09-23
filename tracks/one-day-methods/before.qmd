@@ -1,0 +1,14 @@
+---
+title: "Before the day"
+---
+The day assumes that a linear model and its output are not new to you, and it gives the graph, the estimators and the multiverse the time that the other formats give the tools and the credibility argument. Arrive with the workspace running and one model fitted.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Setup](../../setup.qmd) | Install R and an IDE (Positron, RStudio, VS Code, etc.), download the workspace zip and run `R/check_setup.R` until it prints OK. Open the browser lab once as well. The [help page](../../help.qmd) has the problems other participants have met. | 30 to 60 minutes, once |
+| [Exercise overview](../../exercise/index.qmd) | Read the claim you will be working on and the table of what the five Multi100 analysts found. Their partial correlations run from −0.006 to −0.452, and working out why is most of the day. | 10 minutes |
+| [The statistical methods behind the course](../../companion/stats-methods.qmd), sections 1 to 3 | Why the predictor lives at the country-year, a first linear model read output by output, and what cluster-robust standard errors repair. Fit the first model in your own workspace. | 60 minutes |
+| [Getting started with R](../../companion/intro-r.qmd) | Optional, if R itself is new: objects, data frames, reading a CSV, the pipe, and a model as a formula plus data. | An evening |
+| [Reading a specification curve](../../exercise/reading-inference.qmd) | Pre-reading for Part 4, on what a large set of results together can and cannot establish. | 20 minutes |
+
+**By the start of the day** the workspace runs, you have fitted one linear model on the panel and read its output, and you know how far apart the five analysts landed.

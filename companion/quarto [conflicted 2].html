@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Quarto and reproducible documents – Applied Replication for Data Skills</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.js"></script>
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/animate.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/magic.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo light-content">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Applied Replication for Data Skills</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../tracks/one-day.html">
+ <span class="dropdown-text">One day</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/three-days.html">
+ <span class="dropdown-text">Three days</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/semester.html">
+ <span class="dropdown-text">Semester</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/self-study.html">
+ <span class="dropdown-text">Self-study</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../slides/index.html"> 
+<span class="menu-text">Slides</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-exercise">    
+        <li>
+    <a class="dropdown-item" href="../exercise/index.html">
+ <span class="dropdown-text">Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/browser-lab.html">
+ <span class="dropdown-text">Browser lab</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/spec-menu.html">
+ <span class="dropdown-text">Specification menu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/estimand-dial.html">
+ <span class="dropdown-text">Estimand choices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/cheatsheet.html">
+ <span class="dropdown-text">Cheatsheet</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../results.html"> 
+<span class="menu-text">Multiverse</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-companion" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Companion</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-companion">    
+        <li>
+    <a class="dropdown-item" href="../companion/index.html">
+ <span class="dropdown-text">Curriculum overview</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Computational tools</li>
+        <li>
+    <a class="dropdown-item" href="../companion/intro-r.html">
+ <span class="dropdown-text">Getting started with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/quarto.html">
+ <span class="dropdown-text">Quarto and reproducible documents</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Reproducibility and collaboration</li>
+        <li>
+    <a class="dropdown-item" href="../companion/repositories.html">
+ <span class="dropdown-text">Repositories &amp; preregistration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/git-github.html">
+ <span class="dropdown-text">Git &amp; GitHub</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistical methods</li>
+        <li>
+    <a class="dropdown-item" href="../companion/stats-methods.html">
+ <span class="dropdown-text">The statistical methods behind the course</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/dags.html">
+ <span class="dropdown-text">Causal graphs &amp; adjustment sets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/multiverse.html">
+ <span class="dropdown-text">The multiverse and its critics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/weighting.html">
+ <span class="dropdown-text">Weights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/missingness.html">
+ <span class="dropdown-text">Missing answers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/measurement.html">
+ <span class="dropdown-text">The items behind the scales</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/simulation.html">
+ <span class="dropdown-text">Simulation as a method</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/individual-level.html">
+ <span class="dropdown-text">The individual level</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-what" id="toc-sec-what" class="nav-link active" data-scroll-target="#sec-what">1. Source and output</a></li>
+  <li><a href="#sec-yaml" id="toc-sec-yaml" class="nav-link" data-scroll-target="#sec-yaml">2. The YAML header</a></li>
+  <li><a href="#sec-chunks" id="toc-sec-chunks" class="nav-link" data-scroll-target="#sec-chunks">3. Code chunks and their options</a>
+  <ul class="collapse">
+  <li><a href="#where-options-are-set" id="toc-where-options-are-set" class="nav-link" data-scroll-target="#where-options-are-set">Where options are set</a></li>
+  <li><a href="#inline-code" id="toc-inline-code" class="nav-link" data-scroll-target="#inline-code">Inline code</a></li>
+  <li><a href="#unexecuted-chunks" id="toc-unexecuted-chunks" class="nav-link" data-scroll-target="#unexecuted-chunks">Unexecuted chunks</a></li>
+  </ul></li>
+  <li><a href="#sec-crossref" id="toc-sec-crossref" class="nav-link" data-scroll-target="#sec-crossref">4. Captions, labels and cross-references</a></li>
+  <li><a href="#sec-prose" id="toc-sec-prose" class="nav-link" data-scroll-target="#sec-prose">5. Markdown</a></li>
+  <li><a href="#sec-citations" id="toc-sec-citations" class="nav-link" data-scroll-target="#sec-citations">6. Citations</a></li>
+  <li><a href="#sec-project" id="toc-sec-project" class="nav-link" data-scroll-target="#sec-project">7. Projects</a></li>
+  <li><a href="#sec-publish" id="toc-sec-publish" class="nav-link" data-scroll-target="#sec-publish">8. Publishing the document</a></li>
+  <li><a href="#sec-sources" id="toc-sec-sources" class="nav-link" data-scroll-target="#sec-sources">Sources and further study</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Quarto and reproducible documents</h1>
+<p class="subtitle lead">Foundation – the source file and the document it makes</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This is the Quarto module of the <a href="../companion/index.html">companion curriculum</a>, and it is optional. It is written for someone who has worked through <a href="../companion/intro-r.html">getting started with R</a>, or who already writes a little R, and who has never written a Quarto document. Section 2 of that module named the three surfaces you type R into and described the third one – a Quarto document, holding prose and code in a single file – in a paragraph, without saying how to write one. This page says how. By the end you will know what sits inside a <code>.qmd</code> file, what rendering does to it, how the header decides what kind of document comes out, how a handful of options control what your reader sees, how figures and tables acquire captions and numbers, how citations arrive from a bibliography file, and how a folder of documents becomes a project with settings held in common.</p>
+<p>Every block below is <strong>shown, not run for you</strong>, the same practical note that the other companion modules make. There is a second half to it here. The R module could send you to the zero-install <a href="../exercise/browser-lab.html">browser lab</a> to try each snippet, and this one cannot: the lab runs R inside a browser tab but it does not render documents, so the exercises on this page assume the workspace described on the <a href="../setup.html">setup page</a>, with R and an editor on your own machine. That page installs R and Positron. The exercises below also need the Quarto command-line tool, so if <code>R/check_setup.R</code> reports a FAIL on its Quarto line, install Quarto from <a href="https://quarto.org" class="uri">https://quarto.org</a> and reopen your terminal. Reading the page without any of that installed still works, and everything it describes is visible in files you can open.</p>
+<p>The examples are this site’s own files rather than invented ones. The report you fill in during the workshop, the slide deck, the browser lab, the landing page and this page are all <code>.qmd</code> files in one repository, so every claim below can be checked against the file that it came from. That includes the page you are reading, which is an unusual Quarto document in one respect that <a href="#sec-chunks">section 3</a> explains.</p>
+<section id="sec-what" class="level2">
+<h2 class="anchored" data-anchor-id="sec-what">1. Source and output</h2>
+<p>A <code>.qmd</code> file is plain text, editable in anything, and it holds three kinds of content.</p>
+<p>The <strong>YAML header</strong> comes first, fenced above and below by a line of three hyphens. It is metadata: the title, the author, and above all the output format. The <strong>prose</strong> is Markdown, the lightweight convention in which <code>##</code> opens a second-level heading and <code>**text**</code> sets text in bold. The <strong>code chunks</strong> are blocks of R (or Python, or Julia) that are executed while the document is being built, with their results placed into the finished document at the point where the chunk sits.</p>
+<p>Here is a complete document with all three, short enough to read in one go:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "A first report"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## What the panel looks like</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>The course panel holds one row per country-year.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>euframes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/EUframes_cy.csv"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(euframes)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Rendering</strong> is what turns that file into a document, and two programs do it in sequence. First <code>knitr</code> walks the file, hands each chunk to R, and collects whatever comes back – printed values, warnings, tables, figures – writing out a plain Markdown file with those results pasted in place of the code that produced them. Then Pandoc, a document converter, takes that Markdown and produces the finished artefact: an HTML page, a PDF, a Word file, a set of slides. The order has a consequence that catches everyone once. Your code runs before any typesetting happens, so an error in a chunk halts the render and no output appears at all, not even the pages before the error. Quarto names the offending chunk when it stops, which is the first reason to give every chunk a label.</p>
+<p>Three commands cover ordinary use. <code>quarto render index.qmd</code> builds one file. <code>quarto render</code> builds every file in a project. <code>quarto preview</code> builds the document, opens it in your browser, and rebuilds it every time you save, which is how most people work. The workspace README puts <code>quarto preview</code> at step 5 of getting started, and the setup check in that workspace, <code>R/check_setup.R</code>, tests for Quarto on your PATH and points you at <a href="https://quarto.org" class="uri">https://quarto.org</a> if it is missing.</p>
+<p>The course workspace ships the same analysis twice, which makes the argument for the document format better than any description does. <code>working_script.R</code> is Tasks 2 to 5 as a plain R script you step through in the console: it loads the panel, reproduces the recorded result, tries several specifications, and reports one. <code>index.qmd</code> is the same work as a report, with the reasoning written around the code and the numbers appearing inside the sentences that discuss them. The script is quicker to poke at. The report is the thing you can hand to somebody, and its numbers cannot go stale, because they are recomputed from the data every time the file is rendered.</p>
+<p>One rule follows from all of this: never edit the rendered output. The <code>.html</code> file is disposable and is rebuilt from the source on demand, so the <code>.qmd</code> is the artefact you keep, version and share.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Download the course workspace from the <a href="../setup.html">setup page</a> and open the folder in your editor. Open <code>index.qmd</code>, and in the terminal run <code>quarto preview</code>. The report opens in a browser with every chunk executed. Now change one word of the prose and save; the preview reloads by itself. Then look inside the <code>_site</code> folder that has appeared in the workspace, open the <code>index.html</code> you find there, notice that you could edit it, and resolve never to do so.</p>
+</div>
+</div>
+</section>
+<section id="sec-yaml" class="level2">
+<h2 class="anchored" data-anchor-id="sec-yaml">2. The YAML header</h2>
+<p>The header of the exercise report skeleton is the one to learn from, because it uses most of the keys you will ever need and nothing you will not:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Testing the robustness of a published claim: the EU-frames case"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Pair: [names]"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> today</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc-depth</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">code-fold</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">df-print</span><span class="kw">:</span><span class="at"> paged</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">message</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">warning</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">knitr</span><span class="kw">:</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">opts_chunk</span><span class="kw">:</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fig-width</span><span class="kw">:</span><span class="at"> </span><span class="dv">8</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fig-height</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Take it key by key. <code>title</code> and <code>author</code> print at the top of the finished document. <code>date: today</code> is a Quarto keyword that fills in the date at render time, so a report rendered next month carries next month’s date without anybody remembering to change it. Everything under <code>format:</code> configures the HTML output specifically. <code>toc: true</code> builds a table of contents from the headings and <code>toc-depth: 2</code> keeps it to the first two heading levels, leaving every deeper subsection out of it; <code>code-fold: false</code> shows code blocks open, where the alternative would put each one behind a click-to-expand control; and <code>df-print: paged</code> renders data frames as a small paged table instead of a wall of console text. The <code>execute:</code> block sets options for every chunk in the document at once, here suppressing the package start-up messages and the warnings that would otherwise clutter a report meant for a reader. The <code>knitr:</code> block hands options straight to knitr through its own <code>opts_chunk</code> mechanism, here fixing every figure at eight inches by five unless a chunk asks for something else.</p>
+<p><code>format:</code> is the one key that changes what kind of document comes out, and the same source can serve several. Every page on this site is <code>html</code>. The slide deck is <code>revealjs</code>, configured in <code>slides/_metadata.yml</code> rather than in the deck itself, for reasons that <a href="#sec-project">section 7</a> comes to. The browser lab and the Multiverse page are <code>live-html</code>, a format that an extension adds, which is what lets R run inside the reader’s own browser tab. Adding <code>pdf</code> or <code>docx</code> under <code>format:</code> gives you those as well, from the same file, with no change to a line of the content.</p>
+<p>YAML is fussy in a small number of ways, and a malformed header is the most common reason a document that worked yesterday will not build today. Indentation is by spaces, never tabs, and two spaces per level is the convention. Every entry is <code>key: value</code> with a space after the colon. A string that contains a colon has to be quoted, which is why the title above sits inside quotation marks. Booleans are lower-case <code>true</code> and <code>false</code>. If a render fails with a message about the YAML, read the header before you read anything else.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the workspace report, change <code>toc-depth: 2</code> to <code>3</code> and re-render, watching the table of contents grow. Then set <code>code-fold: true</code> and look again: most chunks now sit behind a small “Code” control, but the setup chunk at the top still shows nothing at all. Work out why from its options before reading the next section, which gives the answer.</p>
+</div>
+</div>
+</section>
+<section id="sec-chunks" class="level2">
+<h2 class="anchored" data-anchor-id="sec-chunks">3. Code chunks and their options</h2>
+<p>A chunk opens with three backticks and the engine name in braces, holds its options as comment lines beginning <code>#|</code>, then the code, then a closing fence of three backticks. The option lines are YAML again, so the same rules about colons and spaces apply. This is the plainest chunk in the exercise report, which counts the countries, years and rows in the panel:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: count-data</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># How many countries, how many years, how big is the panel?</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>euframes <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">countries =</span> <span class="fu">n_distinct</span>(cntry),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">years     =</span> <span class="fu">n_distinct</span>(year),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">rows      =</span> <span class="fu">n</span>()</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>It runs, its code is shown, and its result – 27 countries, 10 years, 270 rows – appears underneath. That is the default behaviour, and the options exist to depart from it. Six of them cover almost everything:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>label</code></td>
+<td>Names the chunk. Required for cross-references, and Quarto prints it when a chunk fails.</td>
+</tr>
+<tr class="even">
+<td><code>eval: false</code></td>
+<td>The code is shown but not run.</td>
+</tr>
+<tr class="odd">
+<td><code>echo: false</code></td>
+<td>The code runs and its results appear; the code itself is hidden.</td>
+</tr>
+<tr class="even">
+<td><code>output: false</code></td>
+<td>The code runs and is shown; its results are hidden.</td>
+</tr>
+<tr class="odd">
+<td><code>include: false</code></td>
+<td>The code runs; neither the code nor its results appear anywhere.</td>
+</tr>
+<tr class="even">
+<td><code>message: false</code>, <code>warning: false</code></td>
+<td>Hide the messages and warnings that R emits while the chunk runs.</td>
+</tr>
+</tbody>
+</table>
+<p>The distinction between <code>echo</code>, <code>output</code> and <code>include</code> is the one that takes a moment. <code>echo</code> governs the code, <code>output</code> governs the results, and <code>include</code> is the switch that turns both off while still running the chunk. The exercise report uses <code>include: false</code> for exactly the job it was made for – its setup chunk loads six packages, sets a figure theme and reads the panel, work that has to happen before anything else and that no reader wants to see. That is also the answer to the exercise above: a chunk that is not included cannot be folded, because it is not in the document at all.</p>
+<p><code>eval: false</code> is the opposite case, a chunk printed as an instruction to the reader and never executed. The report uses it for the optional step that fetches the data from the Open Science Framework:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: get-data</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: confirm data/EUframes_cy.csv from OSF (uses the local copy offline).</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/get_data.R"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The reader sees what to run and the render does not go to the network, which is what makes the report build offline.</p>
+<p>Two further options earn their place. <code>results: asis</code> tells Quarto that what the chunk prints is Markdown to be interpreted rather than console text to be shown in a grey box; the toggle that puts the next-delivery notice on the landing page of this site is built that way, printing a callout as text and having Quarto render it. And <code>fig-width</code> and <code>fig-height</code>, set on a single chunk, override whatever the header established for the document as a whole.</p>
+<section id="where-options-are-set" class="level3">
+<h3 class="anchored" data-anchor-id="where-options-are-set">Where options are set</h3>
+<p>The same options can be written on a chunk, in the document header under <code>execute:</code>, in a <code>_metadata.yml</code> file that governs a whole directory, or in the project configuration. The nearest setting wins. All four levels are in use across this project. The chunks quoted above carry their own options. The exercise report suppresses messages and warnings for the whole document. The shared settings for the slide deck, in <code>slides/_metadata.yml</code>, set <code>echo: false</code>, so no slide ever displays the code behind its figure. And the site configuration sets <code>freeze: auto</code>, which <a href="#sec-project">section 7</a> explains.</p>
+</section>
+<section id="inline-code" class="level3">
+<h3 class="anchored" data-anchor-id="inline-code">Inline code</h3>
+<p>Code is not confined to chunks. An expression written between backticks and prefixed with <code>r</code> is evaluated during the render and its value dropped into the sentence. The causal-graphs module uses this twice. One sentence describes the bailout column of the panel as marking a certain number of country-years, where the number is written as <code>`r sum(euframes$bailout)`</code> and counted from the data at render time. Another reports how many country-years a restricted model was fitted on by writing <code>`r nobs(m_dropped)`</code> rather than copying a figure out of the console.</p>
+<p>The habit is worth adopting for anything numeric that you would otherwise type by hand. A pasted number is correct on the day it is pasted and silently wrong from the first moment that the data, the sample or the model changes underneath it. An inline expression cannot fall out of step with the analysis, because there is no separate copy of it to fall out of step.</p>
+</section>
+<section id="unexecuted-chunks" class="level3">
+<h3 class="anchored" data-anchor-id="unexecuted-chunks">Unexecuted chunks</h3>
+<p>This page is full of chunks that are displayed rather than executed, and getting that to work takes one piece of knowledge that nothing else here requires. Pandoc closes a fenced block only on a fence at least as long as the one that opened it, so wrapping a three-backtick chunk in a <strong>four</strong>-backtick fence is enough to make Pandoc treat the inner block as literal text. It is not enough for knitr. Knitr scans the file line by line for a line that opens with backticks followed by <code>{r}</code>, and it does not track whether that line sits inside a longer fence, so it finds the inner chunk and runs it anyway. On a page like this one, where the displayed code refers to objects that do not exist, the render then fails.</p>
+<p>There are two ways out, and which one you want depends on the page.</p>
+<p>If the page has no live code at all, declare <code>engine: markdown</code> in the header. Quarto then skips the execution stage entirely, Pandoc handles the fences correctly, and a four-backtick fence displays whatever is inside it. That is what this page does, and it has two side benefits: the page renders without R installed, and it never enters the cache that <a href="#sec-project">section 7</a> describes.</p>
+<p>If the page does run code and you also want to display some, double the braces. A fence written as <code>```{{r}}</code> does not match the pattern that knitr looks for, so the block is left alone; one layer of braces is then removed on the way out, and your reader sees <code>```{r}</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">````markdown</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="in">```{{r}}</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: fig-demo</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="in">mean(1:10)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="in">````</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The fence lengths in that example are the same trick applied twice over, five backticks around four around three, because the block being displayed is itself a displayed block. The doubling rule extends to Quarto’s own shortcodes, which <a href="#sec-prose">section 5</a> comes to.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the workspace report, add <code>#| echo: false</code> to the chunk labelled <code>count-data</code> and re-render. The three numbers are still there and the code that produced them is gone – which is what a chunk option is for, and also a small lesson in what a reader of a published report is usually not shown. Then swap it for <code>#| eval: false</code> and re-render again: the code is back and the numbers have vanished. Finally, break the chunk on purpose by misspelling <code>summarise</code>, and read the error message, noticing that it names the label.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-crossref" class="level2">
+<h2 class="anchored" data-anchor-id="sec-crossref">4. Captions, labels and cross-references</h2>
+<p>A figure produced by a chunk becomes a numbered, captioned, referenceable figure once two conditions are met. The chunk has to carry a <code>fig-cap</code>, and its label has to begin with <code>fig-</code>. The exercise report draws the small-multiples figure of the outcome over time that way, and its caption points at a figure in the paper behind the case, whose author is referred to throughout this site as the original author, or OA:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-cosmo-trend</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Mean cosmopolitan EU framing over time, by country – an echo of OA's Figure 1."</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 9</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 6</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(euframes, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> mcosmo)) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"grey55"</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> cntry, <span class="at">ncol =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2004</span>, <span class="dv">2008</span>, <span class="dv">2013</span>)) <span class="sc">+</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Mean cosmopolitan framing (0–1)"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The two size options override the eight-by-five default that the header set, because twenty-seven panels need more room than a single scatterplot does. Tables work identically with a <code>tbl-cap</code> and a label beginning <code>tbl-</code>; the same report captions its coefficient table “The constrained model on EUframes_cy.csv.” and gives it a <code>tbl-</code> label, so it is numbered and referenceable in the same way.</p>
+<p>The point of the prefix is that Quarto numbers the item and lets you point at it from the prose. Write <code>@fig-cosmo-trend</code> in a sentence and the rendered text reads “Figure 1”, as a link that scrolls the reader to it. Both labels are already in place in the report skeleton and nothing yet refers to them, so adding the reference is a one-word edit that shows the whole mechanism working.</p>
+<p>Sections can be cross-referenced in the same way, with an id beginning <code>sec-</code> attached to the heading in braces, but numbered section references need <code>number-sections: true</code> in the header. The pages of this site are not numbered, so they use those same ids as plain anchor links instead: the R module writes <code>[section 3](#sec-objects)</code> to point within itself, and the causal-graphs module writes the <code>[ggplot2 section of the R module](intro-r.qmd#sec-ggplot)</code> to point across pages. Both forms are ordinary Markdown links, and the second is worth noticing because a link to a heading in another file is exactly as cheap as a link to one in your own.</p>
+<p>A figure that comes from a file rather than from code uses Markdown image syntax, <code>![A caption](path/to/image.png){#fig-example}</code>, and it is numbered and referenceable in the same way. This site deliberately does not do that. Every figure in the deck and in the companion modules is generated by a chunk from a committed data file, so the figure can be edited, corrected and re-rendered when the data change, and so that no published figure from anyone else’s paper is reproduced as a screenshot.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the workspace report, find the sentence above the figure chunk and rewrite it so that it refers to <code>@fig-cosmo-trend</code>. Re-render and check that the caption now begins “Figure 1” and that your reference links to it. Then change the label of that chunk to <code>trend-figure</code>, dropping the prefix, and re-render once more. The caption survives, the number disappears, and your cross-reference prints as <code>?fig-cosmo-trend</code>, which is how Quarto reports a reference it cannot resolve.</p>
+</div>
+</div>
+</section>
+<section id="sec-prose" class="level2">
+<h2 class="anchored" data-anchor-id="sec-prose">5. Markdown</h2>
+<p>The writing between the chunks is Markdown, with a few Quarto additions. Headings are lines beginning with one to six <code>#</code> characters. Emphasis is <code>*italic*</code> and <code>**bold**</code>. Lists are lines beginning with <code>-</code>, or with <code>1.</code> where the items should be numbered. A link is <code>[the visible text](the-target)</code>, and a link between pages of a Quarto site points at the <strong>source</strong> file rather than the rendered one: this page links to the R module as <code>[getting started with R](intro-r.qmd)</code>, and Quarto rewrites the target to <code>intro-r.html</code> when it builds. Writing <code>.qmd</code> targets means that a link keeps working if the output format changes, and that Quarto can warn you when a target does not exist.</p>
+<p>The Quarto addition you will use most is the <strong>fenced div</strong>, a block of content wrapped between two lines of three colons, with a class in braces on the opening line. It is a general mechanism for marking a region of a document as being of a particular kind, and callouts are the instance you meet everywhere. This is the Task 3 box of the exercise report, shortened here to its first and last sentences:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>::: {.callout-note title="Task 3 – Reproduce the recorded result"}</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>This is the **reproducibility** check. The target is **t = −3.804**.</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Five callout classes ship with Quarto – <code>note</code>, <code>tip</code>, <code>important</code>, <code>caution</code> and <code>warning</code> – each with its own colour and icon. The five tasks of the exercise report are <code>.callout-note</code> boxes with a <code>title</code> attribute, the “Try it” boxes on this page and its neighbours are <code>.callout-tip</code>, and the note that maps the preregistration block onto a real preregistration form is <code>.callout-important</code>. Adding <code>collapse="true"</code> starts a callout closed, with a control that the reader can click to open it, which the report uses for a long aside that would otherwise interrupt the flow of a task.</p>
+<p>Divs nest, and when they do the outer one takes more colons than the inner: four outside, three inside. Forgetting that is a reliable way to produce a document in which one box has swallowed the rest of the page.</p>
+<p>Two <strong>shortcodes</strong> appear across this site, each written as a name inside doubled braces and angle brackets. <code>{{&lt; var name &gt;}}</code> inserts a value from <code>_variables.yml</code>, the single file that holds site-wide facts, so the address of the course template repository is written once there and referred to everywhere else as <code>{{&lt; var template-repo &gt;}}</code> – on the setup page, in the git module, and anywhere else it is needed. <code>{{&lt; include path &gt;}}</code> pastes another file into this one before rendering, which is how the landing page picks up the next-delivery notice from <code>_includes/next-delivery.qmd</code> and how the browser lab picks up the machinery of the live-coding extension. Both exist for the same reason. A fact or a block of markup that lives in one place cannot drift out of agreement with itself.</p>
+<p>Writing about a shortcode rather than using one needs the same brace-doubling as <a href="#sec-chunks">section 3</a> described for chunks, and it catches you the first time. Every shortcode in the paragraph above is written in the source of this page with three braces on each side, because Quarto strips one layer and would otherwise have executed them: the sentence would then have printed the repository address where it meant to show you the markup.</p>
+</section>
+<section id="sec-citations" class="level2">
+<h2 class="anchored" data-anchor-id="sec-citations">6. Citations</h2>
+<p>Add a <code>bibliography:</code> key to the header, pointing at a BibTeX file, and citations start working. The causal-graphs module writes <code>bibliography: ../references.bib</code>; the R module gives a list of two files, because this project keeps a second file for entries not yet imported into the reference library of the facilitator. Both forms are ordinary YAML.</p>
+<p>A BibTeX file is a plain-text database with one record per work. This is the record for the paper behind the course case, trimmed of the fields that do not matter here:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">Teney2016DoesEUEconomic</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span> = {Does the {{EU Economic Crisis Undermine Subjective Europeanization}}?</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>           {{Assessing}} the {{Dynamics}} of {{Citizens}}' {{EU Framing}}</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>           between 2004 and 2013},</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Teney, C{<span class="ch">\'</span>e}line},</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span> = 2016,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {European Sociological Review},</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span> = {32},</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">number</span> = {5},</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span> = {619--633},</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span> = {10.1093/esr/jcw008}</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The word immediately after the opening brace is the <strong>citekey</strong>, the name you cite the work by. Almost nobody types these records by hand. A reference manager such as Zotero holds the library and exports the file, keys and all, so the practical workflow is to save a paper into the manager once and cite it from every document afterwards.</p>
+<p>Four citation forms cover ordinary writing:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>You write</th>
+<th>It renders as</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>[@Teney2016DoesEUEconomic]</code></td>
+<td>a parenthetical citation, author and year in brackets</td>
+</tr>
+<tr class="even">
+<td><code>@Teney2016DoesEUEconomic</code></td>
+<td>an in-text citation, with only the year bracketed</td>
+</tr>
+<tr class="odd">
+<td><code>[@Teney2016DoesEUEconomic, p. 619]</code></td>
+<td>a parenthetical citation with a page locator</td>
+</tr>
+<tr class="even">
+<td><code>[@Teney2016DoesEUEconomic; @LundbergEtAl2021WhatYourEstimand]</code></td>
+<td>two works in one set of brackets</td>
+</tr>
+</tbody>
+</table>
+<p>The reference list is assembled from whatever you actually cited, and it goes at the end of the document unless you say otherwise. Putting <code>::: {#refs}</code> somewhere puts the list exactly there, which is why the R module and the statistical-methods module end with a <code>## References</code> heading and an empty div underneath it. This page ends the same way, and the two entries you will find there were produced by live citations of the two works named in the table above <span class="citation" data-cites="Teney2016DoesEUEconomic LundbergEtAl2021WhatYourEstimand">(<a href="#ref-Teney2016DoesEUEconomic" role="doc-biblioref">Teney 2016</a>; <a href="#ref-LundbergEtAl2021WhatYourEstimand" role="doc-biblioref">Lundberg et al. 2021</a>)</span>.</p>
+<p>Formatting is controlled by a citation style file. No <code>csl:</code> key is set anywhere in this project, so every page renders in the default that Pandoc supplies, the Chicago author-date style. Pointing <code>csl:</code> at a style file downloaded from the CSL repository that Zotero hosts switches the whole document to APA, or to the house style of a particular journal, without touching a single citation.</p>
+<p>One trap is worth knowing, because it is silent. A bare <code>@Key</code> at the very start of a block is also the syntax by which Pandoc writes an example list, and Pandoc reads it that way in preference: the citation disappears and a list number takes its place, with no warning. The slide deck of this workshop runs into that, because its pinned source footers are written to open with a bare citekey so that the author’s name renders outside the brackets. The fix is in <code>slides/_metadata.yml</code>, which turns the reader extension off with <code>from: markdown-example_lists</code>. The same file sets <code>link-citations: true</code>, which makes every rendered citation a link to its entry in the list.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The workspace report lists its four references by hand at the bottom of the file, as ordinary prose. Convert it: make a <code>references.bib</code> beside the report, put those four works into it as BibTeX records exported from a reference manager, add <code>bibliography: references.bib</code> to the header, replace the hand-typed list with <code>## References</code> and an empty <code>::: {#refs}</code> div, and cite each work at the point in the report where it is discussed. Re-render, and check that all four still appear and that none of them appears twice.</p>
+</div>
+</div>
+</section>
+<section id="sec-project" class="level2">
+<h2 class="anchored" data-anchor-id="sec-project">7. Projects</h2>
+<p>A single <code>.qmd</code> renders on its own. Put a <code>_quarto.yml</code> file beside it and the folder becomes a <strong>project</strong>: a set of documents that share settings, render together, and can be published as one thing. The site you are reading is a project of type <code>website</code>, and the parts of its configuration that matter here are these:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">output-dir</span><span class="kw">:</span><span class="at"> _site</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cosmo</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">css</span><span class="kw">:</span><span class="at"> styles.css</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">freeze</span><span class="kw">:</span><span class="at"> auto</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Between those blocks, left out above, sit the list of files to render and the navigation bar, which is where the menus at the top of this page are defined. The <code>format:</code> block sets the defaults for every page at once, so no individual page has to ask for a table of contents or name the visual theme. The workspace you download for the course is a much smaller project of the same kind: its configuration names the project type and the title of the site, sets <code>freeze: auto</code>, and adds <code>code-tools: true</code> so that a reader of the rendered report can open the source behind any chunk.</p>
+<p>Settings can also be attached to a single directory by putting a <code>_metadata.yml</code> inside it, and every <code>.qmd</code> in that folder inherits them. The slide deck is built this way. Its own header holds two keys, a title and <code>format: revealjs</code>, while the theme, the title-slide partial, the bibliography, the background image and several dozen presentation options all sit in <code>slides/_metadata.yml</code> beside it, along with <code>echo: false</code>, which is why no slide displays the code behind its figure. Four levels are therefore available, and the nearest one wins: an option on a chunk beats the document header, which beats the directory file, which beats the project configuration.</p>
+<p>The last setting in that excerpt is the one with the largest practical consequence. <code>freeze: auto</code> tells Quarto to re-execute a chunk only when the code of that chunk has changed, storing the results in a folder called <code>_freeze/</code>. This project commits that folder to version control, and the payoff shows in the workflow that publishes the site. It installs Quarto, then installs exactly three R packages – knitr, rmarkdown and yaml – and renders. Everything else comes out of the cache, so a build machine never needs the modelling packages that the pages were written with. One page is deliberately exempt. The landing page runs with <code>freeze: false</code> so that the next-delivery notice re-reads <code>_variables.yml</code> on every build, and those three packages are installed for that page alone.</p>
+<p>This page contributes nothing to any of that, because it declares <code>engine: markdown</code> and has no chunks to freeze.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Open <code>slides/_metadata.yml</code> in the repository behind this site – the “GitHub repo” link at the foot of every page – and read it from the top, working out what each block does before you reach the <code>execute:</code> block at the bottom. Then open <code>_quarto.yml</code> and find the two places where a setting is made once for every page of the site. Reading a project configuration is a skill of its own, and these two files are short enough to take in whole.</p>
+</div>
+</div>
+</section>
+<section id="sec-publish" class="level2">
+<h2 class="anchored" data-anchor-id="sec-publish">8. Publishing the document</h2>
+<p>Rendering a project writes the finished site to the folder that <code>output-dir</code> names, here <code>_site</code>. Rendering a single document writes the output beside the source. Either way the result is a set of ordinary files, and publishing means putting them somewhere that other people can reach.</p>
+<p>Three routes are common. You can render locally and commit the output, which is the simplest and which suits a small document that changes rarely. You can run <code>quarto publish gh-pages</code>, a single command that creates a branch for the rendered output and pushes to it. Or you can have a build machine do the work on every change, which is what this site does: its workflow file checks out the repository, installs Quarto and R, renders, and deploys the contents of <code>_site</code>. The course template repository carries a workflow of its own that is deliberately different. It installs R together with the packages that its own file names, and it re-runs the chunks, so a participant who edits the report and pushes it sees their own numbers on the published page instead of the ones that shipped.</p>
+<p>A document meant to be emailed wants a different setting. <code>embed-resources: true</code> inlines every image, stylesheet and script into the HTML file itself, giving one self-contained file that works with no folder of assets beside it. The deck of this workshop sets it to <code>false</code>, because it is built as part of a site where those assets are served anyway.</p>
+<p>Rendering to PDF is a header change, <code>format: pdf</code>, plus a typesetting engine. If you have no LaTeX installation, <code>quarto install tinytex</code> fetches a small one that Quarto manages itself.</p>
+<p>Everything on this page stops at the edge of version control, and that is where the next module begins. Publishing a rendered document is worth little if the source that produced it has no recorded history, and a <code>.qmd</code> project is unusually well suited to being versioned, because its inputs are plain text that can be compared line by line. The <a href="../companion/git-github.html">git and GitHub module</a> takes it from there, including what belongs in a repository and what must never enter one. For where a finished analysis should be deposited so that it can be cited and found, the <a href="../companion/repositories.html">repositories module</a> covers the archives and their conventions.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Add <code>docx</code> under the <code>format:</code> key of the workspace report, so that both <code>html</code> and <code>docx</code> are listed, and run <code>quarto render</code>. Two documents appear. Open the Word file and look at what survived the change of format and what did not – the table of contents, the figure, the code blocks, the callout boxes – then decide which format you would give a supervisor and which you would give a co-author who wants to leave comments.</p>
+</div>
+</div>
+</section>
+<section id="sec-sources" class="level2">
+<h2 class="anchored" data-anchor-id="sec-sources">Sources and further study</h2>
+<p>This module is written fresh for the course rather than adapted from an existing lesson, so there is no borrowed text to attribute. It teaches the slice of Quarto that this site and the course workspace actually use, illustrated from the files themselves, and it stops well short of the full feature set.</p>
+<p>The official documentation is the reference to keep open beside your own document, and these are the pages worth bookmarking first:</p>
+<ul>
+<li><strong>The Quarto guide</strong>, <a href="https://quarto.org/docs/guide/" class="uri">https://quarto.org/docs/guide/</a>, is the front door to everything else, organised by what you are trying to make.</li>
+<li><strong>Markdown Basics</strong>, <a href="https://quarto.org/docs/authoring/markdown-basics.html" class="uri">https://quarto.org/docs/authoring/markdown-basics.html</a>, is the complete prose syntax: headings, emphasis, lists, links, tables, footnotes, divs and spans.</li>
+<li><strong>Execution Options</strong>, <a href="https://quarto.org/docs/computations/execution-options.html" class="uri">https://quarto.org/docs/computations/execution-options.html</a>, covers the chunk options of <a href="#sec-chunks">section 3</a> in full, and <strong>Code Cells: Knitr</strong>, <a href="https://quarto.org/docs/reference/cells/cells-knitr.html" class="uri">https://quarto.org/docs/reference/cells/cells-knitr.html</a>, is the exhaustive list for R chunks specifically.</li>
+<li><strong>Cross References</strong>, <a href="https://quarto.org/docs/authoring/cross-references.html" class="uri">https://quarto.org/docs/authoring/cross-references.html</a>, and <strong>Callout Blocks</strong>, <a href="https://quarto.org/docs/authoring/callouts.html" class="uri">https://quarto.org/docs/authoring/callouts.html</a>, document the two features of <a href="#sec-crossref">sections 4</a> and <a href="#sec-prose">5</a> beyond what is used here.</li>
+<li><strong>Citations</strong>, <a href="https://quarto.org/docs/authoring/citations.html" class="uri">https://quarto.org/docs/authoring/citations.html</a>, covers bibliographies, citation syntax and style files.</li>
+<li><strong>Quarto Projects</strong>, <a href="https://quarto.org/docs/projects/quarto-projects.html" class="uri">https://quarto.org/docs/projects/quarto-projects.html</a>, and <strong>Managing Execution</strong>, <a href="https://quarto.org/docs/projects/code-execution.html" class="uri">https://quarto.org/docs/projects/code-execution.html</a>, explain project configuration and the freeze mechanism of <a href="#sec-project">section 7</a>.</li>
+<li><strong>GitHub Pages</strong>, <a href="https://quarto.org/docs/publishing/github-pages.html" class="uri">https://quarto.org/docs/publishing/github-pages.html</a>, sets out the three publishing routes of <a href="#sec-publish">section 8</a> with worked examples of each.</li>
+</ul>
+<p>Within this curriculum, the natural neighbours are <a href="../companion/intro-r.html">getting started with R</a>, which this module assumes, and the <a href="../companion/git-github.html">git and GitHub module</a>, which takes the reproducible document into version control. Every other page of the site is also a worked example: open any of them in the repository and you are reading the source of something you have already seen rendered.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-LundbergEtAl2021WhatYourEstimand" class="csl-entry" role="listitem">
+Lundberg, Ian, Rebecca Johnson, and Brandon M. Stewart. 2021. <span>“What <span>Is Your Estimand</span>? <span>Defining</span> the <span>Target Quantity Connects Statistical Evidence</span> to <span>Theory</span>.”</span> <em>American Sociological Review</em> 86 (3): 532–65. <a href="https://doi.org/10.1177/00031224211004187">https://doi.org/10.1177/00031224211004187</a>.
+</div>
+<div id="ref-Teney2016DoesEUEconomic" class="csl-entry" role="listitem">
+Teney, Céline. 2016. <span>“Does the <span>EU Economic Crisis Undermine Subjective Europeanization</span>? <span>Assessing</span> the <span>Dynamics</span> of <span>Citizens</span>’ <span>EU Framing</span> Between 2004 and 2013.”</span> <em>European Sociological Review</em> 32 (5): 619–33. <a href="https://doi.org/10.1093/esr/jcw008">https://doi.org/10.1093/esr/jcw008</a>.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/codemoreh\.github\.io\/applied-replication\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="https://github.com/CodeMoreh/applied-replication">GitHub repo</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

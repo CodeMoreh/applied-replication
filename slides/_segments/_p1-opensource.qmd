@@ -1,0 +1,16 @@
+## What open source buys you {.smaller}
+
+::: {.small}
+- **You can read it.** The estimator is not a black box you are asked to trust – the source of `lm()`, of `feols()`, of every package we load today, is public
+- **No licence stands between a reader and your analysis.** Anyone, anywhere, can run your code without buying anything
+- **It outlives your institution.** A licence expires when you change job; a package on CRAN does not
+- **You can fix it, and so can others.** Bugs get found because thousands of people run the same code on different data
+:::
+
+::: {.fragment .small}
+**Reproducibility has a price**, and a proprietary toolchain quietly puts that price on your reader.
+:::
+
+::: notes
+Why does open source matter here specifically? Four reasons, and only one of them is money. First, you can read it: the estimator is not a black box you are asked to trust – you can go and look at the source of any function we run today. Second, and this is the one that bears on our subject, no licence stands between a reader and your analysis. If your replication package needs a licence they do not have, your work is not reproducible for them, however carefully you wrote it. Third, it outlives your institution – a site licence ends when you change job, and a package on CRAN does not. Fourth, bugs get found, because thousands of people run the same code against different data. The point is not free as in beer. It is that reproducibility has a price, and a proprietary toolchain quietly hands that price to your reader.
+:::

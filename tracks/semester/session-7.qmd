@@ -1,0 +1,11 @@
+---
+title: "Session 7 – Data with a known recipe"
+---
+A simulated dataset is the one place where the true answer is known in advance, which makes it the instrument for asking what a method recovers. Two of the module sections do the work that the term needs most: a null world, and a design tested before it is run.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Simulation as a method](../../companion/simulation.qmd) | Sections 1 and 2: the recipe stated in full, then simulate, fit, and find out how close the estimate lands to the value that was written into the data. | 90 minutes |
+| [Simulation as a method](../../companion/simulation.qmd#sec-null) | Sections 8 and 9: a world with no effect in it at all, and testing whether a design could detect the effect you are looking for before you go looking. | 60 minutes |
+
+**By the end of the session** you have a recovery check on a parameter whose true value you set yourself, and a null world showing what your estimator returns when there is nothing there to find.

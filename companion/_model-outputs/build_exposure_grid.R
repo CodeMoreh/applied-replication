@@ -150,7 +150,7 @@ reimport <- read_csv(file.path(root, "data/spec_grid_full.csv"),
 cat("verbatim import check (all.equal vs spec_grid_family.csv):",
     isTRUE(all.equal(as.data.frame(reimport), as.data.frame(fam),
                      tolerance = 1e-12)), "\n")
-# the anchor's growth mirror: mpos ~ growth + unemp, two-way FE, all, unweighted
+# the growth mirror of C6HJR's published Multi100 specification: mpos ~ growth + unemp, two-way FE, all, unweighted
 mir <- full |> filter(predictor == "growth", family == "gaussian",
                       outcome == "mpos", copredictor == "unemp",
                       estimator == "fe_twoway", sample == "all", weights == "none")

@@ -1,0 +1,13 @@
+---
+title: "Stage 1 – The case, and what you are aiming at"
+---
+Read the shape of the whole thing before starting on any of it, because every module afterwards works on one claim from one paper and the modules make more sense once you know which claim.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Course overview](../../index.qmd) | Read the six things the exercise asks you to do, and how the analyses are run. | 15 minutes |
+| [Exercise overview](../../exercise/index.qmd) | Read the claim as it was put to the analysts, the coefficient published by the original author (OA), and the table of what five independent analysts found when they reanalysed it. Their partial correlations run from −0.006 to −0.452, and working out why is most of the course. | 30 minutes |
+| [Resources – four words that are not synonyms](../../resources.qmd#glossary) | Learn the difference between reproducibility, robustness and replicability, then read the SCORE dossier table further down the same page. | 30 minutes |
+| [Slides](slides.qmd) | Optional, and best skimmed rather than read. The deck is the taught version of the same material, and it shows how the four parts of the workshop fit together. | 20 minutes |
+
+**By the end of the stage** you know which claim the rest of the course works on, what the reproduction, the robustness reanalysis and the replication each returned on this paper, and what you need installed.

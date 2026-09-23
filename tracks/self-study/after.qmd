@@ -1,0 +1,10 @@
+---
+title: "Working alone"
+---
+**What compresses.** Stage 2 disappears if you already write R and Quarto and know your IDE, and stage 3 shortens to sections 1 to 5 if you have fitted panel models before. Stage 7 is the extension material and can be left for a second pass, or dropped entirely; nothing later depends on it.
+
+**What not to cut.** Do Task 3 before Task 4, so that the specification you explore departs from a number you have reproduced yourself rather than from one you read. Write the preregistration block in Task 5 before you write any model code, even though nobody is watching and the browser will not stop you doing it the other way round: a specification chosen after its result is visible belongs in Task 4, and the chart draws the two differently for exactly that reason. And read stage 6 before deciding what your own result proved.
+
+**What you lose alone, and what replaces it.** Two moments in the taught day depend on there being other people in it. One is a room of people all landing the same t, which is what makes reproduction concrete rather than a definition. The other is the same room landing different results from one claim and finding out how far apart they fall. The first is replaced well enough by the reproduction itself, which either matches −3.804 or does not. For the second, the pre-computed curve on the [Multiverse](../../results.qmd) page is a larger version of the same picture with the five analysts marked on it, and `my_experiments()` gives you a small one of your own making.
+
+**The other formats.** The [one-day course](../one-day-replication/index.qmd) is the format that the course was built for and the one that the deck follows, with a [tools-focused](../one-day-tools/index.qmd) and a [methods-focused](../one-day-methods/index.qmd) variant. The [three-day format](../three-days/index.qmd) puts a tools day before the workshop and a methods day after it. The [semester format](../semester/index.qmd) spreads the same eleven modules over ten sessions with the workshop day inside the term.

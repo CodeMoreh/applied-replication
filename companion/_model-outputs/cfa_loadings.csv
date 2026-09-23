@@ -1,0 +1,54 @@
+model,factor,var,item,loading,with,correlation
+published,cosmopolitan,it1,Peace,0.5667103791468041,NA,NA
+published,cosmopolitan,it3,Democracy,0.6590972365812728,NA,NA
+published,cosmopolitan,it5,Freedom to travel,0.4622252036730196,NA,NA
+published,cosmopolitan,it6,Cultural diversity,0.5582756359298366,NA,NA
+published,cosmopolitan,it7,Stronger say in the world,0.5601659299161499,NA,NA
+published,utilitarian,it2,Economic prosperity,0.6918968946925911,NA,NA
+published,utilitarian,it4,Social protection,0.6362701036415896,NA,NA
+published,communitarian,it9,Unemployment,0.6185031395474884,NA,NA
+published,communitarian,it12,Loss of cultural identity,0.554649940245984,NA,NA
+published,communitarian,it13,More crime,0.7753691507147853,NA,NA
+published,communitarian,it14,Not enough border control,0.6203170820746022,NA,NA
+published,libertarian,it10,Bureaucracy,0.5393930993020799,NA,NA
+published,libertarian,it11,Waste of money,0.9298476672798921,NA,NA
+data_driven,benefits,it1,Peace,0.5607470897556626,NA,NA
+data_driven,benefits,it2,Economic prosperity,0.609849195242134,NA,NA
+data_driven,benefits,it3,Democracy,0.6678316141315516,NA,NA
+data_driven,benefits,it4,Social protection,0.5934879189389424,NA,NA
+data_driven,benefits,it7,Stronger say in the world,0.3310455704765687,NA,NA
+data_driven,mobility,it5,Freedom to travel,0.5749131484161588,NA,NA
+data_driven,mobility,it6,Cultural diversity,0.7385786980777718,NA,NA
+data_driven,mobility,it7,Stronger say in the world,0.27802107026140654,NA,NA
+data_driven,communitarian,it9,Unemployment,0.6159311289748493,NA,NA
+data_driven,communitarian,it12,Loss of cultural identity,0.5574362174592252,NA,NA
+data_driven,communitarian,it13,More crime,0.7744816571523435,NA,NA
+data_driven,communitarian,it14,Not enough border control,0.6216784256313111,NA,NA
+data_driven,libertarian,it10,Bureaucracy,0.5390229655677439,NA,NA
+data_driven,libertarian,it11,Waste of money,0.9304861516319175,NA,NA
+valence,positive,it1,Peace,0.5507750876970099,NA,NA
+valence,positive,it2,Economic prosperity,0.5767743766286186,NA,NA
+valence,positive,it3,Democracy,0.6437558191013061,NA,NA
+valence,positive,it4,Social protection,0.5698574677378403,NA,NA
+valence,positive,it5,Freedom to travel,0.4430318352699641,NA,NA
+valence,positive,it6,Cultural diversity,0.5305375189459648,NA,NA
+valence,positive,it7,Stronger say in the world,0.5448201734851288,NA,NA
+valence,negative,it9,Unemployment,0.5973676140269953,NA,NA
+valence,negative,it10,Bureaucracy,0.5023562392724046,NA,NA
+valence,negative,it11,Waste of money,0.7304950163103967,NA,NA
+valence,negative,it12,Loss of cultural identity,0.5398922513938058,NA,NA
+valence,negative,it13,More crime,0.7237060120929657,NA,NA
+valence,negative,it14,Not enough border control,0.5890605256392522,NA,NA
+published,cosmopolitan,NA,NA,NA,utilitarian,0.7337476958343291
+published,cosmopolitan,NA,NA,NA,communitarian,-0.1445279471399348
+published,cosmopolitan,NA,NA,NA,libertarian,-0.17887981967426048
+published,utilitarian,NA,NA,NA,communitarian,-0.2706952395511733
+published,utilitarian,NA,NA,NA,libertarian,-0.3710865869081284
+published,communitarian,NA,NA,NA,libertarian,0.6751005255040156
+data_driven,benefits,NA,NA,NA,mobility,0.5827759926364278
+data_driven,benefits,NA,NA,NA,communitarian,-0.23470229311160046
+data_driven,benefits,NA,NA,NA,libertarian,-0.29453411374719624
+data_driven,mobility,NA,NA,NA,communitarian,-0.05457457793789453
+data_driven,mobility,NA,NA,NA,libertarian,-0.08848494217114813
+data_driven,communitarian,NA,NA,NA,libertarian,0.6749502713458235
+valence,positive,NA,NA,NA,negative,-0.23301307638102142

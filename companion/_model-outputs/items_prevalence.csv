@@ -1,0 +1,14 @@
+var,item,scale,valence,share_mentioning,n_respondents
+it1,Peace,cosmopolitan,positive,0.28542493604480945,416698
+it2,Economic prosperity,utilitarian,positive,0.1865883685546847,416698
+it3,Democracy,cosmopolitan,positive,0.21858276257625425,416698
+it4,Social protection,utilitarian,positive,0.11927823027708316,416698
+it5,Freedom to travel,cosmopolitan,positive,0.5098824568392457,416698
+it6,Cultural diversity,cosmopolitan,positive,0.22120096568738032,416698
+it7,Stronger say in the world,cosmopolitan,positive,0.2314481950957288,416698
+it9,Unemployment,communitarian,negative,0.16638668772108337,416698
+it10,Bureaucracy,libertarian,negative,0.21508382569630763,416698
+it11,Waste of money,libertarian,negative,0.2164541226499767,416698
+it12,Loss of cultural identity,communitarian,negative,0.12055973390801011,416698
+it13,More crime,communitarian,negative,0.1750236382224057,416698
+it14,Not enough border control,communitarian,negative,0.16613230685052485,416698

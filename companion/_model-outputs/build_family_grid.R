@@ -118,7 +118,7 @@ beta_res <- beta_res |> filter(ok) |> select(-ok) |>
   mutate(positive_outcome = outcome %in% c("mcosmo", "mutil", "mpos"),
          sig = abs(statistic) > qt(0.975, df),
          supports_claim = if_else(positive_outcome, estimate < 0, estimate > 0),
-         baseline = FALSE,   # the anchor cell is Gaussian; the beta twin is not it
+         baseline = FALSE,   # the baseline cell is Gaussian; the beta twin is not it
          family = "beta")
 
 full <- bind_rows(gauss |> mutate(family = "gaussian"), beta_res) |>
@@ -133,7 +133,7 @@ bb <- full |> filter(family == "beta", outcome == "mcosmo", pred_form == "raw",
                      sample == "all", weights == "none")
 cat("rows:", nrow(full), " (gaussian", sum(full$family == "gaussian"),
     "+ beta", sum(full$family == "beta"), ")\n")
-cat("gaussian anchor : t =", round(bg$statistic, 3), " r =", round(bg$r, 3), "\n")
+cat("gaussian baseline : t =", round(bg$statistic, 3), " r =", round(bg$r, 3), "\n")
 cat("beta twin       : z =", round(bb$statistic, 3), " r =", round(bb$r, 3),
     " b(logit) =", round(bb$estimate, 5), "\n")
 shares <- full |> group_by(family) |>

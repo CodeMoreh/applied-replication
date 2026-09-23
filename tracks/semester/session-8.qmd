@@ -1,0 +1,14 @@
+---
+title: "Session 8 – Repositories and preregistration"
+---
+The week before the workshop is spent on the two things that make the day's final task possible: knowing where a case's materials sit and what a licence lets travel, and having a specification chosen and justified in writing.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Social science data sources](../../companion/data-sources.qmd), section 3 | The data behind the course, step by step: the Eurobarometer waves at GESIS and what their licence allows, the World Bank indicators, the panel on OSF. Skim the map in section 2 for the archive that holds the data of your own project. | 45 minutes |
+| [Reproducibility repositories](../../companion/repositories.qmd) | Sections 1 to 5: what a repository has to do, the generalist repositories and the code forges, the Open Science Framework and its projects transition, and the three OSF nodes that hold the trail behind this case. | 45 minutes |
+| [Reproducibility repositories](../../companion/repositories.qmd#sec-registration) | Sections 6 to 8: what archives, forks and registrations each do differently, the preregistration templates written for reanalysing data that already exist, and the route for depositing your own work after the OSF transition. | 45 minutes |
+| [Specification menu](../../exercise/spec-menu.qmd) and the [preregistration block](../../exercise/browser-lab.qmd#task-5-my-preregistration) | Read the axes, the three levels they sort into, and the claim-alignment convention, then pick the one specification you intend to run on the day. Fill in the preregistration block with those choices and the two sentences that defend them, dated in this session rather than on the day. | 45 minutes |
+| [Estimand choices](../../exercise/estimand-dial.qmd) | Set the seven Level 1 choices, read the question they ask, and watch how far the measurement and estimation variants of that one question spread, before you choose yours. | 20 minutes |
+
+**By the end of the session** you have a completed preregistration block for one specification, written and dated before the workshop rather than during it.

@@ -1,0 +1,47 @@
+## Hands-on 4: work the menu {.smaller}
+
+::: {.small}
+**Task 4 is exploration, and it is meant to be.** Try several specifications, look at what each one does, and get a feel for which axes move the estimate.
+
+1. Start from the baseline you reproduced
+2. Change **one axis**, refit, and note what happened to *b*, *t* and the partial *r*
+3. Do it again with a different axis. Three or four is plenty
+4. Then pick the one you can argue for best, and **submit it**
+:::
+
+::: {.fragment .small}
+Your dot lands on the live **Multiverse** page within seconds. We read the room's dots at the start of Part 4.
+:::
+
+::: {.fragment .small}
+This is **not** your preregistered analysis. You are allowed to look, change your mind, and try again – that is the whole point of naming this phase separately.
+:::
+
+::: notes
+Right. This is the part of the day where you get your hands properly dirty, and I want to be explicit about what kind of activity it is, because it is different from what comes after the break. Task four is exploration and it is meant to be. Start from the baseline you reproduced. Change one axis, refit, and write down what happened to the coefficient, the t and the partial r. Then do it again with a different axis – three or four goes is plenty. Then pick whichever one you can argue for best and submit it, and your dot lands on the live multiverse page within seconds. We open Part 4 by reading what the room built. And the fragment matters: this is not your preregistered analysis. Here you are allowed to look, change your mind and try again. Naming that phase out loud, as its own thing, is exactly what most published work fails to do.
+:::
+
+## How long will anything take? {.smaller visibility="hidden"}
+
+::: {.small}
+Measured on the 270-row panel, on an ordinary laptop:
+
+| What | Time |
+|---|---|
+| `feols` two-way FE · pooled OLS with clustered SE | under 0.01 s |
+| `plm` within / random effects | ~0.02 s |
+| `betareg` with country and year dummies | ~0.05 s |
+| `glmmTMB` beta random effects | ~0.3 s |
+:::
+
+::: {.small}
+**Nothing here is slow.** If a participant is waiting, it is not the model – it is a package **download**:
+
+- browser lab, `ggdag` for the Task 2 picture: **≈ 23 MB**, one slow moment on poor wifi. The `adjustmentSets()` answer itself needs none of it
+- browser lab, `glmmTMB` for beta random effects: a heavy wasm download, installed on demand
+- the workspace, first run: the whole package set installs once
+:::
+
+::: notes
+[Facilitator slide, hidden in the deck – for answering "how long should this take?" without guessing.] Every fit on this panel is effectively instantaneous, including the beta models. Nobody is waiting for a model. What people do wait for is a package download: ggdag in the browser lab is about twenty-three megabytes, which is one slow moment on a bad connection, and glmmTMB is a heavy wasm download if somebody picks beta random effects. The first run in the workspace installs the whole set once. So if someone reports that it is stuck, ask what it is stuck on before assuming the model is the problem.
+:::

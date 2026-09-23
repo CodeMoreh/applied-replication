@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Companion curriculum – Applied Replication for Data Skills</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.js"></script>
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/animate.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/magic.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo light-content">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Applied Replication for Data Skills</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../tracks/one-day.html">
+ <span class="dropdown-text">One day</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/three-days.html">
+ <span class="dropdown-text">Three days</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/semester.html">
+ <span class="dropdown-text">Semester</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/self-study.html">
+ <span class="dropdown-text">Self-study</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../slides/index.html"> 
+<span class="menu-text">Slides</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-exercise">    
+        <li>
+    <a class="dropdown-item" href="../exercise/index.html">
+ <span class="dropdown-text">Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/browser-lab.html">
+ <span class="dropdown-text">Browser lab</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/spec-menu.html">
+ <span class="dropdown-text">Specification menu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/estimand-dial.html">
+ <span class="dropdown-text">Estimand choices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/cheatsheet.html">
+ <span class="dropdown-text">Cheatsheet</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../results.html"> 
+<span class="menu-text">Multiverse</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-companion" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Companion</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-companion">    
+        <li>
+    <a class="dropdown-item" href="../companion/index.html">
+ <span class="dropdown-text">Curriculum overview</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Computational tools</li>
+        <li>
+    <a class="dropdown-item" href="../companion/intro-r.html">
+ <span class="dropdown-text">Getting started with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/quarto.html">
+ <span class="dropdown-text">Quarto and reproducible documents</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Reproducibility and collaboration</li>
+        <li>
+    <a class="dropdown-item" href="../companion/repositories.html">
+ <span class="dropdown-text">Repositories &amp; preregistration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/git-github.html">
+ <span class="dropdown-text">Git &amp; GitHub</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistical methods</li>
+        <li>
+    <a class="dropdown-item" href="../companion/stats-methods.html">
+ <span class="dropdown-text">The statistical methods behind the course</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/dags.html">
+ <span class="dropdown-text">Causal graphs &amp; adjustment sets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/multiverse.html">
+ <span class="dropdown-text">The multiverse and its critics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/weighting.html">
+ <span class="dropdown-text">Weights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/missingness.html">
+ <span class="dropdown-text">Missing answers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/measurement.html">
+ <span class="dropdown-text">The items behind the scales</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/simulation.html">
+ <span class="dropdown-text">Simulation as a method</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/individual-level.html">
+ <span class="dropdown-text">The individual level</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#eight-modules-each-standing-alone" id="toc-eight-modules-each-standing-alone" class="nav-link active" data-scroll-target="#eight-modules-each-standing-alone">Ten modules</a></li>
+  <li><a href="#strand-i-computational-tools" id="toc-strand-i-computational-tools" class="nav-link" data-scroll-target="#strand-i-computational-tools">Strand I – Computational tools</a></li>
+  <li><a href="#strand-ii-reproducibility-and-collaboration" id="toc-strand-ii-reproducibility-and-collaboration" class="nav-link" data-scroll-target="#strand-ii-reproducibility-and-collaboration">Strand II – Reproducibility and collaboration</a></li>
+  <li><a href="#strand-iii-statistical-methods" id="toc-strand-iii-statistical-methods" class="nav-link" data-scroll-target="#strand-iii-statistical-methods">Strand III – Statistical methods</a></li>
+  <li><a href="#a-first-route-through" id="toc-a-first-route-through" class="nav-link" data-scroll-target="#a-first-route-through">A first route through</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Companion curriculum</h1>
+<p class="subtitle lead">The teaching material of the course – ten modules in three strands</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>These ten modules are where the course does most of its teaching. The workshop sits at the centre of them, a single hands-on case worked through in four ninety-minute parts. It is compressed by design, and teaches reproduction, estimands and the multiverse rather than the skills that surround those three topics. Those skills are what the modules carry, from a first line of R through to a reanalysis you can version and archive. Each one stands on its own, so you can take just the module you need and leave the rest.</p>
+<p>How much of the curriculum you work through depends on which track you are following. The <a href="../tracks/one-day.html">one-day track</a> is very nearly the workshop and nothing else, pointing at the R module as optional preparation beforehand and at one or two others alongside the day itself. Nothing here is required for it: the day runs in full without any of this, with no account to create and, on the browser lab page, nothing to install. The <a href="../tracks/three-days.html">three-day</a> and <a href="../tracks/semester.html">semester</a> tracks build sessions out of these modules on either side of the workshop, and the <a href="../tracks/self-study.html">self-study track</a> is made almost entirely of them. Wherever a module below says ‘the day’, it means the workshop at the centre of whichever track you are on.</p>
+<section id="eight-modules-each-standing-alone" class="level2">
+<h2 class="anchored" data-anchor-id="eight-modules-each-standing-alone">Ten modules</h2>
+<p>The ten modules group into three strands: the computational tools that an analysis is written with, the repositories and version control that let it travel, and the statistical methods that the case itself is worked on. The strands are a way of reading the curriculum rather than a filing system – every module keeps its own page, and nothing stops you reading across them in whatever order suits you.</p>
+</section>
+<section id="strand-i-computational-tools" class="level2">
+<h2 class="anchored" data-anchor-id="strand-i-computational-tools">Strand I – Computational tools</h2>
+<p>Two modules on the machinery of an analysis: the language it is written in, and the document format that holds the code and the prose about it in the same file. The R module assumes no programming at all, starting from the first line you type. The Quarto module picks up where that leaves off, and is written for someone who has worked through the R module or who already writes a little R. Neither runs its own code; the snippets are shown so that you type them yourself. The R snippets can go into the zero-install <a href="../exercise/browser-lab.html">browser lab</a> or into your own copy of R, while the Quarto exercises need R and the Quarto command-line tool on your own machine, because the lab runs R but does not render documents.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Level</th>
+<th>What it covers</th>
+<th>When to read it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="../companion/intro-r.html">Getting started with R</a></td>
+<td>Foundation</td>
+<td>What R and Positron are; the console, scripts and Quarto; objects, vectors and data frames; reading a CSV; the pipe and a first dplyr chain; a grammar-of-graphics tutorial that builds up to reading the course class chart; naming the quantity before estimating it. For arriving with no R at all.</td>
+<td>Before the day</td>
+</tr>
+<tr class="even">
+<td><a href="../companion/quarto.html">Quarto and reproducible documents</a></td>
+<td>Foundation</td>
+<td>What a <code>.qmd</code> file holds and what rendering actually does; the YAML header and the execute options worth knowing; code chunks and the options that are set by the course pages; figures, tables and cross-references; citations drawn from a <code>.bib</code> file, with the course bibliography as the worked example; publishing a finished document. Written around files you can open in this project rather than a toy case.</td>
+<td>Before the day</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="strand-ii-reproducibility-and-collaboration" class="level2">
+<h2 class="anchored" data-anchor-id="strand-ii-reproducibility-and-collaboration">Strand II – Reproducibility and collaboration</h2>
+<p>Where research materials live, how they are licensed, and how a piece of work is versioned and shared. The panel that the course runs on is a file published in an OSF fork, and the day asks you to write a preregistration block, and the slides name version control and say what git gives you, but there is no hands-on git on the day: nothing to clone, and no GitHub account to create. That practice is left to these two modules, which take both sides further and are the ones to read once you have a report of your own to archive.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Level</th>
+<th>What it covers</th>
+<th>When to read it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="../companion/repositories.html">Reproducibility repositories</a></td>
+<td>Foundation to advanced</td>
+<td>The GESIS licensed archive; the OSF nodes behind the case; what registration and forking mean; preregistration templates, feeding into Part 4.</td>
+<td>After the day (the preregistration part also works before)</td>
+</tr>
+<tr class="even">
+<td><a href="../companion/git-github.html">Git and GitHub for reproducible research</a></td>
+<td>Advanced</td>
+<td>Version control from first principles; git on your own machine; putting a repository online; what belongs in git and what never does; taking your own reanalysis further.</td>
+<td>After the day</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="strand-iii-statistical-methods" class="level2">
+<h2 class="anchored" data-anchor-id="strand-iii-statistical-methods">Strand III – Statistical methods</h2>
+<p>Seven modules on the statistical side of the case, from a first linear model read line by line to the specification curve that sits behind the class chart. They are ordered here by what they assume rather than by when to read them, so the methods module needs little beyond what the R module gives you, while <a href="../companion/individual-level.html">The individual level</a> expects you to be comfortable with models that have more than one level. The participant reading for Part 4, <a href="../exercise/reading-inference.html">reading a specification curve</a>, belongs with this strand without being a module of its own, and it is short enough to take in one sitting.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Level</th>
+<th>What it covers</th>
+<th>When to read it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="../companion/stats-methods.html">The statistical methods behind the course</a></td>
+<td>Foundation to advanced</td>
+<td>Every model fitted on the case’s own data, output by output: a first linear model read line by line; pooled OLS and cluster-robust errors; two-way fixed effects; random effects and within–between; person-level multilevel models; survey weights and WeMix; Bayesian estimation with brms; ordered beta regression; meta-analysis and effect sizes on one axis.</td>
+<td>Either side of the day</td>
+</tr>
+<tr class="even">
+<td><a href="../companion/dags.html">Causal graphs</a></td>
+<td>Intermediate</td>
+<td>What a causal graph is and what drawing one commits you to; confounders, mediators and colliders, each fitted rather than only described; building graphs from R formulas with <code>dagify()</code>; the EU-frames graph, whose adjustment set turns out to be exactly what two-way fixed effects absorb; what fixed effects cannot fix; stating an estimand for your own research and drawing its graph.</td>
+<td>Either side of the day</td>
+</tr>
+<tr class="odd">
+<td><a href="../companion/weighting.html">Weights</a></td>
+<td>Intermediate</td>
+<td>Design weights inside a country-year cell, precision weights across cells and population weights across countries, taken apart on the course panel; why only the third changes the estimand; C6HJR’s published coefficient under every combination of the weighting choices.</td>
+<td>After Task 4, when the weighting axes on the menu have raised the question; before Task 5 if you mean to weight.</td>
+</tr>
+<tr class="even">
+<td><a href="../companion/missingness.html">Missing answers</a></td>
+<td>Intermediate</td>
+<td>What a respondent who mentions no frame at all does to a share built from mentions; the rules the menu offers for them and what each assumes; missing completely at random, at random and not at random; multiple imputation with mice and Amelia on the respondent file, pooled by Rubin’s rules, against the fiat rules; a sensitivity band for the assumption that imputation makes.</td>
+<td>After the day, alongside the measurement decisions of the specification menu.</td>
+</tr>
+<tr class="odd">
+<td><a href="../companion/measurement.html">The items behind the scales</a></td>
+<td>Intermediate</td>
+<td>The instrument behind every outcome on the menu, taken apart: what the EU-meaning battery asks and how the four framing scales and the two composites are built from its thirteen items; how often each item is named and how the items hang together; how many dimensions the answers hold, with the two-factor and four-factor solutions set against the published assignment; a confirmatory comparison of the published, the data-driven and the valence structures; what a two-item scale can and cannot carry; and what follows for the frame set and the scoring rule.</td>
+<td>Before you choose an outcome on the menu; either side of the day.</td>
+</tr>
+<tr class="even">
+<td><a href="../companion/multiverse.html">The multiverse and its critics</a></td>
+<td>Intermediate</td>
+<td>Where multiverse thinking came from; the three purposes a multiverse can serve and why they pull apart; the 2025–26 critical debate (Auspurg; Rohrer, Hullman and Gelman; Lakens and colleagues) read against the course grid; how to read a curve without over-reading it.</td>
+<td>After the day</td>
+</tr>
+<tr class="odd">
+<td><a href="../companion/simulation.html">Simulation as a method</a></td>
+<td>Intermediate</td>
+<td>Data with a known recipe: a simulated person-level twin built to carry the original analysis, every framing dimension with its own response; parameter recovery and the sampling distribution of a level-2 estimate; composition against context; recovering individual effects; weights that actually matter; the degrees-of-freedom story run live; a null multiverse; a lineup; design precision by simulation.</td>
+<td>After the day</td>
+</tr>
+<tr class="even">
+<td><a href="../companion/individual-level.html">The individual level</a></td>
+<td>Advanced</td>
+<td>The same claim fitted where its author fitted it, on a synthetic person-level dataset validated coefficient by coefficient against the real respondents: individual circumstance against national context, why a large individual effect can explain almost none of an aggregate association, what declaring a level does to the evidence, and what a synthetic dataset should not be asked to do.</td>
+<td>After the day</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="a-first-route-through" class="level2">
+<h2 class="anchored" data-anchor-id="a-first-route-through">A first route through</h2>
+<p>If you are new to all of this and want a route through, take the modules in this order:</p>
+<ol type="1">
+<li><strong>Before the day: <a href="../companion/intro-r.html">Getting started with R</a>.</strong> Arrive able to read a data frame, a pipe and a model formula, so the hands-on tasks are about the ideas rather than the syntax.</li>
+<li><strong>Before the day: <a href="../companion/quarto.html">Quarto and reproducible documents</a>.</strong> The report you fill in on the day is a Quarto document, and rendering it is how your preregistration block gets a timestamp. Reading this module beforehand means that the file in front of you on the day is one you already understand. If you are only trying the exercise on the browser lab page there is nothing of your own to render, so the module can equally wait until afterwards, when you do have something to write up.</li>
+<li><strong>Either side of the day: <a href="../companion/stats-methods.html">The statistical methods behind the course</a>.</strong> The first five sections, aggregation through the estimator tour, make good preparation. The multilevel, weighting, Bayesian and effect-size sections land better once you have seen the class multiverse, so they reward a second read afterwards.</li>
+<li><strong>Either side of the day: <a href="../companion/dags.html">Causal graphs</a>.</strong> The course introduces causal graphs in about thirty minutes and asks you to finish one in Task 2. Reading this beforehand turns that task into a decision you already know how to make; reading it afterwards is the more thorough option, because the models it fits are the ones you will have just seen scatter across the class chart.</li>
+<li><strong>After the day: <a href="../companion/multiverse.html">The multiverse module</a>, then <a href="../companion/simulation.html">Simulation as a method</a>.</strong> The first gives the ideas behind what you just did, and the arguments now running against them. The second gives you a person-level dataset whose recipe is known in advance, on which you can test what your models actually recover.</li>
+<li><strong>After the day: <a href="../companion/individual-level.html">The individual level</a>.</strong> Optional and self-contained. The course works at the country-year level throughout; this fits the same claim at the individual level, where the composition-against-context question can actually be answered rather than only posed.</li>
+<li><strong>After the day: <a href="../companion/repositories.html">Reproducibility repositories</a> and <a href="../companion/git-github.html">Git and GitHub</a>.</strong> Once you have a report of your own, these two turn it into something you can archive, version and share – the natural next steps beyond the course scope.</li>
+</ol>
+<p>Read as much or as little as suits you. On the one-day track the course stands on its own and the curriculum is there for when you want more; on the longer tracks it is most of the course.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/codemoreh\.github\.io\/applied-replication\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="https://github.com/CodeMoreh/applied-replication">GitHub repo</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

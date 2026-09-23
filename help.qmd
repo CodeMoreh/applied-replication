@@ -1,0 +1,79 @@
+---
+title: "Setup help"
+subtitle: "Known problems, their fixes, and how to ask for more"
+---
+
+This page collects the problems that participants have met while installing R, an IDE and Quarto for the course, with what is usually behind each one, what to do, and a link to the place where it was worked out. It complements the [Setup](setup.qmd) page, which has the installation steps, and the quick-fix table on the [cheatsheet](exercise/cheatsheet.qmd), which covers the handful of things that go wrong on the day itself.
+
+Two things about support. Windows and Linux installations are supported in class; a macOS installation is not, because the facilitator does not use a Mac and cannot test one, so Mac problems are best taken to the links in the table and to the R for macOS FAQ rather than saved for the day. And whichever system you are on, a problem is far quicker to fix when it arrives with its evidence: the exact text of the error, the output of `R/check_setup.R`, and which IDE and version you are running.
+
+## Three checks before anything else
+
+Most setup failures come from one of three things, and each takes a minute to rule out.
+
+1. **The IDE was open when you installed something.** An IDE reads the system's list of programs when it starts, so R, Quarto or a package manager installed while it was running is invisible until it is restarted. Close the IDE completely and reopen it; on Windows, if that is not enough, sign out and back in.
+2. **A terminal cannot find the program either.** Open a fresh terminal and type `R --version` and `quarto --version`. If a version line comes back, the program is installed and on your path, and the problem is in the IDE's settings; if nothing comes back, the installation itself is what needs fixing.
+3. **You opened a file rather than the folder.** Every path in the workspace is relative to the unzipped folder, so the data are "not found" when the IDE has opened a single file inside it. In Positron and VS Code choose File → Open Folder; in RStudio open the `replication-lab.Rproj` file.
+
+## Known problems
+
+::: {.column-page-inset-right}
+
+| Problem | What is usually behind it | What to do | Where it is discussed |
+|---|---|---|---|
+| **Positron lists no R interpreter**, or the interpreter picker at the top of the window is empty. | R is below version 4.2, which Positron will not use; or R was installed somewhere Positron does not look; or R was installed after Positron was opened. | Restart Positron. Then open the Command Palette (Ctrl+Shift+P, or Cmd+Shift+P on a Mac), run **R: Select Interpreter** and pick the R you installed. If R lives in an unusual folder, add that folder to the `positron.r.customRootFolders` setting, or the executable itself to `positron.r.customBinaries`. | [Positron: R installations](https://positron.posit.co/r-installations.html); [issue #5038, "Positron unable to find R interpreter"](https://github.com/posit-dev/positron/issues/5038) |
+| **Positron found R before an update and no longer does.** | A discovery regression in one monthly release; the fix shipped in the next. | Install the current release from the download page, or run **R: Select Interpreter** and choose the R by hand. | [Discussion #12430, "Positron not finding R interpreter after updating"](https://github.com/posit-dev/positron/discussions/12430) |
+| **Windows: RStudio finds R but Positron lists a different version, or none.** | Positron reads the Windows registry entry that the R installer writes, and an R installed with "Save version number in registry" unticked, or into a custom folder, leaves it incomplete. | Reinstall R with the registry box ticked, or point Positron at the folder through `positron.r.customRootFolders`. | [Issue #6726, "Positron unable to recognize the R version I want to use"](https://github.com/posit-dev/positron/issues/6726); [discussion #3677, "How to configure the R interpreter?"](https://github.com/posit-dev/positron/discussions/3677) |
+| **Windows, managed laptop: R never appears, and the Output pane shows `spawn EPERM`.** | Antivirus or endpoint software is blocking a helper program (`rg.exe`) inside the Positron installation, which stops R discovery from completing. | Ask IT to exclude the Positron installation folder from the antivirus scanner; until then, work in RStudio, which is unaffected. | [Discussion #11499, "No R versions are being discovered..."](https://github.com/posit-dev/positron/discussions/11499) |
+| **Windows: the R session fails to start with "Cannot read properties of undefined (reading 'uri')", though R works in RStudio.** | A Positron bug tracked in the linked issue. | Update to the current Positron release and read the issue for the workaround if it persists. | [Issue #11444](https://github.com/posit-dev/positron/issues/11444) |
+| **RStudio starts but says it cannot find R, or opens a "Choose R installation" dialog.** | RStudio was installed before R, or the R it remembered has been removed. | Install R, then start RStudio again. On Windows, hold the Ctrl key while RStudio starts to open the dialog that lets you pick an R installation. | [RStudio download page](https://posit.co/download/rstudio-desktop/) |
+| **VS Code keeps asking you to install `languageserver`, or says it is installed but cannot load.** | The package was installed into a different R from the one the extension is using, or into a project library that the extension does not look in. | Install it from the R terminal that the extension itself started: `install.packages("languageserver")`. If you use renv, install it into the project library or set the extension to use a global R. | [vscode-R #754](https://github.com/REditorSupport/vscode-R/issues/754); [#725](https://github.com/REditorSupport/vscode-R/issues/725); [#1021](https://github.com/REditorSupport/vscode-R/issues/1021); [languageserver README](https://github.com/REditorSupport/languageserver) |
+| **VS Code cannot find R at all.** | On Windows the extension looks in the registry; elsewhere it looks on the path. | Tick "Save version number in registry" when installing R on Windows, or set the path to the R executable in the extension's settings (`r.rpath.windows`, `r.rpath.mac` or `r.rpath.linux`). | [VS Code R documentation](https://code.visualstudio.com/docs/languages/r) |
+| **The check script says Quarto is not on the path, but you installed it.** | Installed while the IDE was open, so the IDE's own terminal has not picked it up; or not installed at all, because RStudio and some Positron builds carry a private copy that the terminal cannot reach. | Restart the IDE and run the check again. In RStudio the bundled Quarto renders the report even when the terminal cannot find it; run `quarto::quarto_path()` in the console to confirm which copy is in use. Otherwise install Quarto from quarto.org. | [Discussion, "Is it necessary to install Quarto separately from RStudio?"](https://github.com/quarto-dev/quarto-cli/discussions/5854); [which Quarto RStudio bundles](https://github.com/quarto-dev/quarto-cli/discussions/4939) |
+| **Rendering stops with a message about the `rmarkdown` package.** | Quarto uses that package to run the R chunks of the report, and a fresh R does not have it. | Run `R/check_setup.R` again and accept the install, or `install.packages("rmarkdown")`. | [Quarto: get started](https://quarto.org/docs/get-started/) |
+| **"Permission denied" while installing a package.** | R cannot write to the library folder. On Windows this is usually an R installed for all users by an administrator, an antivirus scanner holding the file, or a loaded package locking its own files while it is being replaced. | Accept the offer to create a personal library when R makes it. Restart R before reinstalling, so nothing is loaded. If the error names a specific file, safelist R in the antivirus, and as a last resort run the IDE as an administrator once. | [Posit forum thread 119217](https://forum.posit.co/t/119217); [thread 159471](https://forum.posit.co/t/159471); [renv issue #202](https://github.com/rstudio/renv/issues/202) |
+| **A package install asks "Do you want to install from sources the package which needs compilation?"** | A newer version exists as source than as a pre-built binary, and building it needs a compiler. | Answer **No**. The binary version is enough for the course. On Linux, where packages are compiled as a rule, install the development headers that the CRAN page for your distribution lists. | [CRAN for Ubuntu](https://cran.r-project.org/bin/linux/ubuntu/); [Debian](https://cran.r-project.org/bin/linux/debian/); [Fedora and Red Hat](https://cran.r-project.org/bin/linux/fedora/) |
+| **The package install stalls or half-finishes.** | Usually a network interruption, or a package in use during its own update. | Restart R and run the install again; a second pass completes what the first left. | [Cheatsheet](exercise/cheatsheet.qmd) |
+| **macOS: the R installer refuses to open, or R runs but packages will not install for the architecture.** | The Apple silicon and Intel builds of R are separate downloads, and the wrong one runs poorly or not at all; the installer also sometimes lacks permission to read the Downloads folder. | Download the build that matches your Mac (arm64 for M-series, x86_64 for Intel), move the installer to your home folder before running it, and check `R.version$arch` afterwards. | [CRAN for macOS](https://cran.r-project.org/bin/macosx/); [R for macOS FAQ](https://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html); [R-SIG-Mac list](https://stat.ethz.ch/mailman/listinfo/r-sig-mac) |
+| **Data file "not found" when a script runs.** | The IDE has a single file open rather than the workspace folder, so relative paths point at the wrong place. | Open the folder (File → Open Folder in Positron and VS Code; `replication-lab.Rproj` in RStudio) and run again. | [Setup, step 4](setup.qmd#the-workspace) |
+| **The Eurobarometer build script stops with "does not exist" or "Not found in".** | The folder path at the top of `prep/01_build_respondents.R` does not point at the folder holding the sixteen `.dta` files, or a study is missing. | Set `raw_dir` to the folder (forward slashes work on Windows), and download the study the message names; the two zipped studies are unpacked by the script and can stay as `.zip`. | [Setup, step 6](setup.qmd#the-eurobarometer-files-for-the-individual-level-work) |
+| **The build report says a file is not identical to the course build.** | GESIS has re-released that study under the same file name, or the download was interrupted. | Check the study page for a version newer than the one in the course's table, download again if the file size differs, and bring the report to the session; the cell-count checks say whether the difference matters. | [Data sources, section 3.1](companion/data-sources.qmd#sec-gesis) |
+
+:::
+
+## Asking an AI assistant
+
+An AI assistant is a reasonable first port of call for a setup problem, because these problems are common, well documented and specific to a machine you have in front of you and the assistant does not. The course does not require one and no part of the day depends on one. If you have access to one, three are close at hand: Posit Assistant inside Positron, which since the 2026.07 release ships as the default assistant there and connects to a provider of your own choosing (Anthropic, Amazon Bedrock, GitHub Copilot or OpenAI) with your own key or account; the Copilot chat inside VS Code, with a GitHub account; or any chat tool in a browser tab. Posit's documentation says plainly that Posit provides no support for code that an assistant generates, and the same applies to anything you run on its advice.
+
+What makes the answer useful is what you give it. Paste, in this order: your operating system and version; which IDE and version; the complete output of `R/check_setup.R`; the exact error text, copied rather than retyped; and what you have already tried. Then ask one of these.
+
+::: {.callout-note}
+## Prompts to paste
+
+**For an IDE that cannot find R**
+
+> I am setting up R for a course. My system is [Windows 11 / macOS 15 / Ubuntu 24.04]. I installed R [version] from CRAN and [Positron / RStudio / VS Code] [version]. The IDE does not find R: [paste what you see, e.g. "R: Select Interpreter lists nothing"]. In a fresh terminal `R --version` prints [paste]. Tell me, step by step, how to check where R is installed on this system and how to point this IDE at it, and say which settings you are changing and why.
+
+**For a failed package installation**
+
+> I am installing R packages for a course on [system]. Running `install.packages("[package]")` in [IDE] gives this error: [paste the full error]. My R library paths are [paste the output of `.libPaths()`]. Explain what the error means, whether it is a permissions problem, and how to fix it without running anything as an administrator unless there is no alternative.
+
+**For the check script**
+
+> Here is the output of a setup-check script for an R course: [paste all of it]. For each FAIL line, tell me the most likely cause on [system] and the fix, in the order I should try them. I am using [IDE] [version] and Quarto [version or "not installed"].
+
+**For Quarto**
+
+> Quarto is installed on [system] but [IDE] reports [paste]. `quarto --version` in a fresh terminal prints [paste]. How do I check which Quarto the IDE is using, and how do I make it use the one I installed?
+:::
+
+Two cautions. Do not run a command you do not understand, and ask the assistant to explain what a command does before you run it; setup fixes that involve deleting folders, editing the path or changing permissions are easy to get wrong in ways that are slow to undo. And do not paste anything that contains a password, an API key or a token, which can appear in error output when a proxy or a corporate network is involved.
+
+## Where to ask people
+
+- **The course repository**: open an issue on [GitHub]({{< meta repo-url >}}) with the same evidence listed above, or bring it to the session. A machine that will not cooperate on the day is what the [browser lab](exercise/browser-lab.qmd) is for.
+- **Positron**: the [discussions](https://github.com/posit-dev/positron/discussions) and [issues](https://github.com/posit-dev/positron/issues) on GitHub, which the Positron team reads.
+- **RStudio and R packages**: the [Posit Community forum](https://forum.posit.co/).
+- **R in VS Code**: the [vscode-R issues](https://github.com/REditorSupport/vscode-R/issues).
+- **Mac-specific R problems**: the [R for macOS FAQ](https://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html) and the [R-SIG-Mac list](https://stat.ethz.ch/mailman/listinfo/r-sig-mac).
+- **Quarto**: the [quarto-cli discussions](https://github.com/quarto-dev/quarto-cli/discussions).

@@ -1,0 +1,19 @@
+---
+title: "Session 9 – The workshop day"
+---
+::: {.callout-note appearance="simple" icon=false}
+**Slides.** [Open the deck at this part](../../slides/index.html#/today){target="_blank"} in its own tab, or follow it on the [slides page](slides.qmd).
+:::
+
+The day runs as the [one-day course](../one-day-replication/index.qmd) sets it out, in four ninety-minute parts holding the five tasks, with one difference. The preregistration moment in Part 4 is a read-back rather than a first writing: you open the block completed and dated in session 8, read it against the menu once more, re-date it, and then go on to build the model, run it and report the result.
+
+The workshop lands here rather than in week 1 because its five tasks ask for decisions, and a term is the one format that can prepare them. By session 9 you already have R and a document to write in, have fitted the estimators that the menu offers and know what each one assumes, have an estimand and a graph, and have a specification declared in writing. The ninety-minute parts can therefore go on the choosing itself, and the class chart gains from the same arrangement: when everyone arrives with a specification they can already defend, the dots that land on it are justified analyses. If the timetable cannot release a whole day, Parts 1 and 2 run in the session-9 slot and Parts 3 and 4 in the session-10 slot, and the closing session takes an eleventh week.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [The one-day course](../one-day-replication/index.qmd) | Follow its four parts as written. | a full day |
+| [Slides](slides.qmd) | The full deck of the course. The optional R tutorial in Part 2 and the methodological tutorial in Part 3 cover what sessions 2 and 4 have already done, so the room will pass over them; the multiverse tutorial in Part 4 stays in, because the module behind it is session 10. | throughout |
+| [Exercise overview](../../exercise/index.qmd), the workspace and the [Browser lab](../../exercise/browser-lab.qmd) | Tasks 1 to 5: get yourself running; meet the panel, name the estimand, draw the graph; reproduce the recorded result; work the menu; then declare, run and report. | throughout |
+| [The Multiverse](../../results.qmd) | Keep the page open from Part 3 onwards. You land on it twice, as an open circle while exploring and a filled one once declared. | throughout |
+
+**By the end of the session** you have reproduced the value on record for analyst C6HJR, **t = −3.804** on the 270-country-year panel; you have an exploratory dot and a declared dot on the class chart; and you have a report carrying the preregistration written in session 8, now with its result underneath it.

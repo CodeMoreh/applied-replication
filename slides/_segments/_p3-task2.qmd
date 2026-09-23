@@ -1,0 +1,72 @@
+## Task 2, in the analysts' own words {.smaller}
+
+::: {.claimcard}
+"Focus on the **'Cosmopolitan' dimension** for EU framing and on the **unemployment rate** as the independent variable; **disregard contextual variables**."
+:::
+
+::: {.small}
+Three instructions. Everything else – estimator, sample, weighting, functional form, how you build the scale – was left to us.
+:::
+
+::: {.fragment .small}
+That is the design working as intended. Fix just enough to make the numbers comparable; leave the rest free, so that what remains is a measurement of **analytical variability itself**.
+:::
+
+::: notes
+Here, word for word, is what task two told us to do. Focus on the cosmopolitan dimension as the outcome, use the unemployment rate as the independent variable, and disregard the contextual variables. Three instructions – that is the whole brief. Everything else was left open: which estimator, which sample, whether to weight, what functional form, and even how to build the cosmopolitan scale out of the underlying items. And that is the design working exactly as intended. Multi100 fixed just enough to make five numbers comparable, and deliberately left the rest free, so that what remained would be a measurement of analytical variability itself rather than of anything about the paper. It follows that everything they left open is a place where five competent people could legitimately part company. And they did.
+:::
+
+## What those three instructions assume {.smaller}
+
+::: {.small}
+- **'The cosmopolitan dimension'** assumes the five items form one scale, and that a mean of them is the right summary. A sum, a share, or a factor score would all be defensible
+- **'The unemployment rate'** assumes the claim is carried by unemployment. The paper's own abstract says "poor economic performances" – which also names GDP growth
+- **'Disregard contextual variables'** removes the country-level controls. That buys comparability and gives up any defence against a time-varying confounder
+:::
+
+::: {.fragment .small}
+None of these is wrong. Each one is a **decision**, made for you, that a different study could reasonably have made differently.
+:::
+
+::: notes
+Now take those three instructions apart, because each carries an assumption. 'The cosmopolitan dimension' takes for granted that the five items – peace, democracy, freedom of movement, cultural diversity, a stronger voice in the world – form one scale, and that averaging them is the right summary. A sum would be defensible. So would a share, or a factor score. 'The unemployment rate' assumes the claim is carried by unemployment, but the paper's own abstract says "poor economic performances", which just as clearly names GDP growth – and in Task 1, three of the five of us used a GDP measure rather than unemployment. And 'disregard contextual variables' strips out the country-level controls, which buys you comparability across analysts and gives up any defence against a confounder that varies over time. None of these is wrong. Each is a decision, made for you, that another study could reasonably have made differently.
+:::
+
+## The panel you will work on {.smaller}
+
+::: {.small}
+`EUframes_cy.csv` – **270 rows**, one per country-year · 27 countries · 2004–2013
+
+| Column | What it is |
+|---|---|
+| `cntry`, `year` | the cell |
+| `mcosmo` | mean cosmopolitan framing in that country-year, 0–1 |
+| `mutil`, `mcomm`, `mlib` | the other three framing scales |
+| `mpos`, `mneg` | the two composites – all positive items, all negative items |
+| `unemp`, `growth` | national unemployment rate and GDP growth |
+| `n_cy` | how many survey respondents are behind the cell |
+| `bailout` | 1 if an EU/IMF assistance programme was running |
+:::
+
+::: {.fragment .small}
+`n_cy` is the interesting one: cells are built from very different numbers of people, which is why **weighting** is a live choice on the menu.
+:::
+
+::: notes
+And here is the file itself, which everything from now on works from. Two hundred and seventy rows, one per country-year, twenty-seven countries over ten years. Country and year identify the cell. Mcosmo is the mean cosmopolitan framing in that cell, on a nought-to-one scale, and the other framing scales sit beside it. Unemployment and growth are the national macro indicators. And then n underscore cy, which counts how many survey respondents are behind each cell – and that is the interesting column, because those counts differ a great deal between cells. A country-year built from two thousand respondents and one built from five hundred are not equally precise, which is exactly why whether to weight by n is a live choice on the menu you are about to meet. That is the only file you will need all afternoon.
+:::
+## You are Analyst no. 6
+
+::: {.big}
+- Aim 1: **reproduce** analyst **C6HJR**'s constrained result
+:::
+
+  - **What Multi100 asked:** focus on the 'cosmopolitan' dimension and on the unemployment rate; disregard the contextual variables
+
+  - **What I submitted:** a two-way fixed-effects model, `mcosmo ~ unemp_c | cntry + year`
+
+  - **What is on record:** t ≈ −3.80 (df = 233, N = 270, partial *r* ≈ −0.242)
+
+::: notes
+So here is your first job as the sixth analyst, and it is the same job I had. Multi100 asked for the cosmopolitan dimension, the unemployment rate, and no contextual variables. What I submitted was a two-way fixed-effects model – cosmopolitan framing on centred unemployment, with country and year absorbed – and what is on record for me is a t of minus three point eight zero, on two hundred and thirty-three degrees of freedom, which standardises to a partial correlation of minus point two four. Now, you have my code. You have my data. The whole of reproducibility is the question of whether that is enough for you to get my number back. Let us find out.
+:::

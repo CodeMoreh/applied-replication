@@ -1,0 +1,18 @@
+---
+title: "Part 1 – The case and the vocabulary"
+---
+::: {.callout-note appearance="simple" icon=false}
+**Slides.** [Open the deck at this part](../../slides/one-day-methods.html#/part-1-the-case-and-the-vocabulary){target="_blank"} in its own tab, or follow it on the [slides page](slides.qmd).
+:::
+
+Part 1 sets the case and the vocabulary in the time it takes, and no longer: why social science is argued about at all, the matrix that separates reproducing from replicating, and the five analysts who reanalysed the claim the day works on. It ends with everyone running.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| Slides, the credibility talk | What a claim is for, the three arguments that made people nervous, and the twenty-nine teams of the red-card study, grouped by the response distribution each assumed: hold on to that grouping. | 18 minutes |
+| Slides, the vocabulary | Why 'replication' names three operations; the data × analysis matrix; credibility is not truth; the quick check on credibility in the wild. | 15 minutes |
+| Slides, Multi100 from the inside | What an analyst was sent, the paper in one slide, the two tasks, how a hundred studies become one number, and the five-analyst forest one row at a time. | 22 minutes |
+| Slides, what we use today | The workspace, the report and the browser lab in one slide, and what the tools cannot do. | 8 minutes |
+| Your workspace, or [Browser lab](../../exercise/browser-lab.qmd) Task 1 | Get to the point where a line of R runs and the panel of 270 country-years is in front of you. | 8 minutes, and the 30-minute break after it if you need more |
+
+**By the end of the part** you have R running with the panel loaded, you can distinguish the three operations that go under the word 'replication', and you have the five analysts' numbers in front of you as the puzzle the rest of the day works on.

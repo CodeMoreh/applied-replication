@@ -1,0 +1,9 @@
+# PART 3 – Reproduction and exploration {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Part 3 · 90 minutes
+:::
+
+::: notes
+Welcome back – and if you are just rejoining, the catch-up card in the chat has everything you missed. This is the coding-heavy part of the day. This morning was concepts; now we find out what those concepts cost in practice. You reproduce my submitted result, exactly, from my own code. Then we open the menu of choices I could have made instead – and there are more of them than you would guess – go through what each one actually does to the model, and then you spend the last stretch working the menu yourself. By the end of it you will have a feel for which of those choices actually move the answer.
+:::

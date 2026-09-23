@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Causal graphs – Applied Replication for Data Skills</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.js"></script>
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/animate.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/magic.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo light-content">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Applied Replication for Data Skills</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../tracks/one-day.html">
+ <span class="dropdown-text">One day</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/three-days.html">
+ <span class="dropdown-text">Three days</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/semester.html">
+ <span class="dropdown-text">Semester</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/self-study.html">
+ <span class="dropdown-text">Self-study</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../slides/index.html"> 
+<span class="menu-text">Slides</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-exercise">    
+        <li>
+    <a class="dropdown-item" href="../exercise/index.html">
+ <span class="dropdown-text">Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/browser-lab.html">
+ <span class="dropdown-text">Browser lab</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/spec-menu.html">
+ <span class="dropdown-text">Specification menu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/estimand-dial.html">
+ <span class="dropdown-text">Estimand choices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/cheatsheet.html">
+ <span class="dropdown-text">Cheatsheet</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../results.html"> 
+<span class="menu-text">Multiverse</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-companion" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Companion</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-companion">    
+        <li>
+    <a class="dropdown-item" href="../companion/index.html">
+ <span class="dropdown-text">Curriculum overview</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Computational tools</li>
+        <li>
+    <a class="dropdown-item" href="../companion/intro-r.html">
+ <span class="dropdown-text">Getting started with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/quarto.html">
+ <span class="dropdown-text">Quarto and reproducible documents</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Reproducibility and collaboration</li>
+        <li>
+    <a class="dropdown-item" href="../companion/repositories.html">
+ <span class="dropdown-text">Repositories &amp; preregistration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/git-github.html">
+ <span class="dropdown-text">Git &amp; GitHub</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistical methods</li>
+        <li>
+    <a class="dropdown-item" href="../companion/stats-methods.html">
+ <span class="dropdown-text">The statistical methods behind the course</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/dags.html">
+ <span class="dropdown-text">Causal graphs &amp; adjustment sets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/multiverse.html">
+ <span class="dropdown-text">The multiverse and its critics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/weighting.html">
+ <span class="dropdown-text">Weights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/missingness.html">
+ <span class="dropdown-text">Missing answers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/measurement.html">
+ <span class="dropdown-text">The items behind the scales</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/simulation.html">
+ <span class="dropdown-text">Simulation as a method</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/individual-level.html">
+ <span class="dropdown-text">The individual level</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-arrows" id="toc-sec-arrows" class="nav-link active" data-scroll-target="#sec-arrows">1. Arrows as claims</a></li>
+  <li><a href="#sec-shapes" id="toc-sec-shapes" class="nav-link" data-scroll-target="#sec-shapes">2. Confounder, mediator, collider</a></li>
+  <li><a href="#sec-collider" id="toc-sec-collider" class="nav-link" data-scroll-target="#sec-collider">3. Conditioning on a collider</a></li>
+  <li><a href="#sec-case" id="toc-sec-case" class="nav-link" data-scroll-target="#sec-case">4. The graph for the case</a></li>
+  <li><a href="#sec-formula" id="toc-sec-formula" class="nav-link" data-scroll-target="#sec-formula">5. The adjustment set</a></li>
+  <li><a href="#sec-growth" id="toc-sec-growth" class="nav-link" data-scroll-target="#sec-growth">6. The limits of fixed effects</a></li>
+  <li><a href="#sec-bailout" id="toc-sec-bailout" class="nav-link" data-scroll-target="#sec-bailout">7. The bailout on the graph</a></li>
+  <li><a href="#sec-quartet" id="toc-sec-quartet" class="nav-link" data-scroll-target="#sec-quartet">8. Graphs and data</a></li>
+  <li><a href="#sec-yours" id="toc-sec-yours" class="nav-link" data-scroll-target="#sec-yours">9. Your own graph</a></li>
+  <li><a href="#sources-and-further-reading" id="toc-sources-and-further-reading" class="nav-link" data-scroll-target="#sources-and-further-reading">Sources and further reading</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Causal graphs</h1>
+<p class="subtitle lead">Confounders, mediators and colliders, and the adjustment set for the case</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdag)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260730</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Four significant figures, so C6HJR's published Multi100 statistic prints as -3.804 rather than</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># being rounded down to three by the default settings of the tibble printer.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">width =</span> <span class="dv">88</span>, <span class="at">pillar.sigfig =</span> <span class="dv">4</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>euframes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/EUframes_cy.csv"</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Nodes are drawn as rounded boxes rather than circles: a circle wide enough to</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># hold "unemployment" without clipping would swamp a four-node graph.</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>node_box <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> name), <span class="at">fill =</span> <span class="st">"#00205b"</span>, <span class="at">colour =</span> <span class="st">"white"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">3.2</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">linewidth =</span> <span class="dv">0</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>             <span class="at">label.r =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="dv">5</span>, <span class="st">"pt"</span>),</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>             <span class="at">label.padding =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="dv">5</span>, <span class="st">"pt"</span>))</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This is the causal-graphs module of the <a href="../companion/index.html">companion curriculum</a>, and it is optional. On the workshop day the whole idea arrives in about thirty minutes: Part 2 introduces the estimand, sketches a directed acyclic graph for the claim under test, and Task 2 asks you to finish that graph and read a control set off it. Thirty minutes is enough to see what a graph does and nowhere near enough to make it yours. This module takes the time that the day cannot. It builds every graph from scratch, fits the models that the graphs imply on the course data, and shows two ways in which a graph can go wrong that no model output would reveal.</p>
+<p>It follows on from <a href="../companion/intro-r.html">getting started with R</a> and assumes what that module covers – reading a CSV, a short dplyr chain, a model formula, and the <code>aes()</code>-and-geoms grammar of a ggplot. Everything else is introduced here. Every chunk runs when the page is built, so the numbers below are what the code returns, and you can reproduce all of them from the shipped <code>EUframes_cy.csv</code>.</p>
+<section id="sec-arrows" class="level2">
+<h2 class="anchored" data-anchor-id="sec-arrows">1. Arrows as claims</h2>
+<p>A <strong>directed acyclic graph</strong>, or DAG, is a picture of what you believe causes what. <em>Directed</em> means every edge is an arrow with a head and a tail, and the head is the effect. <em>Acyclic</em> means you cannot follow arrows out of a variable and come back to it, which is a substantive restriction rather than a technical one: it says the graph describes causation at a level of time resolution where nothing causes itself.</p>
+<p>A DAG is not a picture of your regression, and drawing it is not a way of illustrating a model you have already chosen. It is a picture of the world you are prepared to assume, and the regression is what falls out of it once the assumptions are written down. That order of work – from a stated target quantity to the assumptions, and only then to a specification – is the discipline drilled in Part 2 of the workshop, and it is stated at length in the estimand literature that this course draws on <span class="citation" data-cites="LundbergEtAl2021WhatYourEstimand HernanRobins2020CausalInferenceWhat">(<a href="#ref-LundbergEtAl2021WhatYourEstimand" role="doc-biblioref">Lundberg et al. 2021</a>; <a href="#ref-HernanRobins2020CausalInferenceWhat" role="doc-biblioref">Hernán and Robins 2020</a>)</span>.</p>
+<p>In R the graph is built with <code>dagify()</code> from the <strong>ggdag</strong> package, and each edge is written as an ordinary formula. The outcome goes on the left of the tilde and its causes on the right, exactly as in <code>lm()</code>, so <code>framing ~ unemployment</code> reads ‘unemployment causes framing’.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>first <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  framing      <span class="sc">~</span> unemployment,   <span class="co"># the effect we want to estimate</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  framing      <span class="sc">~</span> country,        <span class="co"># stable national traits shape framing</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  unemployment <span class="sc">~</span> country,        <span class="co"># and shape the labour market too</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">exposure =</span> <span class="st">"unemployment"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome  =</span> <span class="st">"framing"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="at">unemployment =</span> <span class="dv">0</span>, <span class="at">framing =</span> <span class="dv">2</span>, <span class="at">country =</span> <span class="dv">1</span>),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> <span class="fu">c</span>(<span class="at">unemployment =</span> <span class="dv">0</span>, <span class="at">framing =</span> <span class="dv">0</span>, <span class="at">country =</span> <span class="dv">1</span>))</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>(first)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{ country }</code></pre>
+</div>
+</div>
+<p>There is an older way of writing the same graph, as a quoted string in the mini-language of dagitty itself, and this module does not use it for two reasons that are worth stating once. The first is that a formula is an R expression, so a <code>#</code> in front of one comments the arrow out and the call still parses – ‘uncomment the arrow you believe’ is then a one-character edit rather than an instruction to work inside a quoted string. The second is that adding an arrow is then a code change like any other, rather than an edit to a piece of quoted text. Nothing is lost by writing the edges as formulas, because <code>dagify()</code> returns a dagitty object and the query functions used throughout this page all come from the <strong>dagitty</strong> package.</p>
+<p>The picture itself is an ordinary ggplot. <code>tidy_dagitty()</code> turns the object into a data frame of nodes and edge endpoints, and from there the layers are geoms and themes of exactly the kind that the <a href="../companion/intro-r.html#sec-ggplot">ggplot2 section of the R module</a> builds up. <code>geom_dag_edges()</code> draws the arrows and <code>theme_dag()</code> strips away the axes that a graph has no use for. The nodes come from <code>node_box()</code>, the small helper defined in the setup chunk, which is a labelled rectangle roomy enough for a word like <code>unemployment</code>; the stock pairing of <code>geom_dag_point()</code> and <code>geom_dag_text()</code> gives the circled nodes that section 2 uses instead. This is the point at which that module stops being optional background, because everything below assumes you can read a layered plot.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>first <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy_dagitty</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">xend =</span> xend, <span class="at">yend =</span> yend)) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dag_edges</span>(<span class="at">edge_colour =</span> <span class="st">"#6c757d"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">arrow_directed =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="dv">7</span>, <span class="st">"pt"</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                              <span class="at">type =</span> <span class="st">"closed"</span>)) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">node_box</span>() <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dag</span>() <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.35</span>, <span class="fl">2.35</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.25</span>, <span class="fl">1.25</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-first" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="dags_files/figure-html/fig-first-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-first-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The smallest useful graph: one effect of interest and one common cause.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-shapes" class="level2">
+<h2 class="anchored" data-anchor-id="sec-shapes">2. Confounder, mediator, collider</h2>
+<p>Almost every adjustment decision you will ever make comes down to recognising one of three arrangements of three variables. The useful mental picture, taken from the ggdag documentation, is that association flows along a path the way that water flows down a pipe, and each shape either lets it through or blocks it.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>shapes <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"confounder z"</span> <span class="ot">=</span> <span class="fu">dagify</span>(y <span class="sc">~</span> x <span class="sc">+</span> z, x <span class="sc">~</span> z,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">coords =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">2</span>, <span class="at">z =</span> <span class="dv">1</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">z =</span> <span class="dv">1</span>))),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"mediator m"</span>   <span class="ot">=</span> <span class="fu">dagify</span>(m <span class="sc">~</span> x, y <span class="sc">~</span> m,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">coords =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">2</span>, <span class="at">m =</span> <span class="dv">1</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">m =</span> <span class="dv">1</span>))),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"collider c"</span>   <span class="ot">=</span> <span class="fu">dagify</span>(c <span class="sc">~</span> x <span class="sc">+</span> y,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">coords =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">2</span>, <span class="at">c =</span> <span class="dv">1</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">c =</span> <span class="sc">-</span><span class="dv">1</span>)))</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>draw_shape <span class="ot">&lt;-</span> <span class="cf">function</span>(d, title) {</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  d <span class="sc">|&gt;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tidy_dagitty</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">xend =</span> xend, <span class="at">yend =</span> yend)) <span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_dag_edges</span>(<span class="at">arrow_directed =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="dv">7</span>, <span class="st">"pt"</span>),</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">type =</span> <span class="st">"closed"</span>)) <span class="sc">+</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_dag_point</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">colour =</span> <span class="st">"#00205b"</span>) <span class="sc">+</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_dag_text</span>(<span class="at">colour =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">4.2</span>) <span class="sc">+</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_dag</span>() <span class="sc">+</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> title) <span class="sc">+</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fl">0.2</span>)) <span class="sc">+</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fl">0.3</span>))</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">imap</span>(shapes, draw_shape) <span class="sc">|&gt;</span> <span class="fu">wrap_plots</span>(<span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-shapes" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-shapes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="dags_files/figure-html/fig-shapes-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-shapes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: The three arrangements. Left, z is a common cause of x and y; centre, m sits on the path from x to y; right, c is a common effect of both.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A <strong>confounder</strong> is a common cause of both the exposure and the outcome. It opens a path between them that has nothing to do with the effect you want, so the plain association mixes the effect with the confounding. Adjusting for a confounder blocks that path and is the thing everyone already knows how to do.</p>
+<p>A <strong>mediator</strong> sits on the path from exposure to outcome, carrying part of the effect. Whether to adjust for one depends entirely on which quantity you are after. If you want the total effect of the exposure, leave the mediator out, because adjusting for it removes exactly the portion of the effect that travels through it. If you want the direct effect, the part that does not travel through the mediator, then you adjust. An adjustment is correct only relative to a named estimand.</p>
+<p>A <strong>collider</strong> is a common effect of two variables, and it is the shape that most people have never been taught. A collider blocks the path between its two causes when you leave it alone, which is why the plain association between them is undisturbed. Conditioning on it opens the path. The reason is arithmetic rather than mysterious. Suppose that the level of EU politicisation in a country-year is roughly the sum of its unemployment and its framing. Knowing only that unemployment is high tells you nothing about framing. But once you also fix politicisation at some value, the two become linked by subtraction, because whatever unemployment does not supply, framing must. Conditioning on a common effect creates a relationship between causes that were unrelated to begin with.</p>
+<p>Three rules follow, and they are the whole of the practical apparatus. Adjust for confounders. Leave mediators alone when the target is the total effect. Never adjust for a collider unless you know precisely what you are doing and can say what the resulting estimate means.</p>
+</section>
+<section id="sec-collider" class="level2">
+<h2 class="anchored" data-anchor-id="sec-collider">3. Conditioning on a collider</h2>
+<p>A rule you have only read is easy to forget, so the fastest way to learn the third one is to build data whose answer you already know and then break the rule. The recipe below writes a real effect into the data – a one-unit rise in unemployment moves framing by exactly 0.5 – and then creates a variable caused by both. In the course vocabulary that third variable is politicisation. A slump raises unemployment, sour public framing pushes in the same direction, and parties and media respond to both by making the EU a live political issue.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seeded here rather than only at the top, so the chunk stands alone if you</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># copy it out and so an edit upstream cannot shift these numbers.</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260730</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>made_up <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">unemployment   =</span> <span class="fu">rnorm</span>(<span class="dv">2000</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">framing        =</span> <span class="fl">0.5</span> <span class="sc">*</span> unemployment <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">2000</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">politicisation =</span> <span class="fl">0.8</span> <span class="sc">*</span> unemployment <span class="sc">+</span> <span class="fl">0.8</span> <span class="sc">*</span> framing <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">2000</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"unemployment alone"</span>            <span class="ot">=</span> framing <span class="sc">~</span> unemployment,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"unemployment + politicisation"</span> <span class="ot">=</span> framing <span class="sc">~</span> unemployment <span class="sc">+</span> politicisation</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">imap</span>(\(f, nm) {</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">model_parameters</span>(<span class="fu">lm</span>(f, <span class="at">data =</span> made_up))</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">model =</span> nm, <span class="at">planted =</span> <span class="fl">0.5</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">estimate =</span> p<span class="sc">$</span>Coefficient[p<span class="sc">$</span>Parameter <span class="sc">==</span> <span class="st">"unemployment"</span>],</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">se       =</span> p<span class="sc">$</span>SE[p<span class="sc">$</span>Parameter <span class="sc">==</span> <span class="st">"unemployment"</span>])</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  model                         planted estimate     se
+  &lt;chr&gt;                           &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+1 unemployment alone                0.5    0.463 0.0228
+2 unemployment + politicisation     0.5   -0.133 0.0233</code></pre>
+</div>
+</div>
+<p>The first row lands close to the 0.5 that the recipe wrote in, within a couple of its own standard errors. The second, which looks like the more careful analysis because it holds a third variable constant, returns an estimate of the wrong sign, a long way from 0.5 and many standard errors from it. No diagnostic on those two models would tell you which one to believe. They fit the same data, and the second fits it far better on every routine criterion – its R<sup>2</sup> is three times that of the first model, and both AIC and BIC prefer it by a thousand points. The one with the better fit is the wrong one.</p>
+<p>The general form of the point is this: <strong>selecting on a variable is conditioning on it</strong>. Restricting a sample to the people who stayed in a study, to the country-years that meet some threshold, or to the respondents who answered a follow-up question does everything to the estimate that putting the variable on the right-hand side would do, and it does it silently, because nothing appears in the model output at all. That is the mechanism behind a well-documented pattern in the COVID-19 literature, where associations estimated among tested or hospitalised people turned out to be artefacts of who got tested <span class="citation" data-cites="GriffithEtAl2020ColliderBiasUndermines">(<a href="#ref-GriffithEtAl2020ColliderBiasUndermines" role="doc-biblioref">Griffith et al. 2020</a>)</span>, and it is set out in general form by <span class="citation" data-cites="ColeEtAl2010IllustratingBiasDue">Cole et al. (<a href="#ref-ColeEtAl2010IllustratingBiasDue" role="doc-biblioref">2010</a>)</span>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Change the recipe so that politicisation is caused only by unemployment and not by framing, making it a descendant of the exposure rather than a collider. Refit both models. Then make it a cause of both instead, so it is a confounder, and refit again. Three graphs, one dataset each, and the same second model is wrong, harmless and required in turn.</p>
+</div>
+</div>
+</section>
+<section id="sec-case" class="level2">
+<h2 class="anchored" data-anchor-id="sec-case">4. The graph for the case</h2>
+<p>The claim at the centre of the course comes from a 2016 study of how Europeans frame the European Union, whose author this site refers to as the original author, or OA <span class="citation" data-cites="Teney2016DoesEUEconomic">(<a href="#ref-Teney2016DoesEUEconomic" role="doc-biblioref">Teney 2016</a>)</span>. OA’s argument is that economic hardship shifts the terms in which people talk about the EU away from cosmopolitan ones, and the reanalysis you work on tests one version of it: whether the unemployment rate in a country-year is associated with the mean cosmopolitan framing of its respondents.</p>
+<p>Here is that claim as a graph. The node names describe concepts rather than columns, which is deliberate – <code>unemployment</code> is the idea, <code>unemp</code> is the measurement of it in the EU-frames dataset, and keeping them apart stops the graph from quietly becoming a picture of the regression again.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>case <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  framing      <span class="sc">~</span> unemployment,   <span class="co"># the effect of interest</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  framing      <span class="sc">~</span> country,        <span class="co"># national traits: size, EU tenure, history</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  framing      <span class="sc">~</span> year,           <span class="co"># EU-wide shocks common to a given year</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  unemployment <span class="sc">~</span> country,        <span class="co"># those same traits shape the labour market</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  unemployment <span class="sc">~</span> year,           <span class="co"># and so do the common shocks</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># framing      ~ growth,       # section 6 turns these two on</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># unemployment ~ growth,</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">exposure =</span> <span class="st">"unemployment"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome  =</span> <span class="st">"framing"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">list</span>(</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(<span class="at">unemployment =</span> <span class="dv">0</span>, <span class="at">framing =</span> <span class="dv">3</span>, <span class="at">country =</span> <span class="dv">1</span>, <span class="at">year =</span> <span class="dv">2</span>),</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(<span class="at">unemployment =</span> <span class="dv">0</span>, <span class="at">framing =</span> <span class="dv">0</span>, <span class="at">country =</span> <span class="fl">1.4</span>, <span class="at">year =</span> <span class="fl">1.4</span>))</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="fu">paths</span>(case)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$paths
+[1] "unemployment -&gt; framing"            "unemployment &lt;- country -&gt; framing"
+[3] "unemployment &lt;- year -&gt; framing"   
+
+$open
+[1] TRUE TRUE TRUE</code></pre>
+</div>
+</div>
+<p>Four of the five arrows in the graph are the two confounder pairs. Countries differ in ways that persist across the whole period and that plausibly move both their labour markets and how their populations talk about Europe, and years differ in ways common to the whole continent, of which 2008 and 2009 are the obvious instances. <code>paths()</code> lists every route between exposure and outcome regardless of direction, and reports that all three are open: the causal arrow you want, and one back door through each confounder.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>case <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy_dagitty</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">xend =</span> xend, <span class="at">yend =</span> yend)) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dag_edges_arc</span>(<span class="at">curvature =</span> <span class="fl">0.15</span>, <span class="at">edge_colour =</span> <span class="st">"#6c757d"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="dv">8</span>, <span class="st">"pt"</span>),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">type =</span> <span class="st">"closed"</span>)) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">node_box</span>() <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dag</span>() <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.4</span>, <span class="fl">3.4</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.4</span>, <span class="fl">1.8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-case" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-case-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="dags_files/figure-html/fig-case-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-case-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: The EU-frames claim as a graph. The two confounders sit above the causal arrow, each feeding both ends of it.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Note the two commented lines inside the <code>dagify()</code> call. They are the arrows that section 6 argues about, sitting in the file as written-out beliefs that are currently switched off. Because a commented formula takes its trailing comma with it, the call parses exactly as it stands, and <code>growth</code> does not exist in the graph at all until you delete the two hash marks.</p>
+</section>
+<section id="sec-formula" class="level2">
+<h2 class="anchored" data-anchor-id="sec-formula">5. The adjustment set</h2>
+<p>Now ask the graph what to do. <code>adjustmentSets()</code> returns the variables that, once held constant, close every back door and leave the causal path open.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>(case)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{ country, year }</code></pre>
+</div>
+</div>
+<p>Country and year. The answer is not surprising, but it is the right-hand side of a regression derived from a set of substantive beliefs rather than chosen by habit. Adjusting for country and year means letting each country have its own level and each year its own level, which is precisely what a two-way fixed-effects model does. The graph and the course baseline specification are the same claim written in two languages.</p>
+<p>The claim is checkable. Fit the model that the graph prescribes, and fit the three nearby models it does not.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"nothing"</span>          <span class="ot">=</span> mcosmo <span class="sc">~</span> unemp,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"country"</span>          <span class="ot">=</span> mcosmo <span class="sc">~</span> unemp <span class="sc">+</span> <span class="fu">factor</span>(cntry),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"year"</span>             <span class="ot">=</span> mcosmo <span class="sc">~</span> unemp <span class="sc">+</span> <span class="fu">factor</span>(year),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"country and year"</span> <span class="ot">=</span> mcosmo <span class="sc">~</span> unemp <span class="sc">+</span> <span class="fu">factor</span>(cntry) <span class="sc">+</span> <span class="fu">factor</span>(year)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">imap</span>(\(f, nm) {</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">model_parameters</span>(<span class="fu">lm</span>(f, <span class="at">data =</span> euframes))</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">adjusted_for =</span> nm,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">b =</span> p<span class="sc">$</span>Coefficient[p<span class="sc">$</span>Parameter <span class="sc">==</span> <span class="st">"unemp"</span>],</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">t =</span> p<span class="sc">$</span>t[p<span class="sc">$</span>Parameter <span class="sc">==</span> <span class="st">"unemp"</span>],</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">p_value =</span> p<span class="sc">$</span>p[p<span class="sc">$</span>Parameter <span class="sc">==</span> <span class="st">"unemp"</span>])</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">4</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  adjusted_for              b      t   p_value
+  &lt;chr&gt;                 &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
+1 nothing          -0.001098  -1.041 2.99 e- 1
+2 country          -0.005645  -6.869 5.423e-11
+3 year              0.0007203  0.645 5.195e- 1
+4 country and year -0.003473  -3.804 1.821e- 4</code></pre>
+</div>
+</div>
+<p>Read the four rows against each other before reading the last one alone. Adjusting for nothing gives a coefficient that is small and indistinguishable from zero, because the two back doors are pulling in opposite directions and largely cancelling. Adjusting for country alone gives a coefficient roughly 60 per cent larger than the one that the graph endorses, on a <em>t</em> of about −6.9, which is the kind of number that a researcher would be delighted to report and has no warrant for. Adjusting for year alone gives a positive coefficient – the wrong sign for the claim entirely, and comfortably non-significant. Adjusting for both, as the graph says, gives <em>t</em> = −3.804, the reproduction target of Part 3 of the workshop day and the value recorded for analyst C6HJR in the Multi100 project.</p>
+<p>Four models, one of them correct for a reason that can be written down, and one of the three wrong ones pointing the opposite way. Nothing in the data distinguishes them; the graph does, and only because someone was willing to commit to five arrows in advance.</p>
+<p>One caution on the plural in <code>adjustmentSets()</code>. The function returns <em>minimally sufficient</em> sets, and a more complicated graph will often return several, any one of which closes the back doors. The graph narrows the choice, sometimes to one option and often not; it does not abolish the choosing.</p>
+</section>
+<section id="sec-growth" class="level2">
+<h2 class="anchored" data-anchor-id="sec-growth">6. The limits of fixed effects</h2>
+<p>Country and year fixed effects are frequently described as though they adjust for everything, and the graph shows exactly why they do not. A country fixed effect absorbs whatever is constant within a country across the whole period, and a year fixed effect absorbs whatever is common to all countries in a given year. A variable that moves <em>within</em> a country <em>over</em> time is untouched by both, and if that variable causes unemployment and framing alike, it is an open back door that the baseline model leaves open. This is the substance of the methodological warnings about reading fixed-effects coefficients as causal quantities <span class="citation" data-cites="KeeleEtAl2020CausalInterpretationEstimated BellJones2015ExplainingFixedEffects">(<a href="#ref-KeeleEtAl2020CausalInterpretationEstimated" role="doc-biblioref">Keele et al. 2020</a>; <a href="#ref-BellJones2015ExplainingFixedEffects" role="doc-biblioref">Bell and Jones 2015</a>)</span>.</p>
+<p>GDP growth is such a variable, and it is a live axis of the <a href="../exercise/spec-menu.html">specification menu</a>, where it appears as an optional copredictor. Switch on the two arrows commented out in section 4 and ask the graph again.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>growth_confounds <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  framing      <span class="sc">~</span> unemployment <span class="sc">+</span> country <span class="sc">+</span> year <span class="sc">+</span> growth,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  unemployment <span class="sc">~</span> country <span class="sc">+</span> year <span class="sc">+</span> growth,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">exposure =</span> <span class="st">"unemployment"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome  =</span> <span class="st">"framing"</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>(growth_confounds)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{ country, growth, year }</code></pre>
+</div>
+</div>
+<p>The set has gained a member, and the model has gained a term. On the EU-frames dataset the consequence is modest.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>parameters<span class="sc">::</span><span class="fu">model_parameters</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(mcosmo <span class="sc">~</span> unemp <span class="sc">+</span> growth <span class="sc">+</span> <span class="fu">factor</span>(cntry) <span class="sc">+</span> <span class="fu">factor</span>(year), <span class="at">data =</span> euframes)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Parameter <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"unemp"</span>, <span class="st">"growth"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Parameter, Coefficient, SE, t, p) <span class="sc">|&gt;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  Parameter Coefficient       SE      t        p
+  &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+1 unemp       -0.00356  0.000983 -3.62  0.000361
+2 growth      -0.000242 0.000993 -0.244 0.808   </code></pre>
+</div>
+</div>
+<p>Unemployment moves from −0.00347 to −0.00356 and growth itself contributes nothing detectable. It would be tempting to conclude that the arrows did not matter, and that conclusion is exactly the one to resist. A small change on one dataset is a fact about this dataset, not a general reassurance, and the size of the bias that fixed effects leave behind is set by how strongly the time-varying confounder moves both variables. That quantity is unobservable here and easy to write into simulated data.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260730</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># One draw per country and one per year, reused in both variables: that shared</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># draw is what makes them confounders rather than noise.</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>country_level <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">27</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>year_level    <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>cells <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(<span class="at">cntry =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">27</span>, <span class="at">year =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">slump   =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>()),</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">unemp   =</span> <span class="dv">3</span> <span class="sc">*</span> country_level[cntry] <span class="sc">+</span> year_level[year] <span class="sc">+</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>                   slump <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">framing =</span> <span class="sc">-</span><span class="fl">0.30</span> <span class="sc">*</span> unemp <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> country_level[cntry] <span class="sc">+</span> year_level[year] <span class="sc">-</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>                   <span class="fl">0.4</span> <span class="sc">*</span> slump <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="fl">0.5</span>))</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"nothing"</span>                  <span class="ot">=</span> framing <span class="sc">~</span> unemp,</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"country and year"</span>         <span class="ot">=</span> framing <span class="sc">~</span> unemp <span class="sc">+</span> <span class="fu">factor</span>(cntry) <span class="sc">+</span> <span class="fu">factor</span>(year),</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"country, year, and slump"</span> <span class="ot">=</span> framing <span class="sc">~</span> unemp <span class="sc">+</span> slump <span class="sc">+</span> <span class="fu">factor</span>(cntry) <span class="sc">+</span> <span class="fu">factor</span>(year)</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">imap</span>(\(f, nm) {</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> parameters<span class="sc">::</span><span class="fu">model_parameters</span>(<span class="fu">lm</span>(f, <span class="at">data =</span> cells))</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(<span class="at">adjusted_for =</span> nm, <span class="at">planted =</span> <span class="sc">-</span><span class="fl">0.30</span>,</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">estimate =</span> p<span class="sc">$</span>Coefficient[p<span class="sc">$</span>Parameter <span class="sc">==</span> <span class="st">"unemp"</span>],</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">se       =</span> p<span class="sc">$</span>SE[p<span class="sc">$</span>Parameter <span class="sc">==</span> <span class="st">"unemp"</span>])</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list_rbind</span>() <span class="sc">|&gt;</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  adjusted_for             planted estimate     se
+  &lt;chr&gt;                      &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+1 nothing                     -0.3    0.296 0.0251
+2 country and year            -0.3   -0.616 0.0323
+3 country, year, and slump    -0.3   -0.323 0.0685</code></pre>
+</div>
+</div>
+<p>A panel of the same shape as the real one. Country levels and year levels feed both variables, which is what makes them confounders, and on top of those a slump that varies from one country-year to the next raises unemployment and depresses framing by a separate route. Read the three rows in order. Adjusting for nothing returns +0.296, the wrong sign entirely: the between-country and common-year confounding is strong enough here to reverse the association. The two-way fixed-effects model clears both of those and lands on −0.616, roughly twice the planted effect and many standard errors away from it, because the slump moves within a country over time and neither fixed effect can see it. Adding the slump brings the estimate to −0.323, inside one standard error of −0.30. Fixed effects removed the between-country and the common-year confounding faithfully. The within-country time-varying confounding went straight past them.</p>
+<p>The same variable can also be given a different job. Suppose you believe that unemployment depresses growth rather than the other way round, so growth lies on the path from unemployment to framing. Now it is a mediator, and the adjustment set depends on which effect you have named.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>growth_mediates <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  framing      <span class="sc">~</span> unemployment <span class="sc">+</span> country <span class="sc">+</span> year <span class="sc">+</span> growth,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  growth       <span class="sc">~</span> unemployment,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  unemployment <span class="sc">~</span> country <span class="sc">+</span> year,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">exposure =</span> <span class="st">"unemployment"</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome  =</span> <span class="st">"framing"</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">total =</span> <span class="st">"total"</span>, <span class="at">direct =</span> <span class="st">"direct"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(e) <span class="fu">adjustmentSets</span>(growth_mediates, <span class="at">effect =</span> e))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$total
+{ country, year }
+
+$direct
+{ country, growth, year }</code></pre>
+</div>
+</div>
+<p>One variable, two defensible beliefs about it, and three different formulas depending on which belief you hold and which quantity you want. The menu axis that offers growth as a copredictor is therefore not one more robustness check to run both ways, and the ‘supported by the data’ reading of a coefficient on it will not settle anything, because the two graphs make identical predictions about the data and different claims about what the unemployment coefficient means.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the <code>fe-sim</code> recipe, change the coefficient of the slump on framing from −0.4 to 0 and refit. The fixed-effects estimate lands on the planted value, because a variable that causes only the exposure is not a confounder at all. Then set it to −0.4 again and change the coefficient of the slump on unemployment to 0. The same thing happens for the mirror-image reason. A confounder has to reach both ends of the arrow you are estimating, and the recipe lets you break each half in turn.</p>
+</div>
+</div>
+</section>
+<section id="sec-bailout" class="level2">
+<h2 class="anchored" data-anchor-id="sec-bailout">7. The bailout on the graph</h2>
+<p>The EU-frames dataset carries a <code>bailout</code> column, a 0/1 indicator marking the 26 country-years in which the country was under a financial-assistance programme. It is a small variable with a large capacity to make trouble, because two entirely reasonable analysts can put it in two different places on the graph.</p>
+<p>The first believes that unemployment triggers a bailout, and that being under a programme is itself what sours how people talk about the EU. That makes the bailout a mediator on the path of interest, and the total effect of unemployment therefore requires leaving it out. Put it in anyway and this is what happens.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>parameters<span class="sc">::</span><span class="fu">model_parameters</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(mcosmo <span class="sc">~</span> unemp <span class="sc">+</span> bailout <span class="sc">+</span> <span class="fu">factor</span>(cntry) <span class="sc">+</span> <span class="fu">factor</span>(year), <span class="at">data =</span> euframes)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Parameter <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"unemp"</span>, <span class="st">"bailout"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Parameter, Coefficient, SE, t, p) <span class="sc">|&gt;</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  Parameter Coefficient      SE     t       p
+  &lt;chr&gt;           &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1 unemp        -0.00195 0.00101 -1.92 0.0558 
+2 bailout      -0.0354  0.011   -3.22 0.00148</code></pre>
+</div>
+</div>
+<p>The unemployment coefficient falls by nearly half, from −0.00347 to −0.00195, and its <em>t</em> drops below conventional significance. The bailout term is itself sizeable and clearly estimated. Read as a mediator, that is not a finding about unemployment weakening; it is a portion of the effect being taken out of the total and handed to the channel it travels through.</p>
+<p>The second analyst takes a different route to what looks like the same caution. Bailout country-years are unusual, so drop them and see whether the result survives. That option is on the <a href="../exercise/spec-menu.html">specification menu</a> as a sample restriction, and it is the kind of check that reviewers ask for by reflex.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>m_dropped <span class="ot">&lt;-</span> <span class="fu">lm</span>(mcosmo <span class="sc">~</span> unemp <span class="sc">+</span> <span class="fu">factor</span>(cntry) <span class="sc">+</span> <span class="fu">factor</span>(year),</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> <span class="fu">filter</span>(euframes, bailout <span class="sc">==</span> <span class="dv">0</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>parameters<span class="sc">::</span><span class="fu">model_parameters</span>(m_dropped) <span class="sc">|&gt;</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Parameter <span class="sc">==</span> <span class="st">"unemp"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Coefficient, SE, t, p) <span class="sc">|&gt;</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), \(x) <span class="fu">signif</span>(x, <span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  Coefficient      SE      t     p
+        &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1   -0.000423 0.00123 -0.343 0.732</code></pre>
+</div>
+</div>
+<p>On 244 country-years instead of 270, the effect is gone. The coefficient is about an eighth of the size of C6HJR’s published Multi100 coefficient, on a <em>t</em> of roughly −0.34, and no reading of it would survive a referee.</p>
+<p>The rule in section 3 says that selecting on a variable is conditioning on it, so if the bailout is a common effect of unemployment and of framing, dropping bailout country-years is conditioning on a collider and the vanished effect is an artefact of the restriction. If instead the bailout is a mediator, the restriction removes exactly the country-years in which the mechanism operated, and the vanished effect is telling you the association lived there. If it is neither, and bailout countries simply happen to carry most of the real relationship, then the restriction has thrown away the informative half of the sample. Three stories, one number, and no statistic computed from these 270 rows distinguishes them. What distinguishes them is a graph, drawn in advance, that says which one you are assuming.</p>
+</section>
+<section id="sec-quartet" class="level2">
+<h2 class="anchored" data-anchor-id="sec-quartet">8. Graphs and data</h2>
+<p>The last temptation to close off is the belief that the graph is provisional and the data will eventually adjudicate it. They will not, and there is a clean demonstration of why. <span class="citation" data-cites="DAgostinoMcGowanEtAl2024CausalInferenceNot">D’Agostino McGowan et al. (<a href="#ref-DAgostinoMcGowanEtAl2024CausalInferenceNot" role="doc-biblioref">2024</a>)</span> construct four datasets with identical exposure–outcome coefficients, identical correlations, and near-identical scatterplots, generated by four different causal structures. Adjusting for the covariate is correct in one of them and wrong in the other three, and the adjustment moves the estimate in a different direction in each. Nothing computed from the observed variables tells the four apart, because what differs between them is not in the observed variables.</p>
+<p>The corollary is that fit criteria are worse than useless for this job. Katrin Auspurg makes the point about a large multiverse of political-science models, where the AIC comparison reported in the study itself systematically favours the specifications she classes as unjustified <span class="citation" data-cites="Auspurg2025RobustnessBetterAssessed">(<a href="#ref-Auspurg2025RobustnessBetterAssessed" role="doc-biblioref">Auspurg 2025, 1</a>)</span>. A model that adjusts for a collider will often fit better than the one that does not, because the collider genuinely predicts the outcome. Predictive performance is a poor guide to a control set, and it is the guide most quietly in use.</p>
+<p>Two working rules survive from all of this, and both are cheap to apply. The first is time ordering: nothing that happens after the exposure can be a confounder of it, so do not adjust for the future. That single habit forecloses most mediator errors without any theory at all, and <code>ggdag::time_ordered_coords()</code> will lay a graph out in temporal layers so that a violation is visible on the page. The second is that a graph belongs in the published paper rather than in a private working note. Once it is in the file, a reader who disagrees can point at the arrow they would remove and say what it would change, which is a far more productive argument than one about whether a control set is sensible.</p>
+<p>A four-step procedure covers most first graphs. State the estimand in words – the quantity, for which units, contrasting what with what. Write down every variable you believe is causally involved, including the ones you cannot measure. Draw the arrows you would defend and comment out the ones you would not. Then read the adjustment set, and write the model formula from it rather than from habit. The <a href="../companion/multiverse.html#sec-auspurg">multiverse module</a> picks the argument up from there, since a graph is precisely what the critics of large specification universes are asking analysts to supply.</p>
+</section>
+<section id="sec-yours" class="level2">
+<h2 class="anchored" data-anchor-id="sec-yours">9. Your own graph</h2>
+<p>The exercise that makes this module stick uses your own research rather than the EU-frames case, and it has two halves.</p>
+<p>First, state an estimand for a question you actually care about, in one or two sentences and in the vocabulary of <span class="citation" data-cites="LundbergEtAl2021WhatYourEstimand">Lundberg et al. (<a href="#ref-LundbergEtAl2021WhatYourEstimand" role="doc-biblioref">2021</a>)</span>. Name the unit of analysis, the outcome, the contrast that defines the effect, and the population over which you want it. ‘The effect of unemployment on framing’ is not yet an estimand. ‘The average change in a country’s mean cosmopolitan framing associated with a one-point rise in its own unemployment rate, across EU member states between 2004 and 2013, holding fixed everything that persists within a country and everything common to a year’ is one, and notice that the second half of it is already an adjustment set.</p>
+<p>Second, draw it. Open a script, load ggdag, and write a <code>dagify()</code> call with one formula per arrow. Include the variables you cannot measure, because their absence from your data does not remove them from the world and the graph is where that fact becomes visible. Comment out the arrows you are unsure of, then run <code>adjustmentSets()</code> twice, once with them and once without, and see whether your model changes. Write the formula that the set implies and compare it with the model you were going to fit anyway.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do the exercise above on the last analysis you ran, not on a hypothetical one. Then find the control variable in that model you would have the hardest time defending in a seminar, put it on the graph, and work out which of the three shapes it is. If it turns out to be a collider, or a mediator in a model you reported as a total effect, you have just learned something that the output never told you.</p>
+</div>
+</div>
+</section>
+<section id="sources-and-further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="sources-and-further-reading">Sources and further reading</h2>
+<p>The estimand-first framing of the whole module is <span class="citation" data-cites="LundbergEtAl2021WhatYourEstimand">Lundberg et al. (<a href="#ref-LundbergEtAl2021WhatYourEstimand" role="doc-biblioref">2021</a>)</span>, and the standard book-length treatment of causal graphs for social scientists is <span class="citation" data-cites="HernanRobins2020CausalInferenceWhat">Hernán and Robins (<a href="#ref-HernanRobins2020CausalInferenceWhat" role="doc-biblioref">2020</a>)</span>, freely available online. <span class="citation" data-cites="Huntington-Klein2021EffectIntroductionResearch">Huntington-Klein (<a href="#ref-Huntington-Klein2021EffectIntroductionResearch" role="doc-biblioref">2021</a>)</span> is the gentlest full-length introduction and covers all three shapes with worked examples. On fixed effects specifically, <span class="citation" data-cites="KeeleEtAl2020CausalInterpretationEstimated">Keele et al. (<a href="#ref-KeeleEtAl2020CausalInterpretationEstimated" role="doc-biblioref">2020</a>)</span> is the careful statement of what a fixed-effects coefficient does and does not identify, and <span class="citation" data-cites="BellJones2015ExplainingFixedEffects">Bell and Jones (<a href="#ref-BellJones2015ExplainingFixedEffects" role="doc-biblioref">2015</a>)</span> makes the same argument from the multilevel side. On colliders, <span class="citation" data-cites="ColeEtAl2010IllustratingBiasDue">Cole et al. (<a href="#ref-ColeEtAl2010IllustratingBiasDue" role="doc-biblioref">2010</a>)</span> is the general treatment and <span class="citation" data-cites="GriffithEtAl2020ColliderBiasUndermines">Griffith et al. (<a href="#ref-GriffithEtAl2020ColliderBiasUndermines" role="doc-biblioref">2020</a>)</span> the most widely read applied demonstration. The four-dataset demonstration that no statistic chooses an adjustment set is <span class="citation" data-cites="DAgostinoMcGowanEtAl2024CausalInferenceNot">D’Agostino McGowan et al. (<a href="#ref-DAgostinoMcGowanEtAl2024CausalInferenceNot" role="doc-biblioref">2024</a>)</span>. For the debate about what all this implies for large specification universes, see <span class="citation" data-cites="Auspurg2025RobustnessBetterAssessed">Auspurg (<a href="#ref-Auspurg2025RobustnessBetterAssessed" role="doc-biblioref">2025</a>)</span> and the <a href="../companion/multiverse.html">multiverse module</a>.</p>
+<p>The software documentation is unusually good and worth reading directly: the ggdag package site at <a href="https://r-causal.github.io/ggdag/" class="uri">https://r-causal.github.io/ggdag/</a>, whose introductory vignette is the source of the water-in-a-pipe picture used in section 2, and the dagitty documentation at <a href="https://dagitty.net/" class="uri">https://dagitty.net/</a>, which also hosts a browser tool for sketching a graph by hand before writing it down as formulas.</p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Auspurg2025RobustnessBetterAssessed" class="csl-entry" role="listitem">
+Auspurg, Katrin. 2025. <span>“Robustness Is Better Assessed with a Few Thoughtful Models Than with Billions of Regressions.”</span> <em>Proceedings of the National Academy of Sciences</em> 122 (43): e2521917122. <a href="https://doi.org/10.1073/pnas.2521917122">https://doi.org/10.1073/pnas.2521917122</a>.
+</div>
+<div id="ref-BellJones2015ExplainingFixedEffects" class="csl-entry" role="listitem">
+Bell, Andrew, and Kelvyn Jones. 2015. <span>“Explaining <span>Fixed Effects</span>: <span>Random Effects Modeling</span> of <span>Time-Series Cross-Sectional</span> and <span>Panel Data</span>.”</span> <em>Political Science Research and Methods</em> 3 (1): 133–53. <a href="https://doi.org/10.1017/psrm.2014.7">https://doi.org/10.1017/psrm.2014.7</a>.
+</div>
+<div id="ref-ColeEtAl2010IllustratingBiasDue" class="csl-entry" role="listitem">
+Cole, Stephen R., Robert W. Platt, Enrique F. Schisterman, et al. 2010. <span>“Illustrating Bias Due to Conditioning on a Collider.”</span> <em>International Journal of Epidemiology</em> 39 (2): 417–20. <a href="https://doi.org/10.1093/ije/dyp334">https://doi.org/10.1093/ije/dyp334</a>.
+</div>
+<div id="ref-DAgostinoMcGowanEtAl2024CausalInferenceNot" class="csl-entry" role="listitem">
+D’Agostino McGowan, Lucy, Travis Gerke, and Malcolm Barrett. 2024. <span>“Causal Inference Is Not Just a Statistics Problem.”</span> <em>Journal of Statistics and Data Science Education</em> 32 (2): 150–55. <a href="https://doi.org/10.1080/26939169.2023.2276446">https://doi.org/10.1080/26939169.2023.2276446</a>.
+</div>
+<div id="ref-GriffithEtAl2020ColliderBiasUndermines" class="csl-entry" role="listitem">
+Griffith, Gareth J., Tim T. Morris, Matthew J. Tudball, et al. 2020. <span>“Collider Bias Undermines Our Understanding of <span>COVID-19</span> Disease Risk and Severity.”</span> <em>Nature Communications</em> 11 (1): 5749. <a href="https://doi.org/10.1038/s41467-020-19478-2">https://doi.org/10.1038/s41467-020-19478-2</a>.
+</div>
+<div id="ref-HernanRobins2020CausalInferenceWhat" class="csl-entry" role="listitem">
+Hernán, Miguel A., and James M. Robins. 2020. <em>Causal Inference: What If</em>. Chapman &amp; Hall/CRC.
+</div>
+<div id="ref-Huntington-Klein2021EffectIntroductionResearch" class="csl-entry" role="listitem">
+Huntington-Klein, Nick. 2021. <em>The Effect: An Introduction to Research Design and Causality</em>. Chapman &amp; Hall/CRC. <a href="https://theeffectbook.net/">https://theeffectbook.net/</a>.
+</div>
+<div id="ref-KeeleEtAl2020CausalInterpretationEstimated" class="csl-entry" role="listitem">
+Keele, Luke, Randolph T. Stevenson, and Felix Elwert. 2020. <span>“The Causal Interpretation of Estimated Associations in Regression Models.”</span> <em>Political Science Research and Methods</em> 8 (1): 1–13. <a href="https://doi.org/10.1017/psrm.2019.31">https://doi.org/10.1017/psrm.2019.31</a>.
+</div>
+<div id="ref-LundbergEtAl2021WhatYourEstimand" class="csl-entry" role="listitem">
+Lundberg, Ian, Rebecca Johnson, and Brandon M. Stewart. 2021. <span>“What <span>Is Your Estimand</span>? <span>Defining</span> the <span>Target Quantity Connects Statistical Evidence</span> to <span>Theory</span>.”</span> <em>American Sociological Review</em> 86 (3): 532–65. <a href="https://doi.org/10.1177/00031224211004187">https://doi.org/10.1177/00031224211004187</a>.
+</div>
+<div id="ref-Teney2016DoesEUEconomic" class="csl-entry" role="listitem">
+Teney, Céline. 2016. <span>“Does the <span>EU Economic Crisis Undermine Subjective Europeanization</span>? <span>Assessing</span> the <span>Dynamics</span> of <span>Citizens</span>’ <span>EU Framing</span> Between 2004 and 2013.”</span> <em>European Sociological Review</em> 32 (5): 619–33. <a href="https://doi.org/10.1093/esr/jcw008">https://doi.org/10.1093/esr/jcw008</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/codemoreh\.github\.io\/applied-replication\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="https://github.com/CodeMoreh/applied-replication">GitHub repo</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

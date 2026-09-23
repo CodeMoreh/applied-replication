@@ -1,0 +1,17 @@
+---
+title: "Part 2 – The claim and its estimand"
+---
+::: {.callout-note appearance="simple" icon=false}
+**Slides.** [Open the deck at this part](../../slides/one-day-methods.html#/part-2-the-claim-and-its-estimand){target="_blank"} in its own tab, or follow it on the [slides page](slides.qmd).
+:::
+
+Part 2 is the conceptual centre of the day. It reads the paper in full, argues that analysts who look as though they disagree are often answering different questions, and gives you the vocabulary for saying which question you are answering; then the causal-graph crash course, in full, and your own estimand and graph.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| Slides, the paper in full | The four framing scales, what OA actually fitted, the robustness question already inside the paper, the failed reproductions and the sign-flipped replication, and the five free-phase questions. | 15 minutes |
+| Slides, the estimands run | The red-card estimates return in one line, four estimands are pulled out of one football question, and the spread collapses once the estimand is fixed. Lundberg's three steps from a theoretical quantity to an empirical one. | 21 minutes |
+| Slides, the causal-graph crash course, with [Causal graphs](../../companion/dags.qmd) as the companion | Confounders, mediators and colliders, each fitted as well as drawn; one number, many stories; open and closed paths; total against direct effects; selection and feedback. Then our own claim, why a graph is worth drawing when identification is out of reach, and the half-built graph. Everyone writes a one-sentence estimand, holds it, and sends it together. | 36 minutes |
+| `R/dag_starter.R` in the workspace, or [Browser lab](../../exercise/browser-lab.qmd) Task 2 | Look at the panel; write the estimand in words; take the `#` off the arrows you are willing to defend, re-run `adjustmentSets()`, and write two sentences on what two-way fixed effects adjust for and what they cannot fix. | 18 minutes |
+
+**By the end of the part** you have the estimand behind the claim written in one sentence, a graph carrying only the arrows you are willing to defend, and the adjustment set that follows from it.

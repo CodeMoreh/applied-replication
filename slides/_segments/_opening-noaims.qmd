@@ -1,0 +1,16 @@
+## What you do not need today
+
+::: {.none}
+- No git, and no GitHub account
+- No OSF account – we will read OSF, not log into it
+- The browser lab needs no install: the browser is the whole toolchain
+- Nothing to sign up for; nothing leaves your machine except the results you choose to submit
+:::
+
+::: {.fragment}
+**Do this now:** open your workspace folder in your IDE, and open the browser lab tab beside it and leave it loading; the engine warms while we talk.
+:::
+
+::: notes
+Before anything else, the reassurance slide. You do not need git today, or a GitHub account, or an OSF account – we will look at OSF from the outside, like readers. If you did not install anything, that is fine: the browser lab runs R inside the page itself, and there is a task at the end of this part where we get everybody set up properly. One thing to do right now, while I talk: Workspace people, open the workspace folder in your IDE; browser lab people, open the browser-lab tab now and just leave it – the engine loads in the background, so it will be ready long before you need it. If you are on the call with one screen, the cheatsheet has a tip: put the meeting on your phone or a second window and keep the lab full-screen.
+:::

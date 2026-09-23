@@ -1,0 +1,18 @@
+---
+title: "One day – open science and replication"
+subtitle: "Four parts of ninety minutes, with the reproducibility of published research in the foreground"
+aliases:
+  - /tracks/one-day.html
+---
+This is the one-day course in its original shape, and the one that the other formats are cut from. Across the day you work as analyst no. 6 on a Multi100 reanalysis of a claim made by the original author (OA) of a paper about how the European Union is framed across its member states. You reproduce the value on record for one of the five published analysts, write the estimand behind the claim in words, finish a causal graph for it, work through a menu of defensible analyses, and then declare one of them in a shortened preregistration template before you run it. What you leave with is a report of your own, two dots on the class chart, one explored and one declared, and the percentile that places your result among 840 alternatives.
+
+The day runs as four parts of ninety minutes, with breaks of thirty, sixty and thirty minutes between them. Several of its beats are things that a room does together, such as everyone typing the t-statistic they have just reproduced and holding it until the count, so it is a facilitated day rather than one to work through alone; the [self-study track](../self-study/index.qmd) is the version for working alone.
+
+| | What happens | Length |
+|---|---|---|
+| [Before the day](before.qmd) | Install R and an IDE, download the workspace, read the claim. | 1 to 2 hours, once |
+| [Part 1 – Credibility and tools](part-1.qmd) | What a claim is for, why the field talks of a crisis, the evidence, and the toolchain; then you get running. | 90 minutes |
+| [Part 2 – The claim and its estimand](part-2.qmd) | The paper in full, estimands, the causal-graph crash course; you write the estimand and finish the graph. | 90 minutes |
+| [Part 3 – Reproduction and exploration](part-3.qmd) | You reproduce the recorded result, then work the specification menu and put an exploratory dot on the class chart. | 90 minutes |
+| [Part 4 – Multiverse and preregistration](part-4.qmd) | The room reads what it built; you declare one analysis, run it and report it. | 90 minutes |
+| [After the day](after.qmd) | Where to go next in the companion curriculum. | as you like |

@@ -1,0 +1,17 @@
+---
+title: "Part 2 – The claim and its estimand"
+---
+::: {.callout-note appearance="simple" icon=false}
+**Slides.** [Open the deck at this part](../../slides/one-day-replication.html#/part-2-the-claim-and-its-estimand){target="_blank"} in its own tab, or follow it on the [slides page](slides.qmd).
+:::
+
+Part 2 is the conceptual middle of the day. It reads the paper in full, then argues that analysts who look as though they disagree are often answering different questions, and it gives you the vocabulary for saying which question you are answering.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| Slides, Part 2 | The paper in full: the four framing scales, what OA actually fitted, the robustness question already inside the paper, the two failed reproductions and the replication that came back with the opposite sign, and the five questions that the Multi100 analysts asked in the free phase. | 20 minutes |
+| Slides, the estimands run | Two studies set beside our five: the red-card estimates return in one line, four different estimands are pulled out of one football question, and the spread collapses once the estimand is fixed. Then Lundberg's three steps from a theoretical quantity to an empirical one. | 25 minutes |
+| Slides, the causal-graph crash course | Confounders, mediators and colliders; open and closed paths; total against direct effects; selection and feedback. Then the return to our own claim, where everyone writes a one-sentence estimand, holds it, and sends it together. | 25 minutes |
+| `R/dag_starter.R` in the workspace, or [Browser lab](../../exercise/browser-lab.qmd) Task 2, with [Causal graphs](../../companion/dags.qmd) as the slower companion | An optional R tutorial runs first if the room wants it. Then look at the panel and find the countries that move sharply around 2009; write the estimand in words; take the `#` off the arrows you are willing to defend, re-run `adjustmentSets()`, and write two sentences on what two-way fixed effects adjust for and what they cannot fix. | 18 minutes |
+
+**By the end of the part** you have the estimand behind the claim written in one sentence, a graph carrying only the arrows you are willing to defend, and the adjustment set that follows from it.

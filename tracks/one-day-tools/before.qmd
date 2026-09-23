@@ -1,0 +1,13 @@
+---
+title: "Before the day"
+---
+Because the day is about the tools, arrive with them installed and looked at once, so that the toolchain part of the day is spent on what the tools are for rather than on whether they start.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Setup](../../setup.qmd) | Install R and an IDE (Positron, RStudio, VS Code, etc.), download the workspace zip and run `R/check_setup.R` until it prints OK. Open the browser lab once as well. The [help page](../../help.qmd) has the problems other participants have met and prompts you can give an AI assistant. | 30 to 60 minutes, once |
+| [Positron, RStudio and VS Code](../../companion/ide.qmd) | Read section 1, then the section on the IDE you chose, and do the six steps of section 6 in the workspace: open the folder, run the check, open the data in the viewer, filter it, draw a plot, render the report. | 45 minutes |
+| [Exercise overview](../../exercise/index.qmd) | Read the claim you will be working on and the table of what the five Multi100 analysts found when they reanalysed it. Look at the software column. | 10 minutes |
+| [Getting started with R](../../companion/intro-r.qmd), sections 1 to 3 | Optional. R and the IDE, the console against the script, objects and data frames. The day's first R session picks up from here. | 45 minutes |
+
+**By the start of the day** the workspace opens in your IDE, the check script prints OK, the data frame has opened once in the viewer, and the report has rendered once.

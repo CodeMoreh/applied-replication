@@ -1,0 +1,20 @@
+## Hands-on 1: get yourself running {.smaller}
+
+::: {.small}
+**Task 1 – the setup check.** Get to the point where a line of R runs and the data are in front of you.
+
+- **Workspace:** your IDE opens the workspace folder · the packages install · `working_script.R` runs its first block · the report skeleton renders
+- **Browser lab:** the page has finished loading · the first chunk runs · `euframes` has 270 rows
+:::
+
+::: {.fragment .small}
+Take the rest of this part **and the break** for it. Type a green circle in chat when you are through; type **STUCK** and I will come to you.
+:::
+
+::: {.fragment .small}
+If your installation will not cooperate, do not fight it – open the browser lab and carry on. Nothing today depends on it.
+:::
+
+::: notes
+Right – your turn, and this first one is deliberately not intellectual. The job is to get to the point where a line of R runs and the data are in front of you. The workspace: open the workspace folder in your IDE, let the packages install, run the first block of the working script, and render the report skeleton once so you know it works. The browser lab: wait for the lab page to finish loading, run the first chunk, and check that the panel has two hundred and seventy rows. Take the rest of this part and the whole break over it – there is no prize for finishing early, and getting this right now saves an hour of misery later. Green circle in chat when you are through, STUCK if you need me. And if the workspace will not cooperate, do not fight it. Switch to the browser lab and carry on – nothing today depends on which one you use.
+:::

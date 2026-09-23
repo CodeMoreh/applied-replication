@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Facilitator guide – Applied Replication for Data Skills – Applied Replication for Data Skills</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.js"></script>
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/animate.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/magic.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo light-content">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Applied Replication for Data Skills</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../tracks/one-day.html">
+ <span class="dropdown-text">One day</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/three-days.html">
+ <span class="dropdown-text">Three days</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/semester.html">
+ <span class="dropdown-text">Semester</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/self-study.html">
+ <span class="dropdown-text">Self-study</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../slides/index.html"> 
+<span class="menu-text">Slides</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-exercise">    
+        <li>
+    <a class="dropdown-item" href="../exercise/index.html">
+ <span class="dropdown-text">Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/browser-lab.html">
+ <span class="dropdown-text">Browser lab (no install)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/spec-menu.html">
+ <span class="dropdown-text">Specification menu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/estimand-dial.html">
+ <span class="dropdown-text">Estimand choices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/cheatsheet.html">
+ <span class="dropdown-text">Cheatsheet</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../results.html"> 
+<span class="menu-text">Multiverse</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-companion" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Companion</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-companion">    
+        <li>
+    <a class="dropdown-item" href="../companion/index.html">
+ <span class="dropdown-text">Curriculum overview</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Computational tools</li>
+        <li>
+    <a class="dropdown-item" href="../companion/intro-r.html">
+ <span class="dropdown-text">Getting started with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/quarto.html">
+ <span class="dropdown-text">Quarto and reproducible documents</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Reproducibility and collaboration</li>
+        <li>
+    <a class="dropdown-item" href="../companion/repositories.html">
+ <span class="dropdown-text">Repositories &amp; preregistration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/git-github.html">
+ <span class="dropdown-text">Git &amp; GitHub</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistical methods</li>
+        <li>
+    <a class="dropdown-item" href="../companion/stats-methods.html">
+ <span class="dropdown-text">The statistical methods behind the course</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/dags.html">
+ <span class="dropdown-text">Causal graphs &amp; adjustment sets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/multiverse.html">
+ <span class="dropdown-text">The multiverse: concept &amp; critics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/weighting.html">
+ <span class="dropdown-text">Weights: three decisions, one name</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/missingness.html">
+ <span class="dropdown-text">Missing answers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/measurement.html">
+ <span class="dropdown-text">Thirteen items, four scales</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/simulation.html">
+ <span class="dropdown-text">Simulation as a method</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/individual-level.html">
+ <span class="dropdown-text">One claim, two levels</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#delivery-lifecycle" id="toc-delivery-lifecycle" class="nav-link active" data-scroll-target="#delivery-lifecycle"><span class="header-section-number">1</span> The delivery lifecycle</a></li>
+  <li><a href="#the-week-before" id="toc-the-week-before" class="nav-link" data-scroll-target="#the-week-before"><span class="header-section-number">2</span> The week before</a></li>
+  <li><a href="#the-night-before" id="toc-the-night-before" class="nav-link" data-scroll-target="#the-night-before"><span class="header-section-number">3</span> The night before</a></li>
+  <li><a href="#opening-the-virtual-room--30-minutes-before" id="toc-opening-the-virtual-room--30-minutes-before" class="nav-link" data-scroll-target="#opening-the-virtual-room--30-minutes-before"><span class="header-section-number">4</span> Opening the room</a></li>
+  <li><a href="#run-sheet" id="toc-run-sheet" class="nav-link" data-scroll-target="#run-sheet"><span class="header-section-number">5</span> Run sheet</a>
+  <ul class="collapse">
+  <li><a href="#deck-navigation" id="toc-deck-navigation" class="nav-link" data-scroll-target="#deck-navigation"><span class="header-section-number">5.1</span> Driving 148 slides</a></li>
+  <li><a href="#part-1-credibility-and-tools-90" id="toc-part-1-credibility-and-tools-90" class="nav-link" data-scroll-target="#part-1-credibility-and-tools-90"><span class="header-section-number">5.2</span> Part 1 – Credibility and tools (90′)</a></li>
+  <li><a href="#part-2-the-claim-and-its-estimand-90" id="toc-part-2-the-claim-and-its-estimand-90" class="nav-link" data-scroll-target="#part-2-the-claim-and-its-estimand-90"><span class="header-section-number">5.3</span> Part 2 – The claim and its estimand (90′)</a></li>
+  <li><a href="#part-3-reproduction-and-exploration-90" id="toc-part-3-reproduction-and-exploration-90" class="nav-link" data-scroll-target="#part-3-reproduction-and-exploration-90"><span class="header-section-number">5.4</span> Part 3 – Reproduction and exploration (90′)</a></li>
+  <li><a href="#part-4-multiverse-and-preregistration-90" id="toc-part-4-multiverse-and-preregistration-90" class="nav-link" data-scroll-target="#part-4-multiverse-and-preregistration-90"><span class="header-section-number">5.5</span> Part 4 – Multiverse and preregistration (90′)</a></li>
+  </ul></li>
+  <li><a href="#online--in-person-cue-sheet" id="toc-online--in-person-cue-sheet" class="nav-link" data-scroll-target="#online--in-person-cue-sheet"><span class="header-section-number">6</span> Online and in-person cue sheet</a></li>
+  <li><a href="#chat-protocols-and-ready-to-paste-texts" id="toc-chat-protocols-and-ready-to-paste-texts" class="nav-link" data-scroll-target="#chat-protocols-and-ready-to-paste-texts"><span class="header-section-number">7</span> Chat protocols and ready-to-paste texts</a></li>
+  <li><a href="#compression-ladders-with-trigger-times" id="toc-compression-ladders-with-trigger-times" class="nav-link" data-scroll-target="#compression-ladders-with-trigger-times"><span class="header-section-number">8</span> The cutting order</a></li>
+  <li><a href="#contingency-table" id="toc-contingency-table" class="nav-link" data-scroll-target="#contingency-table"><span class="header-section-number">9</span> Contingencies</a></li>
+  <li><a href="#answer-keys-and-expected-numbers" id="toc-answer-keys-and-expected-numbers" class="nav-link" data-scroll-target="#answer-keys-and-expected-numbers"><span class="header-section-number">10</span> Expected numbers</a></li>
+  <li><a href="#debrief-question-bank" id="toc-debrief-question-bank" class="nav-link" data-scroll-target="#debrief-question-bank"><span class="header-section-number">11</span> Debrief questions</a></li>
+  <li><a href="#after-the-session" id="toc-after-the-session" class="nav-link" data-scroll-target="#after-the-session"><span class="header-section-number">12</span> After the session</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Facilitator guide – Applied Replication for Data Skills</h1>
+<p class="subtitle lead">Facilitator run sheet – full-day format</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>This document is for the facilitator’s eyes only.</strong> It renders as part of the site but sits outside the navbar, so nothing on the site points at it. It carries the full run sheet, the answer keys, the crib facts and every contingency ladder.</p>
+</div>
+</div>
+<hr>
+<section id="delivery-lifecycle" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="delivery-lifecycle"><span class="header-section-number">1</span> The delivery lifecycle</h2>
+<p>The site is evergreen between deliveries. Scheduling one is a four-step edit; resetting after one is a two-step export.</p>
+<p><strong>Scheduling.</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox">Fill the <code>delivery:</code> block in <code>_variables.yml</code> (date, venue/platform, event, mode, registration URL) and set <code>active: 'true'</code>. Re-render and push; the landing page grows a “Next delivery” callout. Set <code>active: 'false'</code> again afterwards.</label></li>
+<li><label><input type="checkbox">Decide the extended-universe option at <strong>T-2 weeks</strong> against the go/no-go checklist in <code>_planning/extended-universe-spec.md</code>. If GO, the opt-in text there goes into the joining email.</label></li>
+<li><label><input type="checkbox">Decide recording. If recording: talk segments only, announced at the start of each recorded stretch, paused for hands-on and chat-heavy segments. Nothing in the day depends on the recording either way.</label></li>
+<li><label><input type="checkbox">Optionally create the prereg mirror form from <code>_planning/prereg-form-spec.md</code> and paste its URL into <code>_variables.yml</code>. The rendered declaration block is the primary record; the form is a silent secondary. Skipping it costs nothing.</label></li>
+</ul>
+<p><strong>Resetting, before the next one.</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox">Export the responses Sheet (File → Download → CSV) and commit it as a date-stamped snapshot (e.g.&nbsp;<code>data/class_results_2026-06-16.csv</code>); refresh <code>data/class_results.csv</code> per <code>facilitator/live-results-setup.md</code> if you want the archived cohort visible on the evergreen site.</label></li>
+<li><label><input type="checkbox">Clear (or archive to a second tab) the old rows in the live Sheet so the next cohort’s chart opens near-empty. <strong>Do not touch the Form, the Worker, or the field schema</strong> – the pipeline is working; only the rows rotate.</label></li>
+</ul>
+<hr>
+</section>
+<section id="the-week-before" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="the-week-before"><span class="header-section-number">2</span> The week before</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Click once through the Part 3–4 tab choreography (deck → the spec-menu page → the results page and back) so the switching order is in your fingers – it is the one sequence that the day performs live several times.</label></li>
+<li><label><input type="checkbox">Send joining instructions: setup page link, the two-window/two-device tip, the optional pre-reading (listed on the setup page), and – if GO – the extended-universe opt-in text.</label></li>
+<li><label><input type="checkbox">Confirm the Multi100 slide in the deck against the registered protocol at osf.io/7snkz (the note on that slide asks for the actual wording of the registration, not a paraphrase).</label></li>
+</ul>
+</section>
+<section id="the-night-before" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="the-night-before"><span class="header-section-number">3</span> The night before</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Render the full site: <code>quarto render</code> from the workspace root; check no errors; push; if the site is published, confirm the Pages build completes on GitHub Actions.</label></li>
+<li><label><input type="checkbox"><strong>Live results loop</strong> (full setup + checks in <code>facilitator/live-results-setup.md</code>): submit one anonymous test row via the Form (incognito), confirm it reaches the Sheet, confirm the Worker returns the sheet as CSV, press <em>Run Code</em> on the live <a href="https://codemoreh.github.io/applied-replication/results.html">Multiverse</a> page and see the test dot. Then delete the test row.</label></li>
+<li><label><input type="checkbox"><strong>Prereg block loop</strong>: open the workspace zip fresh (download it as a participant would), complete the declaration block with a dummy spec, render, and check the rendered block and timestamp. If the mirror form exists, submit one dummy row and delete it.</label></li>
+<li><label><input type="checkbox"><strong>Browser lab cold load</strong>: open the live page of <code>exercise/browser-lab.qmd</code> in a private window on the venue-typical connection; time the webR engine load; run the first chunk and the Task 3 reproduce chunk (t = −3.804).</label></li>
+<li><label><input type="checkbox">Confirm both OSF nodes load logged-out: osf.io/6zqct (fork) and osf.io/8rtwe (archive); confirm osf.io/h7432 shows the replication component (the scavenger target).</label></li>
+<li><label><input type="checkbox">Prepare the catch-up card, the help doc, and the day-plan message (texts below) as ready-to-paste snippets.</label></li>
+<li><label><input type="checkbox">Charge everything; second device signed in to Teams as a participant-view check.</label></li>
+</ul>
+</section>
+<section id="opening-the-virtual-room--30-minutes-before" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="opening-the-virtual-room--30-minutes-before"><span class="header-section-number">4</span> Opening the room</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Open the Teams meeting early; enable chat for everyone; check breakout rooms are available (they are optional – nothing depends on them).</label></li>
+<li><label><input type="checkbox">Seed the chat: site URL · browser-lab URL · cheatsheet URL · the timestamped day plan (the standing order if the host drops: “follow the day plan; finish the current task or take the break early; I will rejoin”).</label></li>
+<li><label><input type="checkbox">Post the interaction key: “green circle emoji = working · STUCK = I need help · answers to quizzes: type but hold until I say go”.</label></li>
+<li><label><input type="checkbox">Share the deck; keep three tabs ready to switch: the deck, the spec menu, the Multiverse page.</label></li>
+<li><label><input type="checkbox">If recording: announce it now and state what is and is not recorded.</label></li>
+</ul>
+<hr>
+</section>
+<section id="run-sheet" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="run-sheet"><span class="header-section-number">5</span> Run sheet</h2>
+<p>Times in the part tables are part-relative: 0:00 is the start of that part. The clock below maps them onto the next delivery.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Segment</th>
+<th>Romanian time (EEST)</th>
+<th>UK time (BST)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Part 1 – Credibility and tools</td>
+<td>10:00–11:30</td>
+<td>08:00–09:30</td>
+</tr>
+<tr class="even">
+<td>Break</td>
+<td>11:30–12:00</td>
+<td>09:30–10:00</td>
+</tr>
+<tr class="odd">
+<td>Part 2 – The claim and its estimand</td>
+<td>12:00–13:30</td>
+<td>10:00–11:30</td>
+</tr>
+<tr class="even">
+<td>Lunch</td>
+<td>13:30–14:30</td>
+<td>11:30–12:30</td>
+</tr>
+<tr class="odd">
+<td>Part 3 – Reproduction and exploration</td>
+<td>14:30–16:00</td>
+<td>12:30–14:00</td>
+</tr>
+<tr class="even">
+<td>Break</td>
+<td>16:00–16:30</td>
+<td>14:00–14:30</td>
+</tr>
+<tr class="odd">
+<td>Part 4 – Multiverse and preregistration</td>
+<td>16:30–18:00</td>
+<td>14:30–16:00</td>
+</tr>
+</tbody>
+</table>
+<p>You are two hours behind the room all day: the room’s 10:00 start is your 08:00. Everything you post in chat should carry the Romanian clock, because that is the one that the summer school published.</p>
+<p><strong>Three stretches of the deck are optional depth</strong>, marked on screen and skippable in one keystroke: the R tutorial (Part 2, 10 slides), the methodological tutorial (Part 3, 12 slides) and the multiverse tutorial (Part 4, 8 slides). Five slides in the tools segment of Part 1 carry the same mark. Decide on the day how much of each the room wants. The timings below assume you walk roughly half of each; walking all three in full costs about 25 minutes you do not have, and skipping all three entirely leaves the hands-on tasks with more room than they need.</p>
+<section id="deck-navigation" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="deck-navigation"><span class="header-section-number">5.1</span> Driving 148 slides</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>space · right arrow · clicker</td>
+<td>next slide. <strong>Always exactly one slide</strong> – the deck is in linear mode on purpose, so nothing that a clicker sends can skip a segment</td>
+</tr>
+<tr class="even">
+<td><strong><code>d</code></strong></td>
+<td>switch between the <strong>extended</strong> and the <strong>lean</strong> deck, live. In lean mode the optional slides leave entirely: every key skips them and the count drops from 148 to 113</td>
+</tr>
+<tr class="odd">
+<td><strong><code>]</code></strong> and <strong><code>[</code></strong></td>
+<td>jump to the <strong>next / previous part</strong>. Four parts, four jumps</td>
+</tr>
+<tr class="even">
+<td><strong><code>g</code></strong></td>
+<td><strong>jump bar</strong>: type a few letters of any slide title, press Enter</td>
+</tr>
+<tr class="odd">
+<td><strong><code>s</code></strong></td>
+<td>speaker view (notes, timer, next slide)</td>
+</tr>
+<tr class="even">
+<td><strong><code>f</code></strong> · <strong><code>esc</code></strong></td>
+<td>fullscreen · slide overview</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The readout, top right.</strong> Two lines. The first names the part and gives both positions – <code>PART 3 · 8/24 · 90/148</code>. The second is a badge that is always present, so the state of the deck is never a guess:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Badge</th>
+<th>Means</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>green <strong>extended</strong></td>
+<td>the full deck, and this slide is part of the main flow</td>
+</tr>
+<tr class="even">
+<td>burgundy <strong>optional</strong></td>
+<td>the full deck, and this slide belongs to an optional run. The figure beside it is your position inside that run – <code>3/12</code></td>
+</tr>
+<tr class="odd">
+<td>amber <strong>lean</strong></td>
+<td>the optional runs are switched off</td>
+</tr>
+<tr class="even">
+<td>a burgundy <strong>dot</strong> before the amber badge</td>
+<td>lean mode, and an optional run has been lifted out right here – either the slide you are on is the last before it, or the first after it. Press <code>d</code> if the room wants it</td>
+</tr>
+</tbody>
+</table>
+<p>The readout steps aside on the title slide, the part dividers and the break slides, where it would sit over the dark background beside the brand mark.</p>
+<p><strong>Opening the lean deck directly.</strong> Add <code>?depth=0</code> to the address and the optional runs are gone before the first slide appears – useful if you already know the room. Without it the deck opens complete. If you follow a link to a slide that is hidden in lean mode, you land on the slide that the run lets out onto, not on a blank.</p>
+<p><strong>The escape hatch on screen.</strong> The first slide of each optional run carries a small grey link at the top right saying how many slides the run costs and where it lets out. Clicking it jumps straight there, which is the mouse equivalent of <code>d</code> for one run rather than all of them.</p>
+</section>
+<section id="part-1-credibility-and-tools-90" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="part-1-credibility-and-tools-90"><span class="header-section-number">5.2</span> Part 1 – Credibility and tools (90′)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rel.</th>
+<th>Segment</th>
+<th>What I do</th>
+<th>What participants do</th>
+<th>Watch out for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0:00</td>
+<td>Welcome + the two kinds of aim + what you do not need (6′)</td>
+<td>Premise in two sentences (“<em>Nature</em> asked three times whether social science holds up – I was inside one of the papers; today you sit where I sat”). Walk the two-column aims slide. “Open the lab tab / your workspace NOW.”</td>
+<td>Open lab tab (engine warms) or Positron workspace; type one word in chat for why they came.</td>
+<td>Late joiners: greet in chat, never restart. Two-device tip again.</td>
+</tr>
+<tr class="even">
+<td>0:06</td>
+<td>Talk: what science is for, and why it is called a crisis (10′)</td>
+<td>What a claim is for; the three findings that made people nervous (Simmons, Gelman &amp; Loken, Breznau); why it is structural rather than fraud. End on “you cannot solve it by hiring better people – so suppose you did”.</td>
+<td>Listen.</td>
+<td>This segment is untimed in the room.</td>
+</tr>
+<tr class="odd">
+<td>0:16</td>
+<td>Talk: the first many-analysts study (4′)</td>
+<td>Silberzahn’s red-card study, which is the answer to the question that the previous slide just asked: the question, the dataset, the design – twenty-nine teams reviewing each other’s approaches before anyone saw a result. Then all twenty-nine estimates, grouped by the response distribution that each team assumed. End on the left column: “hold on to that grouping, we come back to it twice”.</td>
+<td>Watch.</td>
+<td>Do not narrate the 29 rows. The two things to land are the blind peer-review step and the distribution grouping; everything else is scenery. This is the only place where the study gets a proper telling – Part 2 shows it again in one line, as a reminder.</td>
+</tr>
+<tr class="even">
+<td>0:20</td>
+<td>Talk: the vocabulary, and what open research fixes (8′)</td>
+<td>Why ‘replication’ covers three different operations; the data × analysis matrix; credibility is not truth; what open research proposes and what it does not fix.</td>
+<td>The matrix is the one slide to copy down.</td>
+<td>If it runs long, the open-research practices table compresses to one sentence per row. The red-card study is what makes the vocabulary problem concrete – refer back to it rather than re-arguing it.</td>
+</tr>
+<tr class="odd">
+<td>0:28</td>
+<td>Talk: SCORE and its three studies (20′)</td>
+<td>The programme; the three corners; Miske → Aczel → Tyner, each with its result; the three Rs are uncorrelated; the credibility-in-the-wild quiz pair.</td>
+<td>Chat waterfalls on the quiz.</td>
+<td>If behind, cut the Miske moderators slide to one line.</td>
+</tr>
+<tr class="even">
+<td>0:48</td>
+<td>Talk: Multi100 from the inside (14′)</td>
+<td>What an analyst was sent; the paper in one slide (define OA here); the two tasks and why that order; how a hundred studies become one number; then the five-analyst forest <strong>one row at a time</strong>, ending on “look at the labels”.</td>
+<td>Watch the reveal.</td>
+<td>Never rush the forest reveal. The software column sets up the tools segment – do not talk over it.</td>
+</tr>
+<tr class="odd">
+<td>1:02</td>
+<td>Stretch (2′)</td>
+<td>Cameras off, stand up.</td>
+<td>Stretch.</td>
+<td>Actually stop talking.</td>
+</tr>
+<tr class="even">
+<td>1:04</td>
+<td>Talk: the tools (18′)</td>
+<td>What open source buys you; the toolchain wall; languages and editors (optional depth); plain text and the render pipeline; packages; version control; where data and code are archived; licences; what we use today; what the tools cannot do.</td>
+<td>Note what they might switch to.</td>
+<td>The timing here is tight. The per-tool slides are the compressible part. The two that must land are <strong>plain text is the format that survives</strong> and <strong>what the tools cannot do</strong> – the second leads into Part 2.</td>
+</tr>
+<tr class="odd">
+<td>1:22</td>
+<td>Task 1 launch + break (8′)</td>
+<td>Set the setup task: “get to the point where a line of R runs and the data are in front of you – take the break for it if you need to”. Post break-return time; countdown slide. Stay on the call through the break for STUCKs.</td>
+<td>Start Task 1; break.</td>
+<td>This is the only part of the day where a broken machine can be fixed without costing anyone content. Use it.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="part-2-the-claim-and-its-estimand-90" class="level3" data-number="5.3">
+<h3 data-number="5.3" class="anchored" data-anchor-id="part-2-the-claim-and-its-estimand-90"><span class="header-section-number">5.3</span> Part 2 – The claim and its estimand (90′)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rel.</th>
+<th>Segment</th>
+<th>What I do</th>
+<th>What participants do</th>
+<th>Watch out for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0:00</td>
+<td>Talk: the paper, in full (20′)</td>
+<td>The four framing scales; what OA actually fitted; the robustness question already inside the paper (Model 1 vs Model 2); what we work on instead and what the aggregate cannot answer; the two failed reproductions; the sign-flipped replication; the three-Rs scoreboard; then the five free-phase questions table.</td>
+<td>Listen; ask.</td>
+<td>The Model 1 / Model 2 slide is the one that people remember – give it its beat.</td>
+</tr>
+<tr class="even">
+<td>0:20</td>
+<td>Talk: estimands (25′)</td>
+<td>“Two studies to set beside our five” – Silberzahn’s 29 estimates return as a one-line strip, so this is a reminder and not a retelling → “they were not answering the same question” → A&amp;B’s four estimands → <strong>fix the estimand and the spread collapses</strong> → the vague-research-questions slide → Lundberg’s three steps.</td>
+<td>Listen; ask.</td>
+<td>The contrast figure is the pay-off of this segment: the top row is the real 29 estimates, and its spread is carried by two outliers. Say so – it is the difference between a scary picture and an argument.</td>
+</tr>
+<tr class="odd">
+<td>0:45</td>
+<td>Stretch (2′)</td>
+<td>Cameras off, stand up.</td>
+<td>Stretch.</td>
+<td>Actually stop talking.</td>
+</tr>
+<tr class="even">
+<td>0:47</td>
+<td>Talk: DAG crash course (25′)</td>
+<td>Confounder/mediator/collider; open/closed paths; total effect or direct effect; selection and feedback; then <strong><em>Revenons à nos moutons</em></strong> – back to our own claim, and the chat exercise. Estimand waterfall there: read 3–4 aloud, point at the spread. Then <strong>why draw the graph when identification is out of reach</strong>; publishing the estimand and the graph; end on the half-built graph and its <code>dagify()</code> code panel.</td>
+<td>Type their one-sentence estimand; hold; send on “go”.</td>
+<td><em>Revenons</em> sits here on purpose: it is the return to our own data after the digression through somebody else’s football match, and it lands harder for having waited. Silent room: name two people gently, or take reactions; two answers from twenty is a proceed. The estimand waterfall is never compressed. The two slides on drawing the graph without identification are what stop this segment feeling like a bait-and-switch on an observational panel.</td>
+</tr>
+<tr class="odd">
+<td>1:12</td>
+<td>Hands-on 2: Task 2 (18′)</td>
+<td>Optionally walk part of the <strong>R tutorial</strong> first (10 optional-depth slides) – pitch it at whoever is least confident. Then: meet the panel, write the estimand, uncomment the arrows they believe and run <code>adjustmentSets()</code>.</td>
+<td>Look at the data; write the estimand; finish the DAG; two-sentence FE note.</td>
+<td><strong>Trigger at 1:22:</strong> if the room is behind, switch to demo-only – run it on my screen, they note the output. The picture cell in the lab installs <code>ggdag</code> (~23 MB, one slow moment on poor wifi); the adjustment set itself needs none of it.</td>
+</tr>
+<tr class="even">
+<td>1:30</td>
+<td>Lunch launch</td>
+<td>Achievement line; lunch slide; post return time.</td>
+<td>Lunch.</td>
+<td>Lunch is a hard stop. Anything unfinished in Task 2 can be finished over lunch.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="part-3-reproduction-and-exploration-90" class="level3" data-number="5.4">
+<h3 data-number="5.4" class="anchored" data-anchor-id="part-3-reproduction-and-exploration-90"><span class="header-section-number">5.4</span> Part 3 – Reproduction and exploration (90′)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rel.</th>
+<th>Segment</th>
+<th>What I do</th>
+<th>What participants do</th>
+<th>Watch out for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0:00</td>
+<td>Re-entry + what the constrained task assumed (12′)</td>
+<td>“Raise hand” roll-call; paste the catch-up card. Then the three Multi100 instructions verbatim, what each one assumes, and the columns of the panel.</td>
+<td>Rejoin; late returners follow the card.</td>
+<td>Do not wait past 0:05 – the card carries stragglers.</td>
+</tr>
+<tr class="even">
+<td>0:12</td>
+<td>You are analyst no. 6 (3′)</td>
+<td>The aim, the model, the number on record.</td>
+<td>Watch.</td>
+<td>–</td>
+</tr>
+<tr class="odd">
+<td>0:15</td>
+<td>Hands-on 3: Task 3, reproduce (22′)</td>
+<td>Drive Positron / the browser lab on the shared screen alongside them; monitor chat + help doc at 0:25 and 0:33; buddy-chunk any STUCK on my screen. Then the waterfall: “type your t, hold, go”.</td>
+<td>Fill the gaps, fit the model, land <strong>t = −3.804</strong>, waterfall the t.</td>
+<td>The wall of identical −3.804s is the payoff – wait for a critical mass before “go”. Dead compute → cheatsheet ladder.</td>
+</tr>
+<tr class="even">
+<td>0:37</td>
+<td>One number, thirty people (5′)</td>
+<td>Everyone landed the same t because everyone ran the same code – and the five published analysts, each writing their own, disagreed. None was careless.</td>
+<td>Name the achievement.</td>
+<td>Do not answer the question yet – the menu answers it.</td>
+</tr>
+<tr class="odd">
+<td>0:42</td>
+<td>Spec menu (15′)</td>
+<td>Walk the one menu, every axis first-class – outcome, family, predictor, predictor form, copredictor, estimator, sample, weights; the historical provenance (the constrained task fixed unemployment and, implicitly, the gaussian scale; the free phase shows three of five analysts choosing GDP measures; beta fits report z, not t); <strong>what the constrained task left open, including the unit of analysis</strong>; the one-deviation rule; the <strong>claim-alignment convention</strong>.</td>
+<td>Listen; start thinking about which axis interests them.</td>
+<td>The unit-of-analysis slide is the one that earns the afternoon. Do not rush it.</td>
+</tr>
+<tr class="even">
+<td>0:57</td>
+<td>Methodological tutorial (13′, optional depth)</td>
+<td>12 slides on what each axis actually does. Pitch by the room: the outcome, claim alignment and the estimator slides are the core; family, form, copredictor, sample, weights and the partial <em>r</em> are the extension.</td>
+<td>Listen; ask.</td>
+<td>This is the compressible segment. If Task 3 overran, take it from here, not from Task 4.</td>
+</tr>
+<tr class="odd">
+<td>1:10</td>
+<td>Hands-on 4: Task 4, work the menu (20′)</td>
+<td>“Try several, look at what each does, then submit the one you would defend.” Keep the Multiverse page shared; press <em>Run Code</em> at ~1:18 and ~1:26 as the exploratory dots land. Check help doc at 1:20.</td>
+<td><code>try_spec()</code> three or four times; <code>my_experiments()</code>; <code>submit_exploration()</code>.</td>
+<td>Everyone lands an exploratory dot. Watch for people treating this as the preregistration – say out loud, twice, that this one is exploration and Task 5 is the commitment.</td>
+</tr>
+<tr class="even">
+<td>1:30</td>
+<td>Break</td>
+<td>Post break time; countdown slide; leave the Multiverse page open.</td>
+<td>Break.</td>
+<td>–</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="part-4-multiverse-and-preregistration-90" class="level3" data-number="5.5">
+<h3 data-number="5.5" class="anchored" data-anchor-id="part-4-multiverse-and-preregistration-90"><span class="header-section-number">5.5</span> Part 4 – Multiverse and preregistration (90′)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rel.</th>
+<th>Segment</th>
+<th>What I do</th>
+<th>What participants do</th>
+<th>Watch out for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0:00</td>
+<td>You built a small multiverse + class chart debrief (10′)</td>
+<td>Name what Task 4 was; then the class multiverse + the five-analyst overlay; question bank.</td>
+<td>Discuss; find their dot against the analysts.</td>
+<td>If submissions are few, the 2,520-spec backdrop + analysts still carries it.</td>
+</tr>
+<tr class="even">
+<td>0:10</td>
+<td>Prediction → fork importance → analysts → flips (16′)</td>
+<td>“Place your bet” waterfall FIRST; then the 49.7% reveal; the placement chart (person-level analysts at the extremes); where the sign flips concentrate.</td>
+<td>Bet; watch the reveals; connect to their own axis choice.</td>
+<td>The bet must come before the reveal – do not skip it to save time; it is what makes the 49.7% land.</td>
+</tr>
+<tr class="odd">
+<td>0:26</td>
+<td>Find your percentile (7′)</td>
+<td>Point at the percentile cell in the <strong>browser lab</strong> – everyone uses it there (the workspace report has no percentile section); waterfall the results.</td>
+<td>Compute their percentile; waterfall it.</td>
+<td>Participants without a submission use the baseline (−3.804) – percentile ≈ 49.6% on the claim-aligned scale.</td>
+</tr>
+<tr class="even">
+<td>0:33</td>
+<td>Multiverse tutorial + what the curve leaves out (10′, part optional depth)</td>
+<td>Where the idea comes from; the forking-paths picture; justifiable-not-merely-possible; enumerate or curate; what a multiverse is for; then <strong>what the curve leaves out</strong>, which is not optional.</td>
+<td>Listen.</td>
+<td>The 8 tutorial slides are optional; the four-point ‘what the curve leaves out’ slide is not – it is what stops the chart being read as complete.</td>
+</tr>
+<tr class="odd">
+<td>0:43</td>
+<td>Inference literacy (12′)</td>
+<td>Two jobs; not-840-tests; the permutation design; how to read B = 500; the <strong>discussion beat</strong> (“70.7% – strong evidence? against what null?”): 2′ think, chat, harvest; then what-stands-without-the-test.</td>
+<td>Think; argue in chat.</td>
+<td>The target answer: “we can’t say until we know what chance produces on these dependent data.” Someone will get there – let them say it.</td>
+</tr>
+<tr class="even">
+<td>0:55</td>
+<td>Critics → one correct analysis → preregistration (10′)</td>
+<td>The three critical positions; Lakens’ one-correct-analysis claim; granting the argument; <strong>what preregistration settles and what it does not</strong>; then the OSF segment (three addresses, the scavenger beat if time allows, the registered protocol filed by Multi100 itself, the AsPredicted mapping).</td>
+<td>Scavenge if run; read; ask.</td>
+<td>If the clock is tight, the scavenger beat is the first thing to drop – the mapping table is what Task 5 needs.</td>
+</tr>
+<tr class="odd">
+<td>1:05</td>
+<td>Hands-on 5: THE PREREGISTRATION MOMENT + run + report (20′)</td>
+<td>Called from the front, synchronous: complete fields 1–5 → render the block, or save it into the script on the browser lab page → type “declared”. Count aloud. <strong>Proceed rule:</strong> move on at ~80% declared or at 8′, whichever first. Then build, run, <code>report_result()</code>. Press <em>Run Code</em> on the chart as the declared dots land.</td>
+<td>Declare, build, run, submit.</td>
+<td>Never cut the declaration. Watch for people re-declaring what they already explored – that is allowed, and they must say so in the block.</td>
+</tr>
+<tr class="even">
+<td>1:25</td>
+<td>Wrap + feedback (5′)</td>
+<td>Two sentences worth keeping; a single path is a choice; what you take with you; feedback form in chat; chart left on screen.</td>
+<td>Feedback; goodbyes.</td>
+<td>End on time – online goodbyes drag.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="online--in-person-cue-sheet" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="online--in-person-cue-sheet"><span class="header-section-number">6</span> Online and in-person cue sheet</h2>
+<p>The materials are identical in both rooms. What changes is the mechanics of answering, of flagging trouble and of pairing up, so the table below is a swap list.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Beat</th>
+<th>Online (Teams)</th>
+<th>In person</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Quiz / waterfall answers</td>
+<td>type in chat, hold until “go”</td>
+<td>write on paper, hands up on “go” (or Vevox if the venue has it)</td>
+</tr>
+<tr class="even">
+<td>Working / stuck status</td>
+<td>green-circle emoji / “STUCK” in chat</td>
+<td>green / red-orange sticky notes</td>
+</tr>
+<tr class="odd">
+<td>Roll-call</td>
+<td>Teams “raise hand”</td>
+<td>visual sweep</td>
+</tr>
+<tr class="even">
+<td>Pair moments</td>
+<td>breakout rooms if available; scripted chat variant otherwise</td>
+<td>table pairs</td>
+</tr>
+<tr class="odd">
+<td>Rescues</td>
+<td>buddy-chunk on the shared screen</td>
+<td>facilitator circulates</td>
+</tr>
+<tr class="even">
+<td>The live chart</td>
+<td>everyone opens the Multiverse page themselves</td>
+<td>projector + own laptops</td>
+</tr>
+<tr class="odd">
+<td>Form links</td>
+<td>pasted in chat</td>
+<td>QR codes on the slides</td>
+</tr>
+<tr class="even">
+<td>Breaks</td>
+<td>countdown slide + “back at :xx” in chat</td>
+<td>countdown slide + verbal</td>
+</tr>
+<tr class="odd">
+<td>Facilitator absent</td>
+<td>published day plan = standing order</td>
+<td>n/a</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="chat-protocols-and-ready-to-paste-texts" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="chat-protocols-and-ready-to-paste-texts"><span class="header-section-number">7</span> Chat protocols and ready-to-paste texts</h2>
+<p><strong>Waterfall:</strong> “Type your answer now but DON’T send – hold it. … Go.” Holding the answers back keeps each one independent of the others, and releasing them together is what produces the wall-of-identical-values beats.</p>
+<p><strong>Help:</strong> a STUCK in chat is the first flag. The standing <strong>help doc</strong> – a shared editable doc whose link goes into the chat at open – is the second surface, and the place where errors get pasted. Check it at the minutes that the run sheet names, not continuously. Rescues run in the main room by buddy-chunk: their spec, my webR or Positron, and everyone watching learns from it.</p>
+<p><strong>Silent room:</strong> wait 20 seconds, then take reactions (thumbs) as the minimal response, and name one or two people gently (“Sam, what did you get?”). Two substantive answers from twenty participants is a proceed, not a failure.</p>
+<p><strong>Catch-up card (paste at Part 3 re-entry):</strong></p>
+<blockquote class="blockquote">
+<p>Just back? You missed nothing you can’t recover: (1) if Task 2 (the estimand and the DAG) is unfinished, run its DAG chunk as-is and come back to the wording later; (2) Task 3 is the reproduction – the target is t = −3.804 and there is a full solution on the page; (3) Task 4 is exploration, so just try two specifications and submit one. Flag STUCK and I’ll come to you in the run window.</p>
+</blockquote>
+<p><strong>Facilitator-drop standing order (seeded in chat at open):</strong></p>
+<blockquote class="blockquote">
+<p>If I drop off the call: keep going. The day plan (link) has the timings – finish the current task or take the break early. I will rejoin as soon as I can.</p>
+</blockquote>
+<hr>
+</section>
+<section id="compression-ladders-with-trigger-times" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="compression-ladders-with-trigger-times"><span class="header-section-number">8</span> The cutting order</h2>
+<p>Every optional-depth run is a compression lever before anything else is. Take time from a tutorial before taking it from a task.</p>
+<ul>
+<li><strong>Part 1</strong> – trigger 0:30: cut the Miske moderators slide to one line and compress the open-research practices table to one sentence per row. Trigger 1:05: drop the two per-tool optional-depth slides (languages, editors) and the licences slide; keep plain-text-survives and what-the-tools-cannot-do.</li>
+<li><strong>Part 2</strong> – trigger 0:50 (running long after estimands): the DAG crash course drops the selection-and-feedback slide to one sentence and reaches the half-built graph sooner. Trigger 1:12: skip the R tutorial entirely and go straight into Task 2. Trigger 1:22: Task 2 to demo-only – run it on my screen, they note the output and finish over lunch. The estimand waterfall is never compressed.</li>
+<li><strong>Part 3</strong> – trigger 0:57: the methodological tutorial drops to its three core slides (outcome, claim alignment, estimators). Trigger 1:10: Task 4 shortens to two <code>try_spec()</code> calls and a submission – but everybody still submits, because Part 4 opens on those dots.</li>
+<li><strong>Part 4</strong> – trigger 0:33: skip the multiverse tutorial, keep ‘what the curve leaves out’. Trigger 0:55: drop the scavenger beat and lean the inference module on the reading. The class-chart debrief, the fork-importance reveal and the preregistration moment are never compressed.</li>
+</ul>
+<p><strong>Never cut:</strong> the five-analyst reveal and its software column · the estimand waterfall · the half-built DAG and its adjustment set · the reproduction waterfall · the Task 4 submission · the preregistration moment · the fork-importance reveal.</p>
+<hr>
+</section>
+<section id="contingency-table" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="contingency-table"><span class="header-section-number">9</span> Contingencies</h2>
+<p>Each row names the first move, not the only one, and every ladder ends at a point from which the session can carry on. Nothing in the table stops the day.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situation</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>A participant’s webR fails mid-task</strong></td>
+<td>The cheatsheet ladder: hard reload + rerun chunks above → second browser → buddy-chunk on my screen → grid lookup + hand submission (any spec looks up in <code>data/spec_grid_full.csv</code>, the full 2,520-row universe). Everyone lands a dot.</td>
+</tr>
+<tr class="even">
+<td><strong>A participant’s installation breaks</strong></td>
+<td>Switch them to the browser lab, which holds the whole exercise; their workspace survives for later.</td>
+</tr>
+<tr class="odd">
+<td><strong>The live chart fails during the day</strong> (Form, Worker, CORS)</td>
+<td>Rung 1: <code>results.qmd</code> falls back to the committed <code>data/class_results.csv</code> automatically. Rung 2: pull the Sheet CSV, commit, re-render locally, share my screen. Rung 3: the static 840-spec curve + five-analyst slides still carry the debrief. Submissions are safe in the Sheet regardless – nothing upstream blocks on the chart.</td>
+</tr>
+<tr class="even">
+<td><strong>Breakout rooms unavailable</strong></td>
+<td>Every pair moment has a scripted chat variant. Zero structural cost.</td>
+</tr>
+<tr class="odd">
+<td><strong>OSF slow/unreachable during the scavenger</strong></td>
+<td>Show h7432 on my screen; the beat survives. Data never depends on OSF live – it ships with the workspace and the browser lab.</td>
+</tr>
+<tr class="even">
+<td><strong>My connection drops</strong></td>
+<td>The standing order in chat: participants continue the current task or break early; I rejoin. The pipeline keeps collecting – it is entirely independent of the call.</td>
+</tr>
+<tr class="odd">
+<td><strong>A participant cannot speak/hear</strong></td>
+<td>Everything essential is chat-and-screen; deliver any spoken instruction in chat on request.</td>
+</tr>
+<tr class="even">
+<td><strong>Recording objections</strong></td>
+<td>Recording is optional by design – stop it; nothing depends on it.</td>
+</tr>
+<tr class="odd">
+<td><strong>Prereg mirror form fails</strong></td>
+<td>The rendered block is the record; carry on.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="answer-keys-and-expected-numbers" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="answer-keys-and-expected-numbers"><span class="header-section-number">10</span> Expected numbers</h2>
+<ul>
+<li>Warm-up matrix question set: 1 = reproducibility (a failed attempt is still reproducibility) · 2 = the grey area between reproducibility and robustness – argue both ways · 3 = replicability · 4 = generalisability.</li>
+<li>Task 3 (the workspace and the browser lab, unchanged): b = −0.00347, SE = 0.00091, <strong>t = −3.804</strong>, df = 233, N = 270 (<code>EUframes_cy.csv</code>) – the value on record for C6HJR, reproduced directly from <code>euframes</code>.</li>
+<li>The data-preparation material is off the running order and out of the deck. If you want to raise it on the day, the facts, the withdrawn slides and their speaker notes are in <code>_planning/block2-error-story-withdrawn-2026-07-30.md</code>, local to your machine – paste any block straight back into the deck.</li>
+<li>Family axis (a first-class menu axis; not part of the Multi100 Task-2 menu, which fixed unemployment and, implicitly, the gaussian scale): beta submissions report <strong>z</strong>, not t. In the browser lab every spec, beta included, is read from the pre-computed grid, so <code>report_result()</code> takes no fit; the workspace fits beta live. Grid-lookup fallback: any spec looks up in its shard under <code>data/grid/</code> – the file is named by the six Level 1 choices, the row by the other eight; the cheatsheet has the recipe. The beta family is pre-computed at the canonical measurement settings only. Beta twin of C6HJR’s published Multi100 specification: b(logit) = −0.01399, <strong>z = −4.075</strong>, r = −0.258 (C6HJR’s Gaussian r = −0.242: same direction, still significant, slightly stronger).</li>
+<li>Claim-alignment (the room’s convention, set on the spec menu): negative framings (<code>mcomm</code>, <code>mlib</code>, <code>mneg</code>) reverse-coded 1 − y before fitting; sign of b, t and r flips, magnitudes and p untouched (exactly so for beta too). Aligned r runs <strong>−0.70 to +0.24</strong> (gaussian; beta reaches +0.29) – so a class dot above ≈ +0.25 is almost certainly an <strong>un-recoded negative framing</strong>, not a genuine contrary result; name that in the debrief. One caveat from the growth-predictor axis: legitimately aligned growth-predictor dots can reach ≈ +0.37 – check the declared spec before calling it.</li>
+<li>Analyst placement (share of grid more negative, claim-aligned): KEVF1 15.8% · KQXUE 21.5% · C6HJR 49.6% · 018OL 63.1% · PRL47 67.9%. The two person-level analysts (KEVF1, PRL47) sit at the extremes; the constrained baseline lands almost exactly at the median of the aligned grid.</li>
+<li>Task-1 layer (slide after analyst placement): free phase = five different questions – 018OL GDP p.c. level, KEVF1 growth, PRL47 a GDP battery; only KQXUE and C6HJR used unemployment – with one shared recorded verdict (‘evidence for the claim’). No standardised Task-1 effect sizes exist in the public Multi100 data (verdict + free text only). My own Task 1 (<code>mposframe ~ growth + unemp</code>, two-way FE, World Bank series) reproduces from the committed as-submitted panel: unemployment t = −4.72, growth ns – standardisation <em>weakened</em> my result.</li>
+<li>Predictor axis (a first-class menu axis; menu + lab lookup in the <code>data/grid/</code> shards; at the canonical measurement settings the growth half is 840 cells across both families; not part of the Multi100 Task-2 menu, though Task 1 shows three of five analysts freely chose GDP measures): GDP growth as claim carrier, raw form only – affine forms are t-inert (centred≡raw, log-z≡log), which is why the deduplicated canon holds 840 distinct analyses. Growth predictor (840 rows in the full grid): 70.5% claim-direction / 46.9% significant, aligned max +0.37 – direction without significance, matching KQXUE’s Task-1 growth null. Growth mirror of my Task-1 model on the EU-frames panel: b = +0.00167, t = 1.59, ns. Growth polarity: claim-aligned reporting flips the sign (lab lookup does it).</li>
+<li>Fork importance: outcome 49.7% · residual/interactions 49.2% · sample 0.7 · estimator 0.4 · predictor form/copredictor/weights ≈ 0.</li>
+<li>Sign flips (mcosmo universe, 140 specs): 41 wrong-sign; 33 in <code>pooled_cl</code>, 8 in <code>fe_twoway</code>; 24 of the 41 in bailout-excluding samples (halved from the pre-dedupe counts – every distinct analysis appeared exactly twice before, so shares are invariant).</li>
+<li>Constrained universe: 140 specs · 70.7% negative · 57.1% negative-and-significant. Discussion-beat target: “no verdict without a null for dependent specifications – that is what a curve-level permutation test would supply (the design in the inference reading).”</li>
+<li>Baseline percentile (for participants without their own submission): −3.804 ⇒ ≈ 49.6% on the claim-aligned scale.</li>
+</ul>
+<hr>
+</section>
+<section id="debrief-question-bank" class="level2" data-number="11">
+<h2 data-number="11" class="anchored" data-anchor-id="debrief-question-bank"><span class="header-section-number">11</span> Debrief questions</h2>
+<p>Choose by what the class chart actually shows, not by the order below.</p>
+<ol type="1">
+<li><strong>Sign flip:</strong> “Did anyone’s specification flip the sign? If not – after seeing the flips chart, where would you have had to stand in the menu to flip it?”</li>
+<li><strong>Significance loss:</strong> “Did any spec lose significance? Reason to doubt the claim, or to scrutinise that spec?”</li>
+<li><strong>Axis that moved most:</strong> “Before I showed the decomposition – which axis did you bet on, and why did most of us get it wrong?”</li>
+<li><strong>Justification quality:</strong> “Whose DAG settled their choice? Whose DAG could have justified three different specs equally well?”</li>
+<li><strong>Preregistration felt:</strong> “Did completing the block before running change how the result felt when it landed? Would you have chosen differently after seeing it?”</li>
+<li><strong>Robustness tolerance:</strong> “Multi100 used ±0.05 and ±0.20 d.&nbsp;Is the claim robust by the tight standard here? The loose one? Who gets to choose the tolerance for a policy claim?”</li>
+<li><strong>Against the five analysts:</strong> “The class overlaps the five analysts’ range. Is that reassuring or circular? What would a result <em>outside</em> their range have meant?”</li>
+<li><strong>Percentile literacy:</strong> “Your percentile places you among 840 defensible alternatives. What does a 10th-percentile analyst owe their reader that a 50th-percentile analyst does not?”</li>
+<li><strong>The three Rs on one paper:</strong> “This paper failed reproduction, survived robustness in sign but not magnitude, and sign-flipped in replication. Which R should worry us most – and does it depend on what the finding is used for?”</li>
+<li><strong>The inference gap:</strong> “If a curve-level permutation test came back at p = .30, what would survive of today? What if it came back at p = .004?”</li>
+</ol>
+<hr>
+</section>
+<section id="after-the-session" class="level2" data-number="12">
+<h2 data-number="12" class="anchored" data-anchor-id="after-the-session"><span class="header-section-number">12</span> After the session</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Run the reset procedure from the top of this guide: export + commit the date-stamped snapshot, rotate the Sheet rows.</label></li>
+<li><label><input type="checkbox">Export the feedback form responses.</label></li>
+<li><label><input type="checkbox">Improvement log – record: which segment ran longest; did the estimand idea land (could people write one, did the waterfall show real spread); did the extra room in Part 2 let the DAGs breathe or expose thin material; how many declarations before the proceed rule fired; did every participant land a dot (which ladder rungs fired); did webR hold on home connections; Teams frictions (chat scale, breakouts, share switching).</label></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/codemoreh\.github\.io\/applied-replication\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="https://github.com/CodeMoreh/applied-replication">GitHub repo</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

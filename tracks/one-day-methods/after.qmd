@@ -1,0 +1,17 @@
+---
+title: "After the day"
+---
+The methods strand of the [companion curriculum](../../companion/index.qmd) is where each model and each argument of the day is taken further.
+
+| If you want | Read |
+|---|---|
+| Every model on the menu, output by output, including the multilevel, Bayesian and beta-regression sections the day only names | [The statistical methods behind the course](../../companion/stats-methods.qmd) |
+| The graph work at a slower pace, and a graph for a question of your own | [Causal graphs](../../companion/dags.qmd) |
+| The measurement decisions the menu opened | [Weights](../../companion/weighting.qmd), [Missing answers](../../companion/missingness.qmd) and [The items behind the scales](../../companion/measurement.qmd) |
+| The multiverse debate in full, with the 2025–26 critics read against the course grid | [The multiverse and its critics](../../companion/multiverse.qmd) |
+| Data with a known recipe, to test what a method recovers | [Simulation as a method](../../companion/simulation.qmd) |
+| The same claim at the individual level | [The individual level](../../companion/individual-level.qmd) |
+| To archive and version the report you wrote | [Reproducibility repositories](../../companion/repositories.qmd), then [Git and GitHub](../../companion/git-github.qmd) |
+| To find the data for a project of your own, or to obtain the data behind this one | [Social science data sources](../../companion/data-sources.qmd) |
+
+The [replication-focused day](../one-day-replication/index.qmd) is the original balance of this course, the [tools-focused day](../one-day-tools/index.qmd) gives the toolchain the time this day gives the statistics, and the [three-day format](../three-days/index.qmd) does both.

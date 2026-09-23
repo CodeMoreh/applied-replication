@@ -1,6 +1,6 @@
 ---
-title: "One claim, two levels"
-subtitle: "The case analysed where its author analysed it, on data you can run"
+title: "The individual level"
+subtitle: "The case fitted at the respondent level, on the real respondents and on their synthetic twin, and the second claim of the paper"
 bibliography: [../references.bib, ../references-new.bib]
 ---
 
@@ -13,9 +13,16 @@ library(readr)
 library(purrr)
 library(ggplot2)
 library(lmerTest)
+library(fixest)
+library(tinytable)
 
 twin  <- read_csv("../data/EUframes_person_full.csv", show_col_types = FALSE)
 panel <- read_csv("../data/EUframes_cy.csv", show_col_types = FALSE)
+edu   <- read_csv("../data/EUframes_cy_edu.csv", show_col_types = FALSE) |>
+  mutate(edu3 = factor(edu3, levels = c("low", "mid", "high")),
+         munemp = unemp - mean(unemp), mgrowth = growth - mean(growth))
+claim2 <- read_csv("_model-outputs/claim2_fits.csv", show_col_types = FALSE)
+fmt <- \(x, d = 4) gsub("-", "−", formatC(x, digits = d, format = "f"), fixed = TRUE)
 valid <- read_csv("_model-outputs/twin_validation.csv", show_col_types = FALSE)
 real_ml <- read_csv("_model-outputs/person_multilevel_real.csv",
                     show_col_types = FALSE)
@@ -41,27 +48,29 @@ rv <- function(model, term, what = "value") {
 }
 ```
 
-Every other page on this site works at the country-year level: 270 rows, one per country and year, which is where the workshop's own exercise lives. The study underneath it did not. Its central result comes from a model fitted to individual survey respondents, and some things visible there are invisible from above.
+Every other page on this site works at the country-year level: 270 rows, one per country and year, which is where the course exercise lives. The study underneath it did not. Its central result comes from a model fitted to individual survey respondents, and some things visible there are invisible from above.
 
-This page fits that model. It is optional, it is not part of the workshop day, and it exists so that the individual-level version of the argument is available rather than merely described. The original author is referred to throughout as OA, following the convention of the rest of the site.
+This page fits that model. It is optional, it is not part of the workshop day, and it exists so that the individual-level version of the argument is available rather than merely described. It runs on two datasets, and section 2 says which is which: the real respondents, for anyone who has built the respondent file from their own GESIS downloads, and a synthetic twin of them, which ships with the course and on which every code chunk on this page runs. The closing section takes the same data to the second claim of the paper, the one about the education gap, which is intrinsically a claim about individuals inside countries. The original author is referred to throughout as OA, following the convention of the rest of the site.
 
-## 1. Why the level matters at all {#sec-why}
+## 1. The level of analysis {#sec-why}
 
-The claim is about countries: when a national economy performs badly, do the people in it frame the EU less positively? That is a statement about country-years, and the workshop's panel answers it directly.
+The claim is about countries: when a national economy performs badly, do the people in it frame the EU less positively? That is a statement about country-years, and the course panel answers it directly.
 
 But the same words license a second reading. Perhaps unemployed *people* frame the EU differently, so a country with more of them shows a lower average without anything having changed for anyone else. The first reading is **contextual** – living through high unemployment changes how everyone frames the EU. The second is **compositional** – the mix of people changed, not the people.
 
 A country-year panel cannot separate them, because it contains no people. Individual data can, and this page does it.
 
-## 2. The dataset, and why you can trust it {#sec-twin}
+## 2. The two datasets {#sec-twin}
 
-The Eurobarometer microdata behind the case are GESIS-licensed and cannot be redistributed, so this page cannot ship the real respondents. What it ships instead is a **synthetic twin**: `EUframes_person_full.csv`, `r format(nrow(twin), big.mark = ",")` simulated respondents across the real 270 country-years, carrying every variable that OA's published regressions use. No real respondent appears in it. [The simulation module](simulation.qmd) explains how it is built; the short version is that a respondent's characteristics come from a correlation structure estimated on the real file, and their answers from a model of the survey instrument conditional on those characteristics.
+The Eurobarometer microdata behind the case are GESIS-licensed and cannot be redistributed, so this page cannot ship the real respondents. They are reachable all the same: the sixteen survey files download under a free GESIS account, and the workspace's build script turns them into one respondent file, `data_private/eb_respondents.rds`, whose [codebook](../data/eb_respondents_codebook.md) is published even though the file is not. The [data sources module](data-sources.qmd#sec-gesis) walks through the download and the [data management module](data-management.qmd) through the build. Every number on this page labelled "real" was computed on that file by a script in the course repository, and a reader who holds the file can rerun the script; the code chunks shown on the page run on the twin, so that the page renders for everyone, and swapping the twin for the respondent file in the setup chunk is a one-line change.
+
+What the course ships is a **synthetic twin**: `EUframes_person_full.csv`, `r format(nrow(twin), big.mark = ",")` simulated respondents across the real 270 country-years, carrying every variable that OA's published regressions use. No real respondent appears in it. [The simulation module](simulation.qmd) explains how it is built; the short version is that a respondent's characteristics come from a correlation structure estimated on the real file, and their answers from a model of the survey instrument conditional on those characteristics.
 
 What licenses a number from it is the validation rather than the care in construction: the same model was fitted to the real respondents and to the twin, and the two coefficient vectors were compared.
 
 ```{r}
 #| label: tbl-validation
-#| tbl-cap: "Every coefficient of the anchor model, fitted on 416,698 real respondents and on the twin. The last column is the difference over the two-sample standard error."
+#| tbl-cap: "Every coefficient of OA's published model, fitted on 416,698 real respondents and on the twin. The last column is the difference over the two-sample standard error."
 valid |>
   summarise(
     `coefficients compared` = n(),
@@ -74,10 +83,10 @@ valid |>
 
 Two cautions belong here rather than in a footnote. The yardstick above is the **two-sample** standard error, which asks whether a difference exceeds the sampling noise of the twin itself – the question that a reader quoting one of its numbers has. Judged instead against the precision that 416,698 respondents afford, only `r sum(abs(valid$gap_in_se) < 2)` agree; the twin holds a tenth as many people and cannot stand in at full precision. And the model validated is OA's specification with its cross-level interactions removed. The twin reproduces that. It is not validated for the interacted form, and should not be quoted for it.
 
-## 3. The anchor, at the level it was estimated {#sec-anchor}
+## 3. The published model {#sec-published-model}
 
 ```{r}
-#| label: anchor
+#| label: published-model
 fit <- function(y) {
   f <- reformulate(c("female", "mage", "edu3", "ses", "urban",
                      "mgrowth", "munemp", "(1 | cntry)", "(1 | cy)"),
@@ -96,7 +105,7 @@ Now read `sesunemployed`, which is the same respondent's own employment status. 
 
 That comparison is the one that people get wrong, so it is worth doing the arithmetic rather than eyeballing it.
 
-## 4. A large individual effect that explains almost nothing {#sec-composition}
+## 4. Individual effects and aggregate associations {#sec-composition}
 
 The two coefficients above are not competing explanations of the same thing, and the units make the difference. The individual effect applies to whoever is unemployed. The contextual effect applies to everyone. So how much of the country-level association could the individual effect account for?
 
@@ -125,13 +134,13 @@ One caution about that figure. It is computed from the coefficients of the twin 
 
 This is the calculation to demand whenever an aggregate association is explained by 'it must be the people who changed'. It is rarely done, and it usually does not survive being done. Note also what it takes: an individual-level effect, *and* a prevalence gradient. The second is the part that gets assumed, and it is measurable.
 
-## 5. Two designs, one claim, different answers {#sec-designs}
+## 5. Two designs {#sec-designs}
 
-The workshop's panel and OA's own model are both defensible readings of the same claim, and they do not agree.
+The course panel and OA's own model are both defensible readings of the same claim, and they do not agree.
 
 ```{r}
 #| label: tbl-levels
-#| tbl-cap: "The unemployment coefficient on cosmopolitan framing under two designs. The aggregate model is the workshop's anchor; the individual model is the published one, fitted on the twin."
+#| tbl-cap: "The unemployment coefficient on cosmopolitan framing under two designs. The aggregate model is C6HJR's published Multi100 specification; the individual model is OA's published one, fitted on the twin."
 agg <- lm(mcosmo ~ unemp + growth + factor(year) + factor(cntry), data = panel)
 
 tibble(
@@ -145,7 +154,7 @@ tibble(
 
 The individual-level estimate is about half again as large, and the reason is in the last column. OA's design carries country and country-wave random intercepts but **no year effects**. Nothing in it removes a shock that hit every country at once, and 2009 was exactly that: unemployment rose everywhere and EU framing moved everywhere, for reasons that include but are not limited to unemployment. The two-way fixed-effects design removes it; OA's does not, so its estimate carries some of it.
 
-Neither is wrong. They are answers to different questions, which is the workshop's own argument arriving one level down – and it is worth noticing that the difference here is larger than most of the forks on the specification menu.
+Neither is wrong. They are answers to different questions, which is the course argument arriving one level down – and it is worth noticing that the difference here is larger than most of the forks on the specification menu.
 
 The sharper version is the libertarian dimension:
 
@@ -163,7 +172,7 @@ tibble(design = c("country-year panel", "individual"),
 
 On the panel it is inert. At individual level it is clearly moving. An effect that exists or does not depending on which defensible design you chose is a strong argument for declaring the design before looking.
 
-## 6. What the levels do to the evidence {#sec-levels}
+## 6. Levels and evidence {#sec-levels}
 
 The multilevel structure matters here for the standard error, and for what the model is willing to count as information.
 
@@ -215,7 +224,7 @@ The country-year component in the twin runs about a sixth above the real one, an
 
 Person-level sample sizes advertise precision that the design does not possess whenever the predictor lives at a higher level. Two of the five Multi100 analysts fitted person-level models, and this is a large part of why their strengths of evidence differ so much from the other three.
 
-## 7. What this dataset will and will not support {#sec-limits}
+## 7. The limits of the dataset {#sec-limits}
 
 Stated plainly, because a synthetic dataset that is trusted for the wrong things is worse than none.
 
@@ -228,9 +237,81 @@ Stated plainly, because a synthetic dataset that is trusted for the wrong things
 ::: {.callout-tip}
 ## Try it
 
-Fit the model of [section 3](#sec-anchor) again with `ses` removed, and watch what happens to `munemp`. It should barely move, and the reason is [section 4](#sec-composition): the compositional path is a few per cent of the total, so deleting the variable that carries it changes little.
+Fit the model of [section 3](#sec-published-model) again with `ses` removed, and watch what happens to `munemp`. It should barely move, and the reason is [section 4](#sec-composition): the compositional path is a few per cent of the total, so deleting the variable that carries it changes little.
 
 Then do the same with `mgrowth` removed, and with the country-year random intercept removed. One of those three matters far more than the others; find out which, on data whose answer you can check.
+:::
+
+## 8. Claim 2 – the education gap {#sec-claim2}
+
+The paper's second hypothesis is about people inside countries, and it cannot be put to the 270-row panel at all. Its abstract states the finding in one sentence, and the sentence is the claim card for a second replication exercise, written in the style of the first:
+
+> "…high unemployment rates affect the EU framing of high-educated citizens to a larger extent…" (Teney 2016, p. 619), or, in the same abstract's other words, "high unemployment rates are associated with a smaller gap between high- and low-educated citizens in the way they frame the EU".
+
+> **Unemployment × high education → cosmopolitan EU framing: b = −0.0031, t = −6.93, p < .001** (Table 3, Model 1), beside an education gap of b = 0.0771 (t = 41.79) and an unemployment slope of b = −0.0034 (t = −4.03) at the lowest education band.
+
+The estimand statement, in the form the [specification menu](../exercise/spec-menu.qmd#the-estimand-statement) uses: among respondents in the 27 member states surveyed between 2004 and 2013, the difference between high- and low-educated respondents in the association between the national unemployment rate, measured as the World Bank series, and cosmopolitan EU framing, built as the share of a respondent's mentions, comparing each country with itself over time. The quantity is an interaction: not the effect of unemployment, and not the effect of education, but how much the first differs by the second. That is what makes the claim individual-level. Education is a property of respondents, unemployment a property of country-years, and the question is whether people who differ on the first respond differently to the second.
+
+**Three ways to estimate it.** The published model is a three-level random-intercept model with the interaction terms and the full covariate set, fitted on the respondents. The same interaction can be fitted with country and year fixed effects instead of random intercepts, which absorbs the level of unemployment and leaves only its difference between bands identified, from the within-country movement of each band. And the interaction can be fitted on cells rather than respondents: the [education-band panel](../data/EUframes_cy_edu_codebook.md) holds one row per country, year and band, and a fixed-effects regression on its 810 rows, weighted by the respondents behind each mean, asks the same question of the same data one rung up the ladder. The first two were run on the real respondents; the third runs here, on public data, in a few lines:
+
+```{r}
+#| label: claim2-cells
+m_edu <- feols(mcosmo ~ edu3 * munemp + edu3 * mgrowth | cntry + year,
+               data = edu, weights = ~n, vcov = ~cntry)
+parameters::model_parameters(m_edu, keep = "edu3|munemp") |>
+  as.data.frame() |>
+  select(Parameter, Coefficient, SE, t, p) |>
+  mutate(across(where(is.numeric), \(x) signif(x, 3))) |>
+  tt()
+```
+
+```{r}
+#| label: tbl-claim2
+#| tbl-cap: "The education gap and its interaction with unemployment on the cosmopolitan scale, under three designs and two rules for the respondents who named nothing. The published model is fitted on the real respondents with OA's covariates and random intercepts for countries and country-waves; the fixed-effects model on the same respondents with errors clustered by country-year; the cell model on the education-band panel, which is built under the zero rule. Coefficient, with t in brackets. The first row is OA's Table 3, Model 1."
+fitted_rows <- claim2 |>
+  filter(outcome == "cosmo",
+         term %in% c("unemployment", "education: high", "mid x unemployment", "high x unemployment")) |>
+  mutate(rule = if_else(grepl("dropped", model), "no-opinion dropped", "no-opinion scored zero"),
+         design = case_when(grepl("^published", model) ~ "published model, respondents",
+                            level == "respondent"      ~ "fixed effects, respondents",
+                            TRUE                       ~ "fixed effects, education-band cells"),
+         value = paste0(fmt(estimate), " (", fmt(statistic, 2), ")")) |>
+  select(design, rule, term, value) |>
+  pivot_wider(names_from = term, values_from = value) |>
+  arrange(design, rule)
+oa_row <- tibble(design = "OA, Table 3 Model 1", rule = "no-opinion dropped",
+                 unemployment = "−0.0034 (−4.03)", `education: high` = "0.0771 (41.79)",
+                 `mid x unemployment` = "−0.0014 (−3.23)", `high x unemployment` = "−0.0031 (−6.93)")
+bind_rows(oa_row, fitted_rows) |>
+  select(design, rule, unemployment, `education: high`, `mid x unemployment`, `high x unemployment`) |>
+  tt()
+```
+
+Read the table one row at a time, because the rows tell the story in order. The published design under the published rule reproduces OA's interaction almost exactly, −0.0029 against her −0.0031, with the same t to the first decimal, and the other terms of the row sit within the distance one would expect between her Eurostat unemployment series and the course's World Bank series. That row is the reproduction, and it is the one to quote. The next row changes one thing, the rule for the respondents who named no item at all: OA's code dropped them, because dividing by a mentions total of zero left them missing, and the course scores them zero on every scale, as the Multi100 reanalyses did. The interaction halves. The respondents who name nothing are disproportionately low-educated, and scoring them zero pulls the low band's cosmopolitan mean down in every cell in a way that does not move with unemployment, so the gap between the bands and its movement both change. A decision that the [missing-answers module](missingness.qmd) files under measurement moves a coefficient at the top of the claim.
+
+The fixed-effects rows change the design instead. With country and year effects in the model there is no level of unemployment left to estimate, only its difference between bands, identified from each band's own movement within its country; and under that design the interaction halves again under the published rule and loses conventional significance, and sits at zero under the zero rule. The cell row, fitted on 810 aggregates that anyone can download, agrees with the respondent-level fixed-effects row under the same rule, which is what it should do, and confirms that the aggregate route asks the question the respondent route asks. What the whole table says is that the claim is there under the design and the rule its author used, and thins out step by step as year effects enter and as the respondents who named nothing are kept rather than dropped. That is the finding of [section 5](#sec-designs) again, for a claim that lives one level down: OA's design carries no year effects, 2009 moved unemployment and framing everywhere at once, and the education bands did not move alike.
+
+The paper's own results carry two qualifications that a replication should keep in view. The interaction holds for the cosmopolitan, communitarian and libertarian scales and not for the utilitarian one, where "unemployment rate affects to the same extent the level of utilitarian framing of low-, middle-, and high-educated citizens" (p. 628). And the second sentence of the hypothesis, that the gap would move more on the materialist scales, is contradicted by the paper's own table: "in contrast to my hypothesis, the interactions between education and unemployment rate are no larger for the materialist dimensions of EU framing" (p. 628). The [measurement module](measurement.qmd#sec-theory) says why that comparison presupposes a grouping the data only half support. The other three outcomes are in the committed table for anyone who wants to check the first qualification against the real respondents:
+
+```{r}
+#| label: tbl-claim2-outcomes
+#| tbl-cap: "The high × unemployment interaction on all four scales: OA's Table 3, Model 1, and the published model refitted on the real respondents with the no-opinion respondents dropped, as her code dropped them. Coefficient, with t in brackets."
+claim2 |>
+  filter(grepl("^published", model), grepl("dropped", model), term == "high x unemployment") |>
+  transmute(outcome, refitted = paste0(fmt(estimate), " (", fmt(statistic, 2), ")")) |>
+  left_join(tibble(outcome = c("cosmo", "util", "comm", "lib"),
+                   published = c("−0.0031 (−6.93)", "−0.0004 (−1.73)", "0.0020 (5.63)", "0.0015 (4.84)")),
+            by = "outcome") |>
+  select(outcome, published, refitted) |>
+  tt()
+```
+
+**A replication exercise of your own.** The pieces for a second exercise in the style of the first are all on this page: a claim card, an estimand statement, a public dataset on which the aggregate design runs in the browser lab or the workspace, the respondent file for anyone who built it, and OA's published values to reproduce. The menu is smaller than the first claim's and every axis of it is a decision you can defend or not: the frame set, the scoring rule, the rule for the respondents who named nothing, the education coding (the published three bands, or the four bands that keep students separate), the estimator (random intercepts, fixed effects, or cells), the sample, the weight, and whether growth enters beside unemployment. Declare one specification before you run it, run it, and set the interaction you get against the rows of the table above. The table already shows that two of those decisions, the design and the no-opinion rule, decide whether the claim is found, which is the multiverse of the first claim in miniature.
+
+::: {.callout-tip}
+## Try it
+
+Refit `m_edu` above with `edu3 * munemp` replaced by `edu3 * mgrowth` alone, and read the growth interactions against the paper's claim that "GDP growth impacts mainly on the EU framing of low-educated citizens" (p. 619). Then refit the cosmopolitan model with the utilitarian scale as the outcome and read the interaction that the paper found absent.
 :::
 
 ## Sources {#sec-sources}

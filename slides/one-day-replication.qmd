@@ -1,0 +1,51 @@
+---
+title: "Applied replication for data skills"
+subtitle: "One day – open science and replication"
+format: revealjs
+# Optional runs that this deck carries in its main flow (core-runs.lua
+# strips their .deepdive mark); the others stay on the d toggle.
+core-runs: []
+---
+
+{{< include _segments/_setup.qmd >}}
+{{< include _segments/_agenda-full.qmd >}}
+{{< include _segments/_opening.qmd >}}
+{{< include _segments/_p1-divider.qmd >}}
+{{< include _segments/_p1-credibility.qmd >}}
+{{< include _segments/_p1-matrix.qmd >}}
+{{< include _segments/_p1-score.qmd >}}
+{{< include _segments/_p1-multi100.qmd >}}
+{{< include _segments/_p1-opensource.qmd >}}
+{{< include _segments/_p1-tools.qmd >}}
+{{< include _segments/_p1-today-tools.qmd >}}
+{{< include _segments/_p1-handson1.qmd >}}
+{{< include _segments/_break1.qmd >}}
+{{< include _segments/_p2-divider.qmd >}}
+{{< include _segments/_p2-paper.qmd >}}
+{{< include _segments/_p2-estimands.qmd >}}
+{{< include _segments/_p2-lundberg.qmd >}}
+{{< include _segments/_p2-dags.qmd >}}
+{{< include _segments/_p2-ourclaim.qmd >}}
+{{< include _segments/_p2-rtutorial.qmd >}}
+{{< include _segments/_p2-handson2.qmd >}}
+{{< include _segments/_lunch.qmd >}}
+{{< include _segments/_p3-divider.qmd >}}
+{{< include _segments/_p3-task2.qmd >}}
+{{< include _segments/_p3-handson3.qmd >}}
+{{< include _segments/_p3-onenumber.qmd >}}
+{{< include _segments/_p3-menu.qmd >}}
+{{< include _segments/_p3-methods.qmd >}}
+{{< include _segments/_p3-handson4.qmd >}}
+{{< include _segments/_break2.qmd >}}
+{{< include _segments/_p4-divider.qmd >}}
+{{< include _segments/_p4-built.qmd >}}
+{{< include _segments/_p4-multiverse-tutorial.qmd >}}
+{{< include _segments/_p4-classchart.qmd >}}
+{{< include _segments/_p4-forks.qmd >}}
+{{< include _segments/_p4-percentile.qmd >}}
+{{< include _segments/_p4-inference.qmd >}}
+{{< include _segments/_p4-critics-prereg.qmd >}}
+{{< include _segments/_p4-archiving.qmd >}}
+{{< include _segments/_p4-moment.qmd >}}
+{{< include _segments/_p4-close.qmd >}}
+{{< include _segments/_references.qmd >}}

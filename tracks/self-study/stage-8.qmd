@@ -1,0 +1,12 @@
+---
+title: "Stage 8 – Putting the work where it can be found"
+---
+Working alone makes this stage more useful rather than less, because a repository is how work reaches someone who was not there when it was done. The git module is the practice that the taught day deliberately leaves out.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Social science data sources](../../companion/data-sources.qmd) | Where the data behind the course came from and how you would obtain them yourself: the Eurobarometer waves at GESIS, the World Bank indicators, the panel on OSF; and the map of the archives, survey programmes and statistical offices where the data for a project of your own are found, with the access route for each. | 60 minutes |
+| [Reproducibility repositories](../../companion/repositories.qmd) | What a repository has to do and which to use for what; the code forges; the Open Science Framework with its projects transition of 2026–27, the three OSF nodes behind this case, how archives, forks and registrations differ, the preregistration templates, and the six-step route for depositing a reanalysis of your own. | 90 minutes |
+| [Git and GitHub for reproducible research](../../companion/git-github.qmd) | Version control from first principles, a repository on your own machine, putting it online, and what belongs in git and what must never be committed. | 2 hours |
+
+**By the end of the stage** you have the whole of your work in a version-controlled repository that another person can clone and re-render, with the licensed material kept out of it and a stated route to where it can be obtained.

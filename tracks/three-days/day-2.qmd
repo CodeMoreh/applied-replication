@@ -1,0 +1,17 @@
+---
+title: "Day 2 – The workshop"
+---
+::: {.callout-note appearance="simple" icon=false}
+**Slides.** [Open the deck at this part](../../slides/three-days.html#/day-2-part-1-the-claim-and-its-estimand){target="_blank"} in its own tab, or follow it on the [slides page](slides.qmd).
+:::
+
+Day 2 is the workshop. It runs in three parts across the four sessions, because the day before has already carried the credibility argument and the toolchain, and the graph work in the first part is not to be hurried. Five numbered tasks and two submissions to the class chart, exactly as on the [one-day course](../one-day-replication/index.qmd).
+
+| Work through | What you do | Timing |
+|---|---|---|
+| Slides, day 2, Part 1 – The claim and its estimand | The paper in full; two studies set beside our five and the argument that they were not answering the same question; Lundberg's three steps; the causal-graph crash course; then our own claim, where everyone writes a one-sentence estimand, holds it, and sends it together. | Session 1, 90 minutes |
+| `R/dag_starter.R` in the workspace, or [Browser lab](../../exercise/browser-lab.qmd) Task 2; then slides, day 2, Part 2 – Reproduction and exploration, and your working script or Task 3 | Finish the graph: take the `#` off the arrows you would defend, re-run `adjustmentSets()`, write two sentences on what fixed effects adjust for. Then the three Multi100 instructions verbatim and what they assume; fit `mcosmo ~ unemp_c` with country and year fixed effects and land t = −3.804, the value on record for analyst C6HJR; type your t and hold it until the count. | Session 2, 90 minutes |
+| [Specification menu](../../exercise/spec-menu.qmd), Task 4 in the workspace or on the [Browser lab](../../exercise/browser-lab.qmd), then [Multiverse](../../results.qmd) | Why everyone landed the same t while five analysts did not; the axes, the three levels, what the constrained task left open, the claim-alignment convention. Then `try_spec()` three or four times, `my_experiments()`, and `submit_exploration()`: your dot lands as an open circle. Read the class chart against the five analysts. | Session 3, 90 minutes |
+| Slides, day 2, Part 3 – Multiverse and preregistration, with the percentile cell on the [Browser lab](../../exercise/browser-lab.qmd) page and Task 5 | Bet on which choice moves estimates most, then the decomposition; where the analysts sit; where the sign flips concentrate; your own percentile among the 840. The critics, what preregistration settles, and then the declaration: complete the block before you run anything, translate it into syntax, run it, and submit with `report_result()`. | Session 4, 90 minutes |
+
+**By the end of the day** you have reproduced t = −3.804, submitted one exploratory dot and one declared dot to the class chart, and written the report that carries them.

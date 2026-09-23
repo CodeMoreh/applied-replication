@@ -1,42 +1,119 @@
 ---
 title: "Specification Menu"
-subtitle: "Choosing your specification"
+subtitle: "Fourteen decisions on three levels"
+bibliography: ../references.bib
 ---
 
-The specification menu defines the space of justifiable analyses you choose from. Every option is defensible, but you have to write the defence yourself.
+```{r}
+#| label: setup
+#| include: false
+suppressPackageStartupMessages(library(dplyr))
+dl  <- datawizard::data_read("../data/decision_levels_maximal.csv", verbose = FALSE)
+lev <- datawizard::data_read("../data/axis_level_summary_maximal.csv", verbose = FALSE)
+dcl <- datawizard::data_read("../data/decision_classes_maximal.csv", verbose = FALSE)
+man <- datawizard::data_read("../data/grid/manifest.csv", verbose = FALSE)
+pw  <- datawizard::data_read("../data/teney_panel_weights.csv", verbose = FALSE)
+# the class table is computed under two readings of the scoring rule: as an
+# estimand decision, which the menu adopts, and as a measurement decision
+dcl_p <- dcl |> filter(construction_class == "estimand")
+dcl_a <- dcl |> filter(construction_class == "measurement")
+pct <- function(x, d = 1) sprintf(paste0("%.", d, "f%%"), x)
+big <- function(x) format(x, big.mark = ",")
+v   <- function(a) pct(dl$var_share[dl$axis == a])
+x   <- function(a) pct(dl$cross_share[dl$axis == a], 0)
+cls <- function(k) pct(sum(dl$var_share[dl$class == k]))     # main effects
+ncl <- function(k) pct(dcl_p$nested_share[dcl_p$class == k])  # with the interactions, by level
+ncl_alt <- function(k) pct(dcl_a$nested_share[dcl_a$class == k])
+resid <- 100 - sum(dl$var_share)
+n_rows <- sum(man$rows) - sum(man$derived); n_derived <- sum(man$derived)
+n_files <- nrow(man); n_questions <- 2 * n_files
+```
 
-The menu mirrors the structure of Gelman's 'garden of forking paths': at each decision point, there is more than one reasonable choice, and choosing without reasons is what turns a multiverse into noise.
+The specification menu defines the space of justifiable analyses you choose from. Every option on it is defensible, but you have to write the defence yourself, and the menu is arranged so that you know what kind of defence each choice needs.
 
-One note on ordering. The day runs the Multi100 sequence in reverse: its analysts chose freely first and were standardised months later, while you start from the standardised baseline model and recover the freedom one declared axis at a time. The menu therefore expands a single constrained option rather than restricting a blank page.
+The menu mirrors the structure of Gelman's 'garden of forking paths': at each decision point there is more than one reasonable choice, and choosing without reasons is what turns a multiverse into noise. The course runs the Multi100 sequence in reverse. Its analysts chose freely first and were standardised months later; you start from the standardised specification and recover the freedom one declared axis at a time.
+
+One thing distinguishes this menu from a list. The fourteen decisions are not fourteen of the same thing. Some change **what you are estimating**, so that two people who choose differently are answering different questions and their results are not rival estimates of one quantity. Some change **how a named thing is measured**, leaving the question alone. Some change **neither**, only how the fixed quantities are fitted and how sure the answer is. Run the decomposition over the pre-computed universe and the grouping is not presentational: taken one at a time, the estimand decisions carry `r cls("estimand")` of the variance in the estimate between them, the measurement decisions `r cls("measurement")`, and the estimation decisions `r cls("estimation")`, with `r pct(resid)` in the interactions between axes – the estimator decides how much every other decision matters, so on a fully crossed grid that is where much of the variance has to sit. Attribute each interaction to the level of the decisions that produce it and the picture is cleaner: `r ncl("estimand")` of the variance lies between questions, `r ncl("measurement")` is added by measurement within a question, and `r ncl("estimation")` by the estimation. Choose level by level, and write your reasons at the level the choice belongs to.
+
+
+## The estimand statement
+
+Write the statement your analysis will complete:
+
+> Among **units** in **population**, the association between **poor economic performance**, measured as **X**, and **EU framing**, measured as **Y**, comparing **what with what**.
+
+Move one decision and reread the statement. If a bold slot other than the two "measured as" slots changes, you have made an estimand decision. If only a "measured as" slot changes, you have made a measurement decision. If nothing in the statement changes, you have made an estimation decision. The completed statement is your estimand [@LundbergEtAl2021WhatYourEstimand], and it is what a reader has to know before your coefficient means anything.
+
+The test sorts decisions relative to the statement you wrote, not absolutely. Write the statement finely enough to name the published series behind the unemployment rate and every decision on the menu rewrites it; write it as loosely as "the economy and EU framing" and none does. The statement is written at the resolution of the claim, which names the constructs and the comparison and not the figures that stand for them. One decision sits on the boundary: whether a respondent's answers enter as a share of their own mentions or as a count of the set's items. Both are built from the same thirteen items, which is a reason to call the choice a matter of measurement; but a share and a count remain different quantities however well the items were measured, one the weight of a framing among the frames a person holds and the other its volume, and two people who differ on it would not accept each other's number as an estimate of the same thing. That is the criterion the menu uses, it places the scoring rule at Level 1, and the closing section reports what the other placement would change.
+
+## Level 1 – Estimands {#level-estimand}
+
+| Decision | Options (`code`) | What it changes | Share of variance | Crosses p = .05 |
+|:--|:--|:--|--:|--:|
+| **Frame set** | cosmopolitan `mcosmo` · utilitarian `mutil` · communitarian `mcomm` · libertarian `mlib` · positive composite `mpos` · negative composite `mneg` | *EU framing*: which meanings count as the outcome. The claim speaks of dimensions in the plural; Task 2 fixed the cosmopolitan scale and the claim does not. What the thirteen items say about the four scales is on [The items behind the scales](../companion/measurement.qmd) | `r v("outcome")` | `r x("outcome")` |
+| **Scoring rule** | share of a respondent's own mentions `share` · count of the set's items mentioned `count` · count per item in the set `rate` | *EU framing*: what "more of it" means. The original paper and three analysts used the share, which is compositional, so mentioning anything else lowers it; two analysts used a count, which tracks how much a person says about the EU at all. The rate is the count divided by the number of items in the set: the same fit as the count for the linear family, and a proportion that the beta family can take | `r v("construction")` | `r x("construction")` |
+| **Claim-carrying predictor** | unemployment `unemp` · GDP growth `growth` | *poor economic performance*. Task 2 fixed unemployment; three of the five analysts chose a GDP measure in Task 1 | `r v("predictor")` | `r x("predictor")` |
+| **Adjustment set** | none `none` · the other macro measure `other` | *comparing what with what*: holding growth fixed asks a different question from not doing so. Confounder or second predictor is the causal-graph question | `r v("copredictor")` | `r x("copredictor")` |
+| **Sample** | all 27 states 2004–2013 `all` · 2004–2008 `y2004_2008` · 2009–2013 `y2009_2013` · excluding bailout recipients `no_bailout` · excluding Greece and Spain `no_GR_ES` | *population*. Conventionally run as a robustness check; it changes which countries and years the claim is about | `r v("sample")` | `r x("sample")` |
+| **Whose average** | none `none` · respondents interviewed `n_cell` · effective sample size `n_eff` · adult population `pop` | *units*. Unweighted, every country counts once; by population, every European counts once; by sample size or effective size, the weight is a precision argument that leaves the estimand alone. See [Weights](../companion/weighting.qmd) | `r v("reg_weight")` | `r x("reg_weight")` |
+| **Estimator** | two-way fixed effects `fe_twoway` · country fixed effects `fe_country` · random effects `re` · pooled OLS `pooled_cl` | *comparing what with what*: a country with itself over time, or countries with one another | `r v("estimator")` | `r x("estimator")` |
+
+: The seven estimand decisions. Share of variance is the axis's contribution to the claim-aligned partial correlation across the linear tier of the grid; "crosses" is the share of cells in which moving this axis alone, everything else held fixed, spans p = 0.05. The per-item rate is not a level of the decomposition: for the linear family it is the count divided by a constant, so it is not fitted separately. {#tbl-level1}
+
+## Level 2 – Measurement {#level-measurement}
+
+The question holds. What changes is how a named construct becomes a column of numbers.
+
+| Decision | Options (`code`) | What it changes | Share of variance | Crosses p = .05 |
+|:--|:--|:--|--:|--:|
+| **No-opinion handling** | score 0 `zero` · drop `drop` · drop "don't know" and blank, keep "other" at 0 `split` · multiply impute `mi_mice`, `mi_amelia` | What a respondent who mentioned nothing means. The Multi100 reanalyses scored 0; the original author's code dropped them. See [Missing answers](../companion/missingness.qmd) | `r v("noop")` | `r x("noop")` |
+| **Item set** | all 13 items `all` · without the "unemployment" item `un` | The original author's own sensitivity set: an outcome item that names unemployment shares content with an unemployment predictor | `r v("item_set")` | `r x("item_set")` |
+| **Cell weighting** | as interviewed `unweighted` · Eurobarometer W1 design weight `design` | Whether the cell mean estimates the country's population or its achieved sample | `r v("cell_weight")` | `r x("cell_weight")` |
+| **Published series** | unemployment: World Bank `wb_nat` · Eurostat 15–74 `es_1574_act` · Eurostat 20–64 as share of population `es_2064_pop` · labour force survey 25–64 `es_2564_lfs` · `tipsun20` `es_1574_tips` ; growth: World Bank `wb_growth` · Eurostat `es_growth` | Which figure stands for the construct. The five analysts merged five different ones. Two of the series remove country-years as well as changing values | `r v("measure")` | `r x("measure")` |
+
+: The four measurement decisions. {#tbl-level2}
+
+## Level 3 – Estimation {#level-estimation}
+
+The question and the measures hold. What changes is the statistical model fitted to them, and how sure the answer is said to be. Two of the three decisions are about the fit and can move the estimate; the third is about the inference and cannot.
+
+| Decision | Options (`code`) | What it changes | Share of variance | Crosses p = .05 |
+|:--|:--|:--|--:|--:|
+| **Predictor form** | raw `raw` · logged `log` (growth: raw only) | The fit. Proportional against additive. Centring and standardising are not separate analyses: an affine change of scale cannot move t, r or p | `r v("pred_form")` | `r x("pred_form")` |
+| **Outcome family** | linear `gaussian` · logit-link beta `beta` | The fit. Whether the model respects the bounded support of the scale. Available for the share and the per-item rate at the canonical measurement settings; a count is not a proportion and has no beta twin | see [statistical methods](../companion/stats-methods.qmd) | – |
+| **Standard errors** | conventional `conventional` · clustered by country `clustered` | The inference only: the estimate is untouched and its standard error changes. One analyst reported both on the same fit: t = −6.7 against −3.4. Its share of the variance is nil by construction, so the crossing column is the one to read | `r v("se")` | `r x("se")` |
+
+: The three estimation decisions: two about the fit, one about the inference. {#tbl-level3}
+
+## Admissible combinations {#admissibility}
+
+The decisions are not fourteen free knobs. Some options exist only given an earlier choice, and the lab tells you when you have combined two that do not go together:
+
+- **Outcome family ← scoring rule.** The beta family needs a proportion strictly inside 0 and 1: the share and the per-item rate qualify, the count does not, and at the respondent level none of them would, because a quarter of respondents sit at exactly zero and a quarter at exactly one. The beta twins are fitted at the canonical measurement settings only (all 13 items, no-opinion respondents scored zero, cells as interviewed, the World Bank series).
+- **Standard errors ← estimator.** Clustering by country is close to mandatory under pooled OLS on a country panel, a judgement about serial correlation under fixed effects, and a guard on the variance components under random effects. Every pairing is on the menu; the justification differs.
+- **Whose average ← estimator.** Random effects is never fitted with regression weights, because frequency weights do not compose with the variance-component machinery it estimates.
+- **Predictor form ← predictor.** GDP growth takes negative values and enters raw only.
+- **Imputed no-opinion options ← everything canonical.** The two imputation engines were run for the unemployment arm at the canonical measurement and estimation settings only.
+
+## The pre-computed universe
+
+Crossing every decision on the menu is not one computation. The linear family with both standard-error conventions is fitted in full, every combination of every axis, and that tier holds `r big(n_rows)` fitted and imputed rows in `r big(n_files)` files. Multiple imputation is fitted for every estimand cell at the canonical measurement settings, with ten imputations pooled by Rubin's rules, under two engines. The beta family is fitted for every estimand cell at the canonical measurement settings too, under the share and under the per-item rate. The two expensive axes are nested rather than crossed because the beta twins reproduce the linear results cell for cell in the part of the space where both were fitted, so nothing measurable is lost by not multiplying them through everything else. A further `r big(n_derived)` rows are written out rather than fitted: the per-item rate under the linear family, which is the count rescaled by the number of items in the set.
+
+The grid is stored as one file per combination of the six Level 1 decisions other than the scoring rule, which selects rows within the file; with the scoring rule the menu asks `r big(n_questions)` distinct questions, the rate counted with the count it rescales. Once you have settled the Level 1 decisions you have chosen a question, and its file holds every way of measuring and estimating within it: a few hundred rows that you can read as a table. That is the shape of the distinction the menu teaches. The question is fixed by seven decisions; the rest is what happens inside it.
+
+Two series come with a coverage cost that is recorded rather than hidden. The `tipsun20` table has no United Kingdom row and nothing before 2009 for any country but France, and the Eurostat growth series has no United Kingdom row, so the cells that cannot be fitted under them appear as empty rows. A source that removes half the panel is a lesson, and the [weighting module](../companion/weighting.qmd) and the [missing answers module](../companion/missingness.qmd) both draw on it.
 
 ---
 
-## The menu
+## Claim alignment {#the-claim-alignment-step}
 
-| Axis | Options (choose one per axis) |
-|---|---|
-| **Outcome** | `mcosmo` (cosmopolitan framing – the Multi100 anchor) · `mutil` (utilitarian) · `mcomm` (communitarian) · `mlib` (libertarian) · `mpos` (all positive framings – closer to the "positive dimensions" wording of the claim) · `mneg` (all negative framings) |
-| **Outcome family** | `gaussian` (linear model on the country-year means – the day's canonical scale) · `beta` (logit-link beta regression for the bounded 0–1 outcomes: `betareg`, with the random-effects variant via `glmmTMB`; reports a `z` in place of `t`) |
-| **Predictor** | `unemp` (unemployment rate – the Multi100 measure) · `growth` (annual GDP growth – the claim carrier that three of the five analysts chose in their own Task 1) · both. With 'both', declare which variable carries your claim; the other enters as the copredictor, raw. |
-| **Predictor form** | for unemployment: raw `unemp` · `log(unemp)`. For GDP growth: raw only (it takes negative values, so the log is undefined). A word of warning that the curve itself teaches: mean-centring or standardising either form leaves t, r and p unchanged – an affine change of scale cannot move a test statistic – so centred and log-z variants are not separate analyses in the grid, only display-equivalent restatements of raw and log. |
-| **Copredictor** | `none` · the other measure, raw (`growth` beside unemployment, or `unemp` beside growth). The question from the causal graph stands either way: is the copredictor a confounder, or a second predictor of interest in its own right? |
-| **Estimator** | two-way FE via `fixest::feols(...  | cntry + year)` or `plm(..., effect = "twoways", model = "within")` · country FE only · random effects (`plm(..., model = "random")`) · pooled OLS with cluster-robust SE. Random effects is never fitted with weights. |
-| **Sample** | all years (2004–2013) · pre-crisis only (2004–2008) · crisis years only (2009–2013) · exclude bailout recipients · exclude Greece and Spain (extreme unemployment outliers) |
-| **Weights** | none · `n_cy` (country-year respondent counts) |
-
-Eight axes, each a real choice. The Multi100 protocol did not open all of them: its Task 2 fixed unemployment as the measure and, implicitly, the linear (gaussian) scale, so at the day's canonical resolution – the gaussian outcome family with unemployment as the predictor – the pre-computed grid behind the closing chart holds **840** distinct analyses. The workshop menu opens the two axes that Multi100 held fixed, and the provenance is worth keeping in view. In its own Task 1, Multi100 let analysts choose freely, and three of the five reached for a GDP measure rather than unemployment. Adding the **beta** outcome family doubles the grid to the family universe of **1,680** specifications (`data/spec_grid_family.csv`: the 840 originals plus their beta-family twins). Adding **GDP growth** as the claim-carrying predictor brings the full pre-computed universe (`data/spec_grid_full.csv`) to **2,520** specifications (the family universe of 1,680 plus 840 more from the growth predictor, across both outcome families). You are choosing one specification and your classmates are choosing others, so between you the room samples the multiverse.
-
----
-
-## Every result is claim-aligned {#the-claim-alignment-step}
-
-One convention applies across the room. The claim predicts a **negative** unemployment coefficient for the positive framings (`mcosmo`, `mutil`, `mpos`) and a **positive** one for the negative framings (`mcomm`, `mlib`, `mneg`). Plotted raw, the class chart would therefore straddle zero by construction and read as noise. The day's convention is **claim-alignment**: a negative framing is reverse-coded before fitting,
+One convention applies across the room. The claim predicts a **negative** unemployment coefficient for the positive framings (`mcosmo`, `mutil`, `mpos`) and a **positive** one for the negative framings (`mcomm`, `mlib`, `mneg`). Plotted raw, the class chart would straddle zero by construction and read as noise. The convention is **claim-alignment**: a negative framing is reverse-coded before fitting,
 
 ```r
 d$mcomm_ca <- 1 - d$mcomm   # claim-aligned communitarian framing
 ```
 
-so that 'supports the claim' reads as a negative sign for every outcome, and the class chart is drawn on that scale. Reverse-coding a bounded scale flips the sign of the coefficient and leaves its magnitude, standard error, |t| and p-value untouched (exactly so for the beta family too, since logit(1 − μ) = −logit(μ)), so nothing about the evidence from your model changes, only the direction convention it is stated in. It is nonetheless a real analytic decision. That is why it rides on the `claim_align` switch in your preregistration, set to `TRUE` as the day's convention and applied for you rather than buried silently in the fitting code. If your outcome is a positive framing, there is nothing to reverse-code.
+so that 'supports the claim' reads as a negative sign for every outcome, and the class chart is drawn on that scale. Reverse-coding a bounded scale flips the sign of the coefficient and leaves its magnitude, standard error, |t| and p-value untouched (exactly so for the beta family too, since logit(1 − μ) = −logit(μ)), so nothing about the evidence changes, only the direction convention it is stated in. It is nonetheless a real analytic decision, which is why it rides on the `claim_align` switch in your preregistration, set to `TRUE` as the convention and applied for you rather than buried in the fitting code. If your outcome is a positive framing, there is nothing to reverse-code.
 
 One further flip applies when your claim variable is GDP growth. The claim then predicts a **positive** coefficient on the positive framings, so claim-aligned reporting multiplies your b, t and r by −1 (the lab applies this for you). After both conventions, 'supports the claim' reads as a negative sign for every specification on the menu, whatever it measures.
 
@@ -44,37 +121,36 @@ One further flip applies when your claim variable is GDP growth. The claim then 
 
 ## Worked example
 
-**Choice:** outcome = `mpos`, outcome family = `gaussian`, predictor = unemployment, predictor form = raw `unemp`, copredictor = none, estimator = two-way FE via `feols`, sample = all years, weights = none.
+**Choice:** frame set `mpos`, scoring rule `share`, predictor `unemp`, adjustment `none`, sample `all`, whose average `none`, estimator `fe_twoway`; no-opinion `drop`, item set `all`, cell weighting `unweighted`, series `wb_nat`; form `raw`, family `gaussian`, standard errors `conventional`.
 
-**Justification (2 sentences):**
-The "positive dimensions" wording in the claim maps more directly onto the composite `mpos` scale than onto `mcosmo` alone, so using `mpos` is the more literal operationalisation of the stated hypothesis. Grand-mean centring the unemployment rate changes the intercept but not the slope when fixed effects are present, so using raw `unemp` produces an identical coefficient; the choice is made explicit here to avoid an undocumented transformation. (`mpos` is a positive framing, so the claim-alignment step requires nothing here.)
+**Justification (two sentences per level):** The "positive dimensions" wording in the claim maps more directly onto the composite `mpos` scale than onto `mcosmo` alone, scored as a share of each respondent's own mentions because the claim is about how people frame the EU rather than how much they say about it, and the comparison the claim makes is a country with itself as its economy moves, which is what two-way fixed effects identify; nothing in the claim restricts the countries or the years, and the claim is about countries, so every cell counts once. Respondents who mentioned nothing are dropped, following the original paper's handling rather than the reanalyses' zero, because a person with no framing of the EU is not a person with zero positive framing; the World Bank series is retained because it is the one the panel was built on. The raw percentage is kept because a proportional effect has no warrant in the claim, and conventional standard errors are reported because the two-way design already absorbs the country-level dependence that clustering would guard against.
 
-This is the kind of justification that makes a specification defensible: it connects the analytical choice to the wording of the claim or to a causal argument, rather than to convenience or preference.
+This is the kind of justification that makes a specification defensible: it connects each choice to the wording of the claim or to a causal argument, at the level the choice belongs to, rather than to convenience or preference.
 
 ---
 
-## Commit before you run {#preregistering-your-choice}
+## Preregistration {#preregistering-your-choice}
 
 Commit to your specification **before you run it**. That is what stops you picking the path that happens to give the answer you want. You record the commitment by completing the preregistration block in your report *before* you add the model-fitting code, then running. It is a real template – the OSF "Preregistration Template from AsPredicted.org", shortened to five fields – so the exercise mirrors what a registered secondary-data analysis actually does.
 
-- **Positron workspace (Route 1):** the report skeleton (`index.qmd`) carries the preregistration block in Task 5. Fill in your one specification and its DAG-grounded justification, and **render the report before you run**. The rendered block, timestamped in your report, is your record.
-- **Browser lab (Route 2):** there is no render step, so complete the commented preregistration block in the [Browser lab](browser-lab.qmd) and copy it into the plain-text file where you are saving your work. That is your commitment.
+- **In the workspace:** the report skeleton (`index.qmd`) carries the preregistration block in Task 5. Fill in your fourteen choices and their justification, and **render the report before you run**. The rendered block, timestamped in your report, is your record.
+- **On the browser lab page:** there is no render step, so complete the commented preregistration block and copy it into the plain-text file where you are saving your work. That is your commitment.
 
 An optional mirror form may be used to log preregistrations for the room, and the link is shared in the session. It is not required. The completed block in your report is your official preregistration.
 
-## Where your numbers come from
+## The source of the numbers
 
-Every specification on the menu already sits in the pre-computed universe, so the browser lab never fits a model live. `run_spec()` looks your declared choice up in the grid and prints its `b`, `se`, `t` (or `z` for a beta family), `df` and claim-aligned partial `r`, and `report_result()` carries the same numbers to the class chart. The values arrive **claim-aligned**: for a negative framing the coefficient, statistic and `r` flip sign, and for a GDP-growth predictor they flip as well. Nothing else changes, so they match what your own claim-aligned fit would produce. If a machine will not run the cells at all, the facilitator can look the same eight choices up in `data/spec_grid_full.csv` by hand and enter the numbers directly.
+Every specification on the menu already sits in the pre-computed universe, so the browser lab never fits a model live. Your Level 1 choices name an estimand cell: six of them name its file and the scoring rule selects within it. `run_spec()` fetches that file, finds the row your remaining choices select, and prints its `b`, `se`, `t` (or `z` for the beta family), `df` and claim-aligned partial `r`, and `report_result()` carries the same numbers to the class chart. The values arrive **claim-aligned**: for a negative framing the coefficient, statistic and `r` flip sign, and for a GDP-growth predictor they flip as well. If a machine will not run the cells at all, the facilitator can open the same file under `data/grid/` and read the row by hand.
 
 ---
 
-## Send your result to the room {#reporting-your-result}
+## Reporting a result {#reporting-your-result}
 
-After running your model, submit your result to the class-results Google Form. You do not fill it in by hand and you do not transcribe anything. `report_result()` takes no arguments: it reads your preregistered choices, builds the spec label itself, and prints a one-click link with all your numbers already in it, on the claim-aligned scale. Open it and press Send, and your result appears on the live [Multiverse]({{< var live-results-url >}}) chart.
+After running your model, submit your result to the class-results form. You do not fill it in by hand and you do not transcribe anything. `report_result()` takes no arguments: it reads your preregistered choices, builds the specification label itself with all fourteen decisions in it, and prints a one-click link with your numbers already in place, on the claim-aligned scale. Open it and press Send, and your result appears on the live [Multiverse]({{< var live-results-url >}}) chart.
 
-The helper standardises every submission to a **partial correlation**, `r = t / sqrt(t^2 + df)` – the same conversion that Multi100 used – so that models on different outcome scales and estimators all sit on one comparable axis.
+The helper standardises every submission to a **partial correlation**, $r = t / \sqrt{t^2 + df}$ – the same conversion that Multi100 used – so that models on different outcome scales and estimators all sit on one comparable axis.
 
-**Route 2:** the helper is already on the [Browser lab](browser-lab.qmd) page. **Route 1:** it lives in your Positron workspace at `R/report_result.R`:
+In the workspace the helper lives at `R/report_result.R`; on the [Browser lab](browser-lab.qmd) page it is already loaded:
 
 ```r
 source("R/report_result.R")
@@ -85,16 +161,40 @@ This prints your submission link, ready to click.
 
 ---
 
-## What each choice commits you to {#notes-on-specific-choices}
+## Justifying each decision {#what-each-decision-commits-you-to}
 
-**Outcome variables.** The four EU-frames dimensions (`mcosmo`, `mutil`, `mcomm`, `mlib`) are 0–1 relative-frequency scales. `mpos` and `mneg` are composites (means of the positive and negative sub-dimensions respectively). All are in `EUframes_cy.csv`, and the codebook (`data/EUframes_cy_codebook.md` in the template repo) carries the exact definitions. The negative framings (`mcomm`, `mlib`, `mneg`) take the claim-alignment step above; name the recoded variable so the transformation is visible (the `_ca` suffix is the room's habit).
+### The statement first
 
-**Predictor form.** Log-transforming unemployment makes sense if you believe the effect is proportional rather than additive; centring or standardising makes coefficients more comparable across specifications but does not change the t-statistic. Document your choice.
+Before defending any single choice, complete the estimand statement above. The first slot is countries or Europeans, and your weighting decides it. The second is which member states and which years, and your sample decides it. The two "measured as" slots are your predictor and outcome constructs, and everything on Level 2 sits inside them; the outcome construct is itself two decisions, which meanings count and what "more" of them means, and both rewrite the statement. The last slot is what your estimator compares. Move a Level 1 decision and the statement changes; that is the whole reason for the levels.
 
-**GDP growth as a copredictor.** From the DAG perspective: is `growth` a confounder (a common cause of unemployment and EU framing), a second predictor of interest (another pathway you want to estimate separately), or a mediator (part of the path from unemployment to framing)? Your answer determines whether including it is theoretically defensible for your estimand.
+### Level 1 – Estimands
 
-**Estimator choice.** Two-way FE controls for time-constant country traits and year-specific EU-wide shocks. Country FE only removes country traits but leaves year shocks in the error. Random effects assumes the country-level heterogeneity is uncorrelated with the covariates – testable via a Hausman test. Pooled OLS with cluster-robust SE ignores the panel structure entirely; it requires the strongest assumption.
+**Frame set.** The four EU-frames dimensions are built from thirteen answer options, and `mpos` and `mneg` are composites of the positive and negative pairs. All are in `EUframes_cy.csv`, and the codebook carries the exact definitions. Under the share rule the four scales are shares of one instrument and are constrained to sum to one, so whatever raises one lowers the others: choosing between them is not a robustness check, it is a choice of what the claim is about. The data recover the two negative scales item for item and do not recover the split between the two positive ones, and they support the composites best of all; the evidence is on [The items behind the scales](../companion/measurement.qmd). The negative framings take the claim-alignment step above.
 
-**Sample restrictions.** Dropping Greece and Spain removes the two countries with unemployment rates far above the rest during the crisis period. If the effect is driven mainly by these outliers, the coefficient will shrink substantially. That is a legitimate sensitivity check.
+**Scoring rule.** A share of a person's own mentions and a count of the set's items are two different things to be "more cosmopolitan" about. The share is compositional: mention anything else and it falls. The count is absolute: across the country-year cells it tracks how many items respondents mention at all (a correlation of `r sprintf("%.2f", cor(pw$c_mcosmo, pw$mean_items))` with the mean number of items mentioned, against `r sprintf("%.2f", cor(pw$w_mcosmo, pw$mean_items))` for the share), and the two constructions of the cosmopolitan outcome correlate at only `r sprintf("%.2f", cor(pw$w_mcosmo, pw$c_mcosmo))` across the cells. The per-item rate is the count divided by the number of items in the set, so that a two-item and a five-item scale are on one footing; for the linear family it changes nothing but the units of the coefficient, and it is the version of the count that the beta family can take. Say which of the three the claim is about.
 
-**Outcome family.** Beta regression is a defensible fork here because the outcomes are bounded 0–1 proportions and the country-year cell means sit strictly inside the interval, so a logit-link beta model respects that support where a linear model does not. Beta fits report a z statistic rather than a t; `report_result()` handles both, and the partial-correlation conversion is unchanged (`r = z / sqrt(z^2 + df)`), exactly how Multi100 treated analyst PRL47's z. Two comparisons show how much the fork does. The beta twin of the workshop anchor gives z = −4.075 and r = −0.258 against the Gaussian r = −0.242: same direction, still significant, slightly stronger. And the wrong signs in the cosmopolitan universe break down identically across families – 33 pooled + 8 two-way FE in each. So the family choice moves the numbers a little and leaves the conclusions where they were. The theory behind the family choice is in the [statistical methods module](../companion/stats-methods.qmd).
+**Estimator choice.** This axis carries `r v("estimator")` of the variance in the whole universe, and it does so because it decides which comparison you are making, not because some estimators fit better than others. Two-way fixed effects controls for time-constant country traits and year-specific EU-wide shocks, so it compares a country with itself. Country fixed effects removes country traits but leaves year shocks in the error. Random effects blends the within-country and between-country comparisons, and assumes the country-level heterogeneity is uncorrelated with the covariates. Pooled OLS ignores the panel structure and compares countries with one another. On this claim the pooled and the within-country specifications give answers of **opposite sign**, and no amount of robustness checking reconciles them, because they are answers to different questions.
+
+**Adjustment set.** From the causal graph: is the other macro measure a confounder (a common cause of the predictor and of EU framing), a second predictor of interest, or a mediator on the path from the predictor to framing? Your answer determines whether including it is defensible for your estimand. See the [causal graphs module](../companion/dags.qmd).
+
+**Sample.** Dropping Greece and Spain removes the two countries with unemployment rates far above the rest during the crisis. If the effect is driven mainly by them, the coefficient will shrink. This is conventionally called a sensitivity check, and it does not behave like one: it changes which countries the claim is about, so the sentence changes, so it is an estimand decision wearing a robustness label. The same goes for restricting to the crisis years or the pre-crisis years.
+
+**Whose average.** Unweighted, every country-year is one observation and the coefficient describes the average country; Malta counts as much as Germany. Weighted by the number of respondents or by the effective sample size, the weight is a precision argument and the estimand does not move. Weighted by adult population, the coefficient describes the average European, which is a different quantity. The three arguments are separated, with the numbers, in [Weights](../companion/weighting.qmd).
+
+### Level 2 – Measurement
+
+**No-opinion handling.** This interlocks with the scoring rule, because under the share rule a respondent who mentioned nothing has no share at all and something has to be decided about `r big(sum(pw$n_noop))` people, while under a count their count is a genuine zero. The zero, drop and split rules and the two imputation engines are set out in [Missing answers](../companion/missingness.qmd); the short version is that the rule changes who is in the population as well as how they are scored, so it reaches further than its place on this level suggests, and the data say it hardly matters, which is the reason to leave it here and say so.
+
+**Item set.** The original author's own code carries a second version of every scale without the item "unemployment", because an outcome that counts "unemployment" among the meanings of the EU shares content with a predictor that is the unemployment rate. Under that set, a respondent whose only mention was "unemployment" has nothing left and joins the no-opinion group.
+
+**Cell weighting and published series.** Both are cases where the measurement decision is nearly inert for the estimate and consequential for something else. The design weight changes the cell means by up to a few hundredths and the distribution by nothing measurable. Which unemployment series is merged changes the coefficient's scale and hardly anything else, because the four full-coverage series correlate above 0.995 once country and year means are removed; what the fifth series changes is the sample, by having no rows for half the panel.
+
+### Level 3 – Estimation
+
+**Predictor form.** Log-transforming unemployment makes sense if you believe the effect is proportional rather than additive. Centring or standardising cannot change the t-statistic, because an affine change of scale leaves the test statistic exactly where it was. The justification here is technical rather than substantive, and that is the point of the level.
+
+**Outcome family.** Beta regression is a defensible fork because the share-built and rate-built outcomes are bounded 0–1 proportions and the country-year cell means sit strictly inside the interval, so a logit-link beta model respects that support where a linear model does not. A count-built outcome is a number of items, not a proportion, and has no beta twin: choose the rate if you want the count's construct under the beta family. Beta fits report a z statistic rather than a t; `report_result()` handles both, and the partial-correlation conversion is unchanged. The theory is in the [statistical methods module](../companion/stats-methods.qmd).
+
+**Standard errors.** Clustering by country changes the standard error and nothing about the estimate, which makes it the one decision on the menu that is about inference rather than the answer. It is on the menu because one of the five analysts computed both on the same fit and the two disagreed by a factor of two, and because it shows that an estimation decision can decide whether a result is reportable while leaving the estimate exactly where it was: nil variance, and a threshold crossing in `r x("se")` of cells.
+
+A closing caution that cuts across all three levels. A decision can carry almost none of the variance in the distribution and still decide whether *your* result clears p = 0.05, because significance is a property of one cell and variance is a property of the whole space. In the pre-computed universe the predictor form carries `r v("pred_form")` of the variance and crosses the threshold in `r x("pred_form")` of cells. Pin the question on all seven Level 1 decisions and leave the other seven free, and `r big(dcl_p$pinned_cross[1])` of the `r big(dcl_p$pinned_cells[1])` questions still hold both a significant and a non-significant result among their `r dcl_p$pinned_variants[1]` variants; count the scoring rule as a measurement decision instead, so that it too is free, and `r big(dcl_a$pinned_cross[1])` of `r big(dcl_a$pinned_cells[1])` cells do among `r dcl_a$pinned_variants[1]` variants, which is the measure of how much that one placement decides. Pin only the outcome and the estimator, the two decisions every methods section states, and `r dcl_p$loose_cross[1]` of `r dcl_p$loose_blocks[1]` blocks straddle the threshold. That is why you commit before you run.

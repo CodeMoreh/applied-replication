@@ -1,0 +1,12 @@
+---
+title: "Slides"
+subtitle: "Three days"
+page-layout: full
+toc: false
+---
+
+```{=html}
+<iframe class="slide-deck" src="../../slides/three-days.html" title="Three days – slides"></iframe>
+```
+
+Open the deck [in its own tab](../../slides/three-days.html){target="_blank"} for the full screen, the speaker view and the keyboard controls: the `d` key switches the optional runs on and off, `[` and `]` jump between parts, and `g` opens a jump bar that finds a slide by its title.

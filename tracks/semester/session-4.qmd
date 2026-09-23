@@ -1,0 +1,16 @@
+---
+title: "Session 4 – From country-years to a model"
+---
+The claim is about countries in years, and the data arrive as respondents, so the first thing the module does is explain what aggregation to the country-year buys and what it costs. The rest of the session fits the same claim four ways and reads each output line by line, then takes apart the measurement decisions behind the outcome.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [The statistical methods behind the course](../../companion/stats-methods.qmd#sec-aggregation) | Section 1: why the predictor lives at the country-year, and what a cell mean is a mean of. | 20 minutes |
+| [The statistical methods behind the course](../../companion/stats-methods.qmd#sec-ols) | Sections 2 and 3: a first linear model read output by output, then what cluster-robust standard errors repair and what they leave alone. | 60 minutes |
+| [The statistical methods behind the course](../../companion/stats-methods.qmd#sec-fe) | Sections 4 and 5: two-way fixed effects, random effects, and why a within-country comparison and a between-country comparison are answers to different questions. | 60 minutes |
+| [Weights](../../companion/weighting.qmd) | The three decisions that travel under the word "weight": design weights inside a cell, precision weights across cells and population weights across countries, taken apart on the course panel, with C6HJR's published coefficient refitted under every combination. Only one of the three changes the estimand. | 45 minutes |
+| [Missing answers](../../companion/missingness.qmd) | What a respondent who mentions no frame at all does to a share built from mentions, the rules the menu offers for them (score zero, drop, split, impute), and how multiple imputation under two engines compares with the fiat rules on this case. | 60 minutes |
+| [The items behind the scales](../../companion/measurement.qmd) | The instrument behind every outcome on the menu, taken apart: which items form which scale, how they hang together, whether the answers recover the published four dimensions and what the two composites gain, and what that means for the frame set and the scoring rule you are about to choose. Run the exploratory analysis yourself from the committed correlation matrix. | 45 minutes |
+| [Binary outcomes](../../companion/binary-outcomes.qmd) | One item of the battery as the outcome: a logit and a probit side by side, odds ratios against average marginal effects, errors clustered by country-year and a random intercept, and the national unemployment rate on a single item with and without fixed effects. For a group that built the respondent file, every model on the page is refitted in the room. | 60 minutes |
+
+**By the end of the session** you have one rendered document holding the same claim fitted under four estimators, with a sentence under each fit naming what that estimator assumes.

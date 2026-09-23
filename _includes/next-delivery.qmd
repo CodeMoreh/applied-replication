@@ -45,17 +45,19 @@ if (!is.na(vars_path) && requireNamespace("yaml", quietly = TRUE)) {
       vals[!is.na(vals)]
     }
 
-    # The four tracks, keyed by the slug that names each one's page under
+    # The six tracks, keyed by the slug that names each one's folder under
     # tracks/. Anything else in delivery.track – a typo, a retired name, an
     # empty string – matches nothing here, so no line is printed and no link
     # is written to a page that does not exist. The link is relative to the
     # including page, and index.qmd at the site root is the only one; an
     # include from a subdirectory would need a ../ in front of tracks/.
     track_labels <- c(
-      "one-day"    = "one-day track",
-      "three-days" = "three-day track",
-      "semester"   = "semester track",
-      "self-study" = "self-study track"
+      "one-day-replication" = "one-day course, open science and replication",
+      "one-day-tools"       = "one-day course, social data science tools",
+      "one-day-methods"     = "one-day course, the statistical methods",
+      "three-days"          = "three-day format",
+      "semester"            = "semester format",
+      "self-study"          = "self-study track"
     )
 
     date <- field(delivery[["date"]])
@@ -76,7 +78,7 @@ if (!is.na(vars_path) && requireNamespace("yaml", quietly = TRUE)) {
     if (track %in% names(track_labels)) {
       out <- c(out, "", paste0(
         "This delivery follows the [", track_labels[[track]],
-        "](tracks/", track, ".qmd)."
+        "](tracks/", track, "/index.qmd)."
       ))
     }
     if (!is.na(reg_url)) {

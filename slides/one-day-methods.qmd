@@ -1,0 +1,140 @@
+---
+title: "Applied replication for data skills"
+subtitle: "One day – an introduction to the statistical methods"
+format: revealjs
+# Optional runs that this deck carries in its main flow (core-runs.lua
+# strips their .deepdive mark); the others stay on the d toggle.
+core-runs: [methods, multiverse]
+---
+
+{{< include _segments/_setup.qmd >}}
+## {#today .darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.todaymeta}
+A full-day workshop · four parts · the methods in the foreground
+:::
+
+:::: {.todaybox}
+::: {.nonincremental}
+1. The case, and the vocabulary – one paper, three verdicts, five analysts, and what 'replication' names
+2. The question underneath – the estimand, the causal graph, and what fixed effects can and cannot fix
+3. Reproduce, then take the model apart – every axis of the specification menu, and what each one does to an estimate
+4. The multiverse – reading a specification curve, what it establishes, and the one path you declare
+:::
+::::
+
+::: {.todaytake}
+You leave with: a reproduced result · an estimand and a DAG of your own · a working knowledge of every estimator on the menu · a preregistered analysis and your dot on the class curve
+:::
+
+::: {.todaymeta}
+Work along in your IDE, or on the browser lab page – solo or in pairs
+:::
+
+::: notes
+Welcome. A full day in four parts of ninety minutes, with the statistical methods in the foreground. The first part sets the case and the vocabulary: one published paper, put through three different checks with three different verdicts, and five analysts who reanalysed it and disagreed. The second part asks the question underneath the models – what quantity the claim is about, and what a causal graph commits you to. The third part is the reproduction and then the menu, taken apart axis by axis: outcome, scale, family, predictor form, estimator, sample and weights, each one shown doing something to an estimate. The fourth part is the multiverse those choices generate, how to read the curve and what it cannot tell you, and the single analysis you declare before you run it.
+:::
+
+## Two kinds of aim {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {.small}
+**What I want you to understand**
+
+- Why 'replication' names three operations, and what each one tests
+- What an estimand is, and why analysts who disagree are often answering different questions
+- What a causal graph commits you to, and what two-way fixed effects adjust for
+- What each axis of a specification – outcome, family, predictor, estimator, sample, weights – does to an estimate
+- What a specification curve establishes, why hundreds of estimates are not hundreds of tests, and what preregistration settles
+:::
+:::
+::: {.column width="50%"}
+::: {.small}
+**What I want you to be able to do**
+
+- Reproduce a published result to the third decimal
+- Write an estimand in one sentence, and a graph whose adjustment set you derived
+- Fit the same claim under pooled, fixed-effects and random-effects estimators and read each output
+- Vary one axis at a time and say what changed and why
+- Declare one analysis before you run it, and place it among the alternatives
+:::
+:::
+::::
+
+::: notes
+Two columns, and today the left-hand one is heavier than usual. The conceptual aims are the ones that a methods course is for: the estimand, the graph, what each modelling choice does, and what a set of results together can and cannot establish. The right-hand column keeps every aim tied to something you do with your own hands – a reproduction, a graph, a set of fits, a declaration.
+:::
+
+{{< include _segments/_opening-noaims.qmd >}}
+# PART 1 – The case and the vocabulary {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Part 1 · 90 minutes
+:::
+
+::: notes
+Part one. Why social science is argued about at all, in short; the matrix that separates reproducing from replicating; the five analysts who reanalysed the claim we work on today; and then the tools we use, in one slide, and getting everybody running before the break.
+:::
+
+{{< include _segments/_p1-credibility.qmd >}}
+{{< include _segments/_p1-matrix.qmd >}}
+{{< include _segments/_p1-multi100.qmd >}}
+{{< include _segments/_p1-today-tools.qmd >}}
+{{< include _segments/_p1-handson1.qmd >}}
+{{< include _segments/_break1.qmd >}}
+# PART 2 – The claim and its estimand {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Part 2 · 90 minutes
+:::
+
+::: notes
+Part two is the conceptual centre of the day: the paper in full, the argument that analysts who look as though they disagree are answering different questions, Lundberg's three steps from a theoretical quantity to an empirical one, and the causal-graph crash course in full – confounders, mediators, colliders, paths, and what fixed effects buy you. Then our own claim, your estimand in one sentence, and the half-built graph.
+:::
+
+{{< include _segments/_p2-paper.qmd >}}
+{{< include _segments/_p2-estimands.qmd >}}
+{{< include _segments/_p2-lundberg.qmd >}}
+{{< include _segments/_p2-dags.qmd >}}
+{{< include _segments/_p2-ourclaim.qmd >}}
+{{< include _segments/_p2-rtutorial.qmd >}}
+{{< include _segments/_p2-handson2.qmd >}}
+{{< include _segments/_lunch.qmd >}}
+# PART 3 – Reproduce, then take the model apart {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Part 3 · 90 minutes
+:::
+
+::: notes
+Part three. First the reproduction, to the third decimal. Then the menu, and today we walk every axis of it: what the outcome scale and the outcome family do, why claim alignment is needed to compare them, what the predictor form changes and what it cannot, the four estimators and what fixed effects actually buy, the copredictor, the sample and the weights. Then you work the menu yourself.
+:::
+
+{{< include _segments/_p3-task2.qmd >}}
+{{< include _segments/_p3-handson3.qmd >}}
+{{< include _segments/_p3-onenumber.qmd >}}
+{{< include _segments/_p3-menu.qmd >}}
+{{< include _segments/_p3-methods.qmd >}}
+{{< include _segments/_p3-handson4.qmd >}}
+{{< include _segments/_break2.qmd >}}
+# PART 4 – The multiverse and the one path you declare {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Part 4 · 90 minutes
+:::
+
+::: notes
+Part four reads what the room built. Where the multiverse idea came from and what it is for, walked in full today; the class chart against the five analysts; which fork carries the variation; and then the part people most often get wrong – why hundreds of estimates on one dataset are not hundreds of tests, and what a curve-level test would have to do. We end on the critics, on what preregistration settles, and on the one analysis you declare before it runs.
+:::
+
+{{< include _segments/_p4-built.qmd >}}
+{{< include _segments/_p4-multiverse-tutorial.qmd >}}
+{{< include _segments/_p4-classchart.qmd >}}
+{{< include _segments/_p4-forks.qmd >}}
+{{< include _segments/_p4-percentile.qmd >}}
+{{< include _segments/_p4-inference.qmd >}}
+{{< include _segments/_p4-critics-prereg.qmd >}}
+{{< include _segments/_p4-moment.qmd >}}
+{{< include _segments/_p4-close.qmd >}}
+{{< include _segments/_references.qmd >}}

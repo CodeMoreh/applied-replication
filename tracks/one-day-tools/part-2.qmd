@@ -1,0 +1,19 @@
+---
+title: "Part 2 – The toolchain"
+---
+::: {.callout-note appearance="simple" icon=false}
+**Slides.** [Open the deck at this part](../../slides/one-day-tools.html#/part-2-the-toolchain){target="_blank"} in its own tab, or follow it on the [slides page](slides.qmd).
+:::
+
+Part 2 is the toolchain proper, sorted by job rather than by brand: something to analyse with, somewhere to write it, and the part that most courses skip, publishing and sharing. Each layer gets its own slides, and the part ends with a first session in R in the workspace you opened before the break.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| Slides, the toolchain laid out | The map: languages, editors, and the publishing layer. Ringed in orange is what the day runs on; the rest is what you are choosing between. | 10 minutes |
+| Slides, languages and editors, with [Positron, RStudio and VS Code](../../companion/ide.qmd) as the companion | What you are actually choosing when you choose a language; where you write it, and the trap that every notebook-style tool shares. | 12 minutes |
+| Slides, plain text and the render pipeline, with [Quarto and reproducible documents](../../companion/quarto.qmd) as the companion | Why plain text is the format that survives, and what happens when a document renders. | 12 minutes |
+| Slides, the package layer | What a package is, where it comes from, and what pinning one buys. | 8 minutes |
+| Slides, version control, archives and licences, with [Git and GitHub](../../companion/git-github.qmd) and [Reproducibility repositories](../../companion/repositories.qmd) as companions | Version control in one slide; where data and code are archived; what a licence lets travel. | 20 minutes |
+| Slides, the R tutorial, in your workspace | Ten slides worked live: R in one slide, getting data in, looking before you model, five verbs, a model as a formula plus data, fixed effects the fast way, reading what comes back, one line of ggplot, a graph as a set of formulas, and what to do when it breaks. Type along. | 28 minutes |
+
+**By the end of the part** you can place any tool someone names on the map, you know what the render step does to the report you will fill in, and you have read a data frame, fitted a model and drawn a figure in your own workspace.

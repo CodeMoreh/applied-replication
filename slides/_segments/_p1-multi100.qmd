@@ -1,0 +1,150 @@
+## Inside Multi100: what an analyst was sent {.smaller}
+
+::: {.small}
+- A **published paper**, in full – no blinding: I could see the original estimates
+- Its **central claim**, in one sentence, lifted from the abstract
+- A pointer to the **data** – in our case, sixteen Eurobarometer waves you fetch yourself from GESIS
+- No instructions on method. Analyse it any way you can defend
+:::
+
+::: {.fragment .small}
+And two things I could not see: **who the other analysts were**, and **what they were finding**.
+:::
+
+::: {.src}
+@AczelEtAl2026InvestigatingAnalyticalRobustness. Registered protocol: osf.io/7snkz
+:::
+
+::: notes
+Let me show you what this was like from the inside, because it shapes how you read the results. What arrived was a published paper – the whole thing, not blinded, so I could see the original estimates, and if anything that pulls you towards the original answer. With it came the paper's central claim in a single sentence, lifted from the abstract, and a pointer to where the data lived. In our case that meant sixteen Eurobarometer waves that I had to go and fetch from GESIS myself, under licence. What did not arrive was any instruction on method. Analyse it however you can defend. And two things stayed hidden throughout: who the other analysts were, and what any of them were finding. That isolation is the design – it is what makes the spread at the end mean something.
+:::
+
+## The paper, for now in one slide
+
+::: {.small}
+- Author: I will say **OA**, the original author, from here on
+- **Does the EU economic crisis undermine support for the EU?** – 16 Eurobarometer waves, **2004–2013**, about **390,000** respondents in **27 countries**
+
+::: {.claimcard}
+"The results show, first, that *poor economic performances* **increase negative** and **decrease positive** *dimensions of EU framing*."
+:::
+
+- Macro predictors: **national unemployment** and **GDP growth**. Outcome: what people say the EU means to them, sorted into four framing scales
+:::
+
+::: {.src}
+@Teney2016DoesEUEconomic. The full methodological reading is Part 2.
+:::
+
+::: notes
+And here is the paper, briefly – we spend most of Part 2 inside it, so this is just enough to follow what happened. It is from 2016, in the European Sociological Review, and I will call its author OA, the original author, throughout the day. The question is whether the economic crisis undermined how people relate to the EU: sixteen Eurobarometer waves from 2004 to 2013, the crisis decade, about three hundred and ninety thousand respondents across twenty-seven member states. The claim we were handed is the sentence in the box. On the right-hand side sit two macro indicators, national unemployment and GDP growth; on the left, what people say the EU means to them personally, sorted into four framing scales. That is all you need for now. Part 2 opens by taking the whole thing apart.
+:::
+
+## Two tasks, months apart {.smaller}
+
+::: {.small}
+**Task 1 – free reanalysis.** Reanalyse the claim however you see fit. Record one categorical conclusion: does the evidence support it?
+
+::: {.fragment}
+**Task 2 – constrained reanalysis.** Months later, three instructions arrive that fix the question:
+
+- use the **cosmopolitan** framing dimension as the outcome
+- use the **unemployment rate** as the predictor
+- **disregard** the contextual variables
+:::
+:::
+
+::: {.fragment .small}
+Task 1 measures whether we agree. Task 2 makes our *numbers* comparable – you cannot average five answers to five different questions.
+:::
+
+::: notes
+The study ran in two stages, and the distinction matters for everything that follows. Task one was complete freedom: reanalyse the claim however you see fit, and record one categorical conclusion – does the evidence support it or not. Then months later, task two arrived with three instructions that pinned the question down: use the cosmopolitan framing dimension as your outcome, use the unemployment rate as your predictor, and disregard the contextual variables. Now, why run it in that order? Because the two tasks measure different things. Task one asks whether independent analysts reach the same verdict. Task two asks whether they produce the same number – and you can only ask that second question once everyone is answering the same question, which is precisely what those three instructions manufacture.
+:::
+
+## How a hundred studies become one number {.smaller}
+
+::: {.small}
+- Every analyst reports their test statistic and its degrees of freedom, in whatever form their model produces – **t**, **z**, **F**, $\chi^2$
+- Each is converted to a **partial correlation** *r* and a standardised **Cohen's *d***, so a Stata pooled model and an R multilevel model land on the same axis
+- A **peer panel** judges whether each pipeline is an appropriate analysis of the claim
+- Only then can you ask: how far apart are five defensible answers?
+:::
+
+::: {.fragment .small}
+Standardising is what makes comparison possible – and it quietly assumes the five are estimating **the same quantity**. Hold that thought until Part 2.
+:::
+
+::: notes
+So how do you compare a hundred studies analysed five ways each? Everyone reports the test statistic that their model happens to produce, with its degrees of freedom – a t, a z, an F, a chi-squared. Those get converted onto a common scale: a partial correlation and a standardised mean difference, so that somebody's pooled Stata model and somebody else's R multilevel model can sit on the same axis and be read against each other. Alongside that, a peer panel judged whether each pipeline was an appropriate analysis of the claim at all – so the spread you are about to see is a spread among analyses that passed review, not a spread that includes nonsense. And notice the assumption hiding in the conversion: putting five numbers on one axis takes for granted that they estimate the same quantity. Hold on to that. Part 2 is largely about what happens when they do not.
+:::
+
+
+## Our five: one sign, very different sizes {.smaller}
+
+```{r}
+#| label: forest5
+#| fig-width: 9.5
+#| fig-height: 4.1
+# Five Multi100 analysts of the SAME claim, from ../data/analysts5.csv.
+# Standardised partial r on one axis; C6HJR highlighted. The label carries the
+# software and the document format, because this chart is also the bridge into
+# the tools segment: the spread is not caused by the toolchain, but the fact
+# that every analyst shipped a readable, runnable document is what made the
+# spread diagnosable afterwards.
+fa <- analysts5 |>
+  dplyr::mutate(
+    me  = analyst_id == "C6HJR",
+    lab = paste0(analyst_id, "   ", tool, "  ", document)
+  ) |>
+  dplyr::arrange(r) |>
+  dplyr::mutate(lab = factor(lab, levels = lab))
+
+ggplot(fa, aes(r, lab, colour = me)) +
+  geom_vline(xintercept = 0, colour = grey_mid, linewidth = 0.4) +
+  geom_point(size = 6) +
+  geom_text(aes(label = sprintf("r = %.2f", r)),
+            hjust = -0.25, size = 4.5, colour = ncl_blue) +
+  scale_colour_manual(values = c(`FALSE` = ncl_blue, `TRUE` = orange)) +
+  scale_x_continuous(limits = c(-0.55, 0.10)) +
+  labs(x = "partial correlation r (same claim, same data, five analysts)",
+       y = NULL) +
+  theme_slide(15)
+```
+
+::: {.small}
+- All five negative – same direction · partial *r* from **−0.45 to −0.006** · one not significant
+:::
+
+::: {.src}
+Task 2 results as recorded in the public Multi100 dataset (osf.io/q5h2c).
+:::
+
+::: notes
+And here are the five of us, on this one claim. All five found a negative effect – on direction, unanimity. On size, look at the spread: from essentially zero, and that one is not significant, out to a partial correlation of minus point four five. Two orders of magnitude apart, on the same data, for the same claim, with all three of Task 2's instructions obeyed. The orange dot is me, at minus point two four. Five competent people, one fixed question, and the answers scatter across half the available range. Now – before we go anywhere near why, which is Part 2's whole job, I want you to look at the labels down the left-hand side, because there is a column there I have not mentioned yet.
+:::
+
+## Look at the labels {.smaller}
+
+::: {.small}
+- Two of us worked in **Stata**, three in **R**
+- Within R, three different document formats: a plain `.R` script, an `.Rmd`, a `.qmd`
+:::
+
+:::: {.none}
+::: {.fragment .fadeInUp}
+The software did **not** cause the spread. There is no Stata answer and no R answer to this claim.
+:::
+
+::: {.fragment .fadeInUp}
+But because each of us submitted a document that somebody else could **open and run**, it became possible, afterwards, to find out what *did* cause it.
+:::
+
+::: {.fragment .fadeInUp}
+That is what the toolchain is for, and it is what you spend this afternoon doing.
+:::
+::::
+
+::: notes
+Two of the five worked in Stata, three in R – and within R, three different document formats: a plain script, an R Markdown file, a Quarto file. Now, the tempting reading of that column is the wrong one, so let me kill it straight away. The software did not cause the spread. There is no Stata answer and no R answer to this claim; every one of these models can be fitted in either. But here is what the column does tell you, and it is why the tooling is worth caring about. Because every one of us submitted a document that somebody else could open and run, it became possible afterwards to go and find out what actually did cause the spread. I have read all four of the others' code, line by line, and this afternoon you will work inside the same space they were working in. That is only possible because of what is in that column. So – the tools.
+:::

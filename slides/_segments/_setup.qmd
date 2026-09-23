@@ -1,0 +1,199 @@
+```{r}
+#| label: setup
+#| include: false
+# All figures on these slides are generated here from the course data files
+# (../data/*.csv) or from small inline tribbles of published summary values –
+# no images of the Nature papers' figures are used (copyright + everything must
+# stay editable). Palette mirrors style/cgm-slides.scss.
+suppressPackageStartupMessages({
+  library(readr)
+  library(dplyr)
+  library(tidyr)
+  library(purrr)
+  library(ggplot2)
+  library(dagitty)
+  library(ggdag)
+  library(patchwork)
+})
+
+ncl_blue <- "#0e3b6a"
+orange   <- "#E69F00"
+green    <- "#009E73"
+d_red    <- "#a10000"
+grey_mid <- "#848c94"
+
+# A light slide-friendly ggplot theme: big type, no chart-junk.
+theme_slide <- function(base_size = 17) {
+  theme_minimal(base_size = base_size) +
+    theme(
+      panel.grid.minor = element_blank(),
+      panel.grid.major.y = element_line(colour = "grey90"),
+      plot.title = element_text(face = "bold", colour = ncl_blue),
+      axis.title = element_text(colour = ncl_blue),
+      legend.position = "none"
+    )
+}
+
+# The four-cell repeatability matrix (Nosek et al. 2025). Defined once here so
+# the full-colour slide and the 'robustness only' emphasis slide draw from a
+# single source of truth – no copy-pasted plot code to drift apart. The data x
+# analysis matrix is rendered as a tile grid (inline data, not a screenshot) so
+# it stays fully editable; the term sits large in each cell with its one-line
+# meaning beneath it.
+repeatability_cells <- tibble::tribble(
+  ~analysis,    ~data,       ~term,             ~def,                                  ~fill,
+  "SAME METHODS",      "SAME DATA", "Reproducibility", "Testing the reliability of a prior finding\nwith the same data and same analysis\nstrategy by comparing the outcome of an\ninferential test as reported in a paper\nwith a re-calculation of that inferential\ntest from the original data.", "#0e3b6a",
+  "DIFFERENT METHODS", "SAME DATA", "Robustness",  "Testing the reliability of a prior finding\nwith the same data and different analysis\nstrategy by conducting alternative\ntests on the original data.",  "#E69F00",
+  "SAME METHODS",      "DIFFERENT DATA",  "Replicability",   "Testing the reliability of a prior finding\nwith new data expected to be theoretically\nequivalent by comparing the outcome of an\ninferential test as reported in a paper\nwith the equivalent inferential test as\ncalculated in the new dataset.",               "#009E73",
+  "DIFFERENT METHODS", "DIFFERENT DATA", "Generalisability", "Testing the reliability of a prior finding\nin a new dataset in a way that differs\nfrom the original study but is expected\nto produce similar results.",                 "#834848"
+)
+
+# Draw the matrix. `highlight = NULL` keeps all four cells in full colour; pass
+# a term (e.g. "Robustness") to dim every OTHER cell to a light-grey box. Text
+# stays white throughout, so dimmed cells read as light-grey background + white
+# text while the highlighted cell keeps its own colour.
+repeatability_matrix <- function(highlight = NULL) {
+  grey_box <- "#b6bcc3"   # light grey for de-emphasised cells
+  cells <- repeatability_cells |>
+    dplyr::mutate(
+      data = factor(data, levels = c("SAME DATA", "DIFFERENT DATA")),
+      analysis = factor(analysis,
+        levels = c("DIFFERENT METHODS", "SAME METHODS")),
+      fill = if (is.null(highlight)) fill
+             else dplyr::if_else(term == highlight, fill, grey_box)
+    )
+  ggplot(cells, aes(data, analysis)) +
+    geom_tile(aes(fill = fill), colour = "white", linewidth = 4,
+              width = 1, height = 1) +
+    geom_text(aes(label = term), colour = "white",
+              fontface = "bold", size = 9, nudge_y = 0.25) +
+    geom_text(aes(label = def), colour = "white",
+              size = 5, nudge_y = -0.1, lineheight = 0.95) +
+    scale_fill_identity() +
+    scale_x_discrete(position = "top") +
+    labs(x = NULL, y = NULL) +
+    theme_void(20) +
+    # Row labels flipped to read vertically (bottom-to-top), matching the
+    # rotated row-heads on the HTML image-grid version of this matrix.
+    theme(panel.grid = element_blank(),
+          axis.text = element_text(face = "bold", colour = ncl_blue),
+          axis.text.x.top = element_text(size = 17),
+          axis.text.y = element_text(size = 15, angle = 90, hjust = 0.5),
+          plot.margin = ggplot2::margin(2, 8, 2, 2))
+}
+
+# Read the two data files that the multiverse slides depend on. Relative paths
+# resolve from slides/ at render time (verified with quarto render).
+# r_ca is the claim-aligned partial r – the day's convention: negative framings
+# (mcomm, mlib, mneg) reverse-coded, so 'supports the claim' = negative sign
+# for every outcome. All Part 4 curve/placement slides work on this scale;
+# the class chart and the lab's percentile cell use the same one.
+spec_grid <- readr::read_csv("../data/spec_grid.csv", show_col_types = FALSE) |>
+  dplyr::mutate(r_ca = ifelse(positive_outcome, r, -r))
+analysts5 <- readr::read_csv("../data/analysts5.csv", show_col_types = FALSE)
+
+# The 29 teams of Silberzahn et al. (2018), published values, read here because
+# two slides in different parts draw them: the full forest in Part 1 and the
+# one-row reminder strip in Part 2. Codebook: data/silberzahn29_codebook.md.
+silberzahn29 <- readr::read_csv("../data/silberzahn29.csv", show_col_types = FALSE) |>
+  dplyr::mutate(distribution = factor(distribution,
+                  levels = c("Linear", "Logistic", "Poisson", "Other")))
+
+# Teams described their own methods and capitalised them 29 different ways;
+# the published table title-cases them, and the forest slide follows suit.
+tidy_approach <- function(x) {
+  stringr::str_replace_all(stringr::str_to_title(x),
+                           "\\b(And|A|For|With|Using|The|Of)\\b", tolower)
+}
+
+# Shared multiverse base layer, mirroring the build-time chart on the
+# Multiverse page (results.qmd) so the room sees one visual grammar in the
+# deck and on the page collecting its dots: the full universe of 2,520
+# specifications (data/spec_grid_full.csv), each family ranked within itself;
+# colour carries the outcome family, the marker the claim-carrying predictor,
+# faded points miss 5% significance, and the shaded band above zero runs
+# against the claim. Claim alignment matches the page too: negative framings
+# reverse-coded, growth predictors sign-flipped on top (their claim-expected
+# sign is positive). Built ONCE so the two consecutive multiverse slides
+# ("The class multiverse" and "Where your result lands") are the SAME chart
+# with an overlay, not two charts: identical dims, axes, theme and legend
+# slots, so the reveal animates the analyst tags appearing on one unchanging
+# panel. coord_cartesian() pins the y-range so the overlay cannot rescale
+# the axis between slides.
+spec_full <- readr::read_csv("../data/spec_grid_full.csv", show_col_types = FALSE) |>
+  dplyr::mutate(r_ca = r * ifelse(positive_outcome, 1, -1) *
+                  ifelse(predictor == "growth", -1, 1)) |>
+  dplyr::arrange(family, r_ca) |>
+  dplyr::mutate(rank = dplyr::row_number(), .by = family)
+sc_baseline <- dplyr::filter(spec_full, baseline, family == "gaussian")
+
+spec_base <- function() {
+  ggplot(spec_full, aes(rank, r_ca)) +
+    annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0, ymax = Inf,
+             fill = d_red, alpha = 0.045) +
+    geom_hline(yintercept = 0, colour = grey_mid, linewidth = 0.4) +
+    geom_point(aes(colour = family, shape = predictor, alpha = sig),
+               size = 1.2, stroke = 0.4) +
+    geom_point(data = sc_baseline, shape = 2, size = 3.2, stroke = 1.1,
+               colour = orange) +
+    annotate("text", x = sc_baseline$rank, y = sc_baseline$r_ca - 0.14,
+             label = "constrained baseline\nt = −3.804",
+             colour = orange, fontface = "bold", size = 4, hjust = 0) +
+    scale_colour_manual(values = c(gaussian = ncl_blue, beta = green),
+                        breaks = c("gaussian", "beta"),
+                        labels = c("gaussian family", "beta family"),
+                        name = NULL,
+                        guide = guide_legend(order = 1, override.aes = list(
+                          shape = 16, size = 2.6, alpha = 1))) +
+    scale_shape_manual(values = c(unemp = 2, growth = 0),
+                       breaks = c("unemp", "growth"),
+                       labels = c("unemployment", "GDP growth"),
+                       name = NULL,
+                       guide = guide_legend(order = 2, override.aes = list(
+                         colour = "grey30", size = 2.6, stroke = 0.8,
+                         alpha = 1))) +
+    scale_alpha_manual(values = c(`TRUE` = 0.9, `FALSE` = 0.25),
+                       breaks = c(TRUE, FALSE),
+                       labels = c("p < .05", "n.s."),
+                       name = NULL,
+                       guide = guide_legend(order = 3, override.aes = list(
+                         shape = 16, size = 2.6, colour = grey_mid))) +
+    labs(x = "specification (ranked by claim-aligned partial r within family)",
+         y = "claim-aligned partial r") +
+    coord_cartesian(ylim = c(-0.75, 0.45)) +
+    theme_slide(15) +
+    theme(legend.position = "right", legend.title = element_blank())
+}
+
+# Fork-importance decomposition over the committed grid
+# (data/fork_importance.csv: share of specification variance in partial r per
+# menu axis, main-effects eta-squared). Read once; the Part 4 slide charts it.
+fork_imp <- readr::read_csv("../data/fork_importance.csv", show_col_types = FALSE)
+
+# Analyst placement inside the 840-spec grid: the share of the grid more
+# negative than each analyst's recorded partial r, on the claim-aligned scale
+# (the analysts' own values are cosmopolitan-outcome results, so alignment
+# leaves them untouched). The person/aggregate split is the published
+# classification of the five Multi100 pipelines (KEVF1 and PRL47 fitted
+# person-level models; the other three worked on aggregates).
+an_level <- tibble::tribble(
+  ~analyst_id, ~level,
+  "KEVF1", "person-level",
+  "PRL47", "person-level",
+  "KQXUE", "aggregated",
+  "018OL", "aggregated",
+  "C6HJR", "aggregated"
+)
+an_placed <- analysts5 |>
+  dplyr::left_join(an_level, by = "analyst_id") |>
+  dplyr::mutate(pct_more_negative = purrr::map_dbl(r, \(x) mean(spec_grid$r_ca < x)) * 100) |>
+  dplyr::arrange(pct_more_negative)
+
+# Wrong-sign specifications in the cosmopolitan-only universe: the claim
+# predicts a negative unemployment coefficient on mcosmo, so a positive
+# estimate is a sign flip. Cross-tabbed by estimator and sample on the
+# Part 4 patterned-flips slide.
+flips_mcosmo <- spec_grid |>
+  dplyr::filter(outcome == "mcosmo") |>
+  dplyr::mutate(wrong_sign = estimate > 0)
+```

@@ -1,0 +1,112 @@
+## The multiverse has its critics {.smaller}
+
+::: {.small}
+- "Robustness is better assessed with a **few thoughtful models** than with billions of regressions" [@Auspurg2025RobustnessBetterAssessed; answering @GanslmeierVlandas2025EstimatingExtentSources] – only *justified* models targeting the *same estimand* belong in one curve. Today's grid is a **curated 840**, not billions, and the fork chart does the job that every critic endorses: it locates where the argument must happen
+- "**There is only one correct analysis**" once the question is fully specified [@LakensEtAl2026ThereOnlyOne] – your declared specification answers *cherry-picking*, and their deeper point is that declaring in advance does not yet make a choice *justified*, which is what the estimand and DAG work were for
+- "What's a multiverse **good for** anyway?" – reflection, persuasion, or inference, and each purpose wants a *differently built* universe [@RohrerEtAl2026WhatsMultiverseGood]. Today's was built for **reflection**, and how much more to read into it is the open debate
+:::
+
+::: {.src}
+The book-length how-to: @YoungCumberworth2025MultiverseAnalysisComputational; the estimand diagnosis behind Part 2: @AuspurgBruderl2021HasCredibilitySocial.
+:::
+
+::: notes
+One last literacy layer: the method you practised is under live debate, and you can now read it. Katrin Auspurg – Part 2's estimand diagnosis – answered a 3.6-billion-estimate study with the line at the top of this slide: only thoughtful, justified models belong in a curve. Today mostly agreed with her: our grid is a curated eight hundred and forty, not an enumeration, and the fork chart does the one job that every critic endorses – it tells you where the argument has to happen. Lakens and colleagues say that once the question is fixed, only one analysis implements it correctly. Your preregistration answered cherry-picking; their deeper point – that declaring early does not make a choice justified – is exactly why we built the DAG before declaring. And Rohrer, Hullman and Gelman ask what a multiverse is for: reflection, persuasion, or inference – each wanting a differently built set. Ours was built for reflection. How much more to read into it is the debate you have now joined. [advance]
+:::
+
+## "There is only one correct analysis" {.smaller}
+
+::: {.small}
+Lakens and colleagues push back hard, and the argument deserves to be taken seriously:
+
+- A research question, **fully specified**, implies a quantity to be estimated
+- That quantity, together with the design and the assumptions you are willing to make, implies **one analysis** that estimates it
+- So a spread of results is not evidence of legitimate diversity. It is evidence that **most of those specifications are wrong** – they estimate something else
+- On this reading, showing a wide curve is closer to an admission than to a robustness check
+:::
+
+::: {.fragment .small}
+Take it back to the red cards. Twenty-nine teams modelled one count of red cards as **linear, logistic or Poisson**. Those are claims about how the outcome was generated, and they cannot all be right – so on this argument the spread is not diversity, it is mostly error.
+:::
+
+::: {.src}
+@LakensEtAl2026ThereOnlyOne
+:::
+
+::: notes
+And now the strongest objection to everything I have just taught you, and I want to give it its full force rather than a straw version. Lakens and colleagues argue that a research question, once fully specified, implies a quantity to be estimated. That quantity, together with your design and the assumptions you are prepared to make, implies one analysis that estimates it. Not a family, one. From which it follows that a spread of results is not evidence of legitimate analytical diversity at all. It is evidence that most of those specifications are simply wrong – they estimate something other than what you said you wanted. And on that reading, publishing a wide specification curve is closer to an admission that you never specified your question than to a robustness check. That is an uncomfortable argument and I think it is largely right.
+:::
+
+## Which analysis, and how you would know {#how-would-you-know .smaller}
+
+:::: {.none}
+::: {.fragment}
+Grant the argument. **One correct analysis exists.** Now: which one is it?
+:::
+
+::: {.fragment}
+Getting there needs the estimand *and* the identification assumptions *and* agreement about the measurement – and on this claim, reasonable people disagree about all three.
+:::
+
+::: {.fragment}
+So the curve is not a rival to the one-correct-analysis view. It is a **map of the remaining disagreement**, drawn because we cannot yet settle it.
+:::
+
+::: {.fragment}
+And it points at what to argue about: on this claim, at the **outcome**, not at the estimator.
+:::
+::::
+
+::: notes
+So let us grant the argument. Suppose one correct analysis does exist. The immediately following question is: which one is it, and how would you know? To get there you need the estimand, and the identification assumptions, and agreement about how the construct is measured – and on this claim reasonable people disagree about all three, as you saw for yourselves this afternoon. So I do not think the curve is a rival to the one-correct-analysis view at all. I think it is a map of the disagreement that remains, drawn precisely because we cannot yet settle it. And read that way it is genuinely useful, because it tells you where the disagreement lives. On this claim it lives at the outcome – what 'EU framing' means – and not at the estimator, which is where the seminar argument would have been.
+:::
+
+## What preregistration settles {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {.small}
+**It does settle**
+
+- That your specification was not chosen *because of* the result
+- That your rule for what counts as support was written before you had one
+- That a reader can see what you intended, and what you changed
+:::
+:::
+::: {.column width="50%"}
+::: {.small}
+**It does not settle**
+
+- Whether the specification was **any good**
+- Whether it estimates the quantity that your question implies
+- Whether the assumptions behind it hold
+
+A badly-reasoned analysis declared in advance is still badly reasoned – now with a timestamp
+:::
+:::
+::::
+
+::: {.fragment .small}
+Which is why the estimand and the DAG came **first** today. Preregistration protects a choice; it is the causal reasoning that makes the choice worth protecting.
+:::
+
+::: notes
+So where does preregistration fit? It settles a specific and limited set of things, and the two columns matter equally. On the left: it settles that your specification was not chosen because of the result it gave, that your rule for what counts as support was written before you had a result to bend it around, and that a reader can see both what you intended and what you subsequently changed. Those are real guarantees and no other mechanism provides them. On the right, what it emphatically does not settle: whether the specification was any good, whether it estimates the quantity that your question implies, or whether its assumptions hold. A badly reasoned analysis declared in advance is still badly reasoned – it just has a timestamp on it now. Which is exactly why we did the estimand and the graph first this morning. Preregistration protects a choice. Causal reasoning is what makes the choice worth protecting.
+:::
+## You are Analyst no. 6 – for real this time {.smaller}
+
+::: {.big}
+- Aim 2: assess the **robustness** of the constrained result
+:::
+
+::: {.small}
+  - **Before the break** you explored: several specifications, tried in order to find out what they do. That was the right way to learn them
+
+  - **Now** you commit: **one** specification, declared in writing *before* it runs, with a reason that your DAG can carry
+
+  - **The difference is not the code.** It is that one of these can be chosen because of its result and the other cannot
+:::
+
+::: notes
+This afternoon you reproduced my constrained result, and then you explored – several specifications, tried in whatever order took your interest, in order to find out what they do. That was exactly the right way to learn them, and I want to be clear that there was nothing improper about it. Now comes the other half. You commit to one specification, declared in writing before it runs, with a reason that your causal graph can carry. And notice what the difference between the two activities is, because it is not the code – the code is identical. The difference is that one of them can be chosen because of the result it gave, and the other one cannot. That is the whole distinction, and almost no published paper tells you which of the two it is reporting.
+:::

@@ -1,69 +1,151 @@
 ---
 title: "Setup"
-subtitle: "What to prepare before the workshop"
+subtitle: "What to install before the course, and how to check it"
 ---
 
-There are two ways to take part, and you only need to prepare for the one you choose. Both cover every task and reach the same results, so pick whichever suits your machine and your comfort level.
+Everyone taking the course works in R, inside an IDE, with a ready-made workspace that you download once. An IDE (an integrated development environment: Positron, RStudio, VS Code, and others) is the program in which you open files, write and run code and read results; R is the language that does the calculation, and the two are installed separately. The course's default IDE is Positron, because Positron is one of the data-science tools the course teaches, and it is what the facilitator drives on the shared screen. If you already work in RStudio or in VS Code you can stay there: every task runs in all three, and the [IDE module](companion/ide.qmd) of the companion curriculum sets the three side by side.
+
+The [Browser lab](exercise/browser-lab.qmd) is not a second way of taking part. It is a page on which the same exercise and the same data run inside a browser tab, for following a demonstration on a shared screen, for trying things before you have installed anything, and as a fallback if your machine gives up on the day.
+
+Windows and Linux installations are supported in class. macOS installations are not, because the facilitator does not use a Mac and cannot test one; the Mac steps below follow the official documentation and link to it, and a Mac user who gets stuck should work from those links or from the [help page](help.qmd) rather than wait for in-class assistance.
 
 ---
 
-## Pick your route
+## 1. R
 
-### Route 1 – R and Positron (recommended)
+R is the language the analysis is written in. Positron requires R 4.2 or later, and the course's own check expects a current release. Download R from [cran.r-project.org](https://cran.r-project.org/) and use the installer for your system.
 
-You install two free programs once, then download a ready-made workspace and open it. This is the fuller experience: you work in the same kind of editor that a researcher uses, and you keep the workspace afterwards. Allow yourself a little time before the day, depending on what you already have installed.
+::: {.panel-tabset}
 
-**Step 1 – Install R.** R is the language that the analysis is written in. Download it from [cran.r-project.org](https://cran.r-project.org/) and run the installer for your system (Windows `.exe`, macOS `.pkg`, or your Linux package manager). Accept the defaults.
+### Windows
 
-**Step 2 – Install Positron.** Positron is the editor you will work in – it is where you open files, run code and read results. Download it from [positron.posit.co](https://positron.posit.co) and install it (Windows: run the installer; macOS: open the `.dmg` and drag Positron to Applications; Linux: use the download for your system). When you first open Positron it will find the R you installed in step 1 on its own.
+Download the installer from the [CRAN Windows page](https://cran.r-project.org/bin/windows/base/) and run it. Accept the defaults, with one exception: keep the box **"Save version number in registry"** ticked, because RStudio, Positron and the VS Code R extension all use the registry entry to find R. Rtools, the toolchain for compiling packages from source, is not needed for the course; every package it uses installs as a pre-built binary.
 
-**Step 3 – Download the workspace.** Download the workspace as a single zip file:
+### macOS
+
+The [CRAN macOS page](https://cran.r-project.org/bin/macosx/) offers two builds of the current release, and you need the one that matches your machine: the **Apple silicon (arm64)** package for an M-series Mac, which requires macOS 14 or later, and the **Intel (x86_64)** package for an Intel Mac, which requires macOS 11 or later. Open the `.pkg` and follow the installer. If macOS refuses the installer access to your Downloads folder, move the file to your home folder and run it from there, as the CRAN page advises. XQuartz is only needed for the X11 graphics device and the course does not use it. The [R for macOS FAQ](https://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html) is the reference for anything the installer does not settle, and the [R-SIG-Mac list](https://stat.ethz.ch/mailman/listinfo/r-sig-mac) is where Mac-specific problems are discussed.
+
+### Linux
+
+Install R from your distribution's packages or from CRAN's own repositories, which are more current: the [Ubuntu](https://cran.r-project.org/bin/linux/ubuntu/), [Debian](https://cran.r-project.org/bin/linux/debian/) and [Fedora and Red Hat](https://cran.r-project.org/bin/linux/fedora/) pages give the repository lines to add. On Linux, packages are usually compiled from source when they are installed, so the build tools and the development headers for `libcurl`, `libssl` and `libxml2` should be present; the CRAN pages for each distribution list the package names.
+
+:::
+
+Whichever system you are on, open a terminal afterwards and type `R --version`. If a version line comes back, R is installed and on your path, which is what every IDE below relies on.
+
+---
+
+## 2. Quarto
+
+Quarto is the tool that turns your report, a `.qmd` file holding code and prose, into a finished document, and rendering the report is how your preregistration block gets its timestamp on the day. Whether you need to install it depends on the IDE:
+
+- **RStudio** comes with a copy of Quarto inside it, so nothing more is needed to render; installing Quarto separately from [quarto.org](https://quarto.org/docs/get-started/) gets you a newer version than the bundled one, which is worth doing but not required.
+- **Positron** ships with the Quarto extension, which gives it the render and preview commands. Whether the Quarto command-line tool itself comes with a given Positron build has changed between versions, so the course's check script (step 5 below) tells you whether it is present; if not, install it from [quarto.org](https://quarto.org/docs/get-started/).
+- **VS Code** needs both the Quarto extension and the Quarto command-line tool, which you install from [quarto.org](https://quarto.org/docs/get-started/).
+
+To confirm an installation, open a fresh terminal and type `quarto --version`.
+
+---
+
+## 3. The IDE
+
+Pick one. The course's default is Positron; the other two are fully supported for every task.
+
+::: {.panel-tabset}
+
+### Positron
+
+Positron is Posit's data-science IDE, built on the same open-source foundation as VS Code and free to use. Download it from [positron.posit.co/download](https://positron.posit.co/download.html).
+
+- **Windows** 10 or later on x64, and Windows 11 on ARM64; the installer comes in a per-user and a system-wide version, and Positron asks for the latest Visual C++ Redistributable, which the installer points you to if it is missing.
+- **macOS** 11 or later, with separate downloads for Apple silicon and Intel machines. Open the `.dmg` and drag Positron to Applications.
+- **Linux** with `.deb` packages for Ubuntu 20 and later and Debian, and `.rpm` packages for Red Hat 9 and Fedora, on x64 and ARM64.
+
+When Positron first opens it finds the R you installed in step 1 on its own, looking in the standard locations for your system and, on Windows, in the registry entry that the R installer wrote. Its welcome page shows an environment card that checks whether R is ready and offers to fix what it finds. The Quarto extension and R language support are built in, so there is nothing to add. If you are coming from RStudio, one setting is worth making on day one: open the settings, search for "RStudio key mappings" and tick the box, and the keyboard shortcuts you know carry over.
+
+### RStudio
+
+RStudio is the IDE that most R users learned on, and if it is already on your machine you can use it as it is. Install R first, then download RStudio Desktop from [posit.co](https://posit.co/download/rstudio-desktop/); the current release is 2026.08. It runs on Windows 11, on macOS 14 or later, and on Ubuntu 22 and later, Debian 13, Red Hat 9 and 10 and Fedora, as an `.exe`, a `.dmg` or a `.deb` and `.rpm` package. RStudio finds R on its own and carries Quarto inside it, so steps 1 and 3 are all it needs. Open the workspace as a project (step 4).
+
+### VS Code
+
+VS Code is the general-purpose editor that Positron is built from, and it works for R once two extensions and one R package are in place. Download it from [code.visualstudio.com](https://code.visualstudio.com/download). Then, inside VS Code, install the **R** extension (`REditorSupport.r`) and the **Quarto** extension (`quarto.quarto`) from the Extensions view. In R, install the package that gives the editor its code completion and diagnostics: `install.packages("languageserver")`. On Windows the R extension finds R through the registry entry from step 1; on any system you can point it at an R executable in the extension's settings (`r.rpath.windows`, `r.rpath.mac`, `r.rpath.linux`). Two optional extras improve the experience: the `radian` console and the `httpgd` package for the plot viewer, both described in the [VS Code R documentation](https://code.visualstudio.com/docs/languages/r). Quarto's command-line tool is installed separately (step 2).
+
+:::
+
+---
+
+## 4. The workspace
+
+Download the workspace as a single zip file:
 
 [Download the workspace (zip)]({{< var template-repo >}}/archive/refs/heads/main.zip)
 
 Save it somewhere you will find again, such as your Desktop or Documents folder, then unzip it. You now have a folder containing the analysis code, the data and a report to fill in. There is no account to create and nothing to sign into.
 
-**Step 4 – Open the folder in Positron.** In Positron, choose **File → Open Folder** and pick the folder you just unzipped. The files appear in a panel on the left. Everything you need for the day is in this one folder.
-
-**Step 5 – Check that it works.** In the folder, open `R/check_setup.R` and run it – in Positron, click **Run**, or type `source("R/check_setup.R")` in the console at the bottom. The script prints a short OK or FAIL report covering your R version, Quarto, the packages that the workshop uses and access to the data. If any package is missing it offers to install it for you, so say yes. Quarto is the tool that turns your report into a finished document, and it is the one item the script cannot install for itself: if the report says it is not found, download it from [quarto.org](https://quarto.org) and run the script again in a fresh terminal. Fix any FAIL before the day. If you get stuck, come along anyway and use Route 2.
-
-::: {.callout-note}
-The workshop uses a set of standard R packages, for tidying data, fitting models, drawing causal graphs and making tables. You do not need to install these by hand – the check script in step 5 sorts them out. All are free and come from CRAN, R's official package archive.
-:::
-
-### Route 2 – Browser lab (nothing to install)
-
-If you would rather install nothing, or you are on a borrowed or locked-down computer, you can do the whole exercise in your web browser.
-
-- **Nothing to install.** A recent version of **Chrome, Edge or Firefox** is all you need. (Safari works too, but the others are more reliable for this.)
-- **The one link.** On the day, open the [Browser lab](exercise/browser-lab.qmd) page. A full copy of R starts up inside the tab – it takes ten to thirty seconds the first time – and then every task runs right there.
-- **You miss nothing.** Route 2 has full parity with Route 1: the same data, the same models, the same result submitted to the same live class chart.
-
-You do not need to do anything before the day for Route 2. You may want to open the [Browser lab](exercise/browser-lab.qmd) once in advance just to confirm it loads on your machine.
+Open the folder in your IDE. In **Positron** and in **VS Code**, choose **File → Open Folder** and pick the unzipped folder; the files appear in a panel on the left. In **RStudio**, open the file `replication-lab.Rproj` inside the folder, which opens it as a project with the working directory set. Everything you need for the day is in this one folder, and it is yours to keep afterwards.
 
 ---
 
-## No accounts, no purchases
+## 5. Check that it works
+
+In the folder, open `R/check_setup.R` and run it: click **Run** or **Source** in your IDE, or type `source("R/check_setup.R")` in the R console. The script prints a short OK or FAIL report covering your R version, Quarto, the packages the course uses and access to the data. If any package is missing it offers to install it for you, so say yes. Quarto is the one item the script cannot install for itself; if the report says it is not found, install it (step 2) and run the script again in a fresh session. Fix any FAIL before the day.
+
+::: {.callout-note}
+The course uses a set of standard R packages, for tidying data, fitting models, drawing causal graphs and making tables. You do not need to install these by hand; the check script sorts them out. All are free and come from CRAN, R's official package archive.
+:::
+
+If something fails and the report does not say why, the [help page](help.qmd) lists the problems other participants have met, with their fixes and with prompts you can give an AI assistant. If you get stuck, come along anyway and use the browser lab.
+
+---
+
+## 6. The Eurobarometer files, for the individual-level work
+
+Everything on the day runs on the country-year panel that ships in the workspace, so this step is needed only if your track includes the individual-level extension, or if you want to rebuild the panel yourself. The respondent-level data behind the course are sixteen Eurobarometer surveys distributed by the GESIS archive under terms that do not allow the course to pass them on, so each participant downloads them under their own free account. Do it in the week before the course, because registration is a web form with a captcha and the sixteen files come to about half a gigabyte.
+
+1. **Register** with GESIS at [search.gesis.org](https://search.gesis.org/): free, open to all, immediate.
+2. **Download the Stata file of each of the sixteen studies** listed in the [data sources module](companion/data-sources.qmd#sec-gesis), which has the study numbers, the versions current at the time of writing, and a screenshot of every step. Search by study number, take the `.dta` file only, and state your purpose of use in the download dialog as "in the course of my studies" or "for further education and qualification".
+3. **Put all sixteen in one folder outside the workspace**, for instance `Documents/eurobarometer_raw`. Two of them arrive as `.zip` archives; leave them as they are.
+4. **Run `prep/01_build_respondents.R`** from the workspace, after setting the folder path at the top of the script. It checks every file against the version the course was built from, reads the sixteen, and writes one respondent-level file into `data_private/`, a folder the workspace never commits. The [data management module](companion/data-management.qmd) walks through what the script does and takes the next step, from the items to the scales and the panel.
+
+The GESIS terms of use forbid passing the files to anyone else, publishing anything about individual respondents, and processing the files with an AI assistant. Keep the folder to yourself, keep the respondent file out of any repository, and do not open it in a session that an assistant can read.
+
+---
+
+## The browser lab
+
+The [Browser lab](exercise/browser-lab.qmd) page holds the whole exercise on a copy of R that runs inside the browser.
+
+- **Nothing to install.** A recent version of **Chrome, Edge or Firefox** is all you need. (Safari works too, but the others are more reliable for this.)
+- **The one link.** Open the page and a full copy of R starts up inside the tab – it takes ten to thirty seconds the first time – with the data already in place, the same helpers as the workspace, and the same numbers at the end.
+- **What it is for.** Following a demonstration on the shared screen, trying the exercise before you have installed anything, and carrying on if your own installation fails on the day. Work in it lives in the tab until you refresh, so anything you want to keep belongs in your workspace.
+
+Open it once in advance to confirm that it loads on the machine you will use.
+
+---
+
+## What you do not need
 
 The day is deliberately free of accounts and sign-ups. In particular, you do **not** need:
 
 - **git or a GitHub account** – nothing in the day depends on version control. If you want to learn it, the optional [Git and GitHub companion module](companion/git-github.qmd) is there for afterwards.
 - **an OSF account** – you will see how preregistration works on the Open Science Framework and complete one yourself, but as a template inside your own report. No account required.
+- **an AI assistant account** – Positron's Posit Assistant and the assistants in VS Code need a provider account or an API key of your own, and nothing in the course depends on either. The [help page](help.qmd) says how to use one for setup problems if you have one.
 - **paid software** – everything used is free and open.
 - **any sign-up at all** – you can arrive, take part in full and leave without creating a single account.
 
 ---
 
-## Give yourself two screens
+## Two screens
 
 When the workshop runs online, you will get the most out of it with a little room to work:
 
-- **Two surfaces help.** Join the video call on one screen (or one device), and keep a second window or a second device free for your own work – Positron for Route 1, or the browser lab for Route 2. That way you can follow the shared screen and do the hands-on tasks side by side, without one covering the other.
+- **Two surfaces help.** Join the video call on one screen (or one device), and keep a second window or a second device free for your own work – your IDE, or the browser lab if you are following along without an installation. That way you can follow the shared screen and do the hands-on tasks side by side, without one covering the other.
 - **The links arrive with your joining instructions.** The call link, and any session-specific links, come to you with the joining details. You do not need to hunt for anything in advance beyond the setup on this page.
 
 ---
 
-## Read ahead if you like
+## Optional reading
 
 None of these is required, and everything is taught on the day. If you would like to arrive with some context, these are worth the time, with one line each on why.
 
@@ -72,4 +154,5 @@ None of these is required, and everything is taught on the day. If you would lik
 | [Nosek et al. (2018) – The preregistration revolution](https://doi.org/10.1073/pnas.1708274114) | A short, readable primer on the one idea on which preregistration depends: the difference between predicting a result and explaining one after the fact. It speaks directly to the case where the data already exist, which is ours. |
 | The [AsPredicted](https://aspredicted.org) eight-question form | The exact template you will fill in during the session. Skim the eight questions once so the form feels familiar rather than a cold start. |
 | [van den Akker et al. (2021) – Preregistration of secondary data analysis](https://doi.org/10.15626/MP.2020.2625) | The fuller preregistration template built for exactly our situation – reanalysing data that already exist. Optional, but it is the more thorough tool for the job you do on the day. |
-| [Reading a specification curve](exercise/reading-inference.qmd) | The workshop's own reading for the final part of the day: what a large set of results together can and cannot establish, and why thousands of estimates are not thousands of tests. |
+| [Reading a specification curve](exercise/reading-inference.qmd) | The course reading for the final part of the day: what a large set of results together can and cannot establish, and why thousands of estimates are not thousands of tests. |
+| [The IDE module](companion/ide.qmd) | Positron, RStudio and VS Code set side by side: what each pane does, what changes between them, and what is new in the current releases. |

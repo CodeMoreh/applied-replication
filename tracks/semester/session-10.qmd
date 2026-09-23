@@ -1,0 +1,13 @@
+---
+title: "Session 10 – Reading the curve and publishing the work"
+---
+The closing session does two jobs. First, what the room built in session 9 gets read properly: the conversion that puts every estimator and every outcome scale on one axis, then what a specification curve establishes, what it cannot, and which of the arguments now running against multiverse analysis apply to the grid you just sampled. Second, the report becomes something another person can find, open and re-render.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [The statistical methods behind the course](../../companion/stats-methods.qmd#sec-onescale) | Section 10: putting results from different estimators and different outcome scales on one axis, which is the conversion that the class chart runs on. | 30 minutes |
+| [The multiverse and its critics](../../companion/multiverse.qmd) | Where the idea came from, the three purposes a multiverse can serve and why they pull apart, and the critical positions of 2025–26 read against this course's own grid. | 60 minutes |
+| [Reading a specification curve](../../exercise/reading-inference.qmd) | Why 840 estimates are not 840 independent tests, what a permutation design would supply, and what stands without one. | 45 minutes |
+| [Git and GitHub for reproducible research](../../companion/git-github.qmd) | Version control from first principles, a repository of your own, and what belongs in git and what must never be committed. | 90 minutes |
+
+**By the end of the session** you have your report in a version-controlled repository with a licence-aware `.gitignore`, and a closing paragraph stating what the curve you helped build does and does not establish about the claim.

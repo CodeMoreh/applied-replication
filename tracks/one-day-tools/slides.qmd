@@ -1,0 +1,12 @@
+---
+title: "Slides"
+subtitle: "One day – social data science tools"
+page-layout: full
+toc: false
+---
+
+```{=html}
+<iframe class="slide-deck" src="../../slides/one-day-tools.html" title="One day – social data science tools – slides"></iframe>
+```
+
+Open the deck [in its own tab](../../slides/one-day-tools.html){target="_blank"} for the full screen, the speaker view and the keyboard controls: the `d` key switches the optional runs on and off, `[` and `]` jump between parts, and `g` opens a jump bar that finds a slide by its title.

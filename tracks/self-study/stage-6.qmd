@@ -1,0 +1,12 @@
+---
+title: "Stage 6 – Reading the curve you joined"
+---
+Having a dot on a curve and knowing what the curve establishes are two different things, and the second one is what this stage is for. Both pages are short, and both are more useful after Task 5 than before it.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [The multiverse and its critics](../../companion/multiverse.qmd) | Where the idea came from, the three purposes a multiverse can serve and why they pull apart, and the critical positions of 2025–26 read against this course's own grid. | 60 minutes |
+| [The multiverse: 'There is only one correct analysis'](../../companion/multiverse.qmd#sec-lakens) | Section 4 deserves its own sitting. Grant the argument for a moment and ask what would follow for the specification you just declared. | 30 minutes |
+| [Reading a specification curve](../../exercise/reading-inference.qmd) | Why 840 estimates are not 840 independent tests, what a permutation design would supply, and what stands without one. | 45 minutes |
+
+**By the end of the stage** you can say what the curve you joined establishes about the claim, what it does not, and what would have to be run for it to establish more.

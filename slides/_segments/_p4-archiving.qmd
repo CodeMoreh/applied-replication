@@ -1,0 +1,98 @@
+## Archiving and registering a reanalysis {#every-reanalysis-leaves-a-public-trail}
+
+:::: {.none}
+::: {.fragment .fadeInUp}
+**OSF**, the Open Science Framework: a timestamped, citable, public home for data, code, and **registrations**.
+:::
+
+::: {.fragment .fadeInUp}
+A registration is a **frozen, dated snapshot of a plan**. Anyone can check what you said you would do, and when.
+:::
+
+::: {.fragment .fadeInUp}
+You need no account today. We are going to *read* OSF the way that reviewers do.
+:::
+::::
+
+::: notes
+Before the declaring, the infrastructure. Everything you have touched today – the dataset, my analysis script, the codebook – lives at a permanent public address on the Open Science Framework. OSF does two jobs. It archives materials, which is the only reason you were able to stand in a real analyst's shoes this morning rather than a made-up one. And it registers plans: a registration is a frozen, timestamped snapshot of what you intend to do, filed before you do it, that nobody – including you – can quietly edit afterwards. You do not need an account for any of this today. We are going to read OSF the way a reviewer or a sceptical reader would, starting with this paper's own trail.
+:::
+
+## Three addresses, three jobs
+
+::: {.urlbox}
+[osf.io/8rtwe](https://osf.io/8rtwe) [– the archival Multi100 record: analyst C6HJR, frozen as submitted]{.fs-80}
+:::
+
+::: {.urlbox .fragment}
+[osf.io/6zqct](https://osf.io/6zqct) [– the maintained fork: the script, the codebook, today's data]{.fs-80}
+:::
+
+::: {.urlbox .fragment}
+[osf.io/h7432](https://osf.io/h7432) [– the full SCORE dossier on the EU-frames case: every verdict, every artefact]{.fs-80}
+:::
+
+::: notes
+Each of these does a different job. The first is the official archive: the Multi100 component for analyst C6HJR, frozen at the moment of submission and never touched again. That is what an archive is for, and it is also its limit – an archive cannot follow a project onwards. The second address is the living fork, which is where the working materials are maintained and where this course fetches its data from. Archives preserve, forks maintain, and a project that expects to keep moving usually needs both. The third address is the one I want you inside in a moment: the full SCORE dossier on this paper, every reproduction report, the robustness study, the replication. It is all public. Time to go read some of it.
+:::
+
+## Scavenger beat: open the dossier
+
+::: {.urlbox}
+[osf.io/h7432](https://osf.io/h7432)
+:::
+
+::: {.small}
+- Find the **secondary-data replication** of the claim – new Eurobarometer data, N = 352,114
+- Read its unemployment coefficient: the sign, the p-value
+- **Paste the b in chat** when you have it (3 minutes)
+:::
+
+::: notes
+Three minutes, everyone: open the dossier and find the replication component – the one that took the same claim to new Eurobarometer data, three hundred and fifty-two thousand person-years. Read what it found for the unemployment coefficient and paste the b into chat. [wait] There it is: plus zero point zero zero two, p of point zero four six. Positive. The sign flipped, on a third of a million observations, and it scraped under the significance bar from the wrong side. Hold that number while you fill in your declaration in a few minutes – when careful, well-powered re-runs can flip a sign, the only protection that your one analysis has is that you pinned it down before you saw the answer.
+:::
+
+## The study you are inside was preregistered
+
+::: {.small}
+- Multi100: **100 claims × at least 5 independent analysts**, no instructions on how to analyse
+- The scoring rules – same conclusion? effect size close? – were **fixed and public before any result came back**
+- Outcome: 74% same conclusion · 34% within ±0.05 *d* – judged against criteria nobody could bend afterwards
+:::
+
+::: {.src}
+@AczelEtAl2026InvestigatingAnalyticalRobustness. Project: osf.io/7snkz
+:::
+
+::: notes
+The same discipline applies at scale. Multi100 – the study you have been an analyst inside all day – was itself preregistered. One hundred claims, five or more analysts each, complete analytical freedom. The part that had to be pinned down in advance was the judging: what counts as 'the same conclusion', how close is 'close' for an effect size. Those rules went up on OSF before a single analyst's result came back, which is why the seventy-four per cent and thirty-four per cent you met this morning mean something – nobody could move the goalposts once the results were in. [Confirm the registered-protocol wording against osf.io/7snkz before delivery – say what the registration actually fixed, not a paraphrase.]
+:::
+
+## Two templates, one choice
+
+::: {.small}
+- Today: the **AsPredicted short form** – eight plain-language questions (on OSF: "Preregistration Template from AsPredicted.org")
+- The fuller tool for our job: the **secondary-data template** (van den Akker et al. 2021, *Meta-Psychology*) – 26 items, built for reanalysing data you already hold
+- Both are in your reading; today's block is the short form, adapted for data-in-hand
+:::
+
+::: notes
+Two templates on the table, and we use one of them. Today it is the AsPredicted short form – eight questions in plain language, the shortest recognised template there is, and completable in the eight minutes we have. But I want you to know its limits. AsPredicted was written for people who have not collected data yet. Its very first question – "have any data been collected?" – has, for us, the awkward answer "it's complicated, I already hold everything". There is a template built precisely for that situation: the secondary-data preregistration template by van den Akker and colleagues, twenty-six items, with a whole section on what you already know about the data. It is in your reading list, and it is the tool a full version of today's exercise would use. Our block borrows its best idea.
+:::
+
+## Eight questions, your answers already mapped {.smaller}
+
+| AsPredicted asks | Your block answers |
+|---|---|
+| Q1 Have data been collected? | "It's complicated – I already hold them" + what I already know |
+| Q2 Main question / hypothesis? | the claim, in your one sentence |
+| Q3 Dependent variable? | your **outcome** axis |
+| Q4 Conditions? | your other five axes, held at baseline |
+| Q5 Analyses? | your model + your support/undermine rule |
+| Q6 Outliers / exclusions? | your **sample** axis |
+| Q7 Sample size? | N = 270 country-years – fixed |
+| Q8 Anything else? | your DAG-grounded justification |
+
+::: notes
+The block will take you eight minutes rather than forty, because you have already done all the thinking. Watch the mapping. The claim sentence you typed in chat before lunch – that is question two. Your outcome axis is the dependent variable, question three. The five axes you are holding at baseline are your conditions. Your sample axis is the exclusion rule. The sample size is fixed by the panel – two hundred and seventy, nobody gets to choose. And the one question that AsPredicted fumbles for us, question one, you answer directly: the data exist, I hold them, and here is what I already know – including that the baseline lands at minus three point eight zero four. The eight-axis menu drops straight into the eight boxes. All that is left is to write it down.
+:::

@@ -1,0 +1,52 @@
+## What we use today {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {.small}
+**Your IDE and the workspace**
+
+- The workspace folder you downloaded, opened in your IDE (Positron, RStudio, VS Code, etc.)
+- Quarto renders your report; `fixest` fits your models
+- No git, no cloning, no configuration – it is just files
+- This is what I drive on the shared screen
+:::
+:::
+::: {.column width="50%"}
+::: {.small}
+**The browser lab**
+
+- One web page. R is compiled to run **inside the browser**
+- Nothing installed, nothing to break, data already in place
+- The same tasks, data and helpers, on the shared screen and in your own tab
+- Your spare if your installation misbehaves at any point
+:::
+:::
+::::
+
+::: {.urlbox .fragment}
+[github.com/CodeMoreh/replication-lab](https://github.com/CodeMoreh/replication-lab) [– download zip → unzip → open in your IDE]{.fs-80}
+:::
+
+::: notes
+So, concretely, today. The workspace is the folder you downloaded, open in your IDE – Positron on my screen, RStudio or VS Code on yours if that is what you use – Quarto renders your report, fixest fits your models, and there is no git and no cloning because it is just a folder of files. That is what I will be driving on the shared screen, so you can follow keystroke for keystroke. The browser lab is one web page with R compiled to run inside the browser itself. Nothing installed, nothing to break, and the data are already there. The two are at full parity – every task exists in both – so you can switch mid-day if your machine misbehaves, and several people usually do. The address for the workspace zip is at the bottom, and it is on the setup page in the chat.
+:::
+
+## What the tools cannot do {.smaller}
+
+:::: {.none}
+::: {.fragment}
+A perfectly reproducible pipeline can be a perfectly reproducible answer to **a question you never stated**.
+:::
+
+::: {.fragment}
+None of this software will tell you what your estimand is, whether your controls belong in the model, or whether the association you found means what you think it means.
+:::
+
+::: {.fragment}
+Tooling is the **cheap** half of the problem. We have now done it. **The rest of the day is the expensive half.**
+:::
+::::
+
+::: notes
+And I want to end this segment by undercutting it slightly. Everything I have just shown you is genuinely worth having – but a perfectly reproducible pipeline can be a perfectly reproducible answer to a question you never stated. None of this software will tell you what your estimand is. None of it will tell you whether the variables you put in the model belong there. None of it will tell you whether the association you found means what you think it means. Tooling is the cheap half of the problem, in the sense that it is solvable by learning things – which is what we have just done. The rest of the day is the expensive half, and it starts after the break with the most useful question in quantitative research, which is: what exactly are you trying to estimate?
+:::

@@ -1,0 +1,21 @@
+---
+title: "Part 4 – Multiverse and preregistration"
+---
+::: {.callout-note appearance="simple" icon=false}
+**Slides.** [Open the deck at this part](../../slides/one-day-replication.html#/part-4-multiverse-and-preregistration){target="_blank"} in its own tab, or follow it on the [slides page](slides.qmd).
+:::
+
+Part 4 opens on what the room has just built and closes on the single analysis you would defend if you had to pick one. The reading on the specification curve is its companion.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Multiverse](../../results.qmd) and slides | Read the class's exploratory dots against the full curve and the five published analysts, and find your own among them. | 10 minutes |
+| Slides | Bet on which analytical choice moves estimates most before the decomposition is shown, then find out: the outcome fork carries about half of the variation across specifications. Then where the five analysts sit on the aligned grid, and where the wrong-sign results concentrate. | 16 minutes |
+| The percentile cell on the [Browser lab](../../exercise/browser-lab.qmd) page | Read off your own percentile, which is the share of the 840 specifications more negative than the estimate you submitted, and send it with everyone else's. Without a submission of your own, use the reproduced baseline instead. | 7 minutes |
+| Slides, the multiverse tutorial and what the curve leaves out | Optional depth on where the idea came from and what a multiverse is for, followed by the four things that a curve leaves out, which is not optional. | 10 minutes |
+| [Reading a specification curve](../../exercise/reading-inference.qmd) and slides | Why hundreds of estimates on the same data are not hundreds of independent tests, what a curve-level permutation test would have to do, and how to read one if it were run. Then the discussion, argued in chat or at the table. | 12 minutes |
+| Slides, with [Reproducibility repositories](../../companion/repositories.qmd) as the follow-up | The three critical positions on multiverse analysis, the argument that a fully specified question has one correct analysis, what preregistration settles and what it leaves open, and the OSF nodes behind the case. | 10 minutes |
+| The report skeleton in the workspace, or [Browser lab](../../exercise/browser-lab.qmd) Task 5 | Complete the preregistration block before you run anything, translate the declaration into model syntax yourself, run it, and submit with `report_result()`. Your dot joins the chart as a filled circle beside the open exploratory ones. | 20 minutes |
+| [Multiverse](../../results.qmd) | Wrap up with the chart on screen: two sentences worth keeping, and the reminder that the path you declared was one choice among the alternatives you had just seen. | 5 minutes |
+
+**By the end of the part** you have your own percentile in the 840-specification grid, one specification declared in writing before it was run, and a report of your own carrying the result that came back.

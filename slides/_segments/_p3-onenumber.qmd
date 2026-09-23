@@ -1,0 +1,19 @@
+## One number, thirty people
+
+:::: {.none}
+::: {.fragment}
+Thirty of you just landed on **t = −3.804**, to the third decimal. That is reproducibility, and it is the easy R.
+:::
+
+::: {.fragment}
+You all ran the *same code*. The five Multi100 analysts each wrote their own – and came back with five different answers.
+:::
+
+::: {.fragment}
+None of them was careless. So what were they doing differently? **The menu, next.**
+:::
+::::
+
+::: notes
+Look at what just happened. Thirty people, thirty machines, one number, agreeing to the third decimal. That is reproducibility, and I want you to notice how cheap it was: you all ran the same code on the same file, so of course you got the same number. Reproducibility is the easy R, and it is the one that this paper failed. [pause] Now hold that against the chart from this morning – five analysts of this same claim, five different answers, one of them not even significant. Not one of those five was careless. I have read all four of the others' code, line by line, and they are competent, well-organised pipelines written by people who knew exactly what they were doing. So the spread is not a quality problem. It is a choices problem, and the next thing I am going to show you is the full list of choices that were available to us.
+:::

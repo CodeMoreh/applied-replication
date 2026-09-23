@@ -4,11 +4,11 @@ subtitle: "Readings, links, and tools"
 bibliography: references.bib
 ---
 
-## Four words that are not synonyms {#glossary}
+## Glossary {#glossary}
 
-The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms. They are not interchangeable, and the day depends on the difference: a finding can survive every robustness check and still be one that nobody can recompute from the original data, or reproduce cleanly and still fail on new data. The 'in this workshop' column says where each concept appears in the session.
+The four terms below follow the definitions in @NosekEtAl2025BriefGlossaryTerms. They are not interchangeable, and the day depends on the difference: a finding can survive every robustness check and still be one that nobody can recompute from the original data, or reproduce cleanly and still fail on new data. The 'in this course' column says where each concept appears in the session.
 
-| Term | Definition | In this workshop |
+| Term | Definition | In this course |
 |------------------------|------------------------|------------------------|
 | **Reproducibility** | Same question · same data · same analysis → same result | Tested by the SCORE programme [@AlipourfardEtAl2021SystematizingConfidenceOpen]; the result reported by the original author (OA) was not reproducible [@MiskeEtAl2026InvestigatingReproducibilitySocial] |
 | **Robustness** | Same question · same data · justifiable alternative analysis → stable result | The Multi100 design [@AczelEtAl2026InvestigatingAnalyticalRobustness]; the five-analyst table; the specification work in Part 3 |
@@ -53,7 +53,7 @@ These three are the pre-session reading list for the preregistration segment of 
 
 ### Reading the multiverse
 
-- [Reading a specification curve: what it can and cannot say](exercise/reading-inference.qmd) – this workshop's own reading for the final part of the day: why a large set of results is not a large set of independent tests, and what a single test across the whole curve can and cannot establish.
+- [Reading a specification curve](exercise/reading-inference.qmd) – the course reading for the final part of the day: why a large set of results is not a large set of independent tests, and what a single test across the whole curve can and cannot establish.
 
 ### The case study paper
 
@@ -67,15 +67,15 @@ These three are the pre-session reading list for the preregistration segment of 
 
 ## Companion curriculum
 
-Nine modules carry most of the teaching in this course, from a first line of R through to a reanalysis you can version and archive. The workshop at the centre is compressed by design, so it works the single hands-on case and leaves the skills that surround it to the modules; each of them stands on its own and can be taken without the others. The [curriculum overview](companion/index.qmd) sets out the three strands that the modules group into, and a suggested reading order.
+Ten modules carry most of the teaching in this course, from a first line of R through to a reanalysis you can version and archive. The workshop at the centre is compressed by design, so it works the single hands-on case and leaves the skills that surround it to the modules; each of them stands on its own and can be taken without the others. The [curriculum overview](companion/index.qmd) sets out the three strands that the modules group into, and a suggested reading order.
 
 - [Getting started with R](companion/intro-r.qmd) – for participants arriving with no R at all; best read before the day.
 - [Quarto and reproducible documents](companion/quarto.qmd) – the medium in which every page of this site is written: what a `.qmd` file is and what rendering does to it, the YAML header and the chunk options that matter, figures, tables and cross-references, citations drawn from a bibliography, and publishing the finished document, all of it worked through on files you can open in this project rather than on a toy example.
-- [The statistical methods behind the workshop](companion/stats-methods.qmd) – every model fitted on the case's own data with real outputs read line by line, from a first `lm()` through fixed and random effects to multilevel, weighted, Bayesian and ordered-beta models, ending with meta-analysis and the common effect-size axis.
-- [Draw the arrows you believe](companion/dags.qmd) – causal graphs written as R formulas with `dagify()`: confounders, mediators and colliders fitted rather than only described, the EU-frames graph whose adjustment set is what two-way fixed effects absorb, and what fixed effects cannot fix.
-- [The multiverse: origins, uses, and critics](companion/multiverse.qmd) – where specification-curve thinking came from, the three purposes a multiverse can serve, and the 2025–26 critical debate read against this workshop's own grid.
+- [The statistical methods behind the course](companion/stats-methods.qmd) – every model fitted on the case's own data with real outputs read line by line, from a first `lm()` through fixed and random effects to multilevel, weighted, Bayesian and ordered-beta models, ending with meta-analysis and the common effect-size axis.
+- [Causal graphs](companion/dags.qmd) – causal graphs written as R formulas with `dagify()`: confounders, mediators and colliders fitted rather than only described, the EU-frames graph whose adjustment set is what two-way fixed effects absorb, and what fixed effects cannot fix.
+- [The multiverse and its critics](companion/multiverse.qmd) – where specification-curve thinking came from, the three purposes a multiverse can serve, and the 2025–26 critical debate read against the course grid.
 - [Simulation as a method](companion/simulation.qmd) – a simulated person-level twin with a known recipe, built to carry the original analysis: parameter recovery, composition against context, recovering individual effects, weights that matter, the degrees-of-freedom story run live, a null multiverse, a lineup, and design precision by simulation.
-- [One claim, two levels](companion/individual-level.qmd) – the published specification fitted at the individual level on a validated simulated twin, with the real-data values beside it: individual circumstance against national context, and what declaring a level of analysis does to the evidence.
+- [The individual level](companion/individual-level.qmd) – the published specification fitted at the individual level on a validated simulated twin, with the real-data values beside it: individual circumstance against national context, and what declaring a level of analysis does to the evidence.
 - [Reproducibility repositories](companion/repositories.qmd) – research-data archives, the OSF nodes behind this case, and preregistration templates in more depth.
 - [Git and GitHub for reproducible research](companion/git-github.qmd) – version control and publishing your own report, the hands-on practice kept out of the core day so it can be learned on its own terms.
 
@@ -87,14 +87,14 @@ Nine modules carry most of the teaching in this course, from a first line of R t
 |------------------------------------|------------------------------------|
 | Multi100 – OSF project | <https://osf.io/q5h2c/> |
 | Multi100 – GitHub repo (effect sizes) | <https://github.com/marton-balazs-kovacs/multi100> |
-| OSF fork – data & maintained analysis (workshop fetch target) | <https://osf.io/6zqct/> |
+| OSF fork – data & maintained analysis (course fetch target) | <https://osf.io/6zqct/> |
 | Official Multi100 archival record for analyst C6HJR | <https://osf.io/8rtwe/> |
 | Full SCORE dossier on the EU-frames case | <https://osf.io/h7432/> |
 | Multi100 navigation sheet (claims list) | Available from the Multi100 OSF project above |
 
 ------------------------------------------------------------------------
 
-## One paper, all three Rs {#the-eu-frames-case-score-dossier-one-paper-all-three-rs}
+## The SCORE dossier on the case {#the-eu-frames-case-score-dossier-one-paper-all-three-rs}
 
 The target article [@Teney2016DoesEUEconomic] was put through all three SCORE activities: reproduction, robustness reanalysis, and replication. Few papers are, which is why this one case can carry the whole day. The parent node for the full dossier is [**https://osf.io/h7432/**](https://osf.io/h7432/){.uri}, and the table below summarises each component.
 
@@ -107,7 +107,7 @@ The target article [@Teney2016DoesEUEconomic] was put through all three SCORE ac
 | `4rjbf` | **Source-data reproduction** | **"Not reproduced"** – original effect size could not be extracted or re-calculated |
 | `gr8u6` | **Multi100 robustness** – 5 independent reanalysts | All 5 coefficients negative (claim-consistent direction); partial r from −0.006 to −0.452 |
 | `zt5y2` | **Secondary-data replication** (Eurobarometer + Eurostat, different waves; preregistered; N = 352,114 person-year obs.) | **Not replicated – sign flip**: positive coefficient (b = 0.002, t = 2.004, p = 0.046) in both Analysis One and Analysis Two |
-| `6zqct` | Analyst's maintained fork (workshop fetch target) – carries the working materials and today's data | <https://osf.io/6zqct/> |
+| `6zqct` | Analyst's maintained fork (course fetch target) – carries the working materials and today's data | <https://osf.io/6zqct/> |
 | `8rtwe` | Official Multi100 archival record for analyst C6HJR | <https://osf.io/8rtwe/> |
 
 Three Rs, three different verdicts on one paper: reproduction failed (twice, differently); robustness held in sign but spanned two orders of magnitude in effect size; replication returned a sign flip. The glossary states that the three indicators are near-uncorrelated. A single case built entirely from public artefacts makes that concrete.
@@ -116,7 +116,7 @@ Three Rs, three different verdicts on one paper: reproduction failed (twice, dif
 
 ## If you are at Newcastle University
 
-The workshop is open to anyone, so support of the kind below exists wherever you are: the library at your own institution and its research-software or research-data team are the places to ask. As one worked example, participants based at Newcastle University can draw on the following.
+The course is open to anyone, so support of the kind below exists wherever you are: the library at your own institution and its research-software or research-data team are the places to ask. As one worked example, participants based at Newcastle University can draw on the following.
 
 | Resource | URL |
 |------------------------------------|------------------------------------|

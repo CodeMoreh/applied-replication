@@ -152,7 +152,7 @@ to a file for repeated-draw studies.
 
 Simulated data, generator and calibration summaries: CC BY 4.0. Attribute as
 "Chris Moreh, *EU-frames simulated person-level twin*, CC BY 4.0", with a link
-to the workshop site. The macro columns `unemp`, `growth` and `bailout` come
+to the course site. The macro columns `unemp`, `growth` and `bailout` come
 from World Bank and European Commission series and inherit whatever governs the
 public panel.
 

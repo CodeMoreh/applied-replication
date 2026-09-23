@@ -1,0 +1,12 @@
+---
+title: "Session 2 – Getting started with R"
+---
+Nothing later works without this, so the term gives it a session of its own rather than assuming it. If you already write R you can skip to session 3, but the grammar-of-graphics part is worth your time because the class chart is read with it in session 9.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Setup](../../setup.qmd) and [Positron, RStudio and VS Code](../../companion/ide.qmd) | Install R and an IDE (Positron, RStudio, VS Code, etc.) and run the check script; open the browser lab once as well, since it is where demonstrations run and where a failed installation is worked around. Then the IDE module: where the console, the variables and the data viewer are in the IDE you chose, and the six steps of section 6 in the workspace. | 60 minutes |
+| [Getting started with R](../../companion/intro-r.qmd) | Sections 1 to 7: the console and the script, objects and data frames, reading a CSV, the pipe, and one task written three ways. | 90 minutes |
+| [Getting started with R](../../companion/intro-r.qmd#sec-ggplot) | Sections 8 and 9: the grammar of graphics, built up until the course class chart can be read layer by layer. | 60 minutes |
+
+**By the end of the session** you have a working R installation inside an IDE, have opened the browser lab once, and have a short script that reads `EUframes_cy.csv`, confirms its 270 country-years and draws one figure from it.

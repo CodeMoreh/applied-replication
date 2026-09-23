@@ -98,7 +98,7 @@ SIM_FRACTION      <- 0.10      # cell sizes as a fraction of the real n_cy.
                                # The twin's cell means are averages over this
                                # many people, so they are noisier than the
                                # panel's; at 0.10 a cell-level slope carries a
-                               # standard error near a third of the anchor's
+                               # standard error near a third of that coefficient's
                                # size, which the module teaches rather than
                                # hides. Raising it improves precision and the
                                # file size together
@@ -112,7 +112,7 @@ EDU      <- c(le15 = cget("edu_le15"), e16_19 = cget("edu_e16_19"),
               e20plus = cget("edu_e20plus"), studying = cget("edu_studying"))
 
 # --- the cell-level recipe, estimated from the public panel -----------------
-# One specification, the same one the day's own anchor uses, fitted to the
+# One specification, the same one C6HJR's published Multi100 specification uses, fitted to the
 # mentioning rate and to each of the four conditional shares. Because the
 # conditional shares sum to 1 by construction, an identical linear projection
 # gives coefficients that sum to zero across dimensions and residuals that do

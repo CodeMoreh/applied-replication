@@ -1,0 +1,9 @@
+# PART 4 – Multiverse and preregistration {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Part 4 · 90 minutes
+:::
+
+::: notes
+Last part, and the one the whole day has been building towards. You spent the end of Part 3 trying specifications and watching the estimate move. Now we give that activity its proper name, learn to read it as a picture, and then confront the question it raises and does not answer – which of all those defensible analyses should you actually publish? That question turns out to have a serious literature and a live argument behind it, and by the end of this part you will be able to take a side in it. And then you settle on one analysis, declare it before you run it, and put it on the board.
+:::

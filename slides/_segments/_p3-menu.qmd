@@ -1,0 +1,71 @@
+## The specification menu {.smaller}
+
+::: {.small}
+| Axis | Options |
+|---|---|
+| **Outcome** | `mcosmo` · `mutil` · `mcomm` · `mlib` · `mpos` · `mneg` |
+| **Outcome family** | gaussian · beta (logit link, for a bounded 0–1 scale) |
+| **Predictor** | unemployment · GDP growth · both |
+| **Predictor form** | raw · log (unemployment only – growth goes negative) |
+| **Copredictor** | none · the other macro measure |
+| **Estimator** | two-way FE · country FE · random effects · pooled with clustered SE |
+| **Sample** | all · 2004–2008 · 2009–2013 · no bailout countries · no Greece and Spain |
+| **Weights** | none · `n_cy` |
+:::
+
+::: {.small}
+Eight axes. Copy-paste code for every option is on the specification menu page.
+:::
+
+::: {.fragment .small}
+Two were on the board in the red-card study already: its 29 teams split across **four response distributions** (outcome family) and **four ways of handling non-independence** (estimator).
+:::
+
+::: notes
+Here is the menu, and everything left in the day runs off it. Eight axes, and every option on it is a choice a competent analyst could defend in print. Which framing scale is your outcome. Whether you model a bounded nought-to-one scale with a linear model or with something built for proportions. Whether the claim is carried by unemployment or by GDP growth, or both. Whether you take the rate raw or logged. Whether the other macro measure goes in beside it. Which of four ways you handle the fact that observations are grouped in countries and in years. Which countries and which years you keep. And whether you weight by how many people are behind each cell. The menu page has copy-paste code for every one of these, so nobody is writing R from a blank line.
+:::
+
+## What Task 2 left open {.smaller}
+
+::: {.small}
+The three instructions fixed the **outcome dimension**, the **predictor** and the **contextual controls**. Everything else stayed open – including one thing nobody thinks of as a choice:
+:::
+
+::: {.fragment .small}
+**The unit of analysis.** Two of the five fitted models on **individual respondents**; three worked on **aggregates**. Task 2 never said which, and the wording did not imply one.
+:::
+
+::: {.fragment .small}
+Their five answers, all obeying all three instructions, still ran from *r* = −0.006 to *r* = −0.45. The remaining freedom was more than enough.
+:::
+
+::: {.fragment .small}
+Keep that in mind this afternoon: **the choices that move an estimate most are usually the ones made before the model is fitted at all.**
+:::
+
+::: notes
+So what did those three instructions actually pin down? The outcome dimension, the predictor, and the contextual controls. Everything else stayed open – including one thing that almost nobody thinks of as a methodological choice at all, which is the unit of analysis. Two of the five of us fitted models on individual respondents, hundreds of thousands of them. Three worked on aggregates. Task two never said which, and the wording did not imply one either way. And the consequence is on the next fragment: five answers, all obeying all three instructions, still running from minus point zero zero six to minus point four five. The freedom that remained after the constraints was more than enough to produce the whole spread. Hold that thought all afternoon, because it generalises: the choices that move an estimate most are usually the ones made before a model is fitted at all.
+:::
+
+## One deviation, and a reason for it {.smaller}
+
+::: {.small}
+For the rest of today the rule is: **change one axis, hold the other seven at baseline.**
+
+Baseline = the specification you just reproduced: `mcosmo` · gaussian · unemployment · raw · no copredictor · two-way FE · all years · unweighted.
+:::
+
+::: {.fragment .small}
+Why one at a time? Because it makes the class chart **readable**. Every dot in the room differs from a common baseline in exactly one declared way, so when a dot moves you can say what moved it.
+:::
+
+::: {.fragment .small}
+And one convention binds everyone: **claim-alignment**. The negative framings are reverse-coded, 1 − y, so that 'supports the claim' reads as a negative sign whatever your outcome. Without it the class chart would straddle zero by construction and look like noise.
+:::
+
+::: notes
+Two ground rules before you touch the menu. First, one deviation: change one axis and hold the other seven at the baseline, which is the specification you have just reproduced – cosmopolitan outcome, gaussian, unemployment raw, no copredictor, two-way fixed effects, all years, unweighted. That sounds restrictive, and it is deliberate, because it is what makes the class chart readable. Every dot in the room will differ from one common baseline in exactly one declared way, so when a dot sits somewhere surprising we can say what put it there. Second, a convention that binds everybody: claim-alignment. If your outcome is one of the negative framings, it gets reverse-coded – one minus the scale – so that supporting the claim reads as a negative sign for every outcome in the room. Without that, half the class would be above zero by construction and the chart would look like noise.
+:::
+
+<!-- DEEP DIVE START: methodological tutorial (12 slides). Optional depth, on
+     the .deepdive class – see the note at the R tutorial in Part 2. -->

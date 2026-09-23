@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Getting started with R – Applied Replication for Data Skills</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.js"></script>
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/animate.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/magic.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo light-content">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Applied Replication for Data Skills</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../tracks/one-day.html">
+ <span class="dropdown-text">One day</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/three-days.html">
+ <span class="dropdown-text">Three days</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/semester.html">
+ <span class="dropdown-text">Semester</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/self-study.html">
+ <span class="dropdown-text">Self-study</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../slides/index.html"> 
+<span class="menu-text">Slides</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-exercise">    
+        <li>
+    <a class="dropdown-item" href="../exercise/index.html">
+ <span class="dropdown-text">Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/browser-lab.html">
+ <span class="dropdown-text">Browser lab</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/spec-menu.html">
+ <span class="dropdown-text">Specification menu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/estimand-dial.html">
+ <span class="dropdown-text">Estimand choices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/cheatsheet.html">
+ <span class="dropdown-text">Cheatsheet</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../results.html"> 
+<span class="menu-text">Multiverse</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-companion" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Companion</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-companion">    
+        <li>
+    <a class="dropdown-item" href="../companion/index.html">
+ <span class="dropdown-text">Curriculum overview</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Computational tools</li>
+        <li>
+    <a class="dropdown-item" href="../companion/intro-r.html">
+ <span class="dropdown-text">Getting started with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/quarto.html">
+ <span class="dropdown-text">Quarto and reproducible documents</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Reproducibility and collaboration</li>
+        <li>
+    <a class="dropdown-item" href="../companion/repositories.html">
+ <span class="dropdown-text">Repositories &amp; preregistration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/git-github.html">
+ <span class="dropdown-text">Git &amp; GitHub</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistical methods</li>
+        <li>
+    <a class="dropdown-item" href="../companion/stats-methods.html">
+ <span class="dropdown-text">The statistical methods behind the course</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/dags.html">
+ <span class="dropdown-text">Causal graphs &amp; adjustment sets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/multiverse.html">
+ <span class="dropdown-text">The multiverse and its critics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/weighting.html">
+ <span class="dropdown-text">Weights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/missingness.html">
+ <span class="dropdown-text">Missing answers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/measurement.html">
+ <span class="dropdown-text">The items behind the scales</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/simulation.html">
+ <span class="dropdown-text">Simulation as a method</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/individual-level.html">
+ <span class="dropdown-text">The individual level</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-what" id="toc-sec-what" class="nav-link active" data-scroll-target="#sec-what">1. R and Positron</a></li>
+  <li><a href="#sec-surfaces" id="toc-sec-surfaces" class="nav-link" data-scroll-target="#sec-surfaces">2. The console and the script</a></li>
+  <li><a href="#sec-objects" id="toc-sec-objects" class="nav-link" data-scroll-target="#sec-objects">3. Objects and data frames</a></li>
+  <li><a href="#sec-packages" id="toc-sec-packages" class="nav-link" data-scroll-target="#sec-packages">4. Packages</a></li>
+  <li><a href="#sec-reading" id="toc-sec-reading" class="nav-link" data-scroll-target="#sec-reading">5. Reading data</a>
+  <ul class="collapse">
+  <li><a href="#other-formats" id="toc-other-formats" class="nav-link" data-scroll-target="#other-formats">Other formats</a></li>
+  </ul></li>
+  <li><a href="#sec-pipe" id="toc-sec-pipe" class="nav-link" data-scroll-target="#sec-pipe">6. The pipe</a></li>
+  <li><a href="#sec-dialects" id="toc-sec-dialects" class="nav-link" data-scroll-target="#sec-dialects">7. Three dialects</a></li>
+  <li><a href="#sec-ggplot" id="toc-sec-ggplot" class="nav-link" data-scroll-target="#sec-ggplot">8. The grammar of graphics</a>
+  <ul class="collapse">
+  <li><a href="#data-mapping-and-geometry" id="toc-data-mapping-and-geometry" class="nav-link" data-scroll-target="#data-mapping-and-geometry">Data, mapping and geometry</a></li>
+  <li><a href="#mapping-and-setting" id="toc-mapping-and-setting" class="nav-link" data-scroll-target="#mapping-and-setting">Mapping and setting</a></li>
+  <li><a href="#layers" id="toc-layers" class="nav-link" data-scroll-target="#layers">Layers</a></li>
+  <li><a href="#scales" id="toc-scales" class="nav-link" data-scroll-target="#scales">Scales</a></li>
+  <li><a href="#facets" id="toc-facets" class="nav-link" data-scroll-target="#facets">Facets</a></li>
+  <li><a href="#labels-and-themes" id="toc-labels-and-themes" class="nav-link" data-scroll-target="#labels-and-themes">Labels and themes</a></li>
+  <li><a href="#from-the-pipe-to-the-plot" id="toc-from-the-pipe-to-the-plot" class="nav-link" data-scroll-target="#from-the-pipe-to-the-plot">From the pipe to the plot</a></li>
+  </ul></li>
+  <li><a href="#sec-speccurve" id="toc-sec-speccurve" class="nav-link" data-scroll-target="#sec-speccurve">9. Reading the class chart</a></li>
+  <li><a href="#sec-easystats" id="toc-sec-easystats" class="nav-link" data-scroll-target="#sec-easystats">10. Naming the estimand</a></li>
+  <li><a href="#sec-materials" id="toc-sec-materials" class="nav-link" data-scroll-target="#sec-materials">11. The workspace and the browser lab</a></li>
+  <li><a href="#sec-sources" id="toc-sec-sources" class="nav-link" data-scroll-target="#sec-sources">Sources and further study</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Getting started with R</h1>
+<p class="subtitle lead">Foundation – for arriving with no R at all</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This is the first module of the <a href="../companion/index.html">companion curriculum</a>, and it is written for the person who arrives with no R at all: a student, a professional from another field, or anyone curious about how the course analysis is actually built. It does not assume you have programmed before. By the end you will know what R is, what the editor around it does, how to store and reshape data, how to draw figures from it and read the ones that the course shows you, how R’s package system and its main dialects fit together, and where the course materials pick up from here.</p>
+<p>One practical note before we start, the same one that the other companion modules make. Every command below is <strong>shown, not run for you</strong>. R is a language you learn by typing into it and watching what comes back, so the way to use this page is to try each snippet yourself, either in the zero-install <a href="../exercise/browser-lab.html">browser lab</a> or in your own copy of R. Nothing on this page executes when it renders.</p>
+<section id="sec-what" class="level2">
+<h2 class="anchored" data-anchor-id="sec-what">1. R and Positron</h2>
+<p><strong>R</strong> is a programming language built for working with data: reading it in, reshaping it, fitting statistical models, and drawing figures. It is free, open source, and the common language of quantitative social science, which is why the course analysis is written in it. R is the thing that does the calculation, and on its own it is just a program that reads instructions and returns answers.</p>
+<p><strong>Positron</strong> is the editor you drive R from. An editor (the general term is an integrated development environment, or IDE) is the working environment around R: a window with your files on one side, a place to write and run code, and panels that show results, figures and the objects you have created. Positron is free, made by the company behind R’s most-used tools, and it is the editor that the course demonstrates on the shared screen. Newcomers often conflate the two, so the relationship is worth stating plainly. You install R once, so the language is present on your machine. You install Positron once, as the place you work, and when you first open it Positron finds the R you installed and connects to it. R does the computing; Positron is where you sit while it happens.</p>
+<p>You do not strictly need Positron to use R – R has its own bare console, and other editors exist – but a modern editor makes everything easier to see and to keep, so the course settles on Positron and this module assumes it. The <a href="../setup.html">setup page</a> walks through installing both.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You do not have to install anything to begin. Open the <a href="../exercise/browser-lab.html">browser lab</a>: a full copy of R starts up inside the tab after a few seconds, with no editor and no install to manage. Everything in the sections below can be typed straight into it, which makes it the fastest way to follow along on a first read.</p>
+</div>
+</div>
+</section>
+<section id="sec-surfaces" class="level2">
+<h2 class="anchored" data-anchor-id="sec-surfaces">2. The console and the script</h2>
+<p>There are three surfaces you type R into, and knowing which is for what saves a great deal of confusion later.</p>
+<p>The <strong>console</strong> is the interactive prompt. You type one line, press Enter, and R answers immediately. It is where you try things out, check a value, or run a quick calculation. Its weakness is that the moment you close the session, everything you typed there is gone, and there is no record of how you reached a result.</p>
+<p>A <strong>script</strong> is a plain text file, with the extension <code>.R</code>, that holds a sequence of commands you want to keep. Instead of typing into the console and losing it, you write the commands in the script and run them from there – all at once, or line by line. A script is a record: it runs the same way tomorrow and on someone else’s machine, and it shows exactly how a result was produced. The rule that the course follows: try things in the console, but the moment something matters, move it into a script.</p>
+<p>A <strong>Quarto document</strong>, with the extension <code>.qmd</code>, is a script and a written report in one file. It holds ordinary prose (the sentences you are reading now are written this way) interleaved with ‘chunks’ of R code. Render the document and R runs every chunk, dropping its results – tables, figures, numbers – into the finished report at exactly the point they belong. This is the unit of work that the course is built around, because it keeps the analysis and the writing that explains it in a single file that cannot drift apart. Your exercise report is a Quarto document, and rendering it is how your preregistration block gets a timestamp.</p>
+</section>
+<section id="sec-objects" class="level2">
+<h2 class="anchored" data-anchor-id="sec-objects">3. Objects and data frames</h2>
+<p>R works by putting values into named <strong>objects</strong> and then referring to them by name. You assign a value to a name with the arrow <code>&lt;-</code> (type it as a less-than sign followed by a hyphen). After that, the name stands in for the value everywhere you use it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>unemployment_rate <span class="ot">&lt;-</span> <span class="fl">7.5</span>        <span class="co"># a single number</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>country           <span class="ot">&lt;-</span> <span class="st">"Germany"</span>  <span class="co"># text, called a 'character string', is quoted</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>in_crisis         <span class="ot">&lt;-</span> <span class="cn">TRUE</span>       <span class="co"># a logical value: TRUE or FALSE</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>unemployment_rate               <span class="co"># typing the name prints the value back</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Most data is not a single value but a column of them. A <strong>vector</strong> is an ordered run of values of one type, built with <code>c()</code> (for ‘combine’). Arithmetic and summary functions work on the whole vector at once, which is why R rarely needs the loops that other languages reach for.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>unemp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">5.8</span>, <span class="fl">5.6</span>, <span class="fl">4.9</span>, <span class="fl">4.1</span>, <span class="fl">5.8</span>)   <span class="co"># unemployment across five years</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(unemp)   <span class="co"># how many values</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(unemp)     <span class="co"># their average</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>unemp <span class="sc">*</span> <span class="dv">100</span>     <span class="co"># every element multiplied, in one step</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You reach into a vector with square brackets, either by position or – far more useful in analysis – by a condition, which keeps only the elements where the condition is <code>TRUE</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>unemp[<span class="dv">1</span>]           <span class="co"># the first value</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>unemp[unemp <span class="sc">&gt;</span> <span class="dv">5</span>]   <span class="co"># only the years above five per cent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A <strong>data frame</strong> is R’s table: a set of equal-length vectors sitting side by side as columns, one row per observation. Almost everything in the course is a data frame. You pull a single column out by name with the <code>$</code> operator, and a rectangular block with <code>[rows, columns]</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A tiny data frame built by hand, three country-years:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">country =</span> <span class="fu">c</span>(<span class="st">"Austria"</span>, <span class="st">"Austria"</span>, <span class="st">"Greece"</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">year    =</span> <span class="fu">c</span>(<span class="dv">2004</span>, <span class="dv">2005</span>, <span class="dv">2010</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">unemp   =</span> <span class="fu">c</span>(<span class="fl">5.8</span>, <span class="fl">5.6</span>, <span class="fl">12.7</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>d              <span class="co"># the whole table</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>unemp        <span class="co"># one column, as a vector</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>d[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, ]       <span class="co"># the first two rows, all columns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sec-packages" class="level2">
+<h2 class="anchored" data-anchor-id="sec-packages">4. Packages</h2>
+<p>Everything so far – <code>c()</code>, <code>mean()</code>, <code>data.frame()</code> – ships with R itself, a core known as <strong>base R</strong>. Everything else arrives as <strong>packages</strong>: bundles of functions, their documentation, and sometimes data, written by researchers and developers around the world and published on <strong>CRAN</strong>, the Comprehensive R Archive Network. CRAN holds over twenty thousand of them. When the next section reads a file with <code>read_csv()</code>, that function comes from a package called <code>readr</code>, not from R itself, and the sections after that lean on packages for nearly everything.</p>
+<p>Using a package takes two steps, and the two of them trip nearly every newcomer at least once:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readr"</span>)   <span class="co"># step 1: download it to your machine – once, ever</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)              <span class="co"># step 2: load it into the session – once, each session</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>install.packages()</code> fetches the package from CRAN and stores it in your machine’s package library. You run it once and never again, until you want an update. <code>library()</code> takes an installed package and attaches it to the running session so its functions are available by name, and it belongs at the top of every script that needs it. Installing is buying the book; <code>library()</code> is taking it off the shelf. Confuse the two and you meet R’s most common error messages. <code>there is no package called 'readr'</code> means step 1 never happened on this machine, while <code>could not find function "read_csv"</code> usually means step 2 is missing from the current session.</p>
+<p>Two habits around packages are worth adopting from the start. First, put every <code>library()</code> call at the top of the script, together. The block then doubles as a plain statement of what the script depends on, and anyone opening the file sees at a glance what they need installed, which is a small but real piece of reproducibility. Second, know the <code>::</code> form: <code>readr::read_csv()</code> calls a function through its package name without attaching anything, and you will meet it in code that wants the provenance of every function to be visible on the line that uses it.</p>
+<p>The course workspace applies all of this for you: its <code>R/check_setup.R</code> script checks every package that the exercise needs and, if any are missing, prints the ready-made line that installs them.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run <code>library(fakepackagename)</code> and read the error carefully, then run <code>library(readr)</code> (preinstalled in the browser lab) and notice that success is silent. Learning to read error messages calmly – this one says nothing more alarming than ‘not on the shelf’ – is a genuine R skill, and this is the message you will see most often.</p>
+</div>
+</div>
+</section>
+<section id="sec-reading" class="level2">
+<h2 class="anchored" data-anchor-id="sec-reading">5. Reading data</h2>
+<p>You will rarely type data by hand. Most data arrives as a <strong>CSV</strong> – a ‘comma-separated values’ file, a plain text table where each line is a row and commas divide the columns. The course ships its data this way precisely because a CSV is readable, diff-able text rather than an opaque binary blob. The file that matters most here is <code>EUframes_cy.csv</code>, the country-year panel that every specification in the course is built on.</p>
+<p>R reads a CSV into a data frame in one call. Base R has <code>read.csv()</code>; <code>read_csv()</code> from the <code>readr</code> package is a little faster and reports the column types it inferred, and it is the one that the course uses.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>euframes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/EUframes_cy.csv"</span>)   <span class="co"># a project-relative path</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>euframes            <span class="co"># print the table</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(euframes)      <span class="co"># 270 country-years</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(euframes)     <span class="co"># the column names</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note the path: <code>"data/EUframes_cy.csv"</code> is written relative to the project folder, not as <code>C:/Users/yourname/Desktop/...</code>. A relative path works on any machine that has the project; an absolute path breaks the moment that the work moves. Opening your workspace as a project and writing every path relative to it is one of the plainest reproducibility habits there is.</p>
+<p>Two functions tell you what you just read without printing the whole thing:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(euframes)              <span class="co"># the first few rows</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(euframes<span class="sc">$</span>unemp)     <span class="co"># min, median, mean and max of one column</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Read <code>data/analysts5.csv</code> into an object called <code>analysts</code> with <code>read_csv()</code>, then run <code>nrow(analysts)</code> and <code>names(analysts)</code>. It holds the five Multi100 analysts’ recorded results, one row each, and it is the smallest file in the project – a good one to print whole and look at properly. Compare its column list against <code>euframes</code>: one file describes country-years, the other describes analyses, and noticing what a row <em>is</em> in each is the first question to ask of any dataset.</p>
+</div>
+</div>
+<section id="other-formats" class="level3">
+<h3 class="anchored" data-anchor-id="other-formats">Other formats</h3>
+<p>The raw material of the course is the plainest example. The Eurobarometer surveys behind the panel are distributed by the GESIS data archive as <strong>Stata</strong> (<code>.dta</code>) and <strong>SPSS</strong> (<code>.sav</code>) files, because those are the packages that much of survey research historically ran on. R reads both through the <code>haven</code> package, one function per format (the file names below are illustrative – none of these files ship with the course):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>eb <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"eurobarometer_wave.dta"</span>)   <span class="co"># Stata; read_sav() reads SPSS</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>What makes these formats different from a CSV is <strong>labelled data</strong>. A Stata or SPSS survey file knows that a column called <code>eu_meaning</code> carries the question “What does the EU mean to you?”, and that its stored values 1, 2, 3 stand for named answer options. <code>haven</code> keeps all of that: labelled columns print with their question text attached, and <code>as_factor()</code> turns the numeric codes into their labels when you want to work with the words rather than the numbers.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>eb<span class="sc">$</span>eu_meaning                <span class="co"># prints with its question and value labels attached</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_factor</span>(eb<span class="sc">$</span>eu_meaning)     <span class="co"># codes become their labels: a factor</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Excel</strong> files are where data is born in many organisations, and the <code>readxl</code> package reads them – one sheet at a time, since a workbook is really a stack of tables:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>rates <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"unemployment_rates.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"annual"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Treat what arrives from a spreadsheet with mild suspicion. Excel displays one thing and stores another often enough – dates especially – that checking column types with <code>summary()</code> straight after import is a habit worth keeping.</p>
+<p>Finally, <strong>Parquet</strong> and <strong>Feather</strong> are the newer columnar formats you will increasingly meet where datasets are large or move between languages. They are compressed, fast, and – unlike a CSV – they carry their column types inside the file, so nothing has to be re-inferred on reading. The <code>arrow</code> package reads both, and the small <code>nanoparquet</code> package reads and writes Parquet with no dependencies at all:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>panel <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"EUframes_cy.parquet"</span>)   <span class="co"># read_feather() for Feather</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Whatever the source format, the landing object is the same data frame, and everything downstream – the verbs of the next sections, the models of the next module – proceeds identically. Every <code>read_</code> function here also has a <code>write_</code> counterpart (<code>write_csv()</code>, <code>write_dta()</code>, <code>write_parquet()</code>, and <code>write_xlsx()</code> from the <code>writexl</code> package), so R also serves as the converter between all of these formats. The course still ships CSV by choice. At 270 rows the efficiency of the binary formats buys nothing, and plain text is worth more: you can open it in anything, diff it, read it in an email.</p>
+</section>
+</section>
+<section id="sec-pipe" class="level2">
+<h2 class="anchored" data-anchor-id="sec-pipe">6. The pipe</h2>
+<p>Reading data is the start. The real work is reshaping it, and reshaping is almost always a sequence of steps. R’s <strong>pipe</strong>, written <code>|&gt;</code>, exists to make such sequences readable. It takes whatever is on its left and passes it as the first argument to the function on its right, so instead of wrapping functions inside one another and reading them inside-out, you write the steps top to bottom in the order they happen:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># without the pipe: innermost first, hard to follow</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">mean</span>(euframes<span class="sc">$</span>unemp), <span class="dv">1</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># with the pipe: left to right, in the order it happens</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>euframes<span class="sc">$</span>unemp <span class="sc">|&gt;</span> <span class="fu">mean</span>() <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On one short line the gain is small. Over the multi-step chains of the next section it is the difference between prose and a puzzle, which is why nearly all modern R is written this way. One historical note, because you will meet it in other people’s code: <code>|&gt;</code> has been part of R itself only since 2021, and older code uses <code>%&gt;%</code>, a pipe from a package called <code>magrittr</code> that does nearly the same job. Read them identically; write the native <code>|&gt;</code>, as all the course materials do.</p>
+</section>
+<section id="sec-dialects" class="level2">
+<h2 class="anchored" data-anchor-id="sec-dialects">7. Three dialects</h2>
+<p>R is old enough to have grown dialects, families of packages with their own vocabulary and style, all doing the same underlying work. You will meet three – base R, the tidyverse and easystats – and it is worth seeing the same small task in each so that none of them ever looks foreign. The task is to keep the crisis-period rows of the panel, with a handful of columns.</p>
+<p><strong>Base R</strong> does it with the bracket-and-<code>$</code> machinery of <a href="#sec-objects">section 3</a>, no packages required:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>crisis <span class="ot">&lt;-</span> euframes[euframes<span class="sc">$</span>year <span class="sc">&gt;=</span> <span class="dv">2009</span>, <span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"year"</span>, <span class="st">"unemp"</span>, <span class="st">"mcosmo"</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>It works, it always will, and code written this way twenty years ago still runs. Its weakness is that the brackets say <em>how</em> rather than <em>what</em>: the reader must decode positions and conditions to reconstruct the intent.</p>
+<p><strong>The tidyverse</strong> is the dominant modern dialect: a family of packages sharing one design philosophy, installable and attachable under the single name <code>tidyverse</code> <span class="citation" data-cites="WickhamEtAl2019WelcomeTidyverse">(<a href="#ref-WickhamEtAl2019WelcomeTidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>. You have already met two of its members, <code>readr</code> and – now – <code>dplyr</code>, which gives each common data operation a named verb:</p>
+<ul>
+<li><code>filter()</code> keeps rows that meet a condition;</li>
+<li><code>select()</code> chooses columns;</li>
+<li><code>mutate()</code> adds or changes a column;</li>
+<li><code>summarise()</code> collapses many rows into a summary.</li>
+</ul>
+<p>Chained with the pipe, the same task reads as what it is:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>euframes <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2009</span>) <span class="sc">|&gt;</span>              <span class="co"># crisis-period rows only</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, year, unemp, mcosmo) <span class="co"># the columns of interest</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>mutate()</code> derives a new column from existing ones, and <code>summarise()</code> reduces the table to a single row (or, with <code>group_by()</code>, one row per group). The pipeline below adds a plain-language crisis flag, groups the country-years by whether a bailout programme was active, and reports the average cosmopolitan-framing score in each group:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>euframes <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">crisis =</span> year <span class="sc">&gt;=</span> <span class="dv">2009</span>) <span class="sc">|&gt;</span>            <span class="co"># a new TRUE/FALSE column</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(bailout) <span class="sc">|&gt;</span>                        <span class="co"># split by bailout status</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_cells    =</span> <span class="fu">n</span>(),                         <span class="co"># how many country-years</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_cosmo =</span> <span class="fu">mean</span>(mcosmo),                <span class="co"># their average outcome</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_unemp =</span> <span class="fu">mean</span>(unemp)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Read the chain aloud and it is almost English: take the panel, add a crisis flag, group by bailout status, and for each group report the count and two averages. Readability of that kind is a reproducibility feature: a reviewer who can read the code can check it, which is why the course scripts are built from these verbs.</p>
+<p><strong>easystats</strong> is the third dialect, and the one that this module most wants you to know exists, because the course facilitator uses and recommends it. It is likewise a family of packages under one installable name, <code>easystats</code> <span class="citation" data-cites="LudeckeEtAl2022EasystatsFrameworkEasy">(<a href="#ref-LudeckeEtAl2022EasystatsFrameworkEasy" role="doc-biblioref">Lüdecke et al. 2022</a>)</span>, but its centre of gravity is different: where the tidyverse is at its best preparing data <em>before</em> a model, easystats is built for everything that happens <em>after</em> one. It has a data-preparation member too – <code>datawizard</code>, whose verbs deliberately mirror those of dplyr –</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datawizard)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>euframes <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2009</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_select</span>(<span class="fu">c</span>(<span class="st">"country"</span>, <span class="st">"year"</span>, <span class="st">"unemp"</span>, <span class="st">"mcosmo"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>– but its real contribution begins once a model exists, and that is the subject of the next section. The three dialects are layers rather than rivals: base R is always underneath, the tidyverse gives data work its grammar, and easystats gives the modelling stage a grammar of its own.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a chain on <code>euframes</code> that keeps only Greece (<code>filter(country == "Greece")</code>), selects <code>year</code>, <code>unemp</code> and <code>mcosmo</code>, and prints the result. Then extend it with <code>summarise()</code> to report Greece’s mean unemployment across the whole period. You have now filtered, selected and summarised in one pipeline – the core loop of everyday data work. If you are curious, redo the first step in base R and in <code>datawizard</code>, and notice you can already read all three.</p>
+</div>
+</div>
+</section>
+<section id="sec-ggplot" class="level2">
+<h2 class="anchored" data-anchor-id="sec-ggplot">8. The grammar of graphics</h2>
+<p>Section 7 introduced the tidyverse as a family and named two of its members. <strong>ggplot2</strong> is the third, and it is the one that draws <span class="citation" data-cites="WickhamEtAl2019WelcomeTidyverse">(<a href="#ref-WickhamEtAl2019WelcomeTidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>. Every figure that the course shows you is built with it – the slides, the live class chart on the results page, the small country panels in the browser lab – so reading ggplot2 code is how you satisfy yourself that a figure shows what its caption says it shows.</p>
+<p>The name abbreviates ‘the grammar of graphics’, and the word grammar is meant literally. Rather than offer one function per chart type, ggplot2 splits a figure into parts that recombine freely: the data, the mapping from columns to visual properties, the geometric shapes drawn, the scales that decide what those shapes look like, the panels that the plot is divided into, and last the labels and the styling. A scatterplot and a bar chart are then two fillings of the same slots rather than two commands to remember. Learn the slots once and the figures on this site become legible, including the ones you have not met yet.</p>
+<section id="data-mapping-and-geometry" class="level3">
+<h3 class="anchored" data-anchor-id="data-mapping-and-geometry">Data, mapping and geometry</h3>
+<p>A plot needs data, a mapping, and at least one geom. Everything else has a default good enough to start with.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(euframes, <span class="fu">aes</span>(<span class="at">x =</span> unemp, <span class="at">y =</span> mcosmo)) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Three things happen there. <code>ggplot()</code> receives the data frame and declares which columns drive the picture. <code>aes()</code> is the <strong>aesthetic mapping</strong>, and it states that the unemployment rate governs horizontal position while the cosmopolitan-framing score governs vertical position. <code>geom_point()</code> adds a <strong>geom</strong>, a layer of geometric shapes, drawing one point per row – 270 points for 270 country-years. Axis ranges, tick marks, gridlines and the panel background are all inferred from the data, which is why this bare version is already a readable figure.</p>
+<p>Layers are joined with <code>+</code>, never with the pipe <code>|&gt;</code> of section 6. The reason is chronology rather than design, since ggplot2 settled on <code>+</code> years before R had a native pipe. The practical consequence is that a long chain changes operator exactly once, at the point where it stops reshaping data and starts drawing, and typing <code>|&gt;</code> where <code>+</code> belongs is among the commonest first-week errors in R.</p>
+</section>
+<section id="mapping-and-setting" class="level3">
+<h3 class="anchored" data-anchor-id="mapping-and-setting">Mapping and setting</h3>
+<p>Every visual property of a layer can be given two ways, and confusing them is the next commonest error. Put a property inside <code>aes()</code> and it is <strong>mapped</strong>: its value is read from a column, it varies row by row, and ggplot2 adds a legend explaining the correspondence. Put the same property outside <code>aes()</code>, as an ordinary argument to the geom, and it is <strong>set</strong>, taking one fixed value for the whole layer, with no legend because there is nothing to explain.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MAPPED: colour comes from a column, so the points differ and a legend appears</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(euframes, <span class="fu">aes</span>(<span class="at">x =</span> unemp, <span class="at">y =</span> mcosmo, <span class="at">colour =</span> <span class="fu">factor</span>(bailout))) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># SET: colour is a constant, identical for every point, and no legend appears</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(euframes, <span class="fu">aes</span>(<span class="at">x =</span> unemp, <span class="at">y =</span> mcosmo)) <span class="sc">+</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">"#0e3b6a"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>alpha</code> controls opacity, running from 0 for invisible to 1 for solid, and setting it below 1 is the standard remedy for a scatterplot where points pile up on one another. The constant <code>"#0e3b6a"</code> is a hex colour code, the dark blue that the course figures use.</p>
+<p>The <code>factor()</code> wrapped around <code>bailout</code> is exactly the kind of detail that quietly produces the wrong figure when it is left out. <code>bailout</code> is stored as 0 and 1 in numeric form, so <code>colour = bailout</code> hands ggplot2 a number and it responds sensibly, with a continuous colour gradient and a legend running smoothly from 0.00 to 1.00. What you wanted was two categories in two colours, and <code>factor(bailout)</code> is how you say so. The same trap waits on <code>year</code>, which is also numeric – map it raw for a gradient across the decade, wrap it in <code>factor()</code> for ten discrete groups.</p>
+</section>
+<section id="layers" class="level3">
+<h3 class="anchored" data-anchor-id="layers">Layers</h3>
+<p>A figure can carry as many layers as the argument needs, each with its own geom, and they are drawn in the order written, so later layers sit on top of earlier ones.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(euframes, <span class="fu">aes</span>(<span class="at">x =</span> unemp, <span class="at">y =</span> mcosmo)) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">colour =</span> <span class="st">"#848c94"</span>) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">colour =</span> <span class="st">"#0e3b6a"</span>, <span class="at">fill =</span> <span class="st">"#0e3b6a"</span>, <span class="at">alpha =</span> <span class="fl">0.15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Grey points go down first and the trend line lands on top of them. <code>geom_smooth()</code> fits a line through the cloud and draws it with a band showing the uncertainty around it, and <code>method = "lm"</code> asks for a straight line from the same least-squares machinery that the next module fits models with. R answers with the message <code>`geom_smooth()` using formula = 'y ~ x'</code>, which is information rather than a complaint, telling you which relationship it fitted. Reference layers behave the same way: <code>geom_hline(yintercept = 0)</code> rules a horizontal line at zero, and section 9 uses one to split a figure into results that support a claim and results that do not.</p>
+<p>One trap in layer arguments is worth memorising, because a great many figures would warn without it. Line thickness is <code>linewidth</code>, whereas point size and type size are <code>size</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">0.4</span>)   <span class="co"># the thickness of a drawn line</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.7</span>)       <span class="co"># the area of a plotted point</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_text</span>(<span class="at">size =</span> <span class="fl">3.5</span>)        <span class="co"># the height of a piece of type</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Passing <code>size</code> to a line geom still works, but R answers “Using <code>size</code> aesthetic for lines was deprecated in ggplot2 3.4.0. Please use <code>linewidth</code> instead.” The reason that the two names survive side by side is that <code>size</code> on a point means an area and on text a height, neither of which is a line thickness.</p>
+</section>
+<section id="scales" class="level3">
+<h3 class="anchored" data-anchor-id="scales">Scales</h3>
+<p>The mapping says which column drives colour; the <strong>scale</strong> decides which colours it drives, and the same holds for positions, sizes and shapes. Every mapping gets a default scale, and you override it whenever the default is not what a reader needs.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(euframes, <span class="fu">aes</span>(<span class="at">x =</span> unemp, <span class="at">y =</span> mcosmo, <span class="at">colour =</span> <span class="fu">factor</span>(bailout))) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">name   =</span> <span class="st">"Assistance programme"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"0"</span> <span class="ot">=</span> <span class="st">"#848c94"</span>, <span class="st">"1"</span> <span class="ot">=</span> <span class="st">"#a10000"</span>),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0"</span> <span class="ot">=</span> <span class="st">"none"</span>, <span class="st">"1"</span> <span class="ot">=</span> <span class="st">"bailout"</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="at">by =</span> <span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>scale_colour_manual()</code> names a colour for each level of the variable. Giving <code>values</code> and <code>labels</code> as <em>named</em> vectors, with <code>"0" = …</code> rather than a bare pair, means the assignment cannot silently reverse itself if the data ever arrives in a different order, and that small precaution has saved more than one published figure. The colours that the course uses throughout are <code>#0e3b6a</code> (dark blue), <code>#E69F00</code> (orange), <code>#009E73</code> (green), <code>#a10000</code> (dark red) and <code>#848c94</code> (mid grey), with <code>#c7ccd2</code> reserved as the muted grey for results that are not statistically significant. The orange and green belong to a palette built to stay distinguishable under the commonest forms of colour vision deficiency, which is why the deck never rests an argument on a red-green contrast alone.</p>
+<p>Position scales carry the same override logic, and one of their arguments catches people out. <code>scale_x_continuous(breaks = …)</code> decides where the tick marks fall, but the sibling argument <code>limits</code> <strong>removes</strong> every row outside the range before any statistic is computed, so a smoother is refitted on whatever survived.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>p_trend <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(euframes, <span class="fu">aes</span>(<span class="at">x =</span> unemp, <span class="at">y =</span> mcosmo)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">colour =</span> <span class="st">"#848c94"</span>) <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">colour =</span> <span class="st">"#0e3b6a"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>p_trend <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="fl">0.30</span>, <span class="fl">0.50</span>))   <span class="co"># drops rows, then refits</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>p_trend <span class="sc">+</span> <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.30</span>, <span class="fl">0.50</span>))        <span class="co"># keeps every row, only zooms</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Run the first of those and R warns “Removed 163 rows containing non-finite outside the scale range (<code>stat_smooth()</code>)”, and the trend line you are looking at now runs through 107 country-years rather than 270. <code>coord_cartesian()</code> zooms the finished figure instead, leaving the computation untouched. When you only want a closer look, that is the one to reach for.</p>
+</section>
+<section id="facets" class="level3">
+<h3 class="anchored" data-anchor-id="facets">Facets</h3>
+<p><strong>Faceting</strong> repeats the same plot once per group, on shared axes, so the groups can be compared by eye instead of by disentangling overlapping series. A country-year table is precisely the shape that rewards it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(euframes, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> mcosmo)) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"grey55"</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> cntry, <span class="at">ncol =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2004</span>, <span class="dv">2008</span>, <span class="dv">2013</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Twenty-seven small panels appear, one per country code, each carrying that country’s cosmopolitan-framing series across the decade. The browser lab draws this figure early in the exercise: it puts the crisis years in view before any model is fitted, and it makes plain how differently the countries move. The <code>~ cntry</code> is a formula, the same one-sided syntax that the <code>lm()</code> call in section 10 uses, and <code>ncol</code> fixes the shape of the grid. Where two grouping variables matter, <code>facet_grid(rows = vars(a), cols = vars(b))</code> crosses them into a matrix of panels.</p>
+</section>
+<section id="labels-and-themes" class="level3">
+<h3 class="anchored" data-anchor-id="labels-and-themes">Labels and themes</h3>
+<p>Two layers finish a figure. <code>labs()</code> supplies the words – axis titles, plot title, subtitle, caption, legend name – and it deserves more care than beginners give it, because a column name such as <code>mcosmo</code> means nothing to a reader who has not opened the codebook. The <strong>theme</strong> then governs everything with no data behind it: type size, gridlines, background, the position of the legend.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(euframes, <span class="fu">aes</span>(<span class="at">x =</span> unemp, <span class="at">y =</span> mcosmo)) <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">colour =</span> <span class="st">"#848c94"</span>) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">colour =</span> <span class="st">"#0e3b6a"</span>, <span class="at">fill =</span> <span class="st">"#0e3b6a"</span>, <span class="at">alpha =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x       =</span> <span class="st">"Unemployment rate (%)"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y       =</span> <span class="st">"Cosmopolitan framing (share of respondents)"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title   =</span> <span class="st">"Where unemployment is higher, cosmopolitan framing is lower"</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"270 country-years, EU-frames dataset"</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title       =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position  =</span> <span class="st">"top"</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>theme_minimal()</code> is the default look across the course, and <code>base_size</code> is its most useful argument, scaling every piece of type at once: 9 for a dense panel of small multiples, 12 for a page figure, 15 and upwards for a slide. A bare <code>theme()</code> afterwards overrides individual pieces, and the order matters, because a complete theme applied <em>after</em> your adjustments would wipe them out. Inside it, <code>element_blank()</code> deletes a piece outright, <code>element_text()</code> restyles type, and <code>element_line()</code> restyles rules and gridlines.</p>
+<p>A plot is an ordinary R object, so you can store it under a name, extend it later, and write it to a file:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(euframes, <span class="fu">aes</span>(<span class="at">x =</span> unemp, <span class="at">y =</span> mcosmo)) <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">colour =</span> <span class="st">"#848c94"</span>) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Unemployment rate (%)"</span>, <span class="at">y =</span> <span class="st">"Cosmopolitan framing"</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"figures/framing_unemployment.png"</span>, p, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">5</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>ggsave()</code> takes its dimensions in inches and writes whichever format the file extension names. Its habit of saving the last plot drawn when you do not name one is convenient and occasionally treacherous, so name the object.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Draw the scatterplot of <code>unemp</code> against <code>mcosmo</code>, then change one thing at a time and watch what moves. Swap <code>geom_point()</code> for <code>geom_text(aes(label = cntry))</code> and see the countries name themselves; move <code>colour = factor(bailout)</code> from inside <code>aes()</code> to outside it and read the error it raises; drop the <code>factor()</code> and compare the two legends. Then add <code>facet_wrap(~ year)</code> and decide for yourself whether ten panels tell you more than one crowded cloud does.</p>
+</div>
+</div>
+</section>
+<section id="from-the-pipe-to-the-plot" class="level3">
+<h3 class="anchored" data-anchor-id="from-the-pipe-to-the-plot">From the pipe to the plot</h3>
+<p>Reshaping and drawing are usually one movement, and dplyr feeds ggplot2 directly. The chain runs on <code>|&gt;</code> while it is still working on data and switches to <code>+</code> at the moment that <code>ggplot()</code> appears.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>euframes <span class="sc">|&gt;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2009</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cntry) <span class="sc">|&gt;</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_unemp =</span> <span class="fu">mean</span>(unemp)) <span class="sc">|&gt;</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(cntry, mean_unemp), <span class="at">y =</span> mean_unemp)) <span class="sc">+</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#0e3b6a"</span>) <span class="sc">+</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Mean unemployment, 2009–2013 (%)"</span>) <span class="sc">+</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">11</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>reorder()</code> sorts the country codes by the value being plotted rather than alphabetically, which turns a jumble of bars into a ranking you can read at a glance. <code>geom_col()</code> draws a bar whose height is the number sitting in the data, which is what you want once <code>summarise()</code> has already done the counting; its cousin <code>geom_bar()</code> counts the rows for you instead, and reaching for the wrong one of the two is a frequent small frustration.</p>
+<p>Where two figures belong side by side, the <strong>patchwork</strong> package composes whole plots with the same <code>+</code> that adds layers. Attach it with <code>library(patchwork)</code>, then <code>p1 + p2</code> sets two plot objects in a row and <code>patchwork::wrap_plots(plots, nrow = 1)</code> does the same for a list of them.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Build a chain that keeps the crisis years, groups by <code>year</code>, and reports the mean of <code>mcosmo</code> and the mean of <code>mneg</code> per year, then pipe it into a plot with two <code>geom_line()</code> layers in different colours. You will find yourself wanting a legend and not getting one, because both colours were set rather than mapped. That frustration is what leads to reshaping data into long form, which the <a href="../companion/stats-methods.html">next module</a> takes up.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-speccurve" class="level2">
+<h2 class="anchored" data-anchor-id="sec-speccurve">9. Reading the class chart</h2>
+<p>The central figure of the course is a <strong>specification curve</strong>, and you now have every part needed to build one yourself. The idea behind it is the day’s whole argument compressed into a picture. A hypothesis about a dataset admits many defensible analyses rather than one, and if you fit all of them and line the results up in order, you can see the range of answers that the data supports instead of the single answer that one analyst happened to report.</p>
+<p><code>data/spec_grid.csv</code> holds that universe for the EU-frames case: 840 rows, one per defensible analysis, each carrying the partial correlation it produced, whether that result reached statistical significance, and the ingredients that distinguish it from its neighbours. Reading it needs one preparatory step, and the step is conceptual rather than technical.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/spec_grid.csv"</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>curve <span class="ot">&lt;-</span> grid <span class="sc">|&gt;</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">r_ca =</span> <span class="fu">ifelse</span>(positive_outcome, r, <span class="sc">-</span>r)) <span class="sc">|&gt;</span>   <span class="co"># claim alignment</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(r_ca) <span class="sc">|&gt;</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">row_number</span>())</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>baseline_row <span class="ot">&lt;-</span> <span class="fu">filter</span>(curve, baseline)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The claim under test is that economic hardship depresses cosmopolitan framing of the EU, so on a positively worded outcome such as <code>mcosmo</code> a negative correlation supports it. Three of the six outcomes in the grid are negative framings, where support means a <em>positive</em> correlation instead, and plotting the raw numbers together would scatter agreeing results on opposite sides of zero. <strong>Claim alignment</strong> repairs that. Flip the sign wherever the outcome is a negative framing, and afterwards a negative value means support for every row alike. <code>positive_outcome</code> is the flag recording which is which, <code>ifelse()</code> performs the flip, and the <code>_ca</code> suffix is the naming habit of the course for any claim-aligned quantity. Sorting by the aligned value and numbering the rows then gives each specification a rank, and that rank becomes the horizontal axis.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(curve, <span class="fu">aes</span>(<span class="at">x =</span> rank, <span class="at">y =</span> r_ca)) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>, <span class="at">colour =</span> <span class="st">"#848c94"</span>) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> sig), <span class="at">size =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> baseline_row, <span class="at">colour =</span> <span class="st">"#a10000"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"text"</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> baseline_row<span class="sc">$</span>rank, <span class="at">y =</span> baseline_row<span class="sc">$</span>r_ca <span class="sc">-</span> <span class="fl">0.09</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"the specification actually submitted</span><span class="sc">\n</span><span class="st">t = -3.804"</span>,</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"#a10000"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">3.2</span>, <span class="at">hjust =</span> <span class="fl">0.1</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">name   =</span> <span class="cn">NULL</span>,</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"#0e3b6a"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"#c7ccd2"</span>),</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"p &lt; .05"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"not significant"</span>)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.75</span>, <span class="fl">0.32</span>)) <span class="sc">+</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x     =</span> <span class="st">"specification, ranked by claim-aligned partial correlation"</span>,</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y     =</span> <span class="st">"claim-aligned partial correlation"</span>,</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"840 defensible analyses of one hypothesis"</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>, <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Nothing in that block is new. There is a reference line, a layer of small points coloured by a mapped logical column, a second point layer drawn from a <em>different</em> data frame, a manual colour scale, a zoom, labels and a theme. <code>data = baseline_row</code> inside the geom overrides the frame given to <code>ggplot()</code>, and that is how a single row gets picked out and emphasised. <code>annotate()</code> is the one function you have not met, and it adds a mark that comes from no column at all: you supply the coordinates and the text yourself, which is why its position is read off <code>baseline_row</code> rather than mapped.</p>
+<p>Now read what it draws. Every point below the grey line is an analysis supporting the claim, and 68.7% of the 840 are; 63.9% reach conventional significance. The aligned correlations run from −0.70 to +0.24, so the universe contains both firm support and results pointing the other way. The red point is the specification actually submitted to the Multi100 project, the one whose t-statistic of −3.804 the course reproduces in Part 3, and it sits at rank 418 with 49.6% of the universe more negative than it – almost exactly the middle. The submitted analysis was neither an outlier nor a cherry-pick, and it was also not the answer, because the same defensible menu, worked through in good faith by any competent analyst, would have supported a great many other numbers.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Rebuild the curve, then colour the points by <code>outcome</code> instead of by <code>sig</code>, dropping the <code>scale_colour_manual()</code> layer as you go, since its two named colours cannot serve six outcomes. The clumping you see is why the choice of outcome gets a fork of its own on the course menu. Then try <code>facet_wrap(~ estimator)</code> on the same figure and ask yourself which of the two pictures you would rather a reviewer saw.</p>
+</div>
+</div>
+</section>
+<section id="sec-easystats" class="level2">
+<h2 class="anchored" data-anchor-id="sec-easystats">10. Naming the estimand</h2>
+<p>Fitting models is the next module’s subject, and everything there is read through base R’s <code>summary()</code> printout. Nothing that follows is needed for the course tasks. It is here because it completes the map of the dialects, and because it connects R’s tooling to the central discipline of the course.</p>
+<p>Suppose the model exists, a plain linear model of cosmopolitan framing on unemployment and growth. The <a href="../companion/stats-methods.html">next module</a> reads exactly this kind of output line by line.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(mcosmo <span class="sc">~</span> unemp <span class="sc">+</span> growth, <span class="at">data =</span> euframes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Base R answers with <code>summary(m)</code>: a printout to read with your eyes. The easystats packages instead treat the fitted model as an object to interrogate, one named question per function:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(m)    <span class="co"># the coefficient table as a tidy data frame, with confidence intervals</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">model_performance</span>(m)   <span class="co"># fit indices – R2, AIC and friends – in one row</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(m)         <span class="co"># the assumption dashboard: residual plots, normality, influential rows</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">report</span>(m)              <span class="co"># the model written out in publishable sentences</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>model_parameters()</code> returns the coefficients as data you can work with rather than text to squint at <span class="citation" data-cites="LudeckeEtAl2020ExtractingComputingExploring">(<a href="#ref-LudeckeEtAl2020ExtractingComputingExploring" role="doc-biblioref">Lüdecke et al. 2020</a>)</span>; <code>check_model()</code> turns the diagnostic checks that most people skip into one picture <span class="citation" data-cites="LudeckeEtAl2021PerformanceRPackage">(<a href="#ref-LudeckeEtAl2021PerformanceRPackage" role="doc-biblioref">Lüdecke et al. 2021</a>)</span>; and <code>report()</code> writes the results paragraph itself, with the numbers drawn live from the object. The prose then cannot drift from the model, which is the guarantee that a rendered Quarto document gives and a copy-pasted number never does.</p>
+<p>One member of the family, <code>modelbased</code>, connects straight to the discipline at the centre of the course <span class="citation" data-cites="MakowskiEtAl2025ModelbasedRPackage">(<a href="#ref-MakowskiEtAl2025ModelbasedRPackage" role="doc-biblioref">Makowski et al. 2025</a>)</span>. A coefficient table answers whatever question the model’s parameterisation happens to pose. These functions make you <em>name the quantity you want</em> – the <strong>estimand</strong> – and then compute exactly that from the model:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>euframes <span class="ot">&lt;-</span> euframes <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">bailout =</span> <span class="fu">factor</span>(bailout))</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mcosmo <span class="sc">~</span> unemp <span class="sc">+</span> bailout, <span class="at">data =</span> euframes)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(m, <span class="at">trend =</span> <span class="st">"unemp"</span>)           <span class="co"># the unemployment slope, with its uncertainty</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_means</span>(m2, <span class="at">by =</span> <span class="st">"bailout"</span>)            <span class="co"># expected framing with and without a bailout programme</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(m2, <span class="at">contrast =</span> <span class="st">"bailout"</span>)  <span class="co"># the difference between those two expectations</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>An expected outcome under each condition, a slope, a contrast between scenarios: each is a quantity you can state in words before touching the software. (Under the bonnet these functions drive the <code>marginaleffects</code> package, whose job Stata users will recognise from <code>margins</code>.) That habit – say what you want to estimate first, then derive the analysis that estimates it – is precisely what the course drills in Part 2, with the estimand and the graph, and again at the preregistration moment, where you commit to a target quantity before running anything. The tools and the discipline reinforce each other: the coding, the statistics, the conceptual work of naming estimands and the reproducibility habits are one connected practice.</p>
+</section>
+<section id="sec-materials" class="level2">
+<h2 class="anchored" data-anchor-id="sec-materials">11. The workspace and the browser lab</h2>
+<p>Everything above is preparation for the workspace in which the day’s work is done, and for the browser lab page on which it can be tried first.</p>
+<p><strong>The Positron workspace.</strong> You install R and Positron and download a single zip file, a ready-made project folder holding the data, a set of short <code>R/</code> scripts, and a report skeleton called <code>index.qmd</code>. That report skeleton is your first real script. It is a Quarto document you open, read, and fill in as the day goes, running its chunks and rendering it to a finished report. The smaller scripts around it do one job each – <code>R/check_setup.R</code> confirms your installation works, <code>R/get_data.R</code> fetches the data, <code>R/report_result.R</code> submits your result – and reading them is a gentle way to see the vocabulary of this module used in earnest. The <a href="../setup.html">setup page</a> has the download and the step-by-step.</p>
+<p><strong>The browser lab.</strong> The <a href="../exercise/browser-lab.html">browser lab</a> runs the same exercise inside a web tab, with a full copy of R that starts up on its own and the data already in place. It is the place to try everything on this page before you have installed anything, the page the facilitator drives on the shared screen, and the fallback if your installation fails on the day; it reaches the same numbers as the workspace.</p>
+<p>In either place, the sequence is the same one you have just practised in miniature: read the data, reshape it with a few verbs, draw it to see what you are dealing with, then fit a model and read what it says. The rest of the course repeats that sequence, with more care taken over each step.</p>
+</section>
+<section id="sec-sources" class="level2">
+<h2 class="anchored" data-anchor-id="sec-sources">Sources and further study</h2>
+<p>This module is written fresh for the course rather than adapted from an existing lesson, so there is no borrowed text to attribute. It teaches only the slice of R that the course materials use, in the order that the day needs it, plus the map of dialects that puts those materials in context.</p>
+<p>If you want a fuller, self-paced grounding in R after this, these open resources are worth the time, and all are recommended here as further reading rather than adapted from:</p>
+<ul>
+<li><strong>The Carpentries, “R for Reproducible Scientific Analysis” and “Programming with R”.</strong> <a href="https://swcarpentry.github.io/r-novice-gapminder/" class="uri">https://swcarpentry.github.io/r-novice-gapminder/</a> and <a href="https://swcarpentry.github.io/r-novice-inflammation/" class="uri">https://swcarpentry.github.io/r-novice-inflammation/</a>. Both are licensed <strong>CC BY 4.0</strong> and are the standard hands-on introductions to R for researchers, covering the same objects-vectors-data-frames foundation in far more depth than this page attempts.</li>
+<li><strong>The Turing Way, “Guide for Reproducible Research”.</strong> <a href="https://book.the-turing-way.org/" class="uri">https://book.the-turing-way.org/</a>. Licensed <strong>CC BY 4.0</strong>. Not an R tutorial as such, but the best short statement of why the habits that this module gestures at – scripts over console history, relative paths, one file for analysis and report – are worth building from the first day.</li>
+<li><strong>The package documentation sites</strong>, which for the packages of sections 5 to 10 are genuinely readable introductions rather than reference dumps: <a href="https://www.tidyverse.org/">tidyverse.org</a> (with the free book <em>R for Data Science</em> at <a href="https://r4ds.hadley.nz/">r4ds.hadley.nz</a>), <a href="https://ggplot2.tidyverse.org/">ggplot2.tidyverse.org</a>, <a href="https://easystats.github.io/easystats/">easystats.github.io/easystats</a>, <a href="https://haven.tidyverse.org/">haven.tidyverse.org</a>, <a href="https://readxl.tidyverse.org/">readxl.tidyverse.org</a>, and the arrow R package site at <a href="https://arrow.apache.org/docs/r/">arrow.apache.org/docs/r</a>.</li>
+</ul>
+<p>When you are ready for your first statistical model, the next module, <a href="../companion/stats-methods.html">the statistical methods behind the course</a>, starts exactly where this page leaves off: with a single <code>lm()</code> on the panel you have just learned to read and reshape, and everything that the case then demands of it.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-LudeckeEtAl2020ExtractingComputingExploring" class="csl-entry" role="listitem">
+Lüdecke, Daniel, Mattan S. Ben-Shachar, Indrajeet Patil, and Dominique Makowski. 2020. <span>“Extracting, Computing and Exploring the Parameters of Statistical Models Using <span>R</span>.”</span> <em>Journal of Open Source Software</em> 5 (53): 2445. <a href="https://doi.org/10.21105/joss.02445">https://doi.org/10.21105/joss.02445</a>.
+</div>
+<div id="ref-LudeckeEtAl2021PerformanceRPackage" class="csl-entry" role="listitem">
+Lüdecke, Daniel, Mattan S. Ben-Shachar, Indrajeet Patil, Philip Waggoner, and Dominique Makowski. 2021. <span>“Performance: An <span>R</span> Package for Assessment, Comparison and Testing of Statistical Models.”</span> <em>Journal of Open Source Software</em> 6 (60): 3139. <a href="https://doi.org/10.21105/joss.03139">https://doi.org/10.21105/joss.03139</a>.
+</div>
+<div id="ref-LudeckeEtAl2022EasystatsFrameworkEasy" class="csl-entry" role="listitem">
+Lüdecke, Daniel, Dominique Makowski, Mattan S. Ben-Shachar, Indrajeet Patil, and Brenton M. Wiernik. 2022. <em>Easystats: Framework for Easy Statistical Modeling, Visualization, and Reporting</em>. Released August. <a href="https://CRAN.R-project.org/package=easystats">https://CRAN.R-project.org/package=easystats</a>.
+</div>
+<div id="ref-MakowskiEtAl2025ModelbasedRPackage" class="csl-entry" role="listitem">
+Makowski, Dominique, Mattan S. Ben-Shachar, Brenton M. Wiernik, Indrajeet Patil, Rémi Thériault, and Daniel Lüdecke. 2025. <span>“Modelbased: An <span>R</span> Package to Make the Most Out of Your Statistical Models Through Marginal Means, Marginal Effects, and Model Predictions.”</span> <em>Journal of Open Source Software</em> 10 (109): 7969. <a href="https://doi.org/10.21105/joss.07969">https://doi.org/10.21105/joss.07969</a>.
+</div>
+<div id="ref-WickhamEtAl2019WelcomeTidyverse" class="csl-entry" role="listitem">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, et al. 2019. <span>“Welcome to the <span>Tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/codemoreh\.github\.io\/applied-replication\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="https://github.com/CodeMoreh/applied-replication">GitHub repo</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

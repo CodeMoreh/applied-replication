@@ -1,0 +1,41 @@
+## What is your estimand?
+
+```{r}
+#| label: lundberg-pipeline
+#| fig-width: 9
+#| fig-height: 3
+# Lundberg et al. (2021) three steps as boxes-and-arrows (ggplot, editable).
+steps <- tibble::tibble(
+  x = c(1, 2, 3),
+  lab = c("Theoretical\nestimand",
+          "Empirical\nestimand",
+          "Estimation\nstrategy"),
+  sub = c("unit quantity +\ntarget population",
+          "identification\nassumptions (DAG)",
+          "where the R\ncode enters")
+)
+ggplot(steps, aes(x, 1)) +
+  geom_tile(width = 0.8, height = 0.7, fill = ncl_blue) +
+  geom_text(aes(label = lab), colour = "white", fontface = "bold",
+            size = 5.2, vjust = -0.3) +
+  geom_text(aes(label = sub), colour = "white", size = 3.6, vjust = 2.0) +
+  annotate("segment", x = 1.42, xend = 1.58, y = 1, yend = 1,
+           arrow = arrow(length = unit(0.18, "cm")), linewidth = 1) +
+  annotate("segment", x = 2.42, xend = 2.58, y = 1, yend = 1,
+           arrow = arrow(length = unit(0.18, "cm")), linewidth = 1) +
+  scale_x_continuous(limits = c(0.5, 3.5)) +
+  labs(x = NULL, y = NULL) +
+  theme_void()
+```
+
+::: {.none}
+- The theoretical estimand is stated **outside** any model – before R opens
+:::
+
+::: {.src}
+@LundbergEtAl2021WhatYourEstimand.
+:::
+
+::: notes
+Which brings us to the most useful question in quantitative research: what is your estimand? Lundberg and colleagues split the answer into three steps. First, the theoretical estimand: a unit-specific quantity and a target population, stated in plain words, before any model exists. Second, the empirical estimand: what in the observable data corresponds to that quantity – and making that link forces your identification assumptions into the open, which is exactly where the causal graph lives. Only third comes estimation, where R finally opens. When they audited a full year of papers in a top sociology journal, the unit quantity was clearly stated in five out of thirty-two. Their demand is the one to remember: every quantitative study must be able to answer the question – what is your estimand?
+:::

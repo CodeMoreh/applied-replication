@@ -1,0 +1,17 @@
+---
+title: "Day 3 – The methods in depth"
+---
+::: {.callout-note appearance="simple" icon=false}
+**Slides.** [Open the deck at this part](../../slides/three-days.html#/day-3-the-methods-in-depth){target="_blank"} in its own tab, or follow it on the [slides page](slides.qmd).
+:::
+
+Day 3 slows down everything that day 2 had to take at speed. The order matters: the graph decides what a model should contain, the models come next, the multiverse is what happens when the choices behind those models are enumerated rather than picked, and simulation is how you find out what a design recovers when the answer is known in advance. The day closes on the two skills that the workshop names on a slide but never gives you time to practise: where research materials live, and how work is versioned.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Causal graphs](../../companion/dags.qmd) | Confounders, mediators and colliders, each one fitted as well as described; graphs built from R formulas with `dagify()`; the EU-frames graph, whose adjustment set turns out to be what two-way fixed effects already absorb; what fixed effects cannot fix; then a graph for a question of your own. | Session 1, 90 minutes |
+| Slides, day 3: the methodological tutorial, then [The statistical methods behind the course](../../companion/stats-methods.qmd) | Every axis of the menu, one slide each, shown doing something to an estimate. Then every model that day 2 fitted, output by output: a first linear model, pooled OLS with cluster-robust errors, two-way fixed effects, random effects and the difference between within and between, and where the degrees of freedom come from. | Session 2, 90 minutes |
+| Slides, day 3: the multiverse tutorial and inference, then [The multiverse and its critics](../../companion/multiverse.qmd) and [Reading a specification curve](../../exercise/reading-inference.qmd) | Where multiverse thinking came from, what it is for and which fork matters; why hundreds of estimates on one dataset are not hundreds of tests and what a curve-level test would have to do. Then the module and the reading: the three purposes a multiverse can serve, and the 2025–26 critical debate read against the course grid. | Session 3, 90 minutes |
+| [Simulation as a method](../../companion/simulation.qmd), then slides, day 3: archiving and registering, with [Reproducibility repositories](../../companion/repositories.qmd) and [Git and GitHub](../../companion/git-github.qmd) | Data with a recipe you wrote yourself: plant a parameter and find out whether the model recovers it, build a multiverse over data with no effect in it at all. Then where the materials behind the case came from and what their licences let travel, where a finished reanalysis is deposited now that the Open Science Framework is changing, what registration and forking each mean, and version control from first principles; the [data sources module](../../companion/data-sources.qmd) is the reading for the first of those. | Session 4, 90 minutes |
+
+**By the end of the day** you have a causal graph drawn for a question of your own, every model that day 2 fitted read output by output, a recovery check on a parameter whose true value you set yourself, and an answer to the question of what may be committed to a repository and what may not.

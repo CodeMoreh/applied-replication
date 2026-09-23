@@ -1,8 +1,16 @@
 # ########################################################################### #
 # Title:        Person-level extract carrying the original author's full
-#               regression variable set
-# Purpose:      Build the individual-level file the simulated twin has to
-#               reproduce. The existing extract in the companion article's
+#               regression variable set (SUPERSEDED)
+# Purpose:      Kept as the record of the build that the course's private
+#               file came from. The respondent file every script in this
+#               folder now reads is the one participants build with
+#               _template/prep/01_build_respondents.R, loaded through
+#               _load_respondents.R; that script carries the same wave
+#               inventory, the same label-resolved covariates and the same
+#               education coding as this one, plus the item columns and
+#               checksums. Nothing sources this file any more.
+#               Originally: build the individual-level file the simulated
+#               twin has to reproduce. The existing extract in the companion article's
 #               repository carries age, gender and banded education; the
 #               published models also use an eight-category socio-economic
 #               position, a three-category urbanisation measure, education as

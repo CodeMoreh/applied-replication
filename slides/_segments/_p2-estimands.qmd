@@ -1,0 +1,155 @@
+## Two studies to set beside our five {.smaller}
+
+::: {.small}
+Our own case has just shown us the pattern in miniature. It was described first, and at far greater scale, in the two studies that the rest of this part rests on.
+:::
+
+:::: {.fragment}
+::: {.small}
+**Silberzahn and colleagues (2018)** – the red-card study from this morning. Twenty-nine teams, one dataset, one question. Twenty of the twenty-nine intervals excluded 1; nine did not.
+:::
+
+```{r}
+#| label: silberzahn-strip
+#| fig-width: 9
+#| fig-height: 1.5
+# The same 29 published estimates as the Part 1 forest, flattened onto one row
+# as a reminder rather than a fresh argument. Hollow rings so the cluster
+# between 1.2 and 1.5 stays countable where filled dots would merge.
+ggplot(silberzahn29, aes(or, y = 1, colour = significant)) +
+  geom_vline(xintercept = 1, linetype = "longdash", colour = grey_mid) +
+  geom_point(shape = 21, size = 5.5, stroke = 1.3, fill = NA) +
+  scale_colour_manual(values = c(`TRUE` = ncl_blue, `FALSE` = d_red),
+                      breaks = c("TRUE", "FALSE"), name = NULL,
+                      labels = c("significant", "not significant")) +
+  scale_x_continuous(breaks = c(1, 1.5, 2, 2.5, 3)) +
+  coord_cartesian(xlim = c(0.8, 3.05), ylim = c(0.94, 1.06)) +
+  labs(x = "odds ratio, 29 teams", y = NULL) +
+  theme_slide(13) +
+  theme(legend.position = "right", legend.key.spacing.y = unit(2, "pt"),
+        legend.text = element_text(size = 10, colour = "grey25"),
+        axis.text.y = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_line(colour = "grey92"))
+```
+::::
+
+::: {.fragment .small}
+**Auspurg and Brüderl (2021)** went back through all twenty-nine of those analyses and asked a question that the original had not: what was each team actually trying to measure?
+:::
+
+::: {.fragment .small}
+The first establishes that careful people disagree. The second explains **why** – and that explanation is what the whole of Part 2 is built on.
+:::
+
+::: {.src}
+@SilberzahnEtAl2018ManyAnalystsOne; @AuspurgBruderl2021HasCredibilitySocial
+:::
+
+::: notes
+Before we go further into our own case, I want to put two studies beside it – and one of them you have already met. Silberzahn and colleagues, the red-card study from this morning: twenty-nine teams, one dataset, one question, twenty intervals excluding one and nine not. There are all twenty-nine again, flattened onto a single line so you can see the shape rather than read the table. That is the study that establishes careful people disagree. The second one is new, and the rest of this part depends on it. Auspurg and Brüderl, twenty twenty-one, went back through all twenty-nine of those pipelines and asked something that the original had not thought to ask: what was each team actually trying to measure? So one study shows the disagreement, and the other explains it. Let me take the second one properly.
+:::
+
+## They were not answering the same question
+
+:::: {.none}
+<br>
+Auspurg & Brüderl re-read the 29 analyses and found **four** different estimands:
+
+::: {.fragment .fadeInUp}
+descriptive association · discrimination *net of mediators* · variance-maximising · exploratory
+:::
+
+::: {.fragment .fadeInUp}
+The dispersion was largely a **question**-multiverse, not an analysis-multiverse.
+:::
+::::
+
+::: {.src}
+@AuspurgBruderl2021HasCredibilitySocial
+:::
+
+::: notes
+And what they found is that the teams were not answering one question. They found four. Some estimated the plain descriptive association. Some went after discrimination proper – the effect net of everything that legitimately explains red cards. Some built models tuned to explain variance. And some were frankly exploring. Of course the answers differed – they were answers to different questions. That reframes the crisis quite a bit: much of what looks like analytical instability is unstated disagreement about *what is being estimated*.
+:::
+
+
+## Fix the estimand, and the spread collapses
+
+```{r}
+#| label: redcard-contrast
+#| fig-width: 9
+#| fig-height: 3.2
+# Dispersion contrast. TOP ROW IS REAL: the 29 published estimates, the same
+# file that the Part 1 forest reads. BOTTOM ROW IS A SKETCH: Auspurg & Brüderl
+# give the median (1.28) and SD (0.06) of their 486-model multiverse but not
+# the 486 values, so these are evenly spaced quantiles of a normal on exactly
+# those two numbers – deterministic, and reproducing the published summary by
+# construction rather than by a lucky seed.
+ab <- qnorm(seq(0.5, 485.5, by = 1) / 486, mean = 1.28, sd = 0.06)
+contrast <- dplyr::bind_rows(
+  tibble::tibble(grp = "29 teams,\nquestion left open", or = silberzahn29$or),
+  tibble::tibble(grp = "486 models,\nestimand fixed", or = ab)
+) |>
+  dplyr::mutate(grp = factor(grp, levels = c("486 models,\nestimand fixed",
+                                             "29 teams,\nquestion left open")))
+
+ggplot(contrast, aes(or, grp, colour = grp)) +
+  geom_vline(xintercept = 1, linetype = "longdash", colour = grey_mid) +
+  geom_point(shape = 21, fill = NA, size = 4.6, stroke = 1.1, alpha = 0.75) +
+  annotate("text", x = 3.0, y = 2.42, label = "SD 0.45", hjust = 1,
+           colour = d_red, fontface = "bold", size = 4.6) +
+  annotate("text", x = 3.0, y = 1.42, label = "SD 0.06", hjust = 1,
+           colour = ncl_blue, fontface = "bold", size = 4.6) +
+  scale_colour_manual(values = c(ncl_blue, d_red)) +
+  scale_x_continuous(breaks = c(1, 1.5, 2, 2.5, 3)) +
+  coord_cartesian(xlim = c(0.8, 3.05), ylim = c(0.7, 2.6)) +
+  labs(x = "odds ratio", y = NULL) +
+  theme_slide(14) +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.major.x = element_line(colour = "grey92"))
+```
+
+::: {.small}
+- Fix the question → derive the model space from a DAG → run **all 486** justifiable models → **SD 0.45 → 0.06**
+- The spread in the top row is **two analyses wide**: a tight cluster plus the two outliers, which are what carry that 0.45
+:::
+
+::: {.src}
+@AuspurgBruderl2021HasCredibilitySocial. Top row: the 29 published estimates. Bottom row: drawn to their reported median (1.28) and SD (0.06) – the 486 values are not published.
+:::
+
+::: notes
+This is the optimistic half of the red-card story. Auspurg and Brüderl fixed one estimand – discrimination, properly defined – used a causal graph to derive every model specification consistent with it, four hundred and eighty-six of them, and ran the lot. Look what happens to the spread: standard deviation point four five in the crowd, point zero six with the question fixed. The top row there is the twenty-nine published estimates themselves, and only the bottom row is drawn to the reported median and standard deviation, because those four hundred and eighty-six values were never published. The recipe we take from them is the recipe of this course: a precise question, assumptions drawn out explicitly, then a whole multiverse rather than one path, then sensitivity analysis. And notice where the spread in the top row actually comes from – a tight cluster and two outliers, which is why the standard deviation is four times what the cluster alone would give you. Fix the question and even those go. [advance]
+:::
+
+
+## Has credibility been credibly destroyed? {#the-crisis-has-a-crisis-of-its-own .smaller}
+
+:::: {.none}
+Auspurg and Brüderl's title asks it directly: *has the credibility of the social sciences been credibly destroyed?*
+
+::: {.fragment .fadeInUp}
+If the twenty-nine teams answered **four different questions**, their disagreement is not evidence that analysis is unreliable.
+:::
+
+::: {.fragment .fadeInUp}
+It is evidence that **the question was under-specified** – an ordinary, fixable defect.
+:::
+
+::: {.fragment .fadeInUp}
+So this literature reads as a **diagnosis of vague research questions** rather than a verdict on social science.
+:::
+
+::: {.fragment .fadeInUp}
+More optimistic – and more demanding, because it hands the problem to whoever writes the question.
+:::
+::::
+
+::: {.src}
+@AuspurgBruderl2021HasCredibilitySocial
+:::
+
+::: notes
+Now, this diagnosis has a consequence that goes well beyond the red-card study, and Auspurg and Brüderl put it in their title: has the credibility of the social sciences been credibly destroyed? Follow the logic. If the twenty-nine teams were in fact answering four different questions, then their disagreement is not evidence that data analysis is unreliable. It is evidence that the question they were handed was under-specified – and that is an ordinary, fixable defect of research design, not a crisis of method. Read that way, the whole many-analyst literature stops being a verdict on the field and becomes a diagnosis of vague research questions. I find that a considerably more optimistic reading. It is also a more demanding one, because it takes the problem away from statistics, where you could hope a better estimator would save you, and puts it back on whoever writes the question. Today that is you.
+:::

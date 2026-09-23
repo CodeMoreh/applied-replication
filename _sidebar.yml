@@ -1,0 +1,139 @@
+# The docked sidebars of the six delivery tracks. Each sidebar lists only the
+# pages of its own track, so the shared teaching pages – the exercise, the
+# companion modules, the multiverse page – keep the plain navbar when a track
+# links to them. Generated once from the track sources (2026-09-08); the
+# pages under tracks/ are the canonical copy and this file is edited by hand.
+website:
+  sidebar:
+    - title: "One day – open science and replication"
+      style: docked
+      collapse-level: 1
+      contents:
+        - text: "Overview"
+          href: tracks/one-day-replication/index.qmd
+        - text: "Before the day"
+          href: tracks/one-day-replication/before.qmd
+        - text: "Part 1 – Credibility and tools"
+          href: tracks/one-day-replication/part-1.qmd
+        - text: "Part 2 – The claim and its estimand"
+          href: tracks/one-day-replication/part-2.qmd
+        - text: "Part 3 – Reproduction and exploration"
+          href: tracks/one-day-replication/part-3.qmd
+        - text: "Part 4 – Multiverse and preregistration"
+          href: tracks/one-day-replication/part-4.qmd
+        - text: "Slides"
+          href: tracks/one-day-replication/slides.qmd
+        - text: "After the day"
+          href: tracks/one-day-replication/after.qmd
+    - title: "One day – social data science tools"
+      style: docked
+      collapse-level: 1
+      contents:
+        - text: "Overview"
+          href: tracks/one-day-tools/index.qmd
+        - text: "Before the day"
+          href: tracks/one-day-tools/before.qmd
+        - text: "Part 1 – Credibility as a software problem"
+          href: tracks/one-day-tools/part-1.qmd
+        - text: "Part 2 – The toolchain"
+          href: tracks/one-day-tools/part-2.qmd
+        - text: "Part 3 – One claim in your hands"
+          href: tracks/one-day-tools/part-3.qmd
+        - text: "Part 4 – Explore, declare, publish"
+          href: tracks/one-day-tools/part-4.qmd
+        - text: "Slides"
+          href: tracks/one-day-tools/slides.qmd
+        - text: "After the day"
+          href: tracks/one-day-tools/after.qmd
+    - title: "One day – an introduction to the statistical methods"
+      style: docked
+      collapse-level: 1
+      contents:
+        - text: "Overview"
+          href: tracks/one-day-methods/index.qmd
+        - text: "Before the day"
+          href: tracks/one-day-methods/before.qmd
+        - text: "Part 1 – The case and the vocabulary"
+          href: tracks/one-day-methods/part-1.qmd
+        - text: "Part 2 – The claim and its estimand"
+          href: tracks/one-day-methods/part-2.qmd
+        - text: "Part 3 – Reproduce, then take the model apart"
+          href: tracks/one-day-methods/part-3.qmd
+        - text: "Part 4 – The multiverse and the one path you declare"
+          href: tracks/one-day-methods/part-4.qmd
+        - text: "Slides"
+          href: tracks/one-day-methods/slides.qmd
+        - text: "After the day"
+          href: tracks/one-day-methods/after.qmd
+    - title: "Three days"
+      style: docked
+      collapse-level: 1
+      contents:
+        - text: "Overview"
+          href: tracks/three-days/index.qmd
+        - text: "Day 1 – The tools"
+          href: tracks/three-days/day-1.qmd
+        - text: "Day 2 – The workshop"
+          href: tracks/three-days/day-2.qmd
+        - text: "Day 3 – The methods in depth"
+          href: tracks/three-days/day-3.qmd
+        - text: "Slides"
+          href: tracks/three-days/slides.qmd
+        - text: "After the week"
+          href: tracks/three-days/after.qmd
+    - title: "Semester"
+      style: docked
+      collapse-level: 1
+      contents:
+        - text: "Overview"
+          href: tracks/semester/index.qmd
+        - text: "Session 1 – The case and the three Rs"
+          href: tracks/semester/session-1.qmd
+        - text: "Session 2 – Getting started with R"
+          href: tracks/semester/session-2.qmd
+        - text: "Session 3 – Quarto and the document"
+          href: tracks/semester/session-3.qmd
+        - text: "Session 4 – From country-years to a model"
+          href: tracks/semester/session-4.qmd
+        - text: "Session 5 – Estimands and causal graphs"
+          href: tracks/semester/session-5.qmd
+        - text: "Session 6 – The individual level"
+          href: tracks/semester/session-6.qmd
+        - text: "Session 7 – Data with a known recipe"
+          href: tracks/semester/session-7.qmd
+        - text: "Session 8 – Repositories and preregistration"
+          href: tracks/semester/session-8.qmd
+        - text: "Session 9 – The workshop day"
+          href: tracks/semester/session-9.qmd
+        - text: "Session 10 – Reading the curve and publishing"
+          href: tracks/semester/session-10.qmd
+        - text: "Slides"
+          href: tracks/semester/slides.qmd
+        - text: "After the term"
+          href: tracks/semester/after.qmd
+    - title: "Self-study"
+      style: docked
+      collapse-level: 1
+      contents:
+        - text: "Overview"
+          href: tracks/self-study/index.qmd
+        - text: "Stage 1 – The case"
+          href: tracks/self-study/stage-1.qmd
+        - text: "Stage 2 – R, the IDE and Quarto"
+          href: tracks/self-study/stage-2.qmd
+        - text: "Stage 3 – The models"
+          href: tracks/self-study/stage-3.qmd
+        - text: "Stage 4 – Estimands and graphs"
+          href: tracks/self-study/stage-4.qmd
+        - text: "Stage 5 – The exercise"
+          href: tracks/self-study/stage-5.qmd
+        - text: "Stage 6 – Reading the curve"
+          href: tracks/self-study/stage-6.qmd
+        - text: "Stage 7 – Two extensions"
+          href: tracks/self-study/stage-7.qmd
+        - text: "Stage 8 – Repositories and git"
+          href: tracks/self-study/stage-8.qmd
+        - text: "Slides"
+          href: tracks/self-study/slides.qmd
+        - text: "Working alone"
+          href: tracks/self-study/after.qmd

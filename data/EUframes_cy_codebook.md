@@ -1,6 +1,6 @@
 # Codebook: `EUframes_cy.csv`
 
-Country-year panel built for the workshop "Applied Replication for Data Skills" (first delivered at the Open Research Conference, Newcastle University, June 2026). One row per EU member state per year, 2004–2013 (27 countries × 10 years = 270 rows).
+Country-year panel built for the course "Applied Replication for Data Skills" (first delivered at the Open Research Conference, Newcastle University, June 2026). One row per EU member state per year, 2004–2013 (27 countries × 10 years = 270 rows).
 
 ## Sources and construction
 

@@ -1,5 +1,5 @@
 # ########################################################################### #
-# Title:        The published anchor model, main effects only, at person level
+# Title:        OA's published model, main effects only, at person level
 # Purpose:      Fit the specification the simulated twin has to reproduce, and
 #               write out the parameters the synthesis needs. The published
 #               models carry cross-level interactions between the macro
@@ -14,7 +14,7 @@
 #               unemployment rate. The simulation module has had to assume that
 #               quantity; here it is estimated.
 #
-# Reads:        _planning_data/person_level_full.rds  (licensed, local only)
+# Reads:        the respondent file, through _load_respondents.R (licensed, local only)
 # Writes:       companion/_model-outputs/anchor_person_fixed.csv
 #               companion/_model-outputs/anchor_person_random.csv
 #               companion/_model-outputs/prevalence_gradient.csv
@@ -29,7 +29,7 @@ suppressPackageStartupMessages({
   library(dplyr); library(purrr); library(readr); library(tidyr); library(lme4)
 })
 
-ind <- readRDS("_planning_data/person_level_full.rds")
+source("companion/_model-outputs/_load_respondents.R")
 
 # Reference categories are the published ones: manual workers for occupation,
 # large town for urbanisation, lowest band for education. Getting these wrong

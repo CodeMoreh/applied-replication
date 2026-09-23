@@ -1,0 +1,14 @@
+axis,class,domain,changes,var_share,cells,crosses,cross_share,rows,universe,nested_added
+estimator,estimand,causal reasoning,whether the comparison is between countries or within them,22.454093387494563,133632,94341,70.59761135057471,434304,maximal,NA
+sample,estimand,research design,which countries and years the claim is about,4.990898802555872,89856,62112,69.12393162393163,434304,maximal,NA
+outcome,estimand,conceptualisation and operationalisation,which construct the outcome names,2.5524957742743557,72384,50405,69.63555481874447,434304,maximal,NA
+predictor,estimand,conceptualisation and operationalisation,which construct stands for poor economic performance,0.3664914112396031,434304,0,0,434304,maximal,NA
+reg_weight,estimand,research design,"whether the average is over countries, over interviews, or over Europeans",0.24498113547461656,133632,30828,23.069324712643677,434304,maximal,NA
+construction,estimand,conceptualisation and operationalisation,whether the outcome is the share of a respondent's own mentions or the count of the set's items,0.1354531396562336,217152,61850,28.482353374594755,434304,maximal,NA
+copredictor,estimand,causal reasoning,what the association is adjusted for,0.0783297055082986,217152,16492,7.594680223990569,434304,maximal,NA
+item_set,measurement,measurement theory,whether the 'unemployment' item is in the outcome,0.8408838660450554,217152,27320,12.581049218980253,434304,maximal,2.7216741768957604
+measure,measurement,measurement theory,which published series stands for the construct,0.06510275998976166,112320,19326,17.206196581196583,434304,maximal,4.7248070858608475
+noop,measurement,measurement theory,what is done with respondents who mentioned nothing,0.010892396223315672,144768,8085,5.58479774535809,434304,maximal,0.3209049552225465
+cell_weight,measurement,measurement theory,whether the cell mean is design-weighted to its country's population,1.9629032952716327e-4,217152,4950,2.2795092838196287,434304,maximal,0.052760608139992685
+se,estimation,statistical implementation,how the standard error is computed,0.5685366982447869,217152,42544,19.59180666077218,434304,maximal,NA
+pred_form,estimation,statistical implementation,the functional form in which a fixed predictor enters,3.9804720186786157e-4,254592,14856,5.835218702865761,434304,maximal,NA

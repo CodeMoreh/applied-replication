@@ -1,0 +1,16 @@
+## References {.scrollable .smaller visibility="uncounted"}
+
+::: {#refs}
+:::
+
+
+## Thank you – and your feedback
+
+::: {.pollbox}
+Feedback form<br>
+<span style="font-size:0.7em">(link in the chat · two minutes, while the chart is still on screen)</span>
+:::
+
+::: notes
+That is the day. Before you go: the feedback form link is in the chat – two minutes, and it genuinely shapes the next delivery of this workshop. I will leave the class multiverse on screen while you fill it in; find your dot one last time. Thank you for the work you put in today – you reproduced a published result to the third decimal, wrote an estimand and a causal graph for a real published claim, explored a specification space and then committed to one path in writing before you ran it, and read a specification curve like a reviewer rather than like an audience. That is a genuinely full day's work.
+:::

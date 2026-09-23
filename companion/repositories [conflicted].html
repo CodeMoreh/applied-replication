@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Reproducibility repositories – Applied Replication for Data Skills</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.js"></script>
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/animate.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/magic.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo light-content">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Applied Replication for Data Skills</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../tracks/one-day.html">
+ <span class="dropdown-text">One day</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/three-days.html">
+ <span class="dropdown-text">Three days</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/semester.html">
+ <span class="dropdown-text">Semester</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/self-study.html">
+ <span class="dropdown-text">Self-study</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../slides/index.html"> 
+<span class="menu-text">Slides</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-exercise">    
+        <li>
+    <a class="dropdown-item" href="../exercise/index.html">
+ <span class="dropdown-text">Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/browser-lab.html">
+ <span class="dropdown-text">Browser lab (no install)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/spec-menu.html">
+ <span class="dropdown-text">Specification menu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/estimand-dial.html">
+ <span class="dropdown-text">Estimand choices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/cheatsheet.html">
+ <span class="dropdown-text">Cheatsheet</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../results.html"> 
+<span class="menu-text">Multiverse</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-companion" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Companion</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-companion">    
+        <li>
+    <a class="dropdown-item" href="../companion/index.html">
+ <span class="dropdown-text">Curriculum overview</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Computational tools</li>
+        <li>
+    <a class="dropdown-item" href="../companion/intro-r.html">
+ <span class="dropdown-text">Getting started with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/quarto.html">
+ <span class="dropdown-text">Quarto and reproducible documents</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Reproducibility and collaboration</li>
+        <li>
+    <a class="dropdown-item" href="../companion/repositories.html">
+ <span class="dropdown-text">Repositories &amp; preregistration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/git-github.html">
+ <span class="dropdown-text">Git &amp; GitHub</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistical methods</li>
+        <li>
+    <a class="dropdown-item" href="../companion/stats-methods.html">
+ <span class="dropdown-text">The statistical methods behind the course</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/dags.html">
+ <span class="dropdown-text">Causal graphs &amp; adjustment sets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/multiverse.html">
+ <span class="dropdown-text">The multiverse: concept &amp; critics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/weighting.html">
+ <span class="dropdown-text">Weights: three decisions, one name</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/missingness.html">
+ <span class="dropdown-text">Missing answers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/measurement.html">
+ <span class="dropdown-text">Thirteen items, four scales</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/simulation.html">
+ <span class="dropdown-text">Simulation as a method</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/individual-level.html">
+ <span class="dropdown-text">One claim, two levels</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-gesis" id="toc-sec-gesis" class="nav-link active" data-scroll-target="#sec-gesis">1. The GESIS licence</a></li>
+  <li><a href="#sec-osf" id="toc-sec-osf" class="nav-link" data-scroll-target="#sec-osf">2. The OSF nodes</a></li>
+  <li><a href="#sec-registration" id="toc-sec-registration" class="nav-link" data-scroll-target="#sec-registration">3. Archives, forks and registrations</a></li>
+  <li><a href="#sec-prereg-templates" id="toc-sec-prereg-templates" class="nav-link" data-scroll-target="#sec-prereg-templates">4. Preregistration templates</a></li>
+  <li><a href="#sec-sources" id="toc-sec-sources" class="nav-link" data-scroll-target="#sec-sources">Sources and attribution</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Reproducibility repositories</h1>
+<p class="subtitle lead">GESIS, the OSF nodes and the preregistration templates</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This is the repositories module of the <a href="../companion/index.html">companion curriculum</a>, and it is optional. It works through the repositories that the course data actually passed through: which archive holds the raw microdata behind the EU-frames case, why that microdata never enters the course materials, which OSF nodes the course fetches from and why, and how a preregistration – yours, or the one that the Multi100 team filed – gets written down before an analysis runs. The closing section turns to preregistration templates, and it feeds straight into Part 4 of the workshop day, where you complete one yourself.</p>
+<p>The module assumes no more than the workshop itself does. You do not need to have taken <a href="../companion/git-github.html">the git and GitHub module</a> first, though the two are natural companions. This module is mostly about other people’s materials, and about a study plan you commit to in writing. The git and GitHub module is about the tool, git, that lets you keep a record of how your own materials changed over time.</p>
+<section id="sec-gesis" class="level2">
+<h2 class="anchored" data-anchor-id="sec-gesis">1. The GESIS licence</h2>
+<p>The EU-frames case rests on sixteen waves of Eurobarometer survey data, and the German distributor of Eurobarometer is <strong>GESIS – Leibniz Institute for the Social Sciences</strong>, which describes itself as “<a href="https://www.gesis.org/en/institute">the largest German infrastructure institute for the social sciences</a>”. It runs Germany’s central social-science data archive, holding more than seven thousand studies, certified to the CoreTrustSeal standard and organised around the FAIR principles (findable, accessible, interoperable, reusable). This is the institutionally managed kind of repository: an archive run by a funded body that curates a named collection under its own terms, rather than a general-purpose deposit box that accepts anything from anyone.</p>
+<p>Those terms are the reason that the course repository looks the way it does. The GESIS licence for the Eurobarometer scientific-use files does not permit redistributing the raw microdata, so the dataset that this course actually ships – <code>EUframes_cy.csv</code> – is not the microdata itself but a set of <strong>derived country-year aggregates</strong>, built once from the raw files and then released under their own, more permissive terms (CC BY 4.0 for the derived data; the codebook states this explicitly). The preparation scripts that built them are kept in the template repository as an <strong>exhibit</strong>: code you can read to see exactly how the aggregates were constructed, not a pipeline you can point at a folder of raw files, because no raw files are there to point at. Every project built on licensed survey data lives under the same discipline: commit only what the licence allows. A course that redistributed the raw microdata, even to a closed group of participants, would be breaching the terms under which GESIS makes the data available in the first place.</p>
+<p>If you want the raw data yourself – to check the aggregation, to try a person-level specification that the country-year files cannot support, or simply because a licensed archive is worth learning to use – the route is a free registration with GESIS at <a href="https://search.gesis.org/">search.gesis.org</a>, followed by the request process that GESIS runs for the specific Eurobarometer waves that the codebook names. This is the tiered-access pattern common to institutional archives: viewing a catalogue entry is open to everyone, but obtaining the file itself means registering under your own name and agreeing to the conditions set by the archive. Registering is a normal step in a working researcher’s life. It is also the reason that the original author (OA) who built this claim, the Multi100 team who reanalysed it, and the rebuild made for this course could all work from the same sixteen waves without any of them ever redistributing a byte of GESIS data to another.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Open the <a href="../data/EUframes_cy_codebook.html">data codebook</a> and read its final section, “Licence”. Write one sentence distinguishing what is licensed under CC BY 4.0 from what remains subject to GESIS terms, and one sentence on what a ‘derived aggregate’ is doing in that distinction – why summarising sixteen waves down to one row per country-year changes what you are allowed to share, even though the underlying facts are the same.</p>
+</div>
+</div>
+</section>
+<section id="sec-osf" class="level2">
+<h2 class="anchored" data-anchor-id="sec-osf">2. The OSF nodes</h2>
+<p>The <strong>Open Science Framework</strong> (OSF), run by the non-profit Center for Open Science, is the general-purpose repository behind almost everything else that this course touches. Its help pages describe an OSF <strong>project</strong> as “<a href="https://help.osf.io/article/253-project-structure">a flexible, collaborative workspace where researchers can plan, manage, and share any part of their research lifecycle</a>”, and a <strong>component</strong> as an “<a href="https://help.osf.io/article/253-project-structure">optional sub-project nested within a parent project … used to break a large project into smaller parts</a>”. Projects and components form a parent–child tree, and each node can carry files, a wiki, contributors and its own privacy setting. Three nodes in that tree matter for this course specifically.</p>
+<p><strong><code>osf.io/8rtwe</code> – the official Multi100 archival record.</strong> This is the component that the Multi100 project itself preserved for analyst C6HJR: the materials exactly as originally submitted. It is the archival record in the strict sense – frozen, citable, unchanged since deposit. That immutability is what an archive is for, and it is also its limit, because an archive cannot follow a project onwards.</p>
+<p><strong><code>osf.io/6zqct</code> – the analyst’s maintained fork, and the fetch target of the course.</strong> OSF describes this node itself as “a public fork” of <code>8rtwe</code>, maintained by the facilitator for educational purposes. Alongside the submitted materials it carries a later revision of the analysis script and its exported dataset, plus revised Task 1 and Task 2 documents, and <code>EUframes_cy.csv</code> in its main folder. This is the node that every fetch in this course actually targets. Archives preserve a moment and forks maintain a living version, so a project that expects to keep moving usually needs both, with each pointing at the other.</p>
+<p><strong><code>osf.io/h7432</code> – the full SCORE dossier, one paper put through all three Rs.</strong> This is the parent node under which the whole reproducibility apparatus around the EU-frames case sits, and its component table records what each check found.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>What</th>
+<th>Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>whp4b</code></td>
+<td>Original materials collected by the Center for Open Science</td>
+<td>View-only</td>
+</tr>
+<tr class="even">
+<td><code>cf8en</code></td>
+<td>Author-provided code – two Stata do-files, supplied on request; OA’s own statement records that the data cannot be forwarded and must come from GESIS</td>
+<td>Code available, data restricted</td>
+</tr>
+<tr class="odd">
+<td><code>8fwrt</code></td>
+<td>Power analysis for the replication</td>
+<td>–</td>
+</tr>
+<tr class="even">
+<td><code>ezhcs</code></td>
+<td><strong>Push-button reproduction</strong>, run with OA’s own code</td>
+<td><strong>Failed.</strong> “The authors used file names that did not correspond with the names of the files available for download. Additionally 16 datasets are listed on the website as being used but the code references 18 files.”</td>
+</tr>
+<tr class="odd">
+<td><code>4rjbf</code></td>
+<td><strong>Source-data reproduction</strong></td>
+<td><strong>‘Not reproduced’</strong> – the effect size “could not be extract[ed] nor re-calculate[d]” from the source data</td>
+</tr>
+<tr class="even">
+<td><code>gr8u6</code></td>
+<td><strong>Multi100 robustness</strong> – five independent reanalysts, including analyst C6HJR whose materials this course reanalyses</td>
+<td>All five coefficients negative (claim-consistent direction); partial r ranging from −0.006 to −0.452, a span of two orders of magnitude</td>
+</tr>
+<tr class="odd">
+<td><code>zt5y2</code></td>
+<td><strong>Secondary-data replication</strong> – fresh Eurobarometer and Eurostat waves, preregistered, N = 352,114 person-year observations</td>
+<td><strong>Not replicated – sign flip.</strong> “We found a positive coefficient for unemployment on cosmopolitan framing”: b = +0.002, p = .046</td>
+</tr>
+</tbody>
+</table>
+<p>That table shows what a well-kept repository record lets a reader establish without emailing anyone. The push-button check failed for a mundane, checkable reason – file names that did not match what was actually available for download – not because the underlying claim was wrong. The source-data check failed differently: the code ran, but the reported effect size could not be recovered from it. The robustness check, the one that this course stands inside, held the direction of the claim across five independent analysts while the effect size itself moved by a factor of roughly 75. And the replication, run on genuinely new data under a preregistered plan, flipped sign entirely. One paper, three different verdicts on three different questions – reproduction, robustness, replicability – each one legible only because the materials behind it sit in a public, node-by-node OSF tree rather than in a folder on someone’s laptop.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Open <a href="https://osf.io/h7432/"><code>osf.io/h7432</code></a> and find the <code>zt5y2</code> component from the table above. Locate the sentence reporting the sign-flipped coefficient in the materials of that component, and note the exact figures: the coefficient, its standard error, and the significance level. This is the same scavenger task that the in-session OSF segment sets in Part 4 – if you are working through this module before the workshop, you will already know where to look when it comes up.</p>
+</div>
+</div>
+</section>
+<section id="sec-registration" class="level2">
+<h2 class="anchored" data-anchor-id="sec-registration">3. Archives, forks and registrations</h2>
+<p>Two pieces of OSF vocabulary are needed for the rest of this module. A <strong>registration</strong> is “<a href="https://help.osf.io/article/330-registrations">a frozen version of your project that can never be edited or deleted, but you can issue a withdrawal of it later</a>”, time-stamped and given its own permanent identifier. This is the mechanism behind preregistration: it captures a study plan before the data are seen (or, for a reanalysis of existing data, before the specific analytical choices are made), so the plan cannot later be quietly rewritten to fit the result. The Multi100 reanalysts themselves worked from this kind of frozen, dated protocol, which is one reason that their five independent results can be compared on equal footing.</p>
+<p>A <strong>fork</strong>, discussed in <a href="../companion/git-github.html#sec-github">the git and GitHub module</a> in its git and GitHub sense, has a direct OSF equivalent: your own editable copy of a public node, kept separate from the original so you can change it without touching the original record. <code>osf.io/6zqct</code> is such a fork, and “a public fork” is the term that OSF itself uses for the manoeuvre.</p>
+<p>Both pieces of vocabulary are on display in the materials of this case. The registration you can read today is the Multi100 protocol. It froze the scoring rules – what counts as ‘the same conclusion’, how close an effect size must be to count as ‘close’ – before a single reanalyst’s result came back, which is why the agreement rates you meet in Part 1 mean something. The fork you have already used is <code>osf.io/6zqct</code>, the maintained copy of the archival record, where the later script and its annotation live without touching the frozen original at <code>8rtwe</code>. Registrations freeze plans rather than materials, which is what allows the date of a plan to be compared with the date of a result.</p>
+</section>
+<section id="sec-prereg-templates" class="level2">
+<h2 class="anchored" data-anchor-id="sec-prereg-templates">4. Preregistration templates</h2>
+<p>The earlier sections of this module have been about materials that other people deposited, and about the plan that the Multi100 team registered in advance. This closing section turns to writing your own, because Part 4 of the workshop asks you to do just that – complete a preregistration template block in your own report, before you run your chosen specification.</p>
+<p>An <strong>OSF registration</strong>, as defined above, is the general mechanism: a frozen, time-stamped, permanent copy of a study plan. What varies between registrations is the <strong>template</strong> used to structure that plan – the specific set of questions that a researcher answers before the data are touched. OSF hosts several, built for different kinds of study, and two are worth knowing by name.</p>
+<p><strong>The AsPredicted-style short template.</strong> Originally built by the team behind <a href="https://aspredicted.org/">AsPredicted.org</a> and available as one of the registration forms built into OSF, this is the simplest entry point into preregistration and the one recommended for the in-session exercise. It asks a short, fixed sequence of questions – what the hypotheses are, what the key variables and analysis are, how the sample will be determined, and what would count as excluding data – each answered in a sentence or two rather than a full protocol document. Its appeal for a workshop setting is its brevity. A participant with no prior preregistration experience can complete it in the time that Part 4 sets aside, and what it demands – state the analysis before running it, in a form specific enough that it cannot be quietly reinterpreted afterwards – is what a longer template demands too, only asked in fewer words.</p>
+<p><strong>The secondary-data preregistration template (van den Akker and colleagues).</strong> A short-form template written for a fresh, not-yet-collected study assumes something that is not true of this course exercise: that the researcher has not yet seen the data. A reanalysis of an existing, already-public dataset like the Eurobarometer country-year panel breaks that assumption from the outset. You can see summary statistics, published tables, even other researchers’ results, before you commit to a specification of your own. Van den Akker and colleagues’ template is built around that difference. Where a fresh-data template asks what you will collect and how, a secondary-data template asks what you have already seen and what you have not. It wants to know which parts of the dataset or its published results you have already been exposed to, whether your hypothesis was formed before or after that exposure, and what remains genuinely undetermined about your specific analytical choices at the point of writing the plan. For a Multi100-style robustness reanalysis – exactly the kind of exercise that this course runs – this is the more accurate match for what preregistration can actually promise: not that you approached the data blind, which would rarely be true of a reanalysis, but that your specific analytical choices were fixed and dated before you ran them.</p>
+<p><strong>How the course template block maps onto these.</strong> The template block you complete in Part 4 is modelled on the structure of the AsPredicted-style short form, a small number of short and specific questions, but adapted for a specification-menu reanalysis rather than a fresh study. Instead of ‘what is your hypothesis and how will you test it’, the block asks you to state your chosen specification – one option from each of the eight menu axes – and to justify that choice against the estimand and DAG you built earlier in the day. This is deliberately the lighter of the two templates, chosen because the Part 4 time budget favours a form that participants can complete and render inside a defined slot rather than one that demands a fuller protocol. The secondary-data template is signposted as pre-session and take-home reading rather than completed live, for anyone who wants to see how the same discipline scales up to a plan detailed enough to submit as a real OSF registration.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Read the question list of the AsPredicted template at <a href="https://aspredicted.org/">aspredicted.org</a> and, separately, skim the structure of the secondary-data template. For a single specification you might choose from the <a href="../exercise/spec-menu.html">specification menu</a> – say, outcome = <code>mpos</code>, predictor form = raw <code>unemp</code>, two-way fixed effects, all years, no weights – write one sentence answering the central question of the secondary-data template in your own words: what, if anything, had you already seen of the results on this claim before settling on that specification? A truthful answer to that question, written down before anything runs, is what separates a preregistration that constrains you from one that only decorates a result you had already half-decided on.</p>
+</div>
+</div>
+</section>
+<section id="sec-sources" class="level2">
+<h2 class="anchored" data-anchor-id="sec-sources">Sources and attribution</h2>
+<p>The definitional material in this module – what an OSF project, component and registration are, what a fork means on OSF – draws on the same primary sources as the repositories module of the trust-multilab companion curriculum: the OSF help pages (<a href="https://help.osf.io" class="uri">https://help.osf.io</a>), quoted directly and linked in place wherever they appear above. The GESIS self-description in section 1 is likewise a direct quotation from the website of the institute (<a href="https://www.gesis.org/en/institute" class="uri">https://www.gesis.org/en/institute</a>). None of this definitional material is course-specific; it describes the platforms themselves, so the same quotations hold regardless of which project supplies the data trail that is being followed.</p>
+<p>Everything else – the GESIS licensing constraint on the course data, the three-node OSF trail (<code>8rtwe</code>, <code>6zqct</code>, <code>h7432</code>) and its component table, and the mapping from the course template block onto the AsPredicted-style and secondary-data templates – is the worked example of this course, drawn from the <a href="../data/EUframes_cy_codebook.html">data codebook</a>, the OSF nodes themselves, and the facilitator’s own project notes. Direct quotations from the component reports in the OSF dossier (<code>ezhcs</code>, <code>4rjbf</code>, <code>zt5y2</code>) are reproduced exactly as they appear in the materials of those components.</p>
+<p>For the version-control half of taking a reanalysis further – putting your own report, and eventually your own registration, under a history you can read and correct – see the companion module <a href="../companion/git-github.html">Git and GitHub for reproducible research</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/codemoreh\.github\.io\/applied-replication\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="https://github.com/CodeMoreh/applied-replication">GitHub repo</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

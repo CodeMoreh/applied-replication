@@ -1,0 +1,6 @@
+---
+title: "After the week"
+---
+Two modules of the [companion curriculum](../../companion/index.qmd) are left over after three days, and both answer a question the week raises without settling. [Weights](../../companion/weighting.qmd) and [Missing answers](../../companion/missingness.qmd) take apart the two measurement-level decisions that the menu opens beyond the Multi100 task, and [The items behind the scales](../../companion/measurement.qmd) takes apart the instrument behind every outcome on it. [The individual level](../../companion/individual-level.qmd) fits the same claim where its author fitted it, on a synthetic person-level dataset, and answers the composition question that the aggregate panel can only pose. [Building the analysis file](../../companion/data-management.qmd) is the route to the real respondents for anyone who downloaded the sixteen Eurobarometer files under their own GESIS account.
+
+If three days is the wrong shape, the [one-day course](../one-day-replication/index.qmd) is day 2 on its own, with its [tools-focused](../one-day-tools/index.qmd) and [methods-focused](../one-day-methods/index.qmd) variants standing in for days 1 and 3 in miniature; the [semester format](../semester/index.qmd) spreads the same material across a term; and the [self-study track](../self-study/index.qmd) drops the clock and the cohort.

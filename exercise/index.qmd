@@ -3,7 +3,7 @@ title: "Exercise Overview"
 subtitle: "You are analyst no. 6"
 ---
 
-This page sets out the whole exercise. Your work happens either in the [Browser lab](browser-lab.qmd) (Route 2) or in the Positron workspace you downloaded (Route 1). The two routes are identical in what they let you do. Come back here whenever you want the overview again.
+This page sets out the whole exercise. Your work happens in the workspace you downloaded and opened in your IDE; the [Browser lab](browser-lab.qmd) holds the same exercise in a browser tab, for following a demonstration, for trying it without an installation, and as a fallback. Come back here whenever you want the overview again.
 
 ---
 
@@ -13,7 +13,7 @@ Five independent analysts reanalysed a claim made by the original author (OA) as
 
 > "…poor economic performances … decrease positive dimensions of EU framing" (Teney 2016, p. 619)
 
-The anchor result – the specific number that the Task 2 constraints pointed to – is:
+The published coefficient – the specific number that the Task 2 constraints pointed to – is:
 
 > **Unemployment → cosmopolitan EU framing: b = −0.0034, t = −4.03, p < .001** (Table 3, Model 1)
 
@@ -21,7 +21,13 @@ This comes from a three-level random-intercept model using pooled Eurobarometer 
 
 ---
 
-## Five analysts, five answers {#the-five-published-analysts}
+## Which claim, and why {#which-claim}
+
+The claim on the card is one sentence of a paper that makes several, and it is worth knowing how it came to be the one. The SCORE programme selected claims from published abstracts, and the sentence it took from this paper is the first half of a two-part hypothesis. The paper's own statement of that hypothesis reads: "Poor national economic performances significantly increase the negative and decrease the positive EU-framing dimensions. The effect is stronger on the materialist dimensions of EU framing" (p. 621). The second sentence, which compares two of the four framing scales with the other two, never reached the analysts, and neither did the paper's second hypothesis, about the gap between high- and low-educated citizens, which the [individual-level module](../companion/individual-level.qmd#sec-claim2) takes up. The Multi100 project then narrowed the card further in its constrained phase, fixing the cosmopolitan scale as the outcome and the unemployment rate as the predictor, which is why the coefficient above is the one you reproduce.
+
+Each of those steps was a decision that someone other than you made, and each one shaped what "replicating the claim" could mean. Testing the first sentence needs one outcome and one predictor; testing the second needs a grouping of the scales that the [measurement module](../companion/measurement.qmd#sec-theory) shows the data only half support; testing the education hypothesis needs the respondents rather than the country-years. Choosing which sentence to replicate is the first specification decision of any replication, and it is made before the estimand, the graph or the menu, usually by the people who wrote the card. The course keeps to the card, so that its results can be set beside the five analysts', and it says so here so that the choice is visible rather than inherited.
+
+## The five Multi100 analysts {#the-five-published-analysts}
 
 Before you begin, here is what the five Multi100 analysts found when they reanalysed the same claim:
 
@@ -37,31 +43,31 @@ All five reported a negative effect (same direction as the original). The partia
 
 ---
 
-## The day, task by task
+## The tasks
 
-The exercise runs as five numbered tasks across four 90-minute parts. For every task there is a route note – what to do in the Positron workspace (Route 1) and in the browser lab (Route 2). The two reach identical numbers.
+The exercise runs as five numbered tasks across four 90-minute parts. Each task says what to do in the workspace and, where it differs, on the browser lab page, which reaches the same numbers.
 
-### Part 1 – Why any of this, and with what tools
+### Part 1 – Credibility and tools
 
-**Task 1 – Get yourself running (~8 minutes, and the break if you need it).** The only aim is to reach the point where a line of R runs and the data are in front of you. There is no prize for finishing early, and getting this right now saves an hour of misery later. *Route 1:* open the workspace folder in Positron, let the packages install, and render the report skeleton once – if it renders, everything works; if it does not, `source("R/check_setup.R")` names what is missing. *Route 2:* wait for the engine to finish downloading, then run the setup-check cell and confirm the panel has 270 rows. The vocabulary warm-up on the same page – three R's and one impostor – is there to fill the waiting.
+**Task 1 – Get yourself running (~8 minutes, and the break if you need it).** The only aim is to reach the point where a line of R runs and the data are in front of you. There is no prize for finishing early, and getting this right now saves an hour of misery later. *Workspace:* open the workspace folder in your IDE, let the packages install, and render the report skeleton once – if it renders, everything works; if it does not, `source("R/check_setup.R")` names what is missing. *Browser lab:* wait for the engine to finish downloading, then run the setup-check cell and confirm the panel has 270 rows. The vocabulary warm-up on the same page – three R's and one impostor – is there to fill the waiting.
 
-If Route 1 will not cooperate, do not fight it. Switch to Route 2 and carry on; nothing in the day depends on which one you use.
+If your installation will not cooperate, do not fight it. Open the browser lab and carry on there; nothing in the day depends on it.
 
 ---
 
-### Part 2 – The question underneath
+### Part 2 – The claim and its estimand
 
 **Task 2 – Meet the panel, name the estimand, draw the graph (~18 minutes).** Three pieces, in order. First, look at the data: the **EU-frames dataset** (`EUframes_cy.csv`) is the country-year panel behind the whole exercise – 270 country-years, unemployment and GDP growth alongside several EU-framing measures, published in the analyst's OSF fork (`osf.io/6zqct`, main folder; the official Multi100 archival record is at `osf.io/8rtwe`). Run the small-multiples figure and find the countries that move sharply around 2009, because that within-country variation is exactly what the model will use.
 
 Second, write the **estimand** in words: the unit-specific quantity, the target population, the aggregation. The template gives you the shape; the value is in being forced to be precise about this claim in particular.
 
-Third, complete the **causal graph**. Take the `#` off the arrows you are willing to defend, re-run `adjustmentSets()`, and watch what the graph now demands. Then two sentences for your notes: what do two-way fixed effects adjust for, and what can they not fix? *Route 1:* edit `R/dag_starter.R`, where every arrow is an ordinary R formula and adopting one means deleting a `#`. *Route 2:* the same graph with `dagify()` in the browser lab. The [causal-graphs companion module](../companion/dags.qmd) works the material through slowly if you want it.
+Third, complete the **causal graph**. Take the `#` off the arrows you are willing to defend, re-run `adjustmentSets()`, and watch what the graph now demands. Then two sentences for your notes: what do two-way fixed effects adjust for, and what can they not fix? *Workspace:* edit `R/dag_starter.R`, where every arrow is an ordinary R formula and adopting one means deleting a `#`. *Browser lab:* the same graph with `dagify()` in the browser lab. The [causal-graphs companion module](../companion/dags.qmd) works the material through slowly if you want it.
 
 ---
 
-### Part 3 – What you can actually do
+### Part 3 – Reproduction and exploration
 
-**Task 3 – Reproduce the recorded result (~22 minutes).** Fit the constrained two-way fixed-effects model – `mcosmo ~ unemp_c`, with country and year fixed effects – and confirm you get **t = −3.804** (df = 233, N = 270). This is the reproduction step, and −3.804 is the value on record for analyst C6HJR: the same data and the same code give the same number. *Route 1:* run the model in your working script. *Route 2:* fill the gaps in the exercise cell; there are two hints and a full solution, and using them is not cheating.
+**Task 3 – Reproduce the recorded result (~22 minutes).** Fit the constrained two-way fixed-effects model – `mcosmo ~ unemp_c`, with country and year fixed effects – and confirm you get **t = −3.804** (df = 233, N = 270). This is the reproduction step, and −3.804 is the value on record for analyst C6HJR: the same data and the same code give the same number. *Workspace:* run the model in your working script. *Browser lab:* fill the gaps in the exercise cell; there are two hints and a full solution, and using them is not cheating.
 
 Your reproduction is one check among several, and the paper fares differently on the others. It was put through all three Rs in the SCORE dossier ([osf.io/h7432](https://osf.io/h7432/)): the push-button reproduction failed, the source-data reproduction was recorded as "not reproduced", and a preregistered replication on fresh data (N = 352,114) flipped sign, with b = +0.002 and p = .046.
 
@@ -71,19 +77,19 @@ Nothing here commits you to anything. You are allowed to look, change your mind 
 
 ---
 
-### Part 4 – Reading the multiverse, choosing one path
+### Part 4 – Multiverse and preregistration
 
 The part opens by reading what the room built: the class chart laid over the full 840-specification curve and the five published analysts, which analytical choice moves estimates most, where the sign flips come from, and **your own percentile** – the share of the 840 specifications more negative than the estimate you submitted. It then turns to what a curve can and cannot establish, and to the argument that once a question is fully specified there is only one correct analysis. The [reading on the specification curve](reading-inference.qmd) is the companion for this part.
 
-**Task 5 – Declare one specification, run it, report it (~20 minutes).** Now you commit. Pick ONE analysis from the menu, one choice on each of the eight axes, and complete the preregistration block **before you run anything**. It is a shortened but real preregistration template: what you are testing, what you already know about the data, your one specification, why those controls (grounded in your Task 2 graph), and the rule you will judge the result by. `claim_align <- TRUE` is the day's convention and is applied for you: negative framings are reverse-coded and the claim-expected sign of GDP growth is flipped, so 'supports the claim' reads as a negative sign for everyone.
+**Task 5 – Declare one specification, run it, report it (~20 minutes).** Now you commit. Pick ONE analysis from the menu, one choice on each of the fourteen axes, and complete the preregistration block **before you run anything**. It is a shortened but real preregistration template: what you are testing, what you already know about the data, your one specification, why those controls (grounded in your Task 2 graph), and the rule you will judge the result by. `claim_align <- TRUE` is the day's convention and is applied for you: negative framings are reverse-coded and the claim-expected sign of GDP growth is flipped, so 'supports the claim' reads as a negative sign for everyone.
 
-Render that block (Route 1) or copy it into your notes (Route 2) so it is written down before you see the result. Then translate the declaration into model syntax yourself – `build_model()` accepts only code that matches what you declared – run it, and `report_result()` prints a one-click, pre-filled form link. Your dot joins the chart as a **declared** result, drawn as a filled circle beside the open exploratory ones.
+Render that block, or on the browser lab page copy it into your notes, so it is written down before you see the result. Then translate the declaration into model syntax yourself – `build_model()` accepts only code that matches what you declared – run it, and `report_result()` prints a one-click, pre-filled form link. Your dot joins the chart as a **declared** result, drawn as a filled circle beside the open exploratory ones.
 
 Task 4 and Task 5 run identical code. What separates them is that an exploratory specification can have been chosen because of its result and a declared one cannot, and seeing the two clouds side by side is why you submit twice.
 
 ---
 
-## Three things make a result count {#what-makes-a-result-valid}
+## What counts as a result {#what-makes-a-result-valid}
 
 Your result is valid for the multiverse chart if it:
 
@@ -95,10 +101,11 @@ The justification is what the whole exercise depends on. Auspurg & Brüderl (202
 
 ---
 
-## Everything you need, in one place
+## Links
 
-- [Browser lab](browser-lab.qmd) – Route 2: the whole exercise in a browser tab, nothing installed.
-- [Specification menu](spec-menu.qmd) – the eight axes you choose one option from, with a worked example.
+- [Browser lab](browser-lab.qmd) – the whole exercise and its data in a browser tab, for demonstrations and for trying it without an installation.
+- [Specification menu](spec-menu.qmd) – the fourteen axes you choose one option from, grouped into the three levels of decision they belong to, with a worked example.
+- [Estimand choices](estimand-dial.qmd) – set the seven Level 1 choices, read the question they ask, and watch how far the answer moves when only its measurement changes.
 - [Reading a specification curve](reading-inference.qmd) – the companion reading for Part 4: what a large set of results can and cannot establish.
 - [Cheatsheet](cheatsheet.qmd) – the one-page card to keep open on the day, with the in-room links and what to do if something stalls.
 

@@ -1,0 +1,125 @@
+## The outcome fork carries half the variance {#the-outcome-fork-carries-half-of-everything}
+
+```{r}
+#| label: fork-importance
+#| fig-width: 9
+#| fig-height: 4
+# Share of specification variance in partial r per menu axis, from the
+# facilitator's extended decomposition (data/fork_importance.csv, main-effects
+# eta-squared). Bars ordered by share; the outcome fork in orange.
+fi <- fork_imp |>
+  dplyr::mutate(axis = dplyr::recode(term,
+    outcome   = "outcome",
+    Residuals = "residual / interactions",
+    sample    = "sample",
+    estimator = "estimator",
+    exposure  = "predictor form",
+    control   = "copredictor",
+    weights   = "weights")) |>
+  dplyr::arrange(share) |>
+  dplyr::mutate(axis = factor(axis, levels = axis))
+ggplot(fi, aes(share, axis, fill = axis == "outcome")) +
+  geom_col(width = 0.7) +
+  geom_text(aes(label = sprintf("%.1f%%", share)),
+            hjust = -0.15, colour = ncl_blue, fontface = "bold", size = 5) +
+  scale_fill_manual(values = c(`TRUE` = orange, `FALSE` = ncl_blue),
+                    guide = "none") +
+  scale_x_continuous(limits = c(0, 60)) +
+  labs(x = "share of variance in partial r (%)", y = NULL) +
+  theme_slide(16)
+```
+
+::: {.small}
+- **Outcome operationalisation: 49.7%** of specification variance · estimator + predictor form + copredictor + weights together: **under 2%**
+- Computed on the grid **as estimated** – part of the outcome share *is* the polarity split between positive and negative framings, the split the claim-aligned chart removes from display
+:::
+
+::: {.src}
+Computed over the committed data/spec_grid.csv; imported as data/fork_importance.csv.
+:::
+
+::: notes
+The outcome fork carries essentially half of all the variation in the grid – forty-nine point seven per cent. And now look at the bottom of the chart: estimator, predictor form, copredictor and weights – the axes we argue about in seminars – together account for under two per cent. The residual block is interactions, combinations that matter beyond any single axis. One caveat, stated plainly: this decomposition is computed on the grid as estimated, before claim-alignment, so part of the share carried by the outcome fork is the polarity split itself – positive framings falling, negative framings rising. That split is real variation in what the specifications estimate; the aligned chart removes it from the display, not from the decomposition. So the day's empirical lesson stands: *what you measure* dwarfs *how you model it*. The fixed-versus-random-effects debate, the to-weight-or-not debate – on this claim, they barely move the estimate. Deciding what 'EU framing' means moves it half the distance all by itself. Whoever guessed "outcome" in the chat: take the point.
+:::
+
+## The unit of analysis does the work
+
+```{r}
+#| label: analyst-placement
+#| fig-width: 9
+#| fig-height: 4
+# Each analyst's recorded partial r located in the 840-spec grid as the
+# share of the grid MORE NEGATIVE than their value on the claim-aligned scale
+# (computed in the setup chunk). Person-level analysts in orange, aggregated
+# in navy.
+ggplot(an_placed,
+       aes(pct_more_negative,
+           factor(analyst_id, levels = analyst_id),
+           colour = level)) +
+  geom_segment(aes(x = 0, xend = pct_more_negative,
+                   yend = factor(analyst_id, levels = analyst_id)),
+               linewidth = 1.2) +
+  geom_point(size = 7) +
+  geom_text(aes(label = sprintf("%.1f%%", pct_more_negative)),
+            hjust = -0.35, colour = ncl_blue, fontface = "bold", size = 5) +
+  scale_colour_manual(values = c(`person-level` = orange,
+                                 `aggregated` = ncl_blue),
+                      name = NULL) +
+  scale_x_continuous(limits = c(0, 80)) +
+  labs(x = "share of the 840 specifications more negative, claim-aligned (%)",
+       y = NULL) +
+  theme_slide(15) +
+  theme(legend.position = "top")
+```
+
+::: {.small}
+- The two **person-level** analysts sit at the two extremes of the recorded range – the unit of analysis and the metric dominate, not the software or the estimator
+:::
+
+::: notes
+Now put the five published analysts inside the same grid – for each one, the share of all eight hundred and forty claim-aligned specifications that come out more negative than their value. And look who sits at the ends. KEVF1, the most strongly claim-supporting of the five at around the sixteenth percentile, and PRL47, the closest to the null at around the sixty-eighth – those two, at the opposite extremes, are the two analysts who worked at *person level*, on the third of a million respondents, rather than on aggregates. The three aggregate pipelines sit between them; my own constrained baseline lands almost exactly at the median of the grid. It is not Stata versus R, and it is not the estimator: it is the unit of analysis and the outcome metric, decided before any model is fitted, that scatter five competent people across half the curve. Which is the fork-importance chart again, this time with names attached.
+:::
+
+## Where the sign flips concentrate {#the-sign-flips-are-patterned-not-random}
+
+```{r}
+#| label: sign-flips
+#| fig-width: 10
+#| fig-height: 3.8
+# Wrong-sign (positive) estimates in the cosmopolitan-only universe,
+# cross-tabbed by estimator and by sample; computed in-chunk from the
+# committed spec_grid.csv (flips_mcosmo in the setup chunk).
+f_est <- flips_mcosmo |>
+  dplyr::count(estimator, wrong_sign) |>
+  dplyr::filter(wrong_sign) |>
+  dplyr::arrange(n) |>
+  dplyr::mutate(estimator = factor(estimator, levels = estimator))
+f_smp <- flips_mcosmo |>
+  dplyr::count(sample, wrong_sign) |>
+  dplyr::filter(wrong_sign) |>
+  dplyr::arrange(n) |>
+  dplyr::mutate(sample = factor(sample, levels = sample))
+p_est <- ggplot(f_est, aes(n, estimator)) +
+  geom_col(fill = d_red, width = 0.65) +
+  geom_text(aes(label = n), hjust = -0.3, colour = ncl_blue,
+            fontface = "bold", size = 5) +
+  scale_x_continuous(expand = ggplot2::expansion(mult = c(0, 0.2))) +
+  labs(x = "wrong-sign specs", y = NULL, title = "by estimator") +
+  theme_slide(14)
+p_smp <- ggplot(f_smp, aes(n, sample)) +
+  geom_col(fill = d_red, width = 0.65) +
+  geom_text(aes(label = n), hjust = -0.3, colour = ncl_blue,
+            fontface = "bold", size = 5) +
+  scale_x_continuous(expand = ggplot2::expansion(mult = c(0, 0.2))) +
+  labs(x = "wrong-sign specs", y = NULL, title = "by sample") +
+  theme_slide(14)
+p_est + p_smp
+```
+
+::: {.small}
+- In the cosmopolitan-only universe, the wrong-sign estimates concentrate in the **pooled cluster-robust estimator** and the **bailout-excluding samples**
+:::
+
+::: notes
+One more way to read the grid: where do the sign flips live? Take only the cosmopolitan-outcome specifications – the claim predicts a negative coefficient, so a positive estimate is a flip – and cross-tab the flips by axis. They are not scattered randomly. The estimator that absorbs no between-country differences at all – the pooled model with clustered errors – hosts thirty-three of the forty-one, and the flips also lean heavily towards the samples that exclude the bailout countries. In other words, when this claim flips sign, it flips for identifiable, diagnosable reasons: remove the between-country comparison, or remove the crisis countries, and the association goes. A specification curve is more than a spread to gawp at. Take it apart and you can name the choices that produce the extremes.
+:::

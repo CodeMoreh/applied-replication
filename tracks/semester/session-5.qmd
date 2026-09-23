@@ -1,0 +1,12 @@
+---
+title: "Session 5 – Estimands and causal graphs"
+---
+Analysts who look as though they disagree are often answering different questions, so this session asks what quantity the claim is about before it asks how to estimate it. The module builds each causal shape by fitting it rather than only describing it, which is what makes the collider section land.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Causal graphs](../../companion/dags.qmd) | Sections 1 to 3: an arrow as a claim you are making, the three shapes a path can take, and what conditioning on a collider does to an estimate. | 60 minutes |
+| [Causal graphs](../../companion/dags.qmd#sec-case) | Sections 4 to 6: the EU-frames graph written as R formulas, the adjustment set that follows from it, and what fixed effects cannot fix. | 60 minutes |
+| [Causal graphs](../../companion/dags.qmd#sec-yours) | Section 9: state an estimand for a question of your own and draw the graph that goes with it. | 45 minutes |
+
+**By the end of the session** you have an estimand written in three parts, the unit-specific quantity, the target population and the aggregation, and a graph whose adjustment set you derived rather than assumed.

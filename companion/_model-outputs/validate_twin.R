@@ -20,7 +20,7 @@
 #               reported separately so the cost of that choice is visible
 #               rather than buried.
 #
-# Reads:        _planning_data/person_level_full.rds   (licensed, local only)
+# Reads:        the respondent file, through _load_respondents.R (licensed, local only)
 #               data/EUframes_person_full.csv          ($TWIN_FILE overrides)
 # Writes:       companion/_model-outputs/twin_validation.csv
 #               A coefficient comparison: aggregate, and committed.
@@ -60,7 +60,8 @@ fit_anchor <- function(d, y, cluster = "cy") {
          estimate = fx[, "Estimate"], se = fx[, "Std. Error"])
 }
 
-real <- prep(readRDS("_planning_data/person_level_full.rds"))
+source("companion/_model-outputs/_load_respondents.R")
+real <- prep(ind)
 TWIN_DEFAULT <- "data/EUframes_person_full.csv"
 twin_file <- Sys.getenv("TWIN_FILE", TWIN_DEFAULT)
 twin <- prep(read_csv(twin_file, show_col_types = FALSE))

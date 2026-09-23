@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Browser lab – Applied Replication for Data Skills</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ece42c8223ec2bf36298a08f122c9a68.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.js"></script>
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/animate.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/magic.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/more-fragments-0.1.0/more-fragments.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo light-content">
+    <img src="../assets/logo.png" alt="CM logo" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Applied Replication for Data Skills</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../setup.html"> 
+<span class="menu-text">Setup</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../tracks/one-day.html">
+ <span class="dropdown-text">One day</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/three-days.html">
+ <span class="dropdown-text">Three days</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/semester.html">
+ <span class="dropdown-text">Semester</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tracks/self-study.html">
+ <span class="dropdown-text">Self-study</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../slides/index.html"> 
+<span class="menu-text">Slides</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-exercise">    
+        <li>
+    <a class="dropdown-item" href="../exercise/index.html">
+ <span class="dropdown-text">Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/browser-lab.html">
+ <span class="dropdown-text">Browser lab</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/spec-menu.html">
+ <span class="dropdown-text">Specification menu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/estimand-dial.html">
+ <span class="dropdown-text">Estimand choices</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercise/cheatsheet.html">
+ <span class="dropdown-text">Cheatsheet</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../results.html"> 
+<span class="menu-text">Multiverse</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-companion" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Companion</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-companion">    
+        <li>
+    <a class="dropdown-item" href="../companion/index.html">
+ <span class="dropdown-text">Curriculum overview</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Computational tools</li>
+        <li>
+    <a class="dropdown-item" href="../companion/intro-r.html">
+ <span class="dropdown-text">Getting started with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/quarto.html">
+ <span class="dropdown-text">Quarto and reproducible documents</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Reproducibility and collaboration</li>
+        <li>
+    <a class="dropdown-item" href="../companion/repositories.html">
+ <span class="dropdown-text">Repositories &amp; preregistration</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/git-github.html">
+ <span class="dropdown-text">Git &amp; GitHub</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Statistical methods</li>
+        <li>
+    <a class="dropdown-item" href="../companion/stats-methods.html">
+ <span class="dropdown-text">The statistical methods behind the course</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/dags.html">
+ <span class="dropdown-text">Causal graphs &amp; adjustment sets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/multiverse.html">
+ <span class="dropdown-text">The multiverse and its critics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/weighting.html">
+ <span class="dropdown-text">Weights</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/missingness.html">
+ <span class="dropdown-text">Missing answers</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/measurement.html">
+ <span class="dropdown-text">The items behind the scales</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/simulation.html">
+ <span class="dropdown-text">Simulation as a method</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../companion/individual-level.html">
+ <span class="dropdown-text">The individual level</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#task-1-setup" id="toc-task-1-setup" class="nav-link active" data-scroll-target="#task-1-setup">Task 1 – Get yourself running</a></li>
+  <li><a href="#task-1-concepts-warm-up-while-the-engine-loads" id="toc-task-1-concepts-warm-up-while-the-engine-loads" class="nav-link" data-scroll-target="#task-1-concepts-warm-up-while-the-engine-loads">Warm-up – three R’s, and one impostor</a></li>
+  <li><a href="#task-2-get-the-data-and-look-at-it" id="toc-task-2-get-the-data-and-look-at-it" class="nav-link" data-scroll-target="#task-2-get-the-data-and-look-at-it">Task 2 – Meet the panel</a></li>
+  <li><a href="#task-4-estimand-and-dag" id="toc-task-4-estimand-and-dag" class="nav-link" data-scroll-target="#task-4-estimand-and-dag">Task 2, continued – name the estimand, draw the graph</a></li>
+  <li><a href="#task-3-reproduce-the-recorded-result" id="toc-task-3-reproduce-the-recorded-result" class="nav-link" data-scroll-target="#task-3-reproduce-the-recorded-result">Task 3 – Reproduce the recorded result</a></li>
+  <li><a href="#task-4-explore" id="toc-task-4-explore" class="nav-link" data-scroll-target="#task-4-explore">Task 4 – Work the menu</a></li>
+  <li><a href="#task-5-my-preregistration" id="toc-task-5-my-preregistration" class="nav-link" data-scroll-target="#task-5-my-preregistration">Task 5 – Commit before you look</a></li>
+  <li><a href="#task-5-build-run-report" id="toc-task-5-build-run-report" class="nav-link" data-scroll-target="#task-5-build-run-report">Task 5, continued – build, run and report</a></li>
+  <li><a href="#taking-it-home" id="toc-taking-it-home" class="nav-link" data-scroll-target="#taking-it-home">Taking it home</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Browser lab</h1>
+<p class="subtitle lead">The exercise and its data, running in a browser tab</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This page holds the exercise of the course, Tasks 1 to 5, on a copy of R that runs inside the browser, with the data already in place and the same helper functions as the downloadable workspace. It is the page the facilitator drives on the shared screen, a place to try the analysis and the data before you have installed anything, and the fallback for a machine that will not cooperate on the day. The course’s own work is done in the workspace from the <a href="../setup.html">Setup</a> page; nothing you do here is lost by that, since the numbers are the same.</p>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>While the R engine loads
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The R engine downloads into your browser the first time you open this page (10–30 seconds on a slow connection) – read Task 1 while it warms up. You will see the first code cell switch from a loading spinner to a “Run Code” button when it is ready.</p>
+<p>Keep this tab open. Your work lives in this page until you refresh – there is nothing to install, nothing to save to disk, and no account needed.</p>
+</div>
+</div>
+<div class="cell" data-edit="false" data-autorun="true">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVkaXQiOmZhbHNlLCJldmFsIjp0cnVlLCJvdXRwdXQiOmZhbHNlfSwiY29kZSI6IiMgU2hhcmVkIHNldHVwIOKAkyB0aGlzIHJ1bnMgYXV0b21hdGljYWxseSBvbmNlIHRoZSBlbmdpbmUgaXMgcmVhZHkuIEl0IGxvYWRzXG4jIHRoZSBFVS1mcmFtZXMgZGF0YXNldCBpbnRvIHlvdXIgYnJvd3NlciBzZXNzaW9uIGFzIGBldWZyYW1lc2AsIHRoZSBvbmVcbiMgb2JqZWN0IHRoYXQgZXZlcnkgY2VsbCBiZWxvdyB3b3JrcyBmcm9tLiBUaGUgZmlsZSBhcnJpdmVzIGF0IGRhdGEvLi4uIGluXG4jIHRoZSBicm93c2VyIHZpYSB0aGUgYHJlc291cmNlczpgIGxpc3QgYXQgdGhlIHRvcCBvZiB0aGlzIHBhZ2UuXG5ldWZyYW1lcyA8LSByZWFkLmNzdihcImRhdGEvRVVmcmFtZXNfY3kuY3N2XCIpIn0=
+</script>
+</div>
+</div>
+<div class="cell" data-autorun="true">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2UsIm91dHB1dCI6ZmFsc2V9LCJjb2RlIjoiIyBMYWIgbWFjaGluZXJ5IOKAkyB0aGUgZm91cnRlZW4tZGVjaXNpb24gc3BlY2lmaWNhdGlvbiBtZW51LCBpdHMgdmFsaWRhdGlvbixcbiMgYW5kIHRoZSBoZWxwZXIgZnVuY3Rpb25zIHRoYXQgdGhlIGV4ZXJjaXNlIGZsb3cgdXNlcy4gUGFydGljaXBhbnRzIGludGVyYWN0XG4jIHdpdGggdHJ5X3NwZWMoKSwgbXlfZXhwZXJpbWVudHMoKSwgc3VibWl0X2V4cGxvcmF0aW9uKCksIHByZXJlZygpLFxuIyBidWlsZF9tb2RlbCgpLCBydW5fc3BlYygpIGFuZCByZXBvcnRfcmVzdWx0KCkuIEV2ZXJ5IHJlc3VsdCB0aGV5IHByaW50IGlzXG4jIHJlYWQgZnJvbSB0aGUgcHJlLWNvbXB1dGVkIG1heGltYWwgZ3JpZCwgd2hpY2ggdGhlIHNpdGUgc2VydmVzIGFzIG9uZSBzbWFsbFxuIyBmaWxlIHBlciBlc3RpbWFuZCBjZWxsOiB0aGUgc2l4IExldmVsIDEgY2hvaWNlcyAodGhlIHF1ZXN0aW9uKSBuYW1lIHRoZSBmaWxlLFxuIyBhbmQgdGhlIGVpZ2h0IExldmVsIDIgYW5kIDMgY2hvaWNlcyAodGhlIG1lYXN1cmVtZW50IGFuZCB0aGUgYXJpdGhtZXRpYykgcGlja1xuIyB0aGUgcm93IGluc2lkZSBpdC4gTm8gbW9kZWwgaXMgZml0dGVkIGluIHRoZSBicm93c2VyLCBzbyBub25lIG9mIHRoZVxuIyBlc3RpbWF0aW9uIHBhY2thZ2VzIGlzIGRvd25sb2FkZWQuIFNoYXJkcyBhcmUgZmV0Y2hlZCBvbiBkZW1hbmQgZnJvbSB0aGVcbiMgcHVibGlzaGVkIHNpdGUg4oCTIGFuIGFic29sdXRlIGFkZHJlc3MsIGJlY2F1c2UgYSByZWxhdGl2ZSBvbmUgd291bGQgcmVzb2x2ZVxuIyBhZ2FpbnN0IHRoZSBXZWJBc3NlbWJseSB3b3JrZXIgcmF0aGVyIHRoYW4gdGhpcyBwYWdlLlxuLnNpdGUgPC0gXCJodHRwczovL2NvZGVtb3JlaC5naXRodWIuaW8vYXBwbGllZC1yZXBsaWNhdGlvblwiXG4ubmVnX2ZyYW1pbmdzIDwtIGMoXCJtY29tbVwiLCBcIm1saWJcIiwgXCJtbmVnXCIpXG4ub3V0Y29tZXMgICAgIDwtIGMoXCJtY29zbW9cIiwgXCJtdXRpbFwiLCBcIm1jb21tXCIsIFwibWxpYlwiLCBcIm1wb3NcIiwgXCJtbmVnXCIpXG5cbiMgVGhlIG1lbnUsIGdyb3VwZWQgYXMgdGhlIGNvdXJzZSBncm91cHMgaXQuIExldmVsIDEgY2hhbmdlcyB0aGUgcXVlc3Rpb24sXG4jIExldmVsIDIgdGhlIG1lYXN1cmVtZW50LCBMZXZlbCAzIHRoZSBlc3RpbWF0aW9uLiBUaGUgc2NvcmluZyBydWxlIGlzIGFcbiMgTGV2ZWwgMSBkZWNpc2lvbjogYSBzaGFyZSBvZiBhIHJlc3BvbmRlbnQncyBvd24gbWVudGlvbnMgYW5kIGEgY291bnQgb2YgdGhlXG4jIHNldCdzIGl0ZW1zIGFyZSBkaWZmZXJlbnQgcXVhbnRpdGllcywgYW5kIHRoZSBwZXItaXRlbSByYXRlIGlzIHRoZSBjb3VudFxuIyBkaXZpZGVkIGJ5IHRoZSBudW1iZXIgb2YgaXRlbXMgaW4gdGhlIHNldC5cbi5tZW51IDwtIGxpc3QoXG4gICMgTGV2ZWwgMSDigJMgdGhlIGVzdGltYW5kXG4gIG15X291dGNvbWUgICAgICA9IC5vdXRjb21lcyxcbiAgbXlfcHJlZGljdG9yICAgID0gYyhcInVuZW1wXCIsIFwiZ3Jvd3RoXCIpLFxuICBteV9jb3ByZWRpY3RvciAgPSBjKFwibm9uZVwiLCBcIm90aGVyXCIpLFxuICBteV9lc3RpbWF0b3IgICAgPSBjKFwiZmVfdHdvd2F5XCIsIFwiZmVfY291bnRyeVwiLCBcInJlXCIsIFwicG9vbGVkX2NsXCIpLFxuICBteV9zYW1wbGUgICAgICAgPSBjKFwiYWxsXCIsIFwieTIwMDRfMjAwOFwiLCBcInkyMDA5XzIwMTNcIiwgXCJub19iYWlsb3V0XCIsIFwibm9fR1JfRVNcIiksXG4gIG15X3dlaWdodHMgICAgICA9IGMoXCJub25lXCIsIFwibl9jZWxsXCIsIFwibl9lZmZcIiwgXCJwb3BcIiksXG4gIG15X2NvbnN0cnVjdGlvbiA9IGMoXCJzaGFyZVwiLCBcImNvdW50XCIsIFwicmF0ZVwiKSxcbiAgIyBMZXZlbCAyIOKAkyB0aGUgbWVhc3VyZW1lbnRcbiAgbXlfbm9vcCAgICAgICAgID0gYyhcInplcm9cIiwgXCJkcm9wXCIsIFwic3BsaXRcIiwgXCJtaV9taWNlXCIsIFwibWlfYW1lbGlhXCIpLFxuICBteV9pdGVtX3NldCAgICAgPSBjKFwiYWxsXCIsIFwidW5cIiksXG4gIG15X2NlbGxfd2VpZ2h0ICA9IGMoXCJ1bndlaWdodGVkXCIsIFwiZGVzaWduXCIpLFxuICBteV9tZWFzdXJlICAgICAgPSBjKFwid2JfbmF0XCIsIFwiZXNfMTU3NF9hY3RcIiwgXCJlc18yMDY0X3BvcFwiLCBcImVzXzI1NjRfbGZzXCIsIFwiZXNfMTU3NF90aXBzXCIsXG4gICAgICAgICAgICAgICAgICAgICAgXCJ3Yl9ncm93dGhcIiwgXCJlc19ncm93dGhcIiksXG4gICMgTGV2ZWwgMyDigJMgdGhlIGVzdGltYXRpb25cbiAgbXlfcHJlZF9mb3JtICAgID0gYyhcInJhd1wiLCBcImxvZ1wiKSxcbiAgbXlfZmFtaWx5ICAgICAgID0gYyhcImdhdXNzaWFuXCIsIFwiYmV0YVwiKSxcbiAgbXlfc2UgICAgICAgICAgID0gYyhcImNvbnZlbnRpb25hbFwiLCBcImNsdXN0ZXJlZFwiKVxuKVxuLm1lYXN1cmVzX2ZvciA8LSBsaXN0KHVuZW1wICA9IGMoXCJ3Yl9uYXRcIiwgXCJlc18xNTc0X2FjdFwiLCBcImVzXzIwNjRfcG9wXCIsIFwiZXNfMjU2NF9sZnNcIiwgXCJlc18xNTc0X3RpcHNcIiksXG4gICAgICAgICAgICAgICAgICAgICAgZ3Jvd3RoID0gYyhcIndiX2dyb3d0aFwiLCBcImVzX2dyb3d0aFwiKSlcblxuLmVzdF9sYWIgPC0gZnVuY3Rpb24oZSkgYyhcbiAgZmVfdHdvd2F5ICA9IFwidHdvLXdheSBmaXhlZCBlZmZlY3RzIChjb3VudHJ5ICsgeWVhcilcIixcbiAgZmVfY291bnRyeSA9IFwiY291bnRyeSBmaXhlZCBlZmZlY3RzXCIsXG4gIHJlICAgICAgICAgPSBcInJhbmRvbSBlZmZlY3RzXCIsXG4gIHBvb2xlZF9jbCAgPSBcInBvb2xlZCBPTFNcIilbW2VdXVxuXG4jIFRoZSB0ZXJtIGZvciB0aGUgY2xhaW0tY2FycnlpbmcgcHJlZGljdG9yIGFzIGl0IGFwcGVhcnMgaW4gYSBmb3JtdWxhOlxuIyBsb2codW5lbXApIHdoZW4gdGhlIGxvZyBmb3JtIGlzIGNob3NlbiwgZWxzZSB0aGUgYmFyZSB2YXJpYWJsZSBuYW1lLlxuLm1haW5fdGVybSA8LSBmdW5jdGlvbihjaCkge1xuICBpZiAoY2gkbXlfcHJlZGljdG9yID09IFwidW5lbXBcIiAmJiBjaCRteV9wcmVkX2Zvcm0gPT0gXCJsb2dcIikgXCJsb2codW5lbXApXCJcbiAgZWxzZSBjaCRteV9wcmVkaWN0b3Jcbn1cbi5jb3ByZWRfdGVybSA8LSBmdW5jdGlvbihjaCkgaWYgKGNoJG15X3ByZWRpY3RvciA9PSBcInVuZW1wXCIpIFwiZ3Jvd3RoXCIgZWxzZSBcInVuZW1wXCJcblxuIyB0aGUgbWVhc3VyZW1lbnQgc2V0dGluZ3MgYXQgd2hpY2ggdGhlIGJldGEgZmFtaWx5IHdhcyBwcmUtY29tcHV0ZWRcbi5jYW5vbmljYWxfbWVhc3VyZW1lbnQgPC0gZnVuY3Rpb24oY2gpXG4gIGNoJG15X2NvbnN0cnVjdGlvbiAlaW4lIGMoXCJzaGFyZVwiLCBcInJhdGVcIikgJiYgY2gkbXlfbm9vcCA9PSBcInplcm9cIiAmJiBjaCRteV9pdGVtX3NldCA9PSBcImFsbFwiICYmXG4gIGNoJG15X2NlbGxfd2VpZ2h0ID09IFwidW53ZWlnaHRlZFwiICYmIGNoJG15X21lYXN1cmUgJWluJSBjKFwid2JfbmF0XCIsIFwid2JfZ3Jvd3RoXCIpXG5cbiMgLS0tIHZhbGlkYXRpb24gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG4jIFR3byBlbnRyeSBwb2ludHMgaW50byB0aGUgc2FtZSBydWxlcy4gLnZhbGlkYXRlKCkgdGFrZXMgYSBuYW1lZCBsaXN0LCB3aGljaFxuIyBpcyBob3cgdGhlIGV4cGxvcmF0b3J5IHRyeV9zcGVjKCkgc3VwcGxpZXMgaXRzIGFyZ3VtZW50czsgLmNoZWNrX2Nob2ljZXMoKVxuIyByZWFkcyB0aGUgZm91cnRlZW4gbXlfKiBjaG9pY2VzIGFuZCBjbGFpbV9hbGlnbiBvdXQgb2YgdGhlIHNlc3Npb24sIHdoaWNoIGlzXG4jIGhvdyB0aGUgZGVjbGFyZWQgZmxvdyByZWFkcyB0aGUgcHJlcmVnaXN0cmF0aW9uIGNlbGwuXG4udmFsaWRhdGUgPC0gZnVuY3Rpb24oY2gsIGFzX2FyZ3MgPSBGQUxTRSkge1xuICAjIHRoZSBlYXJsaWVyIG1lbnUgbmFtZWQgdGhlIGNvLXByZWRpY3RvciBieSBpdHMgdmFyaWFibGUgYW5kIGNhbGxlZCB0aGVcbiAgIyByZXNwb25kZW50LWNvdW50IHdlaWdodCBuX2N5OyBib3RoIHNwZWxsaW5ncyBzdGlsbCB3b3JrXG4gIGlmIChpZGVudGljYWwoY2gkbXlfY29wcmVkaWN0b3IsIC5jb3ByZWRfdGVybShjaCkpKSBjaCRteV9jb3ByZWRpY3RvciA8LSBcIm90aGVyXCJcbiAgaWYgKGlkZW50aWNhbChjaCRteV93ZWlnaHRzLCBcIm5fY3lcIikpIGNoJG15X3dlaWdodHMgPC0gXCJuX2NlbGxcIlxuICBmb3IgKGsgaW4gbmFtZXMoLm1lbnUpKSB7XG4gICAgdiA8LSBjaFtba11dXG4gICAgc2hvd24gPC0gaWYgKGFzX2FyZ3MpIHN1YihcIl5teV9cIiwgXCJcIiwgaykgZWxzZSBrXG4gICAgaWYgKGlzLm51bGwodikgfHwgIWlzLmNoYXJhY3Rlcih2KSB8fCBsZW5ndGgodikgIT0gMSB8fCAhdiAlaW4lIC5tZW51W1trXV0pXG4gICAgICBzdG9wKHNwcmludGYoXCIlcyA9IFxcXCIlc1xcXCIgaXMgbm90IG9uIHRoZSBtZW51LiBPcHRpb25zOiAlcy5cIixcbiAgICAgICAgICAgICAgICAgICBzaG93biwgcGFzdGUodiwgY29sbGFwc2UgPSBcIixcIiksXG4gICAgICAgICAgICAgICAgICAgcGFzdGUoLm1lbnVbW2tdXSwgY29sbGFwc2UgPSBcIiB8IFwiKSksIGNhbGwuID0gRkFMU0UpXG4gIH1cbiAgaWYgKGNoJG15X2VzdGltYXRvciA9PSBcInJlXCIgJiYgY2gkbXlfd2VpZ2h0cyAhPSBcIm5vbmVcIilcbiAgICBzdG9wKFwiVGhlIHJhbmRvbS1lZmZlY3RzIGVzdGltYXRvciBpcyBuZXZlciBmaXR0ZWQgd2l0aCB3ZWlnaHRzLiBVc2Ugd2VpZ2h0cyA9IFxcXCJub25lXFxcIiBvciBwaWNrIGFub3RoZXIgZXN0aW1hdG9yLlwiLFxuICAgICAgICAgY2FsbC4gPSBGQUxTRSlcbiAgaWYgKGNoJG15X3ByZWRpY3RvciA9PSBcImdyb3d0aFwiICYmIGNoJG15X3ByZWRfZm9ybSA9PSBcImxvZ1wiKVxuICAgIHN0b3AoXCJHRFAgZ3Jvd3RoIGVudGVycyByYXcgb25seSDigJMgaXQgdGFrZXMgbmVnYXRpdmUgdmFsdWVzLCBzbyB0aGUgbG9nIGlzIHVuZGVmaW5lZC4gVXNlIHByZWRfZm9ybSA9IFxcXCJyYXdcXFwiLlwiLFxuICAgICAgICAgY2FsbC4gPSBGQUxTRSlcbiAgaWYgKCFjaCRteV9tZWFzdXJlICVpbiUgLm1lYXN1cmVzX2ZvcltbY2gkbXlfcHJlZGljdG9yXV0pXG4gICAgc3RvcChzcHJpbnRmKFwibWVhc3VyZSA9IFxcXCIlc1xcXCIgaXMgYSBzZXJpZXMgZm9yICVzOyB3aXRoIHByZWRpY3RvciA9IFxcXCIlc1xcXCIgY2hvb3NlIG9uZSBvZjogJXMuXCIsXG4gICAgICAgICAgICAgICAgIGNoJG15X21lYXN1cmUsIHNldGRpZmYobmFtZXMoLm1lYXN1cmVzX2ZvciksIGNoJG15X3ByZWRpY3RvciksIGNoJG15X3ByZWRpY3RvcixcbiAgICAgICAgICAgICAgICAgcGFzdGUoLm1lYXN1cmVzX2ZvcltbY2gkbXlfcHJlZGljdG9yXV0sIGNvbGxhcHNlID0gXCIgfCBcIikpLCBjYWxsLiA9IEZBTFNFKVxuICBpZiAoY2gkbXlfZmFtaWx5ID09IFwiYmV0YVwiICYmICEuY2Fub25pY2FsX21lYXN1cmVtZW50KGNoKSlcbiAgICBzdG9wKFwiVGhlIGJldGEgZmFtaWx5IGlzIHByZS1jb21wdXRlZCBhdCB0aGUgY2Fub25pY2FsIG1lYXN1cmVtZW50IHNldHRpbmdzIG9ubHk6IGNvbnN0cnVjdGlvbiA9IFxcXCJzaGFyZVxcXCIgb3IgXFxcInJhdGVcXFwiIChhIGNvdW50IGlzIG5vdCBhIHByb3BvcnRpb24pLCBub29wID0gXFxcInplcm9cXFwiLCBpdGVtX3NldCA9IFxcXCJhbGxcXFwiLCBjZWxsX3dlaWdodCA9IFxcXCJ1bndlaWdodGVkXFxcIiwgbWVhc3VyZSA9IHRoZSBXb3JsZCBCYW5rIHNlcmllcy5cIixcbiAgICAgICAgIGNhbGwuID0gRkFMU0UpXG4gIGlmIChjaCRteV9mYW1pbHkgPT0gXCJiZXRhXCIgJiYgY2gkbXlfZXN0aW1hdG9yID09IFwicmVcIiAmJiBjaCRteV9zZSA9PSBcImNsdXN0ZXJlZFwiKVxuICAgIHN0b3AoXCJDbHVzdGVyZWQgZXJyb3JzIGFyZSBub3QgYXZhaWxhYmxlIGZvciB0aGUgYmV0YSByYW5kb20tZWZmZWN0cyBmaXQuIFVzZSBzZSA9IFxcXCJjb252ZW50aW9uYWxcXFwiIHdpdGggdGhhdCBwYWlyaW5nLlwiLFxuICAgICAgICAgY2FsbC4gPSBGQUxTRSlcbiAgaWYgKGNoJG15X25vb3AgJWluJSBjKFwibWlfbWljZVwiLCBcIm1pX2FtZWxpYVwiKSAmJlxuICAgICAgIShjaCRteV9jb25zdHJ1Y3Rpb24gPT0gXCJzaGFyZVwiICYmIGNoJG15X2l0ZW1fc2V0ID09IFwiYWxsXCIgJiZcbiAgICAgICAgY2gkbXlfY2VsbF93ZWlnaHQgPT0gXCJ1bndlaWdodGVkXCIgJiYgY2gkbXlfbWVhc3VyZSA9PSBcIndiX25hdFwiICYmXG4gICAgICAgIGNoJG15X3ByZWRpY3RvciA9PSBcInVuZW1wXCIgJiYgY2gkbXlfcHJlZF9mb3JtID09IFwicmF3XCIgJiYgY2gkbXlfZmFtaWx5ID09IFwiZ2F1c3NpYW5cIikpXG4gICAgc3RvcChcIlRoZSBpbXB1dGVkIG5vLW9waW5pb24gb3B0aW9ucyB3ZXJlIHByZS1jb21wdXRlZCBmb3IgdGhlIHVuZW1wbG95bWVudCBhcm0gYXQgdGhlIGNhbm9uaWNhbCBtZWFzdXJlbWVudCBhbmQgZXN0aW1hdGlvbiBzZXR0aW5ncyBvbmx5IChzaGFyZSwgYWxsIGl0ZW1zLCB1bndlaWdodGVkIGNlbGxzLCBXb3JsZCBCYW5rIHNlcmllcywgcmF3IGZvcm0sIGdhdXNzaWFuKS5cIixcbiAgICAgICAgIGNhbGwuID0gRkFMU0UpXG4gIGNoXG59XG5cbi5jaGVja19jaG9pY2VzIDwtIGZ1bmN0aW9uKCkge1xuICBuZWVkIDwtIG5hbWVzKC5tZW51KVxuICBtaXNzaW5nIDwtIG5lZWRbIXZhcHBseShuZWVkLCBleGlzdHMsIGxvZ2ljYWwoMSkpXVxuICBpZiAobGVuZ3RoKG1pc3NpbmcpID4gMClcbiAgICBzdG9wKFwiTm90IGRlY2xhcmVkIHlldDogXCIsIHBhc3RlKG1pc3NpbmcsIGNvbGxhcHNlID0gXCIsIFwiKSxcbiAgICAgICAgIFwiLiBGaWxsIGluIGV2ZXJ5IGNob2ljZSBpbiB0aGUgcHJlcmVnaXN0cmF0aW9uIGNlbGwgYW5kIHJ1biBpdCBmaXJzdC5cIixcbiAgICAgICAgIGNhbGwuID0gRkFMU0UpXG4gIGlmICghZXhpc3RzKFwiY2xhaW1fYWxpZ25cIikpXG4gICAgc3RvcChcIkFsc28gZGVjbGFyZSBjbGFpbV9hbGlnbiA8LSBUUlVFICh0aGUgY291cnNlIGNvbnZlbnRpb24pIGluIHRoZSBwcmVyZWdpc3RyYXRpb24gY2VsbC5cIixcbiAgICAgICAgIGNhbGwuID0gRkFMU0UpXG4gIGNoIDwtIGxhcHBseShuZWVkLCBmdW5jdGlvbihrKSBnZXQoaykpXG4gIG5hbWVzKGNoKSA8LSBuZWVkXG4gIC52YWxpZGF0ZShjaClcbn1cblxuIyAtLS0gdGhlIHByZS1jb21wdXRlZCB1bml2ZXJzZSAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cbiMgT25lIGZpbGUgcGVyIGVzdGltYW5kIGNlbGwsIG5hbWVkIGJ5IHRoZSBzaXggTGV2ZWwgMSBjaG9pY2VzLiBBIHNoYXJkIGlzXG4jIGZldGNoZWQgdGhlIGZpcnN0IHRpbWUgYSBjZWxsIGlzIGFza2VkIGZvciBhbmQga2VwdCBmb3IgdGhlIHNlc3Npb247IHRoZVxuIyBtYW5pZmVzdCAobW91bnRlZCB3aXRoIHRoZSBwYWdlKSBzYXlzIGhvdyBtYW55IHJvd3MgYSBjb21wbGV0ZSBzaGFyZCBoYXMuXG4uc2hhcmRzIDwtIG5ldy5lbnYocGFyZW50ID0gZW1wdHllbnYoKSlcbi5jZWxsX2lkIDwtIGZ1bmN0aW9uKGNoKVxuICBwYXN0ZShjaCRteV9vdXRjb21lLCBjaCRteV9wcmVkaWN0b3IsIGNoJG15X2NvcHJlZGljdG9yLCBjaCRteV9lc3RpbWF0b3IsXG4gICAgICAgIGNoJG15X3NhbXBsZSwgY2gkbXlfd2VpZ2h0cywgc2VwID0gXCJfX1wiKVxuXG4uc2hhcmQgPC0gZnVuY3Rpb24oY2gpIHtcbiAgaWQgPC0gLmNlbGxfaWQoY2gpXG4gIGlmICghaXMubnVsbCguc2hhcmRzW1tpZF1dKSkgcmV0dXJuKC5zaGFyZHNbW2lkXV0pXG4gIGRpci5jcmVhdGUoXCJkYXRhL2dyaWRcIiwgc2hvd1dhcm5pbmdzID0gRkFMU0UsIHJlY3Vyc2l2ZSA9IFRSVUUpXG4gIGYgPC0gZmlsZS5wYXRoKFwiZGF0YS9ncmlkXCIsIHBhc3RlMChpZCwgXCIuY3N2Lmd6XCIpKVxuICBpZiAoIWZpbGUuZXhpc3RzKGYpKSB7XG4gICAgb2sgPC0gdHJ5Q2F0Y2goe1xuICAgICAgdXRpbHM6OmRvd25sb2FkLmZpbGUocGFzdGUwKC5zaXRlLCBcIi9kYXRhL2dyaWQvXCIsIGlkLCBcIi5jc3YuZ3pcIiksIGYsIG1vZGUgPSBcIndiXCIsIHF1aWV0ID0gVFJVRSlcbiAgICAgIFRSVUVcbiAgICB9LCBlcnJvciA9IGZ1bmN0aW9uKGUpIEZBTFNFLCB3YXJuaW5nID0gZnVuY3Rpb24odykgRkFMU0UpXG4gICAgaWYgKCFvayB8fCAhZmlsZS5leGlzdHMoZikpXG4gICAgICBzdG9wKHNwcmludGYoXCJDb3VsZCBub3QgZmV0Y2ggdGhlIHJlc3VsdHMgZm9yIHRoaXMgcXVlc3Rpb24gKGNlbGwgJXMpLiBDaGVjayB0aGUgY29ubmVjdGlvbiBhbmQgcmVydW47IGlmIGl0IGtlZXBzIGZhaWxpbmcsIHRlbGwgdGhlIGZhY2lsaXRhdG9yIHRoZSBjZWxsIG5hbWUgYW5kIHRoZSBudW1iZXJzIGNhbiBiZSByZWFkIG9mZiB0aGUgZ3JpZCBieSBoYW5kLlwiLCBpZCksXG4gICAgICAgICAgIGNhbGwuID0gRkFMU0UpXG4gIH1cbiAgZCA8LSB1dGlsczo6cmVhZC5jc3YoZ3pmaWxlKGYpLCBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0UpXG4gIGlmIChmaWxlLmV4aXN0cyhcImRhdGEvZ3JpZC9tYW5pZmVzdC5jc3ZcIikpIHtcbiAgICBtYW4gPC0gdXRpbHM6OnJlYWQuY3N2KFwiZGF0YS9ncmlkL21hbmlmZXN0LmNzdlwiLCBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0UpXG4gICAgd2FudCA8LSBtYW4kcm93c1ttYW4kY2VsbCA9PSBpZF1cbiAgICBpZiAobGVuZ3RoKHdhbnQpID09IDEgJiYgbnJvdyhkKSAhPSB3YW50KVxuICAgICAgc3RvcChzcHJpbnRmKFwiVGhlIGZldGNoZWQgZmlsZSBmb3IgY2VsbCAlcyBpcyBpbmNvbXBsZXRlICglZCBvZiAlZCByb3dzKSDigJMgcmVydW4gdGhlIGNlbGwuXCIsIGlkLCBucm93KGQpLCB3YW50KSxcbiAgICAgICAgICAgY2FsbC4gPSBGQUxTRSlcbiAgfVxuICAuc2hhcmRzW1tpZF1dIDwtIGRcbiAgZFxufVxuXG4ubG9va3VwIDwtIGZ1bmN0aW9uKGNoKSB7XG4gIGQgPC0gLnNoYXJkKGNoKVxuICBoaXQgPC0gZFtkJGNvbnN0cnVjdGlvbiA9PSBjaCRteV9jb25zdHJ1Y3Rpb24gJiBkJGl0ZW1fc2V0ID09IGNoJG15X2l0ZW1fc2V0ICZcbiAgICAgICAgICAgZCRub29wID09IGNoJG15X25vb3AgJiBkJGNlbGxfd2VpZ2h0ID09IGNoJG15X2NlbGxfd2VpZ2h0ICZcbiAgICAgICAgICAgZCRtZWFzdXJlID09IGNoJG15X21lYXN1cmUgJiBkJHByZWRfZm9ybSA9PSBjaCRteV9wcmVkX2Zvcm0gJlxuICAgICAgICAgICBkJGZhbWlseSA9PSBjaCRteV9mYW1pbHkgJiBkJHNlID09IGNoJG15X3NlLCBdXG4gIGlmIChucm93KGhpdCkgIT0gMSlcbiAgICBzdG9wKHNwcmludGYoXCJUaGF0IHNwZWNpZmljYXRpb24gaXMgbm90IGluIHRoZSBwcmUtY29tcHV0ZWQgdW5pdmVyc2UgKCVkIG1hdGNoaW5nIHJvd3MpIOKAkyB0aGlzIHNob3VsZCBub3QgaGFwcGVuIGZvciBhIG1lbnUtdmFsaWQgY2hvaWNlOyB0ZWxsIHRoZSBmYWNpbGl0YXRvci5cIiwgbnJvdyhoaXQpKSxcbiAgICAgICAgIGNhbGwuID0gRkFMU0UpXG4gIGlmIChpcy5uYShoaXQkZXN0aW1hdGUpIHx8IGlzLm5hKGhpdCRzdGF0aXN0aWMpKVxuICAgIHN0b3AoXCJUaGF0IHNwZWNpZmljYXRpb24gZGlkIG5vdCBmaXQgd2hlbiB0aGUgZ3JpZCB3YXMgY29tcHV0ZWQgKHRoZSBiZXRhIGZhbWlseSB1bmRlciBwb3B1bGF0aW9uIHdlaWdodHMgaXMgdGhlIGtub3duIGNhc2UpLiBDaG9vc2UgYW5vdGhlciB3ZWlnaHQgb3IgdGhlIGdhdXNzaWFuIGZhbWlseS5cIixcbiAgICAgICAgIGNhbGwuID0gRkFMU0UpXG4gIGhpdFxufVxuXG4jIFRoZSBjbGFpbS1hbGlnbm1lbnQgZmFjdG9yOiBuZWdhdGl2ZSBmcmFtaW5ncyBhcmUgcmV2ZXJzZS1jb2RlZCAoMSAtIHkpLCBhbmRcbiMgdGhlIGNsYWltLWV4cGVjdGVkIHNpZ24gZm9yIGdyb3d0aCBpcyBwb3NpdGl2ZSwgc28gZWFjaCBmbGlwcyB0aGUgcmVwb3J0ZWRcbiMgc2lnbi4gUmV2ZXJzZS1jb2RpbmcgaXMgZXhhY3QgZm9yIGJvdGggZmFtaWxpZXMgKGZvciBiZXRhLFxuIyBsb2dpdCgxIC0gbXUpID0gLWxvZ2l0KG11KSksIHNvIHRoZSBmYWN0b3IgZ2l2ZXMgdGhlIGNsYWltLWFsaWduZWQgbnVtYmVyc1xuIyB3aXRob3V0IGEgcmVmaXQuIFRoZSBncmlkJ3Mgb3duIHJfY2EgY29sdW1uIGlzIHRoYXQgYWxpZ25lZCBjb3JyZWxhdGlvbi5cbi5mbGlwIDwtIGZ1bmN0aW9uKGNoKVxuICAoaWYgKGNoJG15X291dGNvbWUgJWluJSAubmVnX2ZyYW1pbmdzKSAtMSBlbHNlIDEpICpcbiAgKGlmIChjaCRteV9wcmVkaWN0b3IgPT0gXCJncm93dGhcIikgLTEgZWxzZSAxKVxuXG4jIFRoZSBvbmUtbGluZSBzcGVjIGxhYmVsIHRoYXQgdGhlIGNsYXNzIGNoYXJ0IHJlYWRzOiB0aGUgc2l4IExldmVsIDEgY2hvaWNlcyxcbiMgdGhlbiB0aGUgbWVhc3VyZW1lbnQgYW5kIGVzdGltYXRpb24gY2hvaWNlcyBpbiBicmFja2V0cy5cbi5zcGVjX2xpbmUgPC0gZnVuY3Rpb24oY2gpIHtcbiAgbmVnIDwtIGNoJG15X291dGNvbWUgJWluJSAubmVnX2ZyYW1pbmdzXG4gIHBhc3RlMChjaCRteV9vdXRjb21lLCBpZiAobmVnKSBcIl9jYVwiIGVsc2UgXCJcIiwgXCIgfiBcIiwgY2gkbXlfcHJlZGljdG9yLCBcIihcIiwgY2gkbXlfcHJlZF9mb3JtLCBcIilcIixcbiAgICAgICAgIGlmIChjaCRteV9jb3ByZWRpY3RvciA9PSBcIm90aGVyXCIpIHBhc3RlMChcIiArIFwiLCAuY29wcmVkX3Rlcm0oY2gpKSBlbHNlIFwiXCIsXG4gICAgICAgICBcIiB8IFwiLCBjaCRteV9lc3RpbWF0b3IsIFwiIHwgXCIsIGNoJG15X3NhbXBsZSwgXCIgfCB3OlwiLCBjaCRteV93ZWlnaHRzLFxuICAgICAgICAgXCIgW1wiLCBjaCRteV9jb25zdHJ1Y3Rpb24sIFwiLCBcIiwgY2gkbXlfbm9vcCwgXCIsIGl0ZW1zOlwiLCBjaCRteV9pdGVtX3NldCwgXCIsIGNlbGxzOlwiLFxuICAgICAgICAgY2gkbXlfY2VsbF93ZWlnaHQsIFwiLCBcIiwgY2gkbXlfbWVhc3VyZSwgXCIgfCBcIiwgY2gkbXlfZmFtaWx5LCBcIiwgc2U6XCIsIGNoJG15X3NlLCBcIl1cIilcbn1cblxuIyBXaGVyZSBhIHJlc3VsdCBzaXRzIGluIHRoZSBjYW5vbmljYWwgODQwOiB0aGUgc2hhcmUgb2YgdGhhdCB1bml2ZXJzZSB0aGF0XG4jIHN1cHBvcnRzIHRoZSBjbGFpbSBtb3JlIHN0cm9uZ2x5IChhIG1vcmUgbmVnYXRpdmUgYWxpZ25lZCByKS5cbi5wbGFjZW1lbnQgPC0gZnVuY3Rpb24ocl9jYSkge1xuICBpZiAoIWZpbGUuZXhpc3RzKFwiZGF0YS9ncmlkL2Nhbm9uaWNhbF9yY2EuY3N2XCIpKSByZXR1cm4oTkFfcmVhbF8pXG4gIGNhbm9uIDwtIHV0aWxzOjpyZWFkLmNzdihcImRhdGEvZ3JpZC9jYW5vbmljYWxfcmNhLmNzdlwiKVxuICBtZWFuKGNhbm9uJHJfY2EgPCByX2NhLCBuYS5ybSA9IFRSVUUpXG59XG5cbi5wcmludF9maXQgPC0gZnVuY3Rpb24oY2gsIGhpdCwgbGVhZCkge1xuICBzdGF0X2xhYiA8LSBpZiAoY2gkbXlfZmFtaWx5ID09IFwiYmV0YVwiKSBcInpcIiBlbHNlIFwidFwiXG4gIGZsIDwtIC5mbGlwKGNoKVxuICBjYXQobGVhZCwgXCJcXG5cIilcbiAgY2F0KFwiICBcIiwgLnNwZWNfbGluZShjaCksIFwiXFxuXCIsIHNlcCA9IFwiXCIpXG4gIGNhdChzcHJpbnRmKFwiICBiID0gJS41ZiAgIHNlID0gJS41ZiAgICVzID0gJS4zZiBvbiAlZCBkZiAgIHAgJXNcXG5cIixcbiAgICAgICAgICAgICAgZmwgKiBoaXQkZXN0aW1hdGUsIGhpdCRzdGRfZXJyb3IsIHN0YXRfbGFiLCBmbCAqIGhpdCRzdGF0aXN0aWMsIHJvdW5kKGhpdCRkZiksXG4gICAgICAgICAgICAgIGlmIChoaXQkcCA8IDAuMDAxKSBcIjwgMC4wMDFcIiBlbHNlIHNwcmludGYoXCI9ICUuM2ZcIiwgaGl0JHApKSlcbiAgY2F0KHNwcmludGYoXCIgIGNsYWltLWFsaWduZWQgcGFydGlhbCByID0gJS4zZiAgIChiZWxvdyB6ZXJvIHN1cHBvcnRzIHRoZSBjbGFpbSlcXG5cIiwgaGl0JHJfY2EpKVxuICBwbCA8LSAucGxhY2VtZW50KGhpdCRyX2NhKVxuICBpZiAoIWlzLm5hKHBsKSlcbiAgICBjYXQoc3ByaW50ZihcIiAgcGxhY2VtZW50OiAlLjBmJSUgb2YgdGhlIGNhbm9uaWNhbCA4NDAgc3BlY2lmaWNhdGlvbnMgc3VwcG9ydCB0aGUgY2xhaW0gbW9yZSBzdHJvbmdseSB0aGFuIHRoaXMgb25lXFxuXCIsXG4gICAgICAgICAgICAgICAgMTAwICogcGwpKVxuICBpZiAoc3RhcnRzV2l0aChjaCRteV9ub29wLCBcIm1pX1wiKSlcbiAgICBjYXQoc3ByaW50ZihcIiAgKHBvb2xlZCBvdmVyIDEwIGltcHV0YXRpb25zIGJ5IFJ1YmluJ3MgcnVsZXM7IGZyYWN0aW9uIG9mIG1pc3NpbmcgaW5mb3JtYXRpb24gJS4zZilcXG5cIiwgaGl0JGZtaSkpXG59XG5cbiMgLS0tIFRhc2sgNDogdGhlIGV4cGxvcmF0b3J5IGhlbHBlcnMgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG4udHJpZWQgPC0gbmV3LmVudihwYXJlbnQgPSBlbXB0eWVudigpKVxuLnRyaWVkJGxvZyA8LSBOVUxMXG4udHJpZWQkbGFzdCA8LSBOVUxMXG5cbnRyeV9zcGVjIDwtIGZ1bmN0aW9uKG91dGNvbWUgPSBcIm1jb3Ntb1wiLCBwcmVkaWN0b3IgPSBcInVuZW1wXCIsIGNvcHJlZGljdG9yID0gXCJub25lXCIsXG4gICAgICAgICAgICAgICAgICAgICBlc3RpbWF0b3IgPSBcImZlX3R3b3dheVwiLCBzYW1wbGUgPSBcImFsbFwiLCB3ZWlnaHRzID0gXCJub25lXCIsXG4gICAgICAgICAgICAgICAgICAgICBjb25zdHJ1Y3Rpb24gPSBcInNoYXJlXCIsIG5vb3AgPSBcInplcm9cIiwgaXRlbV9zZXQgPSBcImFsbFwiLFxuICAgICAgICAgICAgICAgICAgICAgY2VsbF93ZWlnaHQgPSBcInVud2VpZ2h0ZWRcIiwgbWVhc3VyZSA9IE5VTEwsXG4gICAgICAgICAgICAgICAgICAgICBwcmVkX2Zvcm0gPSBcInJhd1wiLCBmYW1pbHkgPSBcImdhdXNzaWFuXCIsIHNlID0gXCJjb252ZW50aW9uYWxcIikge1xuICBpZiAoaXMubnVsbChtZWFzdXJlKSkgbWVhc3VyZSA8LSBpZiAocHJlZGljdG9yID09IFwidW5lbXBcIikgXCJ3Yl9uYXRcIiBlbHNlIFwid2JfZ3Jvd3RoXCJcbiAgY2ggPC0gLnZhbGlkYXRlKGxpc3QobXlfb3V0Y29tZSA9IG91dGNvbWUsIG15X3ByZWRpY3RvciA9IHByZWRpY3RvciwgbXlfY29wcmVkaWN0b3IgPSBjb3ByZWRpY3RvcixcbiAgICAgICAgICAgICAgICAgICAgICAgbXlfZXN0aW1hdG9yID0gZXN0aW1hdG9yLCBteV9zYW1wbGUgPSBzYW1wbGUsIG15X3dlaWdodHMgPSB3ZWlnaHRzLFxuICAgICAgICAgICAgICAgICAgICAgICBteV9jb25zdHJ1Y3Rpb24gPSBjb25zdHJ1Y3Rpb24sIG15X25vb3AgPSBub29wLCBteV9pdGVtX3NldCA9IGl0ZW1fc2V0LFxuICAgICAgICAgICAgICAgICAgICAgICBteV9jZWxsX3dlaWdodCA9IGNlbGxfd2VpZ2h0LCBteV9tZWFzdXJlID0gbWVhc3VyZSxcbiAgICAgICAgICAgICAgICAgICAgICAgbXlfcHJlZF9mb3JtID0gcHJlZF9mb3JtLCBteV9mYW1pbHkgPSBmYW1pbHksIG15X3NlID0gc2UpLCBhc19hcmdzID0gVFJVRSlcbiAgaGl0IDwtIC5sb29rdXAoY2gpXG4gIC5wcmludF9maXQoY2gsIGhpdCwgXCJcIilcbiAgZmwgIDwtIC5mbGlwKGNoKVxuICByb3cgPC0gYXMuZGF0YS5mcmFtZShzZXROYW1lcyhhcy5saXN0KHVubGlzdChjaCkpLCBzdWIoXCJebXlfXCIsIFwiXCIsIG5hbWVzKGNoKSkpLFxuICAgICAgICAgICAgICAgICAgICAgICBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0UpXG4gIHJvdyRiIDwtIGZsICogaGl0JGVzdGltYXRlOyByb3ckdCA8LSBmbCAqIGhpdCRzdGF0aXN0aWNcbiAgcm93JHJfYWxpZ25lZCA8LSBoaXQkcl9jYTsgcm93JHNpZyA8LSBoaXQkcCA8IDAuMDVcbiAgLnRyaWVkJGxvZyAgPC0gcmJpbmQoLnRyaWVkJGxvZywgcm93KVxuICAudHJpZWQkbGFzdCA8LSBsaXN0KGNoID0gY2gsIGhpdCA9IGhpdClcbiAgaW52aXNpYmxlKHJvdylcbn1cblxuIyBUaGUgcnVubmluZyBsb2cgb2YgZXZlcnl0aGluZyB0cnlfc3BlYygpIGhhcyBsb29rZWQgdXAuIE9ubHkgdGhlIGF4ZXMgdGhhdFxuIyB2YXJpZWQgYXJlIHNob3duOyB0aGUgY29uc3RhbnQgb25lcyBhcmUgdGhlIGJhc2VsaW5lLlxubXlfZXhwZXJpbWVudHMgPC0gZnVuY3Rpb24oKSB7XG4gIGlmIChpcy5udWxsKC50cmllZCRsb2cpKSB7XG4gICAgY2F0KFwiTm90aGluZyB0cmllZCB5ZXQg4oCTIGNhbGwgdHJ5X3NwZWMoKSBhdCBsZWFzdCBvbmNlLlxcblwiKVxuICAgIHJldHVybihpbnZpc2libGUoTlVMTCkpXG4gIH1cbiAgZCA8LSAudHJpZWQkbG9nXG4gIGF4ZXMgPC0gc3ViKFwiXm15X1wiLCBcIlwiLCBuYW1lcygubWVudSkpXG4gIHZhcmllZCA8LSBheGVzW3ZhcHBseShkW2F4ZXNdLCBmdW5jdGlvbih4KSBsZW5ndGgodW5pcXVlKHgpKSA+IDEsIGxvZ2ljYWwoMSkpXVxuICBzaG93IDwtIGRbLCBjKHZhcmllZCwgXCJiXCIsIFwidFwiLCBcInJfYWxpZ25lZFwiLCBcInNpZ1wiKSwgZHJvcCA9IEZBTFNFXVxuICBzaG93JGIgPC0gc2lnbmlmKHNob3ckYiwgMyk7IHNob3ckdCA8LSByb3VuZChzaG93JHQsIDIpXG4gIHNob3ckcl9hbGlnbmVkIDwtIHJvdW5kKHNob3ckcl9hbGlnbmVkLCAzKVxuICBjYXQoXCJTcGVjaWZpY2F0aW9ucyB5b3UgaGF2ZSB0cmllZCAoXCIsIG5yb3coZCksIFwiKTpcXG5cXG5cIiwgc2VwID0gXCJcIilcbiAgcHJpbnQoc2hvdywgcm93Lm5hbWVzID0gRkFMU0UpXG4gIGNhdChcIlxcblNwcmVhZCBvZiBjbGFpbS1hbGlnbmVkIHI6IFwiLFxuICAgICAgc3ByaW50ZihcIiUuM2YgdG8gJS4zZlwiLCBtaW4oZCRyX2FsaWduZWQpLCBtYXgoZCRyX2FsaWduZWQpKSxcbiAgICAgIFwiICB8ICBzaWduaWZpY2FudDogXCIsIHN1bShkJHNpZyksIFwiIG9mIFwiLCBucm93KGQpLCBcIlxcblwiLCBzZXAgPSBcIlwiKVxuICBpbnZpc2libGUoc2hvdylcbn1cblxuc3VibWl0X2V4cGxvcmF0aW9uIDwtIGZ1bmN0aW9uKCkge1xuICBpZiAoaXMubnVsbCgudHJpZWQkbGFzdCkpXG4gICAgc3RvcChcIk5vdGhpbmcgdG8gc3VibWl0IOKAkyBjYWxsIHRyeV9zcGVjKCkgZmlyc3QsIGVuZGluZyB3aXRoIHRoZSBzcGVjaWZpY2F0aW9uIHlvdSB3YW50IG9uIHRoZSBjaGFydC5cIixcbiAgICAgICAgIGNhbGwuID0gRkFMU0UpXG4gIC5zdWJtaXQoLnRyaWVkJGxhc3QkY2gsIC50cmllZCRsYXN0JGhpdCwgXCJleHBsb3JlXCIsXG4gICAgICAgICAgXCJZb3VyIGV4cGxvcmF0b3J5IHN1Ym1pc3Npb24gKGNsYWltLWFsaWduZWQsIHRoZSBsYXN0IHNwZWNpZmljYXRpb24geW91IHRyaWVkKTpcIilcbn1cblxuIyAtLS0gVGFzayA1OiB0aGUgZGVjbGFyZWQgaGVscGVycyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cblxucHJlcmVnIDwtIGZ1bmN0aW9uKCkge1xuICBjaCAgPC0gLmNoZWNrX2Nob2ljZXMoKVxuICBuZWcgPC0gY2gkbXlfb3V0Y29tZSAlaW4lIC5uZWdfZnJhbWluZ3NcbiAgY2F0KFwiREVDTEFSRUQg4oCTIG9uZSBzcGVjaWZpY2F0aW9uLCByZWNvcmRlZCBiZWZvcmUgc2VlaW5nIGl0cyByZXN1bHQ6XFxuXFxuXCIpXG4gIGNhdChcIiAgVGhlIHF1ZXN0aW9uIChMZXZlbCAxKVxcblwiKVxuICBjYXQoXCIgICAgb3V0Y29tZSAgICA6XCIsIGNoJG15X291dGNvbWUsXG4gICAgICBpZiAobmVnKSBcIihuZWdhdGl2ZSBmcmFtaW5nIOKAkyByZXZlcnNlLWNvZGVkIGF1dG9tYXRpY2FsbHkpXCIgZWxzZSBcIlwiLCBcIlxcblwiKVxuICBjYXQoXCIgICAgcHJlZGljdG9yICA6XCIsIGNoJG15X3ByZWRpY3RvcixcbiAgICAgIGlmIChjaCRteV9wcmVkaWN0b3IgPT0gXCJncm93dGhcIikgXCIoY2xhaW0tZXhwZWN0ZWQgc2lnbiBmbGlwcGVkIGF1dG9tYXRpY2FsbHkpXCIgZWxzZSBcIlwiLCBcIlxcblwiKVxuICBjYXQoXCIgICAgYWRqdXN0ZWQgICA6XCIsIGlmIChjaCRteV9jb3ByZWRpY3RvciA9PSBcIm90aGVyXCIpIC5jb3ByZWRfdGVybShjaCkgZWxzZSBcIm5vdGhpbmdcIiwgXCJcXG5cIilcbiAgY2F0KFwiICAgIGVzdGltYXRvciAgOlwiLCAuZXN0X2xhYihjaCRteV9lc3RpbWF0b3IpLCBcIlxcblwiKVxuICBjYXQoXCIgICAgc2FtcGxlICAgICA6XCIsIGNoJG15X3NhbXBsZSwgXCIgICB3aG9zZSBhdmVyYWdlOlwiLCBjaCRteV93ZWlnaHRzLCBcIlxcblwiKVxuICBjYXQoXCIgICAgc2NvcmVkIGFzICA6XCIsIGNoJG15X2NvbnN0cnVjdGlvbiwgXCJcXG5cIilcbiAgY2F0KFwiICBUaGUgbWVhc3VyZW1lbnQgKExldmVsIDIpXFxuXCIpXG4gIGNhdChcIiAgICBuby1vcGluaW9uIHJ1bGU6XCIsIGNoJG15X25vb3AsIFwiICBpdGVtczpcIiwgY2gkbXlfaXRlbV9zZXQsIFwiXFxuXCIpXG4gIGNhdChcIiAgICBjZWxsczpcIiwgY2gkbXlfY2VsbF93ZWlnaHQsIFwiICBzZXJpZXM6XCIsIGNoJG15X21lYXN1cmUsIFwiXFxuXCIpXG4gIGNhdChcIiAgVGhlIGVzdGltYXRpb24gKExldmVsIDMpXFxuXCIpXG4gIGNhdChcIiAgICBmb3JtOlwiLCBjaCRteV9wcmVkX2Zvcm0sIFwiICBmYW1pbHk6XCIsIGNoJG15X2ZhbWlseSwgXCIgIGVycm9yczpcIiwgY2gkbXlfc2UsIFwiXFxuXCIpXG4gIGNhdChcIiAgY2xhaW1fYWxpZ246XCIsIGlzVFJVRShjbGFpbV9hbGlnbiksIFwiXFxuXFxuXCIpXG4gIGNhdChcIlRoZXNlIGNob2ljZXMgYXJlIG5vdyBmaXhlZCBmb3IgdGhlIHJlc3Qgb2YgdGhlIHNlc3Npb24g4oCTIHRoZSBsYXRlclxcblwiKVxuICBjYXQoXCJjZWxscyByZWFkIHRoZW0gZnJvbSBoZXJlLiBDb3B5IHRoaXMgY2VsbCBpbnRvIHlvdXIgbm90ZXM6IGl0IGlzIHlvdXJcXG5cIilcbiAgY2F0KFwicHJlcmVnaXN0cmF0aW9uIHJlY29yZCwgbWFkZSBiZWZvcmUgeW91IHNlZSB0aGUgcmVzdWx0LlxcblwiKVxuICBpbnZpc2libGUoY2gpXG59XG5cbmJ1aWxkX21vZGVsIDwtIGZ1bmN0aW9uKGZvcm11bGEsIGVzdGltYXRvcikge1xuICBjaCA8LSAuY2hlY2tfY2hvaWNlcygpXG4gIGlmIChtaXNzaW5nKGZvcm11bGEpIHx8ICFpbmhlcml0cyhmb3JtdWxhLCBcImZvcm11bGFcIikpXG4gICAgc3RvcChcIlRoZSBmaXJzdCBhcmd1bWVudCBtdXN0IGJlIGEgZm9ybXVsYTogb3V0Y29tZSB+IHByZWRpY3RvciB0ZXJtcywgdW5xdW90ZWQuXCIsXG4gICAgICAgICBjYWxsLiA9IEZBTFNFKVxuICBsaHMgPC0gYWxsLnZhcnMoZm9ybXVsYVtbMl1dKVxuICBpZiAoIWlkZW50aWNhbChsaHMsIGNoJG15X291dGNvbWUpKVxuICAgIHN0b3Aoc3ByaW50ZihcIlRoZSBvdXRjb21lIGluIHlvdXIgZm9ybXVsYSBpcyAnJXMnIGJ1dCB5b3UgcHJlcmVnaXN0ZXJlZCAnJXMnLiBUaGUgcHJlcmVnaXN0cmF0aW9uIGlzIGJpbmRpbmcg4oCTIGZpeCB0aGUgZm9ybXVsYSwgbm90IHRoZSBwcmVyZWcuXCIsXG4gICAgICAgICAgICAgICAgIGRlcGFyc2UoZm9ybXVsYVtbMl1dKSwgY2gkbXlfb3V0Y29tZSksIGNhbGwuID0gRkFMU0UpXG4gIHdhbnQgPC0gYygubWFpbl90ZXJtKGNoKSwgaWYgKGNoJG15X2NvcHJlZGljdG9yID09IFwib3RoZXJcIikgLmNvcHJlZF90ZXJtKGNoKSlcbiAgZ290ICA8LSBhdHRyKHRlcm1zKGZvcm11bGEpLCBcInRlcm0ubGFiZWxzXCIpXG4gIGlmICghc2V0ZXF1YWwoZ290LCB3YW50KSlcbiAgICBzdG9wKHNwcmludGYoXCJSaWdodC1oYW5kIHNpZGUgbWlzbWF0Y2g6IHlvdSB3cm90ZSB7ICVzIH0gYnV0IHlvdXIgcHJlcmVnaXN0cmF0aW9uIGltcGxpZXMgeyAlcyB9LiVzXCIsXG4gICAgICAgICAgICAgICAgIHBhc3RlKGdvdCwgY29sbGFwc2UgPSBcIiwgXCIpLCBwYXN0ZSh3YW50LCBjb2xsYXBzZSA9IFwiLCBcIiksXG4gICAgICAgICAgICAgICAgIGlmICgubWFpbl90ZXJtKGNoKSA9PSBcImxvZyh1bmVtcClcIiAmJiAhXCJsb2codW5lbXApXCIgJWluJSBnb3QpXG4gICAgICAgICAgICAgICAgICAgXCIgWW91IHByZXJlZ2lzdGVyZWQgdGhlIGxvZyBmb3JtIOKAkyB3cml0ZSBsb2codW5lbXApIGluIHRoZSBmb3JtdWxhLlwiIGVsc2UgXCJcIiksXG4gICAgICAgICBjYWxsLiA9IEZBTFNFKVxuICBpZiAobWlzc2luZyhlc3RpbWF0b3IpIHx8ICFpZGVudGljYWwoZXN0aW1hdG9yLCBjaCRteV9lc3RpbWF0b3IpKVxuICAgIHN0b3Aoc3ByaW50ZihcImVzdGltYXRvciA9IFxcXCIlc1xcXCIgZG9lcyBub3QgbWF0Y2ggeW91ciBwcmVyZWdpc3RlcmVkIFxcXCIlc1xcXCIuXCIsXG4gICAgICAgICAgICAgICAgIGlmIChtaXNzaW5nKGVzdGltYXRvcikpIFwiXCIgZWxzZSBlc3RpbWF0b3IsIGNoJG15X2VzdGltYXRvciksIGNhbGwuID0gRkFMU0UpXG4gIGNhdChcIk1vZGVsIGFjY2VwdGVkIOKAkyBpdCBtYXRjaGVzIHlvdXIgcHJlcmVnaXN0cmF0aW9uIGV4YWN0bHk6XFxuXCIpXG4gIGNhdChcIiAgXCIsIGRlcGFyc2UoZm9ybXVsYSksIFwiLCBlc3RpbWF0ZWQgYnkgXCIsIC5lc3RfbGFiKGVzdGltYXRvciksIFwiXFxuXCIsIHNlcCA9IFwiXCIpXG4gIGNhdChcIiAgUnVuIGl0IHdpdGggcnVuX3NwZWMobXlfbW9kZWwpLlxcblwiKVxuICBzdHJ1Y3R1cmUobGlzdChjaG9pY2VzID0gY2gsIGZvcm11bGEgPSBmb3JtdWxhLCBlc3RpbWF0b3IgPSBlc3RpbWF0b3IpLCBjbGFzcyA9IFwic3BlY190aWNrZXRcIilcbn1cblxucnVuX3NwZWMgPC0gZnVuY3Rpb24oc3BlYykge1xuICBpZiAobWlzc2luZyhzcGVjKSB8fCAhaW5oZXJpdHMoc3BlYywgXCJzcGVjX3RpY2tldFwiKSlcbiAgICBzdG9wKFwiUGFzcyB0aGUgb2JqZWN0IHRoYXQgYnVpbGRfbW9kZWwoKSByZXR1cm5lZCwgZS5nLiBydW5fc3BlYyhteV9tb2RlbCkuXCIsIGNhbGwuID0gRkFMU0UpXG4gIG5vdyA8LSAuY2hlY2tfY2hvaWNlcygpXG4gIGlmICghaWRlbnRpY2FsKHNwZWMkY2hvaWNlcywgbm93KSlcbiAgICBzdG9wKFwiVGhlIHByZXJlZ2lzdHJhdGlvbiBjZWxsIGhhcyBjaGFuZ2VkIHNpbmNlIHlvdSBidWlsdCB0aGlzIG1vZGVsIOKAkyByZXJ1biBwcmVyZWcoKSBhbmQgYnVpbGRfbW9kZWwoKSBzbyB0aGV5IGFncmVlLlwiLFxuICAgICAgICAgY2FsbC4gPSBGQUxTRSlcbiAgY2ggIDwtIHNwZWMkY2hvaWNlc1xuICBoaXQgPC0gLmxvb2t1cChjaClcbiAgY2EgIDwtIGlzVFJVRShjbGFpbV9hbGlnbilcbiAgLnByaW50X2ZpdChjaCwgaGl0LCBcIllvdXIgcHJlcmVnaXN0ZXJlZCBzcGVjaWZpY2F0aW9uLCByZWFkIGZyb20gdGhlIHByZS1jb21wdXRlZCBncmlkOlwiKVxuICBpZiAoY2EgJiYgY2gkbXlfb3V0Y29tZSAlaW4lIC5uZWdfZnJhbWluZ3MpXG4gICAgY2F0KFwiICAobmVnYXRpdmUgZnJhbWluZyDigJMgcmV2ZXJzZS1jb2RlZCBhdXRvbWF0aWNhbGx5OiBjbGFpbV9hbGlnbiA9IFRSVUUpXFxuXCIpXG4gIGlmIChjYSAmJiBjaCRteV9wcmVkaWN0b3IgPT0gXCJncm93dGhcIilcbiAgICBjYXQoXCIgIChncm93dGggcHJlZGljdG9yIOKAkyBzaWduIGNvbnZlbnRpb24gZmxpcHBlZCBhdXRvbWF0aWNhbGx5OiBjbGFpbV9hbGlnbiA9IFRSVUUpXFxuXCIpXG4gIGlmICghY2EpXG4gICAgY2F0KHNwcmludGYoXCIgIChjbGFpbV9hbGlnbiA9IEZBTFNFOiBvbiB0aGlzIG91dGNvbWUncyBvd24gc2NhbGUgYiA9ICUuNWYsICVzID0gJS4zZjsgdGhlIGNsYXNzIGNoYXJ0IGNvbnZlcnRzKVxcblwiLFxuICAgICAgICAgICAgICAgIGhpdCRlc3RpbWF0ZSwgaWYgKGNoJG15X2ZhbWlseSA9PSBcImJldGFcIikgXCJ6XCIgZWxzZSBcInRcIiwgaGl0JHN0YXRpc3RpYykpXG4gIGludmlzaWJsZShoaXQpXG59XG5cbiMgT25lIHN1Ym1pc3Npb24sIHVzZWQgYnkgYm90aCBwaGFzZXMuIFRoZSBwaGFzZSBpcyBwcmVmaXhlZCB0byB0aGUgZnJlZS10ZXh0XG4jIHNwZWMgbGFiZWwsIGFuZCBhbGwgZm91cnRlZW4gZGVjaXNpb25zIHRyYXZlbCBpbnNpZGUgdGhhdCBsYWJlbDsgdGhlIGZvcm0sXG4jIGl0cyBmaWVsZHMgYW5kIHRoZSBjb2xsZWN0aW9uIHBpcGVsaW5lIGFyZSBmcm96ZW4gaW5mcmFzdHJ1Y3R1cmUuXG4uc3VibWl0IDwtIGZ1bmN0aW9uKGNoLCBoaXQsIHBoYXNlLCBsZWFkKSB7XG4gIGZsIDwtIC5mbGlwKGNoKVxuICBiIDwtIGZsICogaGl0JGVzdGltYXRlOyB0diA8LSBmbCAqIGhpdCRzdGF0aXN0aWM7IHIgPC0gaGl0JHJfY2FcbiAgc3BlY19sYWJlbCA8LSBwYXN0ZTAocGhhc2UsIFwiOiBcIiwgLnNwZWNfbGluZShjaCkpXG5cbiAgRk9STV9JRCA8LSBcIjFGQUlwUUxTZXpvQUVPblpVZlA0cGtmTjI4X1h0RUJ3U3ljMlJMc1hCLWg4UlBTZWdGN190NzZBXCJcbiAgZmllbGQgPC0gYyhzcGVjID0gXCJlbnRyeS44MzI0OTY5MTRcIiwgYiA9IFwiZW50cnkuMTY1NjMxMTgwMFwiLCBzZSA9IFwiZW50cnkuMTMzNzQ1ODI2MlwiLFxuICAgICAgICAgICAgIHQgPSBcImVudHJ5LjE5NDA3Nzk0MzdcIiwgZGYgPSBcImVudHJ5LjE2ODI3MTE5NTVcIiwgbiA9IFwiZW50cnkuMTU4NjM5MjcyNFwiLFxuICAgICAgICAgICAgIHIgPSBcImVudHJ5LjE2NjAyNzMwMDFcIilcbiAgdmFsdWUgPC0gYyhzcGVjID0gc3BlY19sYWJlbCwgYiA9IHNwcmludGYoXCIlLjVmXCIsIGIpLFxuICAgICAgICAgICAgIHNlID0gc3ByaW50ZihcIiUuNWZcIiwgaGl0JHN0ZF9lcnJvciksIHQgPSBzcHJpbnRmKFwiJS4zZlwiLCB0diksXG4gICAgICAgICAgICAgZGYgPSBhcy5jaGFyYWN0ZXIocm91bmQoaGl0JGRmKSksIG4gPSBhcy5jaGFyYWN0ZXIoaGl0JG4pLFxuICAgICAgICAgICAgIHIgPSBzcHJpbnRmKFwiJS4zZlwiLCByKSlcbiAgcXVlcnkgPC0gcGFzdGUodmFwcGx5KG5hbWVzKGZpZWxkKSwgZnVuY3Rpb24oaylcbiAgICBwYXN0ZTAoZmllbGRbW2tdXSwgXCI9XCIsIHV0aWxzOjpVUkxlbmNvZGUodmFsdWVbW2tdXSwgcmVzZXJ2ZWQgPSBUUlVFKSksXG4gICAgY2hhcmFjdGVyKDEpKSwgY29sbGFwc2UgPSBcIiZcIilcbiAgdXJsIDwtIHNwcmludGYoXCJodHRwczovL2RvY3MuZ29vZ2xlLmNvbS9mb3Jtcy9kL2UvJXMvdmlld2Zvcm0/dXNwPXBwX3VybCYlc1wiLCBGT1JNX0lELCBxdWVyeSlcblxuICBjYXQobGVhZCwgXCJcXG5cXG5cIilcbiAgY2F0KFwiICBzcGVjOlwiLCBzcGVjX2xhYmVsLCBcIlxcblwiKVxuICBjYXQoc3ByaW50ZihcIiAgYiA9ICUuNWYgfCBzZSA9ICUuNWYgfCAlcyA9ICUuM2YgfCBkZiA9ICVkIHwgbiA9ICVkIHwgciA9ICUuM2ZcXG5cXG5cIixcbiAgICAgICAgICAgICAgYiwgaGl0JHN0ZF9lcnJvciwgaWYgKGNoJG15X2ZhbWlseSA9PSBcImJldGFcIikgXCJ6XCIgZWxzZSBcInRcIiwgdHYsIHJvdW5kKGhpdCRkZiksIGhpdCRuLCByKSlcbiAgY2F0KFwiT3BlbiB0aGUgbGluayBiZWxvdyAob3IgY29weSB0aGUgVVJMKSDigJMgdGhlIGZvcm0gb3BlbnMgd2l0aCBldmVyeSBmaWVsZFxcblwiKVxuICBjYXQoXCJwcmUtZmlsbGVkOyBqdXN0IHByZXNzIFNlbmQuXFxuXFxuXCIpXG4gIGNhdCh1cmwsIFwiXFxuXCIpXG4gIGlmIChyZXF1aXJlTmFtZXNwYWNlKFwiaHRtbHRvb2xzXCIsIHF1aWV0bHkgPSBUUlVFKSlcbiAgICBwcmludChodG1sdG9vbHM6OnRhZ3MkcChodG1sdG9vbHM6OnRhZ3MkYShocmVmID0gdXJsLCB0YXJnZXQgPSBcIl9ibGFua1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwiT3BlbiB0aGUgcHJlLWZpbGxlZCBmb3JtIGluIGEgbmV3IHRhYlwiKSkpXG4gIGludmlzaWJsZShsaXN0KHNwZWMgPSBzcGVjX2xhYmVsLCBiID0gYiwgc2UgPSBoaXQkc3RkX2Vycm9yLCBzdGF0aXN0aWMgPSB0dixcbiAgICAgICAgICAgICAgICAgZGYgPSBoaXQkZGYsIG4gPSBoaXQkbiwgciA9IHIsIHVybCA9IHVybCkpXG59XG5cbnJlcG9ydF9yZXN1bHQgPC0gZnVuY3Rpb24oKSB7XG4gIGNoICA8LSAuY2hlY2tfY2hvaWNlcygpXG4gIGhpdCA8LSAubG9va3VwKGNoKVxuICAuc3VibWl0KGNoLCBoaXQsIFwiZGVjbGFyZWRcIixcbiAgICAgICAgICBcIllvdXIgZGVjbGFyZWQgc3VibWlzc2lvbiAoY2xhaW0tYWxpZ25lZCwgc3RyYWlnaHQgZnJvbSB5b3VyIHByZXJlZ2lzdHJhdGlvbik6XCIpXG59In0=
+</script>
+</div>
+</div>
+<p>Five analysts reanalysed a claim from the EU-frames case <span class="citation" data-cites="Teney2016DoesEUEconomic">(<a href="#ref-Teney2016DoesEUEconomic" role="doc-biblioref">Teney 2016</a>)</span> for the Multi100 project <span class="citation" data-cites="AczelEtAl2026InvestigatingAnalyticalRobustness">(<a href="#ref-AczelEtAl2026InvestigatingAnalyticalRobustness" role="doc-biblioref"><span class="nocase">Aczel et al.</span> 2026</a>)</span>; you are analyst no. 6. Read the full task description, the claim, and the five-analyst table of findings on the <a href="../exercise/index.html">Exercise overview</a> page (the <a href="../slides/index.html">workshop slides</a> discuss the broader context of the project).</p>
+<p>This page is the whole exercise, runnable in the browser: five tasks that take you from a setup check to two dots on the live class chart – one explored, one declared.</p>
+<section id="task-1-setup" class="level2">
+<h2 class="anchored" data-anchor-id="task-1-setup">Task 1 – Get yourself running</h2>
+<p>Nothing conceptual here: the job is to reach the point where a line of R runs and the data are in front of you. Press <strong>Run Code</strong> on the cell below. If it prints the three lines it should, you are set up and everything else on this page will work.</p>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IiMgVGhlIHNldHVwIGNoZWNrLiBJdCB1c2VzIG9ubHkgd2hhdCB0aGUgcGFnZSBwcmVsb2Fkcywgc28gaWYgdGhpcyBydW5zLCB0aGVcbiMgcmVzdCBvZiB0aGUgbGFiIHJ1bnMuXG5jYXQoXCJSIGlzIGFsaXZlIGluIHlvdXIgYnJvd3Nlci4gUiB2ZXJzaW9uOlwiLCBSLnZlcnNpb24uc3RyaW5nLCBcIlxcblwiKVxuY2F0KFwiVGhlIHBhbmVsIGlzIGxvYWRlZDpcIiwgbnJvdyhldWZyYW1lcyksIFwicm93cyxcIixcbiAgICBkcGx5cjo6bl9kaXN0aW5jdChldWZyYW1lcyRjbnRyeSksIFwiY291bnRyaWVzLFwiLFxuICAgIGRwbHlyOjpuX2Rpc3RpbmN0KGV1ZnJhbWVzJHllYXIpLCBcInllYXJzXFxuXCIpXG5jYXQoXCJmaXhlc3QgaXMgYXZhaWxhYmxlOlwiLCByZXF1aXJlTmFtZXNwYWNlKFwiZml4ZXN0XCIsIHF1aWV0bHkgPSBUUlVFKSwgXCJcXG5cIikifQ==
+</script>
+</div>
+</div>
+<p>You should see <strong>270 rows</strong>, <strong>27 countries</strong> and <strong>10 years</strong>, and <code>TRUE</code> on the last line. If any of that is missing, reload the page and wait for the engine to finish downloading before pressing Run Code again. If it still fails, say <strong>STUCK</strong> in the chat.</p>
+</section>
+<section id="task-1-concepts-warm-up-while-the-engine-loads" class="level2">
+<h2 class="anchored" data-anchor-id="task-1-concepts-warm-up-while-the-engine-loads">Warm-up – three R’s, and one impostor</h2>
+<p><strong>Fix the vocabulary before you touch any data.</strong> Three of the four scenarios below are doing one of our three R’s – reproducibility, robustness, replicability. The fourth is doing something else entirely. Read all four, then label each one in the code cell.</p>
+<p><strong><em>Scenario 1:</em></strong> A reviewer reruns the authors’ Stata .do file on the authors’ data and gets a <em>different</em> coefficient from the one printed in the paper. This is an example of ______ even though what they <em>tried</em> to do failed.</p>
+<p><strong><em>Scenario 2:</em></strong> The analyst uses the authors’ submitted replication dataset, but they re-implement the model in R instead of Stata and centre the predictor. Is this a case of ______ or ______?</p>
+<p><strong><em>Scenario 3:</em></strong> A preregistered team tests the identical hypothesis on a <em>separate, much larger</em> dataset chosen to be theoretically equivalent, and gets results that contradict the original. Their conclusion is that the original analysis has failed to ______.</p>
+<p><strong><em>Scenario 4:</em></strong> Instead of the survey data used by the original authors, another researcher tests the same underlying idea on social-media texts using a machine-learning classifier method that the original never used. To their surprise, the authors’ original findings turn out to be ______, and the researcher concludes that they provide a reliable middle-range theory of the phenomenon they investigate.</p>
+<p>Fill in the gaps in the code cell below and run it to print your answers back.</p>
+<div class="cell" data-exercise="vocab">
+<div>
+<div id="webr-4" class="exercise-cell">
+
+</div>
+<script type="webr-4-contents">
+eyJhdHRyIjp7ImNvZGUtb3ZlcmZsb3ciOiJ3cmFwIiwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZSwiZXhlcmNpc2UiOiJ2b2NhYiJ9LCJjb2RlIjoiXG5jYXQoXCJcblNjZW5hcmlvIDE6IFRoaXMgaXMgYW4gZXhhbXBsZSBvZiBfX19fX18uXG5TY2VuYXJpbyAyOiBJcyB0aGlzIGEgY2FzZSBvZiBfX19fX18gb3IgX19fX19fP1xuU2NlbmFyaW8gMzogVGhlIG9yaWdpbmFsIGFuYWx5c2lzIGhhcyBmYWlsZWQgdG8gX19fX19fLlxuU2NlbmFyaW8gNDogVGhlIGF1dGhvcnMnIG9yaWdpbmFsIGZpbmRpbmdzIGFyZSBfX19fX18uXG5cIikifQ==
+</script>
+</div>
+</div>
+<div class="webr-ojs-exercise exercise-solution d-none" data-exercise="vocab">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Answers – and the two traps
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>reproducibility</strong> – rerunning the same code on the same data. Here it <em>failed</em> to match, but the activity is still reproducibility, and ‘not reproduced’ is the verdict.</li>
+<li>arguably still <strong>reproducibility</strong>, in a grey area – re-implementing on the same data in different software is technically a re-computation – but centring the predictor nudges towards <strong>robustness</strong>. Two packages can also implement the same estimator differently, so make sure you know what the function you call is doing.</li>
+<li><strong>replicability</strong> – same question, independent new data chosen to be theoretically equivalent.</li>
+<li><strong>generalisability</strong> – the impostor: new data <em>and</em> a new method at once. It is the fourth cell of the matrix, not one of the three we test today.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="task-2-get-the-data-and-look-at-it" class="level2">
+<h2 class="anchored" data-anchor-id="task-2-get-the-data-and-look-at-it">Task 2 – Meet the panel</h2>
+<p>The <strong>EU-frames dataset</strong> (<code>EUframes_cy.csv</code>) is already loaded for you as <code>euframes</code>. It is the country-year panel behind the whole exercise. The copy that this page loads is byte-identical to the one published in the analyst’s fork on OSF (osf.io/6zqct – “Multi100 | Teney_EurSocioRev_2016 | Analyst_C6HJR”, main folder), and the official Multi100 archival record sits at osf.io/8rtwe. the workspace participants download the same file into their Positron workspace; in the browser it is pre-loaded, so you start straight on the analysis.</p>
+<p>Run the cell below to inspect the panel. Edit it freely – this is your environment.</p>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-5" class="exercise-cell">
+
+</div>
+<script type="webr-5-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IiMgSG93IG1hbnkgY291bnRyaWVzLCBob3cgbWFueSB5ZWFycywgaG93IGJpZyBpcyB0aGUgcGFuZWw/XG5kcGx5cjo6Z2xpbXBzZShldWZyYW1lcylcblxuY2F0KFwiXFxuQ291bnRyaWVzOlwiLCBkcGx5cjo6bl9kaXN0aW5jdChldWZyYW1lcyRjbnRyeSksXG4gICAgXCIgWWVhcnM6XCIsIGRwbHlyOjpuX2Rpc3RpbmN0KGV1ZnJhbWVzJHllYXIpLFxuICAgIFwiIFJvd3M6XCIsIG5yb3coZXVmcmFtZXMpLCBcIlxcblwiKSJ9
+</script>
+</div>
+</div>
+<p>You should see <strong>270 rows</strong>, <strong>27 countries</strong>, <strong>10 years</strong> (2004–2013), and 13 columns. The outcome we care about first is <code>mcosmo</code>, the mean ‘cosmopolitan’ framing of the EU in each country-year, on a 0–1 scale. The predictor is <code>unemp</code>, the annual unemployment rate. <code>growth</code> is annual GDP growth, and <code>n_cy</code> counts the survey respondents behind each row. The <a href="../data/EUframes_cy_codebook.html">codebook</a> describes the other framings and every remaining column.</p>
+<p>Now look at the outcome over time, one small panel per country:</p>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-6" class="exercise-cell">
+
+</div>
+<script type="webr-6-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJmaWctaGVpZ2h0Ijo2LCJmaWctd2lkdGgiOjl9LCJjb2RlIjoibGlicmFyeShnZ3Bsb3QyKVxuXG5nZ3Bsb3QoZXVmcmFtZXMsIGFlcyh4ID0geWVhciwgeSA9IG1jb3NtbykpICtcbiAgZ2VvbV9saW5lKGNvbG91ciA9IFwiZ3JleTU1XCIpICtcbiAgZ2VvbV9wb2ludChzaXplID0gMC43KSArXG4gIGZhY2V0X3dyYXAofiBjbnRyeSwgbmNvbCA9IDYpICtcbiAgc2NhbGVfeF9jb250aW51b3VzKGJyZWFrcyA9IGMoMjAwNCwgMjAwOCwgMjAxMykpICtcbiAgbGFicyhcbiAgICB0aXRsZSA9IFwiQ29zbW9wb2xpdGFuIEVVIGZyYW1pbmcgYnkgY291bnRyeSwgMjAwNOKAkzIwMTNcIixcbiAgICB4ID0gTlVMTCwgeSA9IFwiTWVhbiBjb3Ntb3BvbGl0YW4gZnJhbWluZ1wiXG4gICkgK1xuICB0aGVtZV9taW5pbWFsKGJhc2Vfc2l6ZSA9IDkpIn0=
+</script>
+</div>
+</div>
+<p>Most countries drift gently. A few move sharply around the 2009 crisis. That variation – within a country, over time – is exactly what the fixed-effects model in Task 3 uses.</p>
+</section>
+<section id="task-4-estimand-and-dag" class="level2">
+<h2 class="anchored" data-anchor-id="task-4-estimand-and-dag">Task 2, continued – name the estimand, draw the graph</h2>
+<p>Before fitting anything, say what you are trying to estimate, in words. A template you can adapt:</p>
+<blockquote class="blockquote">
+<p>The <strong>unit-specific quantity</strong> is the change in mean cosmopolitan EU framing within a country-year associated with a one-point change in that country’s unemployment rate. The <strong>target population</strong> is EU member states over 2004–2013. The <strong>aggregation</strong> is the average of those unit-specific effects, holding fixed each country’s time-invariant traits and each year’s EU-wide shocks.</p>
+</blockquote>
+<p>That last clause is a causal claim, and a directed acyclic graph makes it checkable. A DAG is a picture of what causes what: variables are nodes, arrows run from cause to effect, and the rules of the graph then tell you which variables have to be adjusted for if the arrow you care about is to be read cleanly. Here is the graph that this exercise commits to.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="browser-lab_files/figure-html/dag-reference-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption>The committed graph: unemployment to framing, with country and year as confounder pairs. The three pale nodes carry no arrows yet.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Five arrows are drawn. <code>unemployment -&gt; framing</code> is the path of interest. Above it, <code>country</code> is a common cause of both: stable national traits such as size, EU tenure and labour-market institutions move local unemployment and shape how people frame the EU. <code>year</code> does the same job for the EU-wide shocks that hit every country in the same calendar year. The three pale nodes below carry no arrows yet, because whether they belong is a decision you make rather than one that the exercise makes for you.</p>
+<p>You build the graph yourself in the cells below, in ordinary R. <code>dagify()</code> takes one formula per arrow, written the way you write a model, so <code>framing ~ unemployment</code> is the arrow that runs <em>into</em> <code>framing</code>. Read the tilde as ‘is caused by’ rather than ‘is regressed on’ and the direction comes out right every time. Because each arrow is a line of R rather than a fragment of a string, an arrow you are unsure about can sit there commented out, and adopting it means deleting a <code>#</code>.</p>
+<p><code>dagify()</code> and <code>adjustmentSets()</code> are ready in this page already, so you can go straight to the next cell. The optional cell below adds the <em>picture</em>: it installs <code>ggdag</code>, which brings <code>igraph</code>, <code>ggraph</code> and four further dependencies with it – roughly 23 MB of download, and a noticeable pause on a slow connection. Run it if you want the plot. Skip it and everything else in Task 2 still works, because the figure above is the same graph.</p>
+<div class="cell" data-autorun="true">
+<div>
+<div id="webr-7" class="exercise-cell">
+
+</div>
+<script type="webr-7-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwiaW5jbHVkZSI6ZmFsc2UsIm91dHB1dCI6ZmFsc2V9LCJjb2RlIjoiIyBHcmFwaCBtYWNoaW5lcnkgZm9yIFRhc2sgMi4gVGhlIGFkanVzdG1lbnQtc2V0IHF1ZXN0aW9uIGlzIGFuc3dlcmVkIGhlcmUgaW5cbiMgYmFzZSBSIHJhdGhlciB0aGFuIGJ5IGRhZ2l0dHksIGJlY2F1c2UgZGFnaXR0eSByZWFjaGVzIGl0cyBncmFwaCBhbGdvcml0aG1zXG4jIHRocm91Z2ggYSBKYXZhU2NyaXB0IGVuZ2luZSB0aGF0IGEgYnJvd3NlciBvbmx5IGV4cG9zZXMgdG8gYSBwYWdlIHNlcnZlZCB3aXRoXG4jIGNyb3NzLW9yaWdpbiBpc29sYXRpb24gaGVhZGVycyAoQ09PUCBhbmQgQ09FUCkuIFdpdGhvdXQgdGhlbSB0aGUgY2FsbCBmYWlsc1xuIyB3aXRoIGEgSmF2YVNjcmlwdCB0eXBlIGVycm9yIHJhdGhlciB0aGFuIGFuIFIgZXJyb3IsIHNvIHRoZSBicm93c2VyIGxhYlxuIyBjYW5ub3QgZGVwZW5kIG9uIGl0LiBUaGVzZSBmdW5jdGlvbnMgYWdyZWUgd2l0aCBgZGFnaXR0eTo6YWRqdXN0bWVudFNldHMoKWBcbiMgb24gZXZlcnkgYXJyb3cgY29tYmluYXRpb24gdGhhdCB0aGlzIHRhc2sgb2ZmZXJzIGFuZCBvbiAzNzggcmFuZG9tIHRlc3QgZ3JhcGhzLlxuXG4uZGFnX2hhc19lZGdlIDwtIGZ1bmN0aW9uKGRhZywgYSwgYikgYW55KGRhZyRlZGdlcyRmcm9tID09IGEgJiBkYWckZWRnZXMkdG8gPT0gYilcblxuIyBBIG5vZGUgY291bnRzIGFzIG9uZSBvZiBpdHMgb3duIGRlc2NlbmRhbnRzLCB3aGljaCBpcyB3aGF0IHRoZSBjb2xsaWRlciBydWxlXG4jIGJlbG93IG5lZWRzLlxuLmRhZ19kZXNjZW5kYW50cyA8LSBmdW5jdGlvbihkYWcsIHYpIHtcbiAgc2VlbiA8LSB2XG4gIGZyb250aWVyIDwtIHZcbiAgd2hpbGUgKGxlbmd0aChmcm9udGllcikpIHtcbiAgICBraWRzIDwtIHNldGRpZmYoZGFnJGVkZ2VzJHRvW2RhZyRlZGdlcyRmcm9tICVpbiUgZnJvbnRpZXJdLCBzZWVuKVxuICAgIHNlZW4gPC0gYyhzZWVuLCBraWRzKVxuICAgIGZyb250aWVyIDwtIGtpZHNcbiAgfVxuICBzZWVuXG59XG5cbiMgRXZlcnkgc2ltcGxlIHBhdGggYmV0d2VlbiB0d28gbm9kZXMsIGlnbm9yaW5nIGFycm93IGRpcmVjdGlvbi4gVGhlIHJlY3Vyc2lvblxuIyBpcyBzYWZlIG9ubHkgYmVjYXVzZSBhIHRlYWNoaW5nIGdyYXBoIGlzIHRpbnkuXG4uZGFnX3BhdGhzIDwtIGZ1bmN0aW9uKGRhZywgZnJvbSwgdG8pIHtcbiAgb3V0IDwtIGxpc3QoKVxuICBuZWlnaGJvdXJzIDwtIGZ1bmN0aW9uKHYpIHVuaXF1ZShjKGRhZyRlZGdlcyR0b1tkYWckZWRnZXMkZnJvbSA9PSB2XSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkYWckZWRnZXMkZnJvbVtkYWckZWRnZXMkdG8gPT0gdl0pKVxuICB3YWxrIDwtIGZ1bmN0aW9uKHBhdGgpIHtcbiAgICB2IDwtIHBhdGhbbGVuZ3RoKHBhdGgpXVxuICAgIGlmICh2ID09IHRvKSB7XG4gICAgICBvdXRbW2xlbmd0aChvdXQpICsgMUxdXSA8PC0gcGF0aFxuICAgICAgcmV0dXJuKGludmlzaWJsZShOVUxMKSlcbiAgICB9XG4gICAgZm9yICh3IGluIHNldGRpZmYobmVpZ2hib3Vycyh2KSwgcGF0aCkpIHdhbGsoYyhwYXRoLCB3KSlcbiAgfVxuICB3YWxrKGZyb20pXG4gIG91dFxufVxuXG4jIEEgcGF0aCBpcyBibG9ja2VkIGJ5IHRoZSBzZXQgeiBpZiBhbnkgbm9kZSBhbG9uZyBpdCBpcyBlaXRoZXIgYSBub24tY29sbGlkZXJcbiMgaW5zaWRlIHosIG9yIGEgY29sbGlkZXIgd2l0aCBubyBkZXNjZW5kYW50IGluIHouXG4uZGFnX3BhdGhfYmxvY2tlZCA8LSBmdW5jdGlvbihkYWcsIHBhdGgsIHopIHtcbiAgaWYgKGxlbmd0aChwYXRoKSA8IDNMKSByZXR1cm4oRkFMU0UpXG4gIGZvciAoaSBpbiBzZXEoMkwsIGxlbmd0aChwYXRoKSAtIDFMKSkge1xuICAgIG5vZGUgPC0gcGF0aFtpXVxuICAgIGNvbGxpZGVyIDwtIC5kYWdfaGFzX2VkZ2UoZGFnLCBwYXRoW2kgLSAxTF0sIG5vZGUpICYmXG4gICAgICAgICAgICAgICAgLmRhZ19oYXNfZWRnZShkYWcsIHBhdGhbaSArIDFMXSwgbm9kZSlcbiAgICBpZiAoY29sbGlkZXIpIHtcbiAgICAgIGlmICghYW55KC5kYWdfZGVzY2VuZGFudHMoZGFnLCBub2RlKSAlaW4lIHopKSByZXR1cm4oVFJVRSlcbiAgICB9IGVsc2UgaWYgKG5vZGUgJWluJSB6KSB7XG4gICAgICByZXR1cm4oVFJVRSlcbiAgICB9XG4gIH1cbiAgRkFMU0Vcbn1cblxuLmRhZ2lmeV9idWlsdGluIDwtIGZ1bmN0aW9uKC4uLiwgZXhwb3N1cmUgPSBOVUxMLCBvdXRjb21lID0gTlVMTCxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb29yZHMgPSBOVUxMKSB7XG4gIHBhcnRzIDwtIGxhcHBseShsaXN0KC4uLiksIGZ1bmN0aW9uKGYpIHtcbiAgICBjaGlsZCA8LSBhbGwudmFycyhmW1syXV0pXG4gICAgcGFyZW50IDwtIGFsbC52YXJzKGZbWzNdXSlcbiAgICBkYXRhLmZyYW1lKGZyb20gPSBwYXJlbnQsIHRvID0gcmVwKGNoaWxkLCBsZW5ndGgocGFyZW50KSkpXG4gIH0pXG4gIGUgPC0gZG8uY2FsbChyYmluZCwgcGFydHMpXG4gIHN0cnVjdHVyZShsaXN0KGVkZ2VzID0gZSwgZXhwb3N1cmUgPSBleHBvc3VyZSwgb3V0Y29tZSA9IG91dGNvbWUsXG4gICAgICAgICAgICAgICAgIG5vZGVzID0gdW5pcXVlKGMoZSRmcm9tLCBlJHRvKSkpLFxuICAgICAgICAgICAgY2xhc3MgPSBcInNpbXBsZV9kYWdcIilcbn1cblxuIyBUaGUgYmFja2Rvb3IgY3JpdGVyaW9uLCBicnV0ZS1mb3JjZWQgb3ZlciBzdWJzZXRzIG9mIHRoZSBlbGlnaWJsZSB2YXJpYWJsZXM6XG4jIHNtYWxsZXN0IHNldHMgZmlyc3QsIGFuZCBhIHNldCBpcyBza2lwcGVkIG9uY2UgaXQgY29udGFpbnMgYSBzZXQgYWxyZWFkeVxuIyBmb3VuZCwgd2hpY2ggbGVhdmVzIG9ubHkgdGhlIG1pbmltYWwgb25lcy5cbi5hZGp1c3RtZW50X3NldHNfYnVpbHRpbiA8LSBmdW5jdGlvbih4LCBleHBvc3VyZSA9IHgkZXhwb3N1cmUsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgb3V0Y29tZSA9IHgkb3V0Y29tZSwgLi4uKSB7XG4gIGJhY2tkb29yIDwtIEZpbHRlcihmdW5jdGlvbihwKSAuZGFnX2hhc19lZGdlKHgsIHBbMkxdLCBleHBvc3VyZSksXG4gICAgICAgICAgICAgICAgICAgICAuZGFnX3BhdGhzKHgsIGV4cG9zdXJlLCBvdXRjb21lKSlcbiAgY2FuZGlkYXRlcyA8LSBzZXRkaWZmKHgkbm9kZXMsIGMob3V0Y29tZSwgLmRhZ19kZXNjZW5kYW50cyh4LCBleHBvc3VyZSkpKVxuICBmb3VuZCA8LSBsaXN0KClcbiAgZm9yIChrIGluIHNlcSgwTCwgbGVuZ3RoKGNhbmRpZGF0ZXMpKSkge1xuICAgIHN1YnNldHMgPC0gaWYgKGsgPT0gMEwpIGxpc3QoY2hhcmFjdGVyKDApKSBlbHNlXG4gICAgICB1dGlsczo6Y29tYm4oY2FuZGlkYXRlcywgaywgc2ltcGxpZnkgPSBGQUxTRSlcbiAgICBmb3IgKHogaW4gc3Vic2V0cykge1xuICAgICAgaWYgKGFueSh2YXBwbHkoZm91bmQsIGZ1bmN0aW9uKGYpIGFsbChmICVpbiUgeiksIGxvZ2ljYWwoMSkpKSkgbmV4dFxuICAgICAgaWYgKGFsbCh2YXBwbHkoYmFja2Rvb3IsIGZ1bmN0aW9uKHApIC5kYWdfcGF0aF9ibG9ja2VkKHgsIHAsIHopLFxuICAgICAgICAgICAgICAgICAgICAgbG9naWNhbCgxKSkpKSB7XG4gICAgICAgIGZvdW5kW1tsZW5ndGgoZm91bmQpICsgMUxdXSA8LSBzb3J0KHopXG4gICAgICB9XG4gICAgfVxuICB9XG4gIHN0cnVjdHVyZShmb3VuZCwgY2xhc3MgPSBcInNpbXBsZV9kYWdfc2V0c1wiKVxufVxuXG5wcmludC5zaW1wbGVfZGFnX3NldHMgPC0gZnVuY3Rpb24oeCwgLi4uKSB7XG4gIGlmICghbGVuZ3RoKHgpKSB7XG4gICAgY2F0KFwiKG5vIHNldCBvZiB0aGVzZSB2YXJpYWJsZXMgY2xvc2VzIGV2ZXJ5IGJhY2tkb29yIHBhdGgpXFxuXCIpXG4gIH0gZWxzZSB7XG4gICAgZm9yICh6IGluIHgpIHtcbiAgICAgIGNhdChpZiAobGVuZ3RoKHopKSBwYXN0ZTAoXCJ7IFwiLCBwYXN0ZSh6LCBjb2xsYXBzZSA9IFwiLCBcIiksIFwiIH1cIikgZWxzZSBcInt9XCIsXG4gICAgICAgICAgXCJcXG5cIiwgc2VwID0gXCJcIilcbiAgICB9XG4gIH1cbiAgaW52aXNpYmxlKHgpXG59XG5cbiMgUmVnaXN0ZXJlZCByYXRoZXIgdGhhbiBsZWZ0IGluIHRoZSBzZXNzaW9uOiB0aGVzZSBjZWxscyBkbyBub3QgZXZhbHVhdGUgaW5cbiMgdGhlIGdsb2JhbCBlbnZpcm9ubWVudCwgc28gcGxhaW4gUzMgZGlzcGF0Y2ggd291bGQgbm90IGZpbmQgdGhlIG1ldGhvZC5cbnJlZ2lzdGVyUzNtZXRob2QoXCJwcmludFwiLCBcInNpbXBsZV9kYWdfc2V0c1wiLCBwcmludC5zaW1wbGVfZGFnX3NldHMpXG5cbmRhZ2lmeSA8LSAuZGFnaWZ5X2J1aWx0aW5cbmFkanVzdG1lbnRTZXRzIDwtIC5hZGp1c3RtZW50X3NldHNfYnVpbHRpblxuZGFnX2VuZ2luZSA8LSBcImJ1aWx0LWluXCJcblxuIyBXaGV0aGVyIGRhZ2l0dHkgY291bGQgd29yayBoZXJlIGF0IGFsbC4gSXRzIEphdmFTY3JpcHQgYnJpZGdlIG5lZWRzXG4jIFNoYXJlZEFycmF5QnVmZmVyLCB3aGljaCBhIGJyb3dzZXIgZ3JhbnRzIG9ubHkgdG8gYSBjcm9zcy1vcmlnaW4taXNvbGF0ZWRcbiMgcGFnZSwgYW5kIHRoZSBmYWlsdXJlIGlzIGEgSmF2YVNjcmlwdCBlcnJvciB0aGF0IHRyeUNhdGNoKCkgY2Fubm90IGNhdGNoIOKAkyBzb1xuIyB0aGUgcXVlc3Rpb24gaGFzIHRvIGJlIGFza2VkIGJlZm9yZSBhbnl0aGluZyBjYWxscyBkYWdpdHR5LlxuLmRhZ2l0dHlfcG9zc2libGUgPC0gZnVuY3Rpb24oKSB7XG4gIGlzVFJVRSh0cnlDYXRjaChcbiAgICBhcy5udW1lcmljKHdlYnI6OmV2YWxfanMoXG4gICAgICBcInR5cGVvZiBTaGFyZWRBcnJheUJ1ZmZlciA9PT0gJ3VuZGVmaW5lZCcgPyAwIDogMVwiKSkgPT0gMSxcbiAgICBlcnJvciA9IGZ1bmN0aW9uKGUpIEZBTFNFKSlcbn0ifQ==
+</script>
+</div>
+</div>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-8" class="exercise-cell">
+
+</div>
+<script type="webr-8-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IiMgT3B0aW9uYWw6IGluc3RhbGwgZ2dkYWcgc28gdGhlIGdyYXBoIGNhbiBiZSBkcmF3bi4gVGhlIGNoZWNrIGNvbWVzIGZpcnN0LFxuIyBiZWNhdXNlIGdnZGFnIGRyYXdzIHRocm91Z2ggZGFnaXR0eSBhbmQgdGhlcmUgaXMgbm8gcG9pbnQgZG93bmxvYWRpbmcgMjMgTUJcbiMgdGhhdCB0aGlzIGJyb3dzZXIgY2Fubm90IHVzZS5cbmlmICghLmRhZ2l0dHlfcG9zc2libGUoKSkge1xuICBjYXQoXCJUaGlzIHBhZ2UgaXMgbm90IHNlcnZlZCB3aXRoIHRoZSBoZWFkZXJzIHRoYXQgdGhlIGRhZ2l0dHkgZ3JhcGggZW5naW5lIG5lZWRzLFxcbnNvIHRoZXJlIGlzIG5vIHBsb3QgaGVyZSDigJMgdGhlIGZpZ3VyZSBhYm92ZSBpcyB0aGUgc2FtZSBncmFwaC5cXG5FdmVyeXRoaW5nIGVsc2UgaW4gVGFzayAyIHdvcmtzOiB0aGUgYWRqdXN0bWVudCBzZXQgdXNlcyBncmFwaCBjb2RlIGJ1aWx0IGludG8gdGhpcyBwYWdlLlxcblwiKVxufSBlbHNlIHtcbiAgaGF2ZV9nZ2RhZyA8LSB0cnlDYXRjaCh7XG4gICAgd2Vicjo6aW5zdGFsbChcImdnZGFnXCIsIHF1aWV0ID0gVFJVRSlcbiAgICBzdXBwcmVzc1BhY2thZ2VTdGFydHVwTWVzc2FnZXMobGlicmFyeShnZ2RhZykpXG4gICAgVFJVRVxuICB9LCBlcnJvciA9IGZ1bmN0aW9uKGUpIEZBTFNFKVxuXG4gIGlmIChoYXZlX2dnZGFnKSB7XG4gICAgZGFnaWZ5IDwtIGdnZGFnOjpkYWdpZnlcbiAgICBhZGp1c3RtZW50U2V0cyA8LSBkYWdpdHR5OjphZGp1c3RtZW50U2V0c1xuICAgIGRhZ19lbmdpbmUgPC0gXCJkYWdpdHR5XCJcbiAgICBjYXQoXCJnZ2RhZyBpcyBsb2FkZWQ6IHRoZSBncmFwaCwgdGhlIGFkanVzdG1lbnQgc2V0IGFuZCB0aGUgcGxvdCBhbGwgd29yay5cXG5cIilcbiAgfSBlbHNlIHtcbiAgICBjYXQoXCJnZ2RhZyBkaWQgbm90IGluc3RhbGwuIFRoZSBhZGp1c3RtZW50IHNldCBzdGlsbCB3b3JrcyDigJMgaXQgdXNlcyBncmFwaCBjb2RlIGJ1aWx0IGludG8gdGhpcyBwYWdlLlxcblVzZSB0aGUgZmlndXJlIGFib3ZlIGZvciB0aGUgcGljdHVyZS5cXG5cIilcbiAgfVxufSJ9
+</script>
+</div>
+</div>
+<p>Now specify the graph. The five committed arrows are live; the arguable ones are commented out, one substantive claim per line. Uncomment any you believe, then run the cell.</p>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-9" class="exercise-cell">
+
+</div>
+<script type="webr-9-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Im15X2RhZyA8LSBkYWdpZnkoXG4gICMgVGhlIHBhdGggb2YgaW50ZXJlc3QsIGFuZCB0aGUgdHdvIGNvbmZvdW5kZXIgcGFpcnMgdGhhdCB0d28td2F5IGZpeGVkXG4gICMgZWZmZWN0cyBzb2FrIHVwLlxuICBmcmFtaW5nICAgICAgfiB1bmVtcGxveW1lbnQsXG4gIGZyYW1pbmcgICAgICB+IGNvdW50cnksXG4gIHVuZW1wbG95bWVudCB+IGNvdW50cnksXG4gIGZyYW1pbmcgICAgICB+IHllYXIsXG4gIHVuZW1wbG95bWVudCB+IHllYXIsXG5cbiAgIyBHUk9XVEggYXMgYSB0aW1lLXZhcnlpbmcgY29uZm91bmRlcjogYSBzbHVtcCByYWlzZXMgdW5lbXBsb3ltZW50IGFuZCBtYXlcbiAgIyBzb3VyIEVVIHNlbnRpbWVudCBpbiB0aGUgc2FtZSB5ZWFyLlxuICAjIGZyYW1pbmcgICAgICB+IGdyb3d0aCxcbiAgIyB1bmVtcGxveW1lbnQgfiBncm93dGgsXG5cbiAgIyBCQUlMT1VUIGFzIGEgbWVkaWF0b3I6IHVuZW1wbG95bWVudCB0cmlnZ2VycyBhIGZpbmFuY2lhbC1hc3Npc3RhbmNlXG4gICMgcHJvZ3JhbW1lLCB3aGljaCB0aGVuIHNoYXBlcyBmcmFtaW5nLlxuICAjIGJhaWxvdXQgfiB1bmVtcGxveW1lbnQsXG4gICMgZnJhbWluZyB+IGJhaWxvdXQsXG5cbiAgIyBQT0xJVElDSVNBVElPTiBvZiB0aGUgRVUgYnkgcGFydGllcyBhbmQgZWxpdGVzIGFzIGFub3RoZXIgY2F1c2Ugb2ZcbiAgIyBmcmFtaW5nLiBNdWx0aTEwMCBpbnN0cnVjdGVkIGFuYWx5c3RzIHRvIGRpc3JlZ2FyZCBpdC5cbiAgIyBmcmFtaW5nIH4gcG9saXRpY2lzYXRpb24sXG5cbiAgZXhwb3N1cmUgPSBcInVuZW1wbG95bWVudFwiLFxuICBvdXRjb21lICA9IFwiZnJhbWluZ1wiLFxuICAjIENvb3JkaW5hdGVzIGZvciBhbGwgc2V2ZW4gbm9kZXM7IHRoZSB0aHJlZSBub3QgY3VycmVudGx5IHdpcmVkIHVwIGFyZVxuICAjIHNpbXBseSBpZ25vcmVkLCBzbyB0aGlzIGJsb2NrIG5ldmVyIG5lZWRzIGVkaXRpbmcuXG4gIGNvb3JkcyA9IGxpc3QoXG4gICAgeCA9IGModW5lbXBsb3ltZW50ID0gMCwgZnJhbWluZyA9IDMsIGNvdW50cnkgPSAxLCB5ZWFyID0gMixcbiAgICAgICAgICBncm93dGggPSAwLjksIGJhaWxvdXQgPSAxLjUsIHBvbGl0aWNpc2F0aW9uID0gMyksXG4gICAgeSA9IGModW5lbXBsb3ltZW50ID0gMCwgZnJhbWluZyA9IDAsIGNvdW50cnkgPSAxLjQsIHllYXIgPSAxLjQsXG4gICAgICAgICAgZ3Jvd3RoID0gLTEuMCwgYmFpbG91dCA9IC0xLjIsIHBvbGl0aWNpc2F0aW9uID0gLTAuOTUpKSlcblxuYWRqdXN0bWVudFNldHMobXlfZGFnKSJ9
+</script>
+</div>
+</div>
+<p>With the five committed arrows the minimal adjustment set is <code>{ country, year }</code> – exactly what a two-way fixed-effects model absorbs. Country fixed effects adjust for <code>country</code> and year fixed effects adjust for <code>year</code>, so the model you will fit in Task 3 and the graph you just wrote are one identification claim in two languages.</p>
+<p>Now uncomment the growth pair and run the cell again. The set becomes <code>{ country, growth, year }</code>, because a slump varies within a country over time and fixed effects only remove country-constant and year-common variation. Nothing in the Task 3 model reaches it, and your specification would need <code>growth</code> as a co-predictor to match your beliefs – a choice waiting for you on the menu in Task 5. The bailout arrows behave differently. A mediator sits on the path you are trying to measure, so the adjustment set does not grow when you add one; adjusting for it would strip out part of the very effect you are after.</p>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-10" class="exercise-cell">
+
+</div>
+<script type="webr-10-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlLCJmaWctaGVpZ2h0Ijo0LCJmaWctd2lkdGgiOjh9LCJjb2RlIjoiIyBEcmF3aW5nIG5lZWRzIGJvdGggdGhlIGdnZGFnIGluc3RhbGwgYW5kIHRoZSBkYWdpdHR5IGVuZ2luZSBpdHNlbGY7IHdoZXJlXG4jIGVpdGhlciBpcyBtaXNzaW5nIHRoZSBmaWd1cmUgYXQgdGhlIHRvcCBvZiB0aGlzIHRhc2sgc3RhbmRzIGluLlxuaWYgKGlkZW50aWNhbChkYWdfZW5naW5lLCBcImRhZ2l0dHlcIikpIHtcbiAgcHJpbnQoZ2dkYWc6OmdnZGFnX2NsYXNzaWMobXlfZGFnLCBzaXplID0gNCkgKyBnZ2RhZzo6dGhlbWVfZGFnKCkpXG59IGVsc2Uge1xuICBjYXQoXCJObyBwbG90IGhlcmUg4oCTIHNjcm9sbCB1cCB0byB0aGUgcmVmZXJlbmNlIGZpZ3VyZSwgd2hpY2ggaXMgdGhpcyBzYW1lIGdyYXBoLlxcblwiKVxufSJ9
+</script>
+</div>
+</div>
+<p>Write two sentences for your own notes. What do two-way fixed effects adjust for, and what can they <strong>not</strong> fix? (Hint: anything time-varying within a country that you have not measured.)</p>
+</section>
+<section id="task-3-reproduce-the-recorded-result" class="level2">
+<h2 class="anchored" data-anchor-id="task-3-reproduce-the-recorded-result">Task 3 – Reproduce the recorded result</h2>
+<p>This is the <strong>reproducibility</strong> check. Fit the two-way fixed-effects model that the Multi100 Task-2 constraints point to:</p>
+<pre><code>mcosmo ~ unemp_c   with fixed effects for country and year</code></pre>
+<p>where <code>unemp_c</code> is the unemployment rate centred on its grand mean. The target is <strong>t = −3.804</strong> (df = 233, N = 270) – the value on record for analyst C6HJR in the Multi100 dataset.</p>
+<p>The cell below is an exercise. Replace the blanks (<code>______</code>) with the missing code, then press “Run Code”. If you get stuck, open the hints below; the solution has the full code.</p>
+<div class="cell" data-setup="true" data-exercise="reproduce">
+<script type="exercise-setup-reproduce-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoicmVwcm9kdWNlIiwic2V0dXAiOnRydWV9LCJjb2RlIjoiZXVmcmFtZXMgPC0gcmVhZC5jc3YoXCJkYXRhL0VVZnJhbWVzX2N5LmNzdlwiKSJ9
+</script>
+</div>
+<div class="cell" data-exercise="reproduce">
+<div>
+<div id="webr-12" class="exercise-cell">
+
+</div>
+<script type="webr-12-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoicmVwcm9kdWNlIn0sImNvZGUiOiIjIDEuIGNlbnRyZSB0aGUgdW5lbXBsb3ltZW50IHJhdGUgb24gaXRzIGdyYW5kIG1lYW5cbmV1ZnJhbWVzJHVuZW1wX2MgPC0gZXVmcmFtZXMkdW5lbXAgLSBfX19fX19cblxuIyAyLiBmaXQgdHdvLXdheSBmaXhlZCBlZmZlY3RzIHdpdGggZml4ZXN0OjpmZW9sc1xuIyAgICB0aGUgcGFydCBhZnRlciB0aGUgfCBhZGRzIHRoZSBmaXhlZCBlZmZlY3RzXG5tMSA8LSBmZW9scyhtY29zbW8gfiB1bmVtcF9jIHwgX19fX19fLCBkYXRhID0gZXVmcmFtZXMpXG5cbmJyb29tOjp0aWR5KG0xKSJ9
+</script>
+</div>
+</div>
+<div class="hint webr-ojs-exercise exercise-hint d-none" data-exercise="reproduce">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Hint 1 – centring
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>To centre a variable on its grand mean, subtract the mean of the whole column:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>euframes<span class="sc">$</span>unemp_c <span class="ot">&lt;-</span> euframes<span class="sc">$</span>unemp <span class="sc">-</span> <span class="fu">mean</span>(euframes<span class="sc">$</span>unemp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>With fixed effects present this does not change the t-statistic, but it is the transformation that the constrained specification asks for, so do it explicitly.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="hint webr-ojs-exercise exercise-hint d-none" data-exercise="reproduce">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Hint 2 – the fixed-effects syntax
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>In <code>fixest::feols</code>, the bar <code>|</code> separates the regression from the fixed effects. To add country and year fixed effects, list them after the bar separated by <code>+</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">feols</span>(mcosmo <span class="sc">~</span> unemp_c <span class="sc">|</span> cntry <span class="sc">+</span> year, <span class="at">data =</span> euframes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+<div class="webr-ojs-exercise exercise-solution d-none" data-exercise="reproduce">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Fully worked solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>euframes<span class="sc">$</span>unemp_c <span class="ot">&lt;-</span> euframes<span class="sc">$</span>unemp <span class="sc">-</span> <span class="fu">mean</span>(euframes<span class="sc">$</span>unemp)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">feols</span>(mcosmo <span class="sc">~</span> unemp_c <span class="sc">|</span> cntry <span class="sc">+</span> year, <span class="at">data =</span> euframes)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(m1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You should get <code>estimate ≈ −0.00347</code>, <code>std.error ≈ 0.00091</code>, <code>statistic ≈ −3.80</code> – the recorded value reproduces from the published data and the published model. <code>feols</code> reports IID standard errors by default when two fixed-effect dimensions are present, which is why it matches the <code>plm</code> value to three decimals.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Everyone gets the same number, and the five analysts still disagreed
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You reproduced the recorded value exactly, and so did everyone else in the room, because everyone ran the same code on the same file – which is why reproducibility is the cheap R.</p>
+<p>The five Multi100 analysts each wrote their own code for the same claim, and came back with five different answers, one of them not significant. Their pipelines are competent, well-organised work, so the spread is not a quality problem. It is what happens when a claim stated in words leaves several genuinely defensible quantities on the table, and different analysts estimate different ones without noticing they have chosen.</p>
+<p>Task 2 named the quantity you are after and drew the graph that your adjustment set follows from. Task 4 now shows you how far the answer moves when the other choices move.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="task-4-explore" class="level2">
+<h2 class="anchored" data-anchor-id="task-4-explore">Task 4 – Work the menu</h2>
+<p>This task is <strong>exploration, and it is meant to be</strong>. You are going to try several specifications, see what each one does, and get a feel for which choices move the estimate and which barely touch it. Nothing here is a commitment; that comes in Task 5.</p>
+<p><code>try_spec()</code> takes one argument per axis of the <a href="../exercise/spec-menu.html">specification menu</a>, and every argument already carries the baseline you just reproduced. So changing one thing means changing one argument, and everything you do not name stays at baseline.</p>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-13" class="exercise-cell">
+
+</div>
+<script type="webr-13-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IiMgVGhlIGJhc2VsaW5lLCB3aXRoIG5vdGhpbmcgY2hhbmdlZCDigJMgdGhpcyBpcyB0aGUgc3BlY2lmaWNhdGlvbiB5b3VcbiMgcmVwcm9kdWNlZCBpbiBUYXNrIDMuXG50cnlfc3BlYygpIn0=
+</script>
+</div>
+</div>
+<p>Now change one axis at a time. Each of the six calls below moves exactly one thing. The first four change the question that is being asked of the data; the last two keep the question and change only how it is measured. Run them, and watch which ones matter.</p>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-14" class="exercise-cell">
+
+</div>
+<script type="webr-14-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6InRyeV9zcGVjKG91dGNvbWUgICA9IFwibXBvc1wiKSAgICAgICAgICMgdGhlIGNvbXBvc2l0ZSBvZiBhbGwgcG9zaXRpdmUgZnJhbWluZ3NcbnRyeV9zcGVjKGVzdGltYXRvciA9IFwicG9vbGVkX2NsXCIpICAgICMgbm8gY291bnRyeSBjb21wYXJpc29uIGFic29yYmVkIGF0IGFsbFxudHJ5X3NwZWMoc2FtcGxlICAgID0gXCJub19iYWlsb3V0XCIpICAgIyBkcm9wIHRoZSBhc3Npc3RhbmNlLXByb2dyYW1tZSBjb3VudHJpZXNcbnRyeV9zcGVjKHdlaWdodHMgICA9IFwicG9wXCIpICAgICAgICAgICMgbGV0IGVhY2ggY291bnRyeSBjb3VudCBieSBpdHMgYWR1bHQgcG9wdWxhdGlvblxudHJ5X3NwZWMobm9vcCAgICAgID0gXCJkcm9wXCIpICAgICAgICAgIyBsZWF2ZSBvdXQgdGhlIHJlc3BvbmRlbnRzIHdobyBtZW50aW9uZWQgbm8gZnJhbWVcbnRyeV9zcGVjKG1lYXN1cmUgICA9IFwiZXNfMjA2NF9wb3BcIikgICMgYSBFdXJvc3RhdCB1bmVtcGxveW1lbnQgc2VyaWVzIGluc3RlYWQgb2YgdGhlIFdvcmxkIEJhbmsgb25lIn0=
+</script>
+</div>
+</div>
+<p>Then try your own combinations. The full set of arguments, with the baseline as the default for each:</p>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-15" class="exercise-cell">
+
+</div>
+<script type="webr-15-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6InRyeV9zcGVjKFxuICAjIExldmVsIDEg4oCTIHRoZSBxdWVzdGlvblxuICBvdXRjb21lICAgICAgPSBcIm1jb3Ntb1wiLCAgICAgICAjIG1jb3NtbyB8IG11dGlsIHwgbXBvcyB8IG1jb21tIHwgbWxpYiB8IG1uZWdcbiAgcHJlZGljdG9yICAgID0gXCJ1bmVtcFwiLCAgICAgICAgIyB1bmVtcCB8IGdyb3d0aFxuICBjb3ByZWRpY3RvciAgPSBcIm5vbmVcIiwgICAgICAgICAjIG5vbmUgfCBvdGhlciAgICh0aGUgb3RoZXIgbWFjcm8gbWVhc3VyZSwgYWRqdXN0ZWQgZm9yKVxuICBlc3RpbWF0b3IgICAgPSBcImZlX3R3b3dheVwiLCAgICAjIGZlX3R3b3dheSB8IGZlX2NvdW50cnkgfCByZSB8IHBvb2xlZF9jbFxuICBzYW1wbGUgICAgICAgPSBcImFsbFwiLCAgICAgICAgICAjIGFsbCB8IHkyMDA0XzIwMDggfCB5MjAwOV8yMDEzIHwgbm9fYmFpbG91dCB8IG5vX0dSX0VTXG4gIHdlaWdodHMgICAgICA9IFwibm9uZVwiLCAgICAgICAgICMgbm9uZSB8IG5fY2VsbCB8IG5fZWZmIHwgcG9wICAgKHJlIGlzIG5ldmVyIHdlaWdodGVkKVxuICBjb25zdHJ1Y3Rpb24gPSBcInNoYXJlXCIsICAgICAgICAjIHNoYXJlIHwgY291bnQgfCByYXRlICAgKHNoYXJlIG9mIG93biBtZW50aW9ucywgY291bnQgb2YgdGhlIHNldCdzIGl0ZW1zLCBjb3VudCBwZXIgaXRlbSlcbiAgIyBMZXZlbCAyIOKAkyB0aGUgbWVhc3VyZW1lbnRcbiAgbm9vcCAgICAgICAgID0gXCJ6ZXJvXCIsICAgICAgICAgIyB6ZXJvIHwgZHJvcCB8IHNwbGl0IHwgbWlfbWljZSB8IG1pX2FtZWxpYVxuICBpdGVtX3NldCAgICAgPSBcImFsbFwiLCAgICAgICAgICAjIGFsbCB8IHVuICAgKHdpdGggb3Igd2l0aG91dCB0aGUgXCJ1bmVtcGxveW1lbnRcIiBpdGVtKVxuICBjZWxsX3dlaWdodCAgPSBcInVud2VpZ2h0ZWRcIiwgICAjIHVud2VpZ2h0ZWQgfCBkZXNpZ25cbiAgbWVhc3VyZSAgICAgID0gXCJ3Yl9uYXRcIiwgICAgICAgIyB1bmVtcDogd2JfbmF0IHwgZXNfMTU3NF9hY3QgfCBlc18yMDY0X3BvcCB8IGVzXzI1NjRfbGZzIHwgZXNfMTU3NF90aXBzXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjIGdyb3d0aDogd2JfZ3Jvd3RoIHwgZXNfZ3Jvd3RoXG4gICMgTGV2ZWwgMyDigJMgdGhlIGFyaXRobWV0aWNcbiAgcHJlZF9mb3JtICAgID0gXCJyYXdcIiwgICAgICAgICAgIyByYXcgfCBsb2cgICAoZ3Jvd3RoOiByYXcgb25seSlcbiAgZmFtaWx5ICAgICAgID0gXCJnYXVzc2lhblwiLCAgICAgIyBnYXVzc2lhbiB8IGJldGEgICAoY2Fub25pY2FsIG1lYXN1cmVtZW50IHNldHRpbmdzIG9ubHkpXG4gIHNlICAgICAgICAgICA9IFwiY29udmVudGlvbmFsXCIgICMgY29udmVudGlvbmFsIHwgY2x1c3RlcmVkXG4pIn0=
+</script>
+</div>
+</div>
+<p>Everything you try is logged. Print the log to see the small multiverse you have just built – only the axes you actually varied are shown, so the contrast is readable:</p>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-16" class="exercise-cell">
+
+</div>
+<script type="webr-16-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Im15X2V4cGVyaW1lbnRzKCkifQ==
+</script>
+</div>
+</div>
+<p>When you have tried three or four, decide which one you would defend if you had to, run it once more so it is the most recent, and submit it. It lands on the live <a href="https://codemoreh.github.io/applied-replication/results.html">Multiverse</a> chart as an <strong>exploratory</strong> result:</p>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-17" class="exercise-cell">
+
+</div>
+<script type="webr-17-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6InN1Ym1pdF9leHBsb3JhdGlvbigpIn0=
+</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why ‘exploratory’?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Because you chose this specification after seeing what several specifications do, it cannot carry the guarantee that a declared choice carries – no one can rule out that it might have been chosen <em>because</em> of its result. This is something we almost never know in the case of published papers, unless their analysis has been pre-registered and departures from the pre-registration documented. In this course exploration is a natural step, but you’ll also practise pre-registering your chosen analysis; you will submit twice: once here, and once in Task 5.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="task-5-my-preregistration" class="level2">
+<h2 class="anchored" data-anchor-id="task-5-my-preregistration">Task 5 – Commit before you look</h2>
+<p>The point of preregistration is that you commit to a choice <strong>before</strong> you see what it does. It stops you quietly picking the specification that happens to give the answer you wanted. Here the commitment binds mechanically as well: the session remembers the choices you declare in this cell, and every later cell reads them from here. The model builder refuses code that departs from them.</p>
+<div class="callout callout-style-default callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>The block is a real preregistration, shortened
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>Each numbered comment maps to a question in the OSF “Preregistration Template from AsPredicted.org” (the eight-question short form). Because you are reanalysing data that already exist, field 2 also stands in for the prior-knowledge section of the secondary-data template (van den Akker et al.&nbsp;2021) – the part that AsPredicted leaves out.</em></p>
+</div>
+</div>
+<p>Make one choice on each of the fourteen axes of the <a href="../exercise/spec-menu.html">specification menu</a>, complete the dotted lines, then run the cell. The six Level 1 choices fix the question you are asking; the five Level 2 choices fix how that question is measured; the three Level 3 choices fix the arithmetic. Every axis is live. <code>claim_align &lt;- TRUE</code> is the day’s convention, applied automatically: negative framings are reverse-coded (1 − y) and the claim-expected sign for growth is flipped, so ‘supports the claim’ reads as a negative sign for everyone.</p>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-18" class="exercise-cell">
+
+</div>
+<script type="webr-18-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxuIyBNWSBQUkVSRUdJU1RSQVRJT04g4oCTIG9uZSBzcGVjaWZpY2F0aW9uLCBkZWNsYXJlZCBiZWZvcmUgc2VlaW5nIGl0cyByZXN1bHRcbiMgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxuIyAxLiBUaGUgY2xhaW0gSSBhbSB0ZXN0aW5nOiAuLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uXG4jIDIuIFRoZSBkYXRhICsgd2hhdCBJIGFscmVhZHkga25vdzogRVVmcmFtZXNfY3kuY3N2ICgyNzAgY291bnRyeS15ZWFycyxcbiMgICAgcHVibGljKTsgSSBrbm93IHRoZSBjb25zdHJhaW5lZCBiYXNlbGluZSBnaXZlcyB0ID0gLTMuODA0LlxuIyAzLiBNeSBvbmUgc3BlY2lmaWNhdGlvbiDigJMgb25lIGNob2ljZSBvbiBlYWNoIGF4aXM6XG5cbiMgTGV2ZWwgMSDigJMgdGhlIHF1ZXN0aW9uIChlYWNoIG9mIHRoZXNlIGNoYW5nZXMgd2hhdCBpcyBiZWluZyBlc3RpbWF0ZWQpXG5teV9vdXRjb21lICAgICAgPC0gXCJtY29zbW9cIiAgICAgICAjIG1jb3NtbyB8IG11dGlsIHwgbXBvcyAgICAocG9zaXRpdmUgZnJhbWluZ3MpXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIyBtY29tbSAgfCBtbGliICB8IG1uZWcgICAgKG5lZ2F0aXZlIGZyYW1pbmdzKVxubXlfcHJlZGljdG9yICAgIDwtIFwidW5lbXBcIiAgICAgICAgIyB1bmVtcCB8IGdyb3d0aCAgICAodGhlIGNsYWltLWNhcnJ5aW5nIG1lYXN1cmUpXG5teV9jb3ByZWRpY3RvciAgPC0gXCJub25lXCIgICAgICAgICAjIG5vbmUgfCBvdGhlciAgICAgICh0aGUgb3RoZXIgbWFjcm8gbWVhc3VyZSwgYWRqdXN0ZWQgZm9yKVxubXlfZXN0aW1hdG9yICAgIDwtIFwiZmVfdHdvd2F5XCIgICAgIyBmZV90d293YXkgfCBmZV9jb3VudHJ5IHwgcmUgfCBwb29sZWRfY2xcbm15X3NhbXBsZSAgICAgICA8LSBcImFsbFwiICAgICAgICAgICMgYWxsIHwgeTIwMDRfMjAwOCB8IHkyMDA5XzIwMTMgfCBub19iYWlsb3V0IHwgbm9fR1JfRVNcbm15X3dlaWdodHMgICAgICA8LSBcIm5vbmVcIiAgICAgICAgICMgbm9uZSB8IG5fY2VsbCB8IG5fZWZmIHwgcG9wICAgKHJlIGlzIG5ldmVyIHdlaWdodGVkKVxubXlfY29uc3RydWN0aW9uIDwtIFwic2hhcmVcIiAgICAgICAgIyBzaGFyZSB8IGNvdW50IHwgcmF0ZSAgIChzaGFyZSBvZiBvd24gbWVudGlvbnMsIGNvdW50IG9mIHRoZVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICMgICBzZXQncyBpdGVtcywgb3IgY291bnQgcGVyIGl0ZW0gaW4gdGhlIHNldClcblxuIyBMZXZlbCAyIOKAkyB0aGUgbWVhc3VyZW1lbnQgKHRoZSBzYW1lIHF1ZXN0aW9uLCBwdXQgdG8gdGhlIGRhdGEgZGlmZmVyZW50bHkpXG5teV9ub29wICAgICAgICAgPC0gXCJ6ZXJvXCIgICAgICAgICAjIHplcm8gfCBkcm9wIHwgc3BsaXQgfCBtaV9taWNlIHwgbWlfYW1lbGlhXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIyAgIChyZXNwb25kZW50cyB3aG8gbWVudGlvbmVkIG5vIGZyYW1lIGF0IGFsbClcbm15X2l0ZW1fc2V0ICAgICA8LSBcImFsbFwiICAgICAgICAgICMgYWxsIHwgdW4gICAod2l0aCBvciB3aXRob3V0IHRoZSBcInVuZW1wbG95bWVudFwiIGl0ZW0pXG5teV9jZWxsX3dlaWdodCAgPC0gXCJ1bndlaWdodGVkXCIgICAjIHVud2VpZ2h0ZWQgfCBkZXNpZ24gICAoY2VsbHMgYXMgaW50ZXJ2aWV3ZWQsIG9yIGRlc2lnbi13ZWlnaHRlZClcbm15X21lYXN1cmUgICAgICA8LSBcIndiX25hdFwiICAgICAgICMgdW5lbXA6ICB3Yl9uYXQgfCBlc18xNTc0X2FjdCB8IGVzXzIwNjRfcG9wIHwgZXNfMjU2NF9sZnMgfCBlc18xNTc0X3RpcHNcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjIGdyb3d0aDogd2JfZ3Jvd3RoIHwgZXNfZ3Jvd3RoXG5cbiMgTGV2ZWwgMyDigJMgdGhlIGVzdGltYXRpb24gKHRoZSBzYW1lIHF1ZXN0aW9uIGFuZCBtZWFzdXJlcywgYW5vdGhlciBmaXQpXG5teV9wcmVkX2Zvcm0gICAgPC0gXCJyYXdcIiAgICAgICAgICAjIHJhdyB8IGxvZyAgIChncm93dGg6IHJhdyBvbmx5OyBjZW50cmluZyBvciB6LXNjYWxpbmdcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjICAgICAgICAgICAgICB3b3VsZCBsZWF2ZSB0LCByIGFuZCBwIHVuY2hhbmdlZClcbm15X2ZhbWlseSAgICAgICA8LSBcImdhdXNzaWFuXCIgICAgICMgZ2F1c3NpYW4gfCBiZXRhICAgKGxvZ2l0IGxpbmsgb24gdGhlIGNlbGwgbWVhbnM7IGJldGFcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAjICAgICAgICAgICAgICAgICAgICByZXBvcnRzIHo7IGNhbm9uaWNhbCBtZWFzdXJlbWVudCBvbmx5KVxubXlfc2UgICAgICAgICAgIDwtIFwiY29udmVudGlvbmFsXCIgIyBjb252ZW50aW9uYWwgfCBjbHVzdGVyZWQgICAoY2x1c3RlcmVkIGJ5IGNvdW50cnkpXG5cbmNsYWltX2FsaWduICAgICA8LSBUUlVFICAgICAgICAgICAjIHRoZSBjb3Vyc2UgY29udmVudGlvbiwgYXBwbGllZCBhdXRvbWF0aWNhbGx5XG5cbiMgNC4gV2h5IHRoZXNlIGNvbnRyb2xzLCBpbiBvbmUgREFHLWdyb3VuZGVkIHNlbnRlbmNlOiAuLi4uLi4uLi4uLi4uLi4uLi4uLi4uLlxuIyA1LiBTdXBwb3J0ZWQgaWYgdGhlIGNsYWltLWFsaWduZWQgY29lZmZpY2llbnQgaXMgbmVnYXRpdmUgYW5kIHAgPCAuMDU7XG4jICAgIHVuZGVybWluZWQgaWYgbm9uLXNpZ25pZmljYW50IG9yIHBvc2l0aXZlLiBJIHdpbGwgcmVwb3J0IHdoYXQgSSBnZXQuXG5cbnByZXJlZygpICAgIyBjaGVja3MgZXZlcnkgY2hvaWNlIGFnYWluc3QgdGhlIG1lbnUgYW5kIHJlY29yZHMgdGhlIGRlY2xhcmF0aW9uIn0=
+</script>
+</div>
+</div>
+<p>An optional mirror form logs preregistrations for the room, and the link is shared in the session. It is not required. The cell above, copied into your notes, is your preregistration record.</p>
+</section>
+<section id="task-5-build-run-report" class="level2">
+<h2 class="anchored" data-anchor-id="task-5-build-run-report">Task 5, continued – build, run and report</h2>
+<p>This is the <strong>robustness</strong> check, and it is the part that your classmates cannot copy from you: together the room samples the multiverse of defensible analyses. You have declared your specification. Now translate it into model syntax yourself, filling the three gaps – the outcome, the right-hand side, and the estimator code – exactly as you preregistered them. <code>build_model()</code> knows your declaration and accepts nothing else, and its error messages tell you what is off. Write the log form as <code>log(unemp)</code>, and add any co-predictor with <code>+</code>.</p>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-19" class="exercise-cell">
+
+</div>
+<script type="webr-19-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Im15X21vZGVsIDwtIGJ1aWxkX21vZGVsKF9fX19fXyB+IF9fX19fXywgZXN0aW1hdG9yID0gXCJfX19fX19cIikifQ==
+</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Hint – from menu speak to model syntax
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The formula uses the column names of <code>euframes</code>: the outcome you preregistered on the left of <code>~</code>, the predictor terms on the right. For the baseline declaration it is <code>mcosmo ~ unemp</code>; with the log form it would be <code>mcosmo ~ log(unemp)</code>; with a co-predictor, <code>mcosmo ~ unemp + growth</code>. The estimator is the menu code itself, in quotes: <code>"fe_twoway"</code>, <code>"fe_country"</code>, <code>"re"</code> or <code>"pooled_cl"</code>. You do not write the fixed-effects or clustering syntax here – the estimator code stands for it, and Task 3 showed what it expands to. The Level 2 and Level 3 choices never appear in the formula at all: they select which version of the panel the result was computed on and which fitting convention was used.</p>
+</div>
+</div>
+</div>
+<p>When the model is accepted, run it. Every specification on the menu is pre-computed: the six Level 1 choices name a small file that the page fetches from the site, and the other eight pick one row inside it – the same numbers that a live fit produces, without downloading the estimation packages into your browser:</p>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-20" class="exercise-cell">
+
+</div>
+<script type="webr-20-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6InJ1bl9zcGVjKG15X21vZGVsKSJ9
+</script>
+</div>
+</div>
+<p>Read the output like an analyst: the coefficient and its claim-aligned partial <em>r</em> (below zero supports the claim), and your placement – what share of the canonical 840-specification grid supports the claim more strongly than your choice does. The five Multi100 analysts run from about the 16th percentile (the most strongly claim-supporting) to about the 68th (near the null), and your dot is about to join theirs.</p>
+<p>Now send it to the room. The result travels straight from your declaration, so there is nothing to fill in or transcribe. The cell prints your submission line and a pre-filled form link; click it and press <strong>Send</strong>. Your dot joins the live <a href="https://codemoreh.github.io/applied-replication/results.html">Multiverse</a> chart within seconds, this time labelled <strong>declared</strong> rather than exploratory.</p>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-21" class="exercise-cell">
+
+</div>
+<script type="webr-21-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6InJlcG9ydF9yZXN1bHQoKSJ9
+</script>
+</div>
+</div>
+<p>If the form will not open on your machine, read the printed numbers to the facilitator and your dot still lands.</p>
+<p><strong>A second declared specification?</strong> Edit the preregistration cell, rerun <code>prereg()</code>, rebuild, rerun. The mechanics allow it, and the label does not change – so be clear with yourself about what the second one is. Your first declaration was made without knowing its result. Anything after it was not, which puts it back in the same category as Task 4, and you should say so when you report it.</p>
+</section>
+<section id="taking-it-home" class="level2">
+<h2 class="anchored" data-anchor-id="taking-it-home">Taking it home</h2>
+<p>You did the whole analysis without installing anything. Putting your own work under version control and publishing the rendered report is the natural next step. A self-study module walks through it click by click: <a href="../companion/git-github.html">Git and GitHub self-study</a>.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>After the workshop – the full pipeline
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Everything on this page also exists in the downloadable workspace: a folder you open in Positron, edit, and render offline. If you want the version with <code>osfr</code> data-fetching and an automated publish step, start from the <a href="../exercise/index.html">exercise overview</a> – the <a href="https://github.com/CodeMoreh/replication-lab"><code>replication-lab</code> workspace</a> is yours to reuse.</p>
+</div>
+</div>
+
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC42LjAvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsImRwbHlyIiwiZ2dwbG90MiIsImJyb29tIiwiZml4ZXN0IiwiaHRtbHRvb2xzIl0sInJlcG9zIjpbXX0sInJlbmRlcl9kZiI6ImRlZmF1bHQifQ==
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzIxID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yMSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0yMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjA7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzIwID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMjAtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0yMC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8yMCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMjAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTk7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE5ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTktY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xOSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTksIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTg7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE4ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTgtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xOC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xOCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTgsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE3ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTctY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTY7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE2ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTYtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTU7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE1ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTUtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE0ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTM7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEzID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTMtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTI7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEyID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV4ZXJjaXNlIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oXG4gICAge1xuICAgICAgaWQ6IFwid2Vici0xMi1jb250ZW50c1wiLFxuICAgICAgZW52aXI6IGBleGVyY2lzZS1lbnYtJHtibG9jay5hdHRyLmV4ZXJjaXNlfWAsXG4gICAgICBlcnJvcjogZmFsc2UsXG4gICAgICBjYXB0aW9uOiAnRXhlcmNpc2UnLFxuICAgIH0sXG4gICAgYmxvY2suYXR0clxuICApO1xuXG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxudmlld29mIF93ZWJyX3ZhbHVlXzEyID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8xMiwge30pO1xuX3dlYnJfZmVlZGJhY2tfMTIgPSB7XG4gIGNvbnN0IHsgV2ViUkdyYWRlciB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3QgZW1wdHlGZWVkYmFjayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xuXG4gIGNvbnN0IGdyYWRlciA9IG5ldyBXZWJSR3JhZGVyKF93ZWJyX3ZhbHVlXzEyLmV2YWx1YXRvcik7XG4gIGNvbnN0IGZlZWRiYWNrID0gYXdhaXQgZ3JhZGVyLmdyYWRlRXhlcmNpc2UoKTtcbiAgaWYgKCFmZWVkYmFjaykgcmV0dXJuIGVtcHR5RmVlZGJhY2s7XG4gIHJldHVybiBmZWVkYmFjaztcbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTA7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEwID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTAtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC05IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV85O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzkgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV85ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl85LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfODtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItOC1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfOCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfOCwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici03IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6Il93ZWJyX3ZhbHVlXzcgPSB7XG4gIGNvbnN0IHsgaGlnaGxpZ2h0UiwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNy1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXZhbHVhdGlvbiBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHtcbiAgICBpZDogXCJ3ZWJyLTctY29udGVudHNcIixcbiAgICBlY2hvOiB0cnVlLFxuICAgIG91dHB1dDogdHJ1ZVxuICB9LCBibG9jay5hdHRyKTtcblxuICAvLyBFdmFsdWF0ZSB0aGUgcHJvdmlkZWQgUiBjb2RlXG4gIGNvbnN0IHJlc3VsdCA9IHdlYlJPanMucHJvY2Vzcyh7Y29kZTogYmxvY2suY29kZSwgb3B0aW9uc30sIHt9KTtcblxuICAvLyBFYXJseSB5aWVsZCB3aGlsZSB3ZSB3YWl0IGZvciB0aGUgZmlyc3QgZXZhbHVhdGlvbiBhbmQgcmVuZGVyXG4gIGlmIChvcHRpb25zLm91dHB1dCAmJiAhKFwiN1wiIGluIHdlYlJPanMucmVuZGVyZWRPanMpKSB7XG4gICAgY29uc3QgY29udGFpbmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcbiAgICBjb25zdCBzcGlubmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcblxuICAgIGlmIChvcHRpb25zLmVjaG8pIHtcbiAgICAgIC8vIFNob3cgb3V0cHV0IGFzIGhpZ2hsaWdodGVkIHNvdXJjZVxuICAgICAgY29uc3QgcHJlRWxlbSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJwcmVcIik7XG4gICAgICBjb250YWluZXIuY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlXCI7XG4gICAgICBwcmVFbGVtLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZSByXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKGhpZ2hsaWdodFIoYmxvY2suY29kZSkpO1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItZ3JvdyBzcGlubmVyLWdyb3ctc20gbS0yIHBvc2l0aW9uLWFic29sdXRlIHRvcC0wIGVuZC0wXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHByZUVsZW0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ib3JkZXIgc3Bpbm5lci1ib3JkZXItc21cIjtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICB9XG5cbiAgICB5aWVsZCBjb250YWluZXI7XG4gIH1cblxuICB3ZWJST2pzLnJlbmRlcmVkT2pzW1wiN1wiXSA9IHRydWU7XG4gIHlpZWxkIGF3YWl0IHJlc3VsdDtcbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC02IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV82O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzYgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV82ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl82LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNTtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNSwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNCA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV4ZXJjaXNlIGNvbmZpZ3VyYXRpb25cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oXG4gICAge1xuICAgICAgaWQ6IFwid2Vici00LWNvbnRlbnRzXCIsXG4gICAgICBlbnZpcjogYGV4ZXJjaXNlLWVudi0ke2Jsb2NrLmF0dHIuZXhlcmNpc2V9YCxcbiAgICAgIGVycm9yOiBmYWxzZSxcbiAgICAgIGNhcHRpb246ICdFeGVyY2lzZScsXG4gICAgfSxcbiAgICBibG9jay5hdHRyXG4gICk7XG5cbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG52aWV3b2YgX3dlYnJfdmFsdWVfNCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNCwge30pO1xuX3dlYnJfZmVlZGJhY2tfNCA9IHtcbiAgY29uc3QgeyBXZWJSR3JhZGVyIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBlbXB0eUZlZWRiYWNrID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7XG5cbiAgY29uc3QgZ3JhZGVyID0gbmV3IFdlYlJHcmFkZXIoX3dlYnJfdmFsdWVfNC5ldmFsdWF0b3IpO1xuICBjb25zdCBmZWVkYmFjayA9IGF3YWl0IGdyYWRlci5ncmFkZUV4ZXJjaXNlKCk7XG4gIGlmICghZmVlZGJhY2spIHJldHVybiBlbXB0eUZlZWRiYWNrO1xuICByZXR1cm4gZmVlZGJhY2s7XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMztcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTMiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8zID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMy1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTMtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMywge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzI7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0yIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6Il93ZWJyX3ZhbHVlXzIgPSB7XG4gIGNvbnN0IHsgaGlnaGxpZ2h0UiwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXZhbHVhdGlvbiBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHtcbiAgICBpZDogXCJ3ZWJyLTItY29udGVudHNcIixcbiAgICBlY2hvOiB0cnVlLFxuICAgIG91dHB1dDogdHJ1ZVxuICB9LCBibG9jay5hdHRyKTtcblxuICAvLyBFdmFsdWF0ZSB0aGUgcHJvdmlkZWQgUiBjb2RlXG4gIGNvbnN0IHJlc3VsdCA9IHdlYlJPanMucHJvY2Vzcyh7Y29kZTogYmxvY2suY29kZSwgb3B0aW9uc30sIHt9KTtcblxuICAvLyBFYXJseSB5aWVsZCB3aGlsZSB3ZSB3YWl0IGZvciB0aGUgZmlyc3QgZXZhbHVhdGlvbiBhbmQgcmVuZGVyXG4gIGlmIChvcHRpb25zLm91dHB1dCAmJiAhKFwiMlwiIGluIHdlYlJPanMucmVuZGVyZWRPanMpKSB7XG4gICAgY29uc3QgY29udGFpbmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcbiAgICBjb25zdCBzcGlubmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcblxuICAgIGlmIChvcHRpb25zLmVjaG8pIHtcbiAgICAgIC8vIFNob3cgb3V0cHV0IGFzIGhpZ2hsaWdodGVkIHNvdXJjZVxuICAgICAgY29uc3QgcHJlRWxlbSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJwcmVcIik7XG4gICAgICBjb250YWluZXIuY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlXCI7XG4gICAgICBwcmVFbGVtLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZSByXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKGhpZ2hsaWdodFIoYmxvY2suY29kZSkpO1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItZ3JvdyBzcGlubmVyLWdyb3ctc20gbS0yIHBvc2l0aW9uLWFic29sdXRlIHRvcC0wIGVuZC0wXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHByZUVsZW0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ib3JkZXIgc3Bpbm5lci1ib3JkZXItc21cIjtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICB9XG5cbiAgICB5aWVsZCBjb250YWluZXI7XG4gIH1cblxuICB3ZWJST2pzLnJlbmRlcmVkT2pzW1wiMlwiXSA9IHRydWU7XG4gIHlpZWxkIGF3YWl0IHJlc3VsdDtcbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8xO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJfd2Vicl92YWx1ZV8xID0ge1xuICBjb25zdCB7IGhpZ2hsaWdodFIsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICAvLyBEZWZhdWx0IGV2YWx1YXRpb24gY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7XG4gICAgaWQ6IFwid2Vici0xLWNvbnRlbnRzXCIsXG4gICAgZWNobzogdHJ1ZSxcbiAgICBvdXRwdXQ6IHRydWVcbiAgfSwgYmxvY2suYXR0cik7XG5cbiAgLy8gRXZhbHVhdGUgdGhlIHByb3ZpZGVkIFIgY29kZVxuICBjb25zdCByZXN1bHQgPSB3ZWJST2pzLnByb2Nlc3Moe2NvZGU6IGJsb2NrLmNvZGUsIG9wdGlvbnN9LCB7fSk7XG5cbiAgLy8gRWFybHkgeWllbGQgd2hpbGUgd2Ugd2FpdCBmb3IgdGhlIGZpcnN0IGV2YWx1YXRpb24gYW5kIHJlbmRlclxuICBpZiAob3B0aW9ucy5vdXRwdXQgJiYgIShcIjFcIiBpbiB3ZWJST2pzLnJlbmRlcmVkT2pzKSkge1xuICAgIGNvbnN0IGNvbnRhaW5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG4gICAgY29uc3Qgc3Bpbm5lciA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJkaXZcIik7XG5cbiAgICBpZiAob3B0aW9ucy5lY2hvKSB7XG4gICAgICAvLyBTaG93IG91dHB1dCBhcyBoaWdobGlnaHRlZCBzb3VyY2VcbiAgICAgIGNvbnN0IHByZUVsZW0gPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwicHJlXCIpO1xuICAgICAgY29udGFpbmVyLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZVwiO1xuICAgICAgcHJlRWxlbS5jbGFzc05hbWUgPSBcInNvdXJjZUNvZGUgclwiO1xuICAgICAgcHJlRWxlbS5hcHBlbmRDaGlsZChoaWdobGlnaHRSKGJsb2NrLmNvZGUpKTtcbiAgICAgIHNwaW5uZXIuY2xhc3NOYW1lID0gXCJzcGlubmVyLWdyb3cgc3Bpbm5lci1ncm93LXNtIG0tMiBwb3NpdGlvbi1hYnNvbHV0ZSB0b3AtMCBlbmQtMFwiO1xuICAgICAgcHJlRWxlbS5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChwcmVFbGVtKTtcbiAgICB9IGVsc2Uge1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItYm9yZGVyIHNwaW5uZXItYm9yZGVyLXNtXCI7XG4gICAgICBjb250YWluZXIuYXBwZW5kQ2hpbGQoc3Bpbm5lcik7XG4gICAgfVxuXG4gICAgeWllbGQgY29udGFpbmVyO1xuICB9XG5cbiAgd2ViUk9qcy5yZW5kZXJlZE9qc1tcIjFcIl0gPSB0cnVlO1xuICB5aWVsZCBhd2FpdCByZXN1bHQ7XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici1wcmVsdWRlIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoid2ViUk9qcyA9IHtcbiAgY29uc3QgeyBXZWJSLCBDaGFubmVsVHlwZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZS5XZWJSO1xuICBjb25zdCB7XG4gICAgV2ViUkV2YWx1YXRvcixcbiAgICBXZWJSRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoXG4gIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHN0YXR1c0NvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1zdGF0dXNcIik7XG4gIGNvbnN0IGluZGljYXRvckNvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGluZGljYXRvckNvbnRhaW5lci5jbGFzc0xpc3QucmVtb3ZlKFwiZC1ub25lXCIpO1xuXG4gIGxldCBzdGF0dXNUZXh0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKVxuICBzdGF0dXNUZXh0LmNsYXNzTGlzdCA9IFwiZXhlcmNpc2UtbG9hZGluZy1kZXRhaWxzXCI7XG4gIHN0YXR1c1RleHQgPSBzdGF0dXNDb250YWluZXIuYXBwZW5kQ2hpbGQoc3RhdHVzVGV4dCk7XG4gIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5pdGlhbGlzZWA7XG5cbiAgLy8gSG9pc3QgaW5kaWNhdG9yIG91dCBmcm9tIGZpbmFsIHNsaWRlIHdoZW4gcnVubmluZyB1bmRlciByZXZlYWxcbiAgY29uc3QgcmV2ZWFsU3RhdHVzID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgLmV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpZiAocmV2ZWFsU3RhdHVzKSB7XG4gICAgcmV2ZWFsU3RhdHVzLnJlbW92ZSgpO1xuICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsID4gLnNsaWRlc1wiKS5hcHBlbmRDaGlsZChyZXZlYWxTdGF0dXMpO1xuICB9XG5cbiAgLy8gTWFrZSBhbnkgcmV2ZWFsIHNsaWRlcyB3aXRoIGxpdmUgY2VsbHMgc2Nyb2xsYWJsZVxuICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKFwiLnJldmVhbCAuZXhlcmNpc2UtY2VsbFwiKS5mb3JFYWNoKChlbCkgPT4ge1xuICAgIGVsLmNsb3Nlc3QoJ3NlY3Rpb24uc2xpZGUnKS5jbGFzc0xpc3QuYWRkKFwic2Nyb2xsYWJsZVwiKTtcbiAgfSlcblxuICAvLyB3ZWJSIHN1cHBsZW1lbnRhbCBkYXRhIGFuZCBvcHRpb25zXG4gIGNvbnN0IGRhdGFDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItZGF0YVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGRhdGEgPSBKU09OLnBhcnNlKGI2NERlY29kZShkYXRhQ29udGVudCkpO1xuXG4gIC8vIEdyYWIgbGlzdCBvZiByZXNvdXJjZXMgdG8gYmUgZG93bmxvYWRlZFxuICBjb25zdCBmaWxlc0NvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwidmZzLWZpbGVcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBmaWxlcyA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGZpbGVzQ29udGVudCkpO1xuXG4gIC8vIEluaXRpYWxpc2Ugd2ViUiBhbmQgc2V0dXAgZm9yIFIgY29kZSBldmFsdWF0aW9uXG4gIGxldCB3ZWJSUHJvbWlzZSA9IChhc3luYyAod2ViUikgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgd2ViUmA7XG4gICAgYXdhaXQgd2ViUi5pbml0KCk7XG5cbiAgICAvLyBJbnN0YWxsIHByb3ZpZGVkIGxpc3Qgb2YgcGFja2FnZXNcbiAgICAvLyBFbnN1cmUgd2ViUiBkZWZhdWx0IHJlcG8gaXMgaW5jbHVkZWRcbiAgICBkYXRhLnBhY2thZ2VzLnJlcG9zLnB1c2goXCJodHRwczovL3JlcG8uci13YXNtLm9yZ1wiKVxuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIHdlYlIuZXZhbFJWb2lkKGBcbiAgICAgICAgd2Vicjo6aW5zdGFsbChwa2csIHJlcG9zID0gcmVwb3MpXG4gICAgICAgIGxpYnJhcnkocGtnLCBjaGFyYWN0ZXIub25seSA9IFRSVUUpXG4gICAgICBgLCB7IGVudjoge1xuICAgICAgICBwa2c6IHBrZyxcbiAgICAgICAgcmVwb3M6IGRhdGEucGFja2FnZXMucmVwb3MsXG4gICAgICB9fSk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgY29uc3QgYW5hbHlzaXMgPSBhd2FpdCB3ZWJSLkZTLmFuYWx5emVQYXRoKHBhdGgpO1xuICAgICAgICBpZiAoIWFuYWx5c2lzLmV4aXN0cykge1xuICAgICAgICAgIHRyeSB7XG4gICAgICAgICAgICBhd2FpdCB3ZWJSLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvcjogXCIke2UubWVzc2FnZX1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHJldHVybiBhd2FpdCB3ZWJSLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluc3RhbGxpbmcgd2ViUiBzaGltc2A7XG4gICAgYXdhaXQgd2ViUi5ldmFsUlZvaWQoYHdlYnI6OnNoaW1faW5zdGFsbCgpYCk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFdlYlIgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUih3ZWJSLCBkYXRhKTtcblxuICAgIHN0YXR1c1RleHQucmVtb3ZlKCk7XG4gICAgaWYgKHN0YXR1c0NvbnRhaW5lci5jaGlsZHJlbi5sZW5ndGggPT0gMCkge1xuICAgICAgc3RhdHVzQ29udGFpbmVyLnBhcmVudE5vZGUucmVtb3ZlKCk7XG4gICAgfVxuICAgIHJldHVybiB3ZWJSO1xuICB9KShuZXcgV2ViUihkYXRhLm9wdGlvbnMpKTtcblxuICAvLyBLZWVwIHRyYWNrIG9mIGluaXRpYWwgT0pTIGJsb2NrIHJlbmRlclxuICBjb25zdCByZW5kZXJlZE9qcyA9IHt9O1xuXG4gIGNvbnN0IHByb2Nlc3MgPSBhc3luYyAoY29udGV4dCwgaW5wdXRzKSA9PiB7XG4gICAgY29uc3Qgd2ViUiA9IGF3YWl0IHdlYlJQcm9taXNlO1xuICAgIGNvbnN0IGV2YWx1YXRvciA9IG5ldyBXZWJSRXZhbHVhdG9yKHdlYlIsIGNvbnRleHQpXG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHJvY2VzcyxcbiAgICB3ZWJSUHJvbWlzZSxcbiAgICByZW5kZXJlZE9qcyxcbiAgfTtcbn1cbiJ9XX0=
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+WyIuLi9kYXRhL0VVZnJhbWVzX2N5LmNzdiIsIi4uL2RhdGEvZ3JpZC9heGVzLmNzdiIsIi4uL2RhdGEvZ3JpZC9tYW5pZmVzdC5jc3YiLCIuLi9kYXRhL2dyaWQvY2Fub25pY2FsX3JjYS5jc3YiXQ==
+</script>
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-AczelEtAl2026InvestigatingAnalyticalRobustness" class="csl-entry" role="listitem">
+<span class="nocase">Aczel, Balazs, Barnabas Szaszi, Harry T. Clelland, et al.</span> 2026. <span>“Investigating the Analytical Robustness of the Social and Behavioural Sciences.”</span> <em>Nature</em> 652 (8108): 135–42. <a href="https://doi.org/10.1038/s41586-025-09844-9">https://doi.org/10.1038/s41586-025-09844-9</a>.
+</div>
+<div id="ref-Teney2016DoesEUEconomic" class="csl-entry" role="listitem">
+Teney, Céline. 2016. <span>“Does the <span>EU Economic Crisis Undermine Subjective Europeanization</span>? <span>Assessing</span> the <span>Dynamics</span> of <span>Citizens</span>’ <span>EU Framing</span> Between 2004 and 2013.”</span> <em>European Sociological Review</em> 32 (5): 619–33. <a href="https://doi.org/10.1093/esr/jcw008">https://doi.org/10.1093/esr/jcw008</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../exercise";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/codemoreh\.github\.io\/applied-replication\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="https://github.com/CodeMoreh/applied-replication">GitHub repo</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/CodeMoreh/applied-replication/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

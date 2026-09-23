@@ -1,0 +1,15 @@
+---
+title: "One day – an introduction to the statistical methods"
+subtitle: "Four parts of ninety minutes, with the statistics in the foreground"
+---
+This version of the one-day course keeps the statistical methods in the foreground. The case and the exercise are the same as in every format: a Multi100 reanalysis of a claim made by the original author (OA) of a paper about how the European Union is framed across its member states, in which you reproduce a recorded result, write the estimand behind the claim, work a menu of defensible alternatives and declare one before you run it. What changes is where the time goes. The causal-graph crash course runs in full. The specification menu is taken apart axis by axis, with each choice shown doing something to an estimate: the outcome scale and family, the form of the predictor, the four estimators and what fixed effects buy, the copredictor, the sample and the weights. And the closing part gives the multiverse the full treatment, from where the idea came from to why hundreds of estimates on one dataset are not hundreds of tests.
+
+| | What happens | Length |
+|---|---|---|
+| [Before the day](before.qmd) | Install R and an IDE, download the workspace, read the claim, and fit one linear model. | 1 to 3 hours, once |
+| [Part 1 – The case and the vocabulary](part-1.qmd) | One paper, three verdicts, five analysts, and what 'replication' names; then you get running. | 90 minutes |
+| [Part 2 – The claim and its estimand](part-2.qmd) | The paper in full, estimands, and the causal-graph crash course; you write the estimand and finish the graph. | 90 minutes |
+| [Part 3 – Reproduce, then take the model apart](part-3.qmd) | You reproduce the recorded result, then every axis of the menu, one at a time, and an exploratory dot on the class chart. | 90 minutes |
+| [Part 4 – The multiverse and the one path you declare](part-4.qmd) | Reading the curve, what it establishes and what it cannot, and the analysis you declare before it runs. | 90 minutes |
+| [After the day](after.qmd) | Every model on the menu output by output, and the rest of the methods strand. | as you like |
+

@@ -11,10 +11,13 @@
 #      for the organiser and for the README. No page renders it.
 
 # --- Evergreen variables --------------------------------------------------
+# `workshop` is the historical key for the course-wide variables; every page
+# reads it through {{< var workshop.name >}} and {{< var workshop.format >}},
+# so the key stays even though the site is a course (CM, 2026-09-06).
 workshop:
   name: "Applied Replication for Data Skills"
   # The scale at which the course is deliverable, rather than the length of any
-  # one delivery: the four track pages under tracks/ are what this string refers
+  # one delivery: the six track folders under tracks/ are what this string refers
   # to. It is rendered inside the landing page subtitle, so keep any replacement
   # short.
   format: "one day to a semester"
@@ -40,17 +43,18 @@ results-form-url: "https://forms.gle/MWhimagFDmGtprAPA"
 # Set active back to 'false' to return the site to its evergreen state.
 delivery:
   active: 'false'
-  # Which of the four tracks this delivery follows, named by its page under
-  # tracks/. Valid values: one-day, three-days, semester, self-study – i.e.
-  # tracks/one-day.qmd and so on. An empty value prints no track line in the
-  # callout, and so does a value that matches none of the four.
+  # Which of the six tracks this delivery follows, named by its folder under
+  # tracks/. Valid values: one-day-replication, one-day-tools, one-day-methods,
+  # three-days, semester, self-study – i.e. tracks/one-day-replication/ and so
+  # on. An empty value prints no track line in the callout, and so does a value
+  # that matches none of the six.
   track: ""
   date: "Monday 3 August 2026, 10:00–18:00 EEST"
   venue: "Online"
   event: "Făgăraș Summer School"
   mode: "Online, free, open to all"
   registration_url: ""
-  note: "Four 90-minute sessions – 10:00–11:30, 12:00–13:30, 14:30–16:00, 16:30–18:00, Romanian time (EEST, UTC+3). Nothing to install unless you want to: pick either route on the [Setup](setup.qmd) page."
+  note: "Four 90-minute sessions – 10:00–11:30, 12:00–13:30, 14:30–16:00, 16:30–18:00, Romanian time (EEST, UTC+3). Install R and an IDE before the day – the [Setup](setup.qmd) page has the steps – and open the browser lab once, in case your machine will not cooperate on the day."
 
 # --- Last delivery ---------------------------------------------------------
 # A record of the most recent delivery, kept for the organiser and for the

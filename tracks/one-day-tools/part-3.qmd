@@ -1,0 +1,19 @@
+---
+title: "Part 3 – One claim in your hands"
+---
+::: {.callout-note appearance="simple" icon=false}
+**Slides.** [Open the deck at this part](../../slides/one-day-tools.html#/part-3-one-claim-in-your-hands){target="_blank"} in its own tab, or follow it on the [slides page](slides.qmd).
+:::
+
+Part 3 puts one published claim in your hands. It reads the paper in full, asks what quantity the claim is an estimate of, draws the graph that says what has to be held constant, and then has you reproduce the value on record to the third decimal. The estimand and the graph are what stop the afternoon's choices from being arbitrary, so they are not skipped on a tools day.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| Slides, the paper in full | The four framing scales, what OA actually fitted, the robustness question already inside the paper, the failed reproductions and the sign-flipped replication, and the five questions the Multi100 analysts asked in the free phase. | 20 minutes |
+| Slides, what is your estimand | Lundberg's three steps from a theoretical quantity to an empirical one. | 8 minutes |
+| Slides, the causal-graph crash course | Confounders, mediators and colliders; open and closed paths; total against direct effects. Then our own claim: everyone writes a one-sentence estimand, holds it, and sends it together. | 25 minutes |
+| `R/dag_starter.R` in the workspace, or [Browser lab](../../exercise/browser-lab.qmd) Task 2 | Look at the panel; write the estimand in words; take the `#` off the arrows you are willing to defend, re-run `adjustmentSets()`, and write two sentences on what two-way fixed effects adjust for. | 12 minutes |
+| Slides, the constrained task | The three Multi100 instructions read verbatim, what each assumes, the columns of the panel, and the aim of the reproduction. | 8 minutes |
+| Your working script, or [Browser lab](../../exercise/browser-lab.qmd) Task 3 | Fit `mcosmo ~ unemp_c` with country and year fixed effects and land t = −3.804, the value on record for analyst C6HJR. Type your t and hold it until the count. Then: why everyone landed the same t while five analysts writing their own code did not. | 17 minutes |
+
+**By the end of the part** you have the estimand written in one sentence, a graph carrying only the arrows you would defend, and a reproduction of t = −3.804 in your own report.

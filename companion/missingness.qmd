@@ -1,0 +1,364 @@
+---
+title: "Missing answers"
+subtitle: "The respondents who mentioned nothing, and the conventions for them"
+bibliography: [../references.bib, ../references-missing.bib]
+---
+
+```{r}
+#| label: setup
+#| include: false
+suppressPackageStartupMessages({ library(dplyr); library(ggplot2); library(fixest) })
+cy  <- datawizard::data_read("../data/EUframes_cy.csv", verbose = FALSE)
+pw  <- datawizard::data_read("../data/teney_panel_weights.csv", verbose = FALSE)
+me  <- datawizard::data_read("../data/teney_panel_measurement.csv", verbose = FALSE)
+mi  <- datawizard::data_read("../data/spec_grid_mi.csv", verbose = FALSE)
+dg  <- datawizard::data_read("../data/mi_diagnostics.csv", verbose = FALSE)
+lev <- datawizard::data_read("../data/axis_level_summary_maximal.csv", verbose = FALSE)
+cell <- readr::read_csv("../data/grid/mcosmo__unemp__none__fe_twoway__all__none.csv.gz",
+                        show_col_types = FALSE)
+pct <- function(x, d = 1) sprintf(paste0("%.", d, "f%%"), 100 * x)
+num <- function(x, d = 3) gsub("-", "−", formatC(x, digits = d, format = "f"), fixed = TRUE)
+big <- function(x) format(x, big.mark = ",")
+
+n_all  <- sum(pw$n_cy); n_noop <- sum(pw$n_noop)
+n_dk <- sum(pw$n_dk); n_oth <- sum(pw$n_other); n_bl <- sum(pw$n_blank)
+r_noop_unemp <- cor(pw$noop_rate, cy$unemp[match(paste(pw$cntry, pw$year), paste(cy$cntry, cy$year))])
+r_noop_cosmo <- cor(pw$noop_rate, cy$mcosmo[match(paste(pw$cntry, pw$year), paste(cy$cntry, cy$year))])
+by_c <- pw |> summarise(rate = mean(noop_rate), .by = cntry) |> arrange(desc(rate))
+
+# the published specification under each treatment of the no-opinion respondents
+spec <- cell |>
+  filter(construction == "share", item_set == "all", cell_weight == "unweighted",
+         measure == "wb_nat", pred_form == "raw", se == "conventional") |>
+  select(noop, estimate, statistic, df, n, p, r_ca) |>
+  mutate(noop = factor(noop, c("zero", "drop", "split", "mi_mice", "mi_amelia")))
+mi_spec <- mi |> filter(outcome == "mcosmo", copredictor == "none", estimator == "fe_twoway",
+                        sample == "all", reg_weight == "none", se == "conventional")
+noop_lev <- lev |> filter(axis == "noop")
+
+# the sensitivity band: every silent respondent is assigned the answered mean of
+# their cell plus delta; delta = 0 is the drop rule and delta = -(cell mean) is
+# the zero rule, so the two conventions are the two ends of one assumption
+ans <- me |> filter(construction == "share", item_set == "all", noop == "drop",
+                    cell_weight == "unweighted", outcome == "mcosmo") |>
+  select(cntry, year, m_ans = value) |>
+  inner_join(pw |> select(cntry, year, n_cy, n_noop), by = c("cntry", "year")) |>
+  inner_join(cy |> select(cntry, year, unemp), by = c("cntry", "year")) |>
+  mutate(share_noop = n_noop / n_cy)
+band <- purrr::map(seq(-0.6, 0.3, by = 0.05), function(d) {
+  m <- feols(I(m_ans + share_noop * d) ~ unemp | cntry + year, data = ans)
+  tibble(delta = d, b = coef(m)[["unemp"]], t = coeftable(m)["unemp", "t value"])
+}) |> purrr::list_rbind()
+delta_zero <- -weighted.mean(ans$m_ans, ans$n_noop)
+```
+
+The [specification menu](../exercise/spec-menu.qmd) carries an axis called **no-opinion
+handling** with four settings, and this module is the argument for why it is there. The
+short version is that `r big(n_noop)` of the `r big(n_all)` respondents in the EU-frames
+data, `r pct(n_noop / n_all)`, answered the question "What does the EU mean to you
+personally?" by mentioning none of the thirteen things on the list, so that on every
+framing scale their score is zero divided by zero. The original paper and its five
+reanalyses resolved that in two different ways without saying so, and the people
+concerned are not a random slice of the sample.
+
+## The missing answers
+
+The framing scales are built from a multiple-mention battery: a respondent ticks any of
+thirteen items, and the cosmopolitan scale is the share of their ticks that fall on the
+five cosmopolitan items. A respondent who ticks nothing has no share. The survey records
+two further codes for that person, "other (spontaneous)" and "don't know", and the
+`r big(n_noop)` split three ways: `r big(n_dk)` said they did not know, `r big(n_oth)`
+gave an answer that was not on the list, and `r big(n_bl)` have no tick of any kind.
+Those are three different people. Someone who says the EU means something the list
+did not anticipate has an opinion; someone who says they do not know may have none, or
+may have one they would rather not state; a blank row is a refusal, an interviewer's
+omission, or a coding gap, and the file does not say which.
+
+The original author's Stata code divides each cluster count by the total of mentions and
+has no rule for a zero total. Stata returns a missing value for 0/0, and the mixed model
+drops a missing outcome, so those respondents left her analysis without a line of code
+saying so: her reported level-1 N of 390,373 is exactly the number of respondents who
+mentioned at least one item. The Multi100 reanalysis that produced the recorded t of
+−3.804 coded the same respondents 0 on every scale, and the course panel inherits that
+convention. One analyst, PRL47, built both versions and reported the zero one. So the
+published coefficient and its best-known reanalysis differ in what they assume about
+`r pct(n_noop / n_all)` of the sample, and neither states the assumption.
+
+Whether that matters depends on who the silent respondents are, and here the answer is
+unambiguous. They are older, more often women, and they live in country-years with
+higher unemployment. Across the `r nrow(pw)` cells the no-opinion rate correlates at
+`r num(r_noop_unemp, 2)` with the unemployment rate and at `r num(r_noop_cosmo, 2)`
+with the cosmopolitan scale. The rate also differs sharply between countries: it runs at
+`r pct(by_c$rate[1])` in `r by_c$cntry[1]` and `r pct(by_c$rate[2])` in `r by_c$cntry[2]`
+against `r pct(by_c$rate[nrow(by_c)])` in `r by_c$cntry[nrow(by_c)]`. Scoring the silent
+as zero therefore pulls the framing scale down most where unemployment is highest, which
+is the direction the claim predicts. Part of the association is a coding rule.
+
+## The three missingness mechanisms
+
+The vocabulary for thinking about this comes from @Rubin1976InferenceMissingData and is
+set out accessibly by @Dong2013Principled. Data are **missing completely at random**
+when the probability that a value is missing depends on nothing in the data at all, so
+the observed cases are a random sample of the complete ones; dropping them costs
+precision and nothing else. Data are **missing at random** when that probability depends
+on things that were observed but not, once those are accounted for, on the missing value
+itself: for students who scored alike on a pre-test, in the example Dong and Peng use,
+whether the post-test is missing is a coin toss. Data are **missing not at random** when
+the probability depends on the missing value even after the observed data are allowed
+for, as when high earners are the ones who decline to state their income. The labels
+describe the mechanism that produced the gaps, not their size, and the practical
+consequence is asymmetric: the first two can be handled with methods that use only the
+observed data, while the third requires the analyst to say how the missing values differ
+from the observed ones, which the data cannot reveal.
+
+Mapped onto the case, the silent respondents are plainly not missing completely at
+random, since their age, sex and location predict their silence. Missing at random given
+age, sex, education and the country-year cell is the working assumption that every
+imputation below rests on. It is not testable from the observed data alone, a point
+@Dong2013Principled make against the habit of reading a t-test on observed covariates
+as a test of it; what can be done is to make it more plausible by conditioning on
+everything that predicts silence, and then to ask how far the conclusion moves if it is
+wrong. That last step is the sensitivity band at the end of this module. A "don't know"
+about what the EU means is a fair candidate for missing not at random, because the
+people least engaged with the EU are the people least likely to have a framing of it,
+and disengagement is not in the data.
+
+## Three levels
+
+Item non-response on the outcome battery is the case this module works, but the same
+structure recurs at two other levels of this analysis, and the [weighting
+module](weighting.qmd) covers the other two. Inside a country, some people are harder to
+reach or more likely to refuse the whole interview, which is unit non-response, and the
+Eurobarometer W1 design weight is the standard correction for the imbalance it leaves.
+Above the country, one reanalyst's Eurostat table had no United Kingdom row and nothing
+before 2009 for any country but France, so half the country-year cells were missing from
+that analysis before a single respondent was considered. Nonresponse rates on their own
+predict little about the bias that results [@Groves2006Nonresponse; @Groves2008Impact;
+@Hendra2018Rethinking]; what matters is whether the missing units differ from the
+observed ones on the quantity of interest, which is the same question at every level.
+
+## The conventions
+
+Three deterministic rules are on the menu, and each is a statement about what the silent
+respondents mean. **Zero** treats them as people with no framing of any kind, which is
+the reanalysis convention. **Drop** treats them as people who did not answer the
+question, which is what the original author's code did. **Split** takes the three codes
+at their word: "don't know" and blank are dropped as non-response, and "other" is kept
+at zero on the reasoning that an answer off the list is still an answer that contains no
+cosmopolitan content. The rules change the cell means before any model is fitted: the
+average cosmopolitan cell mean is `r num(mean(me$value[me$construction == "share" & me$item_set == "all" & me$noop == "zero" & me$cell_weight == "unweighted" & me$outcome == "mcosmo"]), 3)`
+under zero and `r num(mean(me$value[me$construction == "share" & me$item_set == "all" & me$noop == "drop" & me$cell_weight == "unweighted" & me$outcome == "mcosmo"]), 3)`
+under drop.
+
+The rules also change the question. Under zero the estimand is the average framing among
+everyone interviewed, with silence counted as no framing; under drop it is the average
+framing among people who have a framing at all. Those are different populations, and by
+the test the [specification menu](../exercise/spec-menu.qmd#what-each-decision-commits-you-to)
+applies, that makes the no-opinion rule an estimand decision dressed as a measurement
+one. It is classed with measurement on the menu because that is where the decision is
+made in practice, at the moment the outcome column is built, and a participant meeting
+it there should know that it reaches further.
+
+Across the whole grid the rule moves the claim-direction share and the significant share
+by a few points and the median correlation by a few hundredths:
+
+```{r}
+#| label: tbl-noop-levels
+#| echo: false
+tinytable::tt(
+  noop_lev |>
+    mutate(level = factor(level, c("zero", "drop", "split", "mi_mice", "mi_amelia"),
+                          labels = c("zero", "drop", "split", "imputed (mice)", "imputed (Amelia)"))) |>
+    arrange(level) |>
+    transmute(`No-opinion rule` = level, Specifications = big(n),
+              `Point the claim's way` = pct(claim_share / 100),
+              Significant = pct(sig_share / 100),
+              `Median aligned r` = num(median_r_ca)) |>
+    as.data.frame()) |>
+  tinytable::style_tt(j = 2:5, align = "r") |>
+  tinytable::style_tt(fontsize = 0.8)
+```
+
+: The no-opinion rule across every specification in which it varies. The two imputation rows are fitted at the canonical measurement settings only. {#tbl-noop-levels}
+
+The published specification shows what those averages conceal. Under the five rules the
+coefficient on unemployment for cosmopolitan framing, with two-way fixed effects on all
+270 cells, is:
+
+```{r}
+#| label: tbl-noop-spec
+#| echo: false
+tinytable::tt(
+  spec |> arrange(noop) |>
+    transmute(Rule = c(zero = "zero (Multi100)", drop = "drop (original paper)",
+                       split = "split", mi_mice = "imputed, mice",
+                       mi_amelia = "imputed, Amelia")[as.character(noop)],
+              b = gsub("-", "−", formatC(estimate, digits = 3, format = "g"), fixed = TRUE),
+              t = num(statistic, 2), df = formatC(df, format = "f", digits = 0),
+              p = gsub("-", "−", formatC(p, digits = 2, format = "g"), fixed = TRUE),
+              `aligned r` = num(r_ca)) |>
+    as.data.frame()) |>
+  tinytable::style_tt(j = 2:6, align = "r") |>
+  tinytable::style_tt(fontsize = 0.8)
+```
+
+: The published Multi100 specification of analyst C6HJR under each treatment of the respondents who mentioned nothing. {#tbl-noop-spec}
+
+## Multiple imputation
+
+Imputation replaces a rule with a model. Instead of deciding what the silent would have
+said, it estimates a distribution for each missing score from the respondent's
+observed characteristics and draws from it, and it does so several times over so that
+the uncertainty of the guess is carried into the final standard error rather than
+hidden in a single filled-in number. @Dong2013Principled describe the three steps: fill
+the gaps m times to produce m complete datasets, analyse each with the model you would
+have run anyway, and combine the m results with the rules @Rubin1987Imputation gave,
+under which the pooled estimate is the mean of the m estimates and its variance is the
+mean within-imputation variance plus the between-imputation variance inflated by a
+factor of 1 + 1/m. The between-imputation part is the price of not knowing, and a
+single imputation, which sets it to zero, understates every standard error it touches.
+How many imputations are enough depends on how much information is missing;
+@Graham2007Many show that the once-standard three to five are too few when the fraction
+of missing information is not small, and the course uses ten. The imputation model
+should carry every variable in the analysis model and anything else that predicts
+either the missing values or their missingness [@CollinsEtAl2001ComparisonInclusiveRestrictive;
+@Schafer2002View], and it should not be *less* general than the analysis model, a
+condition @Meng1994Imputation named congeniality and which is easy to violate here, since
+the imputation happens at respondent level and the analysis at cell level.
+
+Two engines are run on the case, because they come from different traditions and the
+course should show both. **mice** [@Buuren2011Mice] imputes one variable at a time
+conditional on the others, cycling until the imputations settle, and the version used
+here draws each missing share from respondents with similar predicted values, which
+keeps every imputed score inside the range a bounded scale can take
+[@White2010Imputation]. **Amelia** [@HonakerEtAl2011AmeliaIIProgram; @KingEtAl2001AnalyzingIncompletePolitical]
+fits one multivariate normal model to all the variables at once by expectation
+maximisation with bootstrapping, the approach Gary King's group developed for
+time-series cross-section data of exactly this shape [@HonakerKing2010WhatMissingValues],
+and draws from that model; its draws can fall outside the unit interval and are clipped.
+Both condition on age, sex, education and the country and year of interview. Each of the
+ten completed respondent files is aggregated to country-year means and every one of the
+1,560 estimand cells of the menu is fitted on each, then pooled.
+
+```{r}
+#| label: tbl-mi
+#| echo: false
+tinytable::tt(
+  mi_spec |>
+    transmute(Engine = c(mice_pmm = "mice, predictive mean matching",
+                         amelia_emb = "Amelia, EM with bootstrapping")[engine],
+              b = gsub("-", "−", formatC(estimate, digits = 3, format = "g"), fixed = TRUE),
+              t = num(statistic, 2), df = formatC(df, format = "f", digits = 0),
+              `Fraction of missing information` = num(fmi, 3)) |>
+    as.data.frame()) |>
+  tinytable::style_tt(j = 2:5, align = "r") |>
+  tinytable::style_tt(fontsize = 0.8)
+```
+
+: The published specification under multiple imputation, pooled over ten imputations by Rubin's rules. The fraction of missing information is the share of the coefficient's uncertainty that is due to the silent respondents. {#tbl-mi}
+
+The two engines land close to one another and close to the drop rule, which is what
+should happen when the imputation model conditions on the same things that distinguish
+the silent from the rest: under missing at random, filling the gaps from people who look
+like them is a more careful version of leaving them out. The gap between the imputed
+rows and the zero row is the part of the published result that the zero convention
+supplied. That is a result about this case; @Lall2016Imputation reanalysed thirty
+studies in comparative and international political economy with multiple imputation in
+place of listwise deletion and found that the main results of fourteen of them
+disappeared, because in that literature the missing cases were the poorer and less
+democratic countries and the analyses had been run, by default, on the rest. Where the
+missing are different from the observed on the thing being studied, the method of
+handling them is part of the finding.
+
+## "Don't know" as an answer
+
+Survey methodologists have argued for fifty years about whether a "don't know" is
+missing data or a response. @Francis1975Know reviewed the early evidence;
+@Krosnick2001Impact showed experimentally that offering an explicit no-opinion option
+does not, in general, improve the quality of the answers that remain, because many who
+take it could have answered; and @Luskin2011Know found the reverse for factual
+knowledge, where "don't know" mostly does mean not knowing. @Kuha2018Effect distinguish
+three ways of asking, encouraging a "don't know", accepting one neutrally, and probing
+it with a follow-up, and show on European Social Survey data that probing halves the
+rate but changes the measurement properties of the answers it extracts, so that the
+survey has traded an error of omission for an error of commission; the ESS itself does
+not probe. Who says "don't know" is not random either: @Laurison2015WillingnessStateOpinion
+finds the willingness to state an opinion patterned by class and education, which makes
+non-response on attitude items a form of inequality in whose views reach the data.
+
+For the case that literature cuts two ways. It supports treating a "don't know" about
+the EU as non-response rather than as zero framing, which is the split rule and the
+imputation option. It also warns that a group defined by not answering is not exchangeable
+with the group that did, so the missing-at-random assumption behind imputation is exactly
+where a critic would press. The battery's own "other" code is the small piece of good
+news: `r big(n_oth)` people volunteered a meaning the list did not offer, and those
+answers are opinions, not gaps.
+
+## Sensitivity to the assumption
+
+Nothing in the observed data can distinguish missing at random from missing not at
+random; @Molenberghs2008Missingness prove that for any model of the latter there is a
+model of the former that fits the observed data equally well. The response is not to
+choose one but to show what the conclusion depends on. The device here is a sensitivity
+band. Suppose every silent respondent would have scored what the answering respondents
+in their cell scored, plus some amount δ that is the same for all of them. Then each
+cell mean is the answered mean plus δ times the share of the cell that was silent, and
+the published specification can be refitted for any δ. Two values are already familiar:
+δ = 0 is the drop rule, and δ equal to minus the answered mean, about
+`r num(delta_zero, 2)` here, is the zero rule.
+
+```{r}
+#| label: fig-delta
+#| echo: false
+#| fig-width: 7
+#| fig-height: 3.8
+#| fig-cap: "The unemployment coefficient on cosmopolitan framing, two-way fixed effects, when every silent respondent is assigned the answered mean of their cell plus δ. Zero on the horizontal axis is the drop rule; the dashed line marks the δ that reproduces the zero rule."
+ggplot(band, aes(delta, t)) +
+  geom_hline(yintercept = c(-1.96, 1.96), colour = "#a10000", linewidth = 0.4, linetype = 3) +
+  geom_vline(xintercept = 0, colour = "#848c94", linewidth = 0.4) +
+  geom_vline(xintercept = delta_zero, colour = "#0e3b6a", linewidth = 0.5, linetype = 2) +
+  geom_line(colour = "#0e3b6a", linewidth = 0.9) +
+  annotate("text", x = 0.02, y = max(band$t), hjust = 0, size = 3.1, colour = "#848c94",
+           label = "δ = 0: drop rule") +
+  annotate("text", x = delta_zero + 0.02, y = min(band$t), hjust = 0, size = 3.1,
+           colour = "#0e3b6a", label = "zero rule") +
+  scale_y_continuous(labels = function(x) gsub("-", "−", x, fixed = TRUE)) +
+  labs(x = "δ: assumed shortfall of the silent respondents, in scale units", y = "t") +
+  theme_minimal(base_size = 11)
+```
+
+The band makes the zero convention legible as what it is: the assumption that everyone
+who stayed silent would have scored the lowest value the scale allows, which is the
+most extreme missing-not-at-random assumption available, and the one that moves the
+result furthest in the claim's direction. Whether any conclusion changes across the
+band is a fact about the case, read off the figure, and it is the fact that should
+accompany a result on these data. Reporting the missing-data treatment, the assumption
+it makes and the sensitivity of the result to that assumption is what
+@Lee2021Framework and @Sterne2009Imputation ask for in observational research, and the
+proportion of missing data is not, on its own, the thing to report
+[@MadleyDowd2019Proportion].
+
+## What to take away
+
+- A respondent who mentioned nothing is one of three people, and the survey says which.
+  Look for the codes before choosing a rule.
+- The original paper and its reanalyses differ in this rule and neither states it; the
+  recorded coefficient rests on the convention that the silent have zero framing.
+- Zero, drop and split are not robustness variants of one estimate. They change whose
+  framing the average describes.
+- Imputation replaces a rule with a model and carries the uncertainty into the result;
+  it assumes missingness at random given what it conditions on, and that assumption is
+  where a critic will press.
+- Show the band. A result that survives the range of defensible assumptions about the
+  silent is a different kind of result from one that depends on the zero convention.
+
+## Exercise
+
+1. From `teney_panel_weights.csv`, plot the no-opinion rate against the unemployment
+   rate across the 270 cells and describe the pattern in one sentence. Which mechanism
+   does it rule out?
+2. Look up the shard for your preregistered estimand cell in `data/grid/` and compare
+   its five no-opinion rows. Which rule is the zero rule closest to, and which furthest
+   from?
+3. Rewrite the estimand statement for the zero rule and for the drop rule. Which word
+   changes?

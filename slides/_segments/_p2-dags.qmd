@@ -1,0 +1,303 @@
+## DAG crash course: three roles {.smaller}
+
+```{r}
+#| label: mini-dags
+#| fig-width: 9.5
+#| fig-height: 3.6
+# Three tiny DAGs: confounder / mediator / collider. Each arrow is an R formula
+# read outcome-first, so `X ~ Z` is the arrow Z -> X; dagify() takes the
+# coordinates, the exposure and the outcome in the same call, and returns a
+# plain dagitty object that adjustmentSets() and paths() accept unchanged.
+conf <- ggdag::dagify(X ~ Z, Y ~ X + Z,
+  coords = list(x = c(X = 0, Y = 2, Z = 1), y = c(X = 0, Y = 0, Z = 1)))
+med  <- ggdag::dagify(M ~ X, Y ~ M + X,
+  coords = list(x = c(X = 0, Y = 2, M = 1), y = c(X = 0, Y = 0, M = 1)))
+coll <- ggdag::dagify(C ~ X + Y, Y ~ X,
+  coords = list(x = c(X = 0, Y = 2, C = 1), y = c(X = 0, Y = 0, C = -1)))
+
+# Edges are coloured by role: the X -> Y causal effect (the estimand) is GREEN
+# in every panel; the secondary structure carries an accent – RED where it
+# biases the naive estimate (the confounder fork, the collider edges) and AMBER
+# for the indirect path through the mediator, which is part of the total effect
+# rather than bias. The accent is passed per panel; green is constant so the eye
+# learns 'green = the effect I want, coloured = the path I must reason about'.
+gg <- function(d, ttl, cap, accent = d_red) {
+  td <- ggdag::tidy_dagitty(d)
+  td$data <- dplyr::mutate(td$data,
+    edge_kind = dplyr::if_else(name == "X" & to == "Y", "causal", "other"))
+  ggplot2::ggplot(td,
+      ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+    ggdag::geom_dag_edges(ggplot2::aes(edge_colour = edge_kind),
+      arrow_directed = grid::arrow(length = grid::unit(7, "pt"),
+                                   type = "closed")) +
+    ggdag::geom_dag_point(size = 16, colour = "black") +
+    ggdag::geom_dag_text(colour = "white", size = 4) +
+    ggraph::scale_edge_colour_manual(
+      values = c(causal = green, other = accent), guide = "none") +
+    ggdag::theme_dag() +
+    # Expand the panel so the nodes sit well inside it – otherwise the title
+    # and caption crowd (and slightly cover) the top/bottom nodes.
+    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = 0.18)) +
+    ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0.32)) +
+    ggplot2::labs(title = ttl, caption = cap) +
+    ggplot2::theme(
+      plot.title = element_text(face = "bold", colour = ncl_blue,
+                                hjust = 0.5, size = 16,
+                                margin = margin(b = 10)),
+      plot.caption = element_text(hjust = 0.5, size = 11,
+                                  colour = grey_mid, lineheight = 1.05,
+                                  margin = margin(t = 10)))
+}
+  patchwork::wrap_plots(
+    gg(conf, "Confounder Z",
+       "Common cause of X and Y.\nADJUST – or the estimate is biased.", d_red),
+    gg(med,  "Mediator M",
+       "Sits on the path X → Y.\nDON'T adjust for the total effect.", orange),
+    gg(coll, "Collider C",
+       "Caused by both X and Y.\nNEVER adjust – it opens a spurious path.", d_red),
+    nrow = 1)
+```
+
+::: {.src}
+X = predictor, Y = outcome. **Green** = the causal effect you want; **coloured** = the path you must reason about.
+:::
+
+::: notes
+All the graph theory you need today, in three small pictures. In every panel the green arrow is the same thing – the effect you are actually after, X on Y. What changes is the coloured structure around it. A confounder is a common cause of your predictor and your outcome – that red fork is a back-door path, and if you leave it open you are biased, so you adjust to close it. A mediator sits on the causal path between them – the amber path is real, it is part of the total effect, so if the total effect is what you want you do not adjust for it, or you remove part of the very thing you are measuring. And a collider is caused by both sides – those edges are harmless until you condition on the collider, which opens a spurious path that was not there before. So the rulebook is short: adjust confounders, leave mediators alone for total effects, and never condition on a collider. That is the entire toolkit – the next four slides just give it a bit more depth before you use it.
+:::
+
+## One number, many stories {.smaller}
+
+:::: {.columns}
+::: {.column width="54%"}
+
+```{r}
+#| label: many-stories
+#| fig-width: 5.2
+#| fig-height: 4.3
+# A single strong association. The same slope is consistent with several
+# different causal structures – the number alone cannot tell you which one
+# generated it (the 'causal quartet' point). Scatter is simulated for display.
+set.seed(11)
+n <- 130; x <- rnorm(n); y <- 0.6 * x + rnorm(n, 0, 0.85)
+df <- tibble::tibble(x, y)
+ggplot(df, aes(x, y)) +
+  geom_point(colour = ncl_blue, alpha = 0.5, size = 2.3) +
+  geom_smooth(method = "lm", se = FALSE, colour = d_red, linewidth = 1.2) +
+  annotate("text", x = min(x), y = max(y), hjust = 0, vjust = 1,
+           label = paste0("r = ", format(round(cor(x, y), 2), nsmall = 2)),
+           colour = d_red, fontface = "bold", size = 6.5) +
+  labs(x = "X", y = "Y") + theme_slide(16)
+```
+
+:::
+::: {.column width="46%"}
+::: {.small}
+The same slope fits four different stories:
+
+::: {.fragment}
+- X really causes Y – the slope *is* the effect
+:::
+::: {.fragment}
+- a common cause inflates it – **confounding**
+:::
+::: {.fragment}
+- we are seeing a selected sample – **collider / selection**
+:::
+::: {.fragment}
+- Y causes X (**reverse causation**), or it is **chance**
+:::
+::: {.fragment}
+The data look identical in all four. Only an assumption about *how the data arose* tells them apart – that is what a DAG writes down.
+:::
+:::
+:::
+::::
+
+::: {.src}
+@DAgostinoMcGowanEtAl2024CausalInferenceNot; @KeeleEtAl2020CausalInterpretationEstimated. Scatter simulated for illustration.
+:::
+
+::: notes
+Here is a strong correlation – r of about nought point six. Before you reach for a model, consider that this single number is consistent with at least four different stories. Maybe X really does cause Y, and the slope is the effect. Maybe a common cause is inflating it. Maybe we are quietly looking at a selected sample, and the association is an artefact of who got in. Maybe Y causes X, or it is simply chance. The data cannot choose between these – the scatter looks identical in every case. Only a claim about how the data were generated can. That claim is what a DAG writes down, and it is why we draw one before we fit anything.
+:::
+
+## Reading a DAG: open and closed paths {.smaller}
+
+```{r}
+#| label: backdoor-paths
+#| fig-width: 9.5
+#| fig-height: 3.7
+# Same confounder graph, twice. LEFT: the back-door path X <- Z -> Y is open
+# (red), so the naive X -> Y estimate is biased. RIGHT: adjusting for Z (boxed)
+# blocks the back-door (greyed), leaving the green causal path clean. Reuses
+# `conf` from the mini-dags chunk.
+path_panel <- function(adjust_z = FALSE) {
+  td <- ggdag::tidy_dagitty(conf)
+  td$data <- dplyr::mutate(td$data,
+    edge_kind = dplyr::if_else(name == "X" & to == "Y", "causal",
+                       if (adjust_z) "blocked" else "backdoor"))
+  p <- ggplot2::ggplot(td,
+      ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+    ggdag::geom_dag_edges(ggplot2::aes(edge_colour = edge_kind),
+      arrow_directed = grid::arrow(length = grid::unit(7, "pt"),
+                                   type = "closed")) +
+    ggdag::geom_dag_point(size = 18, colour = "black") +
+    ggdag::geom_dag_text(colour = "white", size = 4.4) +
+    ggraph::scale_edge_colour_manual(
+      values = c(causal = green, backdoor = d_red, blocked = grey_mid),
+      guide = "none") +
+    ggdag::theme_dag() +
+    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = 0.22)) +
+    ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0.40)) +
+    ggplot2::labs(title = if (adjust_z) "Adjust for Z → back-door closed"
+                          else "Back-door path X ← Z → Y is open") +
+    ggplot2::theme(plot.title = element_text(face = "bold", colour = ncl_blue,
+                                hjust = 0.5, size = 15, margin = margin(b = 8)))
+  if (adjust_z) {
+    zc <- subset(td$data, name == "Z")[1, ]
+    p <- p + ggplot2::annotate("point", x = zc$x, y = zc$y, shape = 0,
+                               size = 14, stroke = 1.6, colour = ncl_blue)
+  }
+  p
+}
+patchwork::wrap_plots(path_panel(FALSE), path_panel(TRUE), nrow = 1)
+```
+
+::: {.small}
+Association flows along **every open path**, not only along the causal arrow. A fork or a chain is open until you adjust the variable sitting on it. A collider is the reverse: shut by default, and opened by the very act of adjusting for it.
+
+- **Back-door criterion**: close every path that enters X from behind, keep the causal X → Y path open
+- That adjustment set – and only that set – earns a causal reading
+:::
+
+::: {.src}
+@HernanRobins2020CausalInferenceWhat; @Huntington-Klein2021EffectIntroductionResearch.
+:::
+
+::: notes
+A DAG is read through its paths. Association does not only travel down the causal arrow – it flows along every open path between X and Y. So the job is to work out which paths are open and shut the ones you do not want. Two rules do all the work. A path through a fork or a chain is open, and you close it by adjusting the variable in the middle – that is the red back-door fork on the left. A path through a collider is the opposite: shut by default, and you open it by adjusting. The back-door criterion just packages this: close every path that sneaks into X from behind, leave the causal X-to-Y path alone. The set that does that – and only that set – is what you are allowed to read as causal.
+:::
+
+## Total effect or direct effect {#which-effect-do-you-even-want .smaller}
+
+:::: {.columns}
+::: {.column width="55%"}
+
+```{r}
+#| label: total-direct
+#| fig-width: 5.6
+#| fig-height: 4.1
+# Mediator graph with the two routes coloured: the DIRECT effect X -> Y (green)
+# and the INDIRECT route X -> M -> Y (amber). Together they make the total
+# effect; adjusting for M leaves only the direct one. Reuses `med`.
+td <- ggdag::tidy_dagitty(med)
+td$data <- dplyr::mutate(td$data,
+  edge_kind = dplyr::if_else(name == "X" & to == "Y", "direct", "indirect"))
+ggplot2::ggplot(td,
+    ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+  ggdag::geom_dag_edges(ggplot2::aes(edge_colour = edge_kind),
+    arrow_directed = grid::arrow(length = grid::unit(8, "pt"), type = "closed")) +
+  ggdag::geom_dag_point(size = 22, colour = "black") +
+  ggdag::geom_dag_text(colour = "white", size = 5) +
+  ggraph::scale_edge_colour_manual(values = c(direct = green, indirect = orange),
+    guide = "none") +
+  ggdag::theme_dag() +
+  ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = 0.18)) +
+  ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0.30)) +
+  ggplot2::annotate("text", x = 0.5, y = 0.62, label = "indirect", colour = orange,
+           fontface = "bold", size = 4.5, angle = 33) +
+  ggplot2::annotate("text", x = 1, y = -0.14, label = "direct", colour = green,
+           fontface = "bold", size = 4.5)
+```
+
+:::
+::: {.column width="45%"}
+::: {.small}
+- **Total** = direct (green) + indirect (amber)
+- Adjust for the mediator M → you estimate the **direct** effect only – a *different* estimand
+- 'Control for everything' silently answers a question you never asked
+- **Table 2 fallacy**: the other coefficients in your model are *not* all causal effects
+:::
+:::
+::::
+
+::: {.src}
+@KeeleEtAl2020CausalInterpretationEstimated; @DAgostinoMcGowanEtAl2024CausalInferenceNot.
+:::
+
+::: notes
+Now the question that the estimand discussion was circling. Suppose M sits between your predictor and outcome. The total effect is the green arrow plus the amber route through M. The direct effect is just the green arrow. These are different numbers and different questions – and which one you get depends entirely on whether you put M in the model. Drop a mediator in as just another 'control' and you have silently switched to the direct effect without telling anyone, including yourself. This is why 'control for everything' is bad advice. And it has a famous corollary – the Table 2 fallacy: when you print a regression table, usually only one coefficient has a clean causal reading. The coefficients on the control variables are not little causal effects of their own.
+:::
+
+## Selection and feedback {#spurious-by-design-selection-feedback .smaller}
+
+```{r}
+#| label: selection-panel
+#| fig-width: 10
+#| fig-height: 3.7
+# LEFT: a collider S caused by A and B. Conditioning on (or sampling on) S –
+# the red box – induces a spurious A–B association (dashed red). RIGHT: a
+# two-wave cross-lagged panel. The claim U1 -> F2 is green; the reverse path
+# F1 -> U2 is red; the autoregressive paths are grey. Two-way FE handles
+# neither feedback nor time-varying confounding.
+sel <- ggdag::dagify(S ~ A + B,
+  coords = list(x = c(A = 0, S = 1, B = 2), y = c(A = 0, S = 1, B = 0)))
+tds <- ggdag::tidy_dagitty(sel)
+tds$data <- dplyr::mutate(tds$data, edge_kind = "structural")
+p_sel <- ggplot2::ggplot(tds,
+    ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+  ggdag::geom_dag_edges(ggplot2::aes(edge_colour = edge_kind),
+    arrow_directed = grid::arrow(length = grid::unit(7, "pt"), type = "closed")) +
+  ggdag::geom_dag_point(size = 18, colour = "black") +
+  ggdag::geom_dag_text(colour = "white", size = 4.4) +
+  ggraph::scale_edge_colour_manual(values = c(structural = grey_mid), guide = "none") +
+  ggplot2::annotate("point", x = 1, y = 1, shape = 0, size = 14, stroke = 1.6,
+                    colour = d_red) +
+  ggplot2::annotate("curve", x = 0.12, y = -0.18, xend = 1.88, yend = -0.18,
+    curvature = -0.25, colour = d_red, linetype = "dashed", linewidth = 0.9,
+    arrow = grid::arrow(length = grid::unit(6, "pt"), ends = "both")) +
+  ggdag::theme_dag() +
+  ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = 0.22)) +
+  ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0.45)) +
+  ggplot2::labs(title = "Condition on collider S → spurious A–B link") +
+  ggplot2::theme(plot.title = element_text(face = "bold", colour = ncl_blue,
+                              hjust = 0.5, size = 14, margin = margin(b = 8)))
+
+clp <- ggdag::dagify(U2 ~ U1 + F1, F2 ~ F1 + U1,
+  coords = list(x = c(U1 = 0, F1 = 0, U2 = 2, F2 = 2),
+                y = c(U1 = 1, F1 = 0, U2 = 1, F2 = 0)))
+tdc <- ggdag::tidy_dagitty(clp)
+tdc$data <- dplyr::mutate(tdc$data, edge_kind = dplyr::case_when(
+  name == "U1" & to == "F2" ~ "claim",
+  name == "F1" & to == "U2" ~ "reverse",
+  TRUE ~ "auto"))
+p_clp <- ggplot2::ggplot(tdc,
+    ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+  ggdag::geom_dag_edges(ggplot2::aes(edge_colour = edge_kind),
+    arrow_directed = grid::arrow(length = grid::unit(7, "pt"), type = "closed")) +
+  ggdag::geom_dag_point(size = 20, colour = "black") +
+  ggdag::geom_dag_text(colour = "white", size = 3.6) +
+  ggraph::scale_edge_colour_manual(
+    values = c(claim = green, reverse = d_red, auto = grey_mid), guide = "none") +
+  ggdag::theme_dag() +
+  ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = 0.18)) +
+  ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0.30)) +
+  ggplot2::labs(title = "Panel feedback: U now → F later, but also F → U") +
+  ggplot2::theme(plot.title = element_text(face = "bold", colour = ncl_blue,
+                              hjust = 0.5, size = 14, margin = margin(b = 8)))
+patchwork::wrap_plots(p_sel, p_clp, nrow = 1)
+```
+
+::: {.small}
+- **Selection / collider bias** – conditioning, or merely *sampling*, on a common effect manufactures an association that was never there (much of the early COVID risk-factor literature)
+- **Reverse causation & feedback** – in a panel, today's outcome can move tomorrow's predictor; two-way fixed effects absorb stable country traits and common-year shocks, **not** time-varying feedback (U = unemployment, F = framing)
+:::
+
+::: {.src}
+@GriffithEtAl2020ColliderBiasUndermines; @ColeEtAl2010IllustratingBiasDue; @LeszczenskyWolbring2022HowDealReverse.
+:::
+
+::: notes
+Two last ways a relationship can be spurious, and both of them apply to our case. The first is selection, or collider bias. If you condition on – or merely sample on – something that both your variables cause, you manufacture a correlation out of nothing. A lot of the early COVID risk-factor findings were exactly this: conclusions drawn from people who had been tested, which is a selected group. The second is reverse causation and feedback. Our data are a panel, and in a panel today's outcome can feed tomorrow's predictor. Two-way fixed effects – which is the model we are about to draw – soak up stable differences between countries and shocks common to a year. They do not, on their own, fix a time-varying confounder or a feedback loop. Keep that in mind when we build the graph for our own paper.
+:::

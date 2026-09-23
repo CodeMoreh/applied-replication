@@ -1,0 +1,151 @@
+---
+title: "Positron, RStudio and VS Code"
+subtitle: "Foundation – the working environment around R"
+---
+
+This module of the [companion curriculum](index.qmd) is about the program you sit in while R does the computing: the IDE, an integrated development environment. The course's default is Positron, and most of the page is a tour of it, pane by pane, written for someone who has never opened it and for someone who has used RStudio for years and wants to know what has moved. The two shorter sections that follow give RStudio and VS Code in broad strokes, with a table for each of what changes when you cross over. The page is written against the releases current in September 2026: Positron 2026.09, RStudio 2026.08 and VS Code 1.136, and the sources at the end say where each fact came from.
+
+It is not an R tutorial. [Getting started with R](intro-r.qmd) is that, and it reads the same in any of the three IDEs. Nor is it an installation guide: the [setup page](../setup.qmd) has the download and install steps for each IDE on Windows, macOS and Linux, and the [help page](../help.qmd) has the problems that come up.
+
+## 1. What an IDE does {#sec-what}
+
+R on its own is a program that reads instructions and returns answers. An IDE wraps four things around it: an **editor**, where you write code into files that you keep; a **console**, where a line runs the moment you press Enter; a **view of what exists**, meaning the objects in the session, the data frames behind them and the plots they produce; and **tools**, a terminal, a source-control pane, a way of rendering a document. The three IDEs on this page arrange those four things differently and name them differently, but every one of them has all four, which is why the course runs in all three.
+
+What the course needs from an IDE is short. It has to open the workspace folder, so that the paths in the code point at the data. It has to run a script line by line and as a whole. It has to have an R console. It has to show a data frame and a plot. And it has to render a Quarto document, because the report you fill in on the day is one, and rendering it is what gives your preregistration block its timestamp. Each of the three does all of this; the difference is in how much is there before you install anything, and in what the data viewer and the assistant can do.
+
+## 2. Positron {#sec-positron}
+
+Positron is Posit's data-science IDE, released as a stable product in 2025 after two years of public beta. It is built on the open-source core of VS Code, so anyone who has used VS Code will find the window familiar, and it adds what VS Code lacks for data work: an R console rather than a terminal running R, panes for variables, data, plots and help, and R and Python treated as equals. It is free, runs on Windows, macOS and Linux, and Posit's own documentation is at [positron.posit.co](https://positron.posit.co/).
+
+### 2.1 The window {#sec-layout}
+
+Five areas make up the window. Down the far left is the **Activity Bar**, a strip of icons that switch what the side bar shows: the Explorer (your files), Search, Source Control, Extensions and Posit Assistant. Beside it is the **Primary Side Bar**, usually showing the files of the folder you opened. The **editor** fills the middle, with one tab per open file. Along the bottom is the **Panel**, holding the Console, the Terminal, the Problems list and the Output log. And on the right is the **Secondary Side Bar**, which holds the session views: Variables, Plots, Help, Viewer, Connections and Packages.
+
+For an RStudio user the mapping is direct: Source top-left is the editor, Console bottom-left is the Panel, Environment top-right is the Variables pane, and the Files, Plots, Packages, Help and Viewer tabs of the bottom-right are spread between the Primary Side Bar (files) and the Secondary Side Bar (everything else). Positron ships four layout presets, reached through the layout menu in the top-right corner of the window: **Stacked** and **Side-by-side** are the two general arrangements, **Notebook** widens the editor for cell-by-cell work, and **Assistant** gives the assistant a column of its own. Any pane can be dragged elsewhere or hidden, and the layout documentation covers the details.
+
+### 2.2 The console and the session {#sec-session}
+
+At the top right of the window is the **interpreter selector**, which names the R that the console is running. Positron finds R for itself when it starts, looking in the standard installation locations of each system and, on Windows, in the registry entry that the R installer writes, and it requires R 4.2 or later. If more than one R is installed the selector lists them all, and you can run several sessions at once, in different versions if you want to, which RStudio cannot do. When the selector is empty, the Command Palette command **R: Select Interpreter** is the way to point Positron at an R by hand, and the [help page](../help.qmd) has the cases where that is needed.
+
+The console works as you would expect: type, press Enter, read the answer. The 2026.09 release reworked how it takes input. Code submission is faster, always shows that something is happening, and can be cancelled while Positron is still checking whether the expression is complete; a block of several statements pasted in at once is split into complete expressions and run one at a time, so an error in the middle stops at the statement that caused it rather than swallowing the rest. Restarting the session, which clears every object and reloads nothing, is a button beside the selector and a good habit before you believe a number.
+
+### 2.3 Running code {#sec-run}
+
+With an `.R` file open, **Ctrl+Enter** (Cmd+Enter on a Mac) sends the statement under the cursor to the console and moves down to the next, or sends the selection if there is one. The play button at the top of the editor runs the whole file. In a `.qmd` file each code chunk carries its own **Run Cell** link, and there are commands to run all the chunks above the cursor, which is how the report on the day is worked through. The full list of shortcuts is on the [keyboard shortcuts page](https://positron.posit.co/keyboard-shortcuts.html), and RStudio users can switch the whole set to what they know: open the settings, search for **RStudio keybindings**, and tick the box, which the [migration page](https://positron.posit.co/migrate-rstudio-keybindings.html) describes.
+
+### 2.4 The Variables pane {#sec-variables}
+
+The **Variables pane** lists every object in the session with its type and size, and a data frame expands to show its columns, each with its type and a preview of its values. A search box at the top filters the list, which matters once a session holds dozens of objects. The pane does the job that RStudio's Environment tab does, with one deliberate omission: there is no button to save the session's objects to disk and reload them next time, because that habit is where irreproducible analyses come from. The objects you need are the ones your script recreates.
+
+Beside each data frame is an icon that opens it in the Data Explorer, which is the pane the next section is about.
+
+### 2.5 The Data Explorer {#sec-explorer}
+
+The **Data Explorer** is the part of Positron that most changes how it feels to work with data, and it is the pane to try first. It opens in four ways: from the icon beside a data frame in the Variables pane; from the command **View Data Frame at Cursor** in the Command Palette or the right-click menu of an `.R` or `.qmd` file; from `View(euframes)` in the console, which is the same call RStudio users know; and directly from a file in the Explorer, since a `.csv`, `.tsv`, `.parquet` or `.xlsx` file, compressed or not, opens without being read into R at all.
+
+Three parts make it up. The **data grid** is the spreadsheet-like view of the cells, with a click on a column header to sort. The **summary panel**, down the left, gives summary statistics for every column: type, count of missing values, and the distribution, so that the shape of a dataset is visible before any code is written. And the **filter bar** holds filters on specific columns, which reduce the rows on display. Filters and sorts are ephemeral: they change what you are looking at and not the object in the session, so nothing in your analysis moves because you narrowed a view.
+
+The 2026.09 release added **Import Data**, a dialog that reads a CSV, TSV, Excel or Parquet file and writes the R code that does it, using readr, into your script. Filters and sorts built in the dialog can be reproduced in the generated code, which turns a quick look at a file into a line you can keep. A CSV opened in the Explorer can also be opened as plain text from its action bar, for the times when the raw file is what you need to look at.
+
+### 2.6 Plots, Help and Viewer {#sec-plots}
+
+The **Plots pane** shows the figure that the last plotting call produced, keeps a history of earlier ones as thumbnails, and has controls to zoom, copy and save. The **Help pane** opens whenever you ask for help, with `?feols` in the console or with the cursor on a function name and F1, and the page is a proper rendered page with links rather than console text. The **Viewer** shows HTML output: an interactive table, an htmlwidget, and the preview of a Quarto document when you render one.
+
+### 2.7 Quarto {#sec-quarto}
+
+The Quarto extension ships inside Positron, so a `.qmd` file opens with syntax highlighting, runnable chunks, and the **Preview** command (Ctrl+Shift+K, or Cmd+Shift+K) that renders the document and shows it in the Viewer. A visual editor for the prose is a button away, and the [Quarto documentation for Positron](https://quarto.org/docs/tools/positron.html) covers both. What has varied between releases is whether the Quarto command-line tool itself is bundled; the course's check script tells you whether it is present on your machine, and the [setup page](../setup.qmd) says what to do if not.
+
+### 2.8 Packages and connections {#sec-packages}
+
+The **Packages pane**, in the right-hand side bar, lists the packages installed for the current session, and since 2026.09 it also shows known security vulnerabilities for installed R and Python packages, scored on the Common Vulnerabilities and Exposures system. The **Connections pane** browses databases: the 2026.09 release added support for any database with an ODBC driver installed, alongside the earlier Databricks and Snowflake connections, with a Disconnect action that also closes the Data Explorers opened from that connection. Neither pane is needed on the day; both are the kind of tool that becomes indispensable in a project that lasts longer than one.
+
+### 2.9 Folders, not projects {#sec-folders}
+
+Positron has no equivalent of RStudio's `.Rproj` file. The unit of work is the **folder** you open with File → Open Folder, and the working directory of the R session is that folder, which is all that an `.Rproj` file did for most people. An `.Rproj` file lying in a folder is ignored and harmless, which is why the workspace carries one for RStudio users. When Positron first opens, its welcome page shows an **environment setup card** that checks whether R and Python are ready to use and offers to help with anything it finds, and a walkthrough that tours the panes, the shortcuts, extensions and Git; both are new in the 2026.09 release and worth five minutes on a first launch.
+
+### 2.10 The Command Palette and settings {#sec-palette}
+
+Everything Positron can do is a command, and the **Command Palette** (Ctrl+Shift+P, or Cmd+Shift+P) is the search box for all of them: type a few letters of what you want, "select interpreter", "restart", "render", and the command appears. It is the habit that makes the rest of the IDE learnable without memorising menus. Settings (Ctrl+comma) are searched the same way, and every setting is also a line in a JSON file for anyone who prefers to edit it directly. The two settings this course mentions are the RStudio keybindings switch and the custom R folders described in [section 2.2](#sec-session).
+
+### 2.11 Extensions {#sec-extensions}
+
+Positron takes extensions from **Open VSX**, the open registry, through a mirror that Posit runs, rather than from Microsoft's marketplace, which is licensed for VS Code only. Most extensions written for VS Code are on both and install identically. For R nothing needs adding: the Quarto extension and the Air formatter come bundled, and R support is built into Positron itself, so the `vscode-R` extension that VS Code needs is unnecessary and does not work in Positron. Python support is built in as well.
+
+### 2.12 Posit Assistant {#sec-assistant}
+
+**Posit Assistant** is the AI coding assistant built into Positron, the default assistant there since the 2026.07 release. It works on a bring-your-own-key basis: you connect it to a provider of your own, Anthropic, Amazon Bedrock, GitHub Copilot or OpenAI, with your key or account, and Posit does not collect the prompts or conversations that pass through an external provider. What sets it apart from a chat tool in a browser tab is context: it reads your loaded data, your plots and your console history, and knows the version of R and the names and types of your variables, so a question about "this data frame" means the one in your session. It has slash commands, a Plan Mode for working out an approach before writing code, and file attachments by drag and drop. Posit's documentation states that it provides no support for code that the assistant generates.
+
+The course does not use it and does not need it. It is mentioned here because it is part of the tool, because the [help page](../help.qmd) suggests prompts for setup problems that it can answer, and because the reproducibility questions the course raises apply to generated code as much as to any other: an assistant's suggestion is a specification decision that you made, and it belongs in the record like every other one.
+
+### 2.13 The current release {#sec-release}
+
+Positron 2026.09.0 is the release this page describes, with the patch 2026.09.1-2 of 4 September 2026 on top of it, which fixed a problem with plots generated through Posit Assistant. The features of 2026.09.0 named above are the refreshed welcome page with its environment card and walkthrough, Import Data, ODBC connections and the Disconnect action, vulnerability scores in the Packages pane, and the reworked console. Smaller items include marimo notebook support in Quarto documents, environment modules loading in integrated terminals, and fixes across the Data Explorer and the Windows updater. The full list is on the [release notes page](https://positron.posit.co/release-notes.html).
+
+## 3. RStudio {#sec-rstudio}
+
+RStudio is the IDE that R users have worked in since 2011, and it remains excellent, maintained and free. Its window is four panes: the **Source** editor top-left, the **Console** below it, the **Environment** and History tabs top-right, and the **Files**, **Plots**, **Packages**, **Help** and **Viewer** tabs bottom-right. Work is organised in **projects**, each marked by an `.Rproj` file whose opening sets the working directory and restores the files you had open. The Environment pane lists the session's objects, and clicking a data frame opens it in the **data viewer**, which sorts and filters columns and searches, and which stops there: it has no summary statistics, no view of a file that has not been read into R, and no way of keeping a filter as code.
+
+RStudio carries Quarto inside it, with a render button, a visual editor and the same chunk controls, so a Quarto document renders with nothing else installed. Its **Global Options** dialog holds the settings, its **Tools → Install Packages** dialog and its Packages tab manage the library, and its Git tab does the same job as Positron's Source Control pane. The current release is 2026.08, named "Yellow Yarrow" and published on 25 August 2026, for Windows 11, macOS 14 and later, and the current Ubuntu, Debian, Red Hat and Fedora releases; the [release notes](https://docs.posit.co/ide/news/) list what changed.
+
+Moving from RStudio to Positron, these are the things that shift, drawn from Posit's own [comparison](https://positron.posit.co/migrate-rstudio-compare.html) and [migration](https://positron.posit.co/migrate-rstudio.html) pages:
+
+| In RStudio | In Positron |
+|---|---|
+| An `.Rproj` project | A folder, opened with File → Open Folder; `.Rproj` files are ignored |
+| The Environment pane, with save and load of the workspace | The Variables pane, with no saving or reloading of objects |
+| One R version per session | Any installed R 4.2 or later, several sessions at once |
+| The data viewer: sort, filter, search | The Data Explorer: sort, filter, a summary panel, files opened without loading, and Import Data |
+| Global Options | Settings, searched from the Command Palette |
+| Addins and menus | Commands, all reachable from the Command Palette |
+| RStudio's keyboard shortcuts | The same shortcuts, once the RStudio keybindings setting is on |
+| Specialised panes for packages under development (Build and the like) | Not present; the terminal and the R console do the work |
+| The Tools → Import Dataset wizard | Import Data, since 2026.09 |
+| Extensions: none | An extensions marketplace, from Open VSX |
+| R only, Python through reticulate | R and Python as equals, each with its own console |
+| Local only, or a Posit Workbench server | Local, plus remote work over SSH |
+
+Nothing in that table forces a move. Someone who is productive in RStudio, and who only needs the course's five tasks from it, loses nothing by staying.
+
+## 4. VS Code {#sec-vscode}
+
+VS Code is the general-purpose editor that Positron is built from, and for many people who write in several languages it is where everything already lives. It supports R through extensions rather than out of the box: the **R extension** (`REditorSupport.r`) gives syntax highlighting, code completion, an object browser and the commands to send code to R, and it relies on the `languageserver` R package, which you install in R; the **Quarto extension** (`quarto.quarto`) gives `.qmd` files the same preview and chunk controls as in Positron, with the Quarto command-line tool installed separately. R itself runs in a **terminal** rather than a console, which is the largest practical difference: it works, and the optional `radian` console makes it pleasant, but there is no session pane unless you add one, and plots need the `httpgd` package to appear in a viewer rather than a separate window. Microsoft's [R page](https://code.visualstudio.com/docs/languages/r) sets all of this out.
+
+The current release is 1.136, published on 2 September 2026, and its notes are mostly about the agent and chat features built around GitHub Copilot, which is the direction the editor has been taking for two years. None of it bears on the course. Moving between VS Code and Positron:
+
+| In VS Code | In Positron |
+|---|---|
+| R in a terminal, through the R extension and `languageserver` | An R console and R support built in; the R extension is not needed and does not work |
+| Objects, data and plots through extensions or not at all | The Variables pane, the Data Explorer and the Plots pane |
+| Extensions from the Microsoft marketplace | Extensions from Open VSX; most are on both |
+| Quarto extension plus a separately installed Quarto | The Quarto extension bundled; the command-line tool may or may not be |
+| Copilot chat, with a GitHub account | Posit Assistant, with a provider of your choice |
+| Settings and keybindings | The same files and the same shape; the [migration page](https://positron.posit.co/migrate-vscode.html) covers bringing them across |
+
+Someone who already lives in VS Code and has R working there can do the whole course without moving. What Positron adds for them is the session view and the data pane, which are the two things VS Code users most often build from extensions.
+
+## 5. Choosing {#sec-choose}
+
+| If | Then |
+|---|---|
+| You have never used any of the three | Positron. It is the course's default, it is what the shared screen shows, and its data pane is the one that teaches most about the data in front of you. |
+| You have used RStudio for years and want to stay there | Stay. Every task on the day runs in it, and the `.Rproj` file in the workspace opens it as a project. |
+| You are an RStudio user curious about what has changed | Positron with the RStudio keybindings on. The shortcuts carry over, and the differences are the ones in the table above. |
+| You write in several languages and already work in VS Code | Stay, with the R and Quarto extensions in place, or open the same folder in Positron to compare. |
+| Your machine is a managed laptop that blocks installations | Whichever of the three your IT will install; and the [browser lab](../exercise/browser-lab.qmd) if none of them. |
+
+## 6. Try it {#sec-try}
+
+Six steps, in the workspace, in whichever IDE you chose. Together they use every pane the day will ask of you.
+
+1. Open the workspace folder (File → Open Folder in Positron and VS Code; `replication-lab.Rproj` in RStudio). The files appear in the side bar.
+2. Open `R/check_setup.R` and run it as a whole. Read the OK and FAIL lines in the console.
+3. Run `euframes <- readr::read_csv("data/EUframes_cy.csv")` in the console, then open the data frame in the data viewer: from the Variables pane or with `View(euframes)`. In Positron, read the summary panel: how many rows, which columns have missing values, and what the distribution of the unemployment rate looks like.
+4. Filter the view to a single country and sort by year, and confirm that the object in the session is unchanged by running `nrow(euframes)` in the console.
+5. Draw one figure, `plot(euframes$unemp, euframes$mcosmo)`, and find it in the plots pane; export it once, so you know where the button is.
+6. Open `index.qmd` and render it. Find the finished document in the viewer, and the file it wrote in the folder.
+
+If any of the six fails, the [help page](../help.qmd) has the likely causes, and the [setup page](../setup.qmd) the steps to repeat.
+
+## Sources {#sec-sources}
+
+Everything above about Positron is taken from Posit's documentation and release notes as they stood on 8 September 2026: the [release notes](https://positron.posit.co/release-notes.html) for 2026.09.0 and 2026.09.1-2, the [download page](https://positron.posit.co/download.html) for the system requirements, and the pages on [R installations](https://positron.posit.co/r-installations.html), [layout](https://positron.posit.co/layout.html), the [Variables pane](https://positron.posit.co/variables-pane.html), the [Data Explorer](https://positron.posit.co/data-explorer.html), the [Packages pane](https://positron.posit.co/packages-pane.html), the [Connections pane](https://positron.posit.co/connections-pane.html), [extensions](https://positron.posit.co/extensions.html), [keyboard shortcuts](https://positron.posit.co/keyboard-shortcuts.html), [Posit Assistant](https://positron.posit.co/assistant.html), and the three migration pages for [RStudio users](https://positron.posit.co/migrate-rstudio.html), the [RStudio comparison](https://positron.posit.co/migrate-rstudio-compare.html) and [VS Code users](https://positron.posit.co/migrate-vscode.html). RStudio's release and platforms come from the [download page](https://posit.co/download/rstudio-desktop/) and the [release notes](https://docs.posit.co/ide/news/); VS Code's from the [1.136 release notes](https://code.visualstudio.com/updates/v1_136) and the [R documentation](https://code.visualstudio.com/docs/languages/r). Quarto's own pages on [Positron](https://quarto.org/docs/tools/positron.html), [RStudio](https://quarto.org/docs/tools/rstudio.html) and [VS Code](https://quarto.org/docs/tools/vscode/index.html) cover the editor integrations. The features named here are the ones current at that date, and all three tools release monthly, so a detail may have moved by the time you read this.

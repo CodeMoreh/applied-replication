@@ -1,0 +1,27 @@
+---
+title: "Dashboard test"
+format: dashboard
+---
+
+## {.sidebar}
+
+```{ojs}
+//| echo: false
+viewof k = Inputs.select(["a", "b"], {label: "Pick"})
+```
+
+## Column
+
+### Row {height=30%}
+
+```{ojs}
+//| echo: false
+html`<p>You picked <b>${k}</b></p>`
+```
+
+### Row
+
+```{ojs}
+//| echo: false
+Plot.plot({marks: [Plot.dot([{x: 1, y: 2}, {x: 2, y: 3}], {x: "x", y: "y"})]})
+```

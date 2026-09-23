@@ -1,6 +1,6 @@
 ---
 title: "Simulation as a method"
-subtitle: "Fake data, planted coefficients, and what they teach about real analyses"
+subtitle: "Synthetic data with a known recipe"
 bibliography: [../references.bib, ../references-new.bib]
 ---
 
@@ -25,9 +25,9 @@ bcoef <- read_csv("_model-outputs/item_probit_coef.csv", show_col_types = FALSE)
 
 DIMS <- c("cosmo", "util", "comm", "lib")
 
-# The specification that the twin reproduces at cell level: the day's anchor
+# The specification that the twin reproduces at cell level: C6HJR's published Multi100 specification
 # with a growth co-predictor, one step along the co-predictor fork.
-anchor <- \(y) as.formula(
+c6hjr_spec <- \(y) as.formula(
   paste0(y, " ~ unemp + growth + factor(year) + factor(cntry)"))
 
 # What the recipe plants at cell level is the coefficient of the panel itself,
@@ -35,7 +35,7 @@ anchor <- \(y) as.formula(
 # expected dimension means ARE those in the panel. Computed here rather than
 # read from a file, so it cannot go stale against the panel it comes from.
 planted <- map(c(DIMS, "pos", "neg"), \(v) {
-  cf <- coef(lm(anchor(paste0("m", v)), data = panel))
+  cf <- coef(lm(c6hjr_spec(paste0("m", v)), data = panel))
   tibble(outcome = v, planted_unemp = cf[["unemp"]],
          planted_growth = cf[["growth"]])
 }) |> list_rbind()
@@ -67,7 +67,7 @@ B_COSMO <- planted$planted_unemp[planted$outcome == "cosmo"]
 AGE_REF <- mean(marg$value[marg$variable == "age" & marg$kind == "quantile"])
 ```
 
-This is the simulation module of the [companion curriculum](index.qmd), and it is optional. Every other quantitative page on this site analyses data that came from the world; this module analyses data that came from a recipe we wrote ourselves, so that for once the answer is known before any model runs. That inversion, known as fake-data simulation, is a standard habit in applied statistics. *Regression and Other Stories* uses it constantly, on the argument that fitting models to data whose coefficients you planted yourself is how you learn what your models can and cannot recover [@GelmanEtAl2020RegressionOtherStories]; the same habit anchors classroom practice [@GelmanVehtari2024ActiveStatisticsStories] and the workflow literature, where experimentation on simulated data is one of the named components of model-building [@GelmanEtAl2026BayesianWorkflow].
+This is the simulation module of the [companion curriculum](index.qmd), and it is optional. Every other quantitative page on this site analyses data that came from the world; this module analyses data that came from a recipe we wrote ourselves, so that for once the answer is known before any model runs. That inversion, known as fake-data simulation, is a standard habit in applied statistics. *Regression and Other Stories* uses it constantly, on the argument that fitting models to data whose coefficients you planted yourself is how you learn what your models can and cannot recover [@GelmanEtAl2020RegressionOtherStories]; the same habit underpins classroom practice [@GelmanVehtari2024ActiveStatisticsStories] and the workflow literature, where experimentation on simulated data is one of the named components of model-building [@GelmanEtAl2026BayesianWorkflow].
 
 The module teaches from a dataset built for the purpose. `EUframes_person_full.csv` is a simulated person-level companion to the EU-frames case – `r format(nrow(sim), big.mark = ",")` synthetic respondents across the real 270 country-year cells, with the real macro variables attached. It carries the original analysis rather than a cut-down version of it: all four framing dimensions and both composites, plus every individual variable that the original author (OA) used – sex, age, education as both years and bands, an eight-category occupational position, urbanisation, and left-right self-placement.
 
@@ -75,7 +75,7 @@ First, **no Eurobarometer respondent appears in it**. The raw microdata behind t
 
 Second – and this is the pedagogical point rather than a limitation – **the recipe is known**. A data-generating process is the explicit rule by which every value was produced. Real data never comes with its rule attached, whereas simulated data is nothing but the rule, so any model fitted to it can be judged against an answer that is already known.
 
-## 1. The recipe, stated in full {#sec-dgp}
+## 1. The recipe {#sec-dgp}
 
 The generator is `_model-outputs/simulate_person_joint.R`, a committed script worth reading, and it works in two stages that answer two different questions: who is in the sample, and what they say.
 
@@ -128,7 +128,7 @@ identities
 
 Among respondents who mention anything, `r sprintf("%.0f%%", 100 * identities[["share exactly 0"]])` score exactly zero on cosmopolitan framing and `r sprintf("%.0f%%", 100 * identities[["share exactly 1"]])` score exactly one – the latter because someone who mentions one item and finds it cosmopolitan scores 1 by construction. This is faithful to the real instrument, and it is the concrete reason that beta regression, which needs the outcome strictly inside the unit interval, cannot be used at person level while it can be used on country-year means. The [statistical methods module](stats-methods.qmd#sec-glm) states that constraint; here you can verify it.
 
-## 2. Simulate, fit, recover {#sec-recover}
+## 2. Parameter recovery {#sec-recover}
 
 The first thing to do with data whose recipe you know is to ask a model to find what the recipe planted. There are two such questions here, and they need keeping apart.
 
@@ -137,7 +137,7 @@ At **cell level** the planted value is the coefficient from the panel itself, be
 ```{r}
 #| label: recover
 map(planted$outcome, \(v) {
-  cf <- coef(lm(anchor(v), data = sim_cells))
+  cf <- coef(lm(c6hjr_spec(v), data = sim_cells))
   tibble(outcome = v, sim_unemp = cf[["unemp"]], sim_growth = cf[["growth"]])
 }) |>
   list_rbind() |>
@@ -154,7 +154,7 @@ Now the arithmetic. The simulated coefficients sit near the planted values but n
 #| label: fig-sweep
 #| fig-width: 8
 #| fig-height: 3.6
-#| fig-cap: "Independent draws from the same recipe, each refitted with the anchor specification. Red marks show the planted coefficient. The unemployment slopes sit consistently outside their marks, which is the bias that the text discusses."
+#| fig-cap: "Independent draws from the same recipe, each refitted with C6HJR's published Multi100 specification. Red marks show the planted coefficient. The unemployment slopes sit consistently outside their marks, which is the bias that the text discusses."
 ggplot(sweep, aes(sim_unemp, outcome)) +
   geom_point(alpha = 0.45, colour = "#00205b", size = 1.6) +
   geom_point(data = planted, aes(planted_unemp, outcome),
@@ -184,7 +184,7 @@ sweep_summary |>
 
 The last column is the test: each remaining gap as a multiple of the standard error of the mean across draws. `r sum(abs(sweep_summary$gap_in_ses) < 2)` of the `r nrow(sweep_summary)` fall inside two standard errors, and the ones outside are not scattered. Every unemployment slope misses in the same direction, with the estimate from the twin larger in magnitude than the planted value by `r sprintf("%.0f", 100 * (median(abs(sweep_summary$mean_estimate[sweep_summary$slope == "sim_unemp"]) / abs(sweep_summary$planted[sweep_summary$slope == "sim_unemp"])) - 1))` per cent at the median. The median rather than the mean, because the planted slope of libertarian framing is nearly zero and any absolute error there is an enormous proportion of it – an average would report a number driven entirely by the one quantity with almost nothing in it to estimate.
 
-That is a real bias in the generator, and it is shown here because of how it had to be found. **No single draw reveals it.** Fit the anchor to the committed twin and regress its cell means against those in the panel, and the unemployment coefficient on the difference comes back at *t* = −0.12 – nothing at all. One draw's sampling noise is the same size as the bias, so a sweep of this size is what separates it from zero.
+That is a real bias in the generator, and it is shown here because of how it had to be found. **No single draw reveals it.** Fit C6HJR's published Multi100 specification to the committed twin and regress its cell means against those in the panel, and the unemployment coefficient on the difference comes back at *t* = −0.12 – nothing at all. One draw's sampling noise is the same size as the bias, so a sweep of this size is what separates it from zero.
 
 Its source is a stated limitation of the construction rather than a mistake in it. The generator gives each country-year four numbers, one shift per dimension, where the real data has thirteen, one rate per item. A dimension-level shift captures as little as 37 per cent of the cell-to-cell variation in some items, and what is lost shows up twice over: as a mentioning rate about 1.6 points below the one in the panel, and as this amplification.
 
@@ -219,7 +219,7 @@ Do not judge the result on one rerun: a single draw gives one estimate, and one 
 Point `$SIM_OUT` at a scratch directory unless you mean to overwrite the committed twin, and note that at `0.40` the file is four times the size.
 :::
 
-## 3. Six outcomes, one instrument {#sec-outcomes}
+## 3. The six outcomes {#sec-outcomes}
 
 On the grid as estimated, the choice of outcome – which framing scale you treat as 'EU framing' – moves results more than any other analytical decision. The twin lets you see part of why, because the dimensions are shares of one instrument and cannot move independently.
 
@@ -247,7 +247,7 @@ What belongs here is the methodological point rather than the answer. An earlier
 
 The general rule matters more than any particular exhibit of it. **A simulation can only demonstrate what was put into it.** If the mechanism on display is one you wrote down yourself, the demonstration establishes that your code works, not that the world does – which is why simulated data can be used to check whether an estimator recovers an answer, but never to supply one.
 
-## 5. Individual effects, real against simulated {#sec-individual}
+## 5. Individual effects {#sec-individual}
 
 Age, sex, education, occupation and urbanisation all carry into the twin the effects they have in the real respondents, which is what lets it support the published model rather than a simplified one. Whether they arrive intact is a question with a checkable answer.
 
@@ -273,7 +273,7 @@ Build your own placebo. Take any *person-level* variable in the file, shuffle it
 The italics on *person-level* are doing real work. `unemp`, `growth` and `bailout` hold one value for a whole country-year, so shuffling them inside a cell puts every value back where it was and hands you the real coefficient with the real *p*-value, looking for all the world like a placebo that failed. That is not a quirk of the shuffle: a variable that does not vary within the unit you are permuting cannot be permuted there at all, which is the same aliasing that makes a null impossible to build at the level at which a macro predictor lives.
 :::
 
-## 6. The degrees-of-freedom story, run live {#sec-df}
+## 6. Degrees of freedom {#sec-df}
 
 The statistical methods module tells a story it can only display, because it rests on the licensed file: a naive analysis that ignores clustering reports an enormous *t* on hundreds of thousands of degrees of freedom, while the multilevel model reports a modest one on a couple of hundred – because the predictor varies only at the country-year level. On the twin you can run the contrast.
 
@@ -303,9 +303,9 @@ B_WITHIN <- coef(lm(cosmo ~ unemp + factor(cntry), data = cells_w,
 df_tbl |> mutate(across(where(is.numeric), \(x) signif(x, 3)))
 ```
 
-The naive row claims forty thousand independent witnesses; the multilevel row counts the few hundred effective ones, because respondents inside a country-year share one unemployment value and largely echo their cell. Person-level sample sizes advertise precision that the design does not possess whenever the predictor lives at a higher level. The model that respects the structure pays for that respect in degrees of freedom, and here in the estimate too: the naive fit is a different weighted average of between-country and within-country variation, landing at `r signif(df_tbl$estimate[1], 3)` against the multilevel `r signif(df_tbl$estimate[2], 3)`, which sits near the within-country slope of `r signif(B_WITHIN, 3)`. Neither of the two is the planted coefficient, because both leave out the year effects that the anchor carries. This is also why, in Part 1 of the workshop, two Multi100 analysts fitting person-level models to the same claim could reach such different strengths of evidence.
+The naive row claims forty thousand independent witnesses; the multilevel row counts the few hundred effective ones, because respondents inside a country-year share one unemployment value and largely echo their cell. Person-level sample sizes advertise precision that the design does not possess whenever the predictor lives at a higher level. The model that respects the structure pays for that respect in degrees of freedom, and here in the estimate too: the naive fit is a different weighted average of between-country and within-country variation, landing at `r signif(df_tbl$estimate[1], 3)` against the multilevel `r signif(df_tbl$estimate[2], 3)`, which sits near the within-country slope of `r signif(B_WITHIN, 3)`. Neither of the two is the planted coefficient, because both leave out the year effects that C6HJR's published Multi100 specification carries. This is also why, in Part 1 of the workshop, two Multi100 analysts fitting person-level models to the same claim could reach such different strengths of evidence.
 
-## 7. Weights that matter {#sec-weights}
+## 7. Weights {#sec-weights}
 
 Survey weights are usually taught as a procedure. The interesting question is when they change anything, and simulated data can answer it because the distortion that the weight corrects can be built in deliberately. The sample here was drawn with a fieldwork distortion – younger respondents over-selected – and `w1` is the exact reciprocal of that selection factor, normalised to mean 1 within each country-year.
 
@@ -340,12 +340,12 @@ The distortion here is constant across cells, so it shifts levels without touchi
 
 In the generator, set `SIM_DISTORT_SLOPE` to 0.01. The youth over-selection then grows with a cell's unemployment rate rather than sitting at one strength everywhere, and because age is correlated with framing in the estimated structure, the distortion now bends the macro slope itself instead of only shifting levels. That is the case where weighting stops being cosmetic.
 
-One rerun will not show you that. Across draws the unweighted estimate carries the larger bias, but within any single draw the separation is small next to that draw's own sampling variation, so one comparison is an unreliable demonstration and can as easily show the weighted estimate sitting further away. Run eight or ten seeds, keep each `$SIM_OUT` file, and fit the anchor to every one of them weighted and unweighted. `$SIM_SWEEP` will not do this job for you, because it records the unweighted estimates only.
+One rerun will not show you that. Across draws the unweighted estimate carries the larger bias, but within any single draw the separation is small next to that draw's own sampling variation, so one comparison is an unreliable demonstration and can as easily show the weighted estimate sitting further away. Run eight or ten seeds, keep each `$SIM_OUT` file, and fit C6HJR's published Multi100 specification to every one of them weighted and unweighted. `$SIM_SWEEP` will not do this job for you, because it records the unweighted estimates only.
 
 Two things to expect. The weighted estimate will not land exactly on the planted value either: `w1` is the reciprocal of the selection probability, which reverses the distortion in expectation rather than in any one sample. And a distortion that varies across cells changes what the per-cell threshold solve was calibrated against, so the cell means in the twin drift slightly from those in the panel – visible in the generator's own diagnostic, and a reminder that a generator's parts are not independent of one another.
 :::
 
-## 8. Simulating a world with no effect in it {#sec-null}
+## 8. A null world {#sec-null}
 
 The [inference reading](../exercise/reading-inference.qmd) argues that to test a specification curve you must know what the curve would look like if there were nothing to find, and the test designed there builds that nothing by permutation. Simulation offers a more direct route: write the recipe with the effect removed.
 
@@ -419,7 +419,7 @@ map(1:9, \(i) {
 cat(sprintf("::: {.callout-note collapse=\"true\"}\n## Which panel is real?\nPanel %d. If you picked it, you have informally rejected the null by eye – the logic of a permutation test, run on your visual system. If you could not, that is itself evidence about how strong a level-2 relationship of this size looks at this sample size.\n:::\n", real_panel))
 ```
 
-## 9. Test the design before you run it {#sec-design}
+## 9. Design checks {#sec-design}
 
 Power analysis for multilevel designs rarely has clean formulas, and the standard advice is to simulate: generate data from the design you are contemplating and see how precisely it estimates the quantity you care about [@GelmanEtAl2020RegressionOtherStories; @DeBruineBarr2021UnderstandingMixedeffectsModels]. Precision on a level-2 slope is bought mainly with countries and years rather than with respondents, so the question to ask is what four times as many of each would buy.
 
@@ -459,6 +459,6 @@ Read the three rows against each other. Quadrupling the respondents inside the e
 
 ## Further reading {#sec-further}
 
-Four things to read next. For the habit itself, *Regression and Other Stories* is the anchor text, its fake-data simulations short, constant and cumulative [@GelmanEtAl2020RegressionOtherStories], with *Active Statistics* packaging the same moves as classroom activities [@GelmanVehtari2024ActiveStatisticsStories]. For multilevel structures specifically, DeBruine and Barr's tutorial is sections 2 and 6 of this module done properly: it builds a mixed-effects simulation from nothing and recovers its parameters, on the argument that constructing the data is how you come to understand the model [@DeBruineBarr2021UnderstandingMixedeffectsModels]. For simulation inside a modelling workflow – prior and posterior predictive checking, calibration, experimentation on synthetic data before touching the real thing – the Bayesian workflow book is the current statement [@GelmanEtAl2026BayesianWorkflow], and its habits transfer well beyond Bayesian settings. And for simulation as a research method in its own right, the design framework of @MorrisEtAl2019UsingSimulationStudies supplies the vocabulary, the book-length treatment written for social scientists is @CarseyHarden2014MonteCarloSimulation, and an applied Monte Carlo study that this site already cites, on cross-lagged panel models, shows the genre working on a question adjacent to this case's own estimator fork [@LeszczenskyWolbring2022HowDealReverse].
+Four things to read next. For the habit itself, *Regression and Other Stories* is the core text, its fake-data simulations short, constant and cumulative [@GelmanEtAl2020RegressionOtherStories], with *Active Statistics* packaging the same moves as classroom activities [@GelmanVehtari2024ActiveStatisticsStories]. For multilevel structures specifically, DeBruine and Barr's tutorial is sections 2 and 6 of this module done properly: it builds a mixed-effects simulation from nothing and recovers its parameters, on the argument that constructing the data is how you come to understand the model [@DeBruineBarr2021UnderstandingMixedeffectsModels]. For simulation inside a modelling workflow – prior and posterior predictive checking, calibration, experimentation on synthetic data before touching the real thing – the Bayesian workflow book is the current statement [@GelmanEtAl2026BayesianWorkflow], and its habits transfer well beyond Bayesian settings. And for simulation as a research method in its own right, the design framework of @MorrisEtAl2019UsingSimulationStudies supplies the vocabulary, the book-length treatment written for social scientists is @CarseyHarden2014MonteCarloSimulation, and an applied Monte Carlo study that this site already cites, on cross-lagged panel models, shows the genre working on a question adjacent to this case's own estimator fork [@LeszczenskyWolbring2022HowDealReverse].
 
 Simulation studies are analyses too, and they have researcher degrees of freedom of their own – conditions, performance measures, which results get reported – so a comparative study can be tuned until any method looks superior [@PawelEtAl2024PitfallsPotentialsSimulation]. The disciplines that this course keeps returning to, declared designs and justified choices, apply to simulated data exactly as they apply to real data. The generator, the calibration script, the codebook and this page's chunks are all committed, so the first Try-it is the quickest place to begin: change what the recipe plants, rerun, and watch what your tools do when you already know the answer.

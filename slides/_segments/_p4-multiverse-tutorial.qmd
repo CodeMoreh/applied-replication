@@ -1,0 +1,206 @@
+## Where the idea comes from {.smaller .deepdive run="multiverse"}
+
+::: {.skiplink}
+[8 optional slides · skip to the class chart →](#the-class-multiverse)
+:::
+
+::: {.small}
+- **Multiverse analysis** [@SteegenEtAl2016IncreasingTransparencyMultiverse] – born from *data-processing* choices: how you code, exclude and combine. Report the whole set of datasets that your choices could have produced
+- **Specification curve analysis** [@SimonsohnEtAl2020SpecificationCurveAnalysis] – the same move for *model* choices, plus a visual grammar: estimates on top, the choices that produced each one underneath
+- **The vibration of effects** – the same idea, arrived at independently in epidemiology
+- **The book-length treatment** [@YoungCumberworth2025MultiverseAnalysisComputational] – computational recipes at scale
+:::
+
+::: {.fragment .small}
+Different names, one move: **stop treating your analytical choices as invisible, and enumerate them.**
+:::
+
+::: notes
+Brief history, because the vocabulary is a mess and knowing which word came from where helps. Multiverse analysis is Steegen and colleagues in 2016, and it grew out of data-processing choices specifically – how you code a variable, which cases you exclude, how you combine items – with the proposal that you report the whole set of datasets that your choices could have produced. Specification curve analysis is Simonsohn, Simmons and Nelson, making the same move for model choices, and adding the visual grammar you are about to see: estimates plotted on top, and underneath them a panel showing which choices produced each one. The vibration of effects is the same idea arrived at independently in epidemiology, which tells you it is a natural response to the problem rather than a fashion. And there is now a book-length treatment with computational recipes. Different names, one move: stop treating your analytical choices as invisible and enumerate them.
+:::
+
+## The garden, drawn {.smaller .deepdive run="multiverse"}
+
+```{r}
+#| label: forking-paths
+#| fig-width: 9
+#| fig-height: 3.6
+# A binary decision tree over four choices: 16 end points, one path highlighted.
+# Drawn from coordinates rather than data – this is an illustration of the
+# structure of a decision sequence, not a result.
+lev <- 4
+seg <- purrr::map_dfr(seq_len(lev), function(k) {
+  n_parent <- 2^(k - 1)
+  purrr::map_dfr(seq_len(n_parent), function(j) {
+    y0 <- (j - 0.5) / n_parent
+    tibble::tibble(
+      x = k - 1, xend = k,
+      y = y0,
+      yend = c(y0 - 0.5 / 2^k, y0 + 0.5 / 2^k),
+      lit = k <= 1 | FALSE)
+  })
+})
+# Highlight one route through the tree: always the upper branch.
+route <- tibble::tibble(x = 0:3, xend = 1:4,
+                        y = c(0.5, 0.75, 0.875, 0.9375),
+                        yend = c(0.75, 0.875, 0.9375, 0.96875))
+
+ggplot() +
+  geom_segment(data = seg, aes(x, y, xend = xend, yend = yend),
+               colour = "#c7ccd2", linewidth = 0.5) +
+  geom_segment(data = route, aes(x, y, xend = xend, yend = yend),
+               colour = d_red, linewidth = 1.1) +
+  annotate("text", x = 0:3 + 0.5, y = -0.06,
+           label = c("outcome", "estimator", "sample", "weights"),
+           colour = ncl_blue, fontface = "bold", size = 4.2) +
+  annotate("text", x = 4.05, y = 0.96875, hjust = 0,
+           label = "the one you published",
+           colour = d_red, fontface = "bold", size = 4.2) +
+  coord_cartesian(xlim = c(0, 5.6), ylim = c(-0.1, 1.05), clip = "off") +
+  theme_void()
+```
+
+::: {.small}
+Four binary choices give sixteen analyses. **Eight axes with several options each give hundreds.** The published paper reports one red line and no tree.
+:::
+
+::: notes
+Here is the structure of the problem, drawn. Four choices, two options each, and you already have sixteen distinct analyses. Our menu has fourteen axes and most of them have more than two options, which is how you get from hundreds to hundreds of thousands. And the point of the picture is the red line: what a published paper reports is one route through this tree, with no indication that the tree exists. The reader sees a coefficient and a standard error, and the standard error describes uncertainty from sampling – it says nothing whatever about the fifteen other branches. Gelman and Loken's phrase for this is the garden of forking paths, and their sharp observation, which we met this morning, is that you do not have to walk every path for this to be a problem. Walking one path that you chose after seeing the data is enough.
+:::
+
+## Justifiable, not merely possible {.smaller .deepdive run="multiverse"}
+
+::: {.small}
+A multiverse is **not** every analysis you could run. Two filters have to be applied before anything goes in:
+
+- **Justifiability** – could you defend this specification to a reviewer, in writing, before seeing its result?
+- **The same estimand** – does it estimate the quantity you said you were after?
+:::
+
+::: {.fragment .small}
+Drop the first filter and you get a cloud of nonsense that makes any finding look fragile. Drop the second and you are averaging over answers to different questions – which is the red-card mistake, at scale.
+:::
+
+::: {.fragment .small}
+Today's grid is a **curated 840**, chosen against both filters. That curation is itself an analytical decision, and it is the one that a critic should attack first.
+:::
+
+::: notes
+This is where multiverse analysis is most often done badly, so it is worth slowing down. A multiverse is not every analysis you could run. Two filters have to be applied before a specification is allowed in. The first is justifiability: could you defend this specification to a reviewer, in writing, before seeing what it gives? The second is that it has to estimate the same quantity you said you were after. Drop the first filter and you generate a cloud of nonsense, and since nonsense specifications produce scattered answers, any finding on earth looks fragile. Drop the second and you are averaging over answers to different questions, which is the red-card mistake reproduced at scale. Today's grid is a curated eight hundred and forty, chosen against both filters. And notice that the curation is itself an analytical decision – it is the first thing that a critic should attack.
+:::
+
+## Enumerate, or curate? {.smaller .deepdive run="multiverse"}
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {.small}
+**Enumerate**
+
+Cross every option on every axis. Complete, mechanical, reproducible.
+
+Risk: the set fills up with specifications nobody would defend, and the spread stops meaning anything.
+:::
+:::
+::: {.column width="50%"}
+::: {.small}
+**Curate**
+
+Include only the specifications you would actually defend.
+
+Risk: you are choosing the set, so a sceptic can ask whether you chose it to get the picture you wanted.
+:::
+:::
+::::
+
+::: {.fragment .small}
+There is no way out of this. Either way, **the set is a claim**, and it belongs in the paper alongside the curve – ideally declared before the curve is drawn.
+:::
+
+::: notes
+So how do you build the set? Two strategies, and both have a real cost. Enumerate: cross every option on every axis mechanically. It is complete, it is reproducible, and nobody can accuse you of hand-picking. The risk is that the set fills up with specifications nobody would defend, and once it does, the spread stops meaning anything – of course the answer varies, you included analyses that are wrong. Or curate: include only the specifications you would actually defend in print. That fixes the first problem and creates a second, because now you are choosing the set, and a sceptic can reasonably ask whether you chose it to produce the picture you wanted. There is no way out of this dilemma, and I do not think you should pretend there is. Either way the set is a claim, it belongs in the paper next to the curve, and ideally it is declared before the curve is drawn.
+:::
+
+## Multiplying the menu out {#the-arithmetic-gets-away-from-you .smaller .deepdive run="multiverse"}
+
+::: {.small}
+Our menu, multiplied out:
+
+- 6 outcomes × 2 predictor forms × 3 copredictors × 4 estimators × 5 samples × 2 weightings, minus the combinations that are not defined → **840** distinct analyses
+- Add the **outcome family** axis → **1,680**
+- Add **GDP growth** as the claim carrier → **2,520**, the canonical universe on the results page
+- Open the four regression weights and the five **measurement** decisions – how the outcome is built, what happens to no-opinion respondents, which items, design-weighted cells or not, which published series – and the standard-error convention → **449,280** linear fits, **457,080** rows once the beta twins and two imputation engines are in
+- Open the **unit of analysis** as well – person level or aggregate – and the arithmetic doubles again
+:::
+
+::: {.fragment .small}
+Two consequences. **Compute stops being free**, so somebody must decide what is worth running. And **you cannot look at 450,000 numbers** – you need a picture, and a way to ask which axis is doing the work.
+:::
+
+::: notes
+Now multiply the menu out. Six outcomes, two predictor forms, three copredictor settings, four estimators, five samples, two weightings – minus the combinations that are not defined, like random effects with weights – and you land on eight hundred and forty distinct analyses. Add the outcome family axis and it doubles to one thousand six hundred and eighty. Add GDP growth as an alternative claim carrier and it is two and a half thousand. And if you also opened the unit of analysis, person level or aggregate, the menu arithmetic runs past five thousand. Two consequences follow. First, compute stops being free, so somebody has to decide what is worth running, and that decision is not neutral. Second, and more practically, you cannot look at two and a half thousand numbers. You need a picture, and you need a way of asking which axis is actually doing the work.
+:::
+
+## What is a multiverse *for*? {.smaller .deepdive run="multiverse"}
+
+::: {.small}
+Rohrer, Hullman and Gelman's question, and it has three different answers that want three differently built universes:
+
+- **Reflection** – to understand your own analysis. Which choices matter, where the argument has to happen. Build it broad, and read it yourself
+- **Persuasion** – to convince a reader that the finding is not an artefact of one path. Build it from specifications that *your critic* would accept
+- **Inference** – to make a probabilistic statement about the curve as a whole. Build it to a fixed, declared rule, and bring a null distribution
+:::
+
+::: {.fragment .small}
+Today's grid was built for **reflection**. Reading it as inference is the mistake we take apart later in this part.
+:::
+
+::: {.src}
+@RohrerEtAl2026WhatsMultiverseGood
+:::
+
+::: notes
+And then the question that organises the whole debate, which is Rohrer, Hullman and Gelman's: what is a multiverse actually for? Because there are three answers and they want three differently built universes. If it is for reflection – understanding your own analysis, finding out which choices matter and where the argument has to happen – build it broad and read it yourself; it does not even have to go in the paper. If it is for persuasion – convincing a reader that your finding is not an artefact of one path – then build it out of specifications that your critic would accept, not ones you like. And if it is for inference, making a probabilistic statement about the curve as a whole, then you need a fixed declared rule and a null distribution, and that is a much heavier undertaking. Today's grid was built for reflection. Reading it as inference is exactly the mistake we take apart later in this part.
+:::
+
+## Which fork matters? {.smaller .deepdive run="multiverse"}
+
+::: {.small}
+Once you have hundreds of estimates and the choices that produced each one, you can ask a question that no single analysis can answer: **how much of the variation does each axis account for?**
+
+- Treat the specification grid as data: one row per analysis, the axes as factors, the estimate as the outcome
+- Decompose the variance across axes
+:::
+
+::: {.fragment .small}
+The answer is the most useful thing a multiverse produces, because it tells you **where to spend your argument**. An axis that moves nothing does not need defending. An axis that moves everything needs a paragraph.
+:::
+
+::: {.fragment .small}
+On this claim, the answer surprises almost everybody – which is why you are going to bet on it in a minute before I show you.
+:::
+
+::: notes
+This analysis only becomes possible once you have hundreds of estimates and a record of which choices produced each one. You can turn the grid itself into a dataset – one row per analysis, the eight axes as factors, the estimate as the outcome – and decompose the variance across axes. How much of the spread does each fork account for? I think that is the most useful thing a multiverse produces, and it is much more useful than the curve itself, because it tells you where to spend your argument. An axis that moves nothing does not need defending in your paper; you can say so in a sentence and move on. An axis that moves everything needs a paragraph of justification, and probably a sensitivity analysis. On this claim the answer surprises nearly everybody, which is why in a moment I am going to make you bet on it before I show you.
+:::
+
+## Reading a specification curve {.smaller .deepdive run="multiverse"}
+
+::: {.small}
+Five questions to ask any curve you meet, in any paper:
+
+1. **What is on the vertical axis** – a raw coefficient, or something standardised? Are the signs aligned so that up and down mean the same thing throughout?
+2. **How was the set built** – enumerated or curated, and by whom?
+3. **Where does the published estimate sit** – at the median, or out at an end?
+4. **Is the spread patterned** – does one axis produce the extremes, or is it scattered?
+5. **What null is the significance shading against** – and are the specifications independent? (They almost never are.)
+:::
+
+::: {.fragment .small}
+You are about to answer all five for your own curve. That is a publishable robustness section.
+:::
+
+::: notes
+And to close the tutorial, five questions to ask of any specification curve you ever meet, in anybody's paper. One: what is on the vertical axis – a raw coefficient, which is not comparable across outcomes, or something standardised; and are the signs aligned so that up and down mean the same thing all the way across. Two: how was the set built, enumerated or curated, and by whom. Three: where does the published estimate sit – comfortably at the median, or out at one end, because those are very different situations for the author. Four: is the spread patterned – does one axis produce all the extremes, or is it genuinely scattered. And five, the one nobody asks: what null is that significance shading against, and are the specifications independent of each other? They almost never are, and we will spend some time on why that matters. You are about to answer all five for your own curve, and that is a publishable robustness section.
+:::
+
+<!-- DEEP DIVE END -->

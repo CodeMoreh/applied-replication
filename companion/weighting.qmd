@@ -1,0 +1,345 @@
+---
+title: "Weights"
+subtitle: "Design weights, precision weights and population weights"
+bibliography: [../references.bib, ../references-new.bib]
+---
+
+```{r}
+#| label: setup
+#| include: false
+suppressPackageStartupMessages(library(dplyr))
+pw <- datawizard::data_read("../data/teney_panel_weights.csv", verbose = FALSE)
+cy <- datawizard::data_read("../data/EUframes_cy.csv", verbose = FALSE)
+wg <- datawizard::data_read("../data/spec_grid_weights.csv", verbose = FALSE) |>
+  # the grid codes the respondent-count weight by the panel column n_cy; the
+  # menu calls the same setting n_cell
+  mutate(reg_weight = ifelse(reg_weight == "n_cy", "n_cell", reg_weight))
+pct <- \(x) sprintf("%.1f%%", 100 * x)
+show_fit <- \(file) cat(readLines(file.path("_model-outputs", file)), sep = "\n")
+num <- \(x, d = 3) gsub("-", "−", formatC(x, digits = d, format = "f"), fixed = TRUE)
+sig <- \(x) gsub("-", "−", formatC(x, format = "g", digits = 3), fixed = TRUE)
+c6hjr <- wg |>
+  filter(outcome == "mcosmo", estimator == "fe_twoway", sample == "all",
+         pred_form == "raw", copredictor == "none", outcome_build == "share")
+```
+
+The specification menu has a **regression weight** axis with four settings and a
+**cell weight** axis with two, and between them those two lines stand in for three
+different decisions. They sit at two different levels of the analysis, they are
+justified by different arguments, and only one of them changes what the analysis is
+estimating. Running them together under the one word is the sort of thing that makes
+a robustness check look like a technicality when it is really a change of question.
+
+This module separates them. It is the natural companion to the
+[causal graphs module](dags.qmd) and to
+[what each decision commits you to](../exercise/spec-menu.qmd#what-each-decision-commits-you-to),
+and it uses the course panel throughout.
+
+## The three decisions
+
+| | Level | The argument for it | Does it change the estimand? |
+|:--|:--|:--|:--|
+| **Design weighting** | inside a country-year cell | The achieved sample is not a miniature of the country, so weight the respondents before averaging them | No. It makes the cell mean a better estimate of the same quantity |
+| **Precision weighting** | across cells | A cell mean built on more interviews is measured more precisely, so let it count for more | No. It is an efficiency argument about estimating the same slope |
+| **Population weighting** | across cells | The claim is about Europeans, not about countries, so a country should count in proportion to how many people live in it | **Yes.** The slope now describes a different average |
+
+: The three decisions that travel under the word "weight" in this analysis. {#tbl-three}
+
+The first is a *measurement* decision: it changes how well the number in the cell
+estimates the thing it names. The second is an *estimation* decision: it changes the
+efficiency of the fit and leaves the target alone. The third is an *estimand*
+decision: it changes whose average the coefficient describes, and two analysts who
+resolve it differently are answering different questions.
+
+## Design weights within the cell
+
+Eurobarometer ships design weights with every wave, and they are not optional
+decoration. Fieldwork does not deliver a miniature of the population: some groups are
+easier to reach than others, some refuse more often, and the achieved sample tilts
+accordingly. The **W1 national weight** reverses that tilt so that the weighted
+sample matches the country's known population margins for sex, age, region and
+size of locality.
+
+Applying it changes the country-year means, though not dramatically here. Across the
+`r nrow(pw)` cells, the largest change to the cosmopolitan scale is
+`r sig(max(abs(pw$w_mcosmo - cy$mcosmo[match(paste(pw$cntry, pw$year), paste(cy$cntry, cy$year))])))`
+on a 0–1 scale whose mean is about 0.51, and the weighted and unweighted cell means
+correlate at `r round(cor(pw$w_mcosmo, cy$mcosmo[match(paste(pw$cntry, pw$year), paste(cy$cntry, cy$year))]), 4)`.
+That is small but not nothing: it is the difference between a country's respondents
+and a country's population.
+
+::: {.callout-important title="Eurobarometer ships more than one weight, and the choice among them is an estimand decision"}
+A Eurobarometer file carries several weight variables, and they are not
+interchangeable. The **national** weight (`W1`) makes each country's sample
+representative *of that country*. The **European** weights (`W3`, `W4` and their
+relatives) additionally scale each country by its population, so that pooling all
+respondents together gives an estimate for the EU population as a whole. An
+**extrapolation factor** (`WEX`) grosses the sample up to population counts.
+
+Reach for the wrong one and you will silently answer the wrong question. Using a
+European weight and then averaging countries double-counts population size; using a
+national weight and then pooling respondents across countries gives you an average
+over *respondents*, which is an artefact of how many interviews each country
+happened to get. Whenever a survey ships more than one weight, read the codebook
+before choosing, because the choice among them is the country-versus-person estimand
+decision arriving in disguise.
+:::
+
+## Effective sample size
+
+Weighting buys representativeness and pays for it in precision. When respondents
+carry unequal weights, the weighted mean is less precise than an unweighted mean of
+the same number of interviews, because a few heavily weighted cases do a
+disproportionate share of the work. Kish's **effective sample size** is the standard
+way of saying how much precision is left:
+
+$$n_\text{eff} = \frac{\left(\sum_i w_i\right)^2}{\sum_i w_i^2}$$
+
+For a cell where every weight is equal, $n_\text{eff} = n$. As the weights spread
+out, it falls. In this panel the median cell has
+$n = `r median(pw$n_cy)`$ interviews and
+$n_\text{eff} = `r round(median(pw$n_eff))`$, a design effect of
+`r round(median(pw$deff), 2)`; the worst cell loses
+`r pct(1 - 1 / max(pw$deff))` of its sample to the weighting.
+
+The practical consequence is that if you are going to weight cells by their precision,
+$n_\text{eff}$ is the right variable and $n$ is an approximation to it.
+
+## Regression weights across cells
+
+Once you have `r nrow(pw)` country-year means, the regression has to decide how much
+each one counts. Four defensible answers, and they say different things.
+
+```{r}
+#| label: tbl-candidates
+#| echo: false
+tinytable::tt(
+  data.frame(
+    Setting = c("`none`", "`n_cell`", "`n_eff`", "`pop`"),
+    `What it weights by` = c("nothing; every cell counts once",
+      "respondents interviewed", "effective sample size",
+      "adult population of the country that year"),
+    `The claim it makes` = c(
+      "The claim is about countries. Malta and Germany are two observations",
+      "Cells measured on more interviews are more reliable evidence",
+      "The same argument, using the precision that the weighting actually leaves",
+      "The claim is about Europeans. A German counts as much as a Maltese"),
+    Kind = c("estimand: the average country", "precision", "precision",
+             "estimand: the average European"),
+    check.names = FALSE)) |>
+  tinytable::style_tt(fontsize = 0.8)
+```
+
+: The four regression weights available in `spec_grid_weights.csv`. {#tbl-candidates}
+
+### Sample size and population size
+
+It is tempting to treat the respondent count (`n_cy` in the panel, `n_cell` on the
+menu) as a size variable, on the reasoning that bigger countries get bigger samples. They do not, or not by much. Eurobarometer fields
+roughly a thousand interviews in each member state whatever its size, with smaller
+allocations for the smallest states and a larger one for Germany. So across this
+panel:
+
+- the respondent count runs from `r min(pw$n_cy)` to `r max(pw$n_cy)`, a ratio of
+  **`r round(max(pw$n_cy) / min(pw$n_cy), 1)` to 1**;
+- the adult population runs from `r format(min(pw$pop_15plus), big.mark = ",")` to
+  `r format(max(pw$pop_15plus), big.mark = ",")`, a ratio of
+  **`r round(max(pw$pop_15plus) / min(pw$pop_15plus))` to 1**;
+- and the two correlate at only
+  `r round(cor(pw$n_cy, pw$pop_15plus), 2)` across the `r nrow(pw)` cells.
+
+Weighting by `n_cell` therefore does *not* make the analysis population-representative.
+It makes it precision-weighted, which is a different and much weaker claim. If you
+want the average European, you have to weight by population and say so.
+
+## The published specification under each weight
+
+Here is C6HJR's published Multi100 specification – cosmopolitan framing, two-way fixed
+effects, all years, raw unemployment, no co-predictor – fitted under all eight
+combinations of the two cell-level and four cell-weighting choices.
+
+```{r}
+#| label: tbl-c6hjr
+#| echo: false
+tinytable::tt(
+  c6hjr |>
+    arrange(factor(cell_weight, c("unweighted", "design")),
+            factor(reg_weight, c("none", "n_cell", "n_eff", "pop"))) |>
+    transmute(`Cell mean` = ifelse(cell_weight == "design",
+                                   "design-weighted", "unweighted"),
+              `Regression weight` = reg_weight,
+              b = sig(estimate), t = num(statistic, 2),
+              p = sig(p), r = num(r, 3)) |>
+    as.data.frame()) |>
+  tinytable::style_tt(j = 3:6, align = "r") |>
+  tinytable::style_tt(fontsize = 0.8)
+```
+
+: C6HJR's published Multi100 coefficient under every weighting choice. The first row is the published
+Multi100 result. {#tbl-c6hjr}
+
+Three things are worth reading off that table.
+
+Every row supports the claim and every row is significant, so nothing here is a
+sign flip or a disappearing result. What moves is the size: the partial correlation
+runs from `r num(min(c6hjr$r), 3)` to `r num(max(c6hjr$r), 3)`, a spread of about
+two-thirds of the smaller value, on a specification that any methods section would
+describe in one identical sentence.
+
+The two kinds of weight pull in **opposite directions**. Precision weighting by the
+respondent count weakens the result, from t = `r num(c6hjr$statistic[c6hjr$cell_weight == "unweighted" & c6hjr$reg_weight == "none"], 2)`
+to t = `r num(c6hjr$statistic[c6hjr$cell_weight == "unweighted" & c6hjr$reg_weight == "n_cell"], 2)`.
+Population weighting strengthens it, to t = `r num(c6hjr$statistic[c6hjr$cell_weight == "unweighted" & c6hjr$reg_weight == "pop"], 2)`.
+An analyst who reasons "I should weight, because weighting is more careful" without
+saying which argument they are making could land on either.
+
+Kish's correction changes almost nothing: `n_eff` and `n_cell` give
+t = `r num(c6hjr$statistic[c6hjr$cell_weight == "unweighted" & c6hjr$reg_weight == "n_eff"], 2)`
+and `r num(c6hjr$statistic[c6hjr$cell_weight == "unweighted" & c6hjr$reg_weight == "n_cell"], 2)`.
+The design effects here are small enough that the distinction is a matter of
+correctness rather than of consequence. That is worth knowing in both directions:
+it is the right variable, and on this panel it will not rescue or ruin anything.
+
+## The denominator
+
+There is a decision underneath all of this that the weights cannot reach.
+`r format(sum(pw$n_noop), big.mark = ",")` respondents, `r pct(sum(pw$n_noop) / sum(pw$n_cy))`
+of the sample, mentioned nothing at all when asked what the EU means to them. The
+original paper and every reanalysis of it scored those respondents **0** on all four
+framing scales rather than dropping them, so a person with no opinion enters the data
+as a person with no cosmopolitan framing.
+
+That would be a defensible convention if the no-opinion rate were constant. It is not:
+
+```{r}
+#| label: tbl-noop
+#| echo: false
+tinytable::tt(
+  pw |> summarise(rate = mean(noop_rate), .by = cntry) |>
+    arrange(desc(rate)) |> slice(c(1:4, (n() - 3):n())) |>
+    transmute(Country = cntry, `No opinion` = pct(rate)) |>
+    as.data.frame()) |>
+  tinytable::style_tt(j = 2, align = "r") |>
+  tinytable::style_tt(fontsize = 0.8)
+```
+
+: The four highest and four lowest no-opinion rates. {#tbl-noop}
+
+An eight-fold difference in the rate of a response that is coded as a substantive
+zero is a measurement problem no weight will fix, because the weights correct the
+composition of the respondents, not the treatment of their answers. If you think the
+no-opinion respondents should be dropped rather than zeroed, that is an argument
+about what the outcome variable *is*, and it belongs on the measurement level of the
+[specification menu](../exercise/spec-menu.qmd) rather than in the weighting row.
+
+## Weights in estimation {#sec-estimation}
+
+
+
+Every Eurobarometer respondent arrives with a number attached: a **survey weight**. This section is about what those numbers are, how estimation uses them, and why they interact awkwardly with the multilevel framework – a corner of practice where software choices genuinely change results. It is the mechanics behind the design-weight decision of the sections above, and every fit it shows was run on the respondent file that the workspace's build script produces.
+
+Weights exist because samples are not miniature populations. Some people are harder to reach, some decline, some designs deliberately over-sample small groups; the result is that a 60-year-old rural woman may stand for more people than an urban student who was easier to find. A design weight $w_i$ is, at its cleanest, the inverse of person $i$'s probability of ending up in the sample, $w_i = 1 / \pi_i$. Post-stratification adjustments then align the weighted sample with known population margins. Estimation uses the weights by letting each observation count $w_i$ times. The weighted mean is the simplest case,
+
+$$ \hat{\bar{Y}} = \frac{\sum_i w_i\, y_i}{\sum_i w_i} $$
+
+and weighted least squares generalises it, choosing coefficients to minimise $\sum_i w_i \left( y_i - \beta_0 - \beta_1 x_i \right)^2$ so that under-represented kinds of people pull the line with their population share rather than their sample share.
+
+The weighting scheme of the Eurobarometer itself, documented in the weighting overview of the GESIS Eurobarometer Data Service [@GESISWeightingOverview], is a complete worked example of that logic, and the data file for every wave labels its weights plainly. The basic one is **W1, "WEIGHT RESULT FROM TARGET"** – the `w1` of the rebuilt person file. It is a pure post-stratification (in the vocabulary of the Eurobarometer, *redressment*) weight: an iterative marginal-weighting procedure aligns each national sample with the known margins of its population on sex, age, region (NUTS 2) and size of locality, reproducing each country's real case count. W1 makes each national sample representative *of its own country*, and it deliberately does nothing to rescale countries against one another. The companion weights divide the remaining labour. W3 ("WEIGHT GERMANY") and W4 ("WEIGHT UNITED KINGDOM") combine the separately drawn East/West German and Great Britain/Northern Ireland samples into united national totals – the same sample splits that the DE and GB recodes in the course codebook fold together. The long W5–W30 series ("WEIGHT EU6" through "WEIGHT EU27", euro zone in and out) add the population-size scaling needed when similarly sized national samples must stand for populations as different as Malta's and Germany's, and **WEX** ("WEIGHT EXTRA POPULATION 15+") extrapolates results to the actual population aged fifteen and over. The habit that transfers to any survey: find the weighting documentation, identify which weight matches the population that *your* question is about, and say in the methods which one you used. For a question about the within-country alignment of framing and unemployment, W1 is the natural choice – and it is the natural weights fork for any person-level universe built on this menu.
+
+In R, design-based estimation is the job of the survey package [@Lumley2004AnalysisComplexSurvey]. You declare the design once – weights, and where the data supply them, clusters and strata – and then every estimator respects it:
+
+```r
+library(survey)
+
+des <- svydesign(ids = ~1, weights = ~w1, data = person)   # weights only; no PSU info here
+m_svy <- svyglm(cosmo ~ unemp, design = des)
+summary(m_svy)
+```
+
+```{r}
+#| echo: false
+show_fit("svyglm.txt")
+```
+
+This output rewards two readings. As a weighting demonstration: the W1-weighted pooled slope is +0.0001 with t = 0.8 – nothing, and on the wrong side of zero. Weights repair *representation*, and they have done their job; what they cannot repair is a mis-structured model, and this is the pooled estimator of [section 3 of the statistics module](stats-methods.qmd#sec-pooled) again, blending within and between variation across 27 countries. As an output-reading exercise: note that `svyglm()` reports design-robust (linearised) standard errors as a matter of course – there is no classical-SE option to forget, which is one reason that survey statisticians like the package.
+
+The awkward corner is combining weights with the multilevel framework. The difficulty is conceptual before it is computational. A multilevel model needs to know the selection probability *at each level* – the country's probability of inclusion, then the respondent's probability given the country – but surveys typically publish one all-in weight per person, and there is no unique way to split it. The standard answer is **pseudo-maximum-likelihood**, weighting each level's contribution to the likelihood [@Rabe-HeskethSkrondal2006MultilevelModellingComplex], and it comes with a genuine fork: level-1 weights can be scaled in more than one defensible way, the choice can move variance estimates noticeably, and the recommendation in the literature is to report sensitivity across scalings rather than trust any one [@Carle2009FittingMultilevelModels].
+
+Because implementations differ in those choices, **the same weighted multilevel model can return different numbers in different software**, and knowing which convention you are running is part of reporting the model. Three practical facts settle the R side. First, the `weights` argument of `lmer()` is *not* a survey-weights argument – it treats weights as precision weights, a different quantity entirely, and silently gives design-inconsistent answers if you feed it `w1`. Second, Stata's `mixed` accepts probability weights (`[pw = ...]`) and implements pseudo-maximum-likelihood with its own scaling options (`pwscale()`); many of the weighted multilevel results in the applied literature were produced under its conventions. Third, the R package that speaks Stata's dialect is **WeMix** [@BaileyEtAl2023WeMixWeightedMixed]: it takes one weight column per level and fits by pseudo-maximum-likelihood. In our own comparative survey work it has reproduced Stata's weighted `mixed` fixed-effect estimates to three decimals, which makes it the tool of choice when a published Stata result needs re-implementing in R.
+
+Two of the five Multi100 analysts worked in Stata, and their public code turns these abstractions into something you can point at. Analyst PRL47 – the person-level multilevel analyst of [section 6 of the statistics module](stats-methods.qmd#sec-multilevel) – builds the level-2 cell identifier and fits three-level random intercepts with `mixed`; these lines are from their Multi100 upload:
+
+```stata
+egen cquarter=concat(country quarter)    // the country-by-quarter cell id
+mixed cosmo || country: || cquarter:     // three-level random intercepts
+```
+
+The weight is missing from that second line: PRL47's script carefully assembles a survey weight for every wave (`gen weight=w3a4a`), then uses it only in descriptive checks (`sum cosmo cosmo2 [w=weight]`) – it never reaches the model, because carrying it there would mean committing to `[pw = ...]` and a defensible `pwscale()` choice, exactly the pseudo-maximum-likelihood fork above. Building a weight is easy; defending its use inside a multilevel model is a decision, and a careful analyst stopping short of that decision is itself instructive. And no estimation options are missing by accident either. A bare `mixed` estimates by maximum likelihood with model-based standard errors, whereas R's `lmer()` defaults to REML, so a line-for-line port disagrees with the original for no substantive reason unless one side's default is overridden. The correspondence, made explicit for Stata users:
+
+```stata
+* Stata – PRL47's estimator (maximum likelihood by Stata's default)
+mixed cosmo || country: || cquarter:
+* what a design-weighted version would have needed
+mixed cosmo [pw = weight] || country: || cquarter:, pwscale(size)
+```
+
+```r
+# the R twin – lmer() defaults to REML, so match Stata's ML explicitly
+lmer(cosmo ~ 1 + (1 | country) + (1 | cquarter), data = d, REML = FALSE)
+
+# the design-weighted twin – WeMix, pseudo-maximum-likelihood, one weight per level
+mix(cosmo ~ 1 + (1 | country), data = d, weights = c("weight", "w_country"))
+```
+
+Back to the data of this case. Supplying a constant 1 at the country level reproduces the common 'weights at level 1 only' scenario:
+
+```r
+library(WeMix)
+
+person <- person |>
+  mutate(w_lvl2 = 1)   # unit weight at the country level – weighting at level 1 only
+m_wemix <- mix(cosmo ~ unemp + (1 | cntry), data = person,
+               weights = c("w1", "w_lvl2"))
+summary(m_wemix)
+```
+
+```{r}
+#| echo: false
+show_fit("wemix_2lvl.txt")
+```
+
+Set this beside the unweighted two-level fit of [section 6 of the statistics module](stats-methods.qmd#sec-multilevel) and read the comparison carefully, because it contains one more like-for-like trap. The weighted slope, −0.0049, sits next to the unweighted −0.0048: the W1 weights barely move the estimate, which is itself a finding (the framing–unemployment alignment is not an artefact of who is over- or under-represented within national samples). The standard errors, though, are not comparable at a glance – 0.0015 here against 0.0002 there. Most of that gap is not the weights but the *variance estimator*, since WeMix reports design-linearised (robust) standard errors while `lmer()` reports model-based ones. Two settings changed between the outputs, and only one of them is the weighting. The habit from section 3 of the statistics module applies at every level of sophistication: before attributing a difference to the interesting setting, equalise the boring ones.
+
+The weighting axes of the course, finally, are humbler objects than any of this. The specification menu offers three regression weights – the number of respondents behind each country-year average (`n_cell`), the effective sample size that remains once the design weights have been applied to those respondents (`n_eff`), and the adult population of the country (`pop`) – and, separately, a choice of whether the cell means themselves are built with or without the Eurobarometer design weights (`cell_weight`). The first two regression weights are precision arguments about aggregated cells: a mean built from 3,000 people is measured more precisely than one built from 300. The population weight is a different kind of object, because it changes whose average the estimate describes. And the design weights live with the microdata, as above; the `cell_weight` axis applies them there, when the cell means are built, and ships the result as a second version of the panel. The earlier sections of this page take these apart one by one. The second Stata analyst in this case, KQXUE, works at exactly this end of the spectrum, and their pipeline shows the whole weighting question dissolving in two lines:
+
+```stata
+collapse cosmo util, by(cntry year)    // unweighted country-year means
+xtreg cosmo unemployment, fe           // = the within estimator of section 4 of the statistics module
+```
+
+The `collapse` averages every respondent equally, so the design weights are gone before any model is fitted, and each cell then enters `xtreg` with equal say whether 300 people or 3,000 stand behind it – precisely the axis that the menu's `n_cy` option toggles. (The Stata–R correspondence continues here too: `xtreg, fe` after `xtset cntry_num year` is the within estimator in `plm`.) The menu's weighting fork, for the record, moves almost nothing: it contributes less than one per cent of the specification variance in the grid.
+
+
+## What to take away
+
+- Say which of the three decisions you are making, and give the argument that goes
+  with it. "Weighted" on its own is not a specification.
+- Design weighting and precision weighting leave the estimand alone. Population
+  weighting changes it, and a paper that switches to population weights in a
+  robustness section has changed its question without saying so.
+- When a survey ships several weights, the choice among them usually encodes the
+  country-versus-person decision. Read the codebook first.
+- Look at what your weight variable actually varies over before trusting it as a
+  proxy for anything. Here the respondent count spans a factor of
+  `r round(max(pw$n_cy) / min(pw$n_cy), 1)` and the population it is standing in for
+  spans a factor of `r round(max(pw$pop_15plus) / min(pw$pop_15plus))`.
+
+## Exercise
+
+1. Pick any specification from the [menu](../exercise/spec-menu.qmd) and look it up
+   in `data/spec_grid_weights.csv` under all four regression weights. Write one
+   sentence per weight stating what the coefficient is the average *of*.
+2. Two of those four sentences describe the same quantity. Which two, and why?
+3. The `no_bailout` sample setting and the `pop` weight both change the population
+   the claim is about. One of them is conventionally reported as a robustness check
+   and the other as a modelling choice. Should either be?

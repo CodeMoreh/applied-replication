@@ -1,0 +1,18 @@
+---
+title: "Part 3 – Reproduce, then take the model apart"
+---
+::: {.callout-note appearance="simple" icon=false}
+**Slides.** [Open the deck at this part](../../slides/one-day-methods.html#/part-3-reproduce-then-take-the-model-apart){target="_blank"} in its own tab, or follow it on the [slides page](slides.qmd).
+:::
+
+Part 3 is the reproduction, then the menu taken apart axis by axis, with each choice shown doing something to an estimate, and then a run of exploration of your own.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| Slides, the constrained task | The three Multi100 instructions read verbatim, what each assumes, the columns of the panel, and the aim of the reproduction. | 10 minutes |
+| Your working script, or [Browser lab](../../exercise/browser-lab.qmd) Task 3 | Fit `mcosmo ~ unemp_c` with country and year fixed effects and land t = −3.804 (df = 233, N = 270), the value on record for analyst C6HJR. Type your t and hold it until the count. Then: why everyone landed the same t while five analysts writing their own code did not. | 20 minutes |
+| [Specification menu](../../exercise/spec-menu.qmd) and slides | The axes you choose from, the three levels they sort into, what the constrained task left open, the one-deviation rule and the claim-alignment convention. | 15 minutes |
+| Slides, the methodological tutorial, with [The statistical methods behind the course](../../companion/stats-methods.qmd) as the companion | Every axis, one slide each: six ways to say 'EU framing'; mean, sum or share; claim alignment; a bounded scale in a linear model; which variable carries the claim; predictor form; four ways to handle countries and years and what fixed effects actually buy; copredictor; sample; weights; and making the axes comparable. | 25 minutes |
+| Task 4 in the workspace or on the [Browser lab](../../exercise/browser-lab.qmd), then [Multiverse](../../results.qmd) | Call `try_spec()` three or four times, changing one argument at a time, print them with `my_experiments()`, then submit the one you would defend with `submit_exploration()`. Your dot lands on the chart as an open circle. | 20 minutes |
+
+**By the end of the part** you have reproduced t = −3.804, you can say what each axis of the menu does to an estimate, and you have an exploratory dot on the class chart.

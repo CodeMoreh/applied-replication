@@ -1,0 +1,12 @@
+---
+title: "Session 1 – The case, and the three Rs"
+---
+The term opens on the case that every later session works on, and on the vocabulary problem that gives the course its name. Reproducibility, robustness and replicability are three different operations, and the paper at the centre of the course was put through all three with three different verdicts.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Course overview](../../index.qmd) | Read what the exercise is, what the six steps of it are, and what you will need installed. | 15 minutes |
+| [Resources – four words that are not synonyms](../../resources.qmd#glossary) | Learn the difference between reproducibility, robustness and replicability, then read the SCORE dossier table further down the same page: one paper, three activities, three outcomes. | 40 minutes |
+| [Exercise overview](../../exercise/index.qmd) | Read the claim as it was put to the analysts, the coefficient published by the original author (OA), and the table of what five independent analysts found when they reanalysed it. | 45 minutes |
+
+**By the end of the session** you have written one paragraph stating the claim in your own words and naming what the reproduction, the robustness reanalysis and the replication each returned on this paper.

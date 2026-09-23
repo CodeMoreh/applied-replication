@@ -1,0 +1,18 @@
+---
+title: "Part 3 – Reproduction and exploration"
+---
+::: {.callout-note appearance="simple" icon=false}
+**Slides.** [Open the deck at this part](../../slides/one-day-replication.html#/part-3-reproduction-and-exploration){target="_blank"} in its own tab, or follow it on the [slides page](slides.qmd).
+:::
+
+Part 3 is where the reproduction happens and where the menu of alternatives opens: two hands-on tasks, with the talk that connects them in between.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| Slides, Part 3 | The three Multi100 instructions read verbatim, what each of them assumes, the columns of the panel, and the aim of the reproduction you are about to run. | 15 minutes |
+| Your working script in the workspace, or [Browser lab](../../exercise/browser-lab.qmd) Task 3 | Fit `mcosmo ~ unemp_c` with country and year fixed effects and land t = −3.804 (df = 233, N = 270), the value on record for analyst C6HJR. Everyone types their t and holds it until the count, so that the identical values arrive together. | 22 minutes |
+| [Specification menu](../../exercise/spec-menu.qmd) and slides | First, why everyone landed the same t while the five published analysts, each writing their own code, did not. Then the axes you choose from, one option each: frame set, scoring rule, predictor, copredictor, sample, weight and estimator at Level 1, the measurement choices at Level 2, and the form, family and standard errors at Level 3. Last, what the constrained task left open, including the unit of analysis, and the claim-alignment convention that puts every result on one scale. | 20 minutes |
+| Slides, the methodological tutorial | Optional depth: what each axis actually does to an estimate. The outcome, claim alignment and estimator slides are the core of it. | 13 minutes |
+| Task 4 in the workspace or on the [Browser lab](../../exercise/browser-lab.qmd), then [Multiverse](../../results.qmd) | Call `try_spec()` three or four times, changing one argument at a time, print them side by side with `my_experiments()`, then pick the one you would defend and send it with `submit_exploration()`. Your dot lands on the chart as an open circle. | 20 minutes |
+
+**By the end of the part** you have reproduced t = −3.804 yourself, tried three or four alternatives one argument at a time, and put an exploratory dot on the class chart.

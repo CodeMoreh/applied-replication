@@ -1,0 +1,9 @@
+# PART 2 – The claim and its estimand {.darkslide background-color="rgba(0,0,0,0)"}
+
+::: {.partlabel}
+Part 2 · 90 minutes
+:::
+
+::: notes
+Part two. We left the morning with five analysts, one claim, and answers spanning two orders of magnitude. This part answers why. It begins by going properly inside the paper – what it actually claimed, what it actually fitted, and what happened when three different kinds of repetition were tried on it. Then it turns the question around: a great deal of what gets called analysis variability turns out to be *question* variability, and analysts who look like they disagree about an answer are very often answering different questions without noticing. So we build the two tools that let you say precisely which question you are asking – the estimand, and the causal graph – and you use both before lunch.
+:::

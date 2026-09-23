@@ -1,0 +1,21 @@
+## Hands-on 2: meet the panel, draw the graph {.smaller}
+
+::: {.small}
+**Task 2**, in either route – three pieces:
+
+1. **Look at the data.** 270 rows, 27 countries, 10 years. Run the country panel plot and find the ones that move
+2. **Write the estimand in words.** The template gives you the unit quantity, the target population, the aggregation – fill in each for *this* claim
+3. **Wire up the DAG.** Take the `#` off the arrows you are willing to defend, rerun `adjustmentSets()`, and see what it now demands
+:::
+
+::: {.fragment .small}
+Two sentences for your notes: **what do two-way fixed effects adjust for, and what can they not fix?**
+:::
+
+::: {.fragment .small}
+Whatever you decide here becomes the model you defend in Part 3, and the justification you preregister in Part 4.
+:::
+
+::: notes
+Your turn, and this is the piece that people tell me afterwards changed how they work. Three things, in either route. First, look at the data – twenty-seven small panels, and find the countries that move sharply, because that is the variation that your model will use. Second, write the estimand in words using the template on the page: the unit-specific quantity, the population you want it over, and how you are averaging. Write it for this claim specifically – the whole value is in being forced to be precise. Third, the graph. Take the hash off the arrows you actually believe, rerun, and watch what adjustmentSets gives back. If you add growth as a confounder it will demand something the two-way model cannot deliver, and that is a real finding about the design, not a bug in your code. Then those two sentences for your notes. Twenty minutes. Shout in chat if you get stuck.
+:::

@@ -1,0 +1,230 @@
+## The paper we spend the day inside
+
+::: {.small}
+- 16 Eurobarometer waves, **2004–2013**; about **390,000** respondents in **27 countries**
+
+::: {.claimcard}
+"The results show, first, that *poor economic performances* **increase negative** and **decrease positive** *dimensions of EU framing*."
+:::
+
+- "What does the EU mean to you personally?"
+  - COSMOPOLITAN: positive non-materialist form of EU framing ('Peace'; 'Democracy'; 'Freedom to travel, study and work anywhere in the EU'; 'Cultural diversity'; 'Stronger say in the world')
+  - UTILITARIAN: positive materialist form of EU framing (economic prosperity and social protection)
+  - COMMUNITARIAN: negative non-materialist form of EU framing ('Loss of our cultural identity'; 'More crime'; 'Not enough control at external borders'; 'Unemployment')
+  - LIBERTARIAN: negative materialist form of EU framing ('Bureaucracy'; 'Waste of money')
+:::
+::: {.src}
+@Teney2016DoesEUEconomic.
+:::
+::: notes
+Back to OA's paper, and this time properly. Sixteen Eurobarometer waves, 2004 to 2013 – the crisis decade – about three hundred and ninety thousand respondents across twenty-seven member states. The outcome comes from one rather good survey item: what does the EU mean to you personally? Thirteen response options, which OA organises into four framing scales, and read those slowly because the whole afternoon depends on them. Cosmopolitan is the positive non-materialist one: peace, democracy, freedom to travel and study and work anywhere, cultural diversity, a stronger voice in the world. Utilitarian is positive and materialist: prosperity and social protection. Communitarian and libertarian are the negative pair. That sorting into four scales is itself a substantive theoretical claim about what the EU means to people, and it is one you could argue with – which, this afternoon, several of you will.
+:::
+
+## The claim card, as analysts received it
+
+::: {.claimcard}
+"… poor economic performances … decrease positive dimensions of EU framing"
+
+<span class="src">Teney (2016: 619)</span>
+:::
+
+::: {.small}
+- Published coefficient – unemployment → cosmopolitan framing, Table 3 Model 1:
+- **b = −0.00340 · [t = −4.03]{.highlight bg-colour="#ffe3b3"} · p < .001**
+:::
+
+::: notes
+This is, word for word, the claim every Multi100 analyst was handed: "poor economic performances decrease positive dimensions of EU framing". And this is the published number behind it, from Table 3, Model 1 – the unemployment coefficient on cosmopolitan framing: minus point zero zero three four, t of minus four. Keep one wrinkle in mind for later. In the paper's own Model 2, with more controls in, that same coefficient drops by more than half and loses significance. The robustness question is already alive inside the original paper.
+:::
+
+
+## What OA actually fitted {.smaller}
+
+::: {.small}
+- The unit is a **person**, not a country-year: roughly 390,000 respondents
+- Thirteen response options collapse into **four framing scales** – cosmopolitan, utilitarian, communitarian, libertarian
+- A **three-level** model: respondents inside country-waves inside countries
+- Individual covariates: sex · age · education band · occupational status · urbanisation · left–right placement
+- Macro predictors: **unemployment rate** and **GDP growth**, entering at the country-wave level
+- Plus **cross-level interactions** – does the macro effect differ by education?
+:::
+
+::: {.fragment .small}
+Published coefficient, Table 3 Model 1 – unemployment on cosmopolitan framing: **b = −0.00340 · t = −4.03 · p < .001**
+:::
+
+::: {.src}
+@Teney2016DoesEUEconomic.
+:::
+
+::: notes
+So what is under the bonnet? The unit of analysis is a person – around three hundred and ninety thousand of them – not a country-year. The outcome comes from a single survey item with thirteen response options, which OA collapses into four framing scales: cosmopolitan, utilitarian, communitarian, libertarian. The model is three-level: respondents inside country-waves inside countries. At the individual level there are the usual controls – sex, age, education band, occupational status, urbanisation, left-right placement. The two macro predictors, unemployment and GDP growth, enter at the country-wave level. And there are cross-level interactions, asking whether the macro effect differs by education. The published number for our claim, from Table 3 Model 1, is the unemployment coefficient on cosmopolitan framing: minus point zero zero three four, t of minus four.
+:::
+
+## The robustness question is already in the paper {.smaller}
+
+::: {.small}
+- **Model 1**: unemployment → cosmopolitan framing · b = −0.00340 · t = −4.03 · p < .001
+- **Model 2**: the same coefficient, with further controls added – drops by more than half and **loses significance**
+:::
+
+::: {.fragment .small}
+Two models, one paper, and support for the claim depends on which one you read. The paper reports both, which is more than many do.
+:::
+
+::: {.fragment .small}
+For today, that matters because the sixth analyst's problem – *which defensible specification do I report?* – was **already live inside the original study**, before any of us arrived.
+:::
+
+::: notes
+This next point is easy to miss, and it reframes the whole exercise. Look at what happens inside OA's own paper. Model one gives the published coefficient: minus point zero zero three four, t of minus four, comfortably significant. Model two, which adds further controls, takes that same coefficient, more than halves it, and loses significance. Two models, one paper, and whether the claim is supported depends on which of them you read. To be fair to OA, the paper reports both – which is more than a great many papers do. But notice what it means for us. The problem you will face this afternoon, as the sixth analyst – which of several defensible specifications do I report, and on what grounds? – was already live inside the original study, before any re-analyst was anywhere near it.
+:::
+
+## What we work on instead {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {.small}
+**OA's data**
+
+- ~390,000 respondents
+- 16 waves, 27 countries
+- GESIS-licensed: I may not redistribute it
+- Models take minutes
+:::
+:::
+::: {.column width="50%"}
+::: {.small}
+**Today's panel** – `EUframes_cy.csv`
+
+- **270 country-years**, one row each
+- The framing scales, averaged within each country-year
+- Freely shareable, ships with the workspace and the browser lab
+- Models take milliseconds
+:::
+:::
+::::
+
+::: {.fragment .small}
+The aggregate answers the **contextual** question directly: does a country's framing move when its unemployment moves? What it cannot answer is the **compositional** one – whether it is the same people framing differently, or a different mix of people. There is a companion module that takes that up on simulated individual data.
+:::
+
+::: notes
+Now, a practical matter with a conceptual point behind it. OA's data is Eurobarometer microdata under GESIS licence, which I am not permitted to redistribute – and, as you will see in a moment, that constraint is exactly what wrecked the first reproduction attempt on this paper. So what you get today is an aggregate I built from it and am allowed to share: two hundred and seventy country-years, one row each, with the framing scales averaged within each cell. It ships with the workspace and the browser lab, and it fits in milliseconds. The conceptual point is on the fragment. The aggregate answers the contextual question directly – does a country's framing move when its unemployment moves. What it cannot answer is the compositional one: whether the same people are framing differently, or the mix of people has changed. If that interests you, there is a companion module on the site that takes it up on simulated individual data.
+:::
+## Reproducibility: two attempts, two failures
+
+::: {.small}
+- Data: openly available but not freely redistributable
+
+::: {.claimcard .fragment}
+"The required data to replicate my analyses can be downloaded on  the Gesis repository website. I am not allowed to forward the Eurobarometer data. Enclosed you´ll find the code to combine the different Eurobarometer data waves and the code for the analysis of the ESR piece"
+:::
+
+- Code: push-button reproduction failed
+
+::: {.claimcard .fragment}
+"The reproduction attempt failed because the authors used file names that did not correspond with the names of the files available for download. Additionally 16 datasets are listed on the website as being used but the code references 18 files"
+:::
+
+- **Source-data reproduction** (rebuild from raw) – **"not reproduced"**: could neither extract nor re-calculate the original effect size
+:::
+
+::: notes
+So what happened when SCORE tried to reproduce this paper? Two attempts, two different failures. And let me be fair to OA here: there was no public archive with the paper, but OA did supply their two Stata do-files when asked – what OA could not share was the data, because GESIS terms do not allow it. Even with OA's code in hand, the push-button reproduction failed, and the wording of the report is instructive – the file names in the code did not correspond to the files you could actually download; sixteen datasets listed, eighteen referenced. The second attempt rebuilt the data from source, and could not recover the published effect size at all. So this claim entered the robustness study already carrying two failed reproductions, of two different kinds.
+:::
+
+## Replication: the coefficient flips sign
+
+::: {.small}
+- Analysis One – the focal test on which SCORE evaluates the claim
+
+  - 352,114 person-year observations in the analytic sample
+  - b = 0.002, p = 0.046, se = 0.0008, t = 2.004
+
+- Analysis Two – the 'still studying' and 'no full-time education' categories in the variable 'age when finished full-time education' were **not** converted to missing values
+
+  - 379,396 person-year observations in the analytic sample
+  - b = 0.002, p = 0.017, se = 0.0007, t = 2.394
+
+- Both give a **positive coefficient** for unemployment on cosmopolitan framing, **significant** at p-values of 0.05 or less, after controlling for selected predictors and for wave and country-level effects
+- By the criteria used by SCORE, Analysis Two did not replicate the claim
+:::
+
+::: {.src}
+[osf.io/zt5y2/files/7efsw](https://osf.io/zt5y2/files/7efsw)
+:::
+
+## One paper, all three Rs
+
+```{r}
+#| label: score-scoreboard
+#| fig-width: 10.5
+#| fig-height: 4.6
+# The full SCORE dossier on the EU-frames case as a clean three-row scoreboard
+# (sources: osf.io/h7432 components; see resources page). Inline values, one
+# row per R, colour-coded by verdict. Stays fully editable.
+sb <- tibble::tribble(
+  ~ord, ~R,              ~verdict,         ~detail,                                              ~fill,
+  3,    "Reproducible?", "FAILED ×2", "push-button + source-data",  d_red,
+  2,    "Robust?",       "MIXED",          "5 analysts, \nnegative effect in line with original, \nvaried strength + significance ", orange,
+  1,    "Replicable?",   "FAILED",   "new Eurobarometer data, \nsign flipped/opposing results", d_red
+)
+
+ggplot(sb, aes(x = 1, y = ord)) +
+  # role band
+  geom_tile(aes(fill = fill), width = 0.9, height = 0.92,
+            alpha = 0.14) +
+  # left rule in the verdict colour
+  geom_segment(aes(x = 0.553, xend = 0.553, y = ord - 0.46, yend = ord + 0.46,
+                   colour = fill), linewidth = 6) +
+  scale_fill_identity() +
+  scale_colour_identity() +
+  # the R name
+  geom_text(aes(label = R), x = 0.60, hjust = 0, vjust = 0.5,
+            fontface = "bold", colour = ncl_blue, size = 8) +
+  # the verdict
+  geom_text(aes(label = verdict, colour = fill), x = 0.60, y = sb$ord - 0.26,
+            hjust = 0, vjust = 0.5, fontface = "bold", size = 6.2) +
+  # the supporting detail
+  geom_text(aes(label = detail), x = 1.02, hjust = 0, vjust = 0.5,
+            colour = grey_mid, size = 4.6) +
+  scale_x_continuous(limits = c(0.5, 1.9)) +
+  scale_y_continuous(limits = c(0.4, 3.6)) +
+  labs(x = NULL, y = NULL) +
+  theme_void()
+```
+
+::: {.src}
+[osf.io/h7432](https://osf.io/h7432)
+:::
+
+::: notes
+Put the whole dossier together – every artefact here is public, the link is on the slide. Reproduction: failed, twice, in two different ways. Robustness: mixed – five analysts, one sign, sizes spanning two orders of magnitude. And replication: a preregistered study took the same question to new Eurobarometer data, three hundred and fifty-two thousand observations – and the coefficient flipped sign. Positive, just significant, the wrong way round. So: one paper, three Rs, three different verdicts. That is the uncorrelated-indicators result from part one, embodied in a single case. Asking "is this paper reliable?" gets you nowhere; asking "reliable in which sense?" gets you all of this. Now – of the three, the middle one is where five careful people disagreed with each other, and it is the only one of the three we can do anything about today. So the rest of this part is about what they were disagreeing over.
+:::
+
+## Same verdict, five different questions {.smaller}
+
+::: {.small}
+| Analyst | Free-phase predictor | Free-phase outcome | Estimator |
+|---|---|---|---|
+| 018OL | GDP per capita (level) | positive framing, 7-item mean | crossed random intercepts |
+| KEVF1 | GDP growth | positive framing, 7-item sum | random intercepts |
+| PRL47 | log GDP + growth + crisis dummy | three positive-framing shares | three-level mixed |
+| KQXUE | GDP growth **and** unemployment | cosmopolitan + utilitarian shares | country FE |
+| **C6HJR** | **GDP growth and unemployment** | **positive framing, 7-item share** | **two-way FE** |
+:::
+
+::: {.fragment .small}
+- Five free analyses, **five different questions** – three of us never touched unemployment at all – and **one shared recorded verdict**: 'evidence for the claim'
+- The constrained phase then *manufactured* a common question; its five comparable answers span **−0.006 to −0.45**
+- Conclusions can agree while estimates cannot even be compared – the two robustness questions that Multi100 was built to separate [@AczelEtAl2026InvestigatingAnalyticalRobustness]
+:::
+
+::: {.src}
+Free-phase records: the public Multi100 dataset (osf.io/q5h2c) – categorical verdicts and free-text reports only; the models themselves read from the analysts' public code.
+:::
+
+::: notes
+This is the layer underneath, and it is the sharpest illustration I have of this morning's point. Multi100 ran in two phases, and this table is the first one – months before the constrained task, complete freedom. Look at what freedom produced. GDP per capita for one analyst, GDP growth for another, a whole battery of GDP measures at three levels for a third – and three of the five of us never touched the unemployment rate at all. Different outcomes too: a mean, a sum, a share, three separate shares. Five different questions, in other words. And every single one of us recorded the same verdict: evidence for the claim. Then the constrained task arrived, manufactured one common question, and the five comparable answers ran from minus point zero zero six to minus point four five. Conclusions agreed in words while the numbers disagreed by two orders of magnitude. Now, that is five people on one paper. What happens when it is twenty-nine teams?
+:::

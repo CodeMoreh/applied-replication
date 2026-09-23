@@ -1,0 +1,20 @@
+---
+title: "Part 4 – The multiverse and the one path you declare"
+---
+::: {.callout-note appearance="simple" icon=false}
+**Slides.** [Open the deck at this part](../../slides/one-day-methods.html#/part-4-the-multiverse-and-the-one-path-you-declare){target="_blank"} in its own tab, or follow it on the [slides page](slides.qmd).
+:::
+
+Part 4 reads what the room built, gives the multiverse idea the full treatment, and closes on the analysis you declare before it runs.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| Slides, the multiverse tutorial, with [The multiverse and its critics](../../companion/multiverse.qmd) as the companion | You just built a small multiverse; where the idea comes from; the garden of forking paths, drawn; justifiable, not merely possible; enumerate or curate; what a multiverse is for; which fork matters; how to read a specification curve. | 20 minutes |
+| [Multiverse](../../results.qmd) and slides | The class's exploratory dots against the full curve and the five analysts; your bet on which choice moves estimates most, then the decomposition; where the analysts sit on the aligned grid; where the wrong-sign results concentrate. | 20 minutes |
+| The percentile cell on the [Browser lab](../../exercise/browser-lab.qmd) page | Read off your own percentile among the 840 specifications and send it with everyone else's. | 5 minutes |
+| [Reading a specification curve](../../exercise/reading-inference.qmd) and slides | What the curve leaves out; the two jobs a curve can do; why 840 estimates are not 840 tests; the permutation design and how to read a curve-level test; what stands without one. Then the discussion. | 15 minutes |
+| Slides | The three critical positions, the argument that a fully specified question has one correct analysis, and what preregistration settles and what it leaves open. | 10 minutes |
+| The report skeleton in the workspace, or [Browser lab](../../exercise/browser-lab.qmd) Task 5 | Complete the preregistration block before you run anything, translate it into model syntax yourself, run it, and submit with `report_result()`. Your dot joins the chart as a filled circle. | 15 minutes |
+| Slides | Two sentences worth keeping, a single analytical path as a choice, and what you take with you. | 5 minutes |
+
+**By the end of the part** you have your own percentile in the 840-specification grid, one specification declared in writing before it was run, and a report carrying the result that came back, together with an answer to what the curve you joined does and does not establish.

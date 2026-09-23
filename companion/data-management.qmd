@@ -1,0 +1,114 @@
+---
+title: "Building the analysis file"
+subtitle: "Foundation to intermediate – from sixteen survey files to the respondent file, the scales and the panel"
+---
+
+This module of the [companion curriculum](index.qmd) is about the work between a download and a model: reading survey files with their labels, finding the same question in sixteen files that name it sixteen ways, harmonising the respondent characteristics, scoring a battery of items into scales, averaging respondents into country-years, and merging a macro series in by country and year. Every page of the course that fits a model starts from a file that this work produced, and the page is built around the two scripts in the workspace that do it: `prep/01_build_respondents.R`, which you run once, and `prep/02_scales_and_panel.R`, which you read and run step by step. The first reproduces the course's respondent file from your own GESIS downloads and proves it; the second rebuilds the country-year panel that ships with the course, to machine precision, and then builds the panel by education band that the individual-level extension works on.
+
+The module assumes the [R module](intro-r.qmd), and the [data sources module](data-sources.qmd#sec-gesis) is where the downloads themselves are walked through. If you have not downloaded the sixteen files, everything here can still be read, because the numbers the scripts print are quoted on the page; nothing can be run.
+
+::: {.callout-warning}
+## The file you are about to build is licensed microdata
+
+The GESIS terms of use apply to everything the first script writes. The respondent file stays in `data_private/`, which the workspace's `.gitignore` keeps out of version control; it is never uploaded, shared, or opened in a session that an AI assistant can read, because the terms prohibit processing the data with AI systems; and it is deleted when the project ends. The aggregates the course ships carry none of these restrictions, and the second script shows exactly where the line between the two falls.
+:::
+
+## 1. What the first script does {#sec-build}
+
+`prep/01_build_respondents.R` is written to be run as a whole: set the folder that holds the sixteen files at the top, then source the script. It does five things, and it prints a report at the end.
+
+**It checks the files.** The script carries an inventory of the sixteen studies: the file name GESIS serves, the study number, the wave, the year the course assigns the wave to, and the MD5 checksum of the file the course panel was built from. A missing file stops the script with the study number to fetch. The two studies that GESIS serves zipped, ZA4506 and ZA4744, are unpacked beside their archives. Every file's checksum is compared with the inventory, and the report says, file by file, whether yours is byte for byte the one the course used. That comparison is what makes the rest of the course reproducible on your machine rather than on the facilitator's: if the sixteen checksums match, every number on this site can be rebuilt from your folder.
+
+**It finds the question in each file.** The EU-meaning battery sits in sixteen adjacent columns in every file, fourteen items followed by "other" and "don't know", but where it sits differs: in the twelve older files the columns are numbered (`v63` to `v78` in EB 61.0, `v105` onwards in EB 62.0) and in the four newest they are named after the question (`qa12_1` to `qa12_16` in EB 76.3). The inventory records the start of the block or the question stem for each wave, and the script reads the sixteen columns by that rule and checks that every value is 0 or 1. The respondent characteristics are found differently, by their variable labels rather than their positions, because the occupation item in particular moves from wave to wave; a label pattern that matches two variables stops the script rather than guessing.
+
+**It harmonises Germany and the United Kingdom**, which the survey samples as two regions each, into one country each, and keeps the twenty-seven member states of the period.
+
+**It codes the respondent characteristics as the published models code them.** Sex as a female indicator. Education as the age at which full-time schooling finished, with the two codings the menu offers: the published three bands, which replace "still studying" with the respondent's current age and cut at 16 and 20, and a four-band version that keeps the students as a band of their own. Occupation collapsed into the eight groups of the published models, with the unemployed as their own group. Urbanisation in three categories. Left–right placement on its ten-point scale, missing in the four waves that did not ask it.
+
+**It compares the result with the course.** The number of respondents in every country-year is checked against the committed panel, and the counts of respondents who named none of the thirteen items, split into those who said "don't know", those who gave another answer and those who left the question blank, are checked against the committed cell file. When the checksums matched, all 270 cells match on both counts.
+
+The report it prints looks like this on a folder holding the sixteen files the course used:
+
+```
+ study  eb   year rows_eu27 identical_to_course_file
+ ZA4056 61.0 2004 16216     TRUE
+ ZA4229 62.0 2004 26807     TRUE
+ ...
+ ZA5689 79.3 2013 26605     TRUE
+
+ check                                                           value
+ files found                                                      16
+ files identical to the course build                              16
+ country-years in the committed panel                            270
+ country-years rebuilt                                           270
+ cells with an identical respondent count                        270
+ cells with identical no-opinion counts (none, DK, other, blank) 270
+
+respondents: 416698 rows, 31 columns, written to data_private/eb_respondents.rds
+Every check passed: your file is the one the course was built from.
+```
+
+::: {.callout-tip}
+## Try it
+
+Run the script and read the report. Then open `data_private/build_report.csv` and find the wave with the fewest respondents. It is the spring 2004 wave, fielded before the ten accession states joined; every later wave has about twenty-six and a half thousand respondents in the twenty-seven states.
+:::
+
+## 2. What the second script teaches {#sec-scales}
+
+`prep/02_scales_and_panel.R` is written to be read from the top and run a section at a time. It makes each decision of the course's measurement axis explicit, in the order the pipeline needs them.
+
+### 2.1 Which items form which scale {#sec-items}
+
+The published paper assigns the thirteen scored items to four scales, cosmopolitan, utilitarian, communitarian and libertarian, and the course adds the positive and the negative composite. The script states the assignment as four vectors of item names, which is all a scale is at this point: a list. The euro item is carried in the respondent file and never scored, as in the paper. The [measurement module](measurement.qmd) is the page that asks whether the data agree with the assignment.
+
+### 2.2 Three scoring rules {#sec-scoring}
+
+A respondent's answers to a set of items become one number in more than one way, and the course menu carries three: the share, which is the published rule and divides the set's mentions by the respondent's own total; the count, which is the number of the set's items mentioned; and the per-item rate, which divides the count by the number of items in the set. The script computes all three for every scale, side by side, from the same item columns. The share is compositional, so the four scales sum to one for anyone who mentioned anything; the count is a volume, so it does not. That is why the specification menu treats the rule as a decision about what the outcome is rather than about how it is measured.
+
+### 2.3 The respondent who named nothing {#sec-noop}
+
+About six per cent of respondents mentioned none of the thirteen items, and a share has no denominator for them. The published rule scores them zero on every scale, and that is what the script does; the [missing-answers module](missingness.qmd) sets the alternatives beside it, dropping them, splitting them across the scales, or imputing them. The first script kept the "don't know", "other" and blank codes for exactly this reason: the three groups are different people, and a rule that treats them alike is making a choice.
+
+### 2.4 From respondents to country-years {#sec-aggregate}
+
+The course panel averages every respondent in a country-year with the same weight, which the course calls "as interviewed". The design weight that GESIS supplies with each file, which corrects a national sample to its population, is the other choice, and the script computes both means so that the [weights module](weighting.qmd) has something to compare. It also carries the count of respondents in each cell, which a precision weight uses at the next stage.
+
+### 2.5 The macro series {#sec-merge}
+
+The unemployment rate and the growth series join the panel by country and year. The script merges them from the file of every series the menu offers, which ships with the course so that the merge works offline, and shows the two lines that fetch the same World Bank indicators live with the `WDI` package. A live fetch can differ in the last decimals, because the Bank revises past years, which is the reason the course records the vintage it used. The bailout indicator is not merged from anywhere: it is coded by rule from the record of assistance programmes, and the codebook lists the rule.
+
+### 2.6 Does it reproduce the panel? {#sec-reproduce}
+
+The rebuilt panel is compared column by column with the panel the course ships. On the file the course was built from, the six as-interviewed scale means, the respondent counts and the two macro series agree to machine precision, and so do the design-weighted and the count-built means in the cell file:
+
+```
+ column max_abs_difference
+ mcosmo 5.551115e-17
+ mutil  2.775558e-17
+ mcomm  5.551115e-17
+ mlib   2.775558e-17
+ mpos   5.551115e-17
+ mneg   5.551115e-17
+ n_cy   0.000000e+00
+ unemp  0.000000e+00
+ growth 0.000000e+00
+```
+
+A difference of five parts in a hundred million billion is the rounding of floating-point arithmetic, not a difference in the data.
+
+That agreement is what the course means by a reproducible data pipeline: not that the panel is trusted, but that anyone with the same sixteen files and this script gets the same 270 rows, and can change any decision above and see what moves.
+
+### 2.7 The panel by education band {#sec-edu}
+
+The last section builds a second panel, one row per country, year and education band, with the same six scales and the number of respondents behind each mean. It is the aggregate on which the individual-level extension of the course asks whether unemployment narrows the gap between the high- and the low-educated, and it is committable in a way the respondent file is not, because a cell mean of a few hundred people reveals nothing about any of them.
+
+::: {.callout-tip}
+## Try it
+
+Change the scoring rule in section 2.2 from the share to the count for the cosmopolitan scale, re-run sections 2.4 to 2.6, and read the column of differences. The as-interviewed cosmopolitan mean now differs from the course panel in every cell, and the count-built column of the cell file agrees instead. Then change the no-opinion rule so that respondents who named nothing are dropped rather than scored zero, and read the respondent counts. Both are one-line changes, and both are on the specification menu.
+:::
+
+## 3. Beyond this case {#sec-beyond}
+
+The same four steps, read with labels, find the question, harmonise, score and aggregate, are the shape of most survey work, and the [R module's reading section](intro-r.qmd#sec-reading) has the functions for the file formats and the [fetching subsection](intro-r.qmd#sec-fetching) the packages that reach the archives directly. Two habits from these scripts travel with you. Keep an inventory of the files you read, with their versions and checksums, in the script itself, so that the data a result rests on is stated where the result is computed. And keep the licensed and the shareable in different folders from the first day, with the ignore rule written before the first file lands.

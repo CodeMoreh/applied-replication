@@ -1,0 +1,14 @@
+---
+title: "One day – social data science tools"
+subtitle: "Four parts of ninety minutes, with the toolchain in the foreground"
+---
+This version of the one-day course keeps the tools in the foreground: the language, the IDE, the document format, the package layer, version control, and where a finished piece of work goes to live. The case is the same one every format of the course works on, a Multi100 reanalysis of a claim made by the original author (OA) of a paper about how the European Union is framed across its member states, and the exercise is the same: you reproduce a recorded result, write the estimand behind the claim, work a menu of defensible alternatives and declare one before you run it. What changes is the balance. The toolchain gets a part of its own and is walked slowly rather than in eighteen minutes, a first session in R sits inside the day rather than before it, and the closing part takes the report you rendered and asks where it would be deposited, registered and versioned so that someone else could find and re-run it.
+
+| | What happens | Length |
+|---|---|---|
+| [Before the day](before.qmd) | Install R and an IDE, download the workspace, read the claim. | 1 to 2 hours, once |
+| [Part 1 – Credibility as a software problem](part-1.qmd) | What a claim is for, the evidence on how often findings hold up, and five analysts whose disagreement could be diagnosed because every one of them shipped runnable code; then you get running. | 90 minutes |
+| [Part 2 – The toolchain](part-2.qmd) | The map of the tools and each layer of it in turn, then a first session in R in your own workspace. | 90 minutes |
+| [Part 3 – One claim in your hands](part-3.qmd) | The paper, its estimand and its graph; then you reproduce the recorded result to the third decimal. | 90 minutes |
+| [Part 4 – Explore, declare, publish](part-4.qmd) | The menu, an exploratory dot on the class chart, one analysis declared before it runs, and where the finished work is archived. | 90 minutes |
+| [After the day](after.qmd) | Where to go next: Quarto, git and GitHub, and the rest of the curriculum. | as you like |

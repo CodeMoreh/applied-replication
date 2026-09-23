@@ -18,7 +18,7 @@
 #               subtraction, because the total latent correlation between two
 #               items is what their shared covariates induce plus what is left.
 #
-# Reads:        _planning_data/person_level_full.rds   (licensed, local only)
+# Reads:        the respondent file, through _load_respondents.R (licensed, local only)
 #               companion/_model-outputs/joint_corr.csv
 # Writes:       companion/_model-outputs/item_probit_coef.csv
 #               companion/_model-outputs/item_residual_corr.csv
@@ -31,7 +31,7 @@ suppressPackageStartupMessages({
   library(dplyr); library(tidyr); library(purrr); library(readr); library(fixest)
 })
 
-ind <- readRDS("_planning_data/person_level_full.rds")
+source("companion/_model-outputs/_load_respondents.R")
 items <- paste0("it", c(1:7, 9:14))
 
 # Left-right is missing for four of the sixteen waves. Dropping those

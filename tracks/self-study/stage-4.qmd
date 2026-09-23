@@ -1,0 +1,12 @@
+---
+title: "Stage 4 – The question underneath the models"
+---
+Analysts who look as though they disagree are often answering different questions, and the module makes that concrete by fitting each causal shape rather than only describing it. Section 9 asks you to state an estimand for a question of your own, which is worth doing properly even though nobody will read it.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Causal graphs](../../companion/dags.qmd) | Sections 1 to 3: an arrow as a claim you are making, the three shapes a path can take, and what conditioning on a collider does to an estimate. | 60 minutes |
+| [Causal graphs](../../companion/dags.qmd#sec-case) | Sections 4 to 8: the EU-frames graph written as R formulas, the adjustment set that follows from it, what fixed effects cannot fix, and why the data will not draw the graph for you. | 90 minutes |
+| [Causal graphs](../../companion/dags.qmd#sec-yours) | Section 9: state an estimand for a question of your own, in three parts, and draw its graph. | 45 minutes |
+
+**By the end of the stage** you have an estimand for a question of your own written in three parts, a graph that goes with it, and an adjustment set that you derived rather than assumed.

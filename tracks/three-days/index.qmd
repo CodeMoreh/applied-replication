@@ -1,0 +1,15 @@
+---
+title: "Three days"
+subtitle: "Four sessions of ninety minutes a day, with the workshop on day 2"
+aliases:
+  - /tracks/three-days.html
+---
+The three-day course puts the workshop in the middle of a week and gives it a day on either side. Day 1 builds the tools, so that nobody spends the workshop fighting an installation or meeting R for the first time. Day 2 is the workshop: the claim and its estimand, the reproduction, the menu, the multiverse and the declaration. Day 3 goes back through the methods that the workshop used at speed, in the order in which they were needed, and ends on where research materials live and how work is versioned. The three days share one case throughout: a Multi100 reanalysis of a claim made by the original author (OA) of a paper about how the European Union is framed across its member states. By the end of the week you can set up a reproducible project of your own, state the estimand behind a claim and draw the graph that goes with it, fit and read the models that the case needs, and lay out a multiverse of alternatives around a single declared analysis without over-reading what the resulting curve shows.
+
+| | What happens | Length |
+|---|---|---|
+| [Day 1 – The tools](day-1.qmd) | Credibility as a software problem, the toolchain walked slowly, a first session in R, and the document format. | four sessions |
+| [Day 2 – The workshop](day-2.qmd) | The claim, its estimand and its graph; the reproduction; the menu; the multiverse and the declaration. | four sessions |
+| [Day 3 – The methods in depth](day-3.qmd) | Graphs, every estimator output by output, weights and missing answers, the multiverse and its critics, simulation, and where the work is archived. | four sessions |
+| [After the week](after.qmd) | What remains in the curriculum, and the other formats. | as you like |
+

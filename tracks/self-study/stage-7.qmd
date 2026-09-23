@@ -1,0 +1,12 @@
+---
+title: "Stage 7 – Two extensions"
+---
+Neither is needed for anything earlier, and both answer a question that the exercise raises without settling. The first asks what your methods recover when the true answer is known in advance; the second fits the same claim at the individual level, where the country-year design of the exercise cannot go.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [Simulation as a method](../../companion/simulation.qmd) | Sections 1 and 2 for the recipe and a recovery check, then sections 8 and 9 for a world with no effect in it and for testing a design before you run it. The middle sections repay a second visit later. | 2 hours 30 minutes |
+| [The individual level](../../companion/individual-level.qmd) | All seven sections: the published specification fitted where its author fitted it, on a synthetic person-level dataset validated coefficient by coefficient against the real respondents, with the real values printed beside the synthetic ones. Section 7 says what the dataset must not be asked to do, which is the part to read before reusing the synthetic data for anything of your own. | 2 hours |
+| [Building the analysis file](../../companion/data-management.qmd) | If you downloaded the sixteen Eurobarometer files (setup, step 6): run the first workspace script and read its report, then work through the second section by section, rebuilding the course panel to machine precision and building the panel by education band that the individual-level work uses. | 90 minutes |
+
+**By the end of the stage** you have a recovery check on a parameter whose true value you set yourself, a world with no effect in it at all, and the same claim fitted at the individual level beside the aggregate one.

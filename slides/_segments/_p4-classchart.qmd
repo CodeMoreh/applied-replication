@@ -1,0 +1,97 @@
+## The class multiverse
+
+```{r}
+#| label: spec-curve
+#| fig-width: 9.5
+#| fig-height: 4.3
+# The pre-computed specification curve over the full universe (2,520 specs) –
+# the same chart that the Multiverse page draws, minus the hover. The
+# constrained baseline (t = -3.804) is the enlarged orange triangle. Built via
+# spec_base() (setup chunk) so the NEXT slide reuses this exact panel.
+spec_base()
+```
+
+::: {.small}
+- The canonical universe of **2,520** specifications: the canonical **840** (blue unemployment triangles) plus the outcome-family and predictor axes, all at the canonical measurement settings
+- The canonical 840: **68.7%** claim-consistent direction · **63.9%** significant · claim-aligned partial r from **−0.70 to +0.24**
+:::
+
+::: {.src}
+Pre-computed over the specification menu (data/spec_grid_full.csv), claim-aligned – negative framings reverse-coded and growth predictors sign-flipped, as recorded in your Task 5 preregistration (claim_align = TRUE).
+:::
+
+::: notes
+This is the space your results live in – the same chart that the Multiverse page has been drawing your dots onto. The whole menu, run: two and a half thousand models, each one a point, ranked by partial correlation within its family. Blue is the gaussian family – the canonical eight hundred and forty are its unemployment triangles; green is the beta twin of each; squares carry GDP growth as the claim predictor. Everything is claim-aligned, the same convention you applied in your own code: negative framings reverse-coded, growth sign-flipped, so below zero means supports the claim, whichever outcome and whichever predictor. Faded points miss significance. On the canonical half, about two thirds sit below the line and about two thirds are significant; the orange triangle is the baseline we all reproduced. And notice the shape: support reaches minus point seven, while nothing climbs past plus point four – and the strongest wrong-sign results are growth squares, not unemployment triangles. Right. Where did the room land? Did anyone end up above the line? Lose significance? Which choice moved your estimate most?
+:::
+
+## Where your result lands
+
+```{r}
+#| label: spec-overlay
+#| fig-width: 9.5
+#| fig-height: 4.3
+# EXACT same base layer as the previous slide (spec_base()), with the five
+# Multi100 analysts and OA's published coefficient placed ON the gaussian curve at
+# the rank where each recorded partial r falls – the same name-tagged marks
+# that the Multiverse page draws, minus the hover. C6HJR's value IS the
+# constrained baseline, so its orange tag sits above the baseline marker that
+# the base layer already draws; OA's coefficient (t = -4.03 read with the respondent
+# count as df) hangs below the curve under a red tag. Tags alternate two
+# heights left to right so neighbours never crowd. Result: moving here looks
+# like the tags fading onto the same unchanging chart.
+gauss_r <- sort(spec_full$r_ca[spec_full$family == "gaussian"])
+teney_t <- -4.03; teney_n <- 335566
+marks <- dplyr::bind_rows(
+  dplyr::tibble(label = analysts5$analyst_id, r = analysts5$r,
+                kind = ifelse(analysts5$analyst_id == "C6HJR", "me", "analyst")),
+  dplyr::tibble(label = "OA 2016", r = teney_t / sqrt(teney_t^2 + teney_n),
+                kind = "paper")
+) |>
+  dplyr::mutate(rank = findInterval(r, gauss_r), lab_dy = -0.13)
+above <- which(marks$kind != "paper")
+above <- above[order(marks$rank[above])]
+marks$lab_dy[above] <- rep(c(0.13, 0.26), length.out = length(above))
+marks$lab_col  <- c(analyst = "grey25", me = orange, paper = d_red)[marks$kind]
+marks$mark_col <- ifelse(marks$kind == "me", orange, ncl_blue)
+
+spec_base() +
+  geom_segment(data = marks,
+               aes(x = rank, xend = rank, y = r, yend = r + lab_dy),
+               colour = grey_mid, linewidth = 0.3, alpha = 0.6,
+               inherit.aes = FALSE) +
+  geom_point(data = marks, aes(x = rank, y = r), shape = 2, size = 3,
+             colour = marks$mark_col, stroke = 0.9, inherit.aes = FALSE) +
+  geom_label(data = marks, aes(x = rank, y = r + lab_dy, label = label),
+             size = 3.6, colour = marks$lab_col, fill = "#FFFFFFBF",
+             label.size = 0.15,
+             fontface = ifelse(marks$kind == "analyst", "plain", "bold"),
+             inherit.aes = FALSE)
+```
+
+::: {.resultline}
+Your orange dot lands here → live on the **Multiverse** page as the room submits
+:::
+
+::: {.src}
+`report_result()` gives you a one-click submission link; results stream onto the [Multiverse]({{< var live-results-url >}}) page.
+:::
+
+::: notes
+Same chart – nothing moved – with the five Multi100 analysts dropped onto the curve where each recorded result falls, me in orange. And one more tag, in red: the original author's own published result, converted to this axis the same way. A person-level t of minus four, read against a third of a million respondents, lands just beside PRL47's near-zero triangle – the degrees-of-freedom lesson from the statistical methods module, drawn as one marker. What I like about this picture: the five published reanalyses are themselves just draws from this same space. Nobody was wrong; we were standing in different places in the garden. Your own dots have been landing on the live Multiverse page since before the break – keep it open next to this chart and find yourself. The conversion that report_result did for you – turning your b and t into the partial correlation, computed exactly the way that Multi100 computed it – is what lets a Stata pooled model, an R fixed-effects model, and your submission all sit on the same axis.
+:::
+
+## Place your bet
+
+::: {.big}
+Six axes: outcome · predictor form · estimator · copredictor · sample · weights
+:::
+
+::: {.none}
+**Which axis moves the estimates most across all 840 specifications?**
+
+Type your guess – hold it – send on "go".
+:::
+
+::: notes
+Before I show you the answer, commit to a guess – you have just spent a day making these choices, so you have instincts now. Of the six menu axes, which one moves the estimates most across the whole grid? Estimator is the popular pick – fixed versus random effects is the methods seminar's favourite fight. Copredictors is another – everyone worries about growth. Type your answer, hold it, and send on go. [go; scan the chat.] Interesting spread. Most rooms bet on estimator or copredictors. Let's see.
+:::

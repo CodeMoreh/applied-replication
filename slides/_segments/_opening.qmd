@@ -1,0 +1,47 @@
+## Two kinds of aim {.smaller}
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {.small}
+**What I want you to understand**
+
+- What reproducibility, robustness and replicability each mean, and why they come apart
+- Why analysts disagree – and how much of that is disagreement about the *question*
+- What a causal graph buys you when you cannot make a causal claim
+- What a multiverse shows, and what it cannot show
+- What preregistration settles, and what it leaves open
+:::
+:::
+::: {.column width="50%"}
+::: {.small}
+**What I want you to be able to do**
+
+- Get an analysis running from someone else's materials
+- Write an estimand in one sentence, and a DAG that matches it
+- Reproduce a published result to the third decimal
+- Vary a specification deliberately and read what changed
+- Declare an analysis before you run it, and report where it sits among the alternatives
+:::
+:::
+::::
+
+::: notes
+Two columns, because the day has two kinds of aim and they are not the same thing. On the left is what I want you to understand – conceptual work, and most of it is not about code at all. On the right is what I want you to be able to do by six o'clock, and every one of those is something you will have done at least once today with your own hands. If you only take the left-hand column home you will have had an interesting day and changed nothing about your practice. If you only take the right-hand column you will have learned some R. The point is the pairing: the concepts tell you which of the things you can now do is worth doing.
+:::
+
+## What you do not need today
+
+::: {.none}
+- No git, and no GitHub account
+- No OSF account – we will read OSF, not log into it
+- The browser lab needs no install: the browser is the whole toolchain
+- Nothing to sign up for; nothing leaves your machine except the results you choose to submit
+:::
+
+::: {.fragment}
+**Do this now:** open your workspace folder in your IDE, and open the browser lab tab beside it and leave it loading; the engine warms while we talk.
+:::
+
+::: notes
+Before anything else, the reassurance slide. You do not need git today, or a GitHub account, or an OSF account – we will look at OSF from the outside, like readers. If you did not install anything, that is fine: the browser lab runs R inside the page itself, and there is a task at the end of this part where we get everybody set up properly. One thing to do right now, while I talk: Workspace people, open the workspace folder in your IDE; browser lab people, open the browser-lab tab now and just leave it – the engine loads in the background, so it will be ready long before you need it. If you are on the call with one screen, the cheatsheet has a tip: put the meeting on your phone or a second window and keep the lab full-screen.
+:::

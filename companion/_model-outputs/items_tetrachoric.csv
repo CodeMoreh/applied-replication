@@ -1,0 +1,170 @@
+item,with,tetrachoric
+Peace,Peace,1
+Peace,Economic prosperity,0.2824263510563686
+Peace,Democracy,0.42806220435719017
+Peace,Social protection,0.3241439885051395
+Peace,Freedom to travel,0.21773037221411343
+Peace,Cultural diversity,0.2719420595820558
+Peace,Stronger say in the world,0.3030021530204001
+Peace,Unemployment,-0.07340788768778378
+Peace,Bureaucracy,0.03816841705018167
+Peace,Waste of money,-0.11466725054897085
+Peace,Loss of cultural identity,-0.14303919124953995
+Peace,More crime,-0.016860921423974287
+Peace,Not enough border control,0.005687749212883297
+Economic prosperity,Peace,0.2824263510563686
+Economic prosperity,Economic prosperity,1
+Economic prosperity,Democracy,0.3500930836607301
+Economic prosperity,Social protection,0.4402310153011225
+Economic prosperity,Freedom to travel,0.1818831955633559
+Economic prosperity,Cultural diversity,0.2230778992221363
+Economic prosperity,Stronger say in the world,0.2881581013029711
+Economic prosperity,Unemployment,-0.19405949967243466
+Economic prosperity,Bureaucracy,-0.11024337463085047
+Economic prosperity,Waste of money,-0.30236561389330796
+Economic prosperity,Loss of cultural identity,-0.18191578028989977
+Economic prosperity,More crime,-0.18089945862905807
+Economic prosperity,Not enough border control,-0.1208629716784462
+Democracy,Peace,0.42806220435719017
+Democracy,Economic prosperity,0.3500930836607301
+Democracy,Democracy,1
+Democracy,Social protection,0.3900536280268261
+Democracy,Freedom to travel,0.21990060111007578
+Democracy,Cultural diversity,0.33164823254419695
+Democracy,Stronger say in the world,0.3076674055230593
+Democracy,Unemployment,-0.10483886834024252
+Democracy,Bureaucracy,-0.022351312505799185
+Democracy,Waste of money,-0.20441476074758128
+Democracy,Loss of cultural identity,-0.16187195769985033
+Democracy,More crime,-0.08895374754872433
+Democracy,Not enough border control,-0.056468097638516984
+Social protection,Peace,0.3241439885051395
+Social protection,Economic prosperity,0.4402310153011225
+Social protection,Democracy,0.3900536280268261
+Social protection,Social protection,1
+Social protection,Freedom to travel,0.11804807926913172
+Social protection,Cultural diversity,0.25456968397719415
+Social protection,Stronger say in the world,0.28607776644804345
+Social protection,Unemployment,-0.01504139214442777
+Social protection,Bureaucracy,-0.08942124190438602
+Social protection,Waste of money,-0.17374689378292976
+Social protection,Loss of cultural identity,-0.08203101098694875
+Social protection,More crime,-0.0790794018493485
+Social protection,Not enough border control,-0.029203026452137192
+Freedom to travel,Peace,0.21773037221411343
+Freedom to travel,Economic prosperity,0.1818831955633559
+Freedom to travel,Democracy,0.21990060111007578
+Freedom to travel,Social protection,0.11804807926913172
+Freedom to travel,Freedom to travel,1
+Freedom to travel,Cultural diversity,0.42304029817895666
+Freedom to travel,Stronger say in the world,0.28599656080109026
+Freedom to travel,Unemployment,-0.17882095624059147
+Freedom to travel,Bureaucracy,0.04264873031501978
+Freedom to travel,Waste of money,-0.17264976826065317
+Freedom to travel,Loss of cultural identity,-0.08514196458588238
+Freedom to travel,More crime,-0.02318879734031661
+Freedom to travel,Not enough border control,0.03810864886010528
+Cultural diversity,Peace,0.2719420595820558
+Cultural diversity,Economic prosperity,0.2230778992221363
+Cultural diversity,Democracy,0.33164823254419695
+Cultural diversity,Social protection,0.25456968397719415
+Cultural diversity,Freedom to travel,0.42304029817895666
+Cultural diversity,Cultural diversity,1
+Cultural diversity,Stronger say in the world,0.33883908800171303
+Cultural diversity,Unemployment,-0.040946006137901794
+Cultural diversity,Bureaucracy,0.12610409703679806
+Cultural diversity,Waste of money,-0.06754415496632633
+Cultural diversity,Loss of cultural identity,-0.01025172610233678
+Cultural diversity,More crime,0.026862574591864204
+Cultural diversity,Not enough border control,0.07004024954400954
+Stronger say in the world,Peace,0.3030021530204001
+Stronger say in the world,Economic prosperity,0.2881581013029711
+Stronger say in the world,Democracy,0.3076674055230593
+Stronger say in the world,Social protection,0.28607776644804345
+Stronger say in the world,Freedom to travel,0.28599656080109026
+Stronger say in the world,Cultural diversity,0.33883908800171303
+Stronger say in the world,Stronger say in the world,1
+Stronger say in the world,Unemployment,-0.14604277750717148
+Stronger say in the world,Bureaucracy,0.017272497751923577
+Stronger say in the world,Waste of money,-0.17412359463560143
+Stronger say in the world,Loss of cultural identity,-0.1022267203872437
+Stronger say in the world,More crime,-0.06211785963920178
+Stronger say in the world,Not enough border control,0.016771970506324452
+Unemployment,Peace,-0.07340788768778378
+Unemployment,Economic prosperity,-0.19405949967243466
+Unemployment,Democracy,-0.10483886834024252
+Unemployment,Social protection,-0.01504139214442777
+Unemployment,Freedom to travel,-0.17882095624059147
+Unemployment,Cultural diversity,-0.040946006137901794
+Unemployment,Stronger say in the world,-0.14604277750717148
+Unemployment,Unemployment,1
+Unemployment,Bureaucracy,0.2293374250742346
+Unemployment,Waste of money,0.4038165899859234
+Unemployment,Loss of cultural identity,0.3087274160273473
+Unemployment,More crime,0.5051949461721663
+Unemployment,Not enough border control,0.30424787886487814
+Bureaucracy,Peace,0.03816841705018167
+Bureaucracy,Economic prosperity,-0.11024337463085047
+Bureaucracy,Democracy,-0.022351312505799185
+Bureaucracy,Social protection,-0.08942124190438602
+Bureaucracy,Freedom to travel,0.04264873031501978
+Bureaucracy,Cultural diversity,0.12610409703679806
+Bureaucracy,Stronger say in the world,0.017272497751923577
+Bureaucracy,Unemployment,0.2293374250742346
+Bureaucracy,Bureaucracy,1
+Bureaucracy,Waste of money,0.5015531229306714
+Bureaucracy,Loss of cultural identity,0.27770750331859434
+Bureaucracy,More crime,0.3060249627218319
+Bureaucracy,Not enough border control,0.2761522688722994
+Waste of money,Peace,-0.11466725054897085
+Waste of money,Economic prosperity,-0.30236561389330796
+Waste of money,Democracy,-0.20441476074758128
+Waste of money,Social protection,-0.17374689378292976
+Waste of money,Freedom to travel,-0.17264976826065317
+Waste of money,Cultural diversity,-0.06754415496632633
+Waste of money,Stronger say in the world,-0.17412359463560143
+Waste of money,Unemployment,0.4038165899859234
+Waste of money,Bureaucracy,0.5015531229306714
+Waste of money,Waste of money,1
+Waste of money,Loss of cultural identity,0.34693795252301696
+Waste of money,More crime,0.44238313582308836
+Waste of money,Not enough border control,0.36277483621302814
+Loss of cultural identity,Peace,-0.14303919124953995
+Loss of cultural identity,Economic prosperity,-0.18191578028989977
+Loss of cultural identity,Democracy,-0.16187195769985033
+Loss of cultural identity,Social protection,-0.08203101098694875
+Loss of cultural identity,Freedom to travel,-0.08514196458588238
+Loss of cultural identity,Cultural diversity,-0.01025172610233678
+Loss of cultural identity,Stronger say in the world,-0.1022267203872437
+Loss of cultural identity,Unemployment,0.3087274160273473
+Loss of cultural identity,Bureaucracy,0.27770750331859434
+Loss of cultural identity,Waste of money,0.34693795252301696
+Loss of cultural identity,Loss of cultural identity,1
+Loss of cultural identity,More crime,0.3630105217495778
+Loss of cultural identity,Not enough border control,0.3721632916109699
+More crime,Peace,-0.016860921423974287
+More crime,Economic prosperity,-0.18089945862905807
+More crime,Democracy,-0.08895374754872433
+More crime,Social protection,-0.0790794018493485
+More crime,Freedom to travel,-0.02318879734031661
+More crime,Cultural diversity,0.026862574591864204
+More crime,Stronger say in the world,-0.06211785963920178
+More crime,Unemployment,0.5051949461721663
+More crime,Bureaucracy,0.3060249627218319
+More crime,Waste of money,0.44238313582308836
+More crime,Loss of cultural identity,0.3630105217495778
+More crime,More crime,1
+More crime,Not enough border control,0.5383456328135245
+Not enough border control,Peace,0.005687749212883297
+Not enough border control,Economic prosperity,-0.1208629716784462
+Not enough border control,Democracy,-0.056468097638516984
+Not enough border control,Social protection,-0.029203026452137192
+Not enough border control,Freedom to travel,0.03810864886010528
+Not enough border control,Cultural diversity,0.07004024954400954
+Not enough border control,Stronger say in the world,0.016771970506324452
+Not enough border control,Unemployment,0.30424787886487814
+Not enough border control,Bureaucracy,0.2761522688722994
+Not enough border control,Waste of money,0.36277483621302814
+Not enough border control,Loss of cultural identity,0.3721632916109699
+Not enough border control,More crime,0.5383456328135245
+Not enough border control,Not enough border control,1

@@ -1,0 +1,15 @@
+## Find your own percentile {.smaller}
+
+::: {.small}
+- Open the **'your percentile'** cell in the browser lab – everyone uses it for this one; it runs in any browser tab, no install
+- Enter the result you submitted before the break – it computes the share of the 840 specifications more negative than yours, on the claim-aligned scale
+- The same statistic that placed the five analysts, computed for **you**
+:::
+
+::: {.fragment}
+Paste your percentile in chat – hold – send on "go".
+:::
+
+::: notes
+Your turn to be placed. Open the percentile chunk in the browser lab – Workspace people too, this one lives in the lab and it is just a browser tab, no install – and give it your submitted result. It computes for you exactly the statistic I computed for the five analysts: the share of the whole grid that is more negative than your value. Two or three minutes. Then paste your percentile in chat, hold it, send on go. [go] Look at the range in the chat – the room spans a good stretch of the curve, and every one of you can now say precisely where you stand relative to eight hundred and forty defensible alternatives. That sentence – "my estimate sits at the Nth percentile of the specification space" – is a genuinely publishable way to report a robustness check. You have just done it.
+:::

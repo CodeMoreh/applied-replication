@@ -1,0 +1,6 @@
+---
+title: "After the term"
+---
+By session 10 you hold one rendered report containing a stated estimand and its causal graph, a reproduction of a published result, a preregistration written before the analysis ran, a declared specification with its two-sentence justification, and the result that came back, all of it in a repository that another person can clone and re-render. Sections 6 to 9 of [The statistical methods behind the course](../../companion/stats-methods.qmd) are the depth the term leaves for afterwards: multilevel models and where the degrees of freedom come from, survey weights, the same model stated as a posterior, and a bounded outcome fitted with beta regression. Nothing in the term depends on them, and a report of your own is the best reason to read them.
+
+The [one-day course](../one-day-replication/index.qmd) is the delivered format and sits inside this one at session 9. The [three-day format](../three-days/index.qmd) gives the tools a day and the methods a day either side of the workshop, and is the closest thing to this track for a group that cannot meet weekly. The [self-study track](../self-study/index.qmd) orders the same material for someone working alone.

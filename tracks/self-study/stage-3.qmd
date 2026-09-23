@@ -1,0 +1,16 @@
+---
+title: "Stage 3 – The models the claim is argued with"
+---
+This module fits every model that the exercise will later offer you, on the case's own data, and reads the outputs line by line, so by the end the specification menu is a set of choices you understand rather than a list of codes. It is the longest module on the site, and the one that most repays a slow pass.
+
+| Work through | What you do | Timing |
+|---|---|---|
+| [The statistical methods behind the course](../../companion/stats-methods.qmd) | Sections 1 to 5: why the predictor lives at the country-year, a first linear model, cluster-robust standard errors, two-way fixed effects, and the difference between a within-country and a between-country comparison. | 2 hours |
+| [The statistical methods behind the course](../../companion/stats-methods.qmd#sec-multilevel) | Sections 6 to 9: multilevel models and where the degrees of freedom come from, survey weights, the same model stated as a posterior, and a bounded outcome fitted with beta regression. | 90 minutes |
+| [The statistical methods behind the course](../../companion/stats-methods.qmd#sec-onescale) | Section 10: putting results from different estimators and different outcome scales on one axis, which is the conversion that the class chart runs on. | 30 minutes |
+| [Weights](../../companion/weighting.qmd) | The three decisions that travel under the word "weight": design weights inside a cell, precision weights across cells and population weights across countries, taken apart on the course panel, with C6HJR's published coefficient refitted under every combination. Only one of the three changes the estimand. | 45 minutes |
+| [Missing answers](../../companion/missingness.qmd) | What a respondent who mentions no frame at all does to a share built from mentions, the rules the menu offers for them (score zero, drop, split, impute), and how multiple imputation under two engines compares with the fiat rules on this case. | 60 minutes |
+| [The items behind the scales](../../companion/measurement.qmd) | The instrument behind every outcome on the menu, taken apart: which items form which scale, how they hang together, whether the answers recover the published four dimensions and what the two composites gain, and what that means for the frame set and the scoring rule you are about to choose. Run the exploratory analysis yourself from the committed correlation matrix. | 45 minutes |
+| [Binary outcomes](../../companion/binary-outcomes.qmd) | One item of the battery as the outcome: a logit and a probit side by side, odds ratios against average marginal effects, errors clustered by country-year and a random intercept, and the national unemployment rate on a single item with and without fixed effects. The generalised linear model as the step below every scale; if you built the respondent file, every model on the page is yours to rerun. | 60 minutes |
+
+**By the end of the stage** you can read the output of every model that the exercise will offer you, and you know how estimates from different estimators and different outcome scales are put on one axis.
